@@ -1,3 +1,7 @@
+*{
+    margin: 0;
+    padding: 0;  
+}
 .header{
  width: 100vw;
  display: flex;
@@ -6,8 +10,7 @@
  align-items: center;
 }
 
-
-.timer_wrapper{
+.header .timer_wrapper{
     width: 200px;
     height: 200px;
     display: flex;
@@ -19,8 +22,16 @@
     display: flex;
     text-align: center;
 }
+
 .tab_items{
-    width: 25vw;
-    
+    width: 25vw;    
 }
+
+.timer_tab_wrapper{
+    border: 1px solid red;
+    width: 100vw;
+    height: 300px;
+}
+
+
 
