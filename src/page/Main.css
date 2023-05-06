@@ -1,0 +1,26 @@
+.header{
+ width: 100vw;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+
+
+.timer_wrapper{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab{
+    width: 100vw;
+    display: flex;
+    text-align: center;
+}
+.tab_items{
+    width: 25vw;
+    
+}
+
