@@ -1,10 +1,27 @@
 import React from "react";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import Main from "./page/Main";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+function reducer(currentState, action) {
+  if (currentState === undefined) return [];
+  const newState = [...currentState];
+  if (action.type === "ADD") {
+    return [...newState, action.value];
+  }
+  return newState;
+}
+
+const store = createStore(reducer);
+
 root.render(
   <React.StrictMode>
-    <Main />
+    <Provider store={store}>
+      <Main />
+    </Provider>
   </React.StrictMode>
 );
 
