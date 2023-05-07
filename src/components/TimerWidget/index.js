@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import "./index.css";
 function TimerWidget() {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -40,9 +41,9 @@ function TimerWidget() {
     }
   };
   return (
-    <div>
+    <div className="timer_widget">
       {isRunning ? (
-        <button className="start_button" onClick={handleOnPause}>
+        <button className="pause_button" onClick={handleOnPause}>
           Pause
         </button>
       ) : (
@@ -51,7 +52,7 @@ function TimerWidget() {
         </button>
       )}
 
-      <button onClick={handleOnReset}>Reset</button>
+      {/* <button onClick={handleOnReset}>Reset</button> */}
 
       <p>{`${hour}:${minute}:${second}`}</p>
     </div>

@@ -6,6 +6,7 @@ import PlannerTab from "../tabs/Planner";
 import InformationTab from "../tabs/Information";
 import { useSelector, useDispatch } from "react-redux";
 function Main() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const now = new Date();
   const month =
     now.getMonth() + 1 >= 10 ? now.getMonth() + 1 : "0" + (now.getMonth() + 1);

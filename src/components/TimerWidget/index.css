@@ -1,0 +1,6 @@
+.timer_widget {
+  border: 2px solid red;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+}

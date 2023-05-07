@@ -1,4 +1,35 @@
-.TodoItem{
-    width: 100vw;
-    border: 1px solid black;
+.todo_item {
+  width: 100vw;
+  height: 40px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pause_button {
+  width: 30px;
+  height: 30px;
+  border-radius: 80%;
+  background-color: red;
+}
+
+.start_button {
+  width: 30px;
+  height: 30px;
+  border-radius: 80%;
+}
+
+.left_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70px;
+  margin-left: 15px;
+}
+.ellipsis {
+}
+
+.time {
+  margin-right: 20px;
 }
