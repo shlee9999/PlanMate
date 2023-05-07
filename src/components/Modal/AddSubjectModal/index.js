@@ -4,6 +4,7 @@ import "./index.css";
 const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   const [inputValue, setInputValue] = useState(null);
   const [subjectColor, setSubjectColor] = useState("#990000");
+
   const inputRef = useRef(null);
 
   const handleInputChange = (e) => {
@@ -15,12 +16,13 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
       handleConfirm();
     }
   };
+
   const store = useSelector((state) => state);
   const dispatch = useDispatch();
   const handleConfirm = () => {
     if (inputValue === "") return;
     const newItem = { title: inputValue, color: subjectColor, time: 0 };
-    dispatch({ type: "ADD", value: newItem });
+    dispatch({ type: "ADD_TODO", value: newItem });
     closeModal();
   };
   useEffect(() => {

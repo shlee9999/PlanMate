@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import "./index.css";
+import { useDispatch, useSelector } from "react-redux";
 function TodoItem({ title }) {
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state.isRunning);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const intervalId = useRef(null);
@@ -17,8 +20,9 @@ function TodoItem({ title }) {
       ? "0" + ((Math.floor(time / 3600) % 60) % 24)
       : (Math.floor(time / 3600) % 60) % 24;
   const handleOnStart = () => {
-    if (!isRunning) {
+    if (!store) {
       setIsRunning(true);
+      dispatch({ type: "RUN_STUDY" });
     }
   };
   useEffect(() => {
@@ -33,6 +37,7 @@ function TodoItem({ title }) {
 
   const handleOnPause = () => {
     setIsRunning(false);
+    dispatch({ type: "STOP_STUDY" });
   };
 
   // const handleOnReset = () => {
@@ -52,7 +57,7 @@ function TodoItem({ title }) {
             Start
           </button>
         )}
-        <p>{title}</p>
+        <p className="subject_title">{title}</p>
       </div>
       <p className="time">{`${hour}:${minute}:${second}`}</p>
     </div>

@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import "./index.css";
-function TimerWidget() {
+import { useSelector } from "react-redux";
+function TimerWidget({ title }) {
+  const isRunning = useSelector((state) => state.isRunning);
   const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
   const intervalId = useRef(null);
   const minute =
     Math.floor(time / 60) % 60 < 10
@@ -16,11 +17,7 @@ function TimerWidget() {
     Math.floor(time / 3600) % 60 < 10
       ? "0" + ((Math.floor(time / 3600) % 60) % 24)
       : (Math.floor(time / 3600) % 60) % 24;
-  const handleOnStart = () => {
-    if (!isRunning) {
-      setIsRunning(true);
-    }
-  };
+
   useEffect(() => {
     if (!isRunning) {
       clearInterval(intervalId.current);
@@ -31,9 +28,9 @@ function TimerWidget() {
     }, 1000);
   }, [isRunning]);
 
-  const handleOnPause = () => {
-    setIsRunning(false);
-  };
+  // const handleOnPause = () => {
+  //   setIsRunning(false);
+  // };
 
   const handleOnReset = () => {
     if (!isRunning) {
@@ -42,18 +39,6 @@ function TimerWidget() {
   };
   return (
     <div className="timer_widget">
-      {isRunning ? (
-        <button className="pause_button" onClick={handleOnPause}>
-          Pause
-        </button>
-      ) : (
-        <button className="start_button" onClick={handleOnStart}>
-          Start
-        </button>
-      )}
-
-      {/* <button onClick={handleOnReset}>Reset</button> */}
-
       <p>{`${hour}:${minute}:${second}`}</p>
     </div>
   );

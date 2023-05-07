@@ -6,13 +6,23 @@ import Main from "./page/Main";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-function reducer(currentState, action) {
-  if (currentState === undefined) return [];
-  const newState = [...currentState];
-  if (action.type === "ADD") {
-    return [...newState, action.value];
+function reducer(state = { isRunning: false, todos: [] }, action) {
+  switch (action.type) {
+    case "ADD_TODO":
+      return { ...state, todos: [...state.todos, action.value] };
+    // case "DEL_TODO":
+    //   return;
+    case "RUN_STUDY":
+      return { ...state, isRunning: true };
+    case "STOP_STUDY":
+      return { ...state, isRunning: false };
+    // case "RUN_EXERCISE":
+    //   break;
+    // case "STOP_EXERCISE":
+    //   break;
+    default:
+      return state;
   }
-  return newState;
 }
 
 const store = createStore(reducer);
