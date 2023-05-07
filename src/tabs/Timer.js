@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import TodoItem from "../components/TodoItem";
 
 const Timer = () => {
-  const store = useSelector((state) => state.number);
-  const dispatch = useDispatch();
+  const store = useSelector((state) => state);
+
   return (
     <div>
-      <TodoItem></TodoItem>
+      {store.map((el, index) => (
+        <TodoItem title={el.title} key={index} />
+      ))}
     </div>
   );
 };

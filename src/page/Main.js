@@ -5,16 +5,23 @@ import StatisticsTab from "../tabs/Statistics";
 import PlannerTab from "../tabs/Planner";
 import InformationTab from "../tabs/Information";
 import { useSelector, useDispatch } from "react-redux";
+import AddSubjectModal from "../components/Modal/AddSubjectModal/index";
 function Main() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddSubjectModalOpen, setIsAddSubjectModalOpen] = useState(false);
   const now = new Date();
   const month =
     now.getMonth() + 1 >= 10 ? now.getMonth() + 1 : "0" + (now.getMonth() + 1);
   const date = now.getDate() >= 10 ? now.getDate() : "0" + now.getDate();
   const week = ["일", "월", "화", "수", "목", "금", "토"];
   const day = now.getDay();
-  const store = useSelector((state) => state);
-  const dispatch = useDispatch();
+  // const store = useSelector((state) => state);
+  // const dispatch = useDispatch();
+  const openAddSubjectModal = () => {
+    setIsAddSubjectModalOpen(true);
+  };
+  const closeAddSubjectModal = () => {
+    setIsAddSubjectModalOpen(false);
+  };
   const tabList = [
     { title: "타이머", component: <TimerTab />, wrapper: "timer_tab_wrapper" },
     {
@@ -44,6 +51,10 @@ function Main() {
           <div>타이머2</div>
         </div>
       </div>
+      <AddSubjectModal
+        isModalOpen={isAddSubjectModalOpen}
+        closeModal={closeAddSubjectModal}
+      ></AddSubjectModal>
       <div className="tab">
         {tabList.map((item, index) => (
           <div
@@ -59,19 +70,7 @@ function Main() {
       <div className={tabList[currentTab].wrapper}>
         {tabList[currentTab].component}
       </div>
-      {currentTab === 0 && (
-        <button
-          onClick={() => {
-            dispatch({
-              type: "ADD",
-              value: tabList[currentTab].title,
-            });
-            console.log(store);
-          }}
-        >
-          추가
-        </button>
-      )}
+      {currentTab === 0 && <button onClick={openAddSubjectModal}>추가</button>}
     </div>
   );
 }

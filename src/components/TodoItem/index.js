@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./index.css";
-function TodoItem() {
+function TodoItem({ title }) {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const intervalId = useRef(null);
@@ -52,7 +52,7 @@ function TodoItem() {
             Start
           </button>
         )}
-        <p>title</p>
+        <p>{title}</p>
       </div>
       <p className="time">{`${hour}:${minute}:${second}`}</p>
     </div>
