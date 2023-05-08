@@ -21,7 +21,7 @@ const tabList = [
     wrapper: "statistics_tab_wrapper",
   },
   {
-    title: "플래너",
+    title: "플래너",  
     component: <PlannerTab />,
     wrapper: "planner_tab_wrapper",
   },
