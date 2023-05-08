@@ -36,10 +36,10 @@ function Main() {
   const [isExercising, setIsExercising] = useState(false);
   const [isAddSubjectModalOpen, setIsAddSubjectModalOpen] = useState(false);
   const now = new Date();
-  const month =
-    now.getMonth() + 1 >= 10 ? now.getMonth() + 1 : "0" + (now.getMonth() + 1);
-  const date = now.getDate() >= 10 ? now.getDate() : "0" + now.getDate();
+  const month = `${now.getMonth() + 1}`.padStart(2, "0");
+  const date = `${now.getDate()}`.padStart(2, "0");
   const day = now.getDay();
+
   const openAddSubjectModal = () => {
     setIsAddSubjectModalOpen(true);
   };

@@ -8,24 +8,15 @@ import {
   Time,
 } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
+import { useFormattedTime } from "../../utils/helper";
 function TodoItem({ title }) {
   const dispatch = useDispatch();
   const store = useSelector((state) => state.isRunning);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const intervalId = useRef(null);
-  const minute =
-    Math.floor(time / 60) % 60 < 10
-      ? "0" + (Math.floor(time / 60) % 60)
-      : Math.floor(time / 60) % 60;
-  const second =
-    Math.floor(time % 60) < 10
-      ? "0" + Math.floor(time % 60)
-      : Math.floor(time % 60);
-  const hour =
-    Math.floor(time / 3600) % 60 < 10
-      ? "0" + ((Math.floor(time / 3600) % 60) % 24)
-      : (Math.floor(time / 3600) % 60) % 24;
+  const formattedTime = useFormattedTime(time);
+
   const handleOnStart = () => {
     if (!store) {
       setIsRunning(true);
@@ -47,26 +38,17 @@ function TodoItem({ title }) {
     dispatch({ type: "STOP_STUDY" });
   };
 
-  // const handleOnReset = () => {
-  //   if (!isRunning) {
-  //     setTime(0);
-  //   }
-  // };
   return (
     <StyledTodoItem>
       <LeftWrapper>
         {isRunning ? (
-          <PauseButton className="pause_button" onClick={handleOnPause}>
-            Pause
-          </PauseButton>
+          <PauseButton onClick={handleOnPause}>Pause</PauseButton>
         ) : (
-          <StartButton className="start_button" onClick={handleOnStart}>
-            Start
-          </StartButton>
+          <StartButton onClick={handleOnStart}>Start</StartButton>
         )}
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
-      <Time className="time">{`${hour}:${minute}:${second}`}</Time>
+      <Time className="time">{formattedTime}</Time>
     </StyledTodoItem>
   );
 }

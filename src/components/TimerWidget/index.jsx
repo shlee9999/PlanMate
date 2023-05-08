@@ -1,22 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { StyledTimerWidget } from "./styles";
 import { useSelector } from "react-redux";
+import { useFormattedTime } from "../../utils/helper";
 function TimerWidget({ title }) {
   const isRunning = useSelector((state) => state.isRunning);
   const [time, setTime] = useState(0);
   const intervalId = useRef(null);
-  const minute =
-    Math.floor(time / 60) % 60 < 10
-      ? "0" + (Math.floor(time / 60) % 60)
-      : Math.floor(time / 60) % 60;
-  const second =
-    Math.floor(time % 60) < 10
-      ? "0" + Math.floor(time % 60)
-      : Math.floor(time % 60);
-  const hour =
-    Math.floor(time / 3600) % 60 < 10
-      ? "0" + ((Math.floor(time / 3600) % 60) % 24)
-      : (Math.floor(time / 3600) % 60) % 24;
+  const formattedTime = useFormattedTime(time);
 
   useEffect(() => {
     if (!isRunning) {
@@ -28,19 +18,10 @@ function TimerWidget({ title }) {
     }, 1000);
   }, [isRunning]);
 
-  // const handleOnPause = () => {
-  //   setIsRunning(false);
-  // };
-
-  const handleOnReset = () => {
-    if (!isRunning) {
-      setTime(0);
-    }
-  };
   return (
     <StyledTimerWidget>
       <p>{title}</p>
-      <p>{`${hour}:${minute}:${second}`}</p>
+      <p>{formattedTime}</p>
     </StyledTimerWidget>
   );
 }
