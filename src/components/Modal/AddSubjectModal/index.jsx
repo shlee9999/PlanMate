@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   StyledAddSubjectModal,
   ModalExitButton,
@@ -10,11 +10,12 @@ import {
   SubjectTitle,
 } from "./styles";
 import "./styles.jsx";
+
 const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   const [inputValue, setInputValue] = useState(null);
   const [subjectColor, setSubjectColor] = useState("#990000");
-
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -25,18 +26,17 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
       handleConfirm();
     }
   };
-
-  const store = useSelector((state) => state);
-  const dispatch = useDispatch();
   const handleConfirm = () => {
     if (inputValue === "") return;
     const newItem = { title: inputValue, color: subjectColor, time: 0 };
     dispatch({ type: "ADD_TODO", value: newItem });
     closeModal();
   };
+
   useEffect(() => {
     if (isModalOpen) inputRef.current.focus();
   }, [isModalOpen]);
+
   return (
     isModalOpen && (
       <ModalWrapper>
@@ -45,9 +45,7 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
           <ModalExitButton onClick={closeModal}>X</ModalExitButton>
           <SubjectInputs>
             <input
-              type="text"
               placeholder="과목명"
-              className="subject_name"
               onChange={handleInputChange}
               onKeyDown={handleOnKeyDown}
               ref={inputRef}

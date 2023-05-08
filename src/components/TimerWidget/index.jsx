@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { StyledTimerWidget } from "./styles";
 import { useSelector } from "react-redux";
-import { useFormattedTime } from "../../utils/helper";
+import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
+
 function TimerWidget({ title }) {
   const isRunning = useSelector((state) => state.isRunning);
   const [time, setTime] = useState(0);
@@ -10,12 +11,12 @@ function TimerWidget({ title }) {
 
   useEffect(() => {
     if (!isRunning) {
-      clearInterval(intervalId.current);
+      stopTimer(intervalId.current);
       return;
     }
-    intervalId.current = setInterval(() => {
+    intervalId.current = startTimer(() => {
       setTime((prev) => prev + 1);
-    }, 1000);
+    });
   }, [isRunning]);
 
   return (

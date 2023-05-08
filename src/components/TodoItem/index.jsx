@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
 import {
   StyledTodoItem,
   LeftWrapper,
@@ -7,35 +9,43 @@ import {
   SubjectTitle,
   Time,
 } from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { useFormattedTime } from "../../utils/helper";
+
 function TodoItem({ title }) {
-  const dispatch = useDispatch();
   const store = useSelector((state) => state.isRunning);
-  const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const intervalId = useRef(null);
+  const [time, setTime] = useState(0);
   const formattedTime = useFormattedTime(time);
+  const intervalId = useRef(null);
+  const dispatch = useDispatch();
+
+  const startTotalTimer = () => {
+    dispatch({ type: "RUN_STUDY" });
+  };
+
+  const stopTotalTimer = () => {
+    dispatch({ type: "STOP_STUDY" });
+  };
 
   const handleOnStart = () => {
     if (!store) {
       setIsRunning(true);
-      dispatch({ type: "RUN_STUDY" });
+      startTotalTimer();
     }
   };
+
   useEffect(() => {
     if (!isRunning) {
-      clearInterval(intervalId.current);
+      stopTimer(intervalId.current);
       return;
     }
-    intervalId.current = setInterval(() => {
+    intervalId.current = startTimer(() => {
       setTime((prev) => prev + 1);
-    }, 1000);
+    });
   }, [isRunning]);
 
   const handleOnPause = () => {
     setIsRunning(false);
-    dispatch({ type: "STOP_STUDY" });
+    stopTotalTimer();
   };
 
   return (
@@ -48,7 +58,7 @@ function TodoItem({ title }) {
         )}
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
-      <Time className="time">{formattedTime}</Time>
+      <Time>{formattedTime}</Time>
     </StyledTodoItem>
   );
 }
