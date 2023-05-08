@@ -1,5 +1,5 @@
 //타이머 탭
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import TodoItem from "../components/TodoItem";
 
 const Timer = () => {

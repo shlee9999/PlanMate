@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
 import {
   StyledTodoItem,
   LeftWrapper,
@@ -7,66 +9,56 @@ import {
   SubjectTitle,
   Time,
 } from "./styles";
-import { useDispatch, useSelector } from "react-redux";
+
 function TodoItem({ title }) {
-  const dispatch = useDispatch();
   const store = useSelector((state) => state.isRunning);
-  const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [time, setTime] = useState(0);
+  const formattedTime = useFormattedTime(time);
   const intervalId = useRef(null);
-  const minute =
-    Math.floor(time / 60) % 60 < 10
-      ? "0" + (Math.floor(time / 60) % 60)
-      : Math.floor(time / 60) % 60;
-  const second =
-    Math.floor(time % 60) < 10
-      ? "0" + Math.floor(time % 60)
-      : Math.floor(time % 60);
-  const hour =
-    Math.floor(time / 3600) % 60 < 10
-      ? "0" + ((Math.floor(time / 3600) % 60) % 24)
-      : (Math.floor(time / 3600) % 60) % 24;
+  const dispatch = useDispatch();
+
+  const startTotalTimer = () => {
+    dispatch({ type: "RUN_STUDY" });
+  };
+
+  const stopTotalTimer = () => {
+    dispatch({ type: "STOP_STUDY" });
+  };
+
   const handleOnStart = () => {
     if (!store) {
       setIsRunning(true);
-      dispatch({ type: "RUN_STUDY" });
+      startTotalTimer();
     }
   };
+
   useEffect(() => {
     if (!isRunning) {
-      clearInterval(intervalId.current);
+      stopTimer(intervalId.current);
       return;
     }
-    intervalId.current = setInterval(() => {
+    intervalId.current = startTimer(() => {
       setTime((prev) => prev + 1);
-    }, 1000);
+    });
   }, [isRunning]);
 
   const handleOnPause = () => {
     setIsRunning(false);
-    dispatch({ type: "STOP_STUDY" });
+    stopTotalTimer();
   };
 
-  // const handleOnReset = () => {
-  //   if (!isRunning) {
-  //     setTime(0);
-  //   }
-  // };
   return (
     <StyledTodoItem>
       <LeftWrapper>
         {isRunning ? (
-          <PauseButton className="pause_button" onClick={handleOnPause}>
-            Pause
-          </PauseButton>
+          <PauseButton onClick={handleOnPause}>Pause</PauseButton>
         ) : (
-          <StartButton className="start_button" onClick={handleOnStart}>
-            Start
-          </StartButton>
+          <StartButton onClick={handleOnStart}>Start</StartButton>
         )}
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
-      <Time className="time">{`${hour}:${minute}:${second}`}</Time>
+      <Time>{formattedTime}</Time>
     </StyledTodoItem>
   );
 }
