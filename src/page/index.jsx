@@ -8,6 +8,7 @@ import {
 } from "./styles";
 import AddSubjectModal from "../components/Modal/AddSubjectModal/index";
 import TimerWidget from "../components/TimerWidget/index";
+
 import { TabList, useFormattedDate } from "../utils/helper";
 
 const tabList = TabList;
