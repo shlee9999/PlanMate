@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import "./index.css";
+import { StyledTimerWidget } from "./styles";
 import { useSelector } from "react-redux";
 function TimerWidget({ title }) {
   const isRunning = useSelector((state) => state.isRunning);
@@ -38,9 +38,10 @@ function TimerWidget({ title }) {
     }
   };
   return (
-    <div className="timer_widget">
+    <StyledTimerWidget>
+      <p>{title}</p>
       <p>{`${hour}:${minute}:${second}`}</p>
-    </div>
+    </StyledTimerWidget>
   );
 }
 

@@ -1,11 +1,17 @@
 import { useState } from "react";
-import "./Main.css";
+import {
+  StyledMain,
+  Header,
+  Tab,
+  AddButton,
+  TimerWidgetWrapper,
+} from "./styles";
 import TimerTab from "../tabs/Timer";
 import StatisticsTab from "../tabs/Statistics";
 import PlannerTab from "../tabs/Planner";
 import InformationTab from "../tabs/Information";
 import AddSubjectModal from "../components/Modal/AddSubjectModal/index";
-import TimerWidget from "../components/TimerWidget";
+import TimerWidget from "../components/TimerWidget/index";
 const week = ["일", "월", "화", "수", "목", "금", "토"];
 const tabList = [
   { title: "타이머", component: <TimerTab />, wrapper: "timer_tab_wrapper" },
@@ -55,10 +61,10 @@ function Main() {
     setIsExercising(false);
   };
   return (
-    <div className="Main">
-      <div className="header">
+    <StyledMain>
+      <Header>
         <p>{`${month}.${date}.(${week[day]})`}</p>
-        <div className="timer_wrapper">
+        <TimerWidgetWrapper>
           <TimerWidget
             title={`Study`}
             isRunning={isStudying}
@@ -69,13 +75,10 @@ function Main() {
             isRunning={isExercising}
             // setIsRunning={setIsExercising}
           />
-        </div>
-      </div>
-      <AddSubjectModal
-        isModalOpen={isAddSubjectModalOpen}
-        closeModal={closeAddSubjectModal}
-      ></AddSubjectModal>
-      <div className="tab">
+        </TimerWidgetWrapper>
+      </Header>
+
+      <Tab>
         {tabList.map((item, index) => (
           <div
             className="tab_items"
@@ -86,12 +89,19 @@ function Main() {
             {item.title}
           </div>
         ))}
-      </div>
+      </Tab>
+
       <div className={tabList[currentTab].wrapper}>
         {tabList[currentTab].component}
       </div>
-      {currentTab === 0 && <button onClick={openAddSubjectModal}>추가</button>}
-    </div>
+      {currentTab === 0 && (
+        <AddButton onClick={openAddSubjectModal}>추가</AddButton>
+      )}
+      <AddSubjectModal
+        isModalOpen={isAddSubjectModalOpen}
+        closeModal={closeAddSubjectModal}
+      ></AddSubjectModal>
+    </StyledMain>
   );
 }
 

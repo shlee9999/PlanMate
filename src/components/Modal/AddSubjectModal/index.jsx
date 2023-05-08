@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./index.css";
+import {
+  StyledAddSubjectModal,
+  ModalExitButton,
+  ModalFooter,
+  ModalWrapper,
+  SubjectInputs,
+  SubjectColor,
+  SubjectTitle,
+} from "./styles";
+import "./styles.jsx";
 const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   const [inputValue, setInputValue] = useState(null);
   const [subjectColor, setSubjectColor] = useState("#990000");
@@ -30,13 +39,11 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   }, [isModalOpen]);
   return (
     isModalOpen && (
-      <div className="modal_wrapper">
-        <div className="add_subject_modal">
-          <p>과목 이름</p>
-          <button className="modal_exit_button" onClick={closeModal}>
-            X
-          </button>
-          <div className="subject_inputs">
+      <ModalWrapper>
+        <StyledAddSubjectModal>
+          <SubjectTitle>과목 이름</SubjectTitle>
+          <ModalExitButton onClick={closeModal}>X</ModalExitButton>
+          <SubjectInputs>
             <input
               type="text"
               placeholder="과목명"
@@ -45,14 +52,14 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
               onKeyDown={handleOnKeyDown}
               ref={inputRef}
             />
-            <button className="subject_color">과목색상</button>
-          </div>
-          <div className="modal_footer">
+            <SubjectColor>과목색상</SubjectColor>
+          </SubjectInputs>
+          <ModalFooter>
             <button onClick={closeModal}>취소</button>
             <button onClick={handleConfirm}>확인</button>
-          </div>
-        </div>
-      </div>
+          </ModalFooter>
+        </StyledAddSubjectModal>
+      </ModalWrapper>
     )
   );
 };

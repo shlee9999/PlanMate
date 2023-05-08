@@ -2,7 +2,7 @@ import React from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
-import Main from "./page/Main";
+import Main from "./page";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

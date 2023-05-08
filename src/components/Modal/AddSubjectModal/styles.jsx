@@ -1,4 +1,6 @@
-.add_subject_modal {
+import { styled } from "styled-components";
+
+const StyledAddSubjectModal = styled.div`
   padding: 15px 20px;
   width: 200px;
   height: 150px;
@@ -13,40 +15,50 @@
   background-color: white;
   z-index: 99;
   border-radius: 10px;
-}
+`;
 
-.modal_exit_button {
+const ModalExitButton = styled.button`
   position: absolute;
   top: 0;
   right: 0;
   border: none;
   border-radius: 5px;
-}
+`;
 
-.modal_footer {
+const ModalFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100px;
-}
+`;
 
-.modal_wrapper {
+const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-}
+`;
 
-.subject_inputs {
-  text-align: left;
+const SubjectInputs = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
-}
+`;
+const SubjectTitle = styled.div``;
 
-.subject_color {
+const SubjectColor = styled.button`
   text-align: left;
-}
+`;
+
+export {
+  StyledAddSubjectModal,
+  ModalExitButton,
+  ModalFooter,
+  ModalWrapper,
+  SubjectInputs,
+  SubjectColor,
+  SubjectTitle,
+};

@@ -1,5 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import "./index.css";
+import {
+  StyledTodoItem,
+  LeftWrapper,
+  StartButton,
+  PauseButton,
+  SubjectTitle,
+  Time,
+} from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 function TodoItem({ title }) {
   const dispatch = useDispatch();
@@ -46,21 +53,21 @@ function TodoItem({ title }) {
   //   }
   // };
   return (
-    <div className="todo_item">
-      <div className="left_wrapper">
+    <StyledTodoItem>
+      <LeftWrapper>
         {isRunning ? (
-          <button className="pause_button" onClick={handleOnPause}>
+          <PauseButton className="pause_button" onClick={handleOnPause}>
             Pause
-          </button>
+          </PauseButton>
         ) : (
-          <button className="start_button" onClick={handleOnStart}>
+          <StartButton className="start_button" onClick={handleOnStart}>
             Start
-          </button>
+          </StartButton>
         )}
-        <p className="subject_title">{title}</p>
-      </div>
-      <p className="time">{`${hour}:${minute}:${second}`}</p>
-    </div>
+        <SubjectTitle>{title}</SubjectTitle>
+      </LeftWrapper>
+      <Time className="time">{`${hour}:${minute}:${second}`}</Time>
+    </StyledTodoItem>
   );
 }
 
