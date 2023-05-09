@@ -6,9 +6,9 @@ import {
   AddButton,
   TimerWidgetWrapper,
 } from "./styles";
-import AddSubjectModal from "../components/Modal/AddSubjectModal/index";
-import TimerWidget from "../components/TimerWidget/index";
-import { TabList, useFormattedDate } from "../utils/helper";
+import AddSubjectModal from "../../components/Modal/AddSubjectModal/index";
+import TimerWidget from "../../components/TimerWidget/index";
+import { TabList, useFormattedDate } from "../../utils/helper";
 import { TabInfo } from "src/types";
 
 const tabList: Array<TabInfo> = TabList;
@@ -39,6 +39,7 @@ function Main() {
       <Tab>
         {tabList.map((item, index) => (
           <div
+            key={index}
             onClick={() => {
               setCurrentTab(index);
             }}

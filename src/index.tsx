@@ -2,12 +2,23 @@ import React from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
-import Main from "./page";
+import Main from "./page/Main/index";
 import { Globals } from "./types";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import TimerPopup from "./page/Popup/TimerPopup/index";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Main />,
+  },
+  {
+    path: "/popup",
+    element: <TimerPopup />,
+  },
+]);
 function reducer(
   state: Globals = { isRunning: false, todos: [] },
   action
@@ -35,7 +46,7 @@ const store = createStore<Globals, any, any, any>(reducer); //나중에 고치�
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Main />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );

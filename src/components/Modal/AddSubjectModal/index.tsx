@@ -19,11 +19,14 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    console.log(inputValue);
   };
   const handleOnKeyDown = (e) => {
     if (e.nativeEvent.key === "Enter") {
       handleConfirm();
+    }
+
+    if (e.nativeEvent.key === "Escape") {
+      closeModal();
     }
   };
   const handleConfirm = () => {
