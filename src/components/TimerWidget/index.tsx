@@ -10,20 +10,18 @@ const left = window.screen.width - width;
 const top = 0;
 
 function TimerWidget({ title }) {
-  // const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const isRunning = useSelector((state: Globals) => state.isRunning);
   const [time, setTime] = useState<number>(0);
   const intervalId = useRef<NodeJS.Timeout | null>(null);
   const formattedTime: string = useFormattedTime(time);
   const popupWindow = useRef<Window | null>(null);
-  // const closePopup = () => {
-  //   setIsPopupOpen(false);
-  // };
+
   const handlePopupButtonClick = () => {
-    // if (isPopupOpen) return;
+    if (isPopupOpen) return;
     const state = { key1: time.toString() };
     openInNewWindow("/popup", state);
-    // setIsPopupOpen(true);
+    setIsPopupOpen(true);
   };
   function openInNewWindow(route: string, state: Record<string, string>): void {
     const queryParams = new URLSearchParams(state).toString();
@@ -36,7 +34,18 @@ function TimerWidget({ title }) {
     popupWindow.current?.focus();
   }
   useEffect(() => {
-    window.postMessage({ key1: "0" });
+    const handlePopupClosedMessage = (event: MessageEvent) => {
+      if (event.data.popupClosed) {
+        popupWindow.current = null;
+        setIsPopupOpen(false);
+      }
+    };
+
+    window.addEventListener("message", handlePopupClosedMessage);
+
+    return () => {
+      window.removeEventListener("message", handlePopupClosedMessage);
+    };
   }, []);
   useEffect(() => {
     if (!isRunning) {
@@ -47,11 +56,11 @@ function TimerWidget({ title }) {
     intervalId.current = startTimer(() => {
       setTime((prev) => {
         const newState = prev + 1;
-        // if (isPopupOpen)
-        popupWindow.current?.postMessage(
-          { key1: newState },
-          window.location.origin
-        );
+        if (isPopupOpen)
+          popupWindow.current?.postMessage(
+            { key1: newState },
+            window.location.origin
+          );
         return newState;
       });
     });

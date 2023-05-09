@@ -36,6 +36,7 @@ function reducer(
     //   break;
     // case "STOP_EXERCISE":
     //   break;
+
     default:
       return state;
   }
