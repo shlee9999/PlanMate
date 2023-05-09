@@ -38,6 +38,9 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
     closeModal();
   };
 
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
   useEffect(() => {
     if (!inputRef || !inputRef.current) return;
     if (isModalOpen) inputRef.current.focus();
@@ -45,8 +48,8 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
 
   return (
     isModalOpen && (
-      <ModalWrapper>
-        <StyledAddSubjectModal>
+      <ModalWrapper onClick={closeModal}>
+        <StyledAddSubjectModal onClick={handleModalClick}>
           <SubjectTitle>과목 이름</SubjectTitle>
           <ModalExitButton onClick={closeModal}>X</ModalExitButton>
           <SubjectInputs>

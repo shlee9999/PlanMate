@@ -13,7 +13,7 @@ const StyledAddSubjectModal = styled.div`
   align-items: center;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 99;
+  /* z-index: 99; */
   border-radius: 10px;
 `;
 
