@@ -9,20 +9,22 @@ import {
 import AddSubjectModal from "../components/Modal/AddSubjectModal/index";
 import TimerWidget from "../components/TimerWidget/index";
 import { TabList, useFormattedDate } from "../utils/helper";
+import { TabInfo } from "src/types";
 
-const tabList = TabList;
+const tabList: Array<TabInfo> = TabList;
 
 function Main() {
-  const [isAddSubjectModalOpen, setIsAddSubjectModalOpen] = useState(false);
-  const formattedDate = useFormattedDate();
-  const openAddSubjectModal = () => {
+  const [isAddSubjectModalOpen, setIsAddSubjectModalOpen] =
+    useState<boolean>(false);
+  const formattedDate: string = useFormattedDate();
+  const openAddSubjectModal = (): void => {
     setIsAddSubjectModalOpen(true);
   };
-  const closeAddSubjectModal = () => {
+  const closeAddSubjectModal = (): void => {
     setIsAddSubjectModalOpen(false);
   };
 
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
     <StyledMain>
@@ -37,7 +39,6 @@ function Main() {
       <Tab>
         {tabList.map((item, index) => (
           <div
-            className="tab_items"
             onClick={() => {
               setCurrentTab(index);
             }}

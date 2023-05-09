@@ -9,9 +9,10 @@ import {
   SubjectColor,
   SubjectTitle,
 } from "./styles";
+import { TodoItems } from "src/types";
 
 const AddSubjectModal = ({ isModalOpen, closeModal }) => {
-  const [inputValue, setInputValue] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState<string>("");
   const [subjectColor] = useState<string>("#990000"); //setSubjectColor
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
@@ -27,8 +28,13 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   };
   const handleConfirm = () => {
     if (inputValue === "") return;
-    const newItem = { title: inputValue, color: subjectColor, time: 0 };
+    const newItem: TodoItems = {
+      title: inputValue,
+      color: subjectColor,
+      time: 0,
+    };
     dispatch({ type: "ADD_TODO", value: newItem });
+    setInputValue("");
     closeModal();
   };
 

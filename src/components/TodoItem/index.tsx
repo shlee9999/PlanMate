@@ -18,15 +18,15 @@ function TodoItem({ title }: { title: string }) {
   const intervalId = useRef<NodeJS.Timeout | null>(null);
   const dispatch = useDispatch();
 
-  const startTotalTimer = () => {
+  const startTotalTimer = (): void => {
     dispatch({ type: "RUN_STUDY" });
   };
 
-  const stopTotalTimer = () => {
+  const stopTotalTimer = (): void => {
     dispatch({ type: "STOP_STUDY" });
   };
 
-  const handleOnStart = () => {
+  const handleOnStart = (): void => {
     if (!store) {
       setIsRunning(true);
       startTotalTimer();
@@ -43,7 +43,7 @@ function TodoItem({ title }: { title: string }) {
     });
   }, [isRunning]);
 
-  const handleOnPause = () => {
+  const handleOnPause = (): void => {
     setIsRunning(false);
     stopTotalTimer();
   };

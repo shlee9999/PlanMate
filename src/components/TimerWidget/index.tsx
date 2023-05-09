@@ -6,9 +6,9 @@ import { Globals } from "src/types";
 
 function TimerWidget({ title }) {
   const isRunning = useSelector((state: Globals) => state.isRunning);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState<number>(0);
   const intervalId = useRef<NodeJS.Timeout | null>(null);
-  const formattedTime = useFormattedTime(time);
+  const formattedTime: string = useFormattedTime(time);
 
   useEffect(() => {
     if (!isRunning) {

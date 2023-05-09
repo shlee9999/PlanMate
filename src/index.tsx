@@ -30,7 +30,7 @@ function reducer(
   }
 }
 
-const store = createStore(reducer);
+const store = createStore<Globals, any, any, any>(reducer); //나중에 고치기
 
 root.render(
   <React.StrictMode>

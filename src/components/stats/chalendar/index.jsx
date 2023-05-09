@@ -1,16 +1,13 @@
 import React from "react";
-import "./styles"
-import {
-    ChalendarContainer,
-  } from "./styles";
-  
-function Chalendar(){
+import "./styles";
+import { ChalendarContainer } from "./styles";
 
-    return(
-        <ChalendarContainer>
-            <p>Chalendar</p>
-        </ChalendarContainer>
-    )
+function Chalendar() {
+  return (
+    <ChalendarContainer>
+      <p>Chalendar</p>
+    </ChalendarContainer>
+  );
 }
 
 export default Chalendar;
