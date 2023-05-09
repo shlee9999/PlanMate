@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
+import { Globals } from "../../types";
 import {
   StyledTodoItem,
   LeftWrapper,
@@ -9,13 +10,12 @@ import {
   SubjectTitle,
   Time,
 } from "./styles";
-
-function TodoItem({ title }) {
-  const store = useSelector((state) => state.isRunning);
-  const [isRunning, setIsRunning] = useState(false);
-  const [time, setTime] = useState(0);
-  const formattedTime = useFormattedTime(time);
-  const intervalId = useRef(null);
+function TodoItem({ title }: { title: string }) {
+  const store = useSelector((state: Globals) => state.isRunning);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [time, setTime] = useState<number>(0);
+  const formattedTime: string = useFormattedTime(time);
+  const intervalId = useRef<NodeJS.Timeout | null>(null);
   const dispatch = useDispatch();
 
   const startTotalTimer = () => {

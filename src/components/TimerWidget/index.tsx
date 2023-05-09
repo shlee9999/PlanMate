@@ -2,11 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { StyledTimerWidget } from "./styles";
 import { useSelector } from "react-redux";
 import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
+import { Globals } from "src/types";
 
 function TimerWidget({ title }) {
-  const isRunning = useSelector((state) => state.isRunning);
+  const isRunning = useSelector((state: Globals) => state.isRunning);
   const [time, setTime] = useState(0);
-  const intervalId = useRef(null);
+  const intervalId = useRef<NodeJS.Timeout | null>(null);
   const formattedTime = useFormattedTime(time);
 
   useEffect(() => {

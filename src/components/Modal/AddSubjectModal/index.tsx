@@ -9,12 +9,11 @@ import {
   SubjectColor,
   SubjectTitle,
 } from "./styles";
-import "./styles.jsx";
 
 const AddSubjectModal = ({ isModalOpen, closeModal }) => {
-  const [inputValue, setInputValue] = useState(null);
-  const [subjectColor, setSubjectColor] = useState("#990000");
-  const inputRef = useRef(null);
+  const [inputValue, setInputValue] = useState<string | null>(null);
+  const [subjectColor] = useState<string>("#990000"); //setSubjectColor
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
@@ -34,6 +33,7 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   };
 
   useEffect(() => {
+    if (!inputRef || !inputRef.current) return;
     if (isModalOpen) inputRef.current.focus();
   }, [isModalOpen]);
 

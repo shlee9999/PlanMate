@@ -2,6 +2,7 @@ import TimerTab from "../tabs/Timer";
 import StatisticsTab from "../tabs/Statistics";
 import PlannerTab from "../tabs/Planner";
 import InformationTab from "../tabs/Information";
+// import { TabInfo } from "../types";
 
 const Week = ["일", "월", "화", "수", "목", "금", "토"];
 

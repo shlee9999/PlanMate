@@ -3,10 +3,15 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import Main from "./page";
+import { Globals } from "./types";
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-function reducer(state = { isRunning: false, todos: [] }, action) {
+function reducer(
+  state: Globals = { isRunning: false, todos: [] },
+  action
+): Globals {
   switch (action.type) {
     case "ADD_TODO":
       return { ...state, todos: [...state.todos, action.value] };
