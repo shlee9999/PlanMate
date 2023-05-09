@@ -40,9 +40,7 @@ function TimerWidget({ title }) {
         setIsPopupOpen(false);
       }
     };
-
     window.addEventListener("message", handlePopupClosedMessage);
-
     return () => {
       window.removeEventListener("message", handlePopupClosedMessage);
     };
@@ -56,11 +54,10 @@ function TimerWidget({ title }) {
     intervalId.current = startTimer(() => {
       setTime((prev) => {
         const newState = prev + 1;
-        if (isPopupOpen)
-          popupWindow.current?.postMessage(
-            { key1: newState },
-            window.location.origin
-          );
+        popupWindow.current?.postMessage(
+          { key1: newState },
+          window.location.origin
+        );
         return newState;
       });
     });
