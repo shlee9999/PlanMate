@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-const StyledAddSubjectModal = styled.div`
+export const StyledAddSubjectModal = styled.div`
   padding: 15px 20px;
   width: 200px;
   height: 150px;
@@ -16,7 +16,7 @@ const StyledAddSubjectModal = styled.div`
   border-radius: 10px;
 `;
 
-const ModalExitButton = styled.button`
+export const ModalExitButton = styled.button`
   position: absolute;
   top: 0;
   right: 0;
@@ -24,14 +24,14 @@ const ModalExitButton = styled.button`
   border-radius: 5px;
 `;
 
-const ModalFooter = styled.div`
+export const ModalFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100px;
 `;
 
-const ModalWrapper = styled.div`
+export const AddSubjectModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -40,26 +40,16 @@ const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const SubjectInputs = styled.div`
+export const SubjectInputs = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
 `;
-const SubjectTitle = styled.div``;
+export const SubjectTitle = styled.div``;
 
-const SubjectColor = styled.button`
+export const SubjectColor = styled.button`
   text-align: left;
   background-color: ${(props) => props.color};
   color: white;
 `;
-
-export {
-  StyledAddSubjectModal,
-  ModalExitButton,
-  ModalFooter,
-  ModalWrapper,
-  SubjectInputs,
-  SubjectColor,
-  SubjectTitle,
-};

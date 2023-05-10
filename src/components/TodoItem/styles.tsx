@@ -13,6 +13,25 @@ export const LeftWrapper = styled.div`
   align-items: center;
   gap: 0.5rem;
 `;
+export const RightWrapper = styled.div`
+  width: 200px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+`;
+export const EllipsisButton = styled.button`
+  /* background: url(${process.env
+    .PUBLIC_URL} + "../../images/12.jpeg") no-repeat; //안불러와지네 */
+  width: 50px;
+  height: 20px;
+  background-image: url("/assets/ellipsis.png");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  border: none;
+`;
 
 export const StartButton = styled.button`
   cursor: pointer;

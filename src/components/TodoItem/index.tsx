@@ -2,14 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
 import { Globals } from "../../types";
-import {
-  StyledTodoItem,
-  LeftWrapper,
-  StartButton,
-  PauseButton,
-  SubjectTitle,
-  Time,
-} from "./styles";
+import { StyledTodoItem, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from "./styles";
+import EllipsisModal from "../Modal/EllipsisModal";
 function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
   const store = useSelector((state: Globals) => state.isRunning);
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -17,6 +11,7 @@ function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
   const formattedTime: string = useFormattedTime(time);
   const intervalId = useRef<NodeJS.Timeout | null>(null);
   const dispatch = useDispatch();
+  const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false);
 
   const startTotalTimer = (): void => {
     dispatch({ type: "RUN_STUDY" });
@@ -48,21 +43,23 @@ function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
     stopTotalTimer();
   };
 
-  const handleOnClickDeleteButton = () => {
-    dispatch({ type: "DEL_TODO", id: todo_id });
+  const handleOnClickEllipsisButton = () => {
+    setIsEllipsisOpen(true);
+  };
+  const closeEllipsis = () => {
+    setIsEllipsisOpen(false);
   };
   return (
     <StyledTodoItem>
       <LeftWrapper>
-        {isRunning ? (
-          <PauseButton onClick={handleOnPause}>Pause</PauseButton>
-        ) : (
-          <StartButton onClick={handleOnStart}>Start</StartButton>
-        )}
+        {isRunning ? <PauseButton onClick={handleOnPause}>Pause</PauseButton> : <StartButton onClick={handleOnStart}>Start</StartButton>}
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
-      <Time>{formattedTime}</Time>
-      <button onClick={handleOnClickDeleteButton}>Delete</button>
+      <RightWrapper>
+        <Time>{formattedTime}</Time>
+        <EllipsisButton onClick={handleOnClickEllipsisButton}></EllipsisButton>
+      </RightWrapper>
+      {isEllipsisOpen && <EllipsisModal closeModal={closeEllipsis} todo_id={todo_id} />}
     </StyledTodoItem>
   );
 }
