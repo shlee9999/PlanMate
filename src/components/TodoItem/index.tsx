@@ -4,7 +4,7 @@ import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper';
 import { Globals } from '../../types';
 import { StyledTodoItem, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styles';
 import EllipsisModal from '../Modal/EllipsisModal';
-function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
+function TodoItem({ title, todo_id, buttonColor }: { title: string; todo_id: string; buttonColor: string }) {
   const store = useSelector((state: Globals) => state.isRunning);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
@@ -52,7 +52,15 @@ function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
   return (
     <StyledTodoItem>
       <LeftWrapper>
-        {isRunning ? <PauseButton onClick={handleOnPause}>Pause</PauseButton> : <StartButton onClick={handleOnStart}>Start</StartButton>}
+        {isRunning ? (
+          <PauseButton color={buttonColor} onClick={handleOnPause}>
+            Pause
+          </PauseButton>
+        ) : (
+          <StartButton color={buttonColor} onClick={handleOnStart}>
+            Start
+          </StartButton>
+        )}
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
       <RightWrapper>

@@ -10,10 +10,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 function reducer(state: Globals = { isRunning: false, todos: [] }, action): Globals {
   switch (action.type) {
     case 'ADD_TODO':
-      console.log(state.todos);
       return { ...state, todos: [...state.todos, action.value] };
     case 'DEL_TODO':
-      const newTodos = state.todos.filter((todo: TodoItems) => todo.id !== action.id);
+      const newTodos: Array<TodoItems> = state.todos.filter((todo: TodoItems) => todo.id !== action.id);
       const newState = { ...state, todos: newTodos };
       return newState;
     case 'RUN_STUDY':
@@ -24,6 +23,8 @@ function reducer(state: Globals = { isRunning: false, todos: [] }, action): Glob
     //   break;
     // case "STOP_EXERCISE":
     //   break;
+    case 'UPDATE_COLOR':
+      return { ...state, todos: [...state.todos, action.color] };
 
     default:
       return state;

@@ -9,7 +9,7 @@ const Timer = () => {
   return (
     <div>
       {store.map((el) => (
-        <TodoItem title={el.title} key={el.id} todo_id={el.id} />
+        <TodoItem title={el.title} key={el.id} todo_id={el.id} buttonColor={el.color} />
       ))}
     </div>
   );

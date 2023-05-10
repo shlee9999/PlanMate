@@ -21,7 +21,6 @@ export const RightWrapper = styled.div`
   gap: 1rem;
 `;
 export const EllipsisButton = styled.button`
-  /* background: url(${process.env.PUBLIC_URL} + "../../images/12.jpeg") no-repeat; //안불러와지네 */
   width: 50px;
   height: 20px;
   background-image: url('/assets/ellipsis.png');
@@ -34,10 +33,12 @@ export const EllipsisButton = styled.button`
 
 export const StartButton = styled.button`
   cursor: pointer;
+  background-color: ${(props) => props.color};
 `;
 
 export const PauseButton = styled.button`
   cursor: pointer;
+  background-color: ${(props) => props.color};
 `;
 
 export const SubjectTitle = styled.p`
