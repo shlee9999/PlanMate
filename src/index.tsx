@@ -7,7 +7,7 @@ import { Globals, TodoItems } from './types';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-function reducer(state: Globals = { isRunning: false, todos: [] }, action): Globals {
+const reducer = (state: Globals = { isRunning: false, todos: [] }, action): Globals => {
   switch (action.type) {
     case 'ADD_TODO':
       return { ...state, todos: [...state.todos, action.value] };
@@ -29,7 +29,7 @@ function reducer(state: Globals = { isRunning: false, todos: [] }, action): Glob
     default:
       return state;
   }
-}
+};
 
 const store = createStore<Globals, any, any, any>(reducer); //나중에 고치기
 

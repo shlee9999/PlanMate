@@ -1,6 +1,6 @@
 import { DeleteSubjectButton, EllipsisModalWrapper, StyledEllipsisModal, UpdateSubjectButton } from './styles';
 import { useDispatch } from 'react-redux';
-function EllipsisModal({ closeModal, todo_id }: { closeModal: () => void; todo_id: string }) {
+const EllipsisModal = ({ closeModal, todo_id }: { closeModal: () => void; todo_id: string }) => {
   const dispatch = useDispatch();
   const closeModalAll = () => {
     closeModal();
@@ -22,5 +22,5 @@ function EllipsisModal({ closeModal, todo_id }: { closeModal: () => void; todo_i
       </StyledEllipsisModal>
     </EllipsisModalWrapper>
   );
-}
+};
 export default EllipsisModal;

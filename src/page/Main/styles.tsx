@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const StyledMain = styled.div`
+export const StyledMain = styled.div`
   width: 100%;
   height: 100%;
 `;
 
-const Header = styled.div`
+export const Header = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -18,7 +18,7 @@ const Header = styled.div`
   }
 `;
 
-const TimerWidgetWrapper = styled.div`
+export const TimerWidgetWrapper = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
@@ -27,16 +27,14 @@ const TimerWidgetWrapper = styled.div`
   gap: 1rem;
 `;
 
-const Tab = styled.div`
+export const Tab = styled.div`
   display: flex;
   gap: 1rem;
   padding: 1rem;
   cursor: pointer;
 `;
 
-const AddButton = styled.button`
+export const AddButton = styled.button`
   margin-top: 5px;
   cursor: pointer;
 `;
-
-export { StyledMain, Header, Tab, AddButton, TimerWidgetWrapper };

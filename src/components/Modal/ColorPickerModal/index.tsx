@@ -3,7 +3,7 @@ import { StyledColorPickerModal } from './styles';
 import ColorButton from './ColorButton';
 
 const colorList = ColorList;
-function ColorPickerModal({ closeModal, assignSubjectColor }: { closeModal: () => void; assignSubjectColor: (color: string) => void }) {
+const ColorPickerModal = ({ closeModal, assignSubjectColor }: { closeModal: () => void; assignSubjectColor: (color: string) => void }) => {
   const handleClickModal = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
@@ -20,6 +20,6 @@ function ColorPickerModal({ closeModal, assignSubjectColor }: { closeModal: () =
       </div>
     </StyledColorPickerModal>
   );
-}
+};
 
 export default ColorPickerModal;

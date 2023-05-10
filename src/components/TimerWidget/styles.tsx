@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-const StyledTimerWidget = styled.div`
+export const StyledTimerWidget = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,5 +12,3 @@ const StyledTimerWidget = styled.div`
     padding: 0;
   }
 `;
-
-export { StyledTimerWidget };

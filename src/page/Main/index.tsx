@@ -7,7 +7,7 @@ import { TabInfo } from 'src/types';
 
 const tabList: Array<TabInfo> = TabList;
 
-function Main() {
+const Main = () => {
   const [isAddSubjectModalOpen, setIsAddSubjectModalOpen] = useState<boolean>(false);
   const formattedDate: string = useFormattedDate();
   const openAddSubjectModal = (): void => {
@@ -47,6 +47,6 @@ function Main() {
       <AddSubjectModal isModalOpen={isAddSubjectModalOpen} closeModal={closeAddSubjectModal}></AddSubjectModal>
     </StyledMain>
   );
-}
+};
 
 export default Main;
