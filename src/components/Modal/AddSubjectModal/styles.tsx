@@ -13,7 +13,6 @@ const StyledAddSubjectModal = styled.div`
   align-items: center;
   transform: translate(-50%, -50%);
   background-color: white;
-  /* z-index: 99; */
   border-radius: 10px;
 `;
 
@@ -51,6 +50,8 @@ const SubjectTitle = styled.div``;
 
 const SubjectColor = styled.button`
   text-align: left;
+  background-color: ${(props) => props.color};
+  color: white;
 `;
 
 export {

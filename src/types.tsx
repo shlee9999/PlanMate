@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export type TodoItems = {
+  id: string;
   title: string;
   color: string;
   time: number;

@@ -3,7 +3,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import Main from "./page/Main/index";
-import { Globals } from "./types";
+import { Globals, TodoItems } from "./types";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TimerPopup from "./page/Popup/TimerPopup/index";
 const root = ReactDOM.createRoot(
@@ -25,9 +25,14 @@ function reducer(
 ): Globals {
   switch (action.type) {
     case "ADD_TODO":
+      console.log(state.todos);
       return { ...state, todos: [...state.todos, action.value] };
-    // case "DEL_TODO":
-    //   return;
+    case "DEL_TODO":
+      const newTodos = state.todos.filter(
+        (todo: TodoItems) => todo.id !== action.id
+      );
+      const newState = { ...state, todos: newTodos };
+      return newState;
     case "RUN_STUDY":
       return { ...state, isRunning: true };
     case "STOP_STUDY":

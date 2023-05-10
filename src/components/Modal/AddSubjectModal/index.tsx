@@ -10,13 +10,22 @@ import {
   SubjectTitle,
 } from "./styles";
 import { TodoItems } from "src/types";
-
+import ColorPickerModal from "../ColorPickerModal";
+import { generateId } from "src/utils/helper";
+const DefaultColor: string = "#ff0000" as const;
 const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   const [inputValue, setInputValue] = useState<string>("");
-  const [subjectColor] = useState<string>("#990000"); //setSubjectColor
+  const [subjectColor, setSubjectColor] = useState<string>(DefaultColor); //setSubjectColor
+  const [isColorPickerModalOpen, setIsColorPickerModalOpen] =
+    useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
-
+  const closeColorPickerModal = () => {
+    setIsColorPickerModalOpen(false);
+  };
+  const handleOnClickColorButton = () => {
+    setIsColorPickerModalOpen(true);
+  };
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -26,35 +35,46 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
     }
 
     if (e.nativeEvent.key === "Escape") {
-      closeModal();
+      closeModalAll();
     }
+  };
+  const assignSubjectColor = (color) => {
+    setSubjectColor(color);
   };
   const handleConfirm = () => {
     if (inputValue === "") return;
-    const newItem: TodoItems = {
+    const newTodoItem: TodoItems = {
       title: inputValue,
       color: subjectColor,
       time: 0,
+      id: generateId(),
     };
-    dispatch({ type: "ADD_TODO", value: newItem });
+    dispatch({ type: "ADD_TODO", value: newTodoItem });
     setInputValue("");
-    closeModal();
+    closeModalAll();
   };
 
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
+  const closeModalAll = () => {
+    if (isColorPickerModalOpen) closeColorPickerModal();
+    closeModal();
+  };
   useEffect(() => {
     if (!inputRef || !inputRef.current) return;
-    if (isModalOpen) inputRef.current.focus();
+    if (isModalOpen) {
+      setSubjectColor(DefaultColor);
+      inputRef.current.focus();
+    }
   }, [isModalOpen]);
 
   return (
     isModalOpen && (
-      <ModalWrapper onClick={closeModal}>
+      <ModalWrapper onClick={closeModalAll}>
         <StyledAddSubjectModal onClick={handleModalClick}>
           <SubjectTitle>과목 이름</SubjectTitle>
-          <ModalExitButton onClick={closeModal}>X</ModalExitButton>
+          <ModalExitButton onClick={closeModalAll}>X</ModalExitButton>
           <SubjectInputs>
             <input
               placeholder="과목명"
@@ -62,12 +82,23 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
               onKeyDown={handleOnKeyDown}
               ref={inputRef}
             />
-            <SubjectColor>과목색상</SubjectColor>
+            <SubjectColor
+              onClick={handleOnClickColorButton}
+              color={subjectColor}
+            >
+              과목색상
+            </SubjectColor>
           </SubjectInputs>
           <ModalFooter>
-            <button onClick={closeModal}>취소</button>
+            <button onClick={closeModalAll}>취소</button>
             <button onClick={handleConfirm}>확인</button>
           </ModalFooter>
+          {isColorPickerModalOpen && (
+            <ColorPickerModal
+              closeModal={closeColorPickerModal}
+              assignSubjectColor={assignSubjectColor}
+            />
+          )}
         </StyledAddSubjectModal>
       </ModalWrapper>
     )
