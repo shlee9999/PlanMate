@@ -10,7 +10,7 @@ import {
   SubjectTitle,
   Time,
 } from "./styles";
-function TodoItem({ title }: { title: string }) {
+function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
   const store = useSelector((state: Globals) => state.isRunning);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
@@ -48,6 +48,9 @@ function TodoItem({ title }: { title: string }) {
     stopTotalTimer();
   };
 
+  const handleOnClickDeleteButton = () => {
+    dispatch({ type: "DEL_TODO", id: todo_id });
+  };
   return (
     <StyledTodoItem>
       <LeftWrapper>
@@ -59,6 +62,7 @@ function TodoItem({ title }: { title: string }) {
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
       <Time>{formattedTime}</Time>
+      <button onClick={handleOnClickDeleteButton}>Delete</button>
     </StyledTodoItem>
   );
 }
