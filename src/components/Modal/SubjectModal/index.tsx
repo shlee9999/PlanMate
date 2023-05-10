@@ -6,10 +6,11 @@ import { TodoItems } from 'src/types';
 import ColorPickerModal from '../ColorPickerModal';
 import { generateId } from 'src/utils/helper';
 const DefaultColor: string = '#ff0000' as const;
-const AddSubjectModal = ({ isModalOpen, closeModal }) => {
+const AddSubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: boolean; closeModal: () => void; title: string; todo: TodoItems | null }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [subjectColor, setSubjectColor] = useState<string>(DefaultColor); //setSubjectColor
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
   const closeColorPickerModal = () => {
@@ -23,9 +24,8 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   };
   const handleOnKeyDown = (e) => {
     if (e.nativeEvent.key === 'Enter') {
-      handleConfirm();
+      handleAddConfirm();
     }
-
     if (e.nativeEvent.key === 'Escape') {
       closeModalAll();
     }
@@ -33,7 +33,7 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
   const assignSubjectColor = (color) => {
     setSubjectColor(color);
   };
-  const handleConfirm = () => {
+  const handleAddConfirm = () => {
     if (inputValue === '') return;
     const newTodoItem: TodoItems = {
       title: inputValue,
@@ -45,7 +45,18 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
     setInputValue('');
     closeModalAll();
   };
-
+  const handleEditConfirm = () => {
+    if (inputValue === '' || !todo) return;
+    const newTodoItem: TodoItems = {
+      title: inputValue,
+      color: subjectColor,
+      time: todo.time,
+      id: todo.id,
+    };
+    dispatch({ type: 'UPDATE_TODO', value: newTodoItem, id: todo.id });
+    setInputValue('');
+    closeModalAll();
+  };
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
@@ -61,27 +72,32 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
     }
   }, [isModalOpen]);
 
-  return (
-    isModalOpen && (
+  if (isModalOpen)
+    return (
       <AddSubjectModalWrapper onClick={closeModalAll}>
         <StyledAddSubjectModal onClick={handleModalClick}>
-          <SubjectTitle>과목 이름</SubjectTitle>
+          <SubjectTitle>{title}</SubjectTitle>
           <ModalExitButton onClick={closeModalAll}>X</ModalExitButton>
           <SubjectInputs>
-            <input placeholder='과목명' onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
+            {todo ? (
+              <input defaultValue={todo.title} onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
+            ) : (
+              <input placeholder='과목명' onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
+            )}
             <SubjectColor onClick={handleOnClickColorButton} color={subjectColor}>
               과목색상
             </SubjectColor>
           </SubjectInputs>
           <ModalFooter>
             <button onClick={closeModalAll}>취소</button>
-            <button onClick={handleConfirm}>확인</button>
+            {todo ? <button onClick={handleEditConfirm}>확인</button> : <button onClick={handleAddConfirm}>확인</button>}
           </ModalFooter>
           {isColorPickerModalOpen && <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />}
         </StyledAddSubjectModal>
       </AddSubjectModalWrapper>
-    )
-  );
+    );
+
+  return null;
 };
 
 export default AddSubjectModal;

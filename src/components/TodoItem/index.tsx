@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper';
-import { Globals } from '../../types';
+import { Globals, TodoItems } from '../../types';
 import { StyledTodoItem, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styles';
 import EllipsisModal from '../Modal/EllipsisModal';
-const TodoItem = ({ title, todo_id, buttonColor }: { title: string; todo_id: string; buttonColor: string }) => {
+const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
   const store = useSelector((state: Globals) => state.isRunning);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
@@ -67,7 +67,7 @@ const TodoItem = ({ title, todo_id, buttonColor }: { title: string; todo_id: str
         <Time>{formattedTime}</Time>
         <EllipsisButton onClick={handleOnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
-      {isEllipsisOpen && <EllipsisModal closeModal={closeEllipsis} todo_id={todo_id} />}
+      {isEllipsisOpen && <EllipsisModal closeModal={closeEllipsis} todo={todo} />}
     </StyledTodoItem>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyledMain, Header, Tab, AddButton, TimerWidgetWrapper } from './styles';
-import AddSubjectModal from '../../components/Modal/AddSubjectModal/index';
+import AddSubjectModal from '../../components/Modal/SubjectModal/index';
 import TimerWidget from '../../components/TimerWidget/index';
 import { TabList, useFormattedDate } from '../../utils/helper';
 import { TabInfo } from 'src/types';
@@ -44,7 +44,7 @@ const Main = () => {
 
       <div className={tabList[currentTab].wrapper}>{tabList[currentTab].component}</div>
       {currentTab === 0 && <AddButton onClick={openAddSubjectModal}>추가</AddButton>}
-      <AddSubjectModal isModalOpen={isAddSubjectModalOpen} closeModal={closeAddSubjectModal}></AddSubjectModal>
+      <AddSubjectModal todo={null} title='과목 추가' isModalOpen={isAddSubjectModalOpen} closeModal={closeAddSubjectModal}></AddSubjectModal>
     </StyledMain>
   );
 };

@@ -13,8 +13,14 @@ const reducer = (state: Globals = { isRunning: false, todos: [] }, action): Glob
       return { ...state, todos: [...state.todos, action.value] };
     case 'DEL_TODO':
       const newTodos: Array<TodoItems> = state.todos.filter((todo: TodoItems) => todo.id !== action.id);
-      const newState = { ...state, todos: newTodos };
+      const newState: Globals = { ...state, todos: newTodos };
       return newState;
+    case 'UPDATE_TODO':
+      const updateTodos: Array<TodoItems> = state.todos.map((todo) => {
+        if (todo.id === action.id) return action.value;
+        else return todo;
+      });
+      return { ...state, todos: updateTodos };
     case 'RUN_STUDY':
       return { ...state, isRunning: true };
     case 'STOP_STUDY':
