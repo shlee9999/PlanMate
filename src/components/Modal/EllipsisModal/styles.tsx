@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const StyledEllipsisModal = styled.div`
   padding: 15px 20px;
   width: 200px;

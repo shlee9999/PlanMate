@@ -1,5 +1,5 @@
-import { DeleteSubjectButton, EllipsisModalWrapper, StyledEllipsisModal, UpdateSubjectButton } from "./styles";
-import { useDispatch } from "react-redux";
+import { DeleteSubjectButton, EllipsisModalWrapper, StyledEllipsisModal, UpdateSubjectButton } from './styles';
+import { useDispatch } from 'react-redux';
 function EllipsisModal({ closeModal, todo_id }: { closeModal: () => void; todo_id: string }) {
   const dispatch = useDispatch();
   const closeModalAll = () => {
@@ -7,7 +7,7 @@ function EllipsisModal({ closeModal, todo_id }: { closeModal: () => void; todo_i
     //하위 모달도 닫기
   };
   const handleOnClickDeleteButton = () => {
-    dispatch({ type: "DEL_TODO", id: todo_id });
+    dispatch({ type: 'DEL_TODO', id: todo_id });
     closeModalAll();
   };
   const handleModalClick = (e) => {

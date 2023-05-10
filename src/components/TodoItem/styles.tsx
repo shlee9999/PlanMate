@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledTodoItem = styled.div`
   display: flex;
@@ -21,11 +21,10 @@ export const RightWrapper = styled.div`
   gap: 1rem;
 `;
 export const EllipsisButton = styled.button`
-  /* background: url(${process.env
-    .PUBLIC_URL} + "../../images/12.jpeg") no-repeat; //안불러와지네 */
+  /* background: url(${process.env.PUBLIC_URL} + "../../images/12.jpeg") no-repeat; //안불러와지네 */
   width: 50px;
   height: 20px;
-  background-image: url("/assets/ellipsis.png");
+  background-image: url('/assets/ellipsis.png');
   background-size: 20px;
   background-repeat: no-repeat;
   background-position-x: 50%;

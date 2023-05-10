@@ -1,8 +1,8 @@
-import TimerTab from "../tabs/Timer";
-import StatisticsTab from "../tabs/Statistics";
-import PlannerTab from "../tabs/Planner";
-import InformationTab from "../tabs/Information";
-import { TabInfo } from "src/types";
+import TimerTab from '../tabs/Timer';
+import StatisticsTab from '../tabs/Statistics';
+import PlannerTab from '../tabs/Planner';
+import InformationTab from '../tabs/Information';
+import { TabInfo } from 'src/types';
 
 const generateId = (): string => {
   const timestamp = Date.now().toString(); // 현재 시간을 밀리초 단위로 가져옴
@@ -10,32 +10,32 @@ const generateId = (): string => {
   return `${timestamp}-${random}`; // 타임스탬프와 난수를 합쳐 고유한 ID 생성
 };
 
-const Week = ["일", "월", "화", "수", "목", "금", "토"];
+const Week = ['일', '월', '화', '수', '목', '금', '토'];
 
 const TabList: Array<TabInfo> = [
-  { title: "타이머", component: <TimerTab />, wrapper: "timer_tab_wrapper" },
+  { title: '타이머', component: <TimerTab />, wrapper: 'timer_tab_wrapper' },
   {
-    title: "통계",
+    title: '통계',
     component: <StatisticsTab />,
-    wrapper: "statistics_tab_wrapper",
+    wrapper: 'statistics_tab_wrapper',
   },
   {
-    title: "플래너",
+    title: '플래너',
     component: <PlannerTab />,
-    wrapper: "planner_tab_wrapper",
+    wrapper: 'planner_tab_wrapper',
   },
   {
-    title: "수험정보",
+    title: '수험정보',
     component: <InformationTab />,
-    wrapper: "information_tab_wrapper",
+    wrapper: 'information_tab_wrapper',
   },
 ];
 
 const ColorList = [
-  ["#ff0000", "#ff3300", "#ff6600", "#ff9900", "#ffcc00"],
-  ["#00ff00", "#33ff00", "#66ff00", "#99ff00", "#ccff00"],
-  ["#00ccff", "#0099ff", "#0066ff", "#0033ff", "#0000ff"],
-  ["#cc00ff", "#9900ff", "#6600ff", "#3300ff", "#00ffff"],
+  ['#ff0000', '#ff3300', '#ff6600', '#ff9900', '#ffcc00'],
+  ['#00ff00', '#33ff00', '#66ff00', '#99ff00', '#ccff00'],
+  ['#00ccff', '#0099ff', '#0066ff', '#0033ff', '#0000ff'],
+  ['#cc00ff', '#9900ff', '#6600ff', '#3300ff', '#00ffff'],
 ];
 
 const useFormattedTime = (time) => {
@@ -43,21 +43,16 @@ const useFormattedTime = (time) => {
   const second: number = Math.floor(time % 60);
   const hour: number = Math.floor(time / 3600) % 24;
 
-  const formattedTime: string =
-    hour.toString().padStart(2, "0") +
-    ":" +
-    minute.toString().padStart(2, "0") +
-    ":" +
-    second.toString().padStart(2, "0");
+  const formattedTime: string = hour.toString().padStart(2, '0') + ':' + minute.toString().padStart(2, '0') + ':' + second.toString().padStart(2, '0');
   return formattedTime;
 };
 
 const useFormattedDate = (): string => {
   const now: Date = new Date();
-  const month: string = `${now.getMonth() + 1}`.padStart(2, "0");
-  const date: string = `${now.getDate()}`.padStart(2, "0");
+  const month: string = `${now.getMonth() + 1}`.padStart(2, '0');
+  const date: string = `${now.getDate()}`.padStart(2, '0');
   const day: number = now.getDay();
-  const formattedDate: string = month + "." + date + "(" + Week[day] + ")";
+  const formattedDate: string = month + '.' + date + '(' + Week[day] + ')';
   return formattedDate;
 };
 
@@ -71,13 +66,4 @@ const stopTimer = (intervalId): void => {
   clearInterval(intervalId);
 };
 
-export {
-  useFormattedTime,
-  useFormattedDate,
-  TabList,
-  Week,
-  startTimer,
-  stopTimer,
-  ColorList,
-  generateId,
-};
+export { useFormattedTime, useFormattedDate, TabList, Week, startTimer, stopTimer, ColorList, generateId };

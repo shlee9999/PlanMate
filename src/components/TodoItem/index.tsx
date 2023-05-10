@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
-import { Globals } from "../../types";
-import { StyledTodoItem, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from "./styles";
-import EllipsisModal from "../Modal/EllipsisModal";
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper';
+import { Globals } from '../../types';
+import { StyledTodoItem, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styles';
+import EllipsisModal from '../Modal/EllipsisModal';
 function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
   const store = useSelector((state: Globals) => state.isRunning);
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -14,11 +14,11 @@ function TodoItem({ title, todo_id }: { title: string; todo_id: string }) {
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false);
 
   const startTotalTimer = (): void => {
-    dispatch({ type: "RUN_STUDY" });
+    dispatch({ type: 'RUN_STUDY' });
   };
 
   const stopTotalTimer = (): void => {
-    dispatch({ type: "STOP_STUDY" });
+    dispatch({ type: 'STOP_STUDY' });
   };
 
   const handleOnStart = (): void => {

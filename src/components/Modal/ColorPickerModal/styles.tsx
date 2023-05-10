@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledColorPickerModal = styled.div`
   background-color: white;

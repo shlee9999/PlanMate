@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { StyledAddSubjectModal, ModalExitButton, ModalFooter, AddSubjectModalWrapper, SubjectInputs, SubjectColor, SubjectTitle } from "./styles";
-import { TodoItems } from "src/types";
-import ColorPickerModal from "../ColorPickerModal";
-import { generateId } from "src/utils/helper";
-const DefaultColor: string = "#ff0000" as const;
+import { StyledAddSubjectModal, ModalExitButton, ModalFooter, AddSubjectModalWrapper, SubjectInputs, SubjectColor, SubjectTitle } from './styles';
+import { TodoItems } from 'src/types';
+import ColorPickerModal from '../ColorPickerModal';
+import { generateId } from 'src/utils/helper';
+const DefaultColor: string = '#ff0000' as const;
 const AddSubjectModal = ({ isModalOpen, closeModal }) => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>('');
   const [subjectColor, setSubjectColor] = useState<string>(DefaultColor); //setSubjectColor
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -22,11 +22,11 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
     setInputValue(e.target.value);
   };
   const handleOnKeyDown = (e) => {
-    if (e.nativeEvent.key === "Enter") {
+    if (e.nativeEvent.key === 'Enter') {
       handleConfirm();
     }
 
-    if (e.nativeEvent.key === "Escape") {
+    if (e.nativeEvent.key === 'Escape') {
       closeModalAll();
     }
   };
@@ -34,15 +34,15 @@ const AddSubjectModal = ({ isModalOpen, closeModal }) => {
     setSubjectColor(color);
   };
   const handleConfirm = () => {
-    if (inputValue === "") return;
+    if (inputValue === '') return;
     const newTodoItem: TodoItems = {
       title: inputValue,
       color: subjectColor,
       time: 0,
       id: generateId(),
     };
-    dispatch({ type: "ADD_TODO", value: newTodoItem });
-    setInputValue("");
+    dispatch({ type: 'ADD_TODO', value: newTodoItem });
+    setInputValue('');
     closeModalAll();
   };
 

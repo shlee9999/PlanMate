@@ -1,21 +1,14 @@
-import { useState } from "react";
-import {
-  StyledMain,
-  Header,
-  Tab,
-  AddButton,
-  TimerWidgetWrapper,
-} from "./styles";
-import AddSubjectModal from "../../components/Modal/AddSubjectModal/index";
-import TimerWidget from "../../components/TimerWidget/index";
-import { TabList, useFormattedDate } from "../../utils/helper";
-import { TabInfo } from "src/types";
+import { useState } from 'react';
+import { StyledMain, Header, Tab, AddButton, TimerWidgetWrapper } from './styles';
+import AddSubjectModal from '../../components/Modal/AddSubjectModal/index';
+import TimerWidget from '../../components/TimerWidget/index';
+import { TabList, useFormattedDate } from '../../utils/helper';
+import { TabInfo } from 'src/types';
 
 const tabList: Array<TabInfo> = TabList;
 
 function Main() {
-  const [isAddSubjectModalOpen, setIsAddSubjectModalOpen] =
-    useState<boolean>(false);
+  const [isAddSubjectModalOpen, setIsAddSubjectModalOpen] = useState<boolean>(false);
   const formattedDate: string = useFormattedDate();
   const openAddSubjectModal = (): void => {
     setIsAddSubjectModalOpen(true);
@@ -49,16 +42,9 @@ function Main() {
         ))}
       </Tab>
 
-      <div className={tabList[currentTab].wrapper}>
-        {tabList[currentTab].component}
-      </div>
-      {currentTab === 0 && (
-        <AddButton onClick={openAddSubjectModal}>추가</AddButton>
-      )}
-      <AddSubjectModal
-        isModalOpen={isAddSubjectModalOpen}
-        closeModal={closeAddSubjectModal}
-      ></AddSubjectModal>
+      <div className={tabList[currentTab].wrapper}>{tabList[currentTab].component}</div>
+      {currentTab === 0 && <AddButton onClick={openAddSubjectModal}>추가</AddButton>}
+      <AddSubjectModal isModalOpen={isAddSubjectModalOpen} closeModal={closeAddSubjectModal}></AddSubjectModal>
     </StyledMain>
   );
 }

@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
-import { StyledTimerWidget } from "./styles";
-import { useSelector } from "react-redux";
-import { useFormattedTime, startTimer, stopTimer } from "../../utils/helper";
-import { Globals } from "src/types";
+import { useState, useRef, useEffect } from 'react';
+import { StyledTimerWidget } from './styles';
+import { useSelector } from 'react-redux';
+import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper';
+import { Globals } from 'src/types';
 
 function TimerWidget({ title }) {
   const isRunning = useSelector((state: Globals) => state.isRunning);

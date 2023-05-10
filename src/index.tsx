@@ -1,24 +1,24 @@
-import React from "react";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import ReactDOM from "react-dom/client";
-import Main from "./page/Main/index";
-import { Globals, TodoItems } from "./types";
+import React from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom/client';
+import Main from './page/Main/index';
+import { Globals, TodoItems } from './types';
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 function reducer(state: Globals = { isRunning: false, todos: [] }, action): Globals {
   switch (action.type) {
-    case "ADD_TODO":
+    case 'ADD_TODO':
       console.log(state.todos);
       return { ...state, todos: [...state.todos, action.value] };
-    case "DEL_TODO":
+    case 'DEL_TODO':
       const newTodos = state.todos.filter((todo: TodoItems) => todo.id !== action.id);
       const newState = { ...state, todos: newTodos };
       return newState;
-    case "RUN_STUDY":
+    case 'RUN_STUDY':
       return { ...state, isRunning: true };
-    case "STOP_STUDY":
+    case 'STOP_STUDY':
       return { ...state, isRunning: false };
     // case "RUN_EXERCISE":
     //   break;
