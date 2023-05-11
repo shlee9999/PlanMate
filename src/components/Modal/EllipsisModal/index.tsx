@@ -21,13 +21,14 @@ const EllipsisModal = ({ closeModal, todo }: { closeModal: () => void; todo: Tod
   const handleClickEditButton = () => {
     setIsEditModalOpen(true);
   };
+
   return (
     <EllipsisModalWrapper onClick={closeModalAll}>
       <StyledEllipsisModal onClick={handleModalClick}>
-        <UpdateSubjectButton onClick={handleClickEditButton}>과목 수정</UpdateSubjectButton>
-        <DeleteSubjectButton onClick={handleClickDeleteButton}>과목 삭제</DeleteSubjectButton>
+        <UpdateSubjectButton onClick={handleClickEditButton}>{todo.category === 'study' ? '과목 수정' : '종목 수정'}</UpdateSubjectButton>
+        <DeleteSubjectButton onClick={handleClickDeleteButton}>{todo.category === 'study' ? '과목 삭제' : '종목 삭제'}</DeleteSubjectButton>
       </StyledEllipsisModal>
-      {isEditModalOpen && <AddSubjectModal todo={todo} isModalOpen={isEditModalOpen} closeModal={closeModal} title='과목 수정'></AddSubjectModal>}
+      {isEditModalOpen && <AddSubjectModal todo={todo} isModalOpen={isEditModalOpen} closeModal={closeModal} title={todo.category === 'study' ? '과목 수정' : '종목 수정'}></AddSubjectModal>}
     </EllipsisModalWrapper>
   );
 };
