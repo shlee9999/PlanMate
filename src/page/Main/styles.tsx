@@ -13,9 +13,7 @@ export const Header = styled.div`
   padding: 1rem 1.5rem;
   background-color: #f8f9fa;
   border-bottom: 1px solid #dee2e6;
-  p {
-    font-size: 1.5rem;
-  }
+  font-size: 1.5rem;
 `;
 
 export const TimerWidgetWrapper = styled.div`

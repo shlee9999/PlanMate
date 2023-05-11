@@ -5,8 +5,8 @@ import { Globals, TodoItems } from '../../types';
 import { StyledTodoItem, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styles';
 import EllipsisModal from '../Modal/EllipsisModal';
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
-  const store = useSelector((state: Globals) => state.isRunning);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const isTotalTimerRunning = useSelector((state: Globals) => state.isRunning);
+  const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
   const formattedTime: string = useFormattedTime(time);
   const intervalId = useRef<NodeJS.Timeout | null>(null);
@@ -14,32 +14,34 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false);
 
   const startTotalTimer = (): void => {
-    dispatch({ type: 'RUN_STUDY' });
+    dispatch({ type: 'RUN_TIMER' });
   };
 
   const stopTotalTimer = (): void => {
-    dispatch({ type: 'STOP_STUDY' });
+    dispatch({ type: 'STOP_TIMER' });
   };
 
   const handleOnStart = (): void => {
-    if (!store) {
-      setIsRunning(true);
+    if (!isTotalTimerRunning) {
+      setIsTodoTimerRunning(true);
       startTotalTimer();
+      if (todo.category === 'study') dispatch({ type: 'STUDY' });
+      if (todo.category === 'exercise') dispatch({ type: 'EXERCISE' });
     }
   };
 
   useEffect(() => {
-    if (!isRunning) {
+    if (!isTodoTimerRunning) {
       stopTimer(intervalId.current);
       return;
     }
     intervalId.current = startTimer(() => {
       setTime((prev) => prev + 1);
     });
-  }, [isRunning]);
+  }, [isTodoTimerRunning]);
 
   const handleOnPause = (): void => {
-    setIsRunning(false);
+    setIsTodoTimerRunning(false);
     stopTotalTimer();
   };
 
@@ -50,15 +52,15 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
     setIsEllipsisOpen(false);
   };
   return (
-    <StyledTodoItem>
+    <StyledTodoItem backgroundColor={todo.category === 'study' ? 'red' : 'blue'}>
       <LeftWrapper>
-        {isRunning ? (
+        {isTodoTimerRunning ? (
           <PauseButton color={buttonColor} onClick={handleOnPause}>
-            Pause
+            ||
           </PauseButton>
         ) : (
           <StartButton color={buttonColor} onClick={handleOnStart}>
-            Start
+            &gt;
           </StartButton>
         )}
         <SubjectTitle>{title}</SubjectTitle>

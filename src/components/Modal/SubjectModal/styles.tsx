@@ -46,6 +46,9 @@ export const SubjectInputs = styled.div`
   justify-content: space-between;
   height: 50px;
 `;
+export const SubjectInput = styled.input`
+  outline: none;
+`;
 export const SubjectTitle = styled.div``;
 
 export const SubjectColor = styled.button`

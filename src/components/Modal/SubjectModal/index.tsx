@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { StyledAddSubjectModal, ModalExitButton, ModalFooter, AddSubjectModalWrapper, SubjectInputs, SubjectColor, SubjectTitle } from './styles';
+import { StyledAddSubjectModal, ModalExitButton, ModalFooter, AddSubjectModalWrapper, SubjectInputs, SubjectColor, SubjectTitle, SubjectInput } from './styles';
 import { TodoItems } from 'src/types';
 import ColorPickerModal from '../ColorPickerModal';
 import { generateId } from 'src/utils/helper';
@@ -40,6 +40,7 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
     const newTodoItem: TodoItems = {
       title: inputValue,
       color: subjectColor,
+      category: title === '과목 추가' ? 'study' : 'exercise',
       time: 0,
       id: generateId(),
     };
@@ -52,6 +53,7 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
     const newTodoItem: TodoItems = {
       title: inputValue,
       color: subjectColor,
+      category: todo.category,
       time: todo.time,
       id: todo.id,
     };
@@ -84,9 +86,9 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
           <ModalExitButton onClick={closeModalAll}>X</ModalExitButton>
           <SubjectInputs>
             {todo ? (
-              <input defaultValue={todo.title} onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
+              <SubjectInput defaultValue={todo.title} onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
             ) : (
-              <input placeholder='과목명' onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
+              <SubjectInput placeholder='과목명' onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
             )}
             <SubjectColor onClick={handleOnClickColorButton} color={subjectColor}>
               과목색상

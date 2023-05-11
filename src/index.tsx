@@ -7,7 +7,7 @@ import { Globals, TodoItems } from './types';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const reducer = (state: Globals = { isRunning: false, todos: [] }, action): Globals => {
+const reducer = (state: Globals = { isRunning: false, todos: [], isStudying: false }, action): Globals => {
   switch (action.type) {
     case 'ADD_TODO':
       return { ...state, todos: [...state.todos, action.value] };
@@ -21,14 +21,14 @@ const reducer = (state: Globals = { isRunning: false, todos: [] }, action): Glob
         else return todo;
       });
       return { ...state, todos: updateTodos };
-    case 'RUN_STUDY':
+    case 'RUN_TIMER':
       return { ...state, isRunning: true };
-    case 'STOP_STUDY':
+    case 'STOP_TIMER':
       return { ...state, isRunning: false };
-    // case "RUN_EXERCISE":
-    //   break;
-    // case "STOP_EXERCISE":
-    //   break;
+    case 'EXERCISE':
+      return { ...state, isStudying: false };
+    case 'STUDY':
+      return { ...state, isStudying: true };
     case 'UPDATE_COLOR':
       return { ...state, todos: [...state.todos, action.color] };
 

@@ -1,11 +1,15 @@
 import styled from 'styled-components';
-
-export const StyledTodoItem = styled.div`
+import { CircleButton } from 'src/common/globalStyles';
+type StyledTodoItemProps = {
+  backgroundColor: string;
+};
+export const StyledTodoItem = styled.div<StyledTodoItemProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
   border-bottom: 1px solid #dee2e6;
+  background-color: ${(props) => props.backgroundColor || 'red'};
 `;
 
 export const LeftWrapper = styled.div`
@@ -28,17 +32,19 @@ export const EllipsisButton = styled.button`
   background-repeat: no-repeat;
   background-position-x: 50%;
   background-position-y: 50%;
+
   border: none;
+  cursor: pointer;
 `;
 
-export const StartButton = styled.button`
-  cursor: pointer;
+export const StartButton = styled(CircleButton)`
   background-color: ${(props) => props.color};
+  color: white;
 `;
 
-export const PauseButton = styled.button`
-  cursor: pointer;
+export const PauseButton = styled(CircleButton)`
   background-color: ${(props) => props.color};
+  color: white;
 `;
 
 export const SubjectTitle = styled.p`
