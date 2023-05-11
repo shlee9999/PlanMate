@@ -71,6 +71,7 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
     if (isModalOpen) {
       setSubjectColor(DefaultColor);
       inputRef.current.focus();
+      if (todo) setInputValue(inputRef.current.value);
     }
   }, [isModalOpen]);
 
