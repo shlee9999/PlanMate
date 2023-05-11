@@ -8,8 +8,8 @@ const Timer = () => {
 
   return (
     <div>
-      {store.map((el) => (
-        <TodoItem title={el.title} key={el.id} todo={el} buttonColor={el.color} />
+      {store.map((todo) => (
+        <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
       ))}
     </div>
   );

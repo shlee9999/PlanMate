@@ -6,7 +6,7 @@ import { TodoItems } from 'src/types';
 import ColorPickerModal from '../ColorPickerModal';
 import { generateId } from 'src/utils/helper';
 const DefaultColor: string = '#ff0000' as const;
-const AddSubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: boolean; closeModal: () => void; title: string; todo: TodoItems | null }) => {
+const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: boolean; closeModal: () => void; title: string; todo: TodoItems | null }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [subjectColor, setSubjectColor] = useState<string>(DefaultColor); //setSubjectColor
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false);
@@ -24,7 +24,8 @@ const AddSubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen
   };
   const handleOnKeyDown = (e) => {
     if (e.nativeEvent.key === 'Enter') {
-      handleAddConfirm();
+      if (!todo) handleAddConfirm();
+      else handleEditConfirm();
     }
     if (e.nativeEvent.key === 'Escape') {
       closeModalAll();
@@ -56,6 +57,7 @@ const AddSubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen
     dispatch({ type: 'UPDATE_TODO', value: newTodoItem, id: todo.id });
     setInputValue('');
     closeModalAll();
+    console.log(todo.id);
   };
   const handleModalClick = (e) => {
     e.stopPropagation();
@@ -100,4 +102,4 @@ const AddSubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen
   return null;
 };
 
-export default AddSubjectModal;
+export default SubjectModal;
