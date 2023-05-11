@@ -15,6 +15,7 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
   const dispatch = useDispatch();
   const closeColorPickerModal = () => {
     setIsColorPickerModalOpen(false);
+    inputRef.current?.focus();
   };
   const handleOnClickColorButton = () => {
     setIsColorPickerModalOpen(true);
