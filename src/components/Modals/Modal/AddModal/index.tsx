@@ -77,6 +77,7 @@ const AddModal = ({
     if (!inputRef || !inputRef.current) return;
     if (isModalOpen) {
       inputRef.current.focus();
+      setSubjectColor(DefaultColor);
     }
   }, [isModalOpen]);
 
