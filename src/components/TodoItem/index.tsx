@@ -89,7 +89,11 @@ const TodoItem = ({
         <EllipsisButton onClick={handleOnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
       {isEllipsisOpen && (
-        <EllipsisModal closeModal={closeEllipsis} todo={todo} />
+        <EllipsisModal
+          closeModal={closeEllipsis}
+          todo={todo}
+          isTodoTimerRunning={isTodoTimerRunning}
+        />
       )}
     </StyledTodoItem>
   );

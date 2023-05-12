@@ -25,7 +25,7 @@ const AddModal = ({
   title: string;
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [subjectColor, setSubjectColor] = useState<string>(DefaultColor); //setSubjectColor
+  const [subjectColor, setSubjectColor] = useState<string>(DefaultColor);
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] =
     useState<boolean>(false);
 
@@ -76,7 +76,6 @@ const AddModal = ({
   useEffect(() => {
     if (!inputRef || !inputRef.current) return;
     if (isModalOpen) {
-      setSubjectColor(DefaultColor);
       inputRef.current.focus();
     }
   }, [isModalOpen]);

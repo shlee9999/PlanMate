@@ -11,9 +11,11 @@ import { TodoItems } from 'src/types';
 const EllipsisModal = ({
   closeModal,
   todo,
+  isTodoTimerRunning,
 }: {
   closeModal: () => void;
   todo: TodoItems;
+  isTodoTimerRunning: boolean;
 }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const dispatch = useDispatch();
@@ -22,8 +24,8 @@ const EllipsisModal = ({
     //하위 모달도 닫기
   };
   const handleClickDeleteButton = () => {
+    if (isTodoTimerRunning) return; //타이머 가고 있을 때 삭제 불가
     dispatch({ type: 'DEL_TODO', id: todo.id });
-    dispatch({ type: 'STOP_TIMER' }); //조건 추가 !isrunning 받아와서
     closeModalAll();
   };
   const handleModalClick = (e) => {

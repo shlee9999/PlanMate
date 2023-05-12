@@ -14,7 +14,6 @@ import {
 import { TodoItems } from 'src/types';
 import ColorPickerModal from '../../ColorPickerModal';
 
-const DefaultColor: string = '#ff0000' as const;
 const EditModal = ({
   isModalOpen,
   closeModal,
@@ -27,7 +26,7 @@ const EditModal = ({
   todo: TodoItems;
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [subjectColor, setSubjectColor] = useState<string>(DefaultColor); //setSubjectColor
+  const [subjectColor, setSubjectColor] = useState<string>(todo.color);
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] =
     useState<boolean>(false);
 
@@ -79,7 +78,6 @@ const EditModal = ({
   useEffect(() => {
     if (!inputRef || !inputRef.current) return;
     if (isModalOpen) {
-      setSubjectColor(DefaultColor);
       inputRef.current.focus();
       setInputValue(inputRef.current.value);
     }
