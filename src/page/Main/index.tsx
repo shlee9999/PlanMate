@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { StyledMain, Header, Tab, AddButton, TimerWidgetWrapper } from './styles';
+import {
+  StyledMain,
+  Header,
+  Tab,
+  AddButton,
+  TimerWidgetWrapper,
+} from './styles';
 import SubjectModal from '../../components/Modals/Modal/index';
 import TimerWidget from '../../components/TimerWidget/index';
 import { TabList, useFormattedDate } from '../../utils/helper';
@@ -48,10 +54,21 @@ const Main = () => {
         ))}
       </Tab>
 
-      <div className={tabList[currentTab].wrapper}>{tabList[currentTab].component}</div>
-      {currentTab === 0 && <AddButton onClick={openSubjectModal}>과목 추가</AddButton>}
-      {currentTab === 0 && <AddButton onClick={openExerciseModal}>종목 추가</AddButton>}
-      <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
+      <div className={tabList[currentTab].wrapper}>
+        {tabList[currentTab].component}
+      </div>
+      {currentTab === 0 && (
+        <AddButton onClick={openSubjectModal}>과목 추가</AddButton>
+      )}
+      {currentTab === 0 && (
+        <AddButton onClick={openExerciseModal}>종목 추가</AddButton>
+      )}
+      <SubjectModal
+        todo={null}
+        title={modalTitle}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      ></SubjectModal>
     </StyledMain>
   );
 };

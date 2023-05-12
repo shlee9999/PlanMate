@@ -43,7 +43,12 @@ const useFormattedTime = (time) => {
   const second: number = Math.floor(time % 60);
   const hour: number = Math.floor(time / 3600) % 24;
 
-  const formattedTime: string = hour.toString().padStart(2, '0') + ':' + minute.toString().padStart(2, '0') + ':' + second.toString().padStart(2, '0');
+  const formattedTime: string =
+    hour.toString().padStart(2, '0') +
+    ':' +
+    minute.toString().padStart(2, '0') +
+    ':' +
+    second.toString().padStart(2, '0');
   return formattedTime;
 };
 
@@ -66,4 +71,13 @@ const stopTimer = (intervalId): void => {
   clearInterval(intervalId);
 };
 
-export { useFormattedTime, useFormattedDate, TabList, Week, startTimer, stopTimer, ColorList, generateId };
+export {
+  useFormattedTime,
+  useFormattedDate,
+  TabList,
+  Week,
+  startTimer,
+  stopTimer,
+  ColorList,
+  generateId,
+};

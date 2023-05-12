@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CircleButton } from 'src/common/globalStyles';
+import 'src/globals.css';
 type StyledTodoItemProps = {
   backgroundColor: string;
 };
@@ -34,6 +34,13 @@ export const EllipsisButton = styled.button`
   background-position-y: 50%;
 
   border: none;
+  cursor: pointer;
+`;
+
+export const CircleButton = styled.button`
+  border-radius: 50%;
+  width: 2vw;
+  height: 2vw;
   cursor: pointer;
 `;
 

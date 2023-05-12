@@ -1,16 +1,13 @@
-import React from "react";
-import "./styles.jsx"
-import {
-    TimerGraphContainer,
-  } from "./styles";
+import React from 'react';
+import './styles.jsx';
+import { TimerGraphContainer } from './styles';
 
-function TimerCheckGraph(){
-
-    return(
-        <TimerGraphContainer>
-            <p>TimerGraph</p>
-        </TimerGraphContainer>
-    )
+function TimerCheckGraph() {
+  return (
+    <TimerGraphContainer>
+      <p>TimerGraph</p>
+    </TimerGraphContainer>
+  );
 }
 
 export default TimerCheckGraph;

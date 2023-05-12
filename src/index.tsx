@@ -5,14 +5,21 @@ import ReactDOM from 'react-dom/client';
 import Main from './page/Main/index';
 import { Globals, TodoItems } from './types';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
-const reducer = (state: Globals = { isRunning: false, todos: [], isStudying: false }, action): Globals => {
+const reducer = (
+  state: Globals = { isRunning: false, todos: [], isStudying: false },
+  action
+): Globals => {
   switch (action.type) {
     case 'ADD_TODO':
       return { ...state, todos: [...state.todos, action.value] };
     case 'DEL_TODO':
-      const newTodos: Array<TodoItems> = state.todos.filter((todo: TodoItems) => todo.id !== action.id);
+      const newTodos: Array<TodoItems> = state.todos.filter(
+        (todo: TodoItems) => todo.id !== action.id
+      );
       const newState: Globals = { ...state, todos: newTodos };
       return newState;
     case 'UPDATE_TODO':

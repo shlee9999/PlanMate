@@ -2,9 +2,26 @@ import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper';
 import { Globals, TodoItems } from '../../types';
-import { StyledTodoItem, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styles';
+import {
+  StyledTodoItem,
+  LeftWrapper,
+  StartButton,
+  PauseButton,
+  SubjectTitle,
+  Time,
+  RightWrapper,
+  EllipsisButton,
+} from './styles';
 import EllipsisModal from '../Modals/EllipsisModal';
-const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
+const TodoItem = ({
+  title,
+  todo,
+  buttonColor,
+}: {
+  title: string;
+  todo: TodoItems;
+  buttonColor: string;
+}) => {
   const isTotalTimerRunning = useSelector((state: Globals) => state.isRunning);
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
@@ -52,7 +69,9 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
     setIsEllipsisOpen(false);
   };
   return (
-    <StyledTodoItem backgroundColor={todo.category === 'study' ? 'pink' : 'skyblue'}>
+    <StyledTodoItem
+      backgroundColor={todo.category === 'study' ? 'pink' : 'skyblue'}
+    >
       <LeftWrapper>
         {isTodoTimerRunning ? (
           <PauseButton color={buttonColor} onClick={handleOnPause}>
@@ -69,7 +88,9 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
         <Time>{formattedTime}</Time>
         <EllipsisButton onClick={handleOnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
-      {isEllipsisOpen && <EllipsisModal closeModal={closeEllipsis} todo={todo} />}
+      {isEllipsisOpen && (
+        <EllipsisModal closeModal={closeEllipsis} todo={todo} />
+      )}
     </StyledTodoItem>
   );
 };

@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-export const StyledAddSubjectModal = styled.div`
+export const StyledModal = styled.div`
   padding: 15px 20px;
   width: 200px;
   height: 150px;
@@ -31,7 +31,7 @@ export const ModalFooter = styled.div`
   width: 100px;
 `;
 
-export const AddSubjectModalWrapper = styled.div`
+export const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -40,18 +40,18 @@ export const AddSubjectModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-export const SubjectInputs = styled.div`
+export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
 `;
-export const SubjectInput = styled.input`
+export const NameInput = styled.input`
   outline: none;
 `;
-export const SubjectTitle = styled.div``;
+export const ModalTitle = styled.div``;
 
-export const SubjectColor = styled.button`
+export const ButtonColor = styled.button`
   text-align: left;
   background-color: ${(props) => props.color};
   color: white;

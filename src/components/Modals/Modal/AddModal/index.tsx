@@ -1,15 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { StyledAddSubjectModal, ModalExitButton, ModalFooter, AddSubjectModalWrapper, SubjectInputs, SubjectColor, SubjectTitle, SubjectInput } from './styles';
+import {
+  StyledModal,
+  ModalExitButton,
+  ModalFooter,
+  ModalWrapper,
+  InputWrapper,
+  ButtonColor,
+  ModalTitle,
+  NameInput,
+} from '../styles';
 import { TodoItems } from 'src/types';
 import ColorPickerModal from '../../ColorPickerModal';
 import { generateId } from 'src/utils/helper';
 const DefaultColor: string = '#ff0000' as const;
-const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: boolean; closeModal: () => void; title: string; todo: TodoItems | null }) => {
+const AddModal = ({
+  isModalOpen,
+  closeModal,
+  title,
+}: {
+  isModalOpen: boolean;
+  closeModal: () => void;
+  title: string;
+}) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [subjectColor, setSubjectColor] = useState<string>(DefaultColor); //setSubjectColor
-  const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false);
+  const [isColorPickerModalOpen, setIsColorPickerModalOpen] =
+    useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
@@ -25,8 +43,7 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
   };
   const handleOnKeyDown = (e) => {
     if (e.nativeEvent.key === 'Enter') {
-      if (!todo) handleAddConfirm();
-      else handleEditConfirm();
+      handleAddConfirm();
     }
     if (e.nativeEvent.key === 'Escape') {
       closeModalAll();
@@ -48,20 +65,7 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
     setInputValue('');
     closeModalAll();
   };
-  const handleEditConfirm = () => {
-    if (inputValue === '' || !todo) return;
-    const newTodoItem: TodoItems = {
-      title: inputValue,
-      color: subjectColor,
-      category: todo.category,
-      time: todo.time,
-      id: todo.id,
-    };
-    dispatch({ type: 'UPDATE_TODO', value: newTodoItem, id: todo.id });
-    setInputValue('');
-    closeModalAll();
-    console.log(todo.id);
-  };
+
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
@@ -74,36 +78,44 @@ const SubjectModal = ({ isModalOpen, closeModal, title, todo }: { isModalOpen: b
     if (isModalOpen) {
       setSubjectColor(DefaultColor);
       inputRef.current.focus();
-      if (todo) setInputValue(inputRef.current.value);
     }
   }, [isModalOpen]);
 
   if (isModalOpen)
     return (
-      <AddSubjectModalWrapper onClick={closeModalAll}>
-        <StyledAddSubjectModal onClick={handleModalClick}>
-          <SubjectTitle>{title}</SubjectTitle>
+      <ModalWrapper onClick={closeModalAll}>
+        <StyledModal onClick={handleModalClick}>
+          <ModalTitle>{title}</ModalTitle>
           <ModalExitButton onClick={closeModalAll}>X</ModalExitButton>
-          <SubjectInputs>
-            {todo ? (
-              <SubjectInput defaultValue={todo.title} onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
-            ) : (
-              <SubjectInput placeholder='과목명' onChange={handleInputChange} onKeyDown={handleOnKeyDown} ref={inputRef} />
-            )}
-            <SubjectColor onClick={handleOnClickColorButton} color={subjectColor}>
-              과목색상
-            </SubjectColor>
-          </SubjectInputs>
+          <InputWrapper>
+            <NameInput
+              placeholder={`${title.slice(0, 2)}명`}
+              onChange={handleInputChange}
+              onKeyDown={handleOnKeyDown}
+              ref={inputRef}
+            />
+            <ButtonColor
+              onClick={handleOnClickColorButton}
+              color={subjectColor}
+            >
+              {title.slice(0, 2)}색상
+            </ButtonColor>
+          </InputWrapper>
           <ModalFooter>
             <button onClick={closeModalAll}>취소</button>
-            {todo ? <button onClick={handleEditConfirm}>확인</button> : <button onClick={handleAddConfirm}>확인</button>}
+            <button onClick={handleAddConfirm}>확인</button>
           </ModalFooter>
-          {isColorPickerModalOpen && <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />}
-        </StyledAddSubjectModal>
-      </AddSubjectModalWrapper>
+          {isColorPickerModalOpen && (
+            <ColorPickerModal
+              closeModal={closeColorPickerModal}
+              assignSubjectColor={assignSubjectColor}
+            />
+          )}
+        </StyledModal>
+      </ModalWrapper>
     );
 
   return null;
 };
 
-export default SubjectModal;
+export default AddModal;
