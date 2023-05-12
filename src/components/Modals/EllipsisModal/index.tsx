@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DeleteSubjectButton, EllipsisModalWrapper, StyledEllipsisModal, UpdateSubjectButton } from './styles';
 import { useDispatch } from 'react-redux';
-import AddSubjectModal from '../SubjectModal';
+import AddSubjectModal from '../Modal';
 import { TodoItems } from 'src/types';
 const EllipsisModal = ({ closeModal, todo }: { closeModal: () => void; todo: TodoItems }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -12,6 +12,7 @@ const EllipsisModal = ({ closeModal, todo }: { closeModal: () => void; todo: Tod
   };
   const handleClickDeleteButton = () => {
     dispatch({ type: 'DEL_TODO', id: todo.id });
+    dispatch({ type: 'STOP_TIMER' }); //조건 추가 !isrunning 받아와서
     closeModalAll();
   };
   const handleModalClick = (e) => {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyledMain, Header, Tab, AddButton, TimerWidgetWrapper } from './styles';
-import SubjectModal from '../../components/Modal/SubjectModal/index';
+import SubjectModal from '../../components/Modals/Modal/index';
 import TimerWidget from '../../components/TimerWidget/index';
 import { TabList, useFormattedDate } from '../../utils/helper';
 import { TabInfo } from 'src/types';
