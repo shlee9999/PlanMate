@@ -6,8 +6,8 @@ import {
   UpdateSubjectButton,
 } from './styles';
 import { useDispatch } from 'react-redux';
-import AddSubjectModal from '../Modal';
-import { TodoItems } from 'src/types';
+import AddSubjectModal from 'components/Modals/Modal';
+import { TodoItems } from 'types';
 const EllipsisModal = ({
   closeModal,
   todo,
@@ -28,7 +28,7 @@ const EllipsisModal = ({
     dispatch({ type: 'DEL_TODO', id: todo.id });
     closeModalAll();
   };
-  const handleModalClick = (e) => {
+  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
 

@@ -1,4 +1,4 @@
-import { TodoItems } from 'src/types';
+import { TodoItems } from 'types';
 import AddModal from './AddModal';
 import EditModal from './EditModal';
 

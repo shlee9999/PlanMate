@@ -11,7 +11,7 @@ import {
   ModalTitle,
   NameInput,
 } from '../styles';
-import { TodoItems } from 'src/types';
+import { TodoItems } from 'types';
 import ColorPickerModal from '../../ColorPickerModal';
 
 const EditModal = ({
@@ -39,10 +39,10 @@ const EditModal = ({
   const handleOnClickColorButton = () => {
     setIsColorPickerModalOpen(true);
   };
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  const handleOnKeyDown = (e) => {
+  const handleOnKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter') {
       handleEditConfirm();
     }
@@ -50,7 +50,7 @@ const EditModal = ({
       closeModalAll();
     }
   };
-  const assignSubjectColor = (color) => {
+  const assignSubjectColor = (color: string) => {
     setSubjectColor(color);
   };
 
@@ -68,7 +68,7 @@ const EditModal = ({
     closeModalAll();
     console.log(todo.id);
   };
-  const handleModalClick = (e) => {
+  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
   const closeModalAll = () => {

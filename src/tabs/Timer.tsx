@@ -1,7 +1,7 @@
 //타이머 탭
 import { useSelector } from 'react-redux';
-import TodoItem from '../components/TodoItem/index';
-import { Globals } from 'src/types.js';
+import TodoItem from 'components/TodoItem/index';
+import { Globals, TodoItems } from 'types';
 
 const Timer = () => {
   const store = useSelector((state: Globals) => state.todos);
@@ -9,7 +9,7 @@ const Timer = () => {
     <div>
       <div>
         {store.map(
-          (todo) =>
+          (todo: TodoItems) =>
             todo.category === 'study' && (
               <TodoItem
                 title={todo.title}
@@ -22,7 +22,7 @@ const Timer = () => {
       </div>
       <div>
         {store.map(
-          (todo) =>
+          (todo: TodoItems) =>
             todo.category === 'exercise' && (
               <TodoItem
                 title={todo.title}

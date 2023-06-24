@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import 'src/globals.css';
+import 'globals.css';
 type StyledTodoItemProps = {
   backgroundColor: string;
 };

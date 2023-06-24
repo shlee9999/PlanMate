@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import {
@@ -11,9 +11,9 @@ import {
   ModalTitle,
   NameInput,
 } from '../styles';
-import { TodoItems } from 'src/types';
-import ColorPickerModal from '../../ColorPickerModal';
-import { generateId } from 'src/utils/helper';
+import { TodoItems } from 'types';
+import ColorPickerModal from 'components/Modals/ColorPickerModal';
+import { generateId } from 'utils/helper';
 const DefaultColor: string = '#ff0000' as const;
 const AddModal = ({
   isModalOpen,
@@ -38,10 +38,10 @@ const AddModal = ({
   const handleOnClickColorButton = () => {
     setIsColorPickerModalOpen(true);
   };
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  const handleOnKeyDown = (e) => {
+  const handleOnKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter') {
       handleAddConfirm();
     }
@@ -49,7 +49,7 @@ const AddModal = ({
       closeModalAll();
     }
   };
-  const assignSubjectColor = (color) => {
+  const assignSubjectColor = (color: string) => {
     setSubjectColor(color);
   };
   const handleAddConfirm = () => {
@@ -66,7 +66,7 @@ const AddModal = ({
     closeModalAll();
   };
 
-  const handleModalClick = (e) => {
+  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
   const closeModalAll = () => {

@@ -1,4 +1,4 @@
-import { ColorList } from 'src/utils/helper';
+import { ColorList } from 'utils/helper';
 import { StyledColorPickerModal } from './styles';
 import ColorButton from './ColorButton';
 
@@ -16,9 +16,9 @@ const ColorPickerModal = ({
   return (
     <StyledColorPickerModal onClick={handleClickModal}>
       <div>
-        {colorList.map((row, rowIndex) => (
+        {colorList.map((row: Array<string>, rowIndex: number) => (
           <div key={rowIndex}>
-            {row.map((color, index) => (
+            {row.map((color: string, index: number) => (
               <ColorButton
                 key={index}
                 color={color}

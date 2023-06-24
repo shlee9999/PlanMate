@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 
 const reducer = (
   state: Globals = { isRunning: false, todos: [], isStudying: false },
-  action
+  action: any
 ): Globals => {
   switch (action.type) {
     case 'ADD_TODO':

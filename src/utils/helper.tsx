@@ -2,7 +2,7 @@ import TimerTab from '../tabs/Timer';
 import StatisticsTab from '../tabs/Statistics';
 import PlannerTab from '../tabs/Planner';
 import InformationTab from '../tabs/Information';
-import { TabInfo } from 'src/types';
+import { TabInfo } from 'types';
 
 const generateId = (): string => {
   const timestamp = Date.now().toString(); // 현재 시간을 밀리초 단위로 가져옴
@@ -38,7 +38,7 @@ const ColorList = [
   ['#cc00ff', '#9900ff', '#6600ff', '#3300ff', '#00ffff'],
 ];
 
-const useFormattedTime = (time) => {
+const useFormattedTime = (time: number) => {
   const minute: number = Math.floor(time / 60) % 60;
   const second: number = Math.floor(time % 60);
   const hour: number = Math.floor(time / 3600) % 24;
@@ -61,14 +61,14 @@ const useFormattedDate = (): string => {
   return formattedDate;
 };
 
-const startTimer = (callback): NodeJS.Timeout => {
+const startTimer = (callback: () => void): NodeJS.Timeout => {
   return setInterval(() => {
     callback();
   }, 1000);
 };
 
-const stopTimer = (intervalId): void => {
-  clearInterval(intervalId);
+const stopTimer = (intervalId: NodeJS.Timeout | null): void => {
+  if (intervalId) clearInterval(intervalId);
 };
 
 export {

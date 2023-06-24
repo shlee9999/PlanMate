@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from 'react';
 import { StyledTimerWidget } from './styles';
 import { useSelector } from 'react-redux';
 import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper';
-import { Globals } from 'src/types';
+import { Globals } from 'types';
 
-function TimerWidget({ title }) {
+function TimerWidget({ title }: { title: string }) {
   const isRunning = useSelector((state: Globals) => state.isRunning);
   const isStudying = useSelector((state: Globals) => state.isStudying);
   const [time, setTime] = useState<number>(0);
