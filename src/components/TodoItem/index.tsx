@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper'
 import { Globals, TodoItems } from '../../types'
-import { Root, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styles'
+import { Root, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styled'
 import EllipsisModal from '../Modals/EllipsisModal'
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: Globals) => state.isRunning)

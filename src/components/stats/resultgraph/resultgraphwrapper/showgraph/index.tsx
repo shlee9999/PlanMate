@@ -1,6 +1,6 @@
 import React from 'react'
-import './styles.jsx'
-import { Root } from './styles.jsx'
+import './styled.js'
+import { Root } from './styled.js'
 
 function ShowingGraph() {
   return <Root>Showing_graph</Root>

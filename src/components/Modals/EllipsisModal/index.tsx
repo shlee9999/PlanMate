@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { DeleteSubjectButton, Root, UpdateSubjectButton } from './styles'
+import { DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { useDispatch } from 'react-redux'
 import AddSubjectModal from 'components/Modals/Modal'
 import { TodoItems } from 'types'

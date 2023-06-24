@@ -1,9 +1,9 @@
 import React from 'react'
-import './styles'
+import './styled'
 import ResultGraphcontents from './graphcontents'
 // import ShowingGraph from './showgraph';
 
-import { ResultGraph_Wrapper } from './styles'
+import { ResultGraph_Wrapper } from './styled'
 
 function ResultGraphWrapper() {
   return (
