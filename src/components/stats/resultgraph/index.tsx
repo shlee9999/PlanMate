@@ -1,6 +1,6 @@
 import React from 'react'
 import ResultGraphWrapper from './resultgraphwrapper'
-import { Root } from './styles'
+import { Root } from './styled'
 
 function ResultGraph() {
   return (

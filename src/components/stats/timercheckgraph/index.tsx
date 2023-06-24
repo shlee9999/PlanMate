@@ -1,6 +1,6 @@
 import React from 'react'
-import './styles.jsx'
-import { TimerGraphContainer } from './styles.jsx'
+import './styled.js'
+import { TimerGraphContainer } from './styled.js'
 
 function TimerCheckGraph() {
   return (

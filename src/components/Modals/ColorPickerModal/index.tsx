@@ -1,6 +1,6 @@
 import React from 'react'
 import { ColorList } from 'utils/helper'
-import { Root } from './styles'
+import { Root } from './styled'
 import ColorButton from './ColorButton'
 
 const colorList = ColorList

@@ -1,5 +1,5 @@
 import React from 'react'
-import { TimerCheckContainer } from './styles'
+import { TimerCheckContainer } from './styled'
 
 function TimerCheck() {
   return (

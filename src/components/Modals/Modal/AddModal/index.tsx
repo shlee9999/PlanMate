@@ -10,7 +10,7 @@ import {
   ButtonColor,
   ModalTitle,
   NameInput,
-} from '../styles'
+} from '../styled'
 import { TodoItems } from 'types'
 import ColorPickerModal from 'components/Modals/ColorPickerModal'
 import { generateId } from 'utils/helper'

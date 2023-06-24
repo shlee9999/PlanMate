@@ -1,6 +1,6 @@
 import React from 'react'
-import './styles'
-import { Root } from './styles'
+import './styled'
+import { Root } from './styled'
 
 function Chalendar() {
   return (

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Root } from './styles'
+import { Root } from './styled'
 import { useSelector } from 'react-redux'
 import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper'
 import { Globals } from 'types'
