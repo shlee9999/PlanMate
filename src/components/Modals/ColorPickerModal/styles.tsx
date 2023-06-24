@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const StyledColorPickerModal = styled.div`
+export const Root = styled.div`
   background-color: white;
   display: flex;
   justify-content: center;
@@ -11,4 +11,4 @@ export const StyledColorPickerModal = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   height: 80%;
-`;
+`

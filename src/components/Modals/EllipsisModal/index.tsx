@@ -1,51 +1,47 @@
-import { useState } from 'react';
-import {
-  DeleteSubjectButton,
-  EllipsisModalWrapper,
-  StyledEllipsisModal,
-  UpdateSubjectButton,
-} from './styles';
-import { useDispatch } from 'react-redux';
-import AddSubjectModal from 'components/Modals/Modal';
-import { TodoItems } from 'types';
+import React from 'react'
+import { useState } from 'react'
+import { DeleteSubjectButton, Root, UpdateSubjectButton } from './styles'
+import { useDispatch } from 'react-redux'
+import AddSubjectModal from 'components/Modals/Modal'
+import { TodoItems } from 'types'
 const EllipsisModal = ({
   closeModal,
   todo,
   isTodoTimerRunning,
 }: {
-  closeModal: () => void;
-  todo: TodoItems;
-  isTodoTimerRunning: boolean;
+  closeModal: () => void
+  todo: TodoItems
+  isTodoTimerRunning: boolean
 }) => {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const dispatch = useDispatch();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const dispatch = useDispatch()
   const closeModalAll = () => {
-    closeModal();
+    closeModal()
     //하위 모달도 닫기
-  };
+  }
   const handleClickDeleteButton = () => {
-    if (isTodoTimerRunning) return; //타이머 가고 있을 때 삭제 불가
-    dispatch({ type: 'DEL_TODO', id: todo.id });
-    closeModalAll();
-  };
+    if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
+    dispatch({ type: 'DEL_TODO', id: todo.id })
+    closeModalAll()
+  }
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-  };
+    e.stopPropagation()
+  }
 
   const handleClickEditButton = () => {
-    setIsEditModalOpen(true);
-  };
+    setIsEditModalOpen(true)
+  }
 
   return (
-    <EllipsisModalWrapper onClick={closeModalAll}>
-      <StyledEllipsisModal onClick={handleModalClick}>
+    <Root onClick={closeModalAll}>
+      <Root onClick={handleModalClick}>
         <UpdateSubjectButton onClick={handleClickEditButton}>
           {todo.category === 'study' ? '과목 수정' : '종목 수정'}
         </UpdateSubjectButton>
         <DeleteSubjectButton onClick={handleClickDeleteButton}>
           {todo.category === 'study' ? '과목 삭제' : '종목 삭제'}
         </DeleteSubjectButton>
-      </StyledEllipsisModal>
+      </Root>
       {isEditModalOpen && (
         <AddSubjectModal
           todo={todo}
@@ -54,7 +50,7 @@ const EllipsisModal = ({
           title={todo.category === 'study' ? '과목 수정' : '종목 수정'}
         ></AddSubjectModal>
       )}
-    </EllipsisModalWrapper>
-  );
-};
-export default EllipsisModal;
+    </Root>
+  )
+}
+export default EllipsisModal

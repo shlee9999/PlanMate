@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-const ResultGraphContainer = styled.div`
+const Root = styled.div`
   width: 30%;
   height: 450px;
   border: 2px solid black;
@@ -8,5 +8,6 @@ const ResultGraphContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-export { ResultGraphContainer };
+`
+
+export { Root }
