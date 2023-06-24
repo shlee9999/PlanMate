@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
+import { styled } from 'styled-components'
 
-export const StyledModal = styled.div`
+export const Root = styled.div`
   padding: 15px 20px;
   width: 200px;
   height: 150px;
@@ -14,7 +14,7 @@ export const StyledModal = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 10px;
-`;
+`
 
 export const ModalExitButton = styled.button`
   position: absolute;
@@ -22,14 +22,14 @@ export const ModalExitButton = styled.button`
   right: 0;
   border: none;
   border-radius: 5px;
-`;
+`
 
 export const ModalFooter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100px;
-`;
+`
 
 export const ModalWrapper = styled.div`
   position: fixed;
@@ -38,21 +38,21 @@ export const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-`;
+`
 
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
-`;
+`
 export const NameInput = styled.input`
   outline: none;
-`;
-export const ModalTitle = styled.div``;
+`
+export const ModalTitle = styled.div``
 
 export const ButtonColor = styled.button`
   text-align: left;
   background-color: ${(props) => props.color};
   color: white;
-`;
+`

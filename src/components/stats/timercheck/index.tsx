@@ -1,6 +1,5 @@
-import React from 'react';
-import './styles.jsx';
-import { TimerCheckContainer } from './styles';
+import React from 'react'
+import { TimerCheckContainer } from './styles'
 
 function TimerCheck() {
   return (
@@ -8,7 +7,7 @@ function TimerCheck() {
       <p>TimerCheck</p>
       {/* <TimerCheckGraph/> */}
     </TimerCheckContainer>
-  );
+  )
 }
 
-export default TimerCheck;
+export default TimerCheck

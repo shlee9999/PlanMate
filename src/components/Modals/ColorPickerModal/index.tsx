@@ -1,24 +1,26 @@
-import { ColorList } from 'src/utils/helper';
-import { StyledColorPickerModal } from './styles';
-import ColorButton from './ColorButton';
+import React from 'react'
+import { ColorList } from 'utils/helper'
+import { Root } from './styles'
+import ColorButton from './ColorButton'
 
-const colorList = ColorList;
+const colorList = ColorList
 const ColorPickerModal = ({
   closeModal,
   assignSubjectColor,
 }: {
-  closeModal: () => void;
-  assignSubjectColor: (color: string) => void;
+  closeModal: () => void
+  // eslint-disable-next-line
+  assignSubjectColor: (color: string) => void
 }) => {
   const handleClickModal = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-  };
+    event.stopPropagation()
+  }
   return (
-    <StyledColorPickerModal onClick={handleClickModal}>
+    <Root onClick={handleClickModal}>
       <div>
-        {colorList.map((row, rowIndex) => (
+        {colorList.map((row: Array<string>, rowIndex: number) => (
           <div key={rowIndex}>
-            {row.map((color, index) => (
+            {row.map((color: string, index: number) => (
               <ColorButton
                 key={index}
                 color={color}
@@ -29,8 +31,8 @@ const ColorPickerModal = ({
           </div>
         ))}
       </div>
-    </StyledColorPickerModal>
-  );
-};
+    </Root>
+  )
+}
 
-export default ColorPickerModal;
+export default ColorPickerModal

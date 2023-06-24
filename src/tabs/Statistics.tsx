@@ -1,7 +1,7 @@
 //통계 탭
 // import React from "react";
-import styled from 'styled-components';
-import MenuBox from '../components/stats/menu';
+import styled from 'styled-components'
+import MenuBox from '../components/stats/menu'
 
 const StatsContainer = styled.div`
   width: 100%;
@@ -12,13 +12,13 @@ const StatsContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 const Statistics = () => {
   return (
     <StatsContainer>
       <MenuBox></MenuBox>
     </StatsContainer>
-  );
-};
-export default Statistics;
+  )
+}
+export default Statistics

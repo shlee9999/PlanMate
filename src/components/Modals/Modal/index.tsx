@@ -1,6 +1,6 @@
-import { TodoItems } from 'src/types';
-import AddModal from './AddModal';
-import EditModal from './EditModal';
+import { TodoItems } from 'types'
+import AddModal from './AddModal'
+import EditModal from './EditModal'
 
 const SubjectModal = ({
   isModalOpen,
@@ -8,33 +8,18 @@ const SubjectModal = ({
   title,
   todo,
 }: {
-  isModalOpen: boolean;
-  closeModal: () => void;
-  title: string;
-  todo: TodoItems | null;
+  isModalOpen: boolean
+  closeModal: () => void
+  title: string
+  todo: TodoItems | null
 }) => {
   switch (title.slice(-2)) {
     case '추가':
-      return (
-        <AddModal
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
-          title={title}
-        ></AddModal>
-      );
+      return <AddModal isModalOpen={isModalOpen} closeModal={closeModal} title={title}></AddModal>
     case '수정':
-      return (
-        todo && (
-          <EditModal
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            title={title}
-            todo={todo}
-          ></EditModal>
-        )
-      );
+      return todo && <EditModal isModalOpen={isModalOpen} closeModal={closeModal} title={title} todo={todo}></EditModal>
   }
-  return null;
-};
+  return null
+}
 
-export default SubjectModal;
+export default SubjectModal

@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
+import { styled } from 'styled-components'
 
-export const StyledColorButton = styled.button`
+export const Root = styled.button`
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -8,4 +8,4 @@ export const StyledColorButton = styled.button`
   margin: 3px;
   border: none;
   box-shadow: 1px 1px 2px 1px;
-`;
+`

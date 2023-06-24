@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const ResultGraph_Wrapper = styled.div`
   width: 90%;
@@ -8,5 +8,5 @@ const ResultGraph_Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-export { ResultGraph_Wrapper };
+`
+export { ResultGraph_Wrapper }

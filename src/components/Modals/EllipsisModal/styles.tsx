@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-export const StyledEllipsisModal = styled.div`
+import styled from 'styled-components'
+export const Root = styled.div`
   padding: 15px 20px;
   width: 200px;
   height: 150px;
@@ -13,15 +13,15 @@ export const StyledEllipsisModal = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 10px;
-`;
+`
 export const UpdateSubjectButton = styled.button`
   width: 200px;
   height: 25px;
-`;
+`
 export const DeleteSubjectButton = styled.button`
   width: 200px;
   height: 25px;
-`;
+`
 
 export const EllipsisModalWrapper = styled.div`
   position: fixed;
@@ -30,4 +30,4 @@ export const EllipsisModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-`;
+`
