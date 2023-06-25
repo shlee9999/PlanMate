@@ -4,7 +4,7 @@ import { TimerCheckContainer } from './styled'
 function TimerCheck() {
   return (
     <TimerCheckContainer>
-      <p>TimerCheck</p>
+      <p>Chart</p>
       {/* <TimerCheckGraph/> */}
     </TimerCheckContainer>
   )

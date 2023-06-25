@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const TimerCheckContainer = styled.div`
-  width: 30%;
-  height: 450px;
-  border: 2px solid black;
+  width: 704px;
+  height: 392px;
+  border: 1px solid gray;
   display: flex;
   flex-direction: column;
   justify-content: center;
