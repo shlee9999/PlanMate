@@ -1,5 +1,5 @@
 import React from 'react'
-import Main from '../calendar/Main'
+import Calendar from '../calendar'
 import TimerCheck from '../timercheck'
 import ResultGraph from '../resultgraph'
 import { Root } from './styled'
@@ -7,7 +7,7 @@ import { Root } from './styled'
 function MenuBox() {
   return (
     <Root>
-      <Main/>
+      <Calendar/>
       <TimerCheck></TimerCheck>
       <ResultGraph></ResultGraph>
     </Root>
