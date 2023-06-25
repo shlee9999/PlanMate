@@ -1,15 +1,15 @@
 import React from 'react'
-import { TimerCheckContainer } from './styled'
+import { ResultContainer } from './styled'
 import { PieGraph } from './component/PieGraph'
 import { BumpGraph } from './component/BumpGraph'
 
 function TimerCheck() {
   return (
-    <TimerCheckContainer>
+    <ResultContainer>
       <PieGraph/>
       <BumpGraph/>
       {/* <TimerCheckGraph/> */}
-    </TimerCheckContainer>
+    </ResultContainer>
   )
 }
 

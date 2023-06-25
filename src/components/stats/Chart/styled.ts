@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TimerCheckContainer = styled.div`
+const ResultContainer = styled.div`
   width: 704px;
   height: 392px;
   border: 1px solid gray;
@@ -9,4 +9,4 @@ const TimerCheckContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export { TimerCheckContainer };
+export { ResultContainer };
