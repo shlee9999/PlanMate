@@ -16,7 +16,7 @@ const monthList = (nowDate: Date) => {
   const nowMonth = nowDate.getMonth();
 
   const dayOneWeek = new Date(nowYear, nowMonth,1).getDay();
-  const dayLastWeek = new Date(nowYear, nowMonth + 1, 0).getDay();
+  // const dayLastWeek = new Date(nowYear, nowMonth + 1, 0).getDay();
 
   const result: Date[] = [];
   const prevMonthEnd = new Date(nowYear, nowMonth, 0).getDate();
@@ -43,7 +43,7 @@ const monthList = (nowDate: Date) => {
 interface Props{
   nowDate: Date;
   setNowDate:React.Dispatch<React.SetStateAction<Date>>;
-  clickedDate: Date|undefined;
+  clickedDate: Date | undefined;
   setClickedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
 }
 
@@ -58,7 +58,15 @@ export const DateBox = ({nowDate, setNowDate, clickedDate, setClickedDate}: Prop
         return <WeekBox weekName={week}/>;
       })}
       {allDay.map((day: Date) => {
-        return <AllDay day={day} nowDate={nowDate} setNowDate={setNowDate} clickedDate={clickedDate} setClickedDate={setClickedDate} />;
+        return( 
+          <AllDay 
+            day={day} 
+            nowDate={nowDate} 
+            setNowDate={setNowDate} 
+            clickedDate={clickedDate} 
+            setClickedDate={setClickedDate} 
+          />
+        );
       })}
     </Container>
   )
