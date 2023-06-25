@@ -6,7 +6,13 @@ interface Props {
 }
 
 const Container = styled.div`
-  background-color: gray;
+  width: 13px;
+  height: 18px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  font-size: 14px;
 `;
 
 export const WeekBox = ({ weekName }: Props) => {

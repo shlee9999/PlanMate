@@ -8,7 +8,10 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
+  width: 24px;
+  height: 24px;
   border: 1px solid gray;
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +21,7 @@ const Container = styled.div<ContainerProps>`
   }
 
   p {
-    padding: 5px;  
+    padding: 3px;  
     font-weight: ${({ sameMonth }) => (sameMonth ? "700" : "300")};
   }
 `

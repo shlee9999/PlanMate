@@ -16,7 +16,7 @@ const monthList = (nowDate: Date) => {
   const nowMonth = nowDate.getMonth();
 
   const dayOneWeek = new Date(nowYear, nowMonth,1).getDay();
-  // const dayLastWeek = new Date(nowYear, nowMonth + 1, 0).getDay();
+  const dayLastWeek = new Date(nowYear, nowMonth + 1, 0).getDay();
 
   const result: Date[] = [];
   const prevMonthEnd = new Date(nowYear, nowMonth, 0).getDate();

@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
-  height: 10%;
+  height: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 16px;
 `
 const BtnBox = styled.div`
   button {
@@ -46,7 +47,7 @@ export const ControlDate = ({ nowDate, setNowDate }: Props) => {
         <button onClick={() => changeYear(-1)}>{'<<'}</button>
         <button onClick={() => changeMonth(-1)}>{'<'}</button>
       </BtnBox>
-      <h1> {`${nowDate.getFullYear()}.${nowDate.getMonth()+1}`}</h1>
+      <h1> {`${nowDate.getMonth()+1+"월"}`}</h1>
       <BtnBox>
       <button onClick={() => changeMonth(1)}>{'>'}</button>
       <button onClick={() => changeYear(1)}>{'>>'}</button>
