@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
 const Root = styled.div`
-  width: 30%;
-  height: 450px;
-  border: 2px solid black;
+  width: 400px;
+  height: 392px;
+  border: 1px solid gray;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -4,8 +4,8 @@ import { DateBox } from './DateBox'
 import styled from "styled-components"
 
 const Container = styled.div`
-  width: 700px;
-  height: 500px;
+  width: 368px;
+  height: 344px;
   display: flex;
   flex-direction: column;
 `;
