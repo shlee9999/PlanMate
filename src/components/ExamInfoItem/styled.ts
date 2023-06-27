@@ -26,10 +26,10 @@ export const InfoTypo = styled.div`
 
 export const NickName = styled.div``
 export const UpdatedDate = styled.div``
-export const IconWrapper = styled.div`
+export const IconContainer = styled.div`
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 8px;
+  bottom: 10px;
   display: flex;
   column-gap: 8px;
 `

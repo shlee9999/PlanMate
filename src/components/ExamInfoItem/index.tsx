@@ -2,7 +2,7 @@ import { FC } from 'react'
 import {
   Icon,
   IconCount,
-  IconWrapper,
+  IconContainer,
   ImgInfoWrapper,
   InfoTypo,
   NickName,
@@ -42,7 +42,7 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({ title, like, scrap, commen
           <UpdatedDate>{updated_at}</UpdatedDate>
         </InfoTypo>
       </TypoWrapper>
-      <IconWrapper>
+      <IconContainer>
         <ImgInfoWrapper>
           <Icon alt="comment_icon" src={commentImg} />
           <IconCount>{comment_count}</IconCount>
@@ -55,7 +55,7 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({ title, like, scrap, commen
           <Icon alt="scrap_icon" src={scrapImg} />
           <IconCount>{scrap}</IconCount>
         </ImgInfoWrapper>
-      </IconWrapper>
+      </IconContainer>
     </Root>
   )
 }
