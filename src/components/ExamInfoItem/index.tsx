@@ -12,6 +12,10 @@ import {
   UpdatedDate,
 } from './styled'
 
+import commentImg from 'assets/images/comment.png'
+import likeImg from 'assets/images/like.png'
+import scrapImg from 'assets/images/scrap.png'
+
 type ExamInfoItemProps = {
   title: string
   like: number
@@ -27,7 +31,6 @@ type ExamInfoItemProps = {
  * @comment_count (댓글 개수)
  * @nickname (owner_id?)
  * @updated_at (업데이트 시간)
- *
  */
 export const ExamInfoItem: FC<ExamInfoItemProps> = ({ title, like, scrap, comment_count, nickname, updated_at }) => {
   return (
@@ -41,15 +44,15 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({ title, like, scrap, commen
       </TypoWrapper>
       <IconWrapper>
         <ImgInfoWrapper>
-          <Icon alt="comment_icon" />
+          <Icon alt="comment_icon" src={commentImg} />
           <IconCount>{comment_count}</IconCount>
         </ImgInfoWrapper>
         <ImgInfoWrapper>
-          <Icon alt="like_icon" />
+          <Icon alt="like_icon" src={likeImg} />
           <IconCount>{like}</IconCount>
         </ImgInfoWrapper>
         <ImgInfoWrapper>
-          <Icon alt="scrap_icon" />
+          <Icon alt="scrap_icon" src={scrapImg} />
           <IconCount>{scrap}</IconCount>
         </ImgInfoWrapper>
       </IconWrapper>
