@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Root = styled.div`
-  width: 90%;
+  width: 1150px;
   height: 450px;
   border: 2px solid red;
   display: flex;
