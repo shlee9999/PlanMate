@@ -1,5 +1,8 @@
 import React from 'react'
 import { TotalRecord } from './TotalRecord'
+import { MaxFoucsRecord } from './MaxFoucsRecord'
+import { StartRecord } from './StartRecord'
+import { TerminateRecord } from './TerminateRecord'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -12,6 +15,9 @@ export const TimerRecord = () => {
   return (
     <Container>
         <TotalRecord />
+        <MaxFoucsRecord />
+        <StartRecord />
+        <TerminateRecord />
     </Container>
   )
 }

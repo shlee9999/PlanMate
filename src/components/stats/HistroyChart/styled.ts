@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ResultContainer = styled.div`
-  width: 704px;
+  width: 1200px;
   height: 392px;
   border: 1px solid gray;
   border-radius: 8px;
