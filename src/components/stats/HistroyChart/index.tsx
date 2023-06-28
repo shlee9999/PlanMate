@@ -3,7 +3,7 @@ import { ResultContainer, ResultStatsContainer, CompareStatsContainer } from './
 import { MainHistory } from './component/MainHistory'
 import { BumpGraph } from '../CompareChart/component/BumpGraph'
 
-function CompareChart() {
+function HistoryChart() {
   return (
     <ResultContainer>
       <ResultStatsContainer>
@@ -16,4 +16,4 @@ function CompareChart() {
   )
 }
 
-export default CompareChart
+export default HistoryChart

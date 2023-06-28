@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
+import { Globals } from 'types'
 
 const Container = styled.div`
     width: 110px;
@@ -8,9 +10,12 @@ const Container = styled.div`
 `
 
 export const TotalRecord = () => {
+  const TotalFoucsTime = useSelector((state: Globals)=>state.isStudying)
   return (
     <Container>
-        TotalRecord
+        <h1>
+          집중 시간 : {TotalFoucsTime}
+        </h1>
     </Container>
   )
 }

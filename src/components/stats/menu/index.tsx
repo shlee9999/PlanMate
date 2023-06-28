@@ -1,13 +1,13 @@
 import React from 'react'
 import Calendar from '../calendar'
-import CompareChart from '../HistroyChart'
+import HistoryChart from '../HistroyChart'
 import { Root } from './styled'
 
 function MenuBox() {
   return (
     <Root>
       <Calendar/>
-      <CompareChart/>
+      <HistoryChart/>
     </Root>
   )
 }

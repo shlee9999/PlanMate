@@ -5,15 +5,12 @@ import styled from 'styled-components'
 const Container = styled.div`
     width: 100%;
     display: grid;
-    grid-template-columns: 120px 120px;
+    grid-template-columns: 1fr 1fr;
     
 `
 export const TimerRecord = () => {
   return (
     <Container>
-        <TotalRecord />
-        <TotalRecord />
-        <TotalRecord />
         <TotalRecord />
     </Container>
   )
