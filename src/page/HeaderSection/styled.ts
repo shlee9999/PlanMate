@@ -1,6 +1,6 @@
 import { HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
-
+import yellowCircle from 'assets/images/yellow_circle.png'
 export const Root = styled.div`
   position: fixed;
   left: 0;
@@ -25,6 +25,7 @@ export const LeftContainer = styled.div`
   display: flex;
   align-items: center;
   width: fit-content;
+  height: 30px;
 `
 
 export const RightContainer = styled.div`
@@ -56,8 +57,34 @@ export const Logo = styled.img`
   margin-right: 56px;
 `
 
-export const Tab = styled.div`
+export const TabList = styled.div`
   display: flex;
   column-gap: 16px;
   cursor: pointer;
+`
+
+export const TabItem = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0;
+`
+
+export const SelectedTabItem = styled.p`
+  position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0;
+  color: #01cb45;
+  &::after {
+    content: '';
+    background: url(${yellowCircle}) no-repeat 0 0;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `
