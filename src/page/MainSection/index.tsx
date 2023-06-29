@@ -5,6 +5,7 @@ import SubjectModal from 'components/Modals/Modal/index'
 import { tabList, useFormattedDate } from 'utils/helper'
 import { useSelector } from 'react-redux'
 import { Globals } from 'types'
+import TimerWidget from 'components/TimerWidget'
 
 type MainSectionProps = {}
 
@@ -29,7 +30,7 @@ const MainSection: FC<MainSectionProps> = () => {
   return (
     <Root>
       <p>{formattedDate}</p>
-
+      <TimerWidget title="Study" />
       <div className={tabList[currentTab].wrapper}>{tabList[currentTab].component}</div>
       {currentTab === 0 && <AddButton onClick={openSubjectModal}>과목 추가</AddButton>}
       {currentTab === 0 && <AddButton onClick={openExerciseModal}>종목 추가</AddButton>}
