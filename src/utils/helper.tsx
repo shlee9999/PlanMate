@@ -1,7 +1,7 @@
-import TimerTab from '../tabs/Timer'
-import StatisticsTab from '../tabs/Statistics'
-import PlannerTab from '../tabs/Planner'
-import InformationTab from '../tabs/Information'
+import TimerTab from 'tabs/Timer'
+import StatisticsTab from 'tabs/Statistics'
+import PlannerTab from 'tabs/Planner'
+import InformationTab from 'tabs/Information'
 import { TabInfo } from 'types'
 
 export const generateId = (): string => {
