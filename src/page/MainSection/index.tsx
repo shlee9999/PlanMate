@@ -1,16 +1,19 @@
-import { useState } from 'react'
-import { Root, Header, Tab, AddButton, TimerWidgetWrapper } from './styled'
+import { FC, useState } from 'react'
+import { Root, AddButton } from './styled'
 import SubjectModal from 'components/Modals/Modal/index'
-import TimerWidget from 'components/TimerWidget/index'
-import { TabList, useFormattedDate } from 'utils/helper'
-import { TabInfo } from 'types'
 
-const tabList: Array<TabInfo> = TabList
+import { tabList, useFormattedDate } from 'utils/helper'
+import { useSelector } from 'react-redux'
+import { Globals } from 'types'
 
-const Main = () => {
+type MainSectionProps = {}
+
+const MainSection: FC<MainSectionProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+  const currentTab = useSelector((state: Globals) => state.currentTab)
   const formattedDate: string = useFormattedDate()
+
   const openSubjectModal = (): void => {
     setModalTitle('과목 추가')
     setIsModalOpen(true)
@@ -23,30 +26,9 @@ const Main = () => {
     setIsModalOpen(false)
   }
 
-  const [currentTab, setCurrentTab] = useState<number>(0)
-
   return (
     <Root>
-      <Header>
-        <p>{formattedDate}</p>
-        <TimerWidgetWrapper>
-          <TimerWidget title={`Study`} />
-          <TimerWidget title={`Exercise`} />
-        </TimerWidgetWrapper>
-      </Header>
-
-      <Tab>
-        {tabList.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => {
-              setCurrentTab(index)
-            }}
-          >
-            {item.title}
-          </div>
-        ))}
-      </Tab>
+      <p>{formattedDate}</p>
 
       <div className={tabList[currentTab].wrapper}>{tabList[currentTab].component}</div>
       {currentTab === 0 && <AddButton onClick={openSubjectModal}>과목 추가</AddButton>}
@@ -56,4 +38,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default MainSection

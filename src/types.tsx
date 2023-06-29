@@ -18,5 +18,6 @@ export type TabInfo = {
 export type Globals = {
   isRunning: boolean
   isStudying: boolean
-  todos: Array<TodoItems>
+  todos: TodoItemList
+  currentTab: number
 }

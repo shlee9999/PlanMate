@@ -2,12 +2,16 @@ import React from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom/client'
-import Main from './page/Main/index'
 import { Globals, TodoItemList, TodoItems } from './types'
+import MainSection from './page/MainSection/'
+import { HeaderSection } from 'page/HeaderSection'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-const reducer = (state: Globals = { isRunning: false, todos: [], isStudying: false }, action: any): Globals => {
+const reducer = (
+  state: Globals = { isRunning: false, todos: [], isStudying: false, currentTab: 0 },
+  action: any
+): Globals => {
   switch (action.type) {
     case 'ADD_TODO':
       return { ...state, todos: [...state.todos, action.value] }
@@ -34,7 +38,8 @@ const reducer = (state: Globals = { isRunning: false, todos: [], isStudying: fal
       return { ...state, isStudying: true }
     case 'UPDATE_COLOR':
       return { ...state, todos: [...state.todos, action.color] }
-
+    case 'CHANGE_TAB':
+      return { ...state, currentTab: action.value }
     default:
       return state
   }
@@ -45,11 +50,8 @@ const store = createStore<Globals, any, any, any>(reducer) //나중에 고치기
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Main />
+      <HeaderSection />
+      <MainSection />
     </Provider>
   </React.StrictMode>
 )
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
