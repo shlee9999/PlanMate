@@ -2,13 +2,17 @@ import { styled } from 'styled-components'
 
 export const Root = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
+  column-gap: 74px;
+  height: 58px;
+  line-height: 58px;
+`
 
-  p {
-    margin: 0;
-    padding: 0;
-  }
+export const Mode = styled.p`
+  font-size: 46px;
+  font-weight: 700;
+`
+export const Timer = styled.p`
+  font-size: 36px;
+  font-weight: 500;
+  color: #01cb45;
 `

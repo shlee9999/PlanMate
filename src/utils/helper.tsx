@@ -1,4 +1,4 @@
-import TimerTab from 'tabs/Timer'
+import { TimerTab } from 'tabs/TimerTab'
 import StatisticsTab from 'tabs/Statistics'
 import PlannerTab from 'tabs/Planner'
 import InformationTab from 'tabs/Information'
@@ -57,6 +57,6 @@ export const useFormattedDate = (): string => {
   const month: string = `${now.getMonth() + 1}`.padStart(2, '0')
   const date: string = `${now.getDate()}`.padStart(2, '0')
   const day: number = now.getDay()
-  const formattedDate: string = month + '.' + date + '(' + week[day] + ')'
+  const formattedDate: string = month + '월 ' + date + '일 (' + week[day] + ')요일'
   return formattedDate
 }

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Root } from './styled'
+import { Mode, Root, Timer } from './styled'
 import { useSelector } from 'react-redux'
 import { useFormattedTime } from 'utils/helper'
 import { Globals } from 'types'
@@ -17,11 +17,11 @@ function TimerWidget({ title }: { title: string }) {
       stopTimer()
       return
     }
-    if (title === 'Study' && isRunning && isStudying) {
+    if (title === 'study' && isRunning && isStudying) {
       startTimer()
       return
     }
-    if (title === 'Exercise' && isRunning && !isStudying) {
+    if (title === 'exercise' && isRunning && !isStudying) {
       startTimer
       return
     }
@@ -29,8 +29,8 @@ function TimerWidget({ title }: { title: string }) {
 
   return (
     <Root>
-      <p>{title}</p>
-      <p>{formattedTime}</p>
+      <Mode>{title === 'study' ? '공부' : '운동'}</Mode>
+      <Timer>{formattedTime}</Timer>
     </Root>
   )
 }
