@@ -60,13 +60,3 @@ export const useFormattedDate = (): string => {
   const formattedDate: string = month + '.' + date + '(' + week[day] + ')'
   return formattedDate
 }
-
-export const startTimer = (callback: () => void): NodeJS.Timeout => {
-  return setInterval(() => {
-    callback()
-  }, 1000)
-}
-
-export const stopTimer = (intervalId: NodeJS.Timeout | null): void => {
-  if (intervalId) clearInterval(intervalId)
-}

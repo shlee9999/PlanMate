@@ -1,18 +1,17 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper'
+import { useFormattedTime } from '../../utils/helper'
 import { Globals, TodoItems } from '../../types'
 import { Root, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styled'
 import EllipsisModal from '../Modals/EllipsisModal'
+import { useTimer } from 'hooks/useTimer'
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: Globals) => state.isRunning)
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
-  const [time, setTime] = useState<number>(0)
-  const formattedTime: string = useFormattedTime(time)
-  const intervalId = useRef<NodeJS.Timeout | null>(null)
   const dispatch = useDispatch()
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-
+  const { startTimer, stopTimer, time } = useTimer({ defaultTime: 0 })
+  const formattedTime: string = useFormattedTime(time)
   const startTotalTimer = (): void => {
     dispatch({ type: 'RUN_TIMER' })
   }
@@ -32,12 +31,10 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
 
   useEffect(() => {
     if (!isTodoTimerRunning) {
-      stopTimer(intervalId.current)
+      stopTimer()
       return
     }
-    intervalId.current = startTimer(() => {
-      setTime((prev) => prev + 1)
-    })
+    startTimer()
   }, [isTodoTimerRunning])
 
   const handleOnPause = (): void => {

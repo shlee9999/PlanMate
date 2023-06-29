@@ -1,31 +1,28 @@
-import { useState, useRef, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Root } from './styled'
 import { useSelector } from 'react-redux'
-import { useFormattedTime, startTimer, stopTimer } from '../../utils/helper'
+import { useFormattedTime } from 'utils/helper'
 import { Globals } from 'types'
+import { useTimer } from 'hooks/useTimer'
 
 function TimerWidget({ title }: { title: string }) {
   const isRunning = useSelector((state: Globals) => state.isRunning)
   const isStudying = useSelector((state: Globals) => state.isStudying)
-  const [time, setTime] = useState<number>(0)
-  const intervalId = useRef<NodeJS.Timeout | null>(null)
+
+  const { startTimer, stopTimer, time } = useTimer({ defaultTime: 0 })
   const formattedTime: string = useFormattedTime(time)
 
   useEffect(() => {
     if (!isRunning) {
-      stopTimer(intervalId.current)
+      stopTimer()
       return
     }
     if (title === 'Study' && isRunning && isStudying) {
-      intervalId.current = startTimer(() => {
-        setTime((prev) => prev + 1)
-      })
+      startTimer()
       return
     }
     if (title === 'Exercise' && isRunning && !isStudying) {
-      intervalId.current = startTimer(() => {
-        setTime((prev) => prev + 1)
-      })
+      startTimer
       return
     }
   }, [isRunning])
