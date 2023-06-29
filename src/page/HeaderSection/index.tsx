@@ -1,29 +1,54 @@
 import { FC } from 'react'
-import { GreenTypo, GreetTypo, LeftContainer, Logo, Logout, Notice, RightContainer, Root, Tab } from './styled'
+import {
+  GreenTypo,
+  GreetTypo,
+  LeftContainer,
+  Logo,
+  Logout,
+  Notice,
+  RightContainer,
+  Root,
+  SelectedTabItem,
+  TabItem,
+  TabList,
+} from './styled'
 import { tabList } from 'utils/helper'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import logo from 'assets/images/logo.png'
+import { Globals } from 'types'
 
 type HeaderSectionProps = {}
 
 export const HeaderSection: FC<HeaderSectionProps> = () => {
+  const currentTab = useSelector((state: Globals) => state.currentTab)
   const dispatch = useDispatch()
   return (
     <Root>
       <LeftContainer>
         <Logo src={logo} />
-        <Tab>
-          {tabList.map((item, index) => (
-            <div
-              key={index}
-              onClick={() => {
-                dispatch({ type: 'CHANGE_TAB', value: index })
-              }}
-            >
-              {item.title}
-            </div>
-          ))}
-        </Tab>
+        <TabList>
+          {tabList.map((item, index) =>
+            index === currentTab ? (
+              <SelectedTabItem
+                key={index}
+                onClick={() => {
+                  dispatch({ type: 'CHANGE_TAB', value: index })
+                }}
+              >
+                {item.title}
+              </SelectedTabItem>
+            ) : (
+              <TabItem
+                key={index}
+                onClick={() => {
+                  dispatch({ type: 'CHANGE_TAB', value: index })
+                }}
+              >
+                {item.title}
+              </TabItem>
+            )
+          )}
+        </TabList>
       </LeftContainer>
       <RightContainer>
         <GreetTypo>
