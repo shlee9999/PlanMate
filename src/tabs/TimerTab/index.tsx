@@ -20,17 +20,30 @@ import {
   LeftContainer,
   StatsContainer,
   RightContainer,
+  AddButton,
+  PlusImg,
 } from './styled'
 import TimerWidget from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
+import SubjectModal from 'components/Modals/Modal'
+import plusImg from 'assets/images/plus.png'
 
 type TimerTabProps = {}
 
 export const TimerTab: FC<TimerTabProps> = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const store = useSelector((state: Globals) => state.todos)
   const [mode, setMode] = useState<string>('study')
   const formattedDate: string = useFormattedDate()
-
+  const [modalTitle, setModalTitle] = useState<string>('')
+  const openModal = (): void => {
+    const modeName = mode === 'study' ? '과목' : '종목'
+    setModalTitle(modeName + ' 추가')
+    setIsModalOpen(true)
+  }
+  const closeModal = (): void => {
+    setIsModalOpen(false)
+  }
   const onClickModeSelector = (selectedMode: string) => () => {
     setMode(selectedMode)
   }
@@ -75,6 +88,12 @@ export const TimerTab: FC<TimerTabProps> = () => {
             )
         )}
       </TodoContainer>
+      <AddButton onClick={openModal}>
+        <PlusImg src={plusImg}></PlusImg>
+        {mode === 'study' ? '과목' : '운동'}
+      </AddButton>
+
+      <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
     </Root>
   )
 }

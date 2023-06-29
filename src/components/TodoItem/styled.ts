@@ -1,15 +1,12 @@
 import styled from 'styled-components'
 import 'globals.css'
-type StyledTodoItemProps = {
-  backgroundColor: string
-}
-export const Root = styled.div<StyledTodoItemProps>`
+
+export const Root = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
   border-bottom: 1px solid #dee2e6;
-  background-color: ${(props) => props.backgroundColor || 'pink'};
 `
 
 export const LeftWrapper = styled.div`

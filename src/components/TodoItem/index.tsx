@@ -49,7 +49,7 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
     setIsEllipsisOpen(false)
   }
   return (
-    <Root backgroundColor={todo.category === 'study' ? 'pink' : 'skyblue'}>
+    <Root>
       <LeftWrapper>
         {isTodoTimerRunning ? (
           <PauseButton color={buttonColor} onClick={handleOnPause}>
