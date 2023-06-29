@@ -1,6 +1,6 @@
 //수험정보 탭
 
-import { ExamInfoItem } from 'components/ExamInfoItem'
+import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
 
 const exampleInfo = {
   title: '예시',

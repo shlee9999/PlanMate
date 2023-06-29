@@ -32,16 +32,14 @@ export const IconContainer = styled.div`
   bottom: 10px;
   display: flex;
   column-gap: 8px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12.5px;
 `
-export const ImgInfoWrapper = styled.div`
+export const IconCountWrapper = styled.div`
   display: flex;
 `
 export const Icon = styled.img`
   width: 12px;
   height: 12px;
-`
-export const IconCount = styled.div`
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 12.5px;
 `

@@ -1,9 +1,8 @@
 import { FC } from 'react'
 import {
   Icon,
-  IconCount,
   IconContainer,
-  ImgInfoWrapper,
+  IconCountWrapper,
   InfoTypo,
   NickName,
   Root,
@@ -27,11 +26,12 @@ type ExamInfoItemProps = {
 /**
  * @title
  * @like
- * @scrap (스크랩 개수)
- * @comment_count (댓글 개수)
- * @nickname (owner_id?)
+ * @scrap 스크랩 개수
+ * @comment_count 댓글 개수
+ * @nickname owner_id?
  * @updated_at (업데이트 시간)
  */
+
 export const ExamInfoItem: FC<ExamInfoItemProps> = ({ title, like, scrap, comment_count, nickname, updated_at }) => {
   return (
     <Root>
@@ -43,18 +43,18 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({ title, like, scrap, commen
         </InfoTypo>
       </TypoWrapper>
       <IconContainer>
-        <ImgInfoWrapper>
+        <IconCountWrapper>
           <Icon alt="comment_icon" src={commentImg} />
-          <IconCount>{comment_count}</IconCount>
-        </ImgInfoWrapper>
-        <ImgInfoWrapper>
+          {comment_count}
+        </IconCountWrapper>
+        <IconCountWrapper>
           <Icon alt="like_icon" src={likeImg} />
-          <IconCount>{like}</IconCount>
-        </ImgInfoWrapper>
-        <ImgInfoWrapper>
+          {like}
+        </IconCountWrapper>
+        <IconCountWrapper>
           <Icon alt="scrap_icon" src={scrapImg} />
-          <IconCount>{scrap}</IconCount>
-        </ImgInfoWrapper>
+          {scrap}
+        </IconCountWrapper>
       </IconContainer>
     </Root>
   )
