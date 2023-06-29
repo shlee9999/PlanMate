@@ -34,5 +34,10 @@
     "scope": "typescript",
     "prefix": "rsc",
     "body": ["import styled from 'styled-components'", "", "export const Root = styled.div``"]
+  },
+  "react-export-const-skeleton": {
+    "scope": "typescript",
+    "prefix": "ec",
+    "body": ["export const "]
   }
 }

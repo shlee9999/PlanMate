@@ -1,9 +1,8 @@
 import React from 'react'
-import { ColorList } from 'utils/helper'
+import { colorList } from 'utils/helper'
 import { Root } from './styled'
 import ColorButton from './ColorButton'
 
-const colorList = ColorList
 const ColorPickerModal = ({
   closeModal,
   assignSubjectColor,
