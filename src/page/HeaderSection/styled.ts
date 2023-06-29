@@ -83,7 +83,7 @@ export const SelectedTabItem = styled.p`
     width: 6px;
     height: 6px;
     position: absolute;
-    bottom: 100%;
+    bottom: 110%;
     left: 50%;
     transform: translateX(-50%);
   }
