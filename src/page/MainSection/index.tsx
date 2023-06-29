@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { Root, AddButton } from './styled'
 import SubjectModal from 'components/Modals/Modal/index'
 
-import { tabList } from 'utils/helper'
+import { tabList, useFormattedDate } from 'utils/helper'
 import { useSelector } from 'react-redux'
 import { Globals } from 'types'
 
@@ -12,6 +12,7 @@ const MainSection: FC<MainSectionProps> = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
   const currentTab = useSelector((state: Globals) => state.currentTab)
+  const formattedDate: string = useFormattedDate()
 
   const openSubjectModal = (): void => {
     setModalTitle('과목 추가')
@@ -27,6 +28,8 @@ const MainSection: FC<MainSectionProps> = () => {
 
   return (
     <Root>
+      <p>{formattedDate}</p>
+
       <div className={tabList[currentTab].wrapper}>{tabList[currentTab].component}</div>
       {currentTab === 0 && <AddButton onClick={openSubjectModal}>과목 추가</AddButton>}
       {currentTab === 0 && <AddButton onClick={openExerciseModal}>종목 추가</AddButton>}

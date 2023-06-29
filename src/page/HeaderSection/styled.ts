@@ -18,3 +18,8 @@ export const TimerWidgetWrapper = styled.div`
   display: flex;
   gap: 1rem;
 `
+
+export const Logo = styled.img`
+  width: 104px;
+  height: 31px;
+`
