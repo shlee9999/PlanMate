@@ -84,7 +84,7 @@ export const TimerTab: FC<TimerTabProps> = () => {
 
       <AddButton onClick={openModal}>
         <PlusImg src={plusImg}></PlusImg>
-        {mode === 'study' ? '과목' : '운동'}
+        {mode === 'study' ? '과목' : '종목'}
       </AddButton>
 
       <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
