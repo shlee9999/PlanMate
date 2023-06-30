@@ -23,7 +23,7 @@ import {
   AddButton,
   PlusImg,
 } from './styled'
-import TimerWidget from 'components/TimerWidget'
+import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
 import SubjectModal from 'components/Modals/Modal'
 import plusImg from 'assets/images/plus.png'
@@ -61,7 +61,7 @@ export const TimerTab: FC<TimerTabProps> = () => {
           </ModeSelectorWrapper>
           <ResultContainer>
             <UpperDescriptionTypo>오늘의 {mode === 'study' ? '공부' : '운동'}량이에요!</UpperDescriptionTypo>
-            <TimerWidget title={mode} />
+            {mode === 'study' ? <StudyTimerWidget /> : <ExerciseTimerWidget />}
             <LowerDescriptionTypo>
               오늘은 휴식 시간을 <YellowTypo>10시간 58분 35초</YellowTypo> 가졌네요!
             </LowerDescriptionTypo>
@@ -75,19 +75,10 @@ export const TimerTab: FC<TimerTabProps> = () => {
       <TodoContainer>
         {store.map(
           (todo: TodoItems) =>
-            todo.category === 'study' && (
-              <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
-            )
+            todo.category === mode && <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
         )}
       </TodoContainer>
-      <TodoContainer>
-        {store.map(
-          (todo: TodoItems) =>
-            todo.category === 'exercise' && (
-              <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
-            )
-        )}
-      </TodoContainer>
+
       <AddButton onClick={openModal}>
         <PlusImg src={plusImg}></PlusImg>
         {mode === 'study' ? '과목' : '운동'}

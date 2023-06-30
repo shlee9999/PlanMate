@@ -10,12 +10,10 @@ const exampleInfo = {
   nickname: '닉네임',
   updated_at: '2023-06-12',
 }
-const Information = () => {
+export const ExamInfoTab = () => {
   return (
     <>
       <ExamInfoItem {...exampleInfo} />
     </>
   )
 }
-
-export default Information

@@ -12,7 +12,6 @@ export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 8px;
 `
 export const Date = styled.p`
   font-size: 12px;
@@ -34,11 +33,12 @@ export const ModeSelector = styled.div`
   width: 96px;
   height: 32px;
   line-height: 32px;
-  border-width: 1px 1px 0px 1px;
-  border-radius: 8px 8px 0px 0px;
+  border-width: 1px 1px 0 1px;
+  border-radius: 8px 8px 0 0;
   border-style: solid;
   border-color: #dddede;
   cursor: pointer;
+  z-index: 99;
 `
 
 export const ResultContainer = styled.div`
@@ -47,9 +47,8 @@ export const ResultContainer = styled.div`
   padding: 32px;
   width: 400px;
   height: 236px;
-  border-radius: 0px 8px 8px 8px;
-  border: 0px 1px 1px 1px;
-  border-width: 0px, 1px, 1px, 1px;
+  border-radius: 0 8px 8px 8px;
+  border-width: 1px 1px 1px 1px;
   border-style: solid;
   border-color: #dddede;
 `

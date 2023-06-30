@@ -12,7 +12,6 @@ export type TodoItemList = Array<TodoItems>
 export type TabInfo = {
   title: string
   component: ReactNode
-  wrapper: string
 }
 
 export type Globals = {

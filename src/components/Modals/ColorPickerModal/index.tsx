@@ -1,5 +1,5 @@
 import React from 'react'
-import { colorList } from 'utils/helper'
+import { colorList } from 'constants/color'
 import { Root } from './styled'
 import ColorButton from './ColorButton'
 
