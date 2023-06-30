@@ -12,10 +12,10 @@ import {
   TabItem,
   TabList,
 } from './styled'
-import { tabList } from 'utils/helper'
 import { useDispatch, useSelector } from 'react-redux'
 import logo from 'assets/images/logo.png'
 import { Globals } from 'types'
+import { tabList } from 'constants/tabList'
 
 type HeaderSectionProps = {}
 
