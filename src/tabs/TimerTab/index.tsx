@@ -22,6 +22,7 @@ import {
   RightContainer,
   AddButton,
   PlusImg,
+  LowerContainer,
 } from './styled'
 import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
@@ -75,17 +76,21 @@ export const TimerTab: FC<TimerTabProps> = () => {
           <StatsContainer></StatsContainer>
         </RightContainer>
       </Banner>
-      <TodoContainer>
-        {store.map(
-          (todo: TodoItems) =>
-            todo.category === mode && <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
-        )}
-      </TodoContainer>
+      <LowerContainer>
+        <TodoContainer>
+          {store.map(
+            (todo: TodoItems) =>
+              todo.category === mode && (
+                <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
+              )
+          )}
+        </TodoContainer>
 
-      <AddButton onClick={openModal}>
-        <PlusImg src={plusImg}></PlusImg>
-        {mode === 'study' ? '과목' : '종목'}
-      </AddButton>
+        <AddButton onClick={openModal}>
+          <PlusImg src={plusImg}></PlusImg>
+          {mode === 'study' ? '과목' : '종목'}
+        </AddButton>
+      </LowerContainer>
 
       <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
     </Root>

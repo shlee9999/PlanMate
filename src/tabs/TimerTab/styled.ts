@@ -14,6 +14,7 @@ export const LeftContainer = styled.div`
   flex-direction: column;
 `
 export const Date = styled.p`
+  margin-bottom: 2px;
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
@@ -23,6 +24,7 @@ export const Title = styled.p`
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
+  margin-bottom: 8px;
 `
 export const ModeSelectorWrapper = styled.div`
   border-collapse: collapse;
@@ -46,7 +48,7 @@ export const ResultContainer = styled.div`
   box-sizing: border-box;
   padding: 32px;
   width: 400px;
-  height: 236px;
+  height: 238px;
   border-radius: 0 8px 8px 8px;
   border-width: 1px 1px 1px 1px;
   border-style: solid;
@@ -85,6 +87,8 @@ export const StatsContainer = styled.div`
   height: 270px;
   border-radius: 10px;
   border: 1px solid #dddede;
+  box-sizing: border-box;
+  padding: 32px;
 `
 
 export const TodoContainer = styled.div`
@@ -92,11 +96,11 @@ export const TodoContainer = styled.div`
   justify-content: center; */
 `
 export const RightContainer = styled.div`
+  box-sizing: border-box;
+  padding-top: 17px;
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
-  row-gap: 8px;
-  padding: 32px;
 `
 
 export const AddButton = styled.button`
@@ -118,4 +122,8 @@ export const AddButton = styled.button`
 export const PlusImg = styled.img`
   width: 15px;
   height: 15px;
+`
+export const LowerContainer = styled.div`
+  position: relative;
+  padding: 100px 160px 0;
 `
