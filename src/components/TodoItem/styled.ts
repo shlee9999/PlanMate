@@ -51,7 +51,6 @@ export const StartButton = styled(CircleButton)`
 export const PauseButton = styled(CircleButton)`
   background: url(${pauseButton}) no-repeat 55% 50%;
   background-size: 21px 21px;
-
   background-color: #1db951;
 `
 
@@ -61,4 +60,8 @@ export const SubjectTitle = styled.p`
 
 export const Time = styled.p`
   font-size: 1.2rem;
+`
+
+export const RunningTime = styled(Time)`
+  color: #01cb45;
 `

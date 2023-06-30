@@ -2,7 +2,17 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormattedTime } from 'utils/helper'
 import { Globals, TodoItems } from 'types'
-import { Root, LeftWrapper, StartButton, PauseButton, SubjectTitle, Time, RightWrapper, EllipsisButton } from './styled'
+import {
+  Root,
+  LeftWrapper,
+  StartButton,
+  PauseButton,
+  SubjectTitle,
+  Time,
+  RightWrapper,
+  EllipsisButton,
+  RunningTime,
+} from './styled'
 import EllipsisModal from 'components/Modals/EllipsisModal'
 import { useTimer } from 'hooks/useTimer'
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
@@ -59,7 +69,7 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
       <RightWrapper>
-        <Time>{formattedTime}</Time>
+        {isTodoTimerRunning ? <RunningTime>{formattedTime}</RunningTime> : <Time>{formattedTime}</Time>}
         <EllipsisButton onClick={handleOnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
       {isEllipsisOpen && (
