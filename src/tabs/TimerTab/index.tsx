@@ -36,6 +36,8 @@ export const TimerTab: FC<TimerTabProps> = () => {
   const [mode, setMode] = useState<string>('study')
   const formattedDate: string = useFormattedDate()
   const [modalTitle, setModalTitle] = useState<string>('')
+  const isRunning = useSelector((state: Globals) => state.isRunning)
+
   const openModal = (): void => {
     const modeName = mode === 'study' ? '과목' : '종목'
     setModalTitle(modeName + ' 추가')
@@ -45,6 +47,7 @@ export const TimerTab: FC<TimerTabProps> = () => {
     setIsModalOpen(false)
   }
   const onClickModeSelector = (selectedMode: string) => () => {
+    if (isRunning) return
     setMode(selectedMode)
   }
   return (
