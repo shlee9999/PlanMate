@@ -45,7 +45,7 @@ export const TimerTab: FC<TimerTabProps> = () => {
 
   const openModal = (): void => {
     const modeName = mode === 'study' ? '과목' : '종목'
-    setModalTitle(modeName + ' 추가')
+    setModalTitle(modeName + '추가')
     setIsModalOpen(true)
   }
   const closeModal = (): void => {
