@@ -30,7 +30,7 @@ import {
 } from './styled'
 import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
-import SubjectModal from 'components/Modals/Modal'
+import SubjectModal from 'components/Modals/SubjectModal'
 import plusImg from 'assets/images/plus.png'
 
 type TimerTabProps = {}

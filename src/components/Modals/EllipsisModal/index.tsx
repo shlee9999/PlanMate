@@ -2,8 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { useDispatch } from 'react-redux'
-import AddSubjectModal from 'components/Modals/Modal'
+import AddSubjectModal from 'components/Modals/SubjectModal'
 import { TodoItems } from 'types'
+import { ModalWrapper } from '../styled'
 const EllipsisModal = ({
   closeModal,
   todo,
@@ -33,7 +34,7 @@ const EllipsisModal = ({
   }
 
   return (
-    <Root onClick={closeModalAll}>
+    <ModalWrapper onClick={closeModalAll}>
       <Root onClick={handleModalClick}>
         <UpdateSubjectButton onClick={handleClickEditButton}>
           {todo.category === 'study' ? '과목 수정' : '종목 수정'}
@@ -50,7 +51,7 @@ const EllipsisModal = ({
           title={todo.category === 'study' ? '과목 수정' : '종목 수정'}
         ></AddSubjectModal>
       )}
-    </Root>
+    </ModalWrapper>
   )
 }
 export default EllipsisModal

@@ -40,7 +40,6 @@ export const ModeSelector = styled.div`
   border-style: solid;
   border-color: #dddede;
   cursor: pointer;
-  z-index: 99;
 `
 
 export const ResultContainer = styled.div`

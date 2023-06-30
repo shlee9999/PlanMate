@@ -1,19 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import {
-  Root,
-  ModalExitButton,
-  ModalFooter,
-  ModalWrapper,
-  InputWrapper,
-  ButtonColor,
-  ModalTitle,
-  NameInput,
-} from '../styled'
+import { Root, ModalExitButton, ModalFooter, InputWrapper, ButtonColor, ModalTitle, NameInput } from '../styled'
 import { TodoItems } from 'types'
 import ColorPickerModal from 'components/Modals/ColorPickerModal'
 import { generateId } from 'utils/helper'
+import { ModalWrapper } from 'components/Modals/styled'
 const DefaultColor: string = '#ff0000' as const
 const AddModal = ({
   isModalOpen,
