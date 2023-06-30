@@ -1,7 +1,7 @@
-import TimerTab from '../tabs/Timer'
-import StatisticsTab from '../tabs/Statistics'
-import PlannerTab from '../tabs/Planner'
-import InformationTab from '../tabs/Information'
+import { ExamInfoTab } from 'tabs/ExamInfoTab'
+import PlannerTab from 'tabs/PlannerTab'
+import StatsTab from 'tabs/StatsTab'
+import { TimerTab } from 'tabs/TimerTab'
 import { TabInfo } from 'types'
 
 export const generateId = (): string => {
@@ -13,29 +13,19 @@ export const generateId = (): string => {
 export const week = ['일', '월', '화', '수', '목', '금', '토']
 
 export const tabList: Array<TabInfo> = [
-  { title: '타이머', component: <TimerTab />, wrapper: 'timer_tab_wrapper' },
+  { title: '타이머', component: <TimerTab /> },
   {
     title: '통계',
-    component: <StatisticsTab />,
-    wrapper: 'statistics_tab_wrapper',
+    component: <StatsTab />,
   },
   {
     title: '플래너',
     component: <PlannerTab />,
-    wrapper: 'planner_tab_wrapper',
   },
   {
     title: '수험정보',
-    component: <InformationTab />,
-    wrapper: 'information_tab_wrapper',
+    component: <ExamInfoTab />,
   },
-]
-
-export const colorList = [
-  ['#ff0000', '#ff3300', '#ff6600', '#ff9900', '#ffcc00'],
-  ['#00ff00', '#33ff00', '#66ff00', '#99ff00', '#ccff00'],
-  ['#00ccff', '#0099ff', '#0066ff', '#0033ff', '#0000ff'],
-  ['#cc00ff', '#9900ff', '#6600ff', '#3300ff', '#00ffff'],
 ]
 
 export const useFormattedTime = (time: number) => {
@@ -57,6 +47,6 @@ export const useFormattedDate = (): string => {
   const month: string = `${now.getMonth() + 1}`.padStart(2, '0')
   const date: string = `${now.getDate()}`.padStart(2, '0')
   const day: number = now.getDay()
-  const formattedDate: string = month + '.' + date + '(' + week[day] + ')'
+  const formattedDate: string = month + '월 ' + date + '일 (' + week[day] + ')요일'
   return formattedDate
 }

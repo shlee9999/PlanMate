@@ -8,10 +8,10 @@ export const Root = styled.div`
   box-sizing: border-box;
   padding: 17px 160px 16px 160px;
   width: 100%;
-  height: ${HEADER_HEIGHT};
   display: flex;
   justify-content: space-between;
   box-shadow: 0px 4px 8px 0px #00000014;
+  height: ${HEADER_HEIGHT};
 `
 export const TimerWidgetWrapper = styled.div`
   position: absolute;
