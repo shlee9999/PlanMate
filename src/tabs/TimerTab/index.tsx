@@ -23,6 +23,10 @@ import {
   AddButton,
   PlusImg,
   LowerContainer,
+  CheerTypo,
+  Test,
+  Dday,
+  GreenTypo,
 } from './styled'
 import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
@@ -77,6 +81,13 @@ export const TimerTab: FC<TimerTabProps> = () => {
         </RightContainer>
       </Banner>
       <LowerContainer>
+        <CheerTypo>
+          <Test>감평사 시험 </Test>까지{' '}
+          <Dday>
+            D- <GreenTypo>191</GreenTypo>{' '}
+          </Dday>
+          조금만 더 힘을 내볼까요? 🏃
+        </CheerTypo>
         <TodoContainer>
           {store.map(
             (todo: TodoItems) =>

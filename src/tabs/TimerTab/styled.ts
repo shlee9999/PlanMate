@@ -127,3 +127,27 @@ export const LowerContainer = styled.div`
   position: relative;
   padding: 100px 160px 0;
 `
+
+export const CheerTypo = styled.div`
+  position: absolute;
+  top: 8px;
+  left: 162px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444444;
+  line-height: 18px;
+`
+export const Dday = styled.span`
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  color: #444444;
+`
+
+export const GreenTypo = styled.span`
+  color: #10d178;
+  word-wrap: break-word;
+`
+export const Test = styled.span`
+  font-weight: 700;
+`
