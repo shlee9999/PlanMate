@@ -1,8 +1,6 @@
 import { styled } from 'styled-components'
 import modalExitButton from 'assets/images/modal_exit_button.png'
 
-const FOOTER_HEIGHT = 40
-
 export const Root = styled.div`
   width: 320px;
   height: 266px;
@@ -83,24 +81,6 @@ export const ColorPickerButton = styled.button`
   border: 1px solid #dddede;
   box-sizing: border-box;
   padding: 12px 8px 10px;
-`
-export const FooterButton = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: ${FOOTER_HEIGHT}px;
-  height: ${FOOTER_HEIGHT}px;
-  text-align: center;
-  width: 50%;
-`
-
-export const ExitButton = styled(FooterButton)`
-  color: #666666;
-  border-top: 1px solid #dddede;
-`
-export const OKButton = styled(FooterButton)`
-  color: #ffffff;
-  background-color: #01cb45;
-  border: 1px solid #1db951;
 `
 
 export const ButtonTypoWrapper = styled.div`

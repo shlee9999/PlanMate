@@ -9,14 +9,12 @@ import {
   ColorPickerButton,
   ModalTitle,
   NameInput,
-  ExitButton,
-  OKButton,
   ButtonTypoWrapper,
 } from '../styled'
 import { TodoItems } from 'types'
 import ColorPickerModal from 'components/Modals/ColorPickerModal'
 import { generateId } from 'utils/helper'
-import { ModalWrapper } from 'components/Modals/styled'
+import { ConfirmButton, ExitButton, ModalWrapper } from 'components/Modals/styled'
 const DefaultColor: string = '#ff0000' as const
 const AddModal = ({
   isModalOpen,
@@ -106,7 +104,7 @@ const AddModal = ({
           </InputWrapper>
           <ModalFooter>
             <ExitButton onClick={closeModalAll}>취소</ExitButton>
-            <OKButton onClick={handleAddConfirm}>확인</OKButton>
+            <ConfirmButton onClick={handleAddConfirm}>확인</ConfirmButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
             <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+const FOOTER_HEIGHT = 40
 
 export const ModalWrapper = styled.div`
   position: fixed;
@@ -8,10 +9,22 @@ export const ModalWrapper = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 `
-// export const InputButtonSkeleton = styled.div`
-//   width: 208px;
-//   height: 40px;
-//   border-radius: 8px;
-//   border: 1px solid #dddede;
-//   color: #dddede;
-// `
+
+export const FooterButton = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: ${FOOTER_HEIGHT}px;
+  height: ${FOOTER_HEIGHT}px;
+  text-align: center;
+  width: 50%;
+`
+
+export const ExitButton = styled(FooterButton)`
+  color: #666666;
+  border-top: 1px solid #dddede;
+`
+export const ConfirmButton = styled(FooterButton)`
+  color: #ffffff;
+  background-color: #01cb45;
+  border: 1px solid #1db951;
+`

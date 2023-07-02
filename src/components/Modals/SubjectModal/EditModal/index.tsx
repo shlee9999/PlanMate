@@ -1,21 +1,10 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-
-import {
-  Root,
-  ModalExitButton,
-  ModalFooter,
-  InputWrapper,
-  ColorPickerButton,
-  ModalTitle,
-  NameInput,
-  ExitButton,
-  OKButton,
-} from '../styled'
+import { Root, ModalExitButton, ModalFooter, InputWrapper, ColorPickerButton, ModalTitle, NameInput } from '../styled'
 import { TodoItems } from 'types'
 import ColorPickerModal from '../../ColorPickerModal'
-import { ModalWrapper } from 'components/Modals/styled'
+import { ConfirmButton, ExitButton, ModalWrapper } from 'components/Modals/styled'
 
 const EditModal = ({
   isModalOpen,
@@ -104,7 +93,7 @@ const EditModal = ({
           </InputWrapper>
           <ModalFooter>
             <ExitButton onClick={closeModalAll}>취소</ExitButton>
-            <OKButton onClick={handleEditConfirm}>확인</OKButton>
+            <ConfirmButton onClick={handleEditConfirm}>확인</ConfirmButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
             <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
