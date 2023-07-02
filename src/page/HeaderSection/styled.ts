@@ -1,13 +1,15 @@
-import { HEADER_HEIGHT } from 'constants/layout'
+import { HEADER_HEIGHT, MAX_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 import yellowCircle from 'assets/images/yellow_circle.png'
 export const Root = styled.div`
+  max-width: ${MAX_WIDTH}px;
   position: fixed;
-  left: 0;
+  left: 50%;
   top: 0;
+  transform: translate(-50%);
   box-sizing: border-box;
   padding: 17px 160px 16px 160px;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   box-shadow: 0px 4px 8px 0px #00000014;
