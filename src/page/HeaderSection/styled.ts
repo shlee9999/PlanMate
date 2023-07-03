@@ -2,18 +2,22 @@ import { HEADER_HEIGHT, MAX_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 import yellowCircle from 'assets/images/yellow_circle.png'
 export const Root = styled.div`
-  max-width: ${MAX_WIDTH}px;
   position: fixed;
   left: 50%;
   top: 0;
   transform: translate(-50%);
-  box-sizing: border-box;
-  padding: 17px 160px 16px 160px;
   width: 100vw;
-  display: flex;
-  justify-content: space-between;
+
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT};
+`
+export const ContentWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: ${MAX_WIDTH}px;
+  padding: 17px 160px 16px 160px;
+  margin: 0 auto;
+  box-sizing: border-box;
 `
 export const TimerWidgetWrapper = styled.div`
   position: absolute;
