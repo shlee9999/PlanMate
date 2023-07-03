@@ -1,8 +1,8 @@
 const RUN_TIMER = 'timer/RUN_TIMER' as const
 const STOP_TIMER = 'timer/STOP_TIMER' as const
 
-const runTimer = () => ({ type: RUN_TIMER })
-const stopTimer = () => ({ type: STOP_TIMER })
+export const runTimer = () => ({ type: RUN_TIMER })
+export const stopTimer = () => ({ type: STOP_TIMER })
 
 type TimerAction = ReturnType<typeof runTimer> | ReturnType<typeof stopTimer>
 
