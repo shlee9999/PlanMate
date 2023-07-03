@@ -14,13 +14,15 @@ const InitialState: ModeState = {
   isStudying: true,
 }
 
-function Mode(state: ModeState = InitialState, action: ModeAction) {
+function mode(state: ModeState = InitialState, action: ModeAction) {
   switch (action.type) {
     case STUDY:
       return { isStudying: true }
     case EXERCISE:
       return { isStudying: false }
+    default:
+      return state
   }
 }
 
-export default Mode
+export default mode

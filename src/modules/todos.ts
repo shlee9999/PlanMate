@@ -1,4 +1,4 @@
-import { TodoItemList, TodoItems } from 'types'
+import { TodoItems } from 'types'
 
 const ADD_TODO = 'todos/ADD_TODO' as const
 const REMOVE_TODO = 'todos/REMOVE_TODO' as const
@@ -33,13 +33,9 @@ function todos(state: TodosState = InitialState, action: TodosAction) {
     case REMOVE_TODO:
       return state.filter((todo) => todo.id !== action.payload)
 
-    case UPDATE_TODO:
-      const updateTodos: TodoItemList = state.map((todo) => {
-        if (todo.id === action.payload.id) return action.payload.todo
-        else return todo
-      })
-      return { ...state, todos: updateTodos }
-
+    case UPDATE_TODO: {
+      return state.map((todo) => (todo.id === action.payload.id ? action.payload.todo : todo))
+    }
     default:
       return state
   }

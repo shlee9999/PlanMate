@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import { Mode, Root, Timer } from '../styled'
 import { useSelector } from 'react-redux'
 import { useFormattedTime } from 'utils/helper'
-import { Globals } from 'types'
 import { useTimer } from 'hooks/useTimer'
+import { RootState } from 'modules'
 
 export const StudyTimerWidget = () => {
-  const isRunning = useSelector((state: Globals) => state.isRunning)
-  const isStudying = useSelector((state: Globals) => state.isStudying)
+  const isRunning = useSelector((state: RootState) => state.timer.isRunning)
+  const isStudying = useSelector((state: RootState) => state.mode.isStudying)
 
   const { startTimer, stopTimer, time } = useTimer({ defaultTime: 0 })
   const formattedTime: string = useFormattedTime(time)

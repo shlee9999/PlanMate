@@ -1,13 +1,11 @@
 import { FC } from 'react'
 import { Root } from './styled'
 import { useSelector } from 'react-redux'
-import { Globals } from 'types'
 import { tabList } from 'constants/tabList'
+import { RootState } from 'modules'
 
-type MainSectionProps = {}
-
-const MainSection: FC<MainSectionProps> = () => {
-  const currentTab = useSelector((state: Globals) => state.currentTab)
+const MainSection: FC = () => {
+  const currentTab = useSelector((state: RootState) => state.tab.currentTab)
 
   return (
     <Root>

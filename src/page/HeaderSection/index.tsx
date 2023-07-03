@@ -14,18 +14,18 @@ import {
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import logo from 'assets/images/logo.png'
-import { Globals } from 'types'
+
 import { tabList } from 'constants/tabList'
+import { changeTab } from 'modules/tab'
+import { RootState } from 'modules'
 
-type HeaderSectionProps = {}
-
-export const HeaderSection: FC<HeaderSectionProps> = () => {
-  const currentTab = useSelector((state: Globals) => state.currentTab)
-  const isRunning = useSelector((state: Globals) => state.isRunning)
+export const HeaderSection: FC = () => {
+  const currentTab = useSelector((state: RootState) => state.tab.currentTab)
+  const isRunning = useSelector((state: RootState) => state.timer.isRunning)
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
     if (isRunning) return
-    dispatch({ type: 'CHANGE_TAB', value: index })
+    dispatch(changeTab(index))
   }
   return (
     <Root>

@@ -13,10 +13,3 @@ export type TabInfo = {
   title: string
   component: ReactNode
 }
-
-export type Globals = {
-  isRunning: boolean
-  isStudying: boolean
-  todos: TodoItemList
-  currentTab: number
-}
