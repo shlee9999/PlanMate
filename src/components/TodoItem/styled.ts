@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import 'globals.css'
 import startButton from 'assets/images/start_button.png'
 import pauseButton from 'assets/images/pause_button.png'
+import ellipsisButton from 'assets/images/ellipsis.png'
 export const Root = styled.div`
   display: flex;
   justify-content: space-between;
@@ -25,7 +26,7 @@ export const RightWrapper = styled.div`
 export const EllipsisButton = styled.button`
   width: 50px;
   height: 20px;
-  background-image: url('/assets/ellipsis.png');
+  background-image: url(${ellipsisButton});
   background-size: 20px;
   background-repeat: no-repeat;
   background-position-x: 50%;
