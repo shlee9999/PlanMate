@@ -6,6 +6,7 @@ import AddSubjectModal from 'components/Modals/SubjectModal'
 import { TodoItems } from 'types'
 import { ConfirmButton, ExitButton, ModalWrapper } from '../styled'
 import { ModalExitButton, ModalFooter } from '../SubjectModal/styled'
+import { removeTodo } from 'modules/todos'
 const EllipsisModal = ({
   closeModal,
   todo,
@@ -40,7 +41,7 @@ const EllipsisModal = ({
     }
     if (mode === 'delete') {
       if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
-      dispatch({ type: 'DEL_TODO', id: todo.id })
+      dispatch(removeTodo(todo.id))
       closeModalAll()
       return
     }

@@ -15,6 +15,7 @@ import { TodoItems } from 'types'
 import ColorPickerModal from 'components/Modals/ColorPickerModal'
 import { generateId } from 'utils/helper'
 import { ConfirmButton, ExitButton, ModalWrapper } from 'components/Modals/styled'
+import { addTodo } from 'modules/todos'
 const DefaultColor: string = '#ff0000' as const
 const AddModal = ({
   isModalOpen,
@@ -61,7 +62,7 @@ const AddModal = ({
       time: 0,
       id: generateId(),
     }
-    dispatch({ type: 'ADD_TODO', value: newTodoItem })
+    dispatch(addTodo(newTodoItem))
     setInputValue('')
     closeModalAll()
   }

@@ -1,7 +1,7 @@
 //타이머 탭
 import { useSelector } from 'react-redux'
 import TodoItem from 'components/TodoItem/index'
-import { Globals, TodoItems } from 'types'
+import { TodoItems } from 'types'
 import { useState } from 'react'
 import { FC } from 'react'
 import {
@@ -32,16 +32,15 @@ import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
 import SubjectModal from 'components/Modals/SubjectModal'
 import plusImg from 'assets/images/plus.png'
+import { RootState } from 'modules'
 
-type TimerTabProps = {}
-
-export const TimerTab: FC<TimerTabProps> = () => {
+export const TimerTab: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const store = useSelector((state: Globals) => state.todos)
   const [mode, setMode] = useState<string>('study')
   const formattedDate: string = useFormattedDate()
   const [modalTitle, setModalTitle] = useState<string>('')
-  const isRunning = useSelector((state: Globals) => state.isRunning)
+  const isRunning = useSelector((state: RootState) => state.timer.isRunning)
+  const todos = useSelector((state: RootState) => state.todos)
 
   const openModal = (): void => {
     const modeName = mode === 'study' ? '과목' : '종목'
@@ -89,7 +88,7 @@ export const TimerTab: FC<TimerTabProps> = () => {
           조금만 더 힘을 내볼까요? 🏃
         </CheerTypo>
         <TodoContainer>
-          {store.map(
+          {todos.map(
             (todo: TodoItems) =>
               todo.category === mode && (
                 <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />

@@ -5,6 +5,7 @@ import { Root, ModalExitButton, ModalFooter, InputWrapper, ColorPickerButton, Mo
 import { TodoItems } from 'types'
 import ColorPickerModal from '../../ColorPickerModal'
 import { ConfirmButton, ExitButton, ModalWrapper } from 'components/Modals/styled'
+import { updateTodo } from 'modules/todos'
 
 const EditModal = ({
   isModalOpen,
@@ -54,7 +55,7 @@ const EditModal = ({
       time: todo.time,
       id: todo.id,
     }
-    dispatch({ type: 'UPDATE_TODO', value: newTodoItem, id: todo.id })
+    dispatch(updateTodo(newTodoItem, todo.id))
     setInputValue('')
     closeModalAll()
     console.log(todo.id)
