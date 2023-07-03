@@ -21,7 +21,12 @@ type HeaderSectionProps = {}
 
 export const HeaderSection: FC<HeaderSectionProps> = () => {
   const currentTab = useSelector((state: Globals) => state.currentTab)
+  const isRunning = useSelector((state: Globals) => state.isRunning)
   const dispatch = useDispatch()
+  const onClickTabItem = (index: number) => (): void => {
+    if (isRunning) return
+    dispatch({ type: 'CHANGE_TAB', value: index })
+  }
   return (
     <Root>
       <LeftContainer>
@@ -29,21 +34,11 @@ export const HeaderSection: FC<HeaderSectionProps> = () => {
         <TabList>
           {tabList.map((item, index) =>
             index === currentTab ? (
-              <SelectedTabItem
-                key={index}
-                onClick={() => {
-                  dispatch({ type: 'CHANGE_TAB', value: index })
-                }}
-              >
+              <SelectedTabItem key={index} onClick={onClickTabItem(index)}>
                 {item.title}
               </SelectedTabItem>
             ) : (
-              <TabItem
-                key={index}
-                onClick={() => {
-                  dispatch({ type: 'CHANGE_TAB', value: index })
-                }}
-              >
+              <TabItem key={index} onClick={onClickTabItem(index)}>
                 {item.title}
               </TabItem>
             )
