@@ -13,21 +13,21 @@ const reducer = (
   action: any
 ): Globals => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return { ...state, todos: [...state.todos, action.value] }
-    case 'DEL_TODO': {
-      //묶어주지 않으면 eslint lexical 오류 발생
-      const newTodos: TodoItemList = state.todos.filter((todo: TodoItems) => todo.id !== action.id)
-      const newState: Globals = { ...state, todos: newTodos }
-      return newState
-    }
-    case 'UPDATE_TODO': {
-      const updateTodos: TodoItemList = state.todos.map((todo) => {
-        if (todo.id === action.id) return action.value
-        else return todo
-      })
-      return { ...state, todos: updateTodos }
-    }
+    // case 'ADD_TODO':
+    //   return { ...state, todos: [...state.todos, action.value] }
+    // case 'DEL_TODO': {
+    //   //묶어주지 않으면 eslint lexical 오류 발생
+    //   const newTodos: TodoItemList = state.todos.filter((todo: TodoItems) => todo.id !== action.id)
+    //   const newState: Globals = { ...state, todos: newTodos }
+    //   return newState
+    // }
+    // case 'UPDATE_TODO': {
+    //   const updateTodos: TodoItemList = state.todos.map((todo) => {
+    //     if (todo.id === action.id) return action.value
+    //     else return todo
+    //   })
+    //   return { ...state, todos: updateTodos }
+    // }
     case 'RUN_TIMER':
       return { ...state, isRunning: true }
     case 'STOP_TIMER':
