@@ -7,7 +7,6 @@ export const Root = styled.div`
   top: 0;
   transform: translate(-50%);
   width: 100vw;
-
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT};
 `
@@ -18,14 +17,6 @@ export const ContentWrapper = styled.div`
   padding: 17px 160px 16px 160px;
   margin: 0 auto;
   box-sizing: border-box;
-`
-export const TimerWidgetWrapper = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: 1rem;
 `
 export const LeftContainer = styled.div`
   display: flex;
