@@ -39,5 +39,32 @@
     "scope": "typescript",
     "prefix": "ec",
     "body": ["export const "]
+  },
+  "redux-reducer-skeleton": {
+    "scope": "typescript",
+    "prefix": "rrs",
+    "body": [
+      "const CHANGE_${TM_FILENAME_BASE/(.*)/${1:/upcase}/} = 'timer/CHANGE_TAB' as const",
+      "",
+      "export const change${TM_FILENAME_BASE}$1 = () => ({ type: CHANGE_${TM_FILENAME_BASE/(.*)/${1:/upcase}/} })",
+      "",
+      "type ${TM_FILENAME_BASE}$1Action = ReturnType<typeof change${TM_FILENAME_BASE}$1>",
+      "",
+      "type ${TM_FILENAME_BASE}$1State = { currentTab: number }",
+      "",
+      "const InitialState: ${TM_FILENAME_BASE}$1State = {currentTab: 0,}",
+      "",
+      "function ${TM_FILENAME_BASE}(state: ${TM_FILENAME_BASE}$1State = InitialState, action: ${TM_FILENAME_BASE}$1Action) {",
+      "",
+      "switch (action.type) {",
+      "",
+      "case CHANGE_${TM_FILENAME_BASE/(.*)/${1:/upcase}/}: return ",
+      "",
+      "default: return state}",
+      "",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}"
+    ]
   }
 }
