@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import {
+  ContentWrapper,
   GreenTypo,
   GreetTypo,
   LeftContainer,
@@ -29,30 +30,32 @@ export const HeaderSection: FC = () => {
   }
   return (
     <Root>
-      <LeftContainer>
-        <Logo src={logo} />
-        <TabList>
-          {tabList.map((item, index) =>
-            index === currentTab ? (
-              <SelectedTabItem key={index} onClick={onClickTabItem(index)}>
-                {item.title}
-              </SelectedTabItem>
-            ) : (
-              <TabItem key={index} onClick={onClickTabItem(index)}>
-                {item.title}
-              </TabItem>
-            )
-          )}
-        </TabList>
-      </LeftContainer>
-      <RightContainer>
-        <GreetTypo>
-          안녕하세요, <GreenTypo>메이트</GreenTypo>님!
-          {/* 닉네임으로 변경 */}
-        </GreetTypo>
-        <Logout>로그아웃</Logout>
-        <Notice>공지사항</Notice>
-      </RightContainer>
+      <ContentWrapper>
+        <LeftContainer>
+          <Logo src={logo} />
+          <TabList>
+            {tabList.map((item, index) =>
+              index === currentTab ? (
+                <SelectedTabItem key={index} onClick={onClickTabItem(index)}>
+                  {item.title}
+                </SelectedTabItem>
+              ) : (
+                <TabItem key={index} onClick={onClickTabItem(index)}>
+                  {item.title}
+                </TabItem>
+              )
+            )}
+          </TabList>
+        </LeftContainer>
+        <RightContainer>
+          <GreetTypo>
+            안녕하세요, <GreenTypo>메이트</GreenTypo>님!
+            {/* 닉네임으로 변경 */}
+          </GreetTypo>
+          <Logout>로그아웃</Logout>
+          <Notice>공지사항</Notice>
+        </RightContainer>
+      </ContentWrapper>
     </Root>
   )
 }
