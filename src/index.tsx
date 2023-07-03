@@ -28,10 +28,10 @@ const reducer = (
     //   })
     //   return { ...state, todos: updateTodos }
     // }
-    case 'RUN_TIMER':
-      return { ...state, isRunning: true }
-    case 'STOP_TIMER':
-      return { ...state, isRunning: false }
+    // case 'RUN_TIMER':
+    //   return { ...state, isRunning: true }
+    // case 'STOP_TIMER':
+    //   return { ...state, isRunning: false }
     case 'EXERCISE':
       return { ...state, isStudying: false }
     case 'STUDY':
