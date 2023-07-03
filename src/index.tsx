@@ -36,8 +36,6 @@ const reducer = (
       return { ...state, isStudying: false }
     case 'STUDY':
       return { ...state, isStudying: true }
-    case 'UPDATE_COLOR':
-      return { ...state, todos: [...state.todos, action.color] }
     case 'CHANGE_TAB':
       return { ...state, currentTab: action.value }
     default:
