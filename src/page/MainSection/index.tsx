@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Root } from './styled'
-import { tabList } from 'utils/helper'
 import { useSelector } from 'react-redux'
 import { Globals } from 'types'
+import { tabList } from 'constants/tabList'
 
 type MainSectionProps = {}
 

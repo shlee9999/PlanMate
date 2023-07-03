@@ -1,19 +1,10 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-
-import {
-  Root,
-  ModalExitButton,
-  ModalFooter,
-  ModalWrapper,
-  InputWrapper,
-  ButtonColor,
-  ModalTitle,
-  NameInput,
-} from '../styled'
+import { Root, ModalExitButton, ModalFooter, InputWrapper, ColorPickerButton, ModalTitle, NameInput } from '../styled'
 import { TodoItems } from 'types'
 import ColorPickerModal from '../../ColorPickerModal'
+import { ConfirmButton, ExitButton, ModalWrapper } from 'components/Modals/styled'
 
 const EditModal = ({
   isModalOpen,
@@ -88,7 +79,7 @@ const EditModal = ({
       <ModalWrapper onClick={closeModalAll}>
         <Root onClick={handleModalClick}>
           <ModalTitle>{title}</ModalTitle>
-          <ModalExitButton onClick={closeModalAll}>X</ModalExitButton>
+          <ModalExitButton onClick={closeModalAll} />
           <InputWrapper>
             <NameInput
               defaultValue={todo.title}
@@ -96,13 +87,13 @@ const EditModal = ({
               onKeyDown={handleOnKeyDown}
               ref={inputRef}
             />
-            <ButtonColor onClick={handleOnClickColorButton} color={subjectColor}>
+            <ColorPickerButton onClick={handleOnClickColorButton} color={subjectColor}>
               {title.slice(0, 2)}색상
-            </ButtonColor>
+            </ColorPickerButton>
           </InputWrapper>
           <ModalFooter>
-            <button onClick={closeModalAll}>취소</button>
-            <button onClick={handleEditConfirm}>확인</button>
+            <ExitButton onClick={closeModalAll}>취소</ExitButton>
+            <ConfirmButton onClick={handleEditConfirm}>확인</ConfirmButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
             <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />

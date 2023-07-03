@@ -22,10 +22,15 @@ import {
   RightContainer,
   AddButton,
   PlusImg,
+  LowerContainer,
+  CheerTypo,
+  Test,
+  Dday,
+  GreenTypo,
 } from './styled'
 import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
-import SubjectModal from 'components/Modals/Modal'
+import SubjectModal from 'components/Modals/SubjectModal'
 import plusImg from 'assets/images/plus.png'
 
 type TimerTabProps = {}
@@ -36,15 +41,18 @@ export const TimerTab: FC<TimerTabProps> = () => {
   const [mode, setMode] = useState<string>('study')
   const formattedDate: string = useFormattedDate()
   const [modalTitle, setModalTitle] = useState<string>('')
+  const isRunning = useSelector((state: Globals) => state.isRunning)
+
   const openModal = (): void => {
     const modeName = mode === 'study' ? '과목' : '종목'
-    setModalTitle(modeName + ' 추가')
+    setModalTitle(modeName + '추가')
     setIsModalOpen(true)
   }
   const closeModal = (): void => {
     setIsModalOpen(false)
   }
   const onClickModeSelector = (selectedMode: string) => () => {
+    if (isRunning) return
     setMode(selectedMode)
   }
   return (
@@ -72,17 +80,28 @@ export const TimerTab: FC<TimerTabProps> = () => {
           <StatsContainer></StatsContainer>
         </RightContainer>
       </Banner>
-      <TodoContainer>
-        {store.map(
-          (todo: TodoItems) =>
-            todo.category === mode && <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
-        )}
-      </TodoContainer>
+      <LowerContainer>
+        <CheerTypo>
+          <Test>감평사 시험 </Test>까지{' '}
+          <Dday>
+            D- <GreenTypo>191</GreenTypo>{' '}
+          </Dday>
+          조금만 더 힘을 내볼까요? 🏃
+        </CheerTypo>
+        <TodoContainer>
+          {store.map(
+            (todo: TodoItems) =>
+              todo.category === mode && (
+                <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
+              )
+          )}
+        </TodoContainer>
 
-      <AddButton onClick={openModal}>
-        <PlusImg src={plusImg}></PlusImg>
-        {mode === 'study' ? '과목' : '운동'}
-      </AddButton>
+        <AddButton onClick={openModal}>
+          <PlusImg src={plusImg}></PlusImg>
+          {mode === 'study' ? '과목' : '종목'}
+        </AddButton>
+      </LowerContainer>
 
       <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
     </Root>

@@ -36,23 +36,21 @@ export const EllipsisButton = styled.button`
 `
 
 export const CircleButton = styled.button`
+  border: 1px solid #1db951;
   border-radius: 50%;
   cursor: pointer;
   width: 46px;
   height: 46px;
-  border: 1px solid #1db951;
 `
 
 export const StartButton = styled(CircleButton)`
-  background: url(${startButton}) no-repeat 0 0;
+  background: url(${startButton}) no-repeat 55% 50%;
   background-size: 21px 21px;
-  background-position: center;
 `
 
 export const PauseButton = styled(CircleButton)`
-  background: url(${pauseButton}) no-repeat 50% 0;
+  background: url(${pauseButton}) no-repeat 55% 50%;
   background-size: 21px 21px;
-  background-position: center;
   background-color: #1db951;
 `
 
@@ -62,4 +60,8 @@ export const SubjectTitle = styled.p`
 
 export const Time = styled.p`
   font-size: 1.2rem;
+`
+
+export const RunningTime = styled(Time)`
+  color: #01cb45;
 `
