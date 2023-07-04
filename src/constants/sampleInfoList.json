@@ -1,0 +1,28 @@
+{
+  "post_info_list": [
+    {
+      "title": "예시",
+      "like": 5,
+      "scrap": 2,
+      "comment_count": 3,
+      "nickname": "닉네임",
+      "updated_at": "2023-06-12"
+    },
+    {
+      "title": "예시",
+      "like": 10,
+      "scrap": 24,
+      "comment_count": 30,
+      "nickname": "닉네임",
+      "updated_at": "2023-06-12"
+    },
+    {
+      "title": "예시",
+      "like": 114,
+      "scrap": 32,
+      "comment_count": 102,
+      "nickname": "닉네임",
+      "updated_at": "2023-06-12"
+    }
+  ]
+}

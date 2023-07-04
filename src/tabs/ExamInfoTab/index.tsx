@@ -1,19 +1,14 @@
 //수험정보 탭
 
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
-
-const exampleInfo = {
-  title: '예시',
-  like: 1,
-  scrap: 2,
-  comment_count: 3,
-  nickname: '닉네임',
-  updated_at: '2023-06-12',
-}
+import { Root } from './styled'
+import sampleInfoList from 'constants/sampleInfoList.json'
 export const ExamInfoTab = () => {
   return (
-    <>
-      <ExamInfoItem {...exampleInfo} />
-    </>
+    <Root>
+      {sampleInfoList.post_info_list.map((sampleInfo, index) => (
+        <ExamInfoItem {...sampleInfo} key={index} />
+      ))}
+    </Root>
   )
 }
