@@ -19,15 +19,25 @@ import logo from 'assets/images/logo.png'
 import { tabList } from 'constants/tabList'
 import { changeTab } from 'modules/tab'
 import { RootState } from 'modules'
+import { createPost } from 'api/createPost'
 
 export const HeaderSection: FC = () => {
   const currentTab = useSelector((state: RootState) => state.tab.currentTab)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
+    createPost({
+      content: 'str',
+      id: 2,
+      tagList: ['str1', 'str2'],
+      title: 'string',
+    }).then((response: any) => {
+      // console.log(response)
+    })
     if (isRunning) return
     dispatch(changeTab(index))
   }
+
   return (
     <Root>
       <ContentWrapper>

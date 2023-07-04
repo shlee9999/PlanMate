@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { authorization } from 'constants/authorization'
+// import { authorization } from 'constants/authorization'
 import { baseUrl } from 'constants/url'
 import { decamelizeKey } from 'utils/decamelizeKey'
 
@@ -7,6 +8,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
   baseURL: baseUrl,
   headers: {
+    'Content-Type': 'application/json',
     Authorization: authorization,
   },
 })
@@ -35,15 +37,10 @@ export const axiosGET = <RequestData, ResponseData>(
 }
 
 export const axiosPOST = <RequestData, ResponseData>(url: string, data?: RequestData, options?: AxiosRequestConfig) => {
+  console.log(data)
   return axiosInstance
-    .post<ResponseData, AxiosResponse<ResponseData>>(
-      url,
-      { ...data },
-      {
-        ...options,
-      }
-    )
-    .then((response) => {
-      return response.data
+    .post<ResponseData, AxiosResponse<ResponseData>>(url, data, {
+      ...options,
     })
+    .then((response) => response.data)
 }
