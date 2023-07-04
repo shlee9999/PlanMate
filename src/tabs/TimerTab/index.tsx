@@ -1,5 +1,5 @@
 //타이머 탭
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import TodoItem from 'components/TodoItem/index'
 import { TodoItems } from 'types'
 import { useState } from 'react'
@@ -33,6 +33,7 @@ import { useFormattedDate } from 'utils/helper'
 import SubjectModal from 'components/Modals/SubjectModal'
 import plusImg from 'assets/images/plus.png'
 import { RootState } from 'modules'
+import { exercise, study } from 'modules/mode'
 
 export const TimerTab: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -41,7 +42,7 @@ export const TimerTab: FC = () => {
   const [modalTitle, setModalTitle] = useState<string>('')
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
   const todos = useSelector((state: RootState) => state.todos)
-
+  const dispatch = useDispatch()
   const openModal = (): void => {
     const modeName = mode === 'study' ? '과목' : '종목'
     setModalTitle(modeName + '추가')
@@ -52,6 +53,8 @@ export const TimerTab: FC = () => {
   }
   const onClickModeSelector = (selectedMode: string) => () => {
     if (isRunning) return
+    if (selectedMode === 'study') dispatch(study())
+    else dispatch(exercise())
     setMode(selectedMode)
   }
   return (
