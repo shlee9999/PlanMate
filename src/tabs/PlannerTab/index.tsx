@@ -1,7 +1,13 @@
 //플래너 탭
+import { Main } from "components/Planner"
 
 const PlannerTab = () => {
-  return <p>Planner</p>
+  return(
+    <div>
+      <Main></Main>
+    </div>
+  ) 
+
 }
 
 export default PlannerTab
