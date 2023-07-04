@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { authorization } from 'constants/authorization'
 import { baseUrl } from 'constants/url'
 import { decamelizeKey } from 'utils/decamelizeKey'
 
@@ -6,7 +7,7 @@ const axiosInstance = axios.create({
   withCredentials: true,
   baseURL: baseUrl,
   headers: {
-    Authorization: 'Your Token',
+    Authorization: authorization,
   },
 })
 
