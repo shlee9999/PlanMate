@@ -3,7 +3,7 @@ import { axiosPOST } from 'api/common/commonAxios'
 
 export type CreatePostRequestProps = {
   content: string
-  id: number
+  id?: number
   tagList: string[]
   title: string
 }
@@ -20,5 +20,5 @@ export type CreatePostResponseProps = {
 }
 
 export const createPost = (obj: CreatePostRequestProps) => {
-  return axiosPOST('/post/create', JSON.stringify(obj))
+  return axiosPOST('/post/create', obj)
 }

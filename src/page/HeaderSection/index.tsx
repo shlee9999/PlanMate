@@ -28,11 +28,10 @@ export const HeaderSection: FC = () => {
   const onClickTabItem = (index: number) => (): void => {
     createPost({
       content: 'str',
-      id: 2,
       tagList: ['str1', 'str2'],
       title: 'string',
     }).then((response: any) => {
-      // console.log(response)
+      console.log(response)
     })
     if (isRunning) return
     dispatch(changeTab(index))
