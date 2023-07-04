@@ -9,6 +9,7 @@ export const Root = styled.div`
   width: 100vw;
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT};
+  background-color: white;
 `
 export const ContentWrapper = styled.div`
   min-width: 1000px;
