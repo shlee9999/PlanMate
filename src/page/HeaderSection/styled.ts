@@ -11,6 +11,7 @@ export const Root = styled.div`
   height: ${HEADER_HEIGHT};
 `
 export const ContentWrapper = styled.div`
+  min-width: 1000px;
   display: flex;
   justify-content: space-between;
   max-width: ${MAX_WIDTH}px;
