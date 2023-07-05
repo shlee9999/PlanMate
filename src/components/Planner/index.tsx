@@ -1,12 +1,18 @@
 import React from 'react'
 
-import Calendar from '@toast-ui/react-calendar/ie11'
-import '@toast-ui/calendar/dist/toastui-calendar.min.css';
+import { WeeklyCalendar } from './Calendar/WeeklyCalendar'
+
 
 export const Main = () => {
   return (
     <div>
-        <Calendar></Calendar>
+      <div>
+        <span>안녕하세요! 메이트 님!</span>
+        <span>플래너</span>
+      </div>
+      <button>일정추가</button>
+      <div>4월 4째주</div>
+      <WeeklyCalendar></WeeklyCalendar>
     </div>
   )
 }
