@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   ContentWrapper,
   GreenTypo,
@@ -22,15 +22,21 @@ import { useLocation, useNavigate } from 'react-router-dom'
 export const HeaderSection: FC = () => {
   const location = useLocation()
   const initialTabIndex = pageList.findIndex((page) => page.url === location.pathname)
+
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
 
   const navigate = useNavigate()
+
   const onClickTabItem = (index: number) => (): void => {
     if (isRunning) return
     setCurrentTab(index)
     navigate(pageList[index].url)
   }
+
+  useEffect(() => {
+    if (location.pathname === '/') navigate('/timer')
+  }, [location.pathname, navigate])
 
   return (
     <Root>
