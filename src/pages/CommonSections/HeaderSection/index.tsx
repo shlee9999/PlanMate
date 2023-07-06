@@ -21,7 +21,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 export const HeaderSection: FC = () => {
   const location = useLocation()
-  const initialTabIndex = pageList.findIndex((page) => page.url === location.pathname)
+  const initialTabIndex = pageList.findIndex((page) => location.pathname.includes(page.url))
 
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
