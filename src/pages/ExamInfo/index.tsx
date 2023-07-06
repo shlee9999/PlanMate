@@ -1,11 +1,13 @@
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
 import {
   BulletinButton,
+  BulletinIcon,
   CurrentPageNumberTypo,
   ExamInfoWrapper,
   LeftArrowImg,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
+  NoPostTypo,
   PageNumberTypo,
   PageNumberWrapper,
   PaginationWrapper,
@@ -63,7 +65,6 @@ export const ExamInfoPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [examInfoList])
 
-  if (examInfoList.length === 0) return <Root>등록된 게시물이 없습니다.</Root>
   return (
     <Root>
       <TypoWrapper>
@@ -90,14 +91,20 @@ export const ExamInfoPage = () => {
         )}
       </LowerTagButtonWrapper>
       <ExamInfoWrapper>
-        {examInfoList.map((sampleInfo, index) => (
-          <ExamInfoItem {...sampleInfo} key={index} />
-        ))}
+        {examInfoList.length !== 0 ? (
+          examInfoList.map((sampleInfo, index) => <ExamInfoItem {...sampleInfo} key={index} />)
+        ) : (
+          <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
+        )}
         {/* {sampleInfoList.postInfoList.map((sampleInfo, index) => (
         <ExamInfoItem {...sampleInfo} key={index} />
       ))} */}
+
+        <BulletinButton onClick={onClickBulletinButton}>
+          <BulletinIcon />
+          글쓰기
+        </BulletinButton>
       </ExamInfoWrapper>
-      <BulletinButton onClick={onClickBulletinButton}>글쓰기</BulletinButton>
       <PaginationWrapper>
         <LeftArrowImg src={leftArrow} onClick={onClickLeftArrow} />
         <PageNumberWrapper>
