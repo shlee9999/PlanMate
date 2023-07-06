@@ -6,6 +6,7 @@ import { BulletinPage } from 'pages/ExamInfo/BulletinTab'
 import { TimerPage } from 'pages/Timer'
 import StatsPage from 'pages/Stats'
 import PlannerPage from 'pages/Planner'
+import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
 
 export const routerInfo = [
   {
@@ -37,6 +38,10 @@ export const routerInfo = [
       {
         path: 'examinfo/post',
         element: <BulletinPage />,
+      },
+      {
+        path: 'examinfo/detail/:postId',
+        element: <ExamInfoDetailPage />,
       },
       {
         path: '*',

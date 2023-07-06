@@ -1,6 +1,6 @@
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
 import { BulletinButton, Root } from './styled'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { findAll } from 'api/post/find/findAll'
 import { ResponsePostType } from 'api/common/commonType'
 import { useNavigate } from 'react-router-dom'
@@ -18,12 +18,7 @@ export const ExamInfoPage = () => {
       setExamInfoList(res)
     })
   }
-  // useEffect(() => {
-  //   scrollToTop()
-  //   setTimeout(() => {
-  //     loadExamInfoList()
-  //   }, 500)
-  // }, [isBulletin])
+  useEffect(() => {}, [])
 
   return (
     <Root>

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   CommentCount,
   CommentTitle,
@@ -17,17 +17,9 @@ import {
 
 import likeImg from 'assets/images/like.png'
 import scrapImg from 'assets/images/scrap.png'
-
-type ExamInfoDetailProps = {
-  title: string
-  like: number
-  scrap: number
-  commentList: string
-  nickname: string
-  updated_at: string
-  tagList: Array<string>
-  content: string
-}
+import { useParams } from 'react-router-dom'
+import { ResponsePostType } from 'api/common/commonType'
+import { checkPost } from 'api/post/checkPost'
 
 /**
  * @title
@@ -40,41 +32,45 @@ type ExamInfoDetailProps = {
  * @tagList 태그 리스트
  */
 
-export const ExamInfoDetailPage: FC<ExamInfoDetailProps> = ({
-  title,
-  like,
-  scrap,
-  commentList,
-  nickname,
-  updated_at,
-  tagList,
-  content,
-}) => {
+export const ExamInfoDetailPage: FC = () => {
+  const { postId } = useParams()
+  if (!postId) return <Root>Error!</Root>
+
+  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
+
+  useEffect(() => {
+    checkPost({
+      postId: +postId,
+    }).then((res) => {
+      const newExamInfoDetail = res as ResponsePostType
+      setExamInfoDetail(newExamInfoDetail)
+    })
+  }, [])
   return (
     <Root>
       <TitleTypoWrapper>
         <TagWrapper>
-          <Tag>{tagList[0]}</Tag>
+          <Tag>{examInfoDetail?.postTagList[0]}</Tag>
         </TagWrapper>
-        <TitleTypo>{title}</TitleTypo>
-        <UpdatedDate>{updated_at}</UpdatedDate>
+        <TitleTypo>{examInfoDetail?.title}</TitleTypo>
+        <UpdatedDate>{examInfoDetail?.updatedAt}</UpdatedDate>
       </TitleTypoWrapper>
       <Content>
-        {content}
+        {examInfoDetail?.content}
         <IconContainer>
           <IconCountWrapper>
             <Icon alt="like_icon" src={likeImg} />
-            {like}
+            {examInfoDetail?.likeCount}
           </IconCountWrapper>
           <IconCountWrapper>
             <Icon alt="scrap_icon" src={scrapImg} />
-            {scrap}
+            {examInfoDetail?.scrapCount}
           </IconCountWrapper>
         </IconContainer>
       </Content>
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{commentList.length}</CommentCount>개
+          댓글 <CommentCount>{examInfoDetail?.commentCount}</CommentCount>개
         </CommentTitle>
         {/* 댓글 컴포넌트 만들고 Map으로 받아오기 */}
       </CommentWrapper>
