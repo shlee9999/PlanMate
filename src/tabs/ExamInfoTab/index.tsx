@@ -64,7 +64,7 @@ export const ExamInfoTab = () => {
         <PaginationWrapper>
           <LeftArrowImg src={leftArrow} />
           <PageNumberWrapper>
-            {generateArray(Math.floor(currentPage / 10 + 1)).map((num, index) =>
+            {generateArray(Math.floor((currentPage - 1) / 10 + 1)).map((num, index) =>
               num === currentPage ? (
                 <CurrentPageNumberTypo key={index}>{num}</CurrentPageNumberTypo>
               ) : (
