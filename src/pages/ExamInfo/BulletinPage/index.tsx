@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { CancelButton, ContentInput, RegisterButton, Root, TitleInput, WriteTypo } from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
@@ -27,6 +27,9 @@ export const BulletinPage: FC = () => {
   const onClickCancelButton = () => {
     navigate(-1)
   }
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
   return (
     <Root>
       <WriteTypo>글쓰기 ✏️</WriteTypo>
