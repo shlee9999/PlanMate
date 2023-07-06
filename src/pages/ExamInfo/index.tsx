@@ -53,9 +53,11 @@ export const ExamInfoPage = () => {
     }
     loadExamInfo()
   }, [currentPage])
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [examInfoList])
+
   if (examInfoList.length === 0) return <Root>등록된 게시물이 없습니다.</Root>
   return (
     <Root>

@@ -17,7 +17,7 @@ import {
 
 import likeImg from 'assets/images/like.png'
 import scrapImg from 'assets/images/scrap.png'
-import { useParams } from 'react-router-dom'
+import { useLoaderData, useParams } from 'react-router-dom'
 import { ResponsePostType } from 'api/common/commonType'
 import { checkPost } from 'api/post/checkPost'
 
@@ -36,16 +36,8 @@ export const ExamInfoDetailPage: FC = () => {
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
 
-  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
+  const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
 
-  useEffect(() => {
-    checkPost({
-      postId: +postId,
-    }).then((res) => {
-      const newExamInfoDetail = res as ResponsePostType
-      setExamInfoDetail(newExamInfoDetail)
-    })
-  }, [])
   return (
     <Root>
       <TagWrapper>
