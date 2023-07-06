@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { authorization } from 'constants/authorization'
-// import { authorization } from 'constants/authorization'
 import { baseUrl } from 'constants/url'
 
 const axiosInstance = axios.create({

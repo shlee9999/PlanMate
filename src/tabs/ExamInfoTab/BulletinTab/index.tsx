@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react'
-import { CancelButton, ContentInput, RegisterButton, Root, TitleInput } from './styled'
+import { CancelButton, ContentInput, RegisterButton, Root, TitleInput, WriteTypo } from './styled'
 import { createPost } from 'api/post/createPost'
 
 type BulletinTabProps = {
@@ -23,10 +23,12 @@ export const BulletinTab: FC<BulletinTabProps> = ({ cancelBulletin }) => {
     }).then((res) => {
       console.log(res)
     })
+    //등록하시겠습니까? 확인 => cancelBulletin
   }
   return (
     <Root>
-      <TitleInput name="title" value={inputValue.title} onChange={onChange} />
+      <WriteTypo>글쓰기 ✏️</WriteTypo>
+      <TitleInput name="title" value={inputValue.title} onChange={onChange} placeholder="제목을 입력해주세요" />
       <ContentInput name="content" value={inputValue.content} onChange={onChange} />
       <CancelButton onClick={cancelBulletin}>취소</CancelButton>
       <RegisterButton onClick={onClickRegisterButton}>등록</RegisterButton>
