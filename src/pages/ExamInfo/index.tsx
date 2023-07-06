@@ -18,13 +18,16 @@ import leftArrow from 'assets/images/left_arrow.png'
 import rightArrow from 'assets/images/right_arrow.png'
 
 import { useLoaderData, useNavigate } from 'react-router-dom'
+import { findAll } from 'api/post/find/findAll'
+
 export const ExamInfoPage = () => {
-  const [ExamInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
+  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const onClickPageNumber = (page: number) => (): void => {
     setCurrentPage(page)
   }
+
   const onClickRightArrow = () => {
     setCurrentPage((prev) => prev + 1)
   }
@@ -38,12 +41,20 @@ export const ExamInfoPage = () => {
   }
 
   useEffect(() => {
-    window.scrollTo({ top: 0 })
-  }, [])
-  if (ExamInfoList.length === 0) return <Root>등록된 게시물이 없습니다.</Root>
+    async function loadExamInfo() {
+      await findAll({ pages: currentPage - 1 }).then((res) => {
+        setExamInfoList(res as ResponsePostType[])
+      })
+    }
+    loadExamInfo()
+  }, [currentPage])
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [examInfoList])
+  if (examInfoList.length === 0) return <Root>등록된 게시물이 없습니다.</Root>
   return (
     <Root>
-      {ExamInfoList.map((sampleInfo, index) => (
+      {examInfoList.map((sampleInfo, index) => (
         <ExamInfoItem {...sampleInfo} key={index} />
       ))}
       {/* {sampleInfoList.postInfoList.map((sampleInfo, index) => (
