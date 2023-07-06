@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-const HOUR_HEIGHT = 60;
-const HOUR_MARGIN_TOP = 15;
+const HOUR_HEIGHT = 17;
+const HOUR_MARGIN_TOP = 10;
 
 export const Wrapper = styled.div`
     width: calc(100% - 30px);
