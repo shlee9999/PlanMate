@@ -35,7 +35,7 @@ import plusImg from 'assets/images/plus.png'
 import { RootState } from 'modules'
 import { exercise, study } from 'modules/mode'
 
-export const TimerTab: FC = () => {
+export const TimerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [mode, setMode] = useState<string>('study')
   const formattedDate: string = useFormattedDate()

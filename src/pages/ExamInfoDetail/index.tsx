@@ -40,7 +40,7 @@ type ExamInfoDetailProps = {
  * @tagList 태그 리스트
  */
 
-export const ExamInfoDetail: FC<ExamInfoDetailProps> = ({
+export const ExamInfoDetailPage: FC<ExamInfoDetailProps> = ({
   title,
   like,
   scrap,

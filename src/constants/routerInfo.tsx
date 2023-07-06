@@ -1,11 +1,11 @@
 import { HeaderSection } from 'pages/CommonSections/HeaderSection'
 import { Outlet } from 'react-router-dom'
 import { Root } from 'styled'
-import { ExamInfoTab } from 'tabs/ExamInfoTab'
-import { BulletinTab } from 'tabs/ExamInfoTab/BulletinTab'
-import PlannerTab from 'tabs/PlannerTab'
-import StatsTab from 'tabs/StatsTab'
-import { TimerTab } from 'tabs/TimerTab'
+import { ExamInfoPage } from 'pages/ExamInfo'
+import { BulletinPage } from 'pages/ExamInfo/BulletinTab'
+import { TimerPage } from 'pages/Timer'
+import StatsPage from 'pages/Stats'
+import PlannerPage from 'pages/Planner'
 
 export const routerInfo = [
   {
@@ -19,24 +19,24 @@ export const routerInfo = [
     children: [
       {
         path: 'timer',
-        element: <TimerTab />,
+        element: <TimerPage />,
       },
       {
         path: 'stats',
-        element: <StatsTab />,
+        element: <StatsPage />,
       },
       {
         path: 'planner',
-        element: <PlannerTab />,
+        element: <PlannerPage />,
       },
       {
         path: 'examinfo',
-        element: <ExamInfoTab />,
+        element: <ExamInfoPage />,
         // loader: () => {}, //비동기 처리 등
       },
       {
         path: 'examinfo/post',
-        element: <BulletinTab />,
+        element: <BulletinPage />,
       },
       {
         path: '*',

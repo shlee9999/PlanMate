@@ -7,7 +7,7 @@ type InputType = {
   title: string
   content: string
 }
-export const BulletinTab: FC = () => {
+export const BulletinPage: FC = () => {
   const [inputValue, setInputValue] = useState<InputType>({ title: '', content: '' })
   const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value })

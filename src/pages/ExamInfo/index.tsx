@@ -5,7 +5,7 @@ import { findAll } from 'api/post/find/findAll'
 import { ResponsePostType } from 'api/common/commonType'
 import { useNavigate } from 'react-router-dom'
 
-export const ExamInfoTab = () => {
+export const ExamInfoPage = () => {
   const navigate = useNavigate()
   const [ExamInfoList, setExamInfoList] = useState<ResponsePostType[]>([])
   const onClickBulletinButton = (): void => {

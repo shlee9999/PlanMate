@@ -14,11 +14,11 @@ const StatsContainer = styled.div`
   align-items: center;
 `
 
-const StatsTab = () => {
+const StatsPage = () => {
   return (
     <StatsContainer>
       <MenuBox></MenuBox>
     </StatsContainer>
   )
 }
-export default StatsTab
+export default StatsPage
