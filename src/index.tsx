@@ -9,10 +9,8 @@ const store = createStore(rootReducer)
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <HeaderSection />
-      <MainSection />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <HeaderSection />
+    <MainSection />
+  </Provider>
 )

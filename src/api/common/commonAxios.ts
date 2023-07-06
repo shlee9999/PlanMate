@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { authorization } from 'constants/authorization'
-// import { authorization } from 'constants/authorization'
 import { baseUrl } from 'constants/url'
 
 const axiosInstance = axios.create({
@@ -31,5 +30,15 @@ export const axiosPOST = <RequestData, ResponseData>(url: string, data?: Request
         ...options,
       }
     )
+    .then((response) => response.data)
+}
+
+export const axiosDELETE = <RequestData, ResponseData>(
+  url: string,
+  params?: RequestData,
+  options?: AxiosRequestConfig
+) => {
+  return axiosInstance
+    .delete<ResponseData, AxiosResponse<ResponseData>, RequestData>(url, { params, ...options })
     .then((response) => response.data)
 }

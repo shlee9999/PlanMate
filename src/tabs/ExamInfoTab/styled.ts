@@ -6,3 +6,8 @@ export const Root = styled.div`
   align-items: center;
   border: 1px solid red;
 `
+export const BulletinButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
