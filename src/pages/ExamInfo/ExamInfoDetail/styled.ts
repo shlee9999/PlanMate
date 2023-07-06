@@ -1,3 +1,4 @@
+import { TagRoot } from 'styled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -13,14 +14,11 @@ export const TagWrapper = styled.div`
   margin-bottom: 3px;
   margin-left: 10px;
 `
-export const Tag = styled.p`
+export const Tag = styled(TagRoot)`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
   color: #888888;
-  &::before {
-    content: '#';
-  }
 `
 export const TitleTypoWrapper = styled.div`
   position: relative;

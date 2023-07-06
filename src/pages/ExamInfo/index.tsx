@@ -5,14 +5,18 @@ import {
   ExamInfoWrapper,
   LeftArrowImg,
   LowerDescriptionTypo,
+  LowerTagButtonWrapper,
   PageNumberTypo,
   PageNumberWrapper,
   PaginationWrapper,
   RightArrowImg,
   Root,
+  Tag,
+  TagButton,
   TitleTypo,
   TypoWrapper,
   UpperDescriptionTypo,
+  UpperTagButtonWrapper,
 } from './styled'
 import { useEffect, useState } from 'react'
 
@@ -24,6 +28,7 @@ import rightArrow from 'assets/images/right_arrow.png'
 
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { findAll } from 'api/post/find/findAll'
+import { tagList } from 'constants/tagList'
 
 export const ExamInfoPage = () => {
   const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
@@ -66,6 +71,24 @@ export const ExamInfoPage = () => {
         <TitleTypo>수험정보 👀</TitleTypo>
         <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
       </TypoWrapper>
+      <UpperTagButtonWrapper>
+        {tagList.map((tag, index) =>
+          index > 5 ? null : (
+            <TagButton key={index}>
+              <Tag>{tag}</Tag>
+            </TagButton>
+          )
+        )}
+      </UpperTagButtonWrapper>
+      <LowerTagButtonWrapper>
+        {tagList.map((tag, index) =>
+          index <= 5 ? null : (
+            <TagButton key={index}>
+              <Tag>{tag}</Tag>
+            </TagButton>
+          )
+        )}
+      </LowerTagButtonWrapper>
       <ExamInfoWrapper>
         {examInfoList.map((sampleInfo, index) => (
           <ExamInfoItem {...sampleInfo} key={index} />
