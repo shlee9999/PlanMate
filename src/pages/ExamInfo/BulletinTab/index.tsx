@@ -13,8 +13,8 @@ export const BulletinPage: FC = () => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value })
   }
   const navigate = useNavigate()
-  const onClickRegisterButton = () => {
-    createPost({
+  const onClickRegisterButton = async () => {
+    await createPost({
       content: inputValue.content,
       tagList: ['태그1', '태그2'],
       title: inputValue.title,

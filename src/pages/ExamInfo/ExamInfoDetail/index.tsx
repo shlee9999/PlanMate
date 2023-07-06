@@ -3,7 +3,7 @@ import {
   CommentCount,
   CommentTitle,
   CommentWrapper,
-  Content,
+  ContentWrapper,
   Icon,
   IconContainer,
   IconCountWrapper,
@@ -48,14 +48,16 @@ export const ExamInfoDetailPage: FC = () => {
   }, [])
   return (
     <Root>
+      <TagWrapper>
+        {examInfoDetail?.postTagList.map((tag, index) => (
+          <Tag key={index}>{tag}</Tag>
+        ))}
+      </TagWrapper>
       <TitleTypoWrapper>
-        <TagWrapper>
-          <Tag>{examInfoDetail?.postTagList[0]}</Tag>
-        </TagWrapper>
         <TitleTypo>{examInfoDetail?.title}</TitleTypo>
         <UpdatedDate>{examInfoDetail?.updatedAt}</UpdatedDate>
       </TitleTypoWrapper>
-      <Content>
+      <ContentWrapper>
         {examInfoDetail?.content}
         <IconContainer>
           <IconCountWrapper>
@@ -67,7 +69,7 @@ export const ExamInfoDetailPage: FC = () => {
             {examInfoDetail?.scrapCount}
           </IconCountWrapper>
         </IconContainer>
-      </Content>
+      </ContentWrapper>
       <CommentWrapper>
         <CommentTitle>
           댓글 <CommentCount>{examInfoDetail?.commentCount}</CommentCount>개
