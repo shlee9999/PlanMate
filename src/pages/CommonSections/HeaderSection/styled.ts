@@ -10,6 +10,7 @@ export const Root = styled.div`
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT};
   background-color: white;
+  z-index: 1;
 `
 export const ContentWrapper = styled.div`
   min-width: 1000px;

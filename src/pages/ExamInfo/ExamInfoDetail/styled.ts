@@ -3,36 +3,60 @@ import styled from 'styled-components'
 export const Root = styled.div`
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  padding: 40px 184px;
 `
 
+export const TagWrapper = styled.div`
+  display: flex;
+  column-gap: 5px;
+  margin-bottom: 3px;
+  margin-left: 10px;
+`
+export const Tag = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  color: #888888;
+  &::before {
+    content: '#';
+  }
+`
 export const TitleTypoWrapper = styled.div`
   position: relative;
   display: flex;
-  font-size: 12px;
-  font-weight: 400;
-  height: 45px;
+  align-items: end;
+  height: 26px;
+  column-gap: 6px;
+  margin-bottom: 16px;
+  margin-left: 10px;
 `
-export const TagWrapper = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-`
-export const Tag = styled.div``
-export const TitleTypo = styled.div`
+export const TitleTypo = styled.p`
   font-size: 21px;
   font-weight: 700;
 `
-export const UpdatedDate = styled.div``
+export const UpdatedDate = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+  color: #888888;
+  margin-bottom: 2px; //없으면 줄이 안맞음
+`
 export const Nickname = styled.div``
 
-export const Content = styled.div`
+export const ContentWrapper = styled.div`
   /* display: flex;
   flex-direction: column; */
+  position: relative;
   box-sizing: border-box;
   padding: 32px 8px;
   width: 1088px;
   font-size: 14px;
   font-weight: 400;
+  border-top: 2px solid #444444;
+  border-bottom: 1px solid #c6c6c6;
+
+  margin-bottom: 32px;
+  width: 1088px;
 `
 
 export const IconContainer = styled.div`
@@ -46,7 +70,6 @@ export const IconContainer = styled.div`
   line-height: 12.5px;
 `
 export const IconCountWrapper = styled.div`
-  position: absolute;
   right: 25px;
   bottom: 25px;
   display: flex;

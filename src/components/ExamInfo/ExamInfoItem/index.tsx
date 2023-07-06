@@ -15,6 +15,7 @@ import commentImg from 'assets/images/comment.png'
 import likeImg from 'assets/images/like.png'
 import scrapImg from 'assets/images/scrap.png'
 import { ResponsePostType } from 'api/common/commonType'
+import { useNavigate } from 'react-router-dom'
 
 type ExamInfoItemProps = ResponsePostType
 /**
@@ -36,10 +37,14 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
   title,
   updatedAt,
 }) => {
+  const navigate = useNavigate()
+  const onClickTitle = (): void => {
+    navigate(`/examinfo/detail/${postId}`)
+  }
   return (
     <Root>
       <TypoWrapper>
-        <TitleTypo>{title}</TitleTypo>
+        <TitleTypo onClick={onClickTitle}>{title}</TitleTypo>
         <InfoTypo>
           <NickName>{nickname}</NickName>
           <UpdatedDate>{updatedAt}</UpdatedDate>

@@ -6,6 +6,10 @@ import { BulletinPage } from 'pages/ExamInfo/BulletinTab'
 import { TimerPage } from 'pages/Timer'
 import StatsPage from 'pages/Stats'
 import PlannerPage from 'pages/Planner'
+import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
+import { findAll } from 'api/post/find/findAll'
+import { ResponsePostType } from 'api/common/commonType'
+import { checkPost } from 'api/post/checkPost'
 
 export const routerInfo = [
   {
@@ -18,7 +22,7 @@ export const routerInfo = [
     ),
     children: [
       {
-        path: '/',
+        path: '/timer',
         element: <TimerPage />,
       },
       {
@@ -32,11 +36,25 @@ export const routerInfo = [
       {
         path: 'examinfo',
         element: <ExamInfoPage />,
-        // loader: () => {}, //비동기 처리 등
+
+        loader: async (): Promise<ResponsePostType[]> => {
+          return (await findAll({
+            pages: 0,
+          })) as ResponsePostType[]
+        }, //비동기 처리 등
       },
       {
         path: 'examinfo/post',
         element: <BulletinPage />,
+      },
+      {
+        path: 'examinfo/detail/:postId',
+        element: <ExamInfoDetailPage />,
+        loader: async ({ params }: any): Promise<string> => {
+          return (await checkPost({
+            postId: +params.postId,
+          })) as string
+        }, //비동기 처리 등
       },
       {
         path: '*',
