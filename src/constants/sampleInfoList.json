@@ -1,6 +1,7 @@
 {
   "postInfoList": [
     {
+      "commentCount": 0,
       "title": "예시",
       "likeCount": 5,
       "scrapCount": 2,
@@ -11,6 +12,7 @@
       "content": "컨텐츠1"
     },
     {
+      "commentCount": 0,
       "title": "예시",
       "likeCount": 5,
       "scrapCount": 2,
@@ -21,6 +23,7 @@
       "content": "컨텐츠2"
     },
     {
+      "commentCount": 0,
       "title": "예시",
       "likeCount": 5,
       "scrapCount": 2,

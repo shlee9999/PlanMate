@@ -28,3 +28,11 @@ export const useFormattedDate = (): string => {
   const formattedDate: string = month + '월 ' + date + '일 (' + week[day] + ')요일'
   return formattedDate
 }
+
+export const generateArray = (num: number) => {
+  const arr: number[] = []
+  for (let i = num; i < num + 10; i++) {
+    arr.push(i)
+  }
+  return arr
+}
