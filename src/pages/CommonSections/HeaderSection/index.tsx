@@ -16,12 +16,13 @@ import {
 import { useSelector } from 'react-redux'
 import logo from 'assets/images/logo.png'
 import { pageList } from 'constants/pageList'
-
 import { RootState } from 'modules'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const HeaderSection: FC = () => {
-  const [currentTab, setCurrentTab] = useState<number>(0)
+  const location = useLocation()
+  const initialTabIndex = pageList.findIndex((page) => page.url === location.pathname)
+  const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
 
   const navigate = useNavigate()

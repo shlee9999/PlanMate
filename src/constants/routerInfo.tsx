@@ -2,6 +2,7 @@ import { HeaderSection } from 'pages/CommonSections/HeaderSection'
 import { Outlet } from 'react-router-dom'
 import { Root } from 'styled'
 import { ExamInfoTab } from 'tabs/ExamInfoTab'
+import { BulletinTab } from 'tabs/ExamInfoTab/BulletinTab'
 import PlannerTab from 'tabs/PlannerTab'
 import StatsTab from 'tabs/StatsTab'
 import { TimerTab } from 'tabs/TimerTab'
@@ -32,6 +33,10 @@ export const routerInfo = [
         path: 'examinfo',
         element: <ExamInfoTab />,
         // loader: () => {}, //비동기 처리 등
+      },
+      {
+        path: 'examinfo/post',
+        element: <BulletinTab />,
       },
       {
         path: '*',
