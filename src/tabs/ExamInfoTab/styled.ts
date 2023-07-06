@@ -26,6 +26,7 @@ const ArrowImg = styled.img`
   transform: translate(-50%, -50%);
   width: 6px;
   height: 10px;
+  cursor: pointer;
 `
 export const LeftArrowImg = styled(ArrowImg)`
   left: 9px;

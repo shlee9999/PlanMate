@@ -34,6 +34,13 @@ export const ExamInfoTab = () => {
   }
   const onClickPageNumber = (page: number) => (): void => {
     setCurrentPage(page)
+    //
+  }
+  const onClickRightArrow = () => {
+    setCurrentPage((prev) => prev + 1)
+  }
+  const onClickLeftArrow = () => {
+    setCurrentPage((prev) => prev - 1)
   }
   async function loadExamInfoList() {
     await findAll({
@@ -62,9 +69,9 @@ export const ExamInfoTab = () => {
         ))}
         <BulletinButton onClick={onClickBulletinButton}>글쓰기</BulletinButton>
         <PaginationWrapper>
-          <LeftArrowImg src={leftArrow} />
+          <LeftArrowImg src={leftArrow} onClick={onClickLeftArrow} />
           <PageNumberWrapper>
-            {generateArray(Math.floor((currentPage - 1) / 10 + 1)).map((num, index) =>
+            {generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) =>
               num === currentPage ? (
                 <CurrentPageNumberTypo key={index}>{num}</CurrentPageNumberTypo>
               ) : (
@@ -74,7 +81,7 @@ export const ExamInfoTab = () => {
               )
             )}
           </PageNumberWrapper>
-          <RightArrowImg src={rightArrow} />
+          <RightArrowImg src={rightArrow} onClick={onClickRightArrow} />
         </PaginationWrapper>
       </Root>
     )
