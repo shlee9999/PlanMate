@@ -66,5 +66,43 @@
       "",
       "export default ${TM_FILENAME_BASE}"
     ]
+  },
+  "react-post-axios": {
+    "scope": "typescript",
+    "prefix": "api-post",
+    "body": [
+      "import { axiosPOST } from 'api/common/commonAxios'",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps = {",
+      "",
+      "}",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1ResponseProps = {",
+      "",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1 = ({}: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
+      "  return axiosPOST('', {})",
+      "}"
+    ]
+  },
+  "react-get-axios": {
+    "scope": "typescript",
+    "prefix": "api-get",
+    "body": [
+      "import { axiosGET } from 'api/common/commonAxios'",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps = {",
+      "",
+      "}",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1ResponseProps = {",
+      "",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1 = ({}: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
+      "  return axiosGET('', {})",
+      "}"
+    ]
   }
 }

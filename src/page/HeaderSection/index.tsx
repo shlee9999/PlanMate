@@ -19,7 +19,7 @@ import logo from 'assets/images/logo.png'
 import { tabList } from 'constants/tabList'
 import { changeTab } from 'modules/tab'
 import { RootState } from 'modules'
-import { createPost } from 'api/createPost'
+import { createPost } from 'api/post/createPost'
 
 export const HeaderSection: FC = () => {
   const currentTab = useSelector((state: RootState) => state.tab.currentTab)
