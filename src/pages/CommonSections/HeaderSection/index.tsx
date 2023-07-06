@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import {
   ContentWrapper,
   GreenTypo,
@@ -9,23 +9,26 @@ import {
   Notice,
   RightContainer,
   Root,
-  SelectedTabItem,
-  TabItem,
-  TabList,
+  SelectedPageItem,
+  PageItem,
+  PageList,
 } from './styled'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import logo from 'assets/images/logo.png'
-import { tabList } from 'constants/tabList'
-import { changeTab } from 'modules/tab'
+import { pageList } from 'constants/pageList'
+
 import { RootState } from 'modules'
+import { useNavigate } from 'react-router-dom'
 
 export const HeaderSection: FC = () => {
-  const currentTab = useSelector((state: RootState) => state.tab.currentTab)
+  const [currentTab, setCurrentTab] = useState<number>(0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
-  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
   const onClickTabItem = (index: number) => (): void => {
     if (isRunning) return
-    dispatch(changeTab(index))
+    setCurrentTab(index)
+    navigate(pageList[index].url)
   }
 
   return (
@@ -33,19 +36,19 @@ export const HeaderSection: FC = () => {
       <ContentWrapper>
         <LeftContainer>
           <Logo src={logo} />
-          <TabList>
-            {tabList.map((item, index) =>
+          <PageList>
+            {pageList.map((item, index) =>
               index === currentTab ? (
-                <SelectedTabItem key={index} onClick={onClickTabItem(index)}>
+                <SelectedPageItem key={index} onClick={onClickTabItem(index)}>
                   {item.title}
-                </SelectedTabItem>
+                </SelectedPageItem>
               ) : (
-                <TabItem key={index} onClick={onClickTabItem(index)}>
+                <PageItem key={index} onClick={onClickTabItem(index)}>
                   {item.title}
-                </TabItem>
+                </PageItem>
               )
             )}
-          </TabList>
+          </PageList>
         </LeftContainer>
         <RightContainer>
           <GreetTypo>

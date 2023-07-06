@@ -55,20 +55,20 @@ export const Logo = styled.img`
   margin-right: 56px;
 `
 
-export const TabList = styled.div`
+export const PageList = styled.div`
   display: flex;
   column-gap: 16px;
   cursor: pointer;
 `
 
-export const TabItem = styled.p`
+export const PageItem = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0;
 `
 
-export const SelectedTabItem = styled.p`
+export const SelectedPageItem = styled.p`
   position: relative;
   font-size: 14px;
   font-weight: 400;

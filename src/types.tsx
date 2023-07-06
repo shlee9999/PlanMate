@@ -9,7 +9,7 @@ export type TodoItems = {
 }
 export type TodoItemList = Array<TodoItems>
 
-export type TabInfo = {
+export type PageInfo = {
   title: string
-  component: ReactNode
+  url: string
 }
