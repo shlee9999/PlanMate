@@ -100,8 +100,27 @@
       "",
       "}",
       "",
-      "export const ${TM_FILENAME_BASE}$1 = ({}: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
-      "  return axiosGET('', {})",
+      "export const ${TM_FILENAME_BASE}$1 = (req: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
+      "  return axiosGET('', req)",
+      "}"
+    ]
+  },
+  "react-delete-axios": {
+    "scope": "typescript",
+    "prefix": "api-delete",
+    "body": [
+      "import { axiosDELETE } from 'api/common/commonAxios'",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps = {",
+      "",
+      "}",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1ResponseProps = {",
+      "",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1 = (req: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
+      "  return axiosDELETE('', req)",
       "}"
     ]
   }

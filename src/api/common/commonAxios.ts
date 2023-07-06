@@ -33,3 +33,13 @@ export const axiosPOST = <RequestData, ResponseData>(url: string, data?: Request
     )
     .then((response) => response.data)
 }
+
+export const axiosDELETE = <RequestData, ResponseData>(
+  url: string,
+  params?: RequestData,
+  options?: AxiosRequestConfig
+) => {
+  return axiosInstance
+    .delete<ResponseData, AxiosResponse<ResponseData>, RequestData>(url, { params, ...options })
+    .then((response) => response.data)
+}

@@ -1,5 +1,5 @@
-//게시물 생성
 import { axiosPOST } from 'api/common/commonAxios'
+import { ResponsePostType } from '../common/commonType'
 
 export type CreatePostRequestProps = {
   content: string
@@ -8,17 +8,8 @@ export type CreatePostRequestProps = {
   title: string
 }
 
-export type CreatePostResponseProps = {
-  content: string
-  likeCount: 0
-  nickname: string
-  postId: number
-  postTagList: string[]
-  scrapCount: number
-  title: string
-  updatedAt: string
-}
+export type CreatePostResponseProps = ResponsePostType
 
-export const createPost = (obj: CreatePostRequestProps) => {
-  return axiosPOST('/post/create', obj)
+export const createPost = (req: CreatePostRequestProps) => {
+  return axiosPOST('/post/create', req)
 }

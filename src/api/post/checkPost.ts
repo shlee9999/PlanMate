@@ -15,6 +15,6 @@ export type CheckPostResponseProps = {
   updatedAt: string
 }
 
-export const checkPost = ({}: CheckPostRequestProps) => {
-  return axiosGET('', {})
+export const checkPost = (req: CheckPostRequestProps) => {
+  return axiosGET('/post/check', req)
 }
