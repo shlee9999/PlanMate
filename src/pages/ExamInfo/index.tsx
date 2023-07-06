@@ -2,12 +2,17 @@ import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
 import {
   BulletinButton,
   CurrentPageNumberTypo,
+  ExamInfoWrapper,
   LeftArrowImg,
+  LowerDescriptionTypo,
   PageNumberTypo,
   PageNumberWrapper,
   PaginationWrapper,
   RightArrowImg,
   Root,
+  TitleTypo,
+  TypoWrapper,
+  UpperDescriptionTypo,
 } from './styled'
 import { useEffect, useState } from 'react'
 
@@ -54,12 +59,19 @@ export const ExamInfoPage = () => {
   if (examInfoList.length === 0) return <Root>등록된 게시물이 없습니다.</Root>
   return (
     <Root>
-      {examInfoList.map((sampleInfo, index) => (
-        <ExamInfoItem {...sampleInfo} key={index} />
-      ))}
-      {/* {sampleInfoList.postInfoList.map((sampleInfo, index) => (
+      <TypoWrapper>
+        <UpperDescriptionTypo>유용한 정보를 찾아볼까요? </UpperDescriptionTypo>
+        <TitleTypo>수험정보 👀</TitleTypo>
+        <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
+      </TypoWrapper>
+      <ExamInfoWrapper>
+        {examInfoList.map((sampleInfo, index) => (
+          <ExamInfoItem {...sampleInfo} key={index} />
+        ))}
+        {/* {sampleInfoList.postInfoList.map((sampleInfo, index) => (
         <ExamInfoItem {...sampleInfo} key={index} />
       ))} */}
+      </ExamInfoWrapper>
       <BulletinButton onClick={onClickBulletinButton}>글쓰기</BulletinButton>
       <PaginationWrapper>
         <LeftArrowImg src={leftArrow} onClick={onClickLeftArrow} />
