@@ -14,15 +14,9 @@ import {
 import commentImg from 'assets/images/comment.png'
 import likeImg from 'assets/images/like.png'
 import scrapImg from 'assets/images/scrap.png'
+import { ResponsePostType } from 'api/common/commonType'
 
-type ExamInfoItemProps = {
-  title: string
-  like: number
-  scrap: number
-  comment_count: number
-  nickname: string
-  updated_at: string
-}
+type ExamInfoItemProps = ResponsePostType
 /**
  * @title
  * @like
@@ -31,29 +25,37 @@ type ExamInfoItemProps = {
  * @nickname owner_id?
  * @updated_at (업데이트 시간)
  */
-
-export const ExamInfoItem: FC<ExamInfoItemProps> = ({ title, like, scrap, comment_count, nickname, updated_at }) => {
+export const ExamInfoItem: FC<ExamInfoItemProps> = ({
+  content,
+  likeCount,
+  nickname,
+  postId,
+  postTagList,
+  scrapCount,
+  title,
+  updatedAt,
+}) => {
   return (
     <Root>
       <TypoWrapper>
         <TitleTypo>{title}</TitleTypo>
         <InfoTypo>
           <NickName>{nickname}</NickName>
-          <UpdatedDate>{updated_at}</UpdatedDate>
+          <UpdatedDate>{updatedAt}</UpdatedDate>
         </InfoTypo>
       </TypoWrapper>
       <IconContainer>
         <IconCountWrapper>
           <Icon alt="comment_icon" src={commentImg} />
-          {comment_count}
+          {/* {commentCount} */}X
         </IconCountWrapper>
         <IconCountWrapper>
           <Icon alt="like_icon" src={likeImg} />
-          {like}
+          {likeCount}
         </IconCountWrapper>
         <IconCountWrapper>
           <Icon alt="scrap_icon" src={scrapImg} />
-          {scrap}
+          {scrapCount}
         </IconCountWrapper>
       </IconContainer>
     </Root>

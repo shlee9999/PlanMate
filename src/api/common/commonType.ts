@@ -1,6 +1,6 @@
 export type ResponsePostType = {
   content: string
-  likeCount: 0
+  likeCount: number
   nickname: string
   postId: number
   postTagList: string[]
