@@ -4,12 +4,13 @@ export type RemovePostRequestProps = {
   postId: number
 }
 
-export type RemovePostResponseProps = {
-  body: {}
-  statusCode: 'ACCPETED'
-  statusCodeValue: 0
-}
+export type RemovePostResponseProps = any
+// {
+//   body: object
+//   statusCode: 'ACCPETED'
+//   statusCodeValue: 0
+// }
 
 export const removePost = (req: RemovePostRequestProps) => {
-  return axiosDELETE('', req)
+  return axiosDELETE('/post/remove', req)
 }

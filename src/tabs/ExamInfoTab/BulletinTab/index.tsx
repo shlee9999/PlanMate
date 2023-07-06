@@ -23,7 +23,8 @@ export const BulletinTab: FC<BulletinTabProps> = ({ cancelBulletin }) => {
     }).then((res) => {
       console.log(res)
     })
-    //등록하시겠습니까? 확인 => cancelBulletin
+    //등록하시겠습니까? 확인
+    cancelBulletin()
   }
   return (
     <Root>

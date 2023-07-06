@@ -7,5 +7,5 @@ export type ToggleLikeRequestProps = {
 export type ToggleLikeResponseProps = boolean
 
 export const toggleLike = ({}: ToggleLikeRequestProps) => {
-  return axiosPOST('', {})
+  return axiosPOST('/post/like', {})
 }

@@ -2,11 +2,15 @@
 
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
 import { BulletinButton, Root } from './styled'
-import sampleInfoList from 'constants/sampleInfoList.json'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BulletinTab } from './BulletinTab'
+import { findAll } from 'api/post/find/findAll'
+import { ResponsePostType } from 'api/common/commonType'
 
 export const ExamInfoTab = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0 })
+  }
   const [isBulletin, setIsBulletin] = useState<boolean>(false)
   const onClickBulletinButton = () => {
     setIsBulletin(true)
@@ -14,13 +18,25 @@ export const ExamInfoTab = () => {
   const cancelBulletin = (): void => {
     setIsBulletin(false)
   }
-  // useEffect(() => {
-  // checkPost({ postId: 78 }) //여기서 api로 게시물 리스트 호출
-  // }, [])
+  const [ExamInfoList, setExamInfoList] = useState<ResponsePostType[]>([])
+  async function loadExamInfoList() {
+    await findAll({
+      pages: 0,
+    }).then((res: ResponsePostType | any) => {
+      setExamInfoList(res)
+    })
+  }
+  useEffect(() => {
+    scrollToTop()
+    setTimeout(() => {
+      loadExamInfoList()
+    }, 500)
+  }, [isBulletin])
+
   if (!isBulletin)
     return (
       <Root>
-        {sampleInfoList.postInfoList.map((sampleInfo, index) => (
+        {ExamInfoList.map((sampleInfo, index) => (
           <ExamInfoItem {...sampleInfo} key={index} />
         ))}
         <BulletinButton onClick={onClickBulletinButton}>글쓰기</BulletinButton>

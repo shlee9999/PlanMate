@@ -7,5 +7,5 @@ export type ScrapPostRequestProps = {
 export type ScrapPostResponseProps = boolean
 
 export const scrapPost = ({}: ScrapPostRequestProps) => {
-  return axiosPOST('', {})
+  return axiosPOST('/post/scrap', {})
 }

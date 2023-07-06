@@ -26,6 +26,7 @@ type ExamInfoItemProps = ResponsePostType
  * @updated_at (업데이트 시간)
  */
 export const ExamInfoItem: FC<ExamInfoItemProps> = ({
+  commentCount,
   content,
   likeCount,
   nickname,
@@ -47,7 +48,7 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
       <IconContainer>
         <IconCountWrapper>
           <Icon alt="comment_icon" src={commentImg} />
-          {/* {commentCount} */}X
+          {commentCount}
         </IconCountWrapper>
         <IconCountWrapper>
           <Icon alt="like_icon" src={likeImg} />

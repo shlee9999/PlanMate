@@ -1,4 +1,5 @@
 export type ResponsePostType = {
+  commentCount: number
   content: string
   likeCount: number
   nickname: string

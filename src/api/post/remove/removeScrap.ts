@@ -4,12 +4,7 @@ export type RemoveScrapRequestProps = {
   postId: number
 }
 
-export type RemoveScrapResponseProps = {
-  body: {}
-  statusCode: 'ACCPETED'
-  statusCodeValue: 0
-}
-
+export type RemoveScrapResponseProps = any
 export const removeScrap = (req: RemoveScrapRequestProps) => {
-  return axiosDELETE('', req)
+  return axiosDELETE('/post/remove/scrap', req)
 }
