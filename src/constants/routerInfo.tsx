@@ -18,7 +18,7 @@ export const routerInfo = [
     ),
     children: [
       {
-        path: 'timer',
+        path: '/',
         element: <TimerPage />,
       },
       {
