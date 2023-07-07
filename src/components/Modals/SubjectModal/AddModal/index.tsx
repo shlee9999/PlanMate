@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-
+import { defaultColor } from 'constants/color'
 import {
   Root,
   ModalExitButton,
@@ -16,7 +16,7 @@ import ColorPickerModal from 'components/Modals/ColorPickerModal'
 import { generateId } from 'utils/helper'
 import { ConfirmButton, ExitButton, ModalWrapper } from 'components/Modals/styled'
 import { addTodo } from 'modules/todos'
-const DefaultColor: string = '#ff0000' as const
+
 const AddModal = ({
   isModalOpen,
   closeModal,
@@ -27,7 +27,7 @@ const AddModal = ({
   title: string
 }) => {
   const [inputValue, setInputValue] = useState<string>('')
-  const [subjectColor, setSubjectColor] = useState<string>(DefaultColor)
+  const [subjectColor, setSubjectColor] = useState<string>(defaultColor)
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -78,7 +78,7 @@ const AddModal = ({
     if (!inputRef || !inputRef.current) return
     if (isModalOpen) {
       inputRef.current.focus()
-      setSubjectColor(DefaultColor)
+      setSubjectColor(defaultColor)
     }
   }, [isModalOpen])
 

@@ -36,7 +36,6 @@ export const EllipsisButton = styled.button`
 `
 
 export const CircleButton = styled.button`
-  border: 1px solid #1db951;
   border-radius: 50%;
   cursor: pointer;
   width: 46px;
@@ -46,13 +45,13 @@ export const CircleButton = styled.button`
 export const StartButton = styled(CircleButton)`
   background: url(${timerStartButton}) no-repeat 60% 50%;
   background-size: 21px 21px;
-  background-color: #1db951;
+  background-color: ${(props) => props.color};
 `
 
 export const PauseButton = styled(CircleButton)`
   background: url(${timerPauseButton}) no-repeat 50% 50%;
   background-size: 15px 21px;
-  background-color: #1db951;
+  background-color: ${(props) => props.color};
 `
 
 export const SubjectTitle = styled.p`
