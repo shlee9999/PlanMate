@@ -6,6 +6,7 @@ export const Root = styled.div`
   min-width: ${MIN_WIDTH}px;
   position: relative;
   margin-top: ${HEADER_HEIGHT}px;
+  background-color: red;
 `
 
 export const TagRoot = styled.p`
