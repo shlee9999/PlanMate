@@ -87,7 +87,9 @@ export const BulletinButton = styled.button`
 
 export const GreenBulletinIcon = styled(BulletinIcon)``
 export const WhiteBulletinIcon = styled(BulletinIcon)``
+
 export const ExamInfoWrapper = styled.div`
+  margin: 0 auto;
   position: relative;
   display: flex;
   flex-direction: column;
