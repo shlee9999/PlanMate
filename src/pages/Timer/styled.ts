@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 import plusImg from 'assets/images/plus.png'
 import bannerImg from 'assets/images/banner.png'
+import { SIDE_MARGIN } from 'constants/layout'
 export const Root = styled.div``
 
 export const Banner = styled.div`
   box-sizing: border-box;
-  padding: 30px 120px;
+  padding: 30px ${SIDE_MARGIN}px;
   display: flex;
   justify-content: space-between;
   background: url(${bannerImg}) no-repeat 0 0;
