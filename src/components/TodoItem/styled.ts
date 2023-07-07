@@ -63,5 +63,5 @@ export const Time = styled.p`
 `
 
 export const RunningTime = styled(Time)`
-  color: #01cb45;
+  color: ${(props) => props.color};
 `

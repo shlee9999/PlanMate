@@ -71,7 +71,11 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
       <RightWrapper>
-        {isTodoTimerRunning ? <RunningTime>{formattedTime}</RunningTime> : <Time>{formattedTime}</Time>}
+        {isTodoTimerRunning ? (
+          <RunningTime color={buttonColor}>{formattedTime}</RunningTime>
+        ) : (
+          <Time>{formattedTime}</Time>
+        )}
         <EllipsisButton onClick={handleOnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
       {isEllipsisOpen && (
