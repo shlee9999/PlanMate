@@ -10,7 +10,7 @@ import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
 import { findAll } from 'api/post/find/findAll'
 import { ResponsePostType } from 'api/common/commonType'
 import { checkPost } from 'api/post/checkPost'
-
+import sampleInfoList from 'constants/sampleInfoList.json'
 export const routerInfo = [
   {
     path: '/',
@@ -50,11 +50,16 @@ export const routerInfo = [
       {
         path: 'examinfo/detail/:postId',
         element: <ExamInfoDetailPage />,
-        loader: async ({ params }: any): Promise<string> => {
-          return (await checkPost({
-            postId: +params.postId,
-          })) as string
-        }, //비동기 처리 등
+        loader: async ({ params }: any): Promise<ResponsePostType[]> => {
+          try {
+            return (await checkPost({
+              postId: +params.postId,
+            })) as ResponsePostType[]
+          } catch (error) {
+            console.error('API 호출 불가')
+            return sampleInfoList.postInfoList
+          }
+        },
       },
       {
         path: '*',
