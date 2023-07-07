@@ -1,5 +1,5 @@
 //플래너 탭
-import { Main } from "components/Planner"
+import { Main } from 'components/Planner'
 import { FC, useState } from 'react'
 import {
   Root,
@@ -13,10 +13,9 @@ import {
   MainWeeklyScheduler,
 } from './styled'
 
-import SubjectModal from "components/Modals/SubjectModal"
+import SubjectModal from 'components/ModalsPlanner/SubjectModal'
 
 export const PlannerTab: FC = () => {
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
   const [mode, setMode] = useState<string>('study')
@@ -31,26 +30,22 @@ export const PlannerTab: FC = () => {
     setIsModalOpen(false)
   }
 
-  const [isButtonHovered, setButtonHovered] = useState(false);
+  const [isButtonHovered, setButtonHovered] = useState(false)
 
   const handleMouseEnter = () => {
-    setButtonHovered(true);
+    setButtonHovered(true)
   }
 
   const handleMouseLeave = () => {
-    setButtonHovered(false);
+    setButtonHovered(false)
   }
 
   return (
     <Root>
       <HeaderContainer>
         <HeaderTitleContainer>
-          <UserGreeting>
-            안녕하세요!메이트 님!
-          </UserGreeting>
-          <HeaderTitleLogo>
-            플래너
-          </HeaderTitleLogo>
+          <UserGreeting>안녕하세요!메이트 님!</UserGreeting>
+          <HeaderTitleLogo>플래너</HeaderTitleLogo>
         </HeaderTitleContainer>
         <HeaderButton
           isButtonHovered={isButtonHovered}
@@ -60,12 +55,9 @@ export const PlannerTab: FC = () => {
         >
           +일정 추가
         </HeaderButton>
-
       </HeaderContainer>
       <MainContainer>
-        <MainNavContainer>
-          4월 넷째주
-        </MainNavContainer>
+        <MainNavContainer>4월 넷째주</MainNavContainer>
         <MainWeeklyScheduler>
           <Main></Main>
         </MainWeeklyScheduler>
@@ -74,7 +66,6 @@ export const PlannerTab: FC = () => {
       <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
     </Root>
   )
-
 }
 
 export default PlannerTab
