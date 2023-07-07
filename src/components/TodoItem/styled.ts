@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import startButton from 'assets/images/start_button.png'
-import pauseButton from 'assets/images/pause_button.png'
 import ellipsisButton from 'assets/images/ellipsis.png'
+import timerStartButton from 'assets/images/timer_start_button.png'
+import timerPauseButton from 'assets/images/timer_pause_button.png'
 export const Root = styled.div`
   display: flex;
   justify-content: space-between;
@@ -41,17 +41,17 @@ export const CircleButton = styled.button`
   cursor: pointer;
   width: 46px;
   height: 46px;
-  background-color: #1db951;
 `
 
 export const StartButton = styled(CircleButton)`
-  background: url(${startButton}) no-repeat 55% 50%;
+  background: url(${timerStartButton}) no-repeat 60% 50%;
   background-size: 21px 21px;
+  background-color: #1db951;
 `
 
 export const PauseButton = styled(CircleButton)`
-  background: url(${pauseButton}) no-repeat 55% 50%;
-  background-size: 21px 21px;
+  background: url(${timerPauseButton}) no-repeat 50% 50%;
+  background-size: 15px 21px;
   background-color: #1db951;
 `
 
