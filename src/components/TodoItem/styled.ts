@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import 'globals.css'
 import startButton from 'assets/images/start_button.png'
 import pauseButton from 'assets/images/pause_button.png'
 import ellipsisButton from 'assets/images/ellipsis.png'
