@@ -2,17 +2,17 @@ import React from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom/client'
-import MainSection from './page/MainSection/'
-import { HeaderSection } from 'page/HeaderSection'
 import rootReducer from 'modules'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { routerInfo } from 'constants/routerInfo'
+
 const store = createStore(rootReducer)
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
+const router = createBrowserRouter(routerInfo)
+
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <HeaderSection />
-      <MainSection />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 )

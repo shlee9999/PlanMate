@@ -1,28 +1,37 @@
 {
-  "post_info_list": [
+  "postInfoList": [
     {
+      "commentCount": 0,
       "title": "예시",
-      "like": 5,
-      "scrap": 2,
-      "comment_count": 3,
+      "likeCount": 5,
+      "scrapCount": 2,
       "nickname": "닉네임",
-      "updated_at": "2023-06-12"
+      "postId": 1,
+      "postTagList": ["태그1"],
+      "updatedAt": "2023-06-12",
+      "content": "컨텐츠1"
     },
     {
+      "commentCount": 0,
       "title": "예시",
-      "like": 10,
-      "scrap": 24,
-      "comment_count": 30,
+      "likeCount": 5,
+      "scrapCount": 2,
       "nickname": "닉네임",
-      "updated_at": "2023-06-12"
+      "postId": 2,
+      "postTagList": ["태그1"],
+      "updatedAt": "2023-06-12",
+      "content": "컨텐츠2"
     },
     {
+      "commentCount": 0,
       "title": "예시",
-      "like": 114,
-      "scrap": 32,
-      "comment_count": 102,
+      "likeCount": 5,
+      "scrapCount": 2,
       "nickname": "닉네임",
-      "updated_at": "2023-06-12"
+      "postId": 3,
+      "postTagList": ["태그1"],
+      "updatedAt": "2023-06-12",
+      "content": "컨텐츠3"
     }
   ]
 }
