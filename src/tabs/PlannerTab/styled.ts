@@ -53,3 +53,25 @@ export const MainNavContainer = styled.span`
 `
 
 export const MainWeeklyScheduler = styled.div``
+
+export const AddButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  margin-top: 5px;
+  width: 64px;
+  height: 32px;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 32px;
+  color: #666666;
+  text-align: center;
+  cursor: pointer;
+`
+
+export const PlusImg = styled.img`
+  width: 15px;
+  height: 15px;
+`

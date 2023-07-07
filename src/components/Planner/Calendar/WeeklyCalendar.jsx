@@ -14,7 +14,7 @@ export const WeeklyCalendar = () => {
     return (
         <Wrapper>
             <HGrid first={'100px'} cols={1}>
-                <VGrid rows={24}>
+                {/* <VGrid rows={24}>
                     {TIMES.map((hour) => (
                         <Hour>{hour}</Hour>
                     ))}
@@ -27,7 +27,7 @@ export const WeeklyCalendar = () => {
                             </DayWrapper>
                         ))
                     }
-                </HGrid>
+                </HGrid> */}
             </HGrid>
         </Wrapper>
     )

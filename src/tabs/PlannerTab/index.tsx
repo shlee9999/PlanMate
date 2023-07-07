@@ -1,7 +1,6 @@
 //플래너 탭
 import { Main } from "components/Planner"
 import { FC, useState } from 'react'
-
 import {
   Root,
   HeaderContainer,
@@ -14,7 +13,23 @@ import {
   MainWeeklyScheduler,
 } from './styled'
 
+import SubjectModal from "components/Modals/SubjectModal"
+
 export const PlannerTab: FC = () => {
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [modalTitle, setModalTitle] = useState<string>('')
+  const [mode, setMode] = useState<string>('study')
+
+  const openModal = (): void => {
+    const modeName = mode === 'study' ? '과목' : '종목'
+    setModalTitle(modeName + '추가')
+    setIsModalOpen(true)
+  }
+
+  const closeModal = (): void => {
+    setIsModalOpen(false)
+  }
 
   const [isButtonHovered, setButtonHovered] = useState(false);
 
@@ -41,9 +56,11 @@ export const PlannerTab: FC = () => {
           isButtonHovered={isButtonHovered}
           onMouseOver={handleMouseEnter}
           onMouseOut={handleMouseLeave}
+          onClick={openModal}
         >
           +일정 추가
         </HeaderButton>
+
       </HeaderContainer>
       <MainContainer>
         <MainNavContainer>
@@ -53,6 +70,8 @@ export const PlannerTab: FC = () => {
           <Main></Main>
         </MainWeeklyScheduler>
       </MainContainer>
+
+      <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
     </Root>
   )
 
