@@ -1,4 +1,4 @@
-import { HEADER_HEIGHT, MAX_WIDTH, MIN_WIDTH } from 'constants/layout'
+import { HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 import yellowCircle from 'assets/images/yellow_circle.png'
 export const Root = styled.div`
@@ -13,8 +13,8 @@ export const Root = styled.div`
   z-index: 1;
 `
 export const ContentWrapper = styled.div`
-  max-width: ${MAX_WIDTH}px;
-  min-width: ${MIN_WIDTH}px;
+  max-width: ${HEADER_MAX_WIDTH}px;
+  min-width: ${HEADER_MIN_WIDTH}px;
   display: flex;
   justify-content: space-between;
   padding: 17px 160px 16px 160px;

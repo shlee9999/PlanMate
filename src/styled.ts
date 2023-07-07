@@ -1,9 +1,9 @@
-import { HEADER_HEIGHT, MAX_WIDTH, MIN_WIDTH } from 'constants/layout'
+import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 export const Root = styled.div`
   margin: 0 auto;
-  max-width: ${MAX_WIDTH}px;
-  min-width: ${MIN_WIDTH}px;
+  max-width: ${BODY_MAX_WIDTH}px;
+  min-width: ${BODY_MIN_WIDTH}px;
   position: relative;
   margin-top: ${HEADER_HEIGHT}px;
 `
