@@ -2,6 +2,7 @@ import { TagRoot } from 'styled'
 import styled from 'styled-components'
 import whiteBulletinIcon from 'assets/images/bulletin_white.png'
 import greenBulletinIcon from 'assets/images/bulletin_green.png'
+import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 export const Root = styled.div`
   box-sizing: border-box;
   padding: 45px 160px 40px;
@@ -89,13 +90,13 @@ export const GreenBulletinIcon = styled(BulletinIcon)``
 export const WhiteBulletinIcon = styled(BulletinIcon)``
 
 export const ExamInfoWrapper = styled.div`
+  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
+  /* min-width: ${EXAMINFOITEM_MIN_WIDTH}px; */
+  width: 500px;
   margin: 0 auto;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   border-top: 2px solid #666666;
-  width: fit-content;
+  border: 1px solid red;
 `
 export const PaginationWrapper = styled.div`
   margin: 0 auto;
