@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import plusImg from 'assets/images/plus.png'
 
 export const Root = styled.div``
 
@@ -121,6 +122,7 @@ export const AddButton = styled.button`
 export const PlusImg = styled.img`
   width: 15px;
   height: 15px;
+  content: url(${plusImg});
 `
 export const LowerContainer = styled.div`
   position: relative;

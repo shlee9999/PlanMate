@@ -41,6 +41,7 @@ export const CircleButton = styled.button`
   cursor: pointer;
   width: 46px;
   height: 46px;
+  background-color: #1db951;
 `
 
 export const StartButton = styled(CircleButton)`

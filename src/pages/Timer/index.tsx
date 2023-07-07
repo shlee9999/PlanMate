@@ -31,7 +31,6 @@ import {
 import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
 import { useFormattedDate } from 'utils/helper'
 import SubjectModal from 'components/Modals/SubjectModal'
-import plusImg from 'assets/images/plus.png'
 import { RootState } from 'modules'
 import { exercise, study } from 'modules/mode'
 
@@ -100,7 +99,7 @@ export const TimerPage: FC = () => {
         </TodoContainer>
 
         <AddButton onClick={openModal}>
-          <PlusImg src={plusImg}></PlusImg>
+          <PlusImg />
           {mode === 'study' ? '과목' : '종목'}
         </AddButton>
       </LowerContainer>
