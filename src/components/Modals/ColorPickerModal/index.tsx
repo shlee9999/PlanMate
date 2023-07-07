@@ -1,6 +1,6 @@
 import React from 'react'
 import { colorList } from 'constants/color'
-import { Root } from './styled'
+import { ColorButtonWrapper, Root } from './styled'
 import ColorButton from './ColorButton'
 
 const ColorPickerModal = ({
@@ -18,7 +18,7 @@ const ColorPickerModal = ({
     <Root onClick={handleClickModal}>
       <div>
         {colorList.map((row: Array<string>, rowIndex: number) => (
-          <div key={rowIndex}>
+          <ColorButtonWrapper key={rowIndex}>
             {row.map((color: string, index: number) => (
               <ColorButton
                 key={index}
@@ -27,7 +27,7 @@ const ColorPickerModal = ({
                 assignSubjectColor={assignSubjectColor}
               ></ColorButton>
             ))}
-          </div>
+          </ColorButtonWrapper>
         ))}
       </div>
     </Root>
