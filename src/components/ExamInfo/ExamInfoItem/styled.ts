@@ -39,6 +39,7 @@ export const IconContainer = styled.div`
 `
 export const IconCountWrapper = styled.div`
   display: flex;
+  column-gap: 1px;
 `
 export const Icon = styled.img`
   width: 12px;
