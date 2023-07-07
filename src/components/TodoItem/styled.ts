@@ -6,8 +6,7 @@ export const Root = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
-  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 29px;
 `
 
 export const LeftWrapper = styled.div`
