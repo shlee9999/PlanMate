@@ -110,13 +110,13 @@ export const AddButton = styled.button`
   margin-top: 5px;
   width: 64px;
   height: 32px;
-
   font-size: 14px;
   font-weight: 400;
   line-height: 32px;
   color: #666666;
   text-align: center;
   cursor: pointer;
+  background-color: #ebebeb;
 `
 export const PlusImg = styled.img`
   width: 15px;
