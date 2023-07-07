@@ -91,12 +91,9 @@ export const WhiteBulletinIcon = styled(BulletinIcon)``
 
 export const ExamInfoWrapper = styled.div`
   max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
-  /* min-width: ${EXAMINFOITEM_MIN_WIDTH}px; */
-  width: 500px;
-  margin: 0 auto;
+  min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
   position: relative;
   border-top: 2px solid #666666;
-  border: 1px solid red;
 `
 export const PaginationWrapper = styled.div`
   margin: 0 auto;

@@ -5,11 +5,10 @@ export const Root = styled.div`
   position: relative;
   box-sizing: border-box;
   padding: 16px 0 10px 8px;
-  /* max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
-  min-width: ${EXAMINFOITEM_MIN_WIDTH}px; */
+  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
+  min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
   height: 80px;
   border-bottom: 1px solid #c6c6c6;
-  background-color: green;
 `
 export const TypoWrapper = styled.div`
   display: flex;
