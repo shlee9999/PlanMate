@@ -12,8 +12,8 @@ export const Root = styled.div`
   height: 80%;
   column-gap: 8px;
 `
-
-export const ColorButtonWrapper = styled.div`
+export const ColorButtonWrapper = styled.div``
+export const RowWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
