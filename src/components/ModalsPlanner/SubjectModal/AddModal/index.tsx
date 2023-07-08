@@ -15,13 +15,13 @@ import {
 } from '../styled'
 
 import { TodoPlans } from 'types'
-import ColorPickerModal from 'components/Modals/ColorPickerModal'
 import { generateId } from 'utils/helper'
 import { ConfirmButton, ExitButton, ModalWrapper } from 'components/ModalsPlanner/styled'
 import { addPlan } from 'modules/todoplans'
 import { CategorySelect } from './CategorySelect'
 import { TimeSelect } from './TimeSelect'
 import { ColorSelect } from './ColorSelect'
+import { DaySelect } from './DaySelect'
 
 const DefaultColor: string = '#ff0000' as const
 
@@ -37,7 +37,7 @@ export const AddModal = ({
   //입력값과 색상 상태 관리
   const [inputTitle, setInputTitle] = useState<string>('')
   const [subjectColor, setSubjectColor] = useState<string>(DefaultColor)
-  const [isDay, setIsDay] = useState<string>('')
+  const [subjectDay, setSubjectDay] = useState<string>('')
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -66,10 +66,9 @@ export const AddModal = ({
   }
 
   //요일 버튼 입력처리
-  const handleDayButtonClick = (day: string) => {
-    setIsDay(day)
+  const assignSubjectDay = (color: string) => {
+    setSubjectDay(color)
   }
-
   //시간 버튼 입력처리
   const [selectedHour, setSelectedHour] = useState('')
   const [selectedMinute, setSelectedMinute] = useState('')
@@ -92,7 +91,7 @@ export const AddModal = ({
       title: inputTitle,
       color: subjectColor,
       category: title === '과목' ? 'study' : 'exercise',
-      day: isDay,
+      day: subjectDay,
       beginhour: 0,
       beginminute: 0,
       finishhour: 0,
@@ -142,7 +141,7 @@ export const AddModal = ({
             </ColorSelectWrapper>
             <ButtonTypoWrapper>
               요일
-              <NameInput placeholder="요일" />
+              <DaySelect assignSubjectDay={assignSubjectDay}></DaySelect>
             </ButtonTypoWrapper>
             <ButtonTypoWrapper>
               시간
