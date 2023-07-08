@@ -134,7 +134,7 @@ export const AddModal = ({
             </ButtonTypoWrapper>
             <ButtonTypoWrapper>
               일정명
-              <NameInput placeholder="일정명" />
+              <NameInput placeholder="일정명을 입력해주세요" />
             </ButtonTypoWrapper>
             <ColorSelectWrapper>
               색상선택
