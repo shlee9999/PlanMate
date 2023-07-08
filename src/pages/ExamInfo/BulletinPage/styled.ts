@@ -14,13 +14,12 @@ export const WriteTypo = styled.div`
 `
 export const CancelButton = styled.button``
 export const RegisterButton = styled.button``
-export const BaseInput = styled.input`
+
+export const TitleInput = styled.input`
   box-sizing: border-box;
   padding: 11px 16px;
   border: 1px solid #c6c6c6;
   border-radius: 8px;
-`
-export const TitleInput = styled(BaseInput)`
   width: 850px;
   height: 48px;
   font-size: 21px;
@@ -30,7 +29,12 @@ export const TitleInput = styled(BaseInput)`
     color: #c6c6c6;
   }
 `
-export const ContentInput = styled(BaseInput)`
+export const ContentInput = styled.textarea`
+  outline: none;
+  box-sizing: border-box;
+  padding: 11px 16px;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
   width: 1120px;
   height: 535px;
 `
