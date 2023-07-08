@@ -1,8 +1,12 @@
 import React, { useState, ChangeEvent } from 'react'
 import { StyledSelect, SelectOption, SelectWrapper } from '../TimeSelect/styled'
 
+type TimeSelectModeProps = {
+  set: string
+}
+
 //옵션 시간 추가 필요요
-export const TimeSelect: React.FC = () => {
+export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
   const [selectedHour, setSelectedHour] = useState<string>('')
   const [selectedMinute, setSelectedMinute] = useState<string>('')
 
@@ -32,7 +36,7 @@ export const TimeSelect: React.FC = () => {
         <SelectOption value="20">20</SelectOption>
         <SelectOption value="40">40</SelectOption>
       </StyledSelect>
-      <span>분 부터</span>
+      <span>분 {set}</span>
     </SelectWrapper>
   )
 }

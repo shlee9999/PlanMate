@@ -10,7 +10,7 @@ export const Root = styled.div`
   top: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -45,7 +45,7 @@ export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100px;
+  height: 300px;
 `
 export const NameInput = styled.input`
   width: 208px;
@@ -85,6 +85,16 @@ export const ColorPickerButton = styled.button`
 `
 
 export const ButtonTypoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
+  color: #666666;
+`
+export const ColorSelectWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

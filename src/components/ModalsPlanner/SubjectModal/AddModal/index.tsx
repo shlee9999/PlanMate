@@ -11,6 +11,7 @@ import {
   NameInput,
   ButtonTypoWrapper,
   TimeSelectWrapper,
+  ColorSelectWrapper,
 } from '../styled'
 
 import { TodoPlans } from 'types'
@@ -20,6 +21,7 @@ import { ConfirmButton, ExitButton, ModalWrapper } from 'components/ModalsPlanne
 import { addPlan } from 'modules/todoplans'
 import { CategorySelect } from './CategorySelect'
 import { TimeSelect } from './TimeSelect'
+import { ColorSelect } from './ColorSelect'
 
 const DefaultColor: string = '#ff0000' as const
 
@@ -128,16 +130,16 @@ export const AddModal = ({
           <InputWrapper>
             <ButtonTypoWrapper>
               분류
-              <CategorySelect></CategorySelect>
+              <CategorySelect />
             </ButtonTypoWrapper>
             <ButtonTypoWrapper>
               일정명
               <NameInput placeholder="일정명" />
             </ButtonTypoWrapper>
-            <ButtonTypoWrapper>
+            <ColorSelectWrapper>
               색상선택
-              <NameInput placeholder="색상" />
-            </ButtonTypoWrapper>
+              <ColorSelect assignSubjectColor={assignSubjectColor} />
+            </ColorSelectWrapper>
             <ButtonTypoWrapper>
               요일
               <NameInput placeholder="요일" />
@@ -145,8 +147,8 @@ export const AddModal = ({
             <ButtonTypoWrapper>
               시간
               <TimeSelectWrapper>
-                <TimeSelect></TimeSelect>
-                <TimeSelect></TimeSelect>
+                <TimeSelect set={'부터'} />
+                <TimeSelect set={'까지'} />
               </TimeSelectWrapper>
             </ButtonTypoWrapper>
           </InputWrapper>
@@ -155,14 +157,9 @@ export const AddModal = ({
             <ExitButton onClick={closeModalAll}>취소</ExitButton>
             <ConfirmButton onClick={handleAddConfirm}>확인</ConfirmButton>
           </ModalFooter>
-          {isColorPickerModalOpen && (
-            <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
-          )}
         </Root>
       </ModalWrapper>
     )
 
   return null
 }
-
-//<button onClick={() => handleButtonClick('수요일')}>수요일</button>

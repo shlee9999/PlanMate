@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addPlan } from 'modules/todoplans'
-import { SelectColorWrapper, ColorPickerButton } from '../TimeSelect/styled'
-import { RootState } from 'modules'
+import React from 'react'
+import { colorList } from 'constants/color'
+import { Root } from './styled'
+import { ColorButton } from './Colorbutton'
 
-//옵션 시간 추가 필요요
-export const ColorSelect: React.FC = () => {
-  const dispatch = useDispatch()
-  const currentColor = useSelector((state: RootState) => state.todoplans.color)
-  const [selectedColor, setSelectedColor] = useState('')
+type ColorSelectProps = {
+  assignSubjectColor: (color: string) => void
+}
 
-  const handleColorButtonClick = (color: string) => {
-    //updatePlan 액션을 디스패치하여 color 상태 업데이트
-    const updatedPlan = { ...currentColor, color: color }
-    dispatch(addPlan(updatedPlan))
-  }
-
+export const ColorSelect: React.FC<ColorSelectProps> = ({ assignSubjectColor }) => {
   return (
-    <SelectColorWrapper>
-      <ColorPickerButton color={selectedColor} onClick={() => handleColorButtonClick(selectedColor)} />
-    </SelectColorWrapper>
+    <Root>
+      <div>
+        {colorList.map((row: Array<string>, rowIndex: number) => (
+          <div key={rowIndex}>
+            {row.map((color: string, index: number) => (
+              <ColorButton key={index} color={color} assignSubjectColor={assignSubjectColor} />
+            ))}
+          </div>
+        ))}
+      </div>
+    </Root>
   )
 }
