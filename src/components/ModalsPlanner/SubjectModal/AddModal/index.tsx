@@ -10,6 +10,7 @@ import {
   ModalTitle,
   NameInput,
   ButtonTypoWrapper,
+  TimeSelectWrapper,
 } from '../styled'
 
 import { TodoPlans } from 'types'
@@ -17,6 +18,7 @@ import ColorPickerModal from 'components/Modals/ColorPickerModal'
 import { generateId } from 'utils/helper'
 import { ConfirmButton, ExitButton, ModalWrapper } from 'components/ModalsPlanner/styled'
 import { addPlan } from 'modules/todoplans'
+import { CategorySelect } from './CategorySelect'
 import { TimeSelect } from './TimeSelect'
 
 const DefaultColor: string = '#ff0000' as const
@@ -126,7 +128,7 @@ export const AddModal = ({
           <InputWrapper>
             <ButtonTypoWrapper>
               분류
-              <NameInput placeholder="분류" />
+              <CategorySelect></CategorySelect>
             </ButtonTypoWrapper>
             <ButtonTypoWrapper>
               일정명
@@ -142,7 +144,10 @@ export const AddModal = ({
             </ButtonTypoWrapper>
             <ButtonTypoWrapper>
               시간
-              <NameInput placeholder="시간" />
+              <TimeSelectWrapper>
+                <TimeSelect></TimeSelect>
+                <TimeSelect></TimeSelect>
+              </TimeSelectWrapper>
             </ButtonTypoWrapper>
           </InputWrapper>
 

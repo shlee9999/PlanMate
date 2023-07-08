@@ -95,4 +95,8 @@ export const ButtonTypoWrapper = styled.div`
   color: #666666;
 `
 
-export const SelectTimeWrapper = styled.div``
+export const TimeSelectWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+`
