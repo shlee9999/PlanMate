@@ -37,11 +37,11 @@ export const routerInfo = [
         path: 'examinfo',
         element: <ExamInfoPage />,
 
-        loader: async (): Promise<ResponsePostType[]> => {
-          return (await findAll({
-            pages: 0,
-          })) as ResponsePostType[]
-        }, //비동기 처리 등
+        // loader: async (): Promise<ResponsePostType[]> => {
+        //   return (await findAll({
+        //     pages: 0,
+        //   })) as ResponsePostType[]
+        // }, //비동기 처리 등
       },
       {
         path: 'examinfo/post',
@@ -50,16 +50,16 @@ export const routerInfo = [
       {
         path: 'examinfo/detail/:postId',
         element: <ExamInfoDetailPage />,
-        loader: async ({ params }: any): Promise<ResponsePostType[]> => {
-          try {
-            return (await checkPost({
-              postId: +params.postId,
-            })) as ResponsePostType[]
-          } catch (error) {
-            console.error('API 호출 불가')
-            return sampleInfoList.postInfoList
-          }
-        },
+        // loader: async ({ params }: any): Promise<ResponsePostType[]> => {
+        //   try {
+        //     return (await checkPost({
+        //       postId: +params.postId,
+        //     })) as ResponsePostType[]
+        //   } catch (error) {
+        //     console.error('API 호출 불가')
+        //     return sampleInfoList.postInfoList
+        //   }
+        // },
       },
       {
         path: '*',

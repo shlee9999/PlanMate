@@ -33,7 +33,8 @@ import { findAll } from 'api/post/find/findAll'
 import { tagList } from 'constants/tagList'
 
 export const ExamInfoPage = () => {
-  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
+  // const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
+  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(sampleInfoList.postInfoList) //서버 꺼져있어도 되도록
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const onClickPageNumber = (page: number) => (): void => {
@@ -64,7 +65,9 @@ export const ExamInfoPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [examInfoList])
-
+  useEffect(() => {
+    console.log(examInfoList)
+  }, [examInfoList])
   return (
     <Root>
       <TypoWrapper>

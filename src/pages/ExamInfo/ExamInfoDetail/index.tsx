@@ -36,7 +36,24 @@ export const ExamInfoDetailPage: FC = () => {
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
 
-  const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
+  // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
+  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
+    commentCount: 0,
+    content: '서버가 꺼져있습니다',
+    likeCount: 0,
+    nickname: '',
+    postId: 0,
+    postTagList: [],
+    scrapCount: 0,
+    title: '',
+    updatedAt: '',
+  })
+
+  useEffect(() => {
+    checkPost({ postId: +postId }).then((res) => {
+      setExamInfoDetail(res as ResponsePostType)
+    })
+  }, [])
 
   return (
     <Root>
