@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const BUTTON_HEIGHT = 40
+
 export const Root = styled.div`
   padding: 15px 20px;
   width: 320px;
@@ -35,7 +36,18 @@ export const CenterButton = styled.button`
 
 export const UpdateSubjectButton = styled(CenterButton)`
   color: #666666;
+  &:hover,
+  &:focus {
+    color: #01cb45;
+    border: 1px solid #01cb45;
+    background-color: #e2f9ea;
+  }
 `
 export const DeleteSubjectButton = styled(CenterButton)`
+  background-color: white;
   color: #ec6c73;
+  &:hover,
+  &:focus {
+    border: 1px solid #ec6c73;
+  }
 `

@@ -52,10 +52,10 @@ const EllipsisModal = ({
       <Root onClick={handleModalClick}>
         <ButtonWrapper>
           <UpdateSubjectButton onClick={handleClickEditButton}>
-            {todo.category === 'study' ? '과목 수정' : '종목 수정'}
+            {todo.category === 'study' ? '과목수정' : '종목수정'}
           </UpdateSubjectButton>
           <DeleteSubjectButton onClick={handleClickDeleteButton}>
-            {todo.category === 'study' ? '과목 삭제' : '종목 삭제'}
+            {todo.category === 'study' ? '과목삭제' : '종목삭제'}
           </DeleteSubjectButton>
         </ButtonWrapper>
         <ModalFooter>
@@ -69,7 +69,7 @@ const EllipsisModal = ({
           todo={todo}
           isModalOpen={isEditModalOpen}
           closeModal={closeModal}
-          title={todo.category === 'study' ? '과목 수정' : '종목 수정'}
+          title={todo.category === 'study' ? '과목수정' : '종목수정'}
         ></AddSubjectModal>
       )}
     </ModalWrapper>
