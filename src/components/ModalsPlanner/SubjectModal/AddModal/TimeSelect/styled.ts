@@ -46,7 +46,7 @@ export const SelectOption = styled.option``
 
 export const SelectColorWrapper = styled.div``
 
-const ColorPickerButton = styled.button<{ color: string }>`
+export const ColorPickerButton = styled.button<{ color: string }>`
   width: 24px;
   height: 24px;
   border-radius: 50%;
