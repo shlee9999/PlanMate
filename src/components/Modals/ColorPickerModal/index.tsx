@@ -10,11 +10,11 @@ const ColorPickerModal = ({
   closeModal: () => void
   assignSubjectColor: (color: string) => void
 }) => {
-  const handleClickModal = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation()
+  const onClickModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
   }
   return (
-    <Root onClick={handleClickModal}>
+    <Root onClick={onClickModal}>
       <ColorPicker closeModal={closeModal} assignSubjectColor={assignSubjectColor} />
     </Root>
   )

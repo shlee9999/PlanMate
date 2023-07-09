@@ -58,7 +58,6 @@ const EditModal = ({
     dispatch(updateTodo(newTodoItem, todo.id))
     setInputValue('')
     closeModalAll()
-    console.log(todo.id)
   }
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
