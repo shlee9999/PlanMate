@@ -42,10 +42,8 @@ const EllipsisModal = ({
       return
     }
   }
-  const closeEditModal = () => (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e)
+  const closeEditModal = () => {
     setIsEditModalOpen(false)
-    e.stopPropagation
   }
 
   return (
