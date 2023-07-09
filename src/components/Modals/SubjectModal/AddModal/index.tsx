@@ -47,7 +47,7 @@ const AddModal = ({
       onConfirmButtonClick()
     }
     if (e.nativeEvent.key === 'Escape') {
-      closeModalAll()
+      closeModal()
     }
   }
   const assignSubjectColor = (color: string) => {
@@ -64,16 +64,13 @@ const AddModal = ({
     }
     dispatch(addTodo(newTodoItem))
     setInputValue('')
-    closeModalAll()
+    closeModal()
   }
 
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }
-  const closeModalAll = () => {
-    if (isColorPickerModalOpen) closeColorPickerModal()
-    closeModal()
-  }
+
   useEffect(() => {
     if (!inputRef || !inputRef.current) return
     if (isModalOpen) {
@@ -84,10 +81,10 @@ const AddModal = ({
 
   if (isModalOpen)
     return (
-      <ModalWrapper onClick={closeModalAll}>
+      <ModalWrapper onClick={closeModal}>
         <Root onClick={onClickModal}>
           <ModalTitle>{title}</ModalTitle>
-          <ModalExitButton onClick={closeModalAll} />
+          <ModalExitButton onClick={closeModal} />
           <InputWrapper>
             <ButtonTypoWrapper>
               과목명
@@ -104,7 +101,7 @@ const AddModal = ({
             </ButtonTypoWrapper>
           </InputWrapper>
           <ModalFooter>
-            <ExitButton onClick={closeModalAll}>취소</ExitButton>
+            <ExitButton onClick={closeModal}>취소</ExitButton>
             <ConfirmButton onClick={onConfirmButtonClick}>확인</ConfirmButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
