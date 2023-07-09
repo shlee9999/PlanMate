@@ -4,6 +4,32 @@ import { Wrapper, HGrid, VGrid, DayWrapper, Hour, PlanWrapper, PlanTitle, PlanCo
 import { RootState } from 'modules'
 import { TodoPlans } from 'types'
 
+//testplan
+const dummyPlans: TodoPlans[] = [
+  {
+    id: '1',
+    title: 'Meeting',
+    color: 'red',
+    day: '월',
+    beginhour: 9,
+    beginminute: 0,
+    finishhour: 10,
+    finishminute: 30,
+    category: 'work',
+  },
+  {
+    id: '2',
+    title: 'Gym',
+    color: 'blue',
+    day: '화',
+    beginhour: 18,
+    beginminute: 0,
+    finishhour: 19,
+    finishminute: 0,
+    category: 'exercise',
+  },
+]
+
 const DAYS: string[] = ['월', '화', '수', '목', '금', '토', '일']
 const TIMES: string[] = [
   '오전 5시',
@@ -60,7 +86,7 @@ export const WeeklyCalendar: React.FC = () => {
           {DAYS.map((day) => (
             <DayWrapper key={day} id={day}>
               <p>{day}</p>
-              {plans.map((plan) => {
+              {dummyPlans.map((plan) => {
                 if (plan.day === day) {
                   return (
                     <Plan
