@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { ButtonWrapper, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { useDispatch } from 'react-redux'
-import AddSubjectModal from 'components/Modals/SubjectModal'
+import SubjectModal from 'components/Modals/SubjectModal'
 import { TodoItems } from 'types'
 import { ConfirmButton, ExitButton, ModalWrapper } from '../styled'
 import { ModalExitButton, ModalFooter } from '../SubjectModal/styled'
@@ -43,7 +43,9 @@ const EllipsisModal = ({
     }
   }
   const closeEditModal = () => (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e)
     setIsEditModalOpen(false)
+    e.stopPropagation
   }
 
   return (
@@ -64,12 +66,12 @@ const EllipsisModal = ({
         <ModalExitButton onClick={closeModal} />
       </Root>
       {isEditModalOpen && (
-        <AddSubjectModal
+        <SubjectModal
           todo={todo}
           isModalOpen={isEditModalOpen}
           closeModal={closeEditModal}
           title={todo.category === 'study' ? '과목수정' : '종목수정'}
-        ></AddSubjectModal>
+        ></SubjectModal>
       )}
     </ModalWrapper>
   )
