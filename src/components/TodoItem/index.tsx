@@ -32,7 +32,7 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
     dispatch(pauseTimer())
   }
 
-  const handleOnStart = (): void => {
+  const onClickStartButton = (): void => {
     if (!isTotalTimerRunning) {
       setIsTodoTimerRunning(true)
       startTotalTimer()
@@ -49,24 +49,24 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
     startTimer()
   }, [isTodoTimerRunning])
 
-  const handleOnPause = (): void => {
+  const onClickPauseButton = (): void => {
     setIsTodoTimerRunning(false)
     stopTotalTimer()
   }
 
-  const handleOnClickEllipsisButton = () => {
+  const OnClickEllipsisButton = () => {
     setIsEllipsisOpen(true)
   }
-  const closeEllipsis = () => {
+  const closeEllipsisModal = () => {
     setIsEllipsisOpen(false)
   }
   return (
     <Root>
       <LeftWrapper>
         {isTodoTimerRunning ? (
-          <PauseButton color={buttonColor} onClick={handleOnPause}></PauseButton>
+          <PauseButton color={buttonColor} onClick={onClickPauseButton}></PauseButton>
         ) : (
-          <StartButton color={buttonColor} onClick={handleOnStart}></StartButton>
+          <StartButton color={buttonColor} onClick={onClickStartButton}></StartButton>
         )}
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
@@ -76,10 +76,10 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
         ) : (
           <Time>{formattedTime}</Time>
         )}
-        <EllipsisButton onClick={handleOnClickEllipsisButton}></EllipsisButton>
+        <EllipsisButton onClick={OnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
       {isEllipsisOpen && (
-        <EllipsisModal closeModal={closeEllipsis} todo={todo} isTodoTimerRunning={isTodoTimerRunning} />
+        <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isTodoTimerRunning={isTodoTimerRunning} />
       )}
     </Root>
   )

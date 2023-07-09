@@ -17,21 +17,17 @@ const EllipsisModal = ({
   isTodoTimerRunning: boolean
 }) => {
   const [mode, setMode] = useState<string>('edit') // 'edit' | 'delete'
-
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const dispatch = useDispatch()
-  const closeModalAll = () => {
-    closeModal()
-    //하위 모달도 닫기
-  }
-  const handleClickDeleteButton = () => {
+
+  const onClickDeleteButton = () => {
     setMode('delete')
   }
-  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
+  const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }
 
-  const handleClickEditButton = () => {
+  const onClickEditButton = () => {
     setMode('edit')
   }
   const onClickConfirmButton = () => {
@@ -42,33 +38,36 @@ const EllipsisModal = ({
     if (mode === 'delete') {
       if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
       dispatch(removeTodo(todo.id))
-      closeModalAll()
+      closeModal()
       return
     }
   }
+  const closeEditModal = () => (e: React.MouseEvent<HTMLElement>) => {
+    setIsEditModalOpen(false)
+  }
 
   return (
-    <ModalWrapper onClick={closeModalAll}>
-      <Root onClick={handleModalClick}>
+    <ModalWrapper onClick={closeModal}>
+      <Root onClick={onClickModal}>
         <ButtonWrapper>
-          <UpdateSubjectButton onClick={handleClickEditButton}>
+          <UpdateSubjectButton onClick={onClickEditButton}>
             {todo.category === 'study' ? '과목수정' : '종목수정'}
           </UpdateSubjectButton>
-          <DeleteSubjectButton onClick={handleClickDeleteButton}>
+          <DeleteSubjectButton onClick={onClickDeleteButton}>
             {todo.category === 'study' ? '과목삭제' : '종목삭제'}
           </DeleteSubjectButton>
         </ButtonWrapper>
         <ModalFooter>
-          <ExitButton onClick={closeModalAll}>취소</ExitButton>
+          <ExitButton onClick={closeModal}>취소</ExitButton>
           <ConfirmButton onClick={onClickConfirmButton}>확인</ConfirmButton>
         </ModalFooter>
-        <ModalExitButton onClick={closeModalAll} />
+        <ModalExitButton onClick={closeModal} />
       </Root>
       {isEditModalOpen && (
         <AddSubjectModal
           todo={todo}
           isModalOpen={isEditModalOpen}
-          closeModal={closeModal}
+          closeModal={closeEditModal}
           title={todo.category === 'study' ? '과목수정' : '종목수정'}
         ></AddSubjectModal>
       )}
