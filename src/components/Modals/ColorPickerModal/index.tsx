@@ -2,6 +2,7 @@ import React from 'react'
 import {} from 'constants/color'
 import { Root } from './styled'
 import { ColorPicker } from './ColorPicker'
+import { ColorPickerModalWrapper } from './ColorPicker/styled'
 
 const ColorPickerModal = ({
   closeModal,
@@ -13,10 +14,17 @@ const ColorPickerModal = ({
   const onClickModal = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
   }
+  const closeColorPickerModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    closeModal()
+    e.stopPropagation()
+  }
   return (
-    <Root onClick={onClickModal}>
-      <ColorPicker closeModal={closeModal} assignSubjectColor={assignSubjectColor} />
-    </Root>
+    <>
+      <ColorPickerModalWrapper onClick={closeColorPickerModal} />
+      <Root onClick={onClickModal}>
+        <ColorPicker closeModal={closeModal} assignSubjectColor={assignSubjectColor} />
+      </Root>
+    </>
   )
 }
 

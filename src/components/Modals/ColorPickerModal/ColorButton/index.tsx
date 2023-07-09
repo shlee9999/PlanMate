@@ -7,13 +7,12 @@ const ColorButton = ({
   assignSubjectColor,
 }: {
   color: string
-  closeModal: () => void
-  // eslint-disable-next-line
+  closeModal?: () => void
   assignSubjectColor: (color: string) => void
 }) => {
   const onClickButton: React.MouseEventHandler<HTMLButtonElement> = () => {
     assignSubjectColor(color)
-    closeModal()
+    if (closeModal) closeModal()
   }
   return <Root color={color} onClick={onClickButton}></Root>
 }
