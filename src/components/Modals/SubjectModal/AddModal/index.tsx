@@ -36,15 +36,15 @@ const AddModal = ({
     setIsColorPickerModalOpen(false)
     inputRef.current?.focus()
   }
-  const handleOnClickColorButton = () => {
+  const onClickColorButton = () => {
     setIsColorPickerModalOpen(true)
   }
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
-  const handleOnKeyDown = (e: React.KeyboardEvent) => {
+  const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter') {
-      handleAddConfirm()
+      onConfirmButtonClick()
     }
     if (e.nativeEvent.key === 'Escape') {
       closeModalAll()
@@ -53,7 +53,7 @@ const AddModal = ({
   const assignSubjectColor = (color: string) => {
     setSubjectColor(color)
   }
-  const handleAddConfirm = () => {
+  const onConfirmButtonClick = () => {
     if (inputValue === '') return
     const newTodoItem: TodoItems = {
       title: inputValue,
@@ -67,7 +67,7 @@ const AddModal = ({
     closeModalAll()
   }
 
-  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
+  const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }
   const closeModalAll = () => {
@@ -85,7 +85,7 @@ const AddModal = ({
   if (isModalOpen)
     return (
       <ModalWrapper onClick={closeModalAll}>
-        <Root onClick={handleModalClick}>
+        <Root onClick={onClickModal}>
           <ModalTitle>{title}</ModalTitle>
           <ModalExitButton onClick={closeModalAll} />
           <InputWrapper>
@@ -93,19 +93,19 @@ const AddModal = ({
               과목명
               <NameInput
                 placeholder={`${title.slice(0, 2)}명을 입력해주세요`}
-                onChange={handleInputChange}
-                onKeyDown={handleOnKeyDown}
+                onChange={onChange}
+                onKeyDown={onKeyDown}
                 ref={inputRef}
               />
             </ButtonTypoWrapper>
             <ButtonTypoWrapper>
               색상선택
-              <ColorPickerButton onClick={handleOnClickColorButton} color={subjectColor}></ColorPickerButton>
+              <ColorPickerButton onClick={onClickColorButton} color={subjectColor}></ColorPickerButton>
             </ButtonTypoWrapper>
           </InputWrapper>
           <ModalFooter>
             <ExitButton onClick={closeModalAll}>취소</ExitButton>
-            <ConfirmButton onClick={handleAddConfirm}>확인</ConfirmButton>
+            <ConfirmButton onClick={onConfirmButtonClick}>확인</ConfirmButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
             <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
