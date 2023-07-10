@@ -20,8 +20,8 @@ import { ConfirmButton, ExitButton, ModalWrapper } from 'components/ModalsPlanne
 import { addPlan } from 'modules/todoplans'
 import { CategorySelect } from './CategorySelect'
 import { TimeSelect } from './TimeSelect'
-import { ColorSelect } from './ColorSelect'
 import { DaySelect } from './DaySelect'
+import { ColorPicker } from 'components/Modals/ColorPickerModal/ColorPicker'
 
 const DefaultColor: string = '#ff0000' as const
 
@@ -135,10 +135,12 @@ export const AddModal = ({
               일정명
               <NameInput placeholder="일정명을 입력해주세요" />
             </ButtonTypoWrapper>
-            <ColorSelectWrapper>
+            {/* <ColorSelectWrapper>
               색상선택
               <ColorSelect assignSubjectColor={assignSubjectColor} />
-            </ColorSelectWrapper>
+            </ColorSelectWrapper> */}
+            색상선택
+            <ColorPicker assignSubjectColor={assignSubjectColor} />
             <ButtonTypoWrapper>
               요일
               <DaySelect assignSubjectDay={assignSubjectDay}></DaySelect>

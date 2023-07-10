@@ -4,7 +4,7 @@ import { colorList } from 'constants/color'
 import ColorButton from '../ColorButton'
 
 type ColorPickerProps = {
-  closeModal: () => void
+  closeModal?: () => void
   assignSubjectColor: (color: string) => void
 }
 
