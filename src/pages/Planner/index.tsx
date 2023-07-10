@@ -12,8 +12,7 @@ import {
   MainNavContainer,
   MainWeeklyScheduler,
 } from './styled'
-
-import SubjectModal from 'components/ModalsPlanner/SubjectModal'
+import SubjectModal from 'components/Planner/SubjectModal'
 
 export const PlannerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
