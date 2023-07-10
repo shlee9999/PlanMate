@@ -10,7 +10,7 @@ const StatsContainer = styled.div`
   margin-top: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `
 

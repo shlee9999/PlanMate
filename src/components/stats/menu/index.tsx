@@ -1,15 +1,13 @@
 import React from 'react'
-import Chalendar from '../chalendar'
-import TimerCheck from '../timercheck'
-import ResultGraph from '../resultgraph'
+import Calendar from '../calendar'
+import HistoryChart from '../HistroyChart'
 import { Root } from './styled'
 
 function MenuBox() {
   return (
     <Root>
-      <Chalendar></Chalendar>
-      <TimerCheck></TimerCheck>
-      <ResultGraph></ResultGraph>
+      <Calendar/>
+      <HistoryChart/>
     </Root>
   )
 }
