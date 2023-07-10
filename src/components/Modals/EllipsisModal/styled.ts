@@ -1,33 +1,41 @@
 import styled from 'styled-components'
+
+const BUTTON_HEIGHT = 40
 export const Root = styled.div`
   padding: 15px 20px;
-  width: 200px;
-  height: 150px;
+  width: 320px;
+  height: 240px;
   position: fixed;
   left: 50%;
   top: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 10px;
 `
-export const UpdateSubjectButton = styled.button`
-  width: 200px;
-  height: 25px;
+export const ButtonWrapper = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 56px;
+  transform: translate(-50%);
+  row-gap: 8px;
+  display: flex;
+  flex-direction: column;
 `
-export const DeleteSubjectButton = styled.button`
-  width: 200px;
-  height: 25px;
+export const CenterButton = styled.button`
+  width: 208px;
+  height: ${BUTTON_HEIGHT}px;
+  line-height: ${BUTTON_HEIGHT}px;
+  border-radius: 100px;
+  text-align: center;
+  border: 1px solid #dddede;
 `
 
-export const EllipsisModalWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+export const UpdateSubjectButton = styled(CenterButton)`
+  color: #666666;
+`
+export const DeleteSubjectButton = styled(CenterButton)`
+  color: #ec6c73;
 `

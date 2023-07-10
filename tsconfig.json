@@ -17,6 +17,6 @@
     "baseUrl": "./src",
     "typeRoots": ["./src/index"]
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src/components/Planner/Calendar/utils.jsx"],
   "exclude": ["node_modules", "deployManager.ts"]
 }

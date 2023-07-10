@@ -1,15 +1,14 @@
 import styled from 'styled-components'
 import 'globals.css'
-type StyledTodoItemProps = {
-  backgroundColor: string
-}
-export const Root = styled.div<StyledTodoItemProps>`
+import startButton from 'assets/images/start_button.png'
+import pauseButton from 'assets/images/pause_button.png'
+import ellipsisButton from 'assets/images/ellipsis.png'
+export const Root = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
   border-bottom: 1px solid #dee2e6;
-  background-color: ${(props) => props.backgroundColor || 'pink'};
 `
 
 export const LeftWrapper = styled.div`
@@ -27,7 +26,7 @@ export const RightWrapper = styled.div`
 export const EllipsisButton = styled.button`
   width: 50px;
   height: 20px;
-  background-image: url('/assets/ellipsis.png');
+  background-image: url(${ellipsisButton});
   background-size: 20px;
   background-repeat: no-repeat;
   background-position-x: 50%;
@@ -38,20 +37,22 @@ export const EllipsisButton = styled.button`
 `
 
 export const CircleButton = styled.button`
+  border: 1px solid #1db951;
   border-radius: 50%;
-  width: 2vw;
-  height: 2vw;
   cursor: pointer;
+  width: 46px;
+  height: 46px;
 `
 
 export const StartButton = styled(CircleButton)`
-  background-color: ${(props) => props.color};
-  color: white;
+  background: url(${startButton}) no-repeat 55% 50%;
+  background-size: 21px 21px;
 `
 
 export const PauseButton = styled(CircleButton)`
-  background-color: ${(props) => props.color};
-  color: white;
+  background: url(${pauseButton}) no-repeat 55% 50%;
+  background-size: 21px 21px;
+  background-color: #1db951;
 `
 
 export const SubjectTitle = styled.p`
@@ -60,4 +61,8 @@ export const SubjectTitle = styled.p`
 
 export const Time = styled.p`
   font-size: 1.2rem;
+`
+
+export const RunningTime = styled(Time)`
+  color: #01cb45;
 `
