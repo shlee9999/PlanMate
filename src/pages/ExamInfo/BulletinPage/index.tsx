@@ -9,7 +9,7 @@ type InputType = {
 }
 export const BulletinPage: FC = () => {
   const [inputValue, setInputValue] = useState<InputType>({ title: '', content: '' })
-  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setInputValue({ ...inputValue, [event.target.name]: event.target.value })
   }
   const navigate = useNavigate()

@@ -1,12 +1,16 @@
 import styled from 'styled-components'
-
+import plusImg from 'assets/images/plus.png'
+import bannerImg from 'assets/images/banner.png'
+import { SIDE_MARGIN } from 'constants/layout'
 export const Root = styled.div``
 
 export const Banner = styled.div`
   box-sizing: border-box;
-  padding: 30px 120px;
+  padding: 30px ${SIDE_MARGIN}px;
   display: flex;
   justify-content: space-between;
+  background: url(${bannerImg}) no-repeat 0 0;
+  background-size: 1440px 400px;
 `
 export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`
@@ -27,11 +31,13 @@ export const Title = styled.p`
   margin-bottom: 8px;
 `
 export const ModeSelectorWrapper = styled.div`
+  width: fit-content;
   border-collapse: collapse;
   display: flex;
   text-align: center;
 `
 export const ModeSelector = styled.div`
+  background-color: white;
   width: 96px;
   height: 32px;
   line-height: 32px;
@@ -43,6 +49,7 @@ export const ModeSelector = styled.div`
 `
 
 export const ResultContainer = styled.div`
+  background-color: white;
   position: relative;
   box-sizing: border-box;
   padding: 32px;
@@ -82,6 +89,7 @@ export const YellowTypo = styled.span`
 `
 
 export const StatsContainer = styled.div`
+  background-color: white;
   width: 689px;
   height: 270px;
   border-radius: 10px;
@@ -110,17 +118,18 @@ export const AddButton = styled.button`
   margin-top: 5px;
   width: 64px;
   height: 32px;
-
   font-size: 14px;
   font-weight: 400;
   line-height: 32px;
   color: #666666;
   text-align: center;
   cursor: pointer;
+  background-color: #ebebeb;
 `
 export const PlusImg = styled.img`
   width: 15px;
   height: 15px;
+  content: url(${plusImg});
 `
 export const LowerContainer = styled.div`
   position: relative;

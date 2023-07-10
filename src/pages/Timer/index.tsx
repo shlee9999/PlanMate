@@ -1,6 +1,6 @@
 //타이머 탭
 import { useDispatch, useSelector } from 'react-redux'
-import TodoItem from 'components/TodoItem/index'
+
 import { TodoItems } from 'types'
 import { useState } from 'react'
 import { FC } from 'react'
@@ -28,12 +28,15 @@ import {
   Dday,
   GreenTypo,
 } from './styled'
-import { StudyTimerWidget, ExerciseTimerWidget } from 'components/TimerWidget'
+
 import { useFormattedDate } from 'utils/helper'
-import SubjectModal from 'components/Modals/SubjectModal'
-import plusImg from 'assets/images/plus.png'
+
 import { RootState } from 'modules'
 import { exercise, study } from 'modules/mode'
+import SubjectModal from 'components/Timer/SubjectModal'
+import { StudyTimerWidget } from 'components/Timer/TimerWidget/StudyTimerWidget'
+import { ExerciseTimerWidget } from 'components/Timer/TimerWidget/ExerciseTimerWidget'
+import TodoItem from 'components/Timer/TodoItem'
 
 export const TimerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -100,7 +103,7 @@ export const TimerPage: FC = () => {
         </TodoContainer>
 
         <AddButton onClick={openModal}>
-          <PlusImg src={plusImg}></PlusImg>
+          <PlusImg />
           {mode === 'study' ? '과목' : '종목'}
         </AddButton>
       </LowerContainer>

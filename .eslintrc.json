@@ -6,7 +6,9 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"]
   },
   "settings": {
     "react": {

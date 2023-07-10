@@ -1,8 +1,9 @@
-import { HEADER_HEIGHT } from 'constants/layout'
+import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
-import { StylisContext } from 'styled-components/dist/models/StyleSheetManager'
-
 export const Root = styled.div`
+  margin: 0 auto;
+  max-width: ${BODY_MAX_WIDTH}px;
+  min-width: ${BODY_MIN_WIDTH}px;
   position: relative;
   margin-top: ${HEADER_HEIGHT}px;
 `
