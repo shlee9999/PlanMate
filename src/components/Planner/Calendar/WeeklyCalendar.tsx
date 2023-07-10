@@ -4,7 +4,7 @@ import { Wrapper, HGrid, VGrid, DayWrapper, Hour, PlanWrapper, PlanTitle, PlanCo
 import { RootState } from 'modules'
 import { TodoPlans } from 'types'
 
-//testplan
+// Test data
 const dummyPlans: TodoPlans[] = [
   {
     id: '1',
@@ -30,33 +30,15 @@ const dummyPlans: TodoPlans[] = [
   },
 ]
 
+// Convert dummyPlans to match TIMES array
+const convertedPlans: TodoPlans[] = dummyPlans.map((plan) => ({
+  ...plan,
+  beginhour: plan.beginhour % 12 === 0 ? 12 : plan.beginhour % 12,
+  finishhour: plan.finishhour % 12 === 0 ? 12 : plan.finishhour % 12,
+}))
+
 const DAYS: string[] = ['월', '화', '수', '목', '금', '토', '일']
-const TIMES: string[] = [
-  '오전 5시',
-  '오전 6시',
-  '오전 7시',
-  '오전 8시',
-  '오전 9시',
-  '오전 10시',
-  '오전 11시',
-  '오후 12시',
-  '오후 1시',
-  '오후 2시',
-  '오후 3시',
-  '오후 4시',
-  '오후 5시',
-  '오후 6시',
-  '오후 7시',
-  '오후 8시',
-  '오후 9시',
-  '오후 10시',
-  '오후 11시',
-  '오전 12시',
-  '오전 1시',
-  '오전 2시',
-  '오전 3시',
-  '오전 4시',
-]
+const TIMES: number[] = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4]
 
 const Plan: React.FC<TodoPlans> = ({ title, color, day, beginhour, beginminute, finishhour, finishminute }) => {
   const time = `${beginhour}:${beginminute} - ${finishhour}:${finishminute}`
@@ -71,9 +53,7 @@ const Plan: React.FC<TodoPlans> = ({ title, color, day, beginhour, beginminute, 
   )
 }
 
-export const WeeklyCalendar: React.FC = () => {
-  const plans = useSelector((state: RootState) => state.todoplans)
-
+export const WeeklyCalendar: React.FC<{ plans: TodoPlans[] }> = ({ plans }) => {
   return (
     <Wrapper>
       <HGrid first={'100px'} cols={1}>
@@ -86,7 +66,7 @@ export const WeeklyCalendar: React.FC = () => {
           {DAYS.map((day) => (
             <DayWrapper key={day} id={day}>
               <p>{day}</p>
-              {dummyPlans.map((plan) => {
+              {plans.map((plan) => {
                 if (plan.day === day) {
                   return (
                     <Plan
@@ -112,3 +92,9 @@ export const WeeklyCalendar: React.FC = () => {
     </Wrapper>
   )
 }
+
+const Main: React.FC = () => {
+  return <WeeklyCalendar plans={convertedPlans} />
+}
+
+export default Main

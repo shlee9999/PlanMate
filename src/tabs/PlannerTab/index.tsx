@@ -1,5 +1,5 @@
 //플래너 탭
-import { Main } from 'components/Planner'
+import Main from 'components/Planner/Calendar/WeeklyCalendar'
 import { FC, useState } from 'react'
 import {
   Root,
