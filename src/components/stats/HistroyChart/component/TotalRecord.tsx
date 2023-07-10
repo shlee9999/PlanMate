@@ -1,16 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Globals } from 'types'
 import { ContainerRecord, HeaderRecord, MainRecord } from './styled'
+import { RootState } from 'modules'
 
 export const TotalRecord = () => {
-  const TotalFoucsTime = useSelector((state: Globals)=>state.isStudying)
+  const TotalFoucsTime = useSelector((state: RootState) => state.mode.isStudying)
   return (
     <ContainerRecord>
       <HeaderRecord>총 운동시간</HeaderRecord>
-        <MainRecord>
-          집중 시간 : {TotalFoucsTime}
-        </MainRecord>
+      <MainRecord>집중 시간 : {TotalFoucsTime}</MainRecord>
     </ContainerRecord>
   )
 }
