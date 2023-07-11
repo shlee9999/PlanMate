@@ -3,6 +3,7 @@ import {
   CommentBox,
   CommentBoxWrapper,
   CommentCount,
+  CommentRegisterButton,
   CommentTitle,
   CommentWrapper,
   ContentWrapper,
@@ -103,10 +104,10 @@ export const ExamInfoDetailPage: FC = () => {
       <CommentBoxWrapper>
         <Nickname>사용자 닉네임</Nickname>
         <CommentBox placeholder="댓글을 남겨보세요." onChange={onChange} />
-        <RegisterButton onClick={onClickRegisterButton}>
+        <CommentRegisterButton onClick={onClickRegisterButton}>
           <CheckImg />
-          등록
-        </RegisterButton>
+          댓글등록
+        </CommentRegisterButton>
       </CommentBoxWrapper>
     </Root>
   )

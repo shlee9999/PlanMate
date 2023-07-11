@@ -1,12 +1,13 @@
 import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
-import { TagRoot } from 'styled'
+import { RegisterButton, TagRoot } from 'styled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
-  display: flex;
-  flex-direction: column;
+  margin: 0 auto;
   box-sizing: border-box;
-  padding: 40px 184px;
+  padding: 40px 0;
+  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
+  min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
 `
 
 export const TagWrapper = styled.div`
@@ -47,18 +48,14 @@ export const Nickname = styled.p`
 `
 
 export const ContentWrapper = styled.div`
-  /* display: flex;
-  flex-direction: column; */
   position: relative;
   box-sizing: border-box;
   padding: 32px 8px;
-  width: 1088px;
   font-size: 14px;
   font-weight: 400;
   border-top: 2px solid #444444;
   border-bottom: 1px solid #c6c6c6;
   margin-bottom: 32px;
-  width: 1088px;
 `
 
 export const IconContainer = styled.div`
@@ -103,8 +100,8 @@ export const CommentBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  max-width: ${EXAMINFOITEM_MAX_WIDTH};
-  min-width: ${EXAMINFOITEM_MIN_WIDTH};
+  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
+  min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
 `
 export const CommentBox = styled.textarea`
   box-sizing: border-box;
@@ -112,7 +109,6 @@ export const CommentBox = styled.textarea`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  width: 1040px;
   height: 80px;
   border-radius: 8px;
   border: 1px solid #c6c6c6;
@@ -121,4 +117,7 @@ export const CommentBox = styled.textarea`
   &::placeholder {
     color: #c6c6c6;
   }
+`
+export const CommentRegisterButton = styled(RegisterButton)`
+  align-self: flex-end;
 `
