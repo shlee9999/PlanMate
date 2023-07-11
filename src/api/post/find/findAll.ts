@@ -1,12 +1,12 @@
 import { axiosGET } from 'api/common/commonAxios'
 import { ResponsePostType } from 'api/common/commonType'
 
-export type FindAllRequestProps = {
+export type FindAllPostRequestProps = {
   pages: number
 }
 
-export type FindAllResponseProps = ResponsePostType
+export type FindAllPostResponseProps = ResponsePostType
 
-export const findAll = (req: FindAllRequestProps) => {
+export const findAll = (req: FindAllPostRequestProps) => {
   return axiosGET('post/find/all', req)
 }

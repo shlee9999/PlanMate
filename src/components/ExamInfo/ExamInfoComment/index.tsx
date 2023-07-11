@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Comment, Date, LeftContainer, LikeButton, Nickname, ReplyButton, Root, UpperTypoWrapper } from './styled'
 
 type ExamInfoCommentProps = {
