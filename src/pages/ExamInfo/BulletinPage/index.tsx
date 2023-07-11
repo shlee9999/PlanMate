@@ -1,15 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
-import {
-  ButtonWrapper,
-  CancelButton,
-  CancelImg,
-  CheckImg,
-  ContentInput,
-  RegisterButton,
-  Root,
-  TitleInput,
-  WriteTypo,
-} from './styled'
+import { ButtonWrapper, CancelButton, CancelImg, ContentInput, Root, TitleInput, WriteTypo } from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
 import { EditorState, convertToRaw } from 'draft-js'
@@ -17,6 +7,7 @@ import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import { serializeContent } from 'utils/wysiwyg'
+import { CheckImg, RegisterButton } from 'styled'
 
 export const BulletinPage: FC = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())

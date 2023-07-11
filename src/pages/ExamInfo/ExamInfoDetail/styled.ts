@@ -1,3 +1,4 @@
+import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import { TagRoot } from 'styled'
 import styled from 'styled-components'
 
@@ -39,7 +40,11 @@ export const UpdatedDate = styled.p`
   color: #888888;
   margin-bottom: 2px; //없으면 줄이 안맞음
 `
-export const Nickname = styled.div``
+export const Nickname = styled.p`
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+`
 
 export const ContentWrapper = styled.div`
   /* display: flex;
@@ -52,7 +57,6 @@ export const ContentWrapper = styled.div`
   font-weight: 400;
   border-top: 2px solid #444444;
   border-bottom: 1px solid #c6c6c6;
-
   margin-bottom: 32px;
   width: 1088px;
 `
@@ -77,7 +81,9 @@ export const Icon = styled.img`
   height: 12px;
 `
 
-export const CommentWrapper = styled.div``
+export const CommentWrapper = styled.div`
+  margin-bottom: 24px;
+`
 export const CommentTitle = styled.div`
   font-size: 21px;
   font-weight: 700;
@@ -92,4 +98,27 @@ export const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`
+export const CommentBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  max-width: ${EXAMINFOITEM_MAX_WIDTH};
+  min-width: ${EXAMINFOITEM_MIN_WIDTH};
+`
+export const CommentBox = styled.textarea`
+  box-sizing: border-box;
+  padding: 9px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  width: 1040px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid #c6c6c6;
+  background-color: #f9f9f9;
+  color: #c6c6c6;
+  &::placeholder {
+    color: #c6c6c6;
+  }
 `

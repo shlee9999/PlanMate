@@ -1,5 +1,7 @@
-import { FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import {
+  CommentBox,
+  CommentBoxWrapper,
   CommentCount,
   CommentTitle,
   CommentWrapper,
@@ -7,6 +9,7 @@ import {
   Icon,
   IconContainer,
   IconCountWrapper,
+  Nickname,
   Root,
   Tag,
   TagWrapper,
@@ -21,6 +24,8 @@ import { useLoaderData, useParams } from 'react-router-dom'
 import { ResponsePostType } from 'api/common/commonType'
 import { checkPost } from 'api/post/checkPost'
 import { deserializeContent } from 'utils/wysiwyg'
+import { CheckImg, RegisterButton } from 'styled'
+import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 
 /**
  * @title
@@ -36,13 +41,23 @@ import { deserializeContent } from 'utils/wysiwyg'
 export const ExamInfoDetailPage: FC = () => {
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
-
   // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
   const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
-
+  const [commentList, setCommentList] = useState<FindAllCommentsResponseProps>()
+  const [commentInput, setCommentInput] = useState<string>('')
+  const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    setCommentInput(event.target.value)
+  }
+  const onClickRegisterButton = (): void => {
+    //api 날리기
+  }
   useEffect(() => {
     checkPost({ postId: +postId }).then((res) => {
       setExamInfoDetail(res as ResponsePostType)
+    })
+    findAllComments({
+      pages: 0,
+      postId: 0,
     })
   }, [])
 
@@ -76,6 +91,14 @@ export const ExamInfoDetailPage: FC = () => {
         </CommentTitle>
         {/* 댓글 컴포넌트 만들고 Map으로 받아오기 */}
       </CommentWrapper>
+      <CommentBoxWrapper>
+        <Nickname>사용자 닉네임</Nickname>
+        <CommentBox placeholder="댓글을 남겨보세요." onChange={onChange} />
+        <RegisterButton onClick={onClickRegisterButton}>
+          <CheckImg />
+          등록
+        </RegisterButton>
+      </CommentBoxWrapper>
     </Root>
   )
 }
