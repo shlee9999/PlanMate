@@ -26,6 +26,7 @@ import { checkPost } from 'api/post/checkPost'
 import { deserializeContent } from 'utils/wysiwyg'
 import { CheckImg, RegisterButton } from 'styled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
+import { createComment } from 'api/comment/createComment'
 
 /**
  * @title
@@ -50,6 +51,12 @@ export const ExamInfoDetailPage: FC = () => {
   }
   const onClickRegisterButton = (): void => {
     //api 날리기
+    createComment({
+      content: commentInput,
+      postId: +postId,
+    }).then((res) => {
+      console.log(res)
+    })
   }
   useEffect(() => {
     checkPost({ postId: +postId }).then((res) => {
@@ -58,6 +65,8 @@ export const ExamInfoDetailPage: FC = () => {
     findAllComments({
       pages: 0,
       postId: 0,
+    }).then((res) => {
+      setCommentList(res as FindAllCommentsResponseProps) //현재 403 에러
     })
   }, [])
 
