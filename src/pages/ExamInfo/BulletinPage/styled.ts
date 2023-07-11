@@ -9,6 +9,15 @@ export const Root = styled.div`
   box-sizing: border-box;
   padding: 48px 160px 102px;
   row-gap: 24px;
+  .editor {
+    outline: none;
+    box-sizing: border-box;
+    padding: 0 14px;
+    border: 1px solid #c6c6c6;
+    border-radius: 8px;
+    width: 1120px;
+    min-height: 200px;
+  }
 `
 export const WriteTypo = styled.div`
   font-size: 21px;
@@ -78,7 +87,7 @@ export const TitleInput = styled.input`
 export const ContentInput = styled.textarea`
   outline: none;
   box-sizing: border-box;
-  padding: 11px 16px;
+  padding: 18px 16px;
   border: 1px solid #c6c6c6;
   border-radius: 8px;
   width: 1120px;

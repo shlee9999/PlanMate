@@ -12,22 +12,29 @@ import {
 } from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
+import { EditorState, convertToRaw } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-type InputType = {
-  title: string
-  content: string
-}
+import { serializeContent } from 'utils/wysiwyg'
+
 export const BulletinPage: FC = () => {
-  const [inputValue, setInputValue] = useState<InputType>({ title: '', content: '' })
-  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setInputValue({ ...inputValue, [event.target.name]: event.target.value })
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
+
+  const onEditorStateChange = (editorState: EditorState) => {
+    setEditorState(editorState)
+  }
+  const [inputValue, setInputValue] = useState<string>('')
+  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(event.target.value)
   }
   const navigate = useNavigate()
   const onClickRegisterButton = async () => {
+    if (inputValue === '') return
     await createPost({
-      content: inputValue.content,
+      content: serializeContent(editorState),
       tagList: ['태그1', '태그2'],
-      title: inputValue.title,
+      title: inputValue,
     }).then((res) => {
       console.log(res)
     })
@@ -40,11 +47,30 @@ export const BulletinPage: FC = () => {
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
+  useEffect(() => {
+    console.log(convertToRaw(editorState.getCurrentContent()))
+  }, [editorState])
   return (
     <Root>
       <WriteTypo>글쓰기 ✏️</WriteTypo>
-      <TitleInput name="title" value={inputValue.title} onChange={onChange} placeholder="제목을 입력해주세요" />
-      <ContentInput name="content" value={inputValue.content} onChange={onChange} />
+      <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
+      <Editor
+        wrapperClassName="wrapper-class"
+        editorClassName="editor"
+        toolbarClassName="toolbar-class"
+        toolbar={{
+          list: { inDropdown: true },
+          textAlign: { inDropdown: true },
+          link: { inDropdown: true },
+          history: { inDropdown: false },
+        }}
+        placeholder="내용을 작성해주세요"
+        localization={{
+          locale: 'ko',
+        }}
+        editorState={editorState}
+        onEditorStateChange={onEditorStateChange}
+      />
       <ButtonWrapper>
         <CancelButton onClick={onClickCancelButton}>
           <CancelImg />
