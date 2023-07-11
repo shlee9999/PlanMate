@@ -10,7 +10,6 @@ import {
   Icon,
   IconContainer,
   IconCountWrapper,
-  Nickname,
   Root,
   Tag,
   TagWrapper,
@@ -29,6 +28,7 @@ import { CheckImg } from 'styled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
+import { CommentOwnerNickname, PostOwnerNickname, UserNickname } from 'components/ExamInfo/ExamInfoComment/styled'
 
 /**
  * @title
@@ -109,7 +109,7 @@ export const ExamInfoDetailPage: FC = () => {
         ))}
       </CommentWrapper>
       <CommentBoxWrapper>
-        <Nickname>사용자 닉네임</Nickname>
+        <UserNickname>사용자 닉네임</UserNickname>
         <CommentBox placeholder="댓글을 남겨보세요." onChange={onChange} />
         <CommentRegisterButton onClick={onClickRegisterButton}>
           <CheckImg />

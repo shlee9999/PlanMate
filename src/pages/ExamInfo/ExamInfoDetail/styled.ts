@@ -85,6 +85,7 @@ export const CommentTitle = styled.div`
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
+  margin-bottom: 24px;
 `
 export const CommentCount = styled.span`
   color: #01cb45;

@@ -1,5 +1,15 @@
 import { FC, useEffect } from 'react'
-import { Comment, Date, LeftContainer, LikeButton, Nickname, ReplyButton, Root, UpperTypoWrapper } from './styled'
+import {
+  Comment,
+  CommentOwnerNickname,
+  Date,
+  LeftContainer,
+  LikeButton,
+  LikeImg,
+  ReplyButton,
+  Root,
+  UpperTypoWrapper,
+} from './styled'
 
 type ExamInfoCommentProps = {
   likeCount: number
@@ -19,13 +29,16 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     <Root>
       <LeftContainer>
         <UpperTypoWrapper>
-          <Nickname>{memberName}</Nickname>
+          <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
           <Date>{updatedAt}</Date>
         </UpperTypoWrapper>
         <Comment>{content}</Comment>
-        <ReplyButton />
+        <ReplyButton>답글</ReplyButton>
       </LeftContainer>
-      <LikeButton>{likeCount}</LikeButton>
+      <LikeButton>
+        <LikeImg />
+        {likeCount}
+      </LikeButton>
     </Root>
   )
 }
