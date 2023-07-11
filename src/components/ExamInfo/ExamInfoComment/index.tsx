@@ -1,26 +1,32 @@
 import { FC } from 'react'
-import { Root } from './styled'
+import { Comment, Date, LeftContainer, LikeButton, Nickname, ReplyButton, Root, UpperTypoWrapper } from './styled'
 
 type ExamInfoCommentProps = {
-  title: string
-  like: number
-  scrap: number
-  commentList: string
-  nickname: string
-  updated_at: string
+  likeCount: number
+  memberName: string
+  updatedAt: string
   tagList: Array<string>
   content: string
 }
 
 export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
-  title,
-  like,
-  scrap,
-  commentList,
-  nickname,
-  updated_at,
-  tagList,
-  content,
+  likeCount,
+  memberName,
+  updatedAt,
+  content, //댓글임
 }) => {
-  return <Root>ExamInfoComment</Root>
+  //대댓글 로직
+  return (
+    <Root>
+      <LeftContainer>
+        <UpperTypoWrapper>
+          <Nickname>{memberName}</Nickname>
+          <Date>{updatedAt}</Date>
+        </UpperTypoWrapper>
+        <Comment>{content}</Comment>
+        <ReplyButton />
+      </LeftContainer>
+      <LikeButton>{likeCount}</LikeButton>
+    </Root>
+  )
 }
