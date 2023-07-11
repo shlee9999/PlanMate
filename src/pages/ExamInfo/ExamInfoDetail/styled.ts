@@ -14,7 +14,6 @@ export const TagWrapper = styled.div`
   display: flex;
   column-gap: 5px;
   margin-bottom: 3px;
-  margin-left: 10px;
 `
 export const Tag = styled(TagRoot)`
   font-size: 12px;
