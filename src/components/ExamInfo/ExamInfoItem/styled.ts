@@ -19,6 +19,7 @@ export const TitleTypo = styled.div`
   font-size: 16px;
   line-height: 20px;
   color: #222222;
+  cursor: pointer;
 `
 export const InfoTypo = styled.div`
   font-weight: 400;

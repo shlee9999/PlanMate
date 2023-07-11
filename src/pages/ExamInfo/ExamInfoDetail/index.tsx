@@ -20,6 +20,7 @@ import scrapImg from 'assets/images/scrap.png'
 import { useLoaderData, useParams } from 'react-router-dom'
 import { ResponsePostType } from 'api/common/commonType'
 import { checkPost } from 'api/post/checkPost'
+import { deserializeContent } from 'utils/wysiwyg'
 
 /**
  * @title
@@ -37,17 +38,7 @@ export const ExamInfoDetailPage: FC = () => {
   if (!postId) return <Root>Error!</Root>
 
   // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
-  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
-    commentCount: 0,
-    content: '서버가 꺼져있습니다',
-    likeCount: 0,
-    nickname: '',
-    postId: 0,
-    postTagList: [],
-    scrapCount: 0,
-    title: '',
-    updatedAt: '',
-  })
+  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
 
   useEffect(() => {
     checkPost({ postId: +postId }).then((res) => {
@@ -67,7 +58,7 @@ export const ExamInfoDetailPage: FC = () => {
         <UpdatedDate>{examInfoDetail?.updatedAt}</UpdatedDate>
       </TitleTypoWrapper>
       <ContentWrapper>
-        {examInfoDetail?.content}
+        {examInfoDetail && <div dangerouslySetInnerHTML={{ __html: deserializeContent(examInfoDetail.content) }} />}
         <IconContainer>
           <IconCountWrapper>
             <Icon alt="like_icon" src={likeImg} />
