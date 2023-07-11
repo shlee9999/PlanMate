@@ -11,7 +11,7 @@ export const Root = styled.div`
   margin-top: ${HEADER_HEIGHT}px;
 `
 
-export const TagRoot = styled.p`
+export const TagRoot = styled.span`
   &::before {
     content: '#';
   }

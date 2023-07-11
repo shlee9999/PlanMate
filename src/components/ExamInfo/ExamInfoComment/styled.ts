@@ -18,13 +18,7 @@ export const LeftContainer = styled.div`
   flex-direction: column;
   row-gap: 8px;
 `
-export const PostOwnerNickname = styled.p`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  text-align: center;
-  color: #666666;
-`
+
 export const CommentOwnerNickname = styled.p``
 export const UserNickname = styled.p`
   font-size: 16px;

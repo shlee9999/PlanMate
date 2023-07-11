@@ -17,6 +17,13 @@ import {
   TitleTypo,
   TitleTypoWrapper,
   UpdatedDate,
+  LeftTypoWrapper,
+  RightTypoWrapper,
+  PostOwnerNickname,
+  EditTypo,
+  DeleteTypo,
+  UpperTypoWrapper,
+  DistributionLine,
 } from './styled'
 
 import likeImg from 'assets/images/like.png'
@@ -29,7 +36,7 @@ import { CheckImg } from 'styled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
-import { CommentOwnerNickname, PostOwnerNickname, UserNickname } from 'components/ExamInfo/ExamInfoComment/styled'
+import { UserNickname } from 'components/ExamInfo/ExamInfoComment/styled'
 
 /**
  * @title
@@ -73,15 +80,26 @@ export const ExamInfoDetailPage: FC = () => {
 
   return (
     <Root>
-      <TagWrapper>
-        {examInfoDetail?.postTagList.map((tag, index) => (
-          <Tag key={index}>{tag}</Tag>
-        ))}
-      </TagWrapper>
-      <TitleTypoWrapper>
-        <TitleTypo>{examInfoDetail?.title}</TitleTypo>
-        <UpdatedDate>{examInfoDetail?.updatedAt}</UpdatedDate>
-      </TitleTypoWrapper>
+      <UpperTypoWrapper>
+        <LeftTypoWrapper>
+          <TagWrapper>
+            {examInfoDetail?.postTagList.map((tag, index) => (
+              <Tag key={index}>{tag}</Tag>
+            ))}
+          </TagWrapper>
+          <TitleTypoWrapper>
+            <TitleTypo>{examInfoDetail?.title}</TitleTypo>
+            <UpdatedDate>{examInfoDetail?.updatedAt}</UpdatedDate>
+          </TitleTypoWrapper>
+        </LeftTypoWrapper>
+        <RightTypoWrapper>
+          <PostOwnerNickname>{examInfoDetail?.nickname}</PostOwnerNickname>
+          <EditTypo>수정</EditTypo>
+          <DistributionLine />
+          <DeleteTypo>삭제</DeleteTypo>
+        </RightTypoWrapper>
+      </UpperTypoWrapper>
+
       <ContentWrapper>
         {examInfoDetail && <div dangerouslySetInnerHTML={{ __html: deserializeContent(examInfoDetail.content) }} />}
         <IconContainer>

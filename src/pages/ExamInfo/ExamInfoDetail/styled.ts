@@ -22,15 +22,58 @@ export const Tag = styled(TagRoot)`
   line-height: 15px;
   color: #888888;
 `
-export const TitleTypoWrapper = styled.div`
+export const UpperTypoWrapper = styled.div`
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+`
+export const LeftTypoWrapper = styled.span`
+  margin-left: 10px;
+`
+export const TitleTypoWrapper = styled.span`
   position: relative;
   display: flex;
   align-items: end;
   height: 26px;
   column-gap: 6px;
-  margin-bottom: 16px;
-  margin-left: 10px;
 `
+
+export const RightTypoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`
+
+export const PostOwnerNickname = styled.span`
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  text-align: center;
+  color: #666666;
+  margin-right: 12px;
+`
+const ButtonTypo = styled.span`
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+export const EditTypo = styled(ButtonTypo)`
+  margin-right: 5px;
+`
+export const DistributionLine = styled.hr`
+  border: none;
+  display: inline-block;
+  background-color: #888888;
+  width: 1px;
+  height: 12px;
+  margin-right: 5px;
+`
+export const DeleteTypo = styled(ButtonTypo)``
 export const TitleTypo = styled.p`
   font-size: 21px;
   font-weight: 700;
