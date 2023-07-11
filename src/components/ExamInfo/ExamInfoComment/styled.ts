@@ -60,6 +60,7 @@ export const LikeImg = styled.img`
   content: url(${likeImg});
   width: 12px;
   height: 12px;
+  margin-right: 1px;
 `
 export const LikeButton = styled.button`
   margin: 15px 8px;
