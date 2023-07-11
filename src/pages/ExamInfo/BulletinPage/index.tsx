@@ -1,5 +1,15 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
-import { CancelButton, ContentInput, RegisterButton, Root, TitleInput, WriteTypo } from './styled'
+import {
+  ButtonWrapper,
+  CancelButton,
+  CancelImg,
+  CheckImg,
+  ContentInput,
+  RegisterButton,
+  Root,
+  TitleInput,
+  WriteTypo,
+} from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
 
@@ -35,8 +45,16 @@ export const BulletinPage: FC = () => {
       <WriteTypo>글쓰기 ✏️</WriteTypo>
       <TitleInput name="title" value={inputValue.title} onChange={onChange} placeholder="제목을 입력해주세요" />
       <ContentInput name="content" value={inputValue.content} onChange={onChange} />
-      <CancelButton onClick={onClickCancelButton}>취소</CancelButton>
-      <RegisterButton onClick={onClickRegisterButton}>등록</RegisterButton>
+      <ButtonWrapper>
+        <CancelButton onClick={onClickCancelButton}>
+          <CancelImg />
+          취소
+        </CancelButton>
+        <RegisterButton onClick={onClickRegisterButton}>
+          <CheckImg />
+          등록
+        </RegisterButton>
+      </ButtonWrapper>
     </Root>
   )
 }
