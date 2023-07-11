@@ -121,3 +121,16 @@ const EllipsisButtonRoot = styled.button`
 `
 export const EllipsisEditButton = styled(EllipsisButtonRoot)``
 export const EllipsisDeleteButton = styled(EllipsisButtonRoot)``
+
+export const AuthorIcon = styled.div`
+  width: 40px;
+  height: 14px;
+  line-height: 14px;
+  border-radius: 100px;
+  border: 1px solid #01cb45;
+  background-color: #e2f9ea;
+  color: #01cb45;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 400;
+`

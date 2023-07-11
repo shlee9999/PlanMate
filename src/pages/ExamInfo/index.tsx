@@ -55,8 +55,8 @@ export const ExamInfoPage = () => {
 
   useEffect(() => {
     async function loadExamInfo() {
-      await findAll({ pages: currentPage - 1 }).then((res) => {
-        setExamInfoList(res as ResponsePostType[])
+      await findAll({ pages: currentPage - 1 }).then((res: any) => {
+        setExamInfoList(res.postDtoList as ResponsePostType[])
       })
     }
     loadExamInfo()

@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import {
+  AuthorIcon,
   Comment,
   CommentOwnerNickname,
   Date,
@@ -14,8 +15,11 @@ import {
   Root,
   UpperTypoWrapper,
 } from './styled'
+import { removeComment } from 'api/comment/removeComment'
 
 type ExamInfoCommentProps = {
+  commentId: number
+  isAuthor: boolean
   likeCount: number
   memberName: string
   updatedAt: string
@@ -23,6 +27,8 @@ type ExamInfoCommentProps = {
 }
 
 export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
+  commentId,
+  isAuthor,
   likeCount,
   memberName,
   updatedAt,
@@ -41,18 +47,27 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   const onClickModal = (e: React.MouseEvent): void => {
     e.stopPropagation()
   }
+  const onClickEllipsisDeleteButton = (): void => {
+    removeComment({ commentId: commentId }).then((res) => {
+      console.log(res)
+    })
+  }
+  useEffect(() => {
+    console.log('commentid : ' + commentId)
+  }, [])
   return (
     <Root onClick={closeEllipsisModal}>
       <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
       {isEllipsisOpen && (
         <EllipsisModal onClick={onClickModal}>
           <EllipsisEditButton>수정</EllipsisEditButton>
-          <EllipsisDeleteButton>삭제</EllipsisDeleteButton>
+          <EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</EllipsisDeleteButton>
         </EllipsisModal>
       )}
       <LeftContainer>
         <UpperTypoWrapper>
           <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
+          {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
           <Date>{updatedAt}</Date>
         </UpperTypoWrapper>
         <Comment>{content}</Comment>

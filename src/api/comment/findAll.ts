@@ -6,6 +6,7 @@ export type FindAllCommentsRequestProps = {
 }
 
 export type FindAllCommentsResponseProps = {
+  commentId: number
   content: string
   isAuthor: boolean
   likeCount: number

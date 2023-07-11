@@ -73,8 +73,8 @@ export const ExamInfoDetailPage: FC = () => {
     findAllComments({
       pages: 0,
       postId: +postId,
-    }).then((res) => {
-      setCommentList(res as FindAllCommentsResponseProps[]) //현재 405 에러
+    }).then((res: any) => {
+      setCommentList(res.commentDtoList as FindAllCommentsResponseProps[])
     })
   }, [])
 
@@ -121,6 +121,8 @@ export const ExamInfoDetailPage: FC = () => {
           {commentList?.map((comment, index) => (
             <ExamInfoComment
               key={index}
+              commentId={comment.commentId}
+              isAuthor={comment.isAuthor}
               likeCount={comment.likeCount}
               memberName={comment.memberName}
               updatedAt={comment.updatedAt}
