@@ -117,7 +117,7 @@ export const CommentBox = styled.textarea`
   border-radius: 8px;
   border: 1px solid #c6c6c6;
   background-color: #f9f9f9;
-  color: #c6c6c6;
+
   &::placeholder {
     color: #c6c6c6;
   }
