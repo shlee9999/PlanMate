@@ -30,19 +30,20 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
 }) => {
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const openEllipsisModal = (e: React.MouseEvent): void => {
-    setIsEllipsisOpen(true)
-    e.stopPropagation()
-  }
+
   const closeEllipsisModal = (): void => {
-    setIsEllipsisOpen(false)
+    if (isEllipsisOpen) setIsEllipsisOpen(false)
+  }
+  const toggleEllipsisModal = (e: React.MouseEvent): void => {
+    setIsEllipsisOpen((prev) => !prev)
+    e.stopPropagation()
   }
   const onClickModal = (e: React.MouseEvent): void => {
     e.stopPropagation()
   }
   return (
     <Root onClick={closeEllipsisModal}>
-      <EllipsisButton onClick={openEllipsisModal}></EllipsisButton>
+      <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
       {isEllipsisOpen && (
         <EllipsisModal onClick={onClickModal}>
           <EllipsisEditButton>수정</EllipsisEditButton>
