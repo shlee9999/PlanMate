@@ -1,10 +1,25 @@
 import styled from 'styled-components'
 import likeImg from 'assets/images/like.png'
+import ellipsisButton from 'assets/images/ellipsis.png'
+export const EllipsisButton = styled.img`
+  position: relative;
+  cursor: pointer;
+`
 export const Root = styled.div`
   position: relative;
   margin: 0 auto;
   display: flex;
   border-bottom: 1px solid #c6c6c6;
+  &:hover {
+    ${EllipsisButton} {
+      content: url(${ellipsisButton});
+      transform: rotate(90deg);
+      position: absolute;
+      right: 3px;
+      top: 12px;
+      width: 16px;
+    }
+  }
 `
 export const UpperTypoWrapper = styled.div`
   box-sizing: border-box;
@@ -69,3 +84,40 @@ export const LikeButton = styled.button`
   line-height: 15px;
   color: #666666;
 `
+export const EllipsisModal = styled.div`
+  position: absolute;
+  top: 16px;
+  right: 0;
+  transform: translate(0, 16px);
+  width: 74px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #dddede;
+  border-radius: 8px;
+  background-color: white;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 6px 5px;
+`
+const EllipsisButtonRoot = styled.button`
+  width: 64px;
+  height: 30px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #e2f9e9;
+    color: #01cb45;
+  }
+  text-align: left;
+  box-sizing: border-box;
+  padding-left: 6px;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #888888;
+`
+export const EllipsisEditButton = styled(EllipsisButtonRoot)``
+export const EllipsisDeleteButton = styled(EllipsisButtonRoot)``

@@ -1,8 +1,12 @@
-import { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import {
   Comment,
   CommentOwnerNickname,
   Date,
+  EllipsisButton,
+  EllipsisDeleteButton,
+  EllipsisEditButton,
+  EllipsisModal,
   LeftContainer,
   LikeButton,
   LikeImg,
@@ -25,8 +29,26 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   content, //댓글임
 }) => {
   //대댓글 로직
+  const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
+  const openEllipsisModal = (e: React.MouseEvent): void => {
+    setIsEllipsisOpen(true)
+    e.stopPropagation()
+  }
+  const closeEllipsisModal = (): void => {
+    setIsEllipsisOpen(false)
+  }
+  const onClickModal = (e: React.MouseEvent): void => {
+    e.stopPropagation()
+  }
   return (
-    <Root>
+    <Root onClick={closeEllipsisModal}>
+      <EllipsisButton onClick={openEllipsisModal}></EllipsisButton>
+      {isEllipsisOpen && (
+        <EllipsisModal onClick={onClickModal}>
+          <EllipsisEditButton>수정</EllipsisEditButton>
+          <EllipsisDeleteButton>삭제</EllipsisDeleteButton>
+        </EllipsisModal>
+      )}
       <LeftContainer>
         <UpperTypoWrapper>
           <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
