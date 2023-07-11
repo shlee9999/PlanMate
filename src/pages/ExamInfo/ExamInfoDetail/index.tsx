@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 import {
   CommentBox,
   CommentBoxWrapper,
+  CommentContainer,
   CommentCount,
   CommentRegisterButton,
   CommentTitle,
@@ -98,15 +99,17 @@ export const ExamInfoDetailPage: FC = () => {
         <CommentTitle>
           댓글 <CommentCount>{examInfoDetail?.commentCount}</CommentCount>개
         </CommentTitle>
-        {commentList?.map((comment, index) => (
-          <ExamInfoComment
-            key={index}
-            likeCount={comment.likeCount}
-            memberName={comment.memberName}
-            updatedAt={comment.updatedAt}
-            content={comment.content}
-          />
-        ))}
+        <CommentContainer>
+          {commentList?.map((comment, index) => (
+            <ExamInfoComment
+              key={index}
+              likeCount={comment.likeCount}
+              memberName={comment.memberName}
+              updatedAt={comment.updatedAt}
+              content={comment.content}
+            />
+          ))}
+        </CommentContainer>
       </CommentWrapper>
       <CommentBoxWrapper>
         <UserNickname>사용자 닉네임</UserNickname>

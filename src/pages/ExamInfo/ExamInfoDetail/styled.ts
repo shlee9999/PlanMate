@@ -93,9 +93,7 @@ export const CommentCount = styled.span`
 `
 
 export const CommentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-top: 1px solid #c6c6c6;
 `
 export const CommentBoxWrapper = styled.div`
   display: flex;

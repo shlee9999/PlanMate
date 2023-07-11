@@ -4,7 +4,6 @@ export const Root = styled.div`
   position: relative;
   margin: 0 auto;
   display: flex;
-  border-top: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
 `
 export const UpperTypoWrapper = styled.div`
