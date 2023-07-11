@@ -1,4 +1,4 @@
-import { axiosGET } from 'api/common/commonAxios'
+import { axiosPOST } from 'api/common/commonAxios'
 
 export type FindAllCommentsRequestProps = {
   pages: number
@@ -13,6 +13,6 @@ export type FindAllCommentsResponseProps = {
   updatedAt: string
 }
 
-export const findAllComments = (req: FindAllCommentsRequestProps) => {
-  return axiosGET('/find/all', req)
+export const findAllComments = (obj: FindAllCommentsRequestProps) => {
+  return axiosPOST('/comment/find/all', obj)
 }

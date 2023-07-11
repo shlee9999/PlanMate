@@ -65,9 +65,10 @@ export const ExamInfoDetailPage: FC = () => {
     })
     findAllComments({
       pages: 0,
-      postId: 0,
+      postId: +postId,
     }).then((res) => {
-      setCommentList(res as FindAllCommentsResponseProps) //현재 403 에러
+      setCommentList(res as FindAllCommentsResponseProps) //현재 405 에러
+      console.log(res)
     })
   }, [])
 
