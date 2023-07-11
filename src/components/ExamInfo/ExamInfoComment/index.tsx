@@ -5,7 +5,6 @@ type ExamInfoCommentProps = {
   likeCount: number
   memberName: string
   updatedAt: string
-  tagList: Array<string>
   content: string
 }
 

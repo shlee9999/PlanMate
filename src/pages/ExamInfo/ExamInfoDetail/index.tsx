@@ -25,9 +25,10 @@ import { useLoaderData, useParams } from 'react-router-dom'
 import { ResponsePostType } from 'api/common/commonType'
 import { checkPost } from 'api/post/checkPost'
 import { deserializeContent } from 'utils/wysiwyg'
-import { CheckImg, RegisterButton } from 'styled'
+import { CheckImg } from 'styled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
+import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 
 /**
  * @title
@@ -45,7 +46,7 @@ export const ExamInfoDetailPage: FC = () => {
   if (!postId) return <Root>Error!</Root>
   // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
   const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
-  const [commentList, setCommentList] = useState<FindAllCommentsResponseProps>()
+  const [commentList, setCommentList] = useState<FindAllCommentsResponseProps[]>()
   const [commentInput, setCommentInput] = useState<string>('')
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
@@ -55,8 +56,6 @@ export const ExamInfoDetailPage: FC = () => {
     createComment({
       content: commentInput,
       postId: +postId,
-    }).then((res) => {
-      console.log(res)
     })
   }
   useEffect(() => {
@@ -67,8 +66,7 @@ export const ExamInfoDetailPage: FC = () => {
       pages: 0,
       postId: +postId,
     }).then((res) => {
-      setCommentList(res as FindAllCommentsResponseProps) //현재 405 에러
-      console.log(res)
+      setCommentList(res as FindAllCommentsResponseProps[]) //현재 405 에러
     })
   }, [])
 
@@ -100,7 +98,15 @@ export const ExamInfoDetailPage: FC = () => {
         <CommentTitle>
           댓글 <CommentCount>{examInfoDetail?.commentCount}</CommentCount>개
         </CommentTitle>
-        {/* 댓글 컴포넌트 만들고 Map으로 받아오기 */}
+        {commentList?.map((comment, index) => (
+          <ExamInfoComment
+            key={index}
+            likeCount={comment.likeCount}
+            memberName={comment.memberName}
+            updatedAt={comment.updatedAt}
+            content={comment.content}
+          />
+        ))}
       </CommentWrapper>
       <CommentBoxWrapper>
         <Nickname>사용자 닉네임</Nickname>
