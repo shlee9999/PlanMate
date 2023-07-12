@@ -12,7 +12,7 @@ import {
 } from './styled'
 
 import commentImg from 'assets/images/comment.png'
-import likeImg from 'assets/images/like.png'
+import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import scrapImg from 'assets/images/scrap.png'
 import { ResponsePostType } from 'api/common/commonType'
 import { useNavigate } from 'react-router-dom'
@@ -56,7 +56,7 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
           {commentCount}
         </IconCountWrapper>
         <IconCountWrapper>
-          <Icon alt="like_icon" src={likeImg} />
+          <Icon alt="like_icon" src={hollowLikeImg} />
           {likeCount}
         </IconCountWrapper>
         <IconCountWrapper>

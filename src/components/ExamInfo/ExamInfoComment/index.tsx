@@ -36,7 +36,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
 }) => {
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-
+  const [isLiked, setIsLiked] = useState<boolean>(false)
   const closeEllipsisModal = (): void => {
     if (isEllipsisOpen) setIsEllipsisOpen(false)
   }
@@ -52,7 +52,9 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       console.log(res)
     })
   }
-
+  const onClickLikeButton = (): void => {
+    setIsLiked((prev) => !prev)
+  }
   return (
     <Root onClick={closeEllipsisModal}>
       <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
@@ -71,8 +73,8 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
         <Comment>{content}</Comment>
         <ReplyButton>답글</ReplyButton>
       </LeftContainer>
-      <LikeButton>
-        <LikeImg />
+      <LikeButton onClick={onClickLikeButton}>
+        <LikeImg isLiked={isLiked} />
         {likeCount}
       </LikeButton>
     </Root>

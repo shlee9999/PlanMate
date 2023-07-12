@@ -26,7 +26,7 @@ import {
   DistributionLine,
 } from './styled'
 
-import likeImg from 'assets/images/like.png'
+import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import scrapImg from 'assets/images/scrap.png'
 import { useLoaderData, useParams } from 'react-router-dom'
 import { ResponsePostType } from 'api/common/commonType'
@@ -104,7 +104,7 @@ export const ExamInfoDetailPage: FC = () => {
         {examInfoDetail && <div dangerouslySetInnerHTML={{ __html: deserializeContent(examInfoDetail.content) }} />}
         <IconContainer>
           <IconCountWrapper>
-            <Icon alt="like_icon" src={likeImg} />
+            <Icon alt="like_icon" src={hollowLikeImg} />
             {examInfoDetail?.likeCount}
           </IconCountWrapper>
           <IconCountWrapper>
