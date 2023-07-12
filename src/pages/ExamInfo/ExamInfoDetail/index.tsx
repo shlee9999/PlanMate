@@ -8,9 +8,7 @@ import {
   CommentTitle,
   CommentWrapper,
   ContentWrapper,
-  Icon,
   IconContainer,
-  IconCountWrapper,
   Root,
   Tag,
   TagWrapper,
@@ -24,10 +22,13 @@ import {
   DeleteTypo,
   UpperTypoWrapper,
   DistributionLine,
+  LikeButton,
+  LikeImg,
+  ScrapImg,
+  ScrapButton,
+  UserNickname,
 } from './styled'
 
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import scrapImg from 'assets/images/scrap.png'
 import { useLoaderData, useParams } from 'react-router-dom'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { checkPost } from 'api/post/checkPost'
@@ -36,8 +37,7 @@ import { CheckImg } from 'styled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
-import { UserNickname } from 'components/ExamInfo/ExamInfoComment/styled'
-import { RemoveCommentResponseProps, removeComment } from 'api/comment/removeComment'
+import { removeComment } from 'api/comment/removeComment'
 import { Pagination } from 'components/ExamInfo/Pagination'
 
 /**
@@ -136,14 +136,14 @@ export const ExamInfoDetailPage: FC = () => {
       <ContentWrapper>
         {examInfoDetail && <div dangerouslySetInnerHTML={{ __html: deserializeContent(examInfoDetail.content) }} />}
         <IconContainer>
-          <IconCountWrapper>
-            <Icon alt="like_icon" src={hollowLikeImg} />
+          <LikeButton>
+            <LikeImg alt="like_img" isLiked={false} />
             {examInfoDetail?.likeCount}
-          </IconCountWrapper>
-          <IconCountWrapper>
-            <Icon alt="scrap_icon" src={scrapImg} />
+          </LikeButton>
+          <ScrapButton>
+            <ScrapImg isScrapped={false} />
             {examInfoDetail?.scrapCount}
-          </IconCountWrapper>
+          </ScrapButton>
         </IconContainer>
       </ContentWrapper>
       <CommentWrapper>

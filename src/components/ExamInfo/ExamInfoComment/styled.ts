@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import ellipsisButton from 'assets/images/ellipsis.png'
+import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import filledLikeImg from 'assets/images/like_button_filled.png'
+
 export const EllipsisButton = styled.img`
   position: relative;
   cursor: pointer;
@@ -36,12 +37,7 @@ export const LeftContainer = styled.div`
 `
 
 export const CommentOwnerNickname = styled.p``
-export const UserNickname = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #222222;
-`
+
 export const Date = styled.p`
   font-size: 10px;
   font-weight: 400;
@@ -65,6 +61,7 @@ export const ReplyButton = styled.button`
   line-height: 18px;
   color: #666666;
 `
+
 type LikeImgProps = {
   isLiked: boolean
 }
@@ -76,6 +73,7 @@ export const LikeImg = styled.img.attrs<LikeImgProps>((props) => ({
   height: 12px;
   margin-right: 2px;
 `
+
 export const LikeButton = styled.button`
   margin: 15px 8px;
   display: flex;
@@ -84,7 +82,7 @@ export const LikeButton = styled.button`
   position: absolute;
   right: 0;
   bottom: 0;
-  //boolean값 받아와야할듯
+
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
