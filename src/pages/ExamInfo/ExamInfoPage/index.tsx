@@ -46,8 +46,8 @@ export const ExamInfoPage = () => {
   }
 
   useEffect(() => {
-    async function loadExamInfo() {
-      await findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+    function loadExamInfo() {
+      findAll({ pages: currentPage - 1 }).then((res: unknown) => {
         const response = res as FindAllPostResponseProps
         setExamInfoList(response.postDtoList as ResponsePostType[])
         setTotalPage(response.totalPages)
@@ -59,9 +59,7 @@ export const ExamInfoPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [examInfoList])
-  useEffect(() => {
-    console.log(examInfoList)
-  }, [examInfoList])
+
   return (
     <Root>
       <TypoWrapper>
@@ -89,7 +87,7 @@ export const ExamInfoPage = () => {
       </LowerTagButtonWrapper>
       <ExamInfoWrapper>
         {examInfoList.length !== 0 ? (
-          examInfoList.map((sampleInfo, index) => <ExamInfoItem {...sampleInfo} key={sampleInfo.postId} />)
+          examInfoList.map((examInfo, index) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
           <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
         )}

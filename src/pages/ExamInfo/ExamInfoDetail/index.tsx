@@ -38,6 +38,7 @@ import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { UserNickname } from 'components/ExamInfo/ExamInfoComment/styled'
 import { RemoveCommentResponseProps, removeComment } from 'api/comment/removeComment'
+import { Pagination } from 'components/ExamInfo/Pagination'
 
 /**
  * @title
@@ -57,7 +58,8 @@ export const ExamInfoDetailPage: FC = () => {
   const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
   const [commentList, setCommentList] = useState<ResponseCommentType[]>()
   const [commentInput, setCommentInput] = useState<string>('')
-  const [totalPage, setTotalPage] = useState<number>()
+  const [totalPage, setTotalPage] = useState<number>(1)
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -66,6 +68,16 @@ export const ExamInfoDetailPage: FC = () => {
       if (res) setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
     })
   }
+  const loadPrevPage = () => {
+    if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
+  }
+  const loadNextPage = () => {
+    if (currentPage <= totalPage) setCurrentPage((prev) => prev + 1)
+  }
+  const handleCurrentPage = (page: number) => (): void => {
+    setCurrentPage(page)
+  }
+
   const onClickRegisterButton = (): void => {
     //api 날리기
     createComment({
@@ -89,14 +101,14 @@ export const ExamInfoDetailPage: FC = () => {
       setExamInfoDetail(res as ResponsePostType)
     })
     findAllComments({
-      pages: 0,
+      pages: currentPage - 1,
       postId: +postId,
     }).then((res: unknown) => {
       const response = res as FindAllCommentsResponseProps
       setCommentList(response.commentDtoList as ResponseCommentType[])
       setTotalPage(response.totalPages)
     })
-  }, [])
+  }, [currentPage])
 
   return (
     <Root>
@@ -151,6 +163,13 @@ export const ExamInfoDetailPage: FC = () => {
             />
           ))}
         </CommentContainer>
+        <Pagination
+          currentPage={currentPage}
+          totalPage={totalPage}
+          onClickLeftArrow={loadPrevPage}
+          onClickRightArrow={loadNextPage}
+          onClickPageNumber={handleCurrentPage}
+        />
       </CommentWrapper>
       <CommentBoxWrapper>
         <UserNickname>사용자 닉네임</UserNickname>
