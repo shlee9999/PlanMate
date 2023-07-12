@@ -97,6 +97,7 @@ export const ExamInfoDetailPage: FC = () => {
         },
       ].concat(prev)
     )
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   useEffect(() => {
     checkPost({ postId: +postId }).then((res) => {
