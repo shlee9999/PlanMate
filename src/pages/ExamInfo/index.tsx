@@ -29,14 +29,14 @@ import leftArrow from 'assets/images/left_arrow.png'
 import rightArrow from 'assets/images/right_arrow.png'
 
 import { useLoaderData, useNavigate } from 'react-router-dom'
-import { findAll } from 'api/post/find/findAll'
+import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { tagList } from 'constants/tagList'
 
 export const ExamInfoPage = () => {
   // const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
   const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(sampleInfoList.postInfoList) //서버 꺼져있어도 되도록
   const [currentPage, setCurrentPage] = useState<number>(1)
-
+  const [totalPage, setTotalPage] = useState<number>((sampleInfoList.postInfoList.length - 1) / 10 + 1)
   const onClickPageNumber = (page: number) => (): void => {
     setCurrentPage(page)
   }
@@ -55,8 +55,10 @@ export const ExamInfoPage = () => {
 
   useEffect(() => {
     async function loadExamInfo() {
-      await findAll({ pages: currentPage - 1 }).then((res: any) => {
-        setExamInfoList(res.postDtoList as ResponsePostType[])
+      await findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+        const response = res as FindAllPostResponseProps
+        setExamInfoList(response.postDtoList as ResponsePostType[])
+        setTotalPage(response.totalPages)
       })
     }
     loadExamInfo()
@@ -111,15 +113,16 @@ export const ExamInfoPage = () => {
       <PaginationWrapper>
         <LeftArrowImg src={leftArrow} onClick={onClickLeftArrow} />
         <PageNumberWrapper>
-          {generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) =>
-            num === currentPage ? (
+          {generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
+            if (index >= totalPage) return null
+            return num === currentPage ? (
               <CurrentPageNumberTypo key={index}>{num}</CurrentPageNumberTypo>
             ) : (
               <PageNumberTypo key={index} onClick={onClickPageNumber(num)}>
                 {num}
               </PageNumberTypo>
             )
-          )}
+          })}
         </PageNumberWrapper>
         <RightArrowImg src={rightArrow} onClick={onClickRightArrow} />
       </PaginationWrapper>

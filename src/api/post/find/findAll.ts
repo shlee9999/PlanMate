@@ -5,7 +5,10 @@ export type FindAllPostRequestProps = {
   pages: number
 }
 
-export type FindAllPostResponseProps = ResponsePostType
+export type FindAllPostResponseProps = {
+  postDtoList: ResponsePostType[]
+  totalPages: number
+}
 
 export const findAll = (req: FindAllPostRequestProps) => {
   return axiosGET('post/find/all', req)
