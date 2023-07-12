@@ -9,3 +9,12 @@ export type ResponsePostType = {
   title: string
   updatedAt: string
 }
+
+export type ResponseCommentType = {
+  commentId: number
+  content: string
+  isAuthor: boolean
+  likeCount: number
+  memberName: string
+  updatedAt: string
+}

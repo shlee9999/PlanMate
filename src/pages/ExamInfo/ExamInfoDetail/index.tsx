@@ -29,7 +29,7 @@ import {
 import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import scrapImg from 'assets/images/scrap.png'
 import { useLoaderData, useParams } from 'react-router-dom'
-import { ResponsePostType } from 'api/common/commonType'
+import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { checkPost } from 'api/post/checkPost'
 import { deserializeContent } from 'utils/wysiwyg'
 import { CheckImg } from 'styled'
@@ -55,9 +55,9 @@ export const ExamInfoDetailPage: FC = () => {
   if (!postId) return <Root>Error!</Root>
   // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
   const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
-  const [commentList, setCommentList] = useState<FindAllCommentsResponseProps[]>()
+  const [commentList, setCommentList] = useState<ResponseCommentType[]>()
   const [commentInput, setCommentInput] = useState<string>('')
-
+  const [totalPage, setTotalPage] = useState<number>()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -91,8 +91,10 @@ export const ExamInfoDetailPage: FC = () => {
     findAllComments({
       pages: 0,
       postId: +postId,
-    }).then((res: any) => {
-      setCommentList(res.commentDtoList as FindAllCommentsResponseProps[])
+    }).then((res: unknown) => {
+      const response = res as FindAllCommentsResponseProps
+      setCommentList(response.commentDtoList as ResponseCommentType[])
+      setTotalPage(response.totalPages)
     })
   }, [])
 

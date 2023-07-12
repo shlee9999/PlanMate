@@ -1,4 +1,5 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { ResponseCommentType } from 'api/common/commonType'
 
 export type FindAllCommentsRequestProps = {
   pages: number
@@ -6,12 +7,8 @@ export type FindAllCommentsRequestProps = {
 }
 
 export type FindAllCommentsResponseProps = {
-  commentId: number
-  content: string
-  isAuthor: boolean
-  likeCount: number
-  memberName: string
-  updatedAt: string
+  commentDtoList: ResponseCommentType[]
+  totalPages: number
 }
 
 export const findAllComments = (obj: FindAllCommentsRequestProps) => {
