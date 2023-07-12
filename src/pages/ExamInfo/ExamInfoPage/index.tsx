@@ -33,11 +33,11 @@ export const ExamInfoPage = () => {
     setCurrentPage(page)
   }
 
-  const loadNextPage = (): void => {
-    setCurrentPage((prev) => prev + 1)
-  }
   const loadPrevPage = (): void => {
-    setCurrentPage((prev) => prev - 1)
+    if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
+  }
+  const loadNextPage = (): void => {
+    if (currentPage < totalPage) setCurrentPage((prev) => prev + 1)
   }
   const navigate = useNavigate()
 

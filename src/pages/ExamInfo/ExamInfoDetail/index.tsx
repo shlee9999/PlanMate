@@ -69,11 +69,11 @@ export const ExamInfoDetailPage: FC = () => {
     })
     //댓글 total 개수 하나 줄여야 함
   }
-  const loadPrevPage = () => {
+  const loadPrevPage = (): void => {
     if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
   }
-  const loadNextPage = () => {
-    if (currentPage <= totalPage) setCurrentPage((prev) => prev + 1)
+  const loadNextPage = (): void => {
+    if (currentPage < totalPage) setCurrentPage((prev) => prev + 1)
   }
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
