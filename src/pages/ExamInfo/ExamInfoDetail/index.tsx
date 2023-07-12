@@ -37,6 +37,7 @@ import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findA
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { UserNickname } from 'components/ExamInfo/ExamInfoComment/styled'
+import { RemoveCommentResponseProps, removeComment } from 'api/comment/removeComment'
 
 /**
  * @title
@@ -56,8 +57,14 @@ export const ExamInfoDetailPage: FC = () => {
   const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
   const [commentList, setCommentList] = useState<FindAllCommentsResponseProps[]>()
   const [commentInput, setCommentInput] = useState<string>('')
+
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
+  }
+  const deleteComment = (id: number) => (): void => {
+    removeComment({ commentId: id }).then((res) => {
+      if (res) setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
+    })
   }
   const onClickRegisterButton = (): void => {
     //api 날리기
@@ -65,6 +72,17 @@ export const ExamInfoDetailPage: FC = () => {
       content: commentInput,
       postId: +postId,
     })
+    if (commentList)
+      setCommentList((prev) =>
+        prev?.concat({
+          commentId: commentList[0].commentId + 1, //정렬 바뀌면 바뀔수도
+          content: commentInput,
+          isAuthor: true, //사용자id === 글쓴이id
+          likeCount: 0,
+          memberName: '사용자 닉네임',
+          updatedAt: '현재 시각',
+        })
+      )
   }
   useEffect(() => {
     checkPost({ postId: +postId }).then((res) => {
@@ -115,18 +133,19 @@ export const ExamInfoDetailPage: FC = () => {
       </ContentWrapper>
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{examInfoDetail?.commentCount}</CommentCount>개
+          댓글 <CommentCount>{commentList?.length}</CommentCount>개
         </CommentTitle>
         <CommentContainer>
-          {commentList?.map((comment, index) => (
+          {commentList?.map((comment) => (
             <ExamInfoComment
-              key={index}
+              key={comment.commentId}
               commentId={comment.commentId}
               isAuthor={comment.isAuthor}
               likeCount={comment.likeCount}
               memberName={comment.memberName}
               updatedAt={comment.updatedAt}
               content={comment.content}
+              deleteComment={deleteComment(comment.commentId)}
             />
           ))}
         </CommentContainer>

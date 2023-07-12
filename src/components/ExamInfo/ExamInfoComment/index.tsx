@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import {
   AuthorIcon,
   Comment,
@@ -24,6 +24,7 @@ type ExamInfoCommentProps = {
   memberName: string
   updatedAt: string
   content: string
+  deleteComment: () => void
 }
 
 export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
@@ -33,6 +34,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   memberName,
   updatedAt,
   content, //댓글임
+  deleteComment,
 }) => {
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
@@ -49,9 +51,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     e.stopPropagation()
   }
   const onClickEllipsisDeleteButton = (): void => {
-    removeComment({ commentId: commentId }).then((res) => {
-      console.log(res)
-    })
+    deleteComment()
   }
   const onClickLikeButton = (): void => {
     //api 추가해야함
