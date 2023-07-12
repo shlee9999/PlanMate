@@ -160,7 +160,7 @@ export const ExamInfoDetailPage: FC = () => {
               isAuthor={comment.isAuthor}
               likeCount={comment.likeCount}
               memberName={comment.memberName}
-              updatedAt={comment.updatedAt}
+              updatedAt={comment.updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}
               content={comment.content}
               deleteComment={deleteComment(comment.commentId)}
             />
