@@ -56,7 +56,7 @@ export const ExamInfoDetailPage: FC = () => {
   if (!postId) return <Root>Error!</Root>
   // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
   const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
-  const [commentList, setCommentList] = useState<ResponseCommentType[]>()
+  const [commentList, setCommentList] = useState<ResponseCommentType[]>([])
   const [commentInput, setCommentInput] = useState<string>('')
   const [totalPage, setTotalPage] = useState<number>(1)
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -85,17 +85,18 @@ export const ExamInfoDetailPage: FC = () => {
       content: commentInput,
       postId: +postId,
     })
-    if (commentList)
-      setCommentList((prev) =>
-        prev?.concat({
-          commentId: commentList[0].commentId + 1, //정렬 바뀌면 바뀔수도
+    setCommentList((prev) =>
+      [
+        {
+          commentId: prev[0].commentId + 1, //may change if sorting changes
           content: commentInput,
-          isAuthor: true, //사용자id === 글쓴이id
+          isAuthor: true, //userid === authorid
           likeCount: 0,
-          memberName: '사용자 닉네임',
-          updatedAt: '현재 시각',
-        })
-      )
+          memberName: 'User Nickname',
+          updatedAt: 'current time',
+        },
+      ].concat(prev)
+    )
   }
   useEffect(() => {
     checkPost({ postId: +postId }).then((res) => {
@@ -148,10 +149,10 @@ export const ExamInfoDetailPage: FC = () => {
       </ContentWrapper>
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{commentList?.length}</CommentCount>개
+          댓글 <CommentCount>{commentList.length}</CommentCount>개
         </CommentTitle>
         <CommentContainer>
-          {commentList?.map((comment) => (
+          {commentList.map((comment) => (
             <ExamInfoComment
               key={comment.commentId}
               commentId={comment.commentId}
