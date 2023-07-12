@@ -52,6 +52,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   }
   const onClickEllipsisDeleteButton = (): void => {
     deleteComment()
+    //total개수 하나 줄여야 함
   }
   const onClickLikeButton = (): void => {
     //api 추가해야함
