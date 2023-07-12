@@ -47,7 +47,7 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
         <TitleTypo onClick={onClickTitle}>{title}</TitleTypo>
         <InfoTypo>
           <NickName>{nickname}</NickName>
-          <UpdatedDate>{updatedAt}</UpdatedDate>
+          <UpdatedDate>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -9)}</UpdatedDate>
         </InfoTypo>
       </TypoWrapper>
       <IconContainer>
