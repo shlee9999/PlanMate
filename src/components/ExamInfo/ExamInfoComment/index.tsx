@@ -52,9 +52,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       console.log(res)
     })
   }
-  useEffect(() => {
-    console.log('commentid : ' + commentId)
-  }, [])
+
   return (
     <Root onClick={closeEllipsisModal}>
       <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
