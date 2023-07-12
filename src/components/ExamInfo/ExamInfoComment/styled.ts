@@ -72,8 +72,9 @@ type LikeImgProps = {
 export const LikeImg = styled.img.attrs<LikeImgProps>((props) => ({
   src: props.isLiked ? filledLikeImg : hollowLikeImg,
 }))<LikeImgProps>`
-  width: 12px;
-  margin-right: 1px;
+  width: 13px;
+  height: 12px;
+  margin-right: 2px;
 `
 export const LikeButton = styled.button`
   margin: 15px 8px;
