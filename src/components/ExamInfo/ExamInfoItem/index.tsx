@@ -13,7 +13,7 @@ import {
 
 import commentImg from 'assets/images/comment.png'
 import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import scrapImg from 'assets/images/scrap.png'
+import scrapImg from 'assets/images/scrap_button_hollow.png'
 import { ResponsePostType } from 'api/common/commonType'
 import { useNavigate } from 'react-router-dom'
 

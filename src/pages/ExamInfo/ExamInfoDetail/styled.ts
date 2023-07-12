@@ -1,6 +1,10 @@
 import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import { RegisterButton, TagRoot } from 'styled'
 import styled from 'styled-components'
+import hollowLikeImg from 'assets/images/like_button_hollow.png'
+import filledLikeImg from 'assets/images/like_button_filled.png'
+import hollowScrapImg from 'assets/images/scrap_button_filled.png'
+import filledScrapImg from 'assets/images/scrap_button_hollow.png'
 
 export const Root = styled.div`
   margin: 0 auto;
@@ -20,6 +24,12 @@ export const Tag = styled(TagRoot)`
   font-weight: 400;
   line-height: 15px;
   color: #888888;
+`
+export const UserNickname = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #222222;
 `
 export const UpperTypoWrapper = styled.div`
   margin-bottom: 16px;
@@ -110,16 +120,38 @@ export const IconContainer = styled.div`
   font-size: 10px;
   line-height: 12.5px;
 `
-export const IconCountWrapper = styled.div`
-  right: 25px;
-  bottom: 25px;
-  display: flex;
-`
-export const Icon = styled.img`
-  width: 12px;
+type LikeImgProps = {
+  isLiked: boolean
+}
+type ScrapImgProps = {
+  isScrapped: boolean
+}
+export const LikeImg = styled.img.attrs<LikeImgProps>((props) => ({
+  src: props.isLiked ? filledLikeImg : hollowLikeImg,
+}))<LikeImgProps>`
+  width: 13px;
   height: 12px;
+  margin-right: 2px;
 `
 
+const ImgButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  color: #666666;
+`
+export const LikeButton = styled(ImgButton)``
+export const ScrapButton = styled(ImgButton)``
+export const ScrapImg = styled.img.attrs<ScrapImgProps>((props) => ({
+  src: props.isScrapped ? hollowScrapImg : filledScrapImg,
+}))<ScrapImgProps>`
+  width: 9px;
+  height: 12px;
+  margin-right: 3px;
+`
 export const CommentWrapper = styled.div`
   margin-bottom: 24px;
 `
