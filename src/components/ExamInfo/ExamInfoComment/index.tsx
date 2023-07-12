@@ -40,6 +40,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   const closeEllipsisModal = (): void => {
     if (isEllipsisOpen) setIsEllipsisOpen(false)
   }
+  const [currentLikeCount, setCurrentLikeCount] = useState<number>(likeCount)
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
@@ -53,7 +54,14 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     })
   }
   const onClickLikeButton = (): void => {
-    setIsLiked((prev) => !prev)
+    //api 추가해야함
+    if (isLiked) {
+      setIsLiked(false)
+      setCurrentLikeCount((prev) => prev - 1)
+    } else {
+      setIsLiked(true)
+      setCurrentLikeCount((prev) => prev + 1)
+    }
   }
   return (
     <Root onClick={closeEllipsisModal}>
@@ -75,7 +83,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       </LeftContainer>
       <LikeButton onClick={onClickLikeButton}>
         <LikeImg isLiked={isLiked} />
-        {likeCount}
+        {currentLikeCount}
       </LikeButton>
     </Root>
   )
