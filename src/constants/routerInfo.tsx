@@ -1,7 +1,7 @@
 import { HeaderSection } from 'pages/CommonSections/HeaderSection'
 import { Outlet } from 'react-router-dom'
 import { Root } from 'styled'
-import { ExamInfoPage } from 'pages/ExamInfo'
+import { ExamInfoPage } from 'pages/ExamInfo/ExamInfoPage'
 import { BulletinPage } from 'pages/ExamInfo/BulletinPage'
 import { TimerPage } from 'pages/Timer'
 import StatsPage from 'pages/Stats'
