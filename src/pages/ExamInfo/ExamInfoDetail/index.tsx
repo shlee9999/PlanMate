@@ -67,6 +67,7 @@ export const ExamInfoDetailPage: FC = () => {
     removeComment({ commentId: id }).then((res) => {
       if (res) setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
     })
+    //댓글 total 개수 하나 줄여야 함
   }
   const loadPrevPage = () => {
     if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
