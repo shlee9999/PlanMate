@@ -2,16 +2,10 @@ import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
 import {
   BulletinButton,
   BulletinIcon,
-  CurrentPageNumberTypo,
   ExamInfoWrapper,
-  LeftArrowImg,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
   NoPostTypo,
-  PageNumberTypo,
-  PageNumberWrapper,
-  PaginationWrapper,
-  RightArrowImg,
   Root,
   Tag,
   TagButton,
@@ -21,30 +15,28 @@ import {
   UpperTagButtonWrapper,
 } from './styled'
 import { useEffect, useState } from 'react'
-
 import { ResponsePostType } from 'api/common/commonType'
-import { generateArray } from 'utils/helper'
 import sampleInfoList from 'constants/sampleInfoList.json'
-import leftArrow from 'assets/images/left_arrow.png'
-import rightArrow from 'assets/images/right_arrow.png'
 
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { tagList } from 'constants/tagList'
+import { Pagination } from 'components/ExamInfo/Pagination'
 
 export const ExamInfoPage = () => {
   // const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
   const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(sampleInfoList.postInfoList) //서버 꺼져있어도 되도록
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>((sampleInfoList.postInfoList.length - 1) / 10 + 1)
-  const onClickPageNumber = (page: number) => (): void => {
+
+  const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
   }
 
-  const onClickRightArrow = () => {
+  const loadNextPage = (): void => {
     setCurrentPage((prev) => prev + 1)
   }
-  const onClickLeftArrow = () => {
+  const loadPrevPage = (): void => {
     setCurrentPage((prev) => prev - 1)
   }
   const navigate = useNavigate()
@@ -110,22 +102,13 @@ export const ExamInfoPage = () => {
           글쓰기
         </BulletinButton>
       </ExamInfoWrapper>
-      <PaginationWrapper>
-        <LeftArrowImg src={leftArrow} onClick={onClickLeftArrow} />
-        <PageNumberWrapper>
-          {generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
-            if (index >= totalPage) return null
-            return num === currentPage ? (
-              <CurrentPageNumberTypo key={index}>{num}</CurrentPageNumberTypo>
-            ) : (
-              <PageNumberTypo key={index} onClick={onClickPageNumber(num)}>
-                {num}
-              </PageNumberTypo>
-            )
-          })}
-        </PageNumberWrapper>
-        <RightArrowImg src={rightArrow} onClick={onClickRightArrow} />
-      </PaginationWrapper>
+      <Pagination
+        currentPage={currentPage}
+        totalPage={totalPage}
+        onClickLeftArrow={loadPrevPage}
+        onClickRightArrow={loadNextPage}
+        onClickPageNumber={handleCurrentPage}
+      />
     </Root>
   )
 }
