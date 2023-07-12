@@ -150,7 +150,7 @@ export const ExamInfoDetailPage: FC = () => {
       </ContentWrapper>
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{commentList.length}</CommentCount>개
+          댓글 <CommentCount>{examInfoDetail?.commentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer>
           {commentList.map((comment) => (
