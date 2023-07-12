@@ -95,7 +95,7 @@ export const ExamInfoPage = () => {
       </LowerTagButtonWrapper>
       <ExamInfoWrapper>
         {examInfoList.length !== 0 ? (
-          examInfoList.map((sampleInfo, index) => <ExamInfoItem {...sampleInfo} key={index} />)
+          examInfoList.map((sampleInfo, index) => <ExamInfoItem {...sampleInfo} key={sampleInfo.postId} />)
         ) : (
           <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
         )}
