@@ -91,6 +91,7 @@ export const ExamInfoDetailPage: FC = () => {
           commentId: prev[0].commentId + 1, //may change if sorting changes
           content: commentInput,
           isAuthor: true, //userid === authorid
+          isMyHearted: false,
           likeCount: 0,
           memberName: 'User Nickname',
           updatedAt: 'current time',
