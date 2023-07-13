@@ -39,6 +39,8 @@ import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
 import { Pagination } from 'components/ExamInfo/Pagination'
+import { likePost } from 'api/post/likePost'
+import { scrapPost } from 'api/post/scrapPost'
 
 /**
  * @title
@@ -55,7 +57,23 @@ export const ExamInfoDetailPage: FC = () => {
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
   // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
-  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>()
+  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
+    commentCount: 0,
+    title: '예시',
+    likeCount: 5,
+    scrapCount: 2,
+    nickname: '닉네임',
+    postId: -1,
+    postTagList: ['태그1'],
+    updatedAt: '2023-06-12',
+    content: '',
+    isMyHearted: false,
+    isMyScraped: false,
+  })
+  const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [currentLikeCount, setCurrentLikeCount] = useState<number>(0)
+  const [currentScrapCount, setCurrentScrapCount] = useState<number>(0)
+  const [isScrapped, setIsScrapped] = useState<boolean>(false)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>([])
   const [commentInput, setCommentInput] = useState<string>('')
   const [totalPage, setTotalPage] = useState<number>(1)
@@ -100,10 +118,40 @@ export const ExamInfoDetailPage: FC = () => {
     )
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+  const onClickLikeButton = () => {
+    if (isLiked) {
+      setIsLiked(false)
+      setCurrentLikeCount((prev) => prev - 1)
+    } else {
+      setIsLiked(true)
+      setCurrentLikeCount((prev) => prev + 1)
+    }
+    likePost({ postId: examInfoDetail.postId }).then((res) => {
+      console.log(res)
+    })
+  }
+  const onClickScrapButton = () => {
+    if (isScrapped) {
+      setIsScrapped(false)
+      setCurrentScrapCount((prev) => prev - 1)
+    } else {
+      setIsScrapped(true)
+      setCurrentScrapCount((prev) => prev + 1)
+    }
+    scrapPost({ postId: examInfoDetail.postId }).then((res) => {
+      console.log(res)
+    })
+  }
   useEffect(() => {
     checkPost({ postId: +postId }).then((res) => {
-      setExamInfoDetail(res as ResponsePostType)
+      const response = res as ResponsePostType
+      setExamInfoDetail(response)
+      setIsLiked(response.isMyHearted)
+      setCurrentLikeCount(response.likeCount)
+      setIsScrapped(response.isMyScraped)
+      setCurrentScrapCount(response.scrapCount)
     })
+
     findAllComments({
       pages: currentPage - 1,
       postId: +postId,
@@ -113,23 +161,24 @@ export const ExamInfoDetailPage: FC = () => {
       setTotalPage(response.totalPages)
     })
   }, [currentPage])
+  // useEffect(() => {}, [examInfoDetail])
 
   return (
     <Root>
       <UpperTypoWrapper>
         <LeftTypoWrapper>
           <TagWrapper>
-            {examInfoDetail?.postTagList.map((tag, index) => (
+            {examInfoDetail.postTagList.map((tag, index) => (
               <Tag key={index}>{tag}</Tag>
             ))}
           </TagWrapper>
           <TitleTypoWrapper>
-            <TitleTypo>{examInfoDetail?.title}</TitleTypo>
-            <UpdatedDate>{examInfoDetail?.updatedAt}</UpdatedDate>
+            <TitleTypo>{examInfoDetail.title}</TitleTypo>
+            <UpdatedDate>{examInfoDetail.updatedAt}</UpdatedDate>
           </TitleTypoWrapper>
         </LeftTypoWrapper>
         <RightTypoWrapper>
-          <PostOwnerNickname>{examInfoDetail?.nickname}</PostOwnerNickname>
+          <PostOwnerNickname>{examInfoDetail.nickname}</PostOwnerNickname>
           <EditTypo>수정</EditTypo>
           <DistributionLine />
           <DeleteTypo>삭제</DeleteTypo>
@@ -137,21 +186,25 @@ export const ExamInfoDetailPage: FC = () => {
       </UpperTypoWrapper>
 
       <ContentWrapper>
-        {examInfoDetail && <div dangerouslySetInnerHTML={{ __html: deserializeContent(examInfoDetail.content) }} />}
+        {examInfoDetail.content === '' ? (
+          '빈 콘텐츠'
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: deserializeContent(examInfoDetail.content) }} />
+        )}
         <IconContainer>
-          <LikeButton>
-            <LikeImg alt="like_img" isLiked={false} />
-            {examInfoDetail?.likeCount}
+          <LikeButton onClick={onClickLikeButton}>
+            <LikeImg alt="like_img" isLiked={isLiked} />
+            {currentLikeCount}
           </LikeButton>
-          <ScrapButton>
-            <ScrapImg isScrapped={false} />
-            {examInfoDetail?.scrapCount}
+          <ScrapButton onClick={onClickScrapButton}>
+            <ScrapImg isScrapped={isScrapped} />
+            {currentScrapCount}
           </ScrapButton>
         </IconContainer>
       </ContentWrapper>
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{examInfoDetail?.commentCount}</CommentCount>개
+          댓글 <CommentCount>{examInfoDetail.commentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer>
           {commentList.map((comment) => (
