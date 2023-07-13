@@ -17,6 +17,7 @@ import {
 } from './styled'
 import { removeComment } from 'api/comment/removeComment'
 import { ResponseCommentType } from 'api/common/commonType'
+import { likeComment } from 'api/comment/likeComment'
 
 type ExamInfoCommentProps = {
   deleteComment: () => void
@@ -51,7 +52,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     //total개수 하나 줄여야 함
   }
   const onClickLikeButton = (): void => {
-    //api 추가해야함
+    likeComment({ commentId: commentId }) //like api
     if (isLiked) {
       setIsLiked(false)
       setCurrentLikeCount((prev) => prev - 1)
@@ -60,6 +61,16 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       setCurrentLikeCount((prev) => prev + 1)
     }
   }
+  useEffect(() => {
+    return () => {
+      // Cleanup function runs at unmount.
+      if (currentLikeCount !== initialLikeCount) {
+        likeComment({ commentId: commentId }).then((res) => {
+          console.log(res)
+        })
+      }
+    }
+  }, []) // Empty dependencies so the effect only runs at mount and cleanup at unmount.
 
   return (
     <Root onClick={closeEllipsisModal}>
