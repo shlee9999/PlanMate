@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import {
   AuthorIcon,
   Comment,
@@ -16,21 +16,17 @@ import {
   UpperTypoWrapper,
 } from './styled'
 import { removeComment } from 'api/comment/removeComment'
+import { ResponseCommentType } from 'api/common/commonType'
 
 type ExamInfoCommentProps = {
-  commentId: number
-  isAuthor: boolean
-  likeCount: number
-  memberName: string
-  updatedAt: string
-  content: string
   deleteComment: () => void
-}
+} & ResponseCommentType
 
 export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   commentId,
   isAuthor,
-  likeCount,
+  isMyHearted,
+  likeCount: initialLikeCount,
   memberName,
   updatedAt,
   content, //댓글임
@@ -38,11 +34,11 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
 }) => {
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [isLiked, setIsLiked] = useState<boolean>(isMyHearted)
   const closeEllipsisModal = (): void => {
     if (isEllipsisOpen) setIsEllipsisOpen(false)
   }
-  const [currentLikeCount, setCurrentLikeCount] = useState<number>(likeCount)
+  const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
@@ -64,6 +60,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       setCurrentLikeCount((prev) => prev + 1)
     }
   }
+
   return (
     <Root onClick={closeEllipsisModal}>
       <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>

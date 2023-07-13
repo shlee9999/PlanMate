@@ -164,6 +164,7 @@ export const ExamInfoDetailPage: FC = () => {
               updatedAt={comment.updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}
               content={comment.content}
               deleteComment={deleteComment(comment.commentId)}
+              isMyHearted={comment.isMyHearted}
             />
           ))}
         </CommentContainer>
