@@ -14,6 +14,7 @@ export type ResponseCommentType = {
   commentId: number
   content: string
   isAuthor: boolean
+  isMyHearted: boolean
   likeCount: number
   memberName: string
   updatedAt: string
