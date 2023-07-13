@@ -1,6 +1,8 @@
 export type ResponsePostType = {
   commentCount: number
   content: string
+  isMyHearted: boolean
+  isMyScraped: boolean
   likeCount: number
   nickname: string
   postId: number
