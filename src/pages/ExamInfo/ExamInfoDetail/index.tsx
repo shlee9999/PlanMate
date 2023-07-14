@@ -120,8 +120,6 @@ export const ExamInfoDetailPage: FC = () => {
         setCommentInput('')
       })
     })
-
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const onClickLikeButton = () => {
     if (isLiked) {
@@ -206,6 +204,14 @@ export const ExamInfoDetailPage: FC = () => {
           </ScrapButton>
         </IconContainer>
       </ContentWrapper>
+      <CommentInputWrapper>
+        <UserNickname>사용자 닉네임</UserNickname>
+        <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
+        <CommentRegisterButton onClick={onClickRegisterButton}>
+          <CheckImg />
+          댓글등록
+        </CommentRegisterButton>
+      </CommentInputWrapper>
       <CommentWrapper>
         <CommentTitle>
           댓글 <CommentCount>{examInfoDetail.commentCount}</CommentCount>개
@@ -233,14 +239,6 @@ export const ExamInfoDetailPage: FC = () => {
           onClickPageNumber={handleCurrentPage}
         />
       </CommentWrapper>
-      <CommentInputWrapper>
-        <UserNickname>사용자 닉네임</UserNickname>
-        <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-        <CommentRegisterButton onClick={onClickRegisterButton}>
-          <CheckImg />
-          댓글등록
-        </CommentRegisterButton>
-      </CommentInputWrapper>
     </Root>
   )
 }
