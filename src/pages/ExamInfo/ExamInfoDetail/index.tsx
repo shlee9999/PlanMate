@@ -66,7 +66,7 @@ export const ExamInfoDetailPage: FC = () => {
   const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
   const [totalPage, setTotalPage] = useState<number>(data.findAllCommentsResult.totalPages)
-
+  const [currentPage, setCurrentPage] = useState<number>(1)
   // const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
   //   commentCount: 0,
   //   title: '예시',
@@ -81,11 +81,11 @@ export const ExamInfoDetailPage: FC = () => {
   //   isMyScraped: false,
   // })
   const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [isScrapped, setIsScrapped] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(0)
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(0)
-  const [isScrapped, setIsScrapped] = useState<boolean>(false)
   const [commentInput, setCommentInput] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState<number>(0)
+
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -106,15 +106,16 @@ export const ExamInfoDetailPage: FC = () => {
     threshold: 1, // 타겟 요소가 얼마나 들어왔을때 백함수를 실행할 것인지 결정합니다. 1이면 타겟 요소 전체가 들어와야 합니다.
   }
   const callback = (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && entry.intersectionRatio === 1) {
-        console.log('관측됨')
-        if (currentPage < totalPage) {
-          observer.unobserve(target.current)
-          loadNextPage()
-        }
+    const entry = entries[0]
+    console.log('currentPage : ' + currentPage + '\ntotalPage : ' + totalPage)
+
+    if (entry.isIntersecting && entry.intersectionRatio === 1) {
+      observer.unobserve(target.current)
+
+      if (currentPage < totalPage) {
+        loadNextPage()
       }
-    })
+    }
   }
 
   const onClickRegisterButton = (): void => {
@@ -123,13 +124,14 @@ export const ExamInfoDetailPage: FC = () => {
       postId: +postId,
     }).then((res1) => {
       findAllComments({
-        pages: currentPage - 1,
+        pages: 0,
         postId: +postId,
       }).then((res2: unknown) => {
         const response = res2 as FindAllCommentsResponseProps
         setCommentList(response.commentDtoList as ResponseCommentType[])
         setTotalPage(response.totalPages)
         setCommentInput('')
+        setCurrentPage(0)
       })
     })
   }
@@ -157,7 +159,9 @@ export const ExamInfoDetailPage: FC = () => {
   useEffect(() => {
     if (!target.current) return
     const observer = new IntersectionObserver(callback, options)
-    observer.observe(target.current)
+    setTimeout(() => {
+      observer.observe(target.current)
+    }, 1000)
     return () => observer.disconnect()
   }, [currentPage])
 
@@ -170,7 +174,7 @@ export const ExamInfoDetailPage: FC = () => {
     //   setIsScrapped(response.isMyScraped)
     //   setCurrentScrapCount(response.scrapCount)
     // })
-    if (currentPage === 1 || currentPage > totalPage) return
+    if (currentPage <= 1 || currentPage > totalPage) return
     findAllComments({
       pages: currentPage - 1,
       postId: +postId,
