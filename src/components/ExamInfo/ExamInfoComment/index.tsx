@@ -18,7 +18,8 @@ import {
 import { removeComment } from 'api/comment/removeComment'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
-
+import hollowLikeImg from 'assets/images/like_button_hollow.png'
+import filledLikeImg from 'assets/images/like_button_filled.png'
 type ExamInfoCommentProps = {
   deleteComment: () => void
 } & ResponseCommentType
@@ -91,7 +92,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
         <ReplyButton>답글</ReplyButton>
       </LeftContainer>
       <LikeButton onClick={onClickLikeButton}>
-        <LikeImg isLiked={isLiked} />
+        <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
         {currentLikeCount}
       </LikeButton>
     </Root>

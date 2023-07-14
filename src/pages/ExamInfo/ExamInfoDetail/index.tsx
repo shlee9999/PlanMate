@@ -41,7 +41,10 @@ import { removeComment } from 'api/comment/removeComment'
 import { Pagination } from 'components/ExamInfo/Pagination'
 import { likePost } from 'api/post/likePost'
 import { scrapPost } from 'api/post/scrapPost'
-
+import hollowLikeImg from 'assets/images/like_button_hollow.png'
+import filledLikeImg from 'assets/images/like_button_filled.png'
+import hollowScrapImg from 'assets/images/scrap_button_filled.png'
+import filledScrapImg from 'assets/images/scrap_button_hollow.png'
 /**
  * @title
  * @like
@@ -193,11 +196,11 @@ export const ExamInfoDetailPage: FC = () => {
         )}
         <IconContainer>
           <LikeButton onClick={onClickLikeButton}>
-            <LikeImg alt="like_img" isLiked={isLiked} />
+            <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
             {currentLikeCount}
           </LikeButton>
           <ScrapButton onClick={onClickScrapButton}>
-            <ScrapImg isScrapped={isScrapped} />
+            <ScrapImg alt="scrap_img" src={isScrapped ? filledScrapImg : hollowScrapImg} />
             {currentScrapCount}
           </ScrapButton>
         </IconContainer>

@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.png'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import filledLikeImg from 'assets/images/like_button_filled.png'
 
 export const EllipsisButton = styled.img`
   position: relative;
@@ -62,13 +60,7 @@ export const ReplyButton = styled.button`
   color: #666666;
 `
 
-type LikeImgProps = {
-  isLiked: boolean
-}
-
-export const LikeImg = styled.img.attrs<LikeImgProps>((props) => ({
-  src: props.isLiked ? filledLikeImg : hollowLikeImg,
-}))<LikeImgProps>`
+export const LikeImg = styled.img`
   width: 13px;
   height: 12px;
   margin-right: 2px;
