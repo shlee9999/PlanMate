@@ -4,7 +4,7 @@ import { stateToHTML } from 'draft-js-export-html'
 const options = {
   blockStyleFn: (block: any) => {
     const type = block.getType()
-    console.log(type)
+    // console.log(type)
     if (type === 'block-type') {
       return {
         style: {
