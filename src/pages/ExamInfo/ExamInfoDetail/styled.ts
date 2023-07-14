@@ -156,14 +156,14 @@ export const CommentCount = styled.span`
 export const CommentContainer = styled.div`
   border-top: 1px solid #c6c6c6;
 `
-export const CommentBoxWrapper = styled.div`
+export const CommentInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
   max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
   min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
 `
-export const CommentBox = styled.textarea`
+export const CommentInput = styled.textarea`
   box-sizing: border-box;
   padding: 9px 8px;
   font-size: 14px;

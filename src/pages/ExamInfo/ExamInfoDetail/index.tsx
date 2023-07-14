@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import {
-  CommentBox,
-  CommentBoxWrapper,
+  CommentInput,
+  CommentInputWrapper,
   CommentContainer,
   CommentCount,
   CommentRegisterButton,
@@ -117,6 +117,7 @@ export const ExamInfoDetailPage: FC = () => {
         const response = res as FindAllCommentsResponseProps
         setCommentList(response.commentDtoList as ResponseCommentType[])
         setTotalPage(response.totalPages)
+        setCommentInput('')
       })
     })
 
@@ -232,14 +233,14 @@ export const ExamInfoDetailPage: FC = () => {
           onClickPageNumber={handleCurrentPage}
         />
       </CommentWrapper>
-      <CommentBoxWrapper>
+      <CommentInputWrapper>
         <UserNickname>사용자 닉네임</UserNickname>
-        <CommentBox placeholder="댓글을 남겨보세요." onChange={onChange} />
+        <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
         <CommentRegisterButton onClick={onClickRegisterButton}>
           <CheckImg />
           댓글등록
         </CommentRegisterButton>
-      </CommentBoxWrapper>
+      </CommentInputWrapper>
     </Root>
   )
 }
