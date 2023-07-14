@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { ComposedChart, Line, Area, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-import type { Payload } from 'recharts/types/component/DefaultLegendContent'
 
 interface Data {
   hour: string
@@ -42,6 +41,11 @@ const data: Data[] = [
   },
 ]
 
+const legendPayload = [
+  { value: '오늘', type: 'line', color: '#01CB45' },
+  { value: '어제', type: 'area', color: '#C4F0D3' },
+]
+
 export default class BumpGraph extends PureComponent {
   render() {
     return (
@@ -57,13 +61,19 @@ export default class BumpGraph extends PureComponent {
             left: 20,
           }}
         >
+          <defs>
+            <linearGradient id="colorUv" x1="0.5" y1="1" x2="0.5" y2="0">
+              <stop offset="5%" stopColor="#E6F3EB" stopOpacity={0.5} />
+              <stop offset="20%" stopColor="#BDF0CE" stopOpacity={1} />
+            </linearGradient>
+          </defs>
           <CartesianGrid stroke="white" />
           <XAxis
             dataKey="hour"
             fontSize={8}
             axisLine={{ stroke: '#EBEBEB' }}
             tick={{ fill: '#666666' }}
-            tickLine={{ stroke: '#666666' }}
+            tickLine={{ stroke: 'white' }}
           />
           <Legend
             height={36}
@@ -73,9 +83,9 @@ export default class BumpGraph extends PureComponent {
             align="left"
             verticalAlign="middle"
           />
-          <Area yAxisId="left" type="monotone" dataKey="어제" fill="#C4F0D3" stroke="#C4F0D3" />
-          <Line yAxisId="left" type="monotone" dataKey="오늘" stroke="#01CB45" strokeWidth={2} />
-          <Line yAxisId="left" type="monotone" dataKey="오늘" stroke="#01CB45" strokeWidth={2} />
+          <Area yAxisId="left" type="monotone" dataKey="어제" fill="url(#colorUv)" stroke="#C4F0D3" />
+          <Line yAxisId="left" type="monotone" dataKey="오늘" stroke="#01CB45" strokeWidth={2} dot={false} />
+          <Line yAxisId="left" type="monotone" dataKey="lastDot" stroke="#01CB45" strokeWidth={2} />
         </ComposedChart>
       </ResponsiveContainer>
     )
