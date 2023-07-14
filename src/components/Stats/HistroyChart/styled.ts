@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const ResultContainer = styled.div`
   width: 1200px;
@@ -9,7 +9,7 @@ const ResultContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const ResultStatsContainer = styled.div`
   width: 100%;
@@ -21,12 +21,12 @@ const ResultStatsContainer = styled.div`
 `
 
 const CompareStatsContainer = styled.div`
-  width: 631px;
-  height: 90px;
+  width: 800px;
+  height: 400px;
   border: 1px solid blue;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
-export { ResultContainer, ResultStatsContainer, CompareStatsContainer };
+export { ResultContainer, ResultStatsContainer, CompareStatsContainer }

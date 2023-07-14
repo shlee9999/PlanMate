@@ -1,7 +1,7 @@
 //통계 탭
 // import React from "react";
 import styled from 'styled-components'
-import MenuBox from 'components/stats/menu'
+import MenuBox from 'components/Stats/menu'
 
 const StatsContainer = styled.div`
   width: 100%;
