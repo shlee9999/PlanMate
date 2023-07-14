@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import {
   CommentInput,
   CommentInputWrapper,
@@ -58,6 +58,7 @@ import { ExamInfoDetailDataType } from 'types'
  */
 
 export const ExamInfoDetailPage: FC = () => {
+  const target = useRef(null)
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
   const data = useLoaderData() as ExamInfoDetailDataType
@@ -84,7 +85,7 @@ export const ExamInfoDetailPage: FC = () => {
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(0)
   const [isScrapped, setIsScrapped] = useState<boolean>(false)
   const [commentInput, setCommentInput] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [currentPage, setCurrentPage] = useState<number>(0)
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -94,33 +95,45 @@ export const ExamInfoDetailPage: FC = () => {
     })
     //댓글 total 개수 하나 줄여야 함
   }
-  const loadPrevPage = (): void => {
-    if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
-  }
+
   const loadNextPage = (): void => {
-    if (currentPage < totalPage) setCurrentPage((prev) => prev + 1)
+    setCurrentPage((prev) => prev + 1)
   }
-  const handleCurrentPage = (page: number) => (): void => {
-    setCurrentPage(page)
+
+  const options = {
+    root: null,
+    rootMargin: '0px', // root에 마진값을 주어 범위를 확장 가능합니다.
+    threshold: 1, // 타겟 요소가 얼마나 들어왔을때 백함수를 실행할 것인지 결정합니다. 1이면 타겟 요소 전체가 들어와야 합니다.
+  }
+  const callback = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.intersectionRatio === 1) {
+        console.log('관측됨')
+        if (currentPage < totalPage) {
+          observer.unobserve(target.current)
+          loadNextPage()
+        }
+      }
+    })
   }
 
   const onClickRegisterButton = (): void => {
-    //api 날리기
     createComment({
       content: commentInput,
       postId: +postId,
-    }).then((res) => {
+    }).then((res1) => {
       findAllComments({
         pages: currentPage - 1,
         postId: +postId,
-      }).then((res: unknown) => {
-        const response = res as FindAllCommentsResponseProps
+      }).then((res2: unknown) => {
+        const response = res2 as FindAllCommentsResponseProps
         setCommentList(response.commentDtoList as ResponseCommentType[])
         setTotalPage(response.totalPages)
         setCommentInput('')
       })
     })
   }
+
   const onClickLikeButton = () => {
     if (isLiked) {
       setIsLiked(false)
@@ -129,9 +142,7 @@ export const ExamInfoDetailPage: FC = () => {
       setIsLiked(true)
       setCurrentLikeCount((prev) => prev + 1)
     }
-    likePost({ postId: examInfoDetail.postId }).then((res) => {
-      console.log(res)
-    })
+    likePost({ postId: examInfoDetail.postId })
   }
   const onClickScrapButton = () => {
     if (isScrapped) {
@@ -141,29 +152,35 @@ export const ExamInfoDetailPage: FC = () => {
       setIsScrapped(true)
       setCurrentScrapCount((prev) => prev + 1)
     }
-    scrapPost({ postId: examInfoDetail.postId }).then((res) => {
-      console.log(res)
-    })
+    scrapPost({ postId: examInfoDetail.postId })
   }
-  // useEffect(() => {
-  //   checkPost({ postId: +postId }).then((res) => {
-  //     const response = res as CheckPostResponseProps
-  //     setExamInfoDetail(response)
-  //     setIsLiked(response.isMyHearted)
-  //     setCurrentLikeCount(response.likeCount)
-  //     setIsScrapped(response.isMyScraped)
-  //     setCurrentScrapCount(response.scrapCount)
-  //   })
+  useEffect(() => {
+    if (!target.current) return
+    const observer = new IntersectionObserver(callback, options)
+    observer.observe(target.current)
+    return () => observer.disconnect()
+  }, [currentPage])
 
-  //   findAllComments({
-  //     pages: currentPage - 1,
-  //     postId: +postId,
-  //   }).then((res: unknown) => {
-  //     const response = res as FindAllCommentsResponseProps
-  //     setCommentList(response.commentDtoList as ResponseCommentType[])
-  //     setTotalPage(response.totalPages)
-  //   })
-  // }, [currentPage])
+  useEffect(() => {
+    // checkPost({ postId: +postId }).then((res) => {
+    //   const response = res as CheckPostResponseProps
+    //   setExamInfoDetail(response)
+    //   setIsLiked(response.isMyHearted)
+    //   setCurrentLikeCount(response.likeCount)
+    //   setIsScrapped(response.isMyScraped)
+    //   setCurrentScrapCount(response.scrapCount)
+    // })
+    if (currentPage === 1 || currentPage > totalPage) return
+    findAllComments({
+      pages: currentPage - 1,
+      postId: +postId,
+    }).then((res: unknown) => {
+      const response = res as FindAllCommentsResponseProps
+      setCommentList((prev) => prev.concat(response.commentDtoList))
+
+      setTotalPage(response.totalPages)
+    })
+  }, [currentPage, totalPage])
 
   return (
     <Root>
@@ -217,7 +234,7 @@ export const ExamInfoDetailPage: FC = () => {
           댓글 <CommentCount>{examInfoDetail.commentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer>
-          {commentList.map((comment) => (
+          {commentList.map((comment, index) => (
             <ExamInfoComment
               key={comment.commentId}
               commentId={comment.commentId}
@@ -228,17 +245,14 @@ export const ExamInfoDetailPage: FC = () => {
               content={comment.content}
               deleteComment={deleteComment(comment.commentId)}
               isMyHearted={comment.isMyHearted}
+              ref={index === commentList.length - 1 ? target : null}
             />
           ))}
         </CommentContainer>
-        <Pagination
-          currentPage={currentPage}
-          totalPage={totalPage}
-          onClickLeftArrow={loadPrevPage}
-          onClickRightArrow={loadNextPage}
-          onClickPageNumber={handleCurrentPage}
-        />
       </CommentWrapper>
+      {/* <div ref={target} style={{ height: '100px', width: '100px', backgroundColor: 'red' }}>
+        타겟
+      </div> */}
     </Root>
   )
 }

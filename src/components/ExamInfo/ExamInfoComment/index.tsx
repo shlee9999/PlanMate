@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, ForwardRefRenderFunction, forwardRef, useEffect, useState } from 'react'
 import {
   AuthorIcon,
   Comment,
@@ -24,16 +24,19 @@ type ExamInfoCommentProps = {
   deleteComment: () => void
 } & ResponseCommentType
 
-export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
-  commentId,
-  isAuthor,
-  isMyHearted,
-  likeCount: initialLikeCount,
-  memberName,
-  updatedAt,
-  content, //댓글임
-  deleteComment,
-}) => {
+const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
+  {
+    commentId,
+    isAuthor,
+    isMyHearted,
+    likeCount: initialLikeCount,
+    memberName,
+    updatedAt,
+    content, //댓글임
+    deleteComment,
+  },
+  ref
+) => {
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(isMyHearted)
@@ -66,15 +69,13 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     return () => {
       // Cleanup function runs at unmount.
       if (currentLikeCount !== initialLikeCount) {
-        likeComment({ commentId: commentId }).then((res) => {
-          console.log(res)
-        })
+        likeComment({ commentId: commentId })
       }
     }
   }, []) // Empty dependencies so the effect only runs at mount and cleanup at unmount.
 
   return (
-    <Root onClick={closeEllipsisModal}>
+    <Root onClick={closeEllipsisModal} ref={ref}>
       <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
       {isEllipsisOpen && (
         <EllipsisModal onClick={onClickModal}>
@@ -98,3 +99,4 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     </Root>
   )
 }
+export const ExamInfoComment = forwardRef(ExamInfoCommentComponent)
