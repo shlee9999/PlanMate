@@ -6,9 +6,8 @@ export type CreateCommentRequestProps = {
 }
 
 export type CreateCommentResponseProps = {
+  commentId: number
   content: string
-  isAuthor: boolean
-  likeCount: number
   memberName: string
   updatedAt: string
 }

@@ -105,20 +105,17 @@ export const ExamInfoDetailPage: FC = () => {
     createComment({
       content: commentInput,
       postId: +postId,
+    }).then((res) => {
+      findAllComments({
+        pages: currentPage - 1,
+        postId: +postId,
+      }).then((res: unknown) => {
+        const response = res as FindAllCommentsResponseProps
+        setCommentList(response.commentDtoList as ResponseCommentType[])
+        setTotalPage(response.totalPages)
+      })
     })
-    setCommentList((prev) =>
-      [
-        {
-          commentId: prev[0].commentId + 1, //may change if sorting changes
-          content: commentInput,
-          isAuthor: true, //userid === authorid
-          isMyHearted: false,
-          likeCount: 0,
-          memberName: 'User Nickname',
-          updatedAt: 'current time',
-        },
-      ].concat(prev)
-    )
+
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const onClickLikeButton = () => {
