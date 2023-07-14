@@ -31,7 +31,7 @@ import {
 
 import { useLoaderData, useParams } from 'react-router-dom'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
-import { checkPost } from 'api/post/checkPost'
+import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { deserializeContent } from 'utils/wysiwyg'
 import { CheckImg } from 'styled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
@@ -45,6 +45,7 @@ import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import filledLikeImg from 'assets/images/like_button_filled.png'
 import hollowScrapImg from 'assets/images/scrap_button_filled.png'
 import filledScrapImg from 'assets/images/scrap_button_hollow.png'
+import { ExamInfoDetailDataType } from 'types'
 /**
  * @title
  * @like
@@ -59,27 +60,30 @@ import filledScrapImg from 'assets/images/scrap_button_hollow.png'
 export const ExamInfoDetailPage: FC = () => {
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
-  // const examInfoDetail: ResponsePostType = useLoaderData() as ResponsePostType
-  const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
-    commentCount: 0,
-    title: '예시',
-    likeCount: 5,
-    scrapCount: 2,
-    nickname: '닉네임',
-    postId: -1,
-    postTagList: ['태그1'],
-    updatedAt: '2023-06-12',
-    content: '',
-    isMyHearted: false,
-    isMyScraped: false,
-  })
+  const data = useLoaderData() as ExamInfoDetailDataType
+
+  const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
+  const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
+  const [totalPage, setTotalPage] = useState<number>(data.findAllCommentsResult.totalPages)
+
+  // const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
+  //   commentCount: 0,
+  //   title: '예시',
+  //   likeCount: 5,
+  //   scrapCount: 2,
+  //   nickname: '닉네임',
+  //   postId: -1,
+  //   postTagList: ['태그1'],
+  //   updatedAt: '2023-06-12',
+  //   content: '',
+  //   isMyHearted: false,
+  //   isMyScraped: false,
+  // })
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(0)
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(0)
   const [isScrapped, setIsScrapped] = useState<boolean>(false)
-  const [commentList, setCommentList] = useState<ResponseCommentType[]>([])
   const [commentInput, setCommentInput] = useState<string>('')
-  const [totalPage, setTotalPage] = useState<number>(1)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
@@ -142,26 +146,25 @@ export const ExamInfoDetailPage: FC = () => {
       console.log(res)
     })
   }
-  useEffect(() => {
-    checkPost({ postId: +postId }).then((res) => {
-      const response = res as ResponsePostType
-      setExamInfoDetail(response)
-      setIsLiked(response.isMyHearted)
-      setCurrentLikeCount(response.likeCount)
-      setIsScrapped(response.isMyScraped)
-      setCurrentScrapCount(response.scrapCount)
-    })
+  // useEffect(() => {
+  //   checkPost({ postId: +postId }).then((res) => {
+  //     const response = res as CheckPostResponseProps
+  //     setExamInfoDetail(response)
+  //     setIsLiked(response.isMyHearted)
+  //     setCurrentLikeCount(response.likeCount)
+  //     setIsScrapped(response.isMyScraped)
+  //     setCurrentScrapCount(response.scrapCount)
+  //   })
 
-    findAllComments({
-      pages: currentPage - 1,
-      postId: +postId,
-    }).then((res: unknown) => {
-      const response = res as FindAllCommentsResponseProps
-      setCommentList(response.commentDtoList as ResponseCommentType[])
-      setTotalPage(response.totalPages)
-    })
-  }, [currentPage])
-  // useEffect(() => {}, [examInfoDetail])
+  //   findAllComments({
+  //     pages: currentPage - 1,
+  //     postId: +postId,
+  //   }).then((res: unknown) => {
+  //     const response = res as FindAllCommentsResponseProps
+  //     setCommentList(response.commentDtoList as ResponseCommentType[])
+  //     setTotalPage(response.totalPages)
+  //   })
+  // }, [currentPage])
 
   return (
     <Root>

@@ -1,3 +1,6 @@
+import { FindAllCommentsResponseProps } from 'api/comment/findAll'
+import { CheckPostResponseProps } from 'api/post/checkPost'
+
 export type TodoPlans = {
   id: string
   title: string
@@ -22,4 +25,9 @@ export type TodoItemList = Array<TodoItems>
 export type PageInfo = {
   title: string
   url: string
+}
+
+export type ExamInfoDetailDataType = {
+  checkPostResult: CheckPostResponseProps
+  findAllCommentsResult: FindAllCommentsResponseProps
 }

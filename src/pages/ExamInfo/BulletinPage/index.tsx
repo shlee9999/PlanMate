@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
-import { ButtonWrapper, CancelButton, CancelImg, ContentInput, Root, TitleInput, WriteTypo } from './styled'
+import { ButtonWrapper, CancelButton, CancelImg, Root, TitleInput, WriteTypo } from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
 import { EditorState, convertToRaw } from 'draft-js'
@@ -27,9 +27,9 @@ export const BulletinPage: FC = () => {
       tagList: ['태그1', '태그2'],
       title: inputValue,
     }).then((res) => {
-      console.log(res)
+      navigate(-1)
     })
-    navigate(-1)
+
     //등록하시겠습니까? 확인
   }
   const onClickCancelButton = () => {

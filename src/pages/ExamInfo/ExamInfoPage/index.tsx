@@ -24,10 +24,11 @@ import { tagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
 
 export const ExamInfoPage = () => {
-  // const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(useLoaderData() as ResponsePostType[])
-  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(sampleInfoList.postInfoList) //서버 꺼져있어도 되도록
+  const data = useLoaderData() as FindAllPostResponseProps
+  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
+  // const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(sampleInfoList.postInfoList) //서버 꺼져있어도 되도록
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [totalPage, setTotalPage] = useState<number>((sampleInfoList.postInfoList.length - 1) / 10 + 1)
+  const [totalPage, setTotalPage] = useState<number>(data.totalPages)
 
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
@@ -45,16 +46,16 @@ export const ExamInfoPage = () => {
     navigate('/examinfo/post')
   }
 
-  useEffect(() => {
-    function loadExamInfo() {
-      findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-        const response = res as FindAllPostResponseProps
-        setExamInfoList(response.postDtoList as ResponsePostType[])
-        setTotalPage(response.totalPages)
-      })
-    }
-    loadExamInfo()
-  }, [currentPage])
+  // useEffect(() => {
+  //   function loadExamInfo() {
+  //     findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+  //       const response = res as FindAllPostResponseProps
+  //       setExamInfoList(response.postDtoList as ResponsePostType[])
+  //       setTotalPage(response.totalPages)
+  //     })
+  //   }
+  //   loadExamInfo()
+  // }, [currentPage])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -87,7 +88,7 @@ export const ExamInfoPage = () => {
       </LowerTagButtonWrapper>
       <ExamInfoWrapper>
         {examInfoList.length !== 0 ? (
-          examInfoList.map((examInfo, index) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
+          examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
           <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
         )}
