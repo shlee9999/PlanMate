@@ -27,6 +27,45 @@ export const ButtonWrapper = styled.div`
   justify-content: end;
   column-gap: 8px;
 `
+export const UpperWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+`
+export const TagSelectorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 48px;
+  column-gap: 8px;
+`
+export const TagTypo = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 48px;
+`
+export const TagSelector = styled.button`
+  position: relative;
+  box-sizing: border-box;
+  padding: 15px 8px;
+  width: 209px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #c6c6c6;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #888888;
+  text-align: left;
+`
+export const DownArrowImg = styled.img`
+  position: absolute;
+  width: 6.2px;
+  height: 10.5px;
+  top: 50%;
+  right: 13px;
+  transform: rotate(-90deg) translate(50%);
+`
 export const CancelButton = styled.button`
   width: 96px;
   height: 32px;

@@ -1,5 +1,17 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
-import { ButtonWrapper, CancelButton, CancelImg, Root, TitleInput, WriteTypo } from './styled'
+import {
+  ButtonWrapper,
+  CancelButton,
+  CancelImg,
+  DownArrowImg,
+  Root,
+  TagSelector,
+  TagSelectorWrapper,
+  TagTypo,
+  TitleInput,
+  UpperWrapper,
+  WriteTypo,
+} from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
 import { EditorState, convertToRaw } from 'draft-js'
@@ -9,6 +21,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { serializeContent } from 'utils/wysiwyg'
 import { CheckImg, RegisterButton } from 'styled'
 
+import downArrowImg from 'assets/images/left_arrow.png'
 export const BulletinPage: FC = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
@@ -44,7 +57,16 @@ export const BulletinPage: FC = () => {
   return (
     <Root>
       <WriteTypo>글쓰기 ✏️</WriteTypo>
-      <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
+      <UpperWrapper>
+        <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
+        <TagSelectorWrapper>
+          <TagTypo>태그</TagTypo>
+          <TagSelector>
+            선택해주세요
+            <DownArrowImg alt="down_arrow_img" src={downArrowImg} />
+          </TagSelector>
+        </TagSelectorWrapper>
+      </UpperWrapper>
       <Editor
         wrapperClassName="wrapper-class"
         editorClassName="editor"
