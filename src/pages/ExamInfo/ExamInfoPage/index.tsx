@@ -46,16 +46,13 @@ export const ExamInfoPage = () => {
     navigate('/examinfo/post')
   }
 
-  // useEffect(() => {
-  //   function loadExamInfo() {
-  //     findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-  //       const response = res as FindAllPostResponseProps
-  //       setExamInfoList(response.postDtoList as ResponsePostType[])
-  //       setTotalPage(response.totalPages)
-  //     })
-  //   }
-  //   loadExamInfo()
-  // }, [currentPage])
+  useEffect(() => {
+    findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+      const response = res as FindAllPostResponseProps
+      setExamInfoList(response.postDtoList)
+      setTotalPage(response.totalPages)
+    })
+  }, [currentPage])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
