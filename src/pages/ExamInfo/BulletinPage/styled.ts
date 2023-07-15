@@ -30,13 +30,11 @@ export const ButtonWrapper = styled.div`
 export const UpperWrapper = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 24px;
+  justify-content: space-between;
 `
 export const TagSelectorWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 300px;
-  height: 48px;
   column-gap: 8px;
   cursor: pointer;
 `
@@ -68,7 +66,6 @@ export const TagOptionWrapper = styled.div`
   height: 102px;
   border-radius: 8px;
   border: 1px solid #dddede;
-  overflow-x: hidden;
   overflow-y: scroll;
   background-color: white;
   z-index: 2;
