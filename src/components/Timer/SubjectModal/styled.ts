@@ -1,5 +1,4 @@
 import { styled } from 'styled-components'
-import modalExitButton from 'assets/images/modal_exit_button.png'
 
 export const Root = styled.div`
   width: 320px;
@@ -14,30 +13,6 @@ export const Root = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 10px;
-`
-
-export const ModalExitButton = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 24px;
-  border: none;
-  width: 20px;
-  height: 20px;
-  background: url(${modalExitButton}) no-repeat 0 0;
-  background-size: 20px 20px;
-`
-
-export const ModalFooter = styled.div`
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
-  text-align: center;
 `
 
 export const InputWrapper = styled.div`

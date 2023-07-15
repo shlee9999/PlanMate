@@ -45,6 +45,8 @@ import filledLikeImg from 'assets/images/like_button_filled.png'
 import hollowScrapImg from 'assets/images/scrap_button_hollow.png'
 import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ExamInfoDetailDataType } from 'types'
+import { DeletePostModal } from 'components/ExamInfo/DeleteModal/DeletePostModal'
+
 /**
  * @title
  * @like
@@ -85,6 +87,8 @@ export const ExamInfoDetailPage: FC = () => {
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(data.checkPostResult.scrapCount)
   const [commentInput, setCommentInput] = useState<string>('')
 
+  const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
+
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -120,11 +124,11 @@ export const ExamInfoDetailPage: FC = () => {
   const onClickRegisterButton = (): void => {
     createComment({
       content: commentInput,
-      postId: +postId,
+      postId: examInfoDetail.postId,
     }).then((res1) => {
       findAllComments({
         pages: 0,
-        postId: +postId,
+        postId: examInfoDetail.postId,
       }).then((res2: unknown) => {
         const response = res2 as FindAllCommentsResponseProps
         setCommentList(response.commentDtoList as ResponseCommentType[])
@@ -134,7 +138,9 @@ export const ExamInfoDetailPage: FC = () => {
       })
     })
   }
-
+  const closeDeletePostModal = () => {
+    setIsDeletePostModalOpen(false)
+  }
   const onClickLikeButton = () => {
     if (isLiked) {
       setIsLiked(false)
@@ -155,6 +161,10 @@ export const ExamInfoDetailPage: FC = () => {
     }
     scrapPost({ postId: examInfoDetail.postId })
   }
+  const onClickDeleteTypo = () => {
+    setIsDeletePostModalOpen(true)
+  }
+
   useEffect(() => {
     if (!target.current) return
     const observer = new IntersectionObserver(callback, options)
@@ -203,7 +213,7 @@ export const ExamInfoDetailPage: FC = () => {
           <PostOwnerNickname>{examInfoDetail.nickname}</PostOwnerNickname>
           <EditTypo>수정</EditTypo>
           <DistributionLine />
-          <DeleteTypo>삭제</DeleteTypo>
+          <DeleteTypo onClick={onClickDeleteTypo}>삭제</DeleteTypo>
         </RightTypoWrapper>
       </UpperTypoWrapper>
 
@@ -253,6 +263,7 @@ export const ExamInfoDetailPage: FC = () => {
           ))}
         </CommentContainer>
       </CommentWrapper>
+      {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} postId={examInfoDetail.postId} />}
     </Root>
   )
 }

@@ -20,6 +20,7 @@ import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
 import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import filledLikeImg from 'assets/images/like_button_filled.png'
+import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 type ExamInfoCommentProps = {
   deleteComment: () => void
 } & ResponseCommentType
@@ -43,6 +44,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const closeEllipsisModal = (): void => {
     if (isEllipsisOpen) setIsEllipsisOpen(false)
   }
+  const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
@@ -52,8 +54,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     e.stopPropagation()
   }
   const onClickEllipsisDeleteButton = (): void => {
-    deleteComment()
-    //total개수 하나 줄여야 함
+    setIsDeleteCommentModalOpen(true)
   }
   const onClickLikeButton = (): void => {
     likeComment({ commentId: commentId }) //like api
@@ -64,6 +65,9 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
       setIsLiked(true)
       setCurrentLikeCount((prev) => prev + 1)
     }
+  }
+  const closeDeleteCommentModal = () => {
+    setIsDeleteCommentModalOpen(false)
   }
   useEffect(() => {
     return () => {
@@ -96,6 +100,9 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
         <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
         {currentLikeCount}
       </LikeButton>
+      {isDeleteCommentModalOpen && (
+        <DeleteCommentModal closeModal={closeDeleteCommentModal} deleteComment={deleteComment} />
+      )}
     </Root>
   )
 }
