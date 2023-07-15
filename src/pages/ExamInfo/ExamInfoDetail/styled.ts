@@ -104,6 +104,7 @@ export const ContentWrapper = styled.div`
   border-top: 2px solid #444444;
   border-bottom: 1px solid #c6c6c6;
   margin-bottom: 32px;
+  white-space: pre-line;
 `
 
 export const IconContainer = styled.div`

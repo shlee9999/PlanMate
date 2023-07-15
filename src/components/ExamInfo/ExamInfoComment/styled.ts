@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.png'
+import { EXAMINFODETAIL_MAX_WIDTH, EXAMINFOITEM_MAX_WIDTH } from 'constants/layout'
 
 export const EllipsisButton = styled.img`
   position: relative;
@@ -28,6 +29,7 @@ export const UpperTypoWrapper = styled.div`
   column-gap: 4px;
 `
 export const LeftContainer = styled.div`
+  width: ${EXAMINFODETAIL_MAX_WIDTH}px;
   padding: 16px 0 14px 0;
   display: flex;
   flex-direction: column;
@@ -48,6 +50,14 @@ export const Comment = styled.p`
   font-weight: 400;
   line-height: 18px;
   color: #222222;
+  white-space: pre-line;
+`
+export const EditInput = styled.textarea`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #222222;
+  resize: none;
 `
 export const ReplyButton = styled.button`
   width: 48px;

@@ -1,9 +1,10 @@
-import React, { FC, ForwardRefRenderFunction, forwardRef, useEffect, useState } from 'react'
+import React, { ChangeEvent, ForwardRefRenderFunction, forwardRef, useEffect, useRef, useState } from 'react'
 import {
   AuthorIcon,
   Comment,
   CommentOwnerNickname,
   Date,
+  EditInput,
   EllipsisButton,
   EllipsisDeleteButton,
   EllipsisEditButton,
@@ -15,12 +16,13 @@ import {
   Root,
   UpperTypoWrapper,
 } from './styled'
-import { removeComment } from 'api/comment/removeComment'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
 import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import filledLikeImg from 'assets/images/like_button_filled.png'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
+import { modifyComment } from 'api/comment/modifyComment'
+
 type ExamInfoCommentProps = {
   deleteComment: () => void
 } & ResponseCommentType
@@ -46,10 +48,14 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   }
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [inputValue, setInputValue] = useState<string>(content)
+  const [currentContent, setCurrentContent] = useState<string>(content)
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
   }
+  const inputRef = useRef(null)
   const onClickModal = (e: React.MouseEvent): void => {
     e.stopPropagation()
   }
@@ -66,24 +72,49 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
       setCurrentLikeCount((prev) => prev + 1)
     }
   }
+
   const closeDeleteCommentModal = () => {
     setIsDeleteCommentModalOpen(false)
   }
-  useEffect(() => {
-    return () => {
-      // Cleanup function runs at unmount.
-      if (currentLikeCount !== initialLikeCount) {
-        likeComment({ commentId: commentId })
-      }
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value)
+  }
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      modifyComment({
+        commentId: commentId,
+        content: inputValue,
+      }).then((res) => {
+        if (res) {
+          setCurrentContent(inputValue)
+          setIsEditing(false)
+        }
+      })
     }
-  }, []) // Empty dependencies so the effect only runs at mount and cleanup at unmount.
+  }
+  const onClickEllipsisEditButton = () => {
+    setIsEditing(true)
+    closeEllipsisModal()
+  }
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [isEditing])
+
+  // useEffect(() => {
+  //   return () => {
+  //     if (currentLikeCount !== initialLikeCount) {
+  //       likeComment({ commentId: commentId })
+  //     }
+  //   }
+  // }, []) // Empty dependencies so the effect only runs at mount and cleanup at unmount.
 
   return (
     <Root onClick={closeEllipsisModal} ref={ref}>
       <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
       {isEllipsisOpen && (
         <EllipsisModal onClick={onClickModal}>
-          <EllipsisEditButton>수정</EllipsisEditButton>
+          <EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</EllipsisEditButton>
           <EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</EllipsisDeleteButton>
         </EllipsisModal>
       )}
@@ -93,7 +124,11 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
           <Date>{updatedAt}</Date>
         </UpperTypoWrapper>
-        <Comment>{content}</Comment>
+        {isEditing ? (
+          <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
+        ) : (
+          <Comment>{currentContent}</Comment>
+        )}
         <ReplyButton>답글</ReplyButton>
       </LeftContainer>
       <LikeButton onClick={onClickLikeButton}>
