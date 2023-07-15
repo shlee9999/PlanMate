@@ -253,9 +253,6 @@ export const ExamInfoDetailPage: FC = () => {
           ))}
         </CommentContainer>
       </CommentWrapper>
-      {/* <div ref={target} style={{ height: '100px', width: '100px', backgroundColor: 'red' }}>
-        타겟
-      </div> */}
     </Root>
   )
 }
