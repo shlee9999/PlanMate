@@ -1,10 +1,12 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import {
   ButtonWrapper,
   CancelButton,
   CancelImg,
   DownArrowImg,
   Root,
+  TagOption,
+  TagOptionWrapper,
   TagSelector,
   TagSelectorWrapper,
   TagTypo,
@@ -22,9 +24,11 @@ import { serializeContent } from 'utils/wysiwyg'
 import { CheckImg, RegisterButton } from 'styled'
 
 import downArrowImg from 'assets/images/left_arrow.png'
+import { tagList } from 'constants/tagList'
 export const BulletinPage: FC = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
-
+  const [isSelecting, setIsSelecting] = useState<boolean>(false)
+  const [selectedTag, setSelectedTag] = useState<string>('선택해주세요')
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState)
   }
@@ -37,10 +41,10 @@ export const BulletinPage: FC = () => {
     if (inputValue === '') return
     await createPost({
       content: serializeContent(editorState),
-      tagList: ['태그1', '태그2'],
+      tagList: [selectedTag],
       title: inputValue,
     }).then((res) => {
-      navigate(-1)
+      if (res) navigate(-1)
     })
 
     //등록하시겠습니까? 확인
@@ -48,22 +52,41 @@ export const BulletinPage: FC = () => {
   const onClickCancelButton = () => {
     navigate(-1)
   }
+  const onClickTagSelector = (e: React.MouseEvent) => {
+    setIsSelecting((prev) => !prev)
+    e.stopPropagation()
+  }
+  const onClickTagOption = (id: number) => (e: React.MouseEvent) => {
+    setSelectedTag(tagList[id])
+    e.stopPropagation()
+    setIsSelecting(false)
+  }
+  const onClickRoot = () => {
+    setIsSelecting(false)
+  }
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
-  useEffect(() => {
-    console.log(convertToRaw(editorState.getCurrentContent()))
-  }, [editorState])
+
   return (
-    <Root>
+    <Root onClick={onClickRoot}>
       <WriteTypo>글쓰기 ✏️</WriteTypo>
       <UpperWrapper>
         <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
         <TagSelectorWrapper>
           <TagTypo>태그</TagTypo>
-          <TagSelector>
-            선택해주세요
+          <TagSelector onClick={onClickTagSelector}>
+            {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
             <DownArrowImg alt="down_arrow_img" src={downArrowImg} />
+            {isSelecting && (
+              <TagOptionWrapper>
+                {tagList.map((tag, index) => (
+                  <TagOption key={index} onClick={onClickTagOption(index)}>
+                    {tag}
+                  </TagOption>
+                ))}
+              </TagOptionWrapper>
+            )}
           </TagSelector>
         </TagSelectorWrapper>
       </UpperWrapper>

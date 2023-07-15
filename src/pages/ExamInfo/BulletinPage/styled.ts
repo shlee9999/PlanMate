@@ -38,13 +38,14 @@ export const TagSelectorWrapper = styled.div`
   width: 300px;
   height: 48px;
   column-gap: 8px;
+  cursor: pointer;
 `
 export const TagTypo = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 48px;
 `
-export const TagSelector = styled.button`
+export const TagSelector = styled.div`
   position: relative;
   box-sizing: border-box;
   padding: 15px 8px;
@@ -56,7 +57,39 @@ export const TagSelector = styled.button`
   font-weight: 400;
   line-height: 18px;
   color: #888888;
+`
+export const TagOptionWrapper = styled.div`
+  position: absolute;
+  top: 56px;
+  left: 0;
+  box-sizing: border-box;
+  padding: 6px 12px 6px 6px;
+  width: 209px;
+  height: 102px;
+  border-radius: 8px;
+  border: 1px solid #dddede;
+  overflow-y: scroll;
+  background-color: white;
+  z-index: 2;
+`
+export const TagOption = styled.button`
+  width: 191px;
+  height: 30px;
   text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 30px;
+  color: #888888;
+
+  &:hover {
+    border-radius: 5px;
+    background-color: #e2f9e9;
+    color: #01cb45;
+  }
+
+  &::before {
+    content: '# ';
+  }
 `
 export const DownArrowImg = styled.img`
   position: absolute;
