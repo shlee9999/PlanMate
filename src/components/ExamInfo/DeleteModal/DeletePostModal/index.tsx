@@ -1,22 +1,15 @@
 import { FC } from 'react'
 import { CenterTypo, CenterTypoWrapper, DescriptionTypo, Root, UpperTypo } from '../styled'
 import { GreenButton, ModalExitButton, ModalFooter, ModalWrapper, WhiteButton } from 'components/common/commonStyle'
-import { useNavigate } from 'react-router-dom'
-import { removePost } from 'api/post/remove/removePost'
 
 type DeletePostModalProps = {
   closeModal: () => void
-  postId: number
+  deletePost: () => void
 }
 
-export const DeletePostModal: FC<DeletePostModalProps> = ({ closeModal, postId }) => {
-  const navigate = useNavigate()
-  const onClickDeleteButton = () => {
-    removePost({
-      postId: postId,
-    }).then((res) => {
-      navigate(-1)
-    })
+export const DeletePostModal: FC<DeletePostModalProps> = ({ closeModal, deletePost }) => {
+  const onClickDeleteButton = (): void => {
+    deletePost()
   }
   const onClickModal = (e: React.MouseEvent) => {
     e.stopPropagation()

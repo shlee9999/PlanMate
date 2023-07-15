@@ -29,7 +29,7 @@ import {
   UserNickname,
 } from './styled'
 
-import { useLoaderData, useParams } from 'react-router-dom'
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { deserializeContent } from 'utils/wysiwyg'
@@ -46,6 +46,7 @@ import hollowScrapImg from 'assets/images/scrap_button_hollow.png'
 import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ExamInfoDetailDataType } from 'types'
 import { DeletePostModal } from 'components/ExamInfo/DeleteModal/DeletePostModal'
+import { removePost } from 'api/post/remove/removePost'
 
 /**
  * @title
@@ -86,7 +87,7 @@ export const ExamInfoDetailPage: FC = () => {
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(data.checkPostResult.likeCount)
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(data.checkPostResult.scrapCount)
   const [commentInput, setCommentInput] = useState<string>('')
-
+  const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
 
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -97,6 +98,13 @@ export const ExamInfoDetailPage: FC = () => {
       if (res) setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
     })
     //댓글 total 개수 하나 줄여야 함
+  }
+  const deletePost = (): void => {
+    removePost({
+      postId: examInfoDetail.postId,
+    }).then((res) => {
+      navigate(-1)
+    })
   }
 
   const loadNextPage = (): void => {
@@ -263,7 +271,7 @@ export const ExamInfoDetailPage: FC = () => {
           ))}
         </CommentContainer>
       </CommentWrapper>
-      {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} postId={examInfoDetail.postId} />}
+      {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} deletePost={deletePost} />}
     </Root>
   )
 }
