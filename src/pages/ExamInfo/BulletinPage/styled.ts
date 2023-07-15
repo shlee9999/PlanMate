@@ -68,6 +68,7 @@ export const TagOptionWrapper = styled.div`
   height: 102px;
   border-radius: 8px;
   border: 1px solid #dddede;
+  overflow-x: hidden;
   overflow-y: scroll;
   background-color: white;
   z-index: 2;
