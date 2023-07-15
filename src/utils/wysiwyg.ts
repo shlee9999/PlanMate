@@ -43,9 +43,13 @@ const options = {
 }
 
 export const deserializeContent = (jsonString: string): string => {
-  const rawContent = JSON.parse(jsonString)
-  const contentState = convertFromRaw(rawContent)
-  return stateToHTML(contentState, options)
+  try {
+    const rawContent = JSON.parse(jsonString)
+    const contentState = convertFromRaw(rawContent)
+    return stateToHTML(contentState, options)
+  } catch (e) {
+    return jsonString
+  }
 }
 
 export const serializeContent = (editorState: EditorState) => {
