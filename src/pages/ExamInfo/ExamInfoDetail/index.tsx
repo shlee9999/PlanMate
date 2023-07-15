@@ -38,13 +38,12 @@ import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findA
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
-import { Pagination } from 'components/ExamInfo/Pagination'
 import { likePost } from 'api/post/likePost'
 import { scrapPost } from 'api/post/scrapPost'
 import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import filledLikeImg from 'assets/images/like_button_filled.png'
-import hollowScrapImg from 'assets/images/scrap_button_filled.png'
-import filledScrapImg from 'assets/images/scrap_button_hollow.png'
+import hollowScrapImg from 'assets/images/scrap_button_hollow.png'
+import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ExamInfoDetailDataType } from 'types'
 /**
  * @title
@@ -80,10 +79,10 @@ export const ExamInfoDetailPage: FC = () => {
   //   isMyHearted: false,
   //   isMyScraped: false,
   // })
-  const [isLiked, setIsLiked] = useState<boolean>(false)
-  const [isScrapped, setIsScrapped] = useState<boolean>(false)
-  const [currentLikeCount, setCurrentLikeCount] = useState<number>(0)
-  const [currentScrapCount, setCurrentScrapCount] = useState<number>(0)
+  const [isLiked, setIsLiked] = useState<boolean>(data.checkPostResult.isMyHearted)
+  const [isScrapped, setIsScrapped] = useState<boolean>(data.checkPostResult.isMyScraped)
+  const [currentLikeCount, setCurrentLikeCount] = useState<number>(data.checkPostResult.likeCount)
+  const [currentScrapCount, setCurrentScrapCount] = useState<number>(data.checkPostResult.scrapCount)
   const [commentInput, setCommentInput] = useState<string>('')
 
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
