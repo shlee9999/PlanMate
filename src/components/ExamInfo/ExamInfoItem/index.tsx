@@ -13,7 +13,9 @@ import {
 
 import commentImg from 'assets/images/comment.png'
 import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import scrapImg from 'assets/images/scrap_button_hollow.png'
+import filledLikeImg from 'assets/images/like_button_filled.png'
+import hollowScrapImg from 'assets/images/scrap_button_hollow.png'
+import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ResponsePostType } from 'api/common/commonType'
 import { useNavigate } from 'react-router-dom'
 
@@ -24,23 +26,24 @@ type ExamInfoItemProps = ResponsePostType
  * @scrap 스크랩 개수
  * @comment_count 댓글 개수
  * @nickname owner_id?
- * @updated_at (업데이트 시간)
+ * @updated_at (업데이트 시간)x
  */
 export const ExamInfoItem: FC<ExamInfoItemProps> = ({
   commentCount,
-  content,
   likeCount,
   nickname,
   postId,
-  postTagList,
   scrapCount,
   title,
   updatedAt,
+  isMyHearted,
+  isMyScraped,
 }) => {
   const navigate = useNavigate()
   const onClickTitle = (): void => {
     navigate(`/examinfo/detail/${postId}`)
   }
+
   return (
     <Root>
       <TypoWrapper>
@@ -56,11 +59,11 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
           {commentCount}
         </IconCountWrapper>
         <IconCountWrapper>
-          <Icon alt="like_icon" src={hollowLikeImg} />
+          <Icon alt="like_icon" src={isMyHearted ? filledLikeImg : hollowLikeImg} />
           {likeCount}
         </IconCountWrapper>
         <IconCountWrapper>
-          <Icon alt="scrap_icon" src={scrapImg} />
+          <Icon alt="scrap_icon" src={isMyScraped ? filledScrapImg : hollowScrapImg} />
           {scrapCount}
         </IconCountWrapper>
       </IconContainer>
