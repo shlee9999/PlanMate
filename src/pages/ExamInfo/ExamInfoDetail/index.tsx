@@ -196,7 +196,7 @@ export const ExamInfoDetailPage: FC = () => {
           </TagWrapper>
           <TitleTypoWrapper>
             <TitleTypo>{examInfoDetail.title}</TitleTypo>
-            <UpdatedDate>{examInfoDetail.updatedAt}</UpdatedDate>
+            <UpdatedDate>{examInfoDetail.updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</UpdatedDate>
           </TitleTypoWrapper>
         </LeftTypoWrapper>
         <RightTypoWrapper>
