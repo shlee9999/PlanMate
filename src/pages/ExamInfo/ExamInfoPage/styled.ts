@@ -45,6 +45,7 @@ export const TagButton = styled.button`
   }
 `
 const TagButtonWrapper = styled.div`
+  min-width: 600px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
