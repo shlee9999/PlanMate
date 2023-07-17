@@ -180,6 +180,7 @@ export const ExamInfoDetailPage: FC = () => {
         setTotalPage(response.totalPages)
         setCommentInput('')
         setCurrentPage(0)
+        setCurrentCommentCount((prev) => prev + 1)
       })
     })
   }
