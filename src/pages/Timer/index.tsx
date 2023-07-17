@@ -37,6 +37,7 @@ import SubjectModal from 'components/Timer/SubjectModal'
 import { StudyTimerWidget } from 'components/Timer/TimerWidget/StudyTimerWidget'
 import { ExerciseTimerWidget } from 'components/Timer/TimerWidget/ExerciseTimerWidget'
 import TodoItem from 'components/Timer/TodoItem'
+import HistoryChart from 'components/stats/HistroyChart'
 
 export const TimerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
