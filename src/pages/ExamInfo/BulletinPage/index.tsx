@@ -16,7 +16,7 @@ import {
 } from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
-import { EditorState, convertToRaw } from 'draft-js'
+import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
@@ -38,7 +38,8 @@ export const BulletinPage: FC = () => {
   }
   const navigate = useNavigate()
   const onClickRegisterButton = async () => {
-    if (inputValue === '') return
+    if (inputValue === '' || selectedTag === '선택해주세요') return
+
     await createPost({
       content: serializeContent(editorState),
       tagList: [selectedTag],
