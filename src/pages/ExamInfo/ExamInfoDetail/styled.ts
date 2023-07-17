@@ -1,9 +1,4 @@
-import {
-  EXAMINFODETAIL_MAX_WIDTH,
-  EXAMINFODETAIL_MIN_WIDTH,
-  EXAMINFOITEM_MAX_WIDTH,
-  EXAMINFOITEM_MIN_WIDTH,
-} from 'constants/layout'
+import { EXAMINFODETAIL_MAX_WIDTH, EXAMINFODETAIL_MIN_WIDTH } from 'constants/layout'
 import { RegisterButton, TagRoot } from 'styled'
 import styled from 'styled-components'
 

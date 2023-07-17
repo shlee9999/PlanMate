@@ -153,8 +153,8 @@ export const ExamInfoDetailPage: FC = () => {
     editPost({
       content: serializeContent(editorState),
       id: +postId,
-      tagList: [],
-      title: '',
+      tagList: examInfoDetail.postTagList,
+      title: examInfoDetail.title,
     }).then((res) => {
       if (res) {
         setIsEditing(false)
