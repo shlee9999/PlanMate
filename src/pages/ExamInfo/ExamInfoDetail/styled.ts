@@ -1,4 +1,4 @@
-import { EXAMINFODETAIL_MAX_WIDTH, EXAMINFODETAIL_MIN_WIDTH } from 'constants/layout'
+import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
 import { RegisterButton, TagRoot } from 'styled'
 import styled from 'styled-components'
 
@@ -6,8 +6,9 @@ export const Root = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
   padding: 40px 0;
+  width: 100%;
   max-width: ${EXAMINFODETAIL_MAX_WIDTH}px;
-  min-width: ${EXAMINFODETAIL_MIN_WIDTH}px;
+
   .editor {
     min-height: 150px;
     padding-left: 10px;
