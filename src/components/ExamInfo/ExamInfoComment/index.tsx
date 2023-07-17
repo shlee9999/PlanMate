@@ -81,6 +81,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
+      if (e.shiftKey) return
       e.preventDefault()
       modifyComment({
         commentId: commentId,
