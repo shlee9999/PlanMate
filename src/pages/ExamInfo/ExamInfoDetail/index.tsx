@@ -27,12 +27,15 @@ import {
   ScrapImg,
   ScrapButton,
   UserNickname,
+  EditCompleteButton,
+  EditorWrapper,
+  Content,
 } from './styled'
 
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
-import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
-import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
-import { deserializeContent } from 'utils/wysiwyg'
+import { ResponseCommentType } from 'api/common/commonType'
+import { CheckPostResponseProps } from 'api/post/checkPost'
+import { deserializeContent, serializeContent } from 'utils/wysiwyg'
 import { CheckImg } from 'styled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
@@ -47,6 +50,9 @@ import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ExamInfoDetailDataType } from 'types'
 import { DeletePostModal } from 'components/ExamInfo/DeleteModal/DeletePostModal'
 import { removePost } from 'api/post/remove/removePost'
+import { Editor } from 'react-draft-wysiwyg'
+import { EditorState, convertFromRaw } from 'draft-js'
+import { editPost } from 'api/post/editPost'
 
 /**
  * @title
@@ -86,10 +92,20 @@ export const ExamInfoDetailPage: FC = () => {
   const [isScrapped, setIsScrapped] = useState<boolean>(data.checkPostResult.isMyScraped)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(data.checkPostResult.likeCount)
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(data.checkPostResult.scrapCount)
+  const [currentContent, setCurrentContent] = useState<string>(examInfoDetail.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [editorState, setEditorState] = useState(() => {
+    const rawContentFromServer = JSON.parse(examInfoDetail.content)
+    const contentState = convertFromRaw(rawContentFromServer)
+    return EditorState.createWithContent(contentState)
+  })
 
+  const onEditorStateChange = (editorState: EditorState) => {
+    setEditorState(editorState)
+  }
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -99,9 +115,10 @@ export const ExamInfoDetailPage: FC = () => {
     })
     //댓글 total 개수 하나 줄여야 함
   }
+
   const deletePost = (): void => {
     removePost({
-      postId: examInfoDetail.postId,
+      postId: +postId,
     }).then((res) => {
       navigate(-1)
     })
@@ -128,15 +145,31 @@ export const ExamInfoDetailPage: FC = () => {
       }
     }
   }
-
+  const onClickEditTypo = () => {
+    if (isEditing) onClickEditCompleteButton()
+    setIsEditing((prev) => !prev)
+  }
+  const onClickEditCompleteButton = () => {
+    editPost({
+      content: serializeContent(editorState),
+      id: +postId,
+      tagList: [],
+      title: '',
+    }).then((res) => {
+      if (res) {
+        setIsEditing(false)
+        setCurrentContent(serializeContent(editorState))
+      }
+    })
+  }
   const onClickRegisterButton = (): void => {
     createComment({
       content: commentInput,
-      postId: examInfoDetail.postId,
+      postId: +postId,
     }).then((res1) => {
       findAllComments({
         pages: 0,
-        postId: examInfoDetail.postId,
+        postId: +postId,
       }).then((res2: unknown) => {
         const response = res2 as FindAllCommentsResponseProps
         setCommentList(response.commentDtoList as ResponseCommentType[])
@@ -157,7 +190,7 @@ export const ExamInfoDetailPage: FC = () => {
       setIsLiked(true)
       setCurrentLikeCount((prev) => prev + 1)
     }
-    likePost({ postId: examInfoDetail.postId })
+    likePost({ postId: +postId })
   }
   const onClickScrapButton = () => {
     if (isScrapped) {
@@ -167,7 +200,7 @@ export const ExamInfoDetailPage: FC = () => {
       setIsScrapped(true)
       setCurrentScrapCount((prev) => prev + 1)
     }
-    scrapPost({ postId: examInfoDetail.postId })
+    scrapPost({ postId: +postId })
   }
   const onClickDeleteTypo = () => {
     setIsDeletePostModalOpen(true)
@@ -219,18 +252,38 @@ export const ExamInfoDetailPage: FC = () => {
         </LeftTypoWrapper>
         <RightTypoWrapper>
           <PostOwnerNickname>{examInfoDetail.nickname}</PostOwnerNickname>
-          <EditTypo>수정</EditTypo>
+          <EditTypo onClick={onClickEditTypo}>수정</EditTypo>
           <DistributionLine />
           <DeleteTypo onClick={onClickDeleteTypo}>삭제</DeleteTypo>
         </RightTypoWrapper>
       </UpperTypoWrapper>
 
       <ContentWrapper>
-        {examInfoDetail.content === '' ? (
-          '빈 콘텐츠'
+        {isEditing ? (
+          <EditorWrapper>
+            <Editor
+              wrapperClassName="wrapper-class"
+              editorClassName="editor"
+              toolbarClassName="toolbar-class"
+              toolbar={{
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+                link: { inDropdown: true },
+                history: { inDropdown: false },
+              }}
+              placeholder="내용을 작성해주세요"
+              localization={{
+                locale: 'ko',
+              }}
+              editorState={editorState}
+              onEditorStateChange={onEditorStateChange}
+            />
+            <EditCompleteButton onClick={onClickEditCompleteButton}>수정완료</EditCompleteButton>
+          </EditorWrapper>
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: deserializeContent(examInfoDetail.content) }} />
+          <Content dangerouslySetInnerHTML={{ __html: deserializeContent(currentContent) }} />
         )}
+
         <IconContainer>
           <LikeButton onClick={onClickLikeButton}>
             <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />

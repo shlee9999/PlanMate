@@ -1,4 +1,9 @@
-import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
+import {
+  EXAMINFODETAIL_MAX_WIDTH,
+  EXAMINFODETAIL_MIN_WIDTH,
+  EXAMINFOITEM_MAX_WIDTH,
+  EXAMINFOITEM_MIN_WIDTH,
+} from 'constants/layout'
 import { RegisterButton, TagRoot } from 'styled'
 import styled from 'styled-components'
 
@@ -6,8 +11,12 @@ export const Root = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
   padding: 40px 0;
-  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
-  min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
+  max-width: ${EXAMINFODETAIL_MAX_WIDTH}px;
+  min-width: ${EXAMINFODETAIL_MIN_WIDTH}px;
+  .editor {
+    min-height: 150px;
+    padding-left: 10px;
+  }
 `
 
 export const TagWrapper = styled.div`
@@ -105,6 +114,7 @@ export const ContentWrapper = styled.div`
   border-bottom: 1px solid #c6c6c6;
   margin-bottom: 32px;
   white-space: pre-line;
+  overflow-wrap: break-word;
 `
 
 export const IconContainer = styled.div`
@@ -161,8 +171,6 @@ export const CommentInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
-  min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
 `
 export const CommentInput = styled.textarea`
   box-sizing: border-box;
@@ -182,3 +190,14 @@ export const CommentInput = styled.textarea`
 export const CommentRegisterButton = styled(RegisterButton)`
   align-self: flex-end;
 `
+
+export const EditorWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const EditCompleteButton = styled(RegisterButton)`
+  align-self: flex-end;
+  margin-bottom: 10px;
+`
+
+export const Content = styled.div``
