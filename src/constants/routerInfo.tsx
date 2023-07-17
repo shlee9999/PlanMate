@@ -13,6 +13,7 @@ import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import sampleInfoList from 'constants/sampleInfoList.json'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { ExamInfoDetailDataType } from 'types'
+import { FooterSection } from 'pages/CommonSections/FooterSection'
 
 export const routerInfo = [
   {
@@ -21,6 +22,7 @@ export const routerInfo = [
       <Root>
         <HeaderSection />
         <Outlet />
+        <FooterSection />
       </Root>
     ),
     children: [

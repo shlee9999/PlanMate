@@ -1,10 +1,17 @@
 import { FC } from 'react'
-import { Root } from './styled'
+import { ContentWrapper, NavigateTypo, RightContainer, Root } from './styled'
 
-type FooterSectionProps = {
-  className?: string
-}
-
-export const FooterSection: FC<FooterSectionProps> = ({ className }) => {
-  return <Root className={className}>FooterSection</Root>
+export const FooterSection: FC = () => {
+  return (
+    <Root>
+      <ContentWrapper>
+        <RightContainer>
+          <NavigateTypo>이용약관</NavigateTypo>
+          <NavigateTypo>개인정보 처리방침</NavigateTypo>
+          <NavigateTypo>이용관련건의</NavigateTypo>
+          <NavigateTypo>Contact Us</NavigateTypo>
+        </RightContainer>
+      </ContentWrapper>
+    </Root>
+  )
 }
