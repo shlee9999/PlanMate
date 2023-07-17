@@ -102,6 +102,7 @@ export const ExamInfoDetailPage: FC = () => {
     const contentState = convertFromRaw(rawContentFromServer)
     return EditorState.createWithContent(contentState)
   })
+  const [currentCommentCount, setCurrentCommentCount] = useState<number>(examInfoDetail.commentCount)
 
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState)
@@ -111,7 +112,10 @@ export const ExamInfoDetailPage: FC = () => {
   }
   const deleteComment = (id: number) => (): void => {
     removeComment({ commentId: id }).then((res) => {
-      if (res) setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
+      if (res) {
+        setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
+        setCurrentCommentCount((prev) => prev - 1)
+      }
     })
     //댓글 total 개수 하나 줄여야 함
   }
@@ -305,7 +309,7 @@ export const ExamInfoDetailPage: FC = () => {
       </CommentInputWrapper>
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{examInfoDetail.commentCount}</CommentCount>개
+          댓글 <CommentCount>{currentCommentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer>
           {commentList.map((comment, index) => (
