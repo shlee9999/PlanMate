@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResultContainer, ResultStatsContainer, CompareStatsContainer } from './styled'
 import { MainHistory } from './component/MainHistory'
-import BumpGraph from '../CompareChart/component/BumpGraph'
+import { BumpGraph } from '../CompareChart/component/BumpGraph'
 
 export const HistoryChart = () => {
   return (

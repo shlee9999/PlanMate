@@ -1,6 +1,6 @@
 import React from 'react'
 import Calendar from '../calendar'
-import { HistoryChart } from '../HistroyChart'
+import { HistoryChart } from '../HistoryChart'
 import { Root } from './styled'
 
 function MenuBox() {

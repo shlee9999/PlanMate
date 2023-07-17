@@ -1,6 +1,6 @@
 import React from 'react'
 import { TimerRecord } from './TimerRecord'
-import PieChartRecord from './PieChartRecord'
+import { PieChartRecord } from './PieChartRecord'
 import { HeaderDate } from './HeaderDate'
 import styled from 'styled-components'
 
