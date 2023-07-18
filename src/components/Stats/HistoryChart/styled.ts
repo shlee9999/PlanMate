@@ -28,4 +28,33 @@ const CompareStatsContainer = styled.div`
   align-items: center;
 `
 
-export { ResultContainer, ResultStatsContainer, CompareStatsContainer }
+const CompareTitleWrapper = styled.div`
+  position: relative;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  height: 40px;
+`
+
+const CompareTitle = styled.p`
+  font-family: Spoqa Han Sans Neo;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #666666;
+`
+const CompareTimer = styled.p`
+  font-family: Spoqa Han Sans Neo;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #444444;
+`
+
+export { ResultContainer, ResultStatsContainer, CompareStatsContainer, CompareTitleWrapper, CompareTitle, CompareTimer }
