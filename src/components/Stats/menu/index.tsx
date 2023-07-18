@@ -1,15 +1,21 @@
-import React from 'react'
-import Calendar from '../calendar'
+import React, { useState } from 'react'
 import { HistoryChart } from '../HistoryChart'
 import { Root } from './styled'
+import { StatsDatePicker } from '../DatePicker'
+import { DayValue } from 'react-modern-calendar-datepicker'
 
-function MenuBox() {
+export const MenuBox = () => {
+  const [selectedDate, setSelectedDate] = useState<DayValue | null>(null)
+
+  const handleDateSelect = (selectedDate: DayValue | null) => {
+    setSelectedDate(selectedDate)
+    console.log(selectedDate)
+  }
+
   return (
     <Root>
-      <Calendar />
-      <HistoryChart />
+      <StatsDatePicker onDateSelect={handleDateSelect} />
+      <HistoryChart selectedDate={selectedDate} />
     </Root>
   )
 }
-
-export default MenuBox

@@ -3,6 +3,11 @@ import { TimerRecord } from './TimerRecord'
 import { PieChartRecord } from './PieChartRecord'
 import { HeaderDate } from './HeaderDate'
 import styled from 'styled-components'
+import { DayValue } from 'react-modern-calendar-datepicker'
+
+interface MainHistoryProps {
+  selectedDate: DayValue | null
+}
 
 const Container = styled.div`
   width: 100%;
@@ -38,10 +43,10 @@ const ChartContainer = styled.div`
   align-items: center;
 `
 
-export const MainHistory = () => {
+export const MainHistory: React.FC<MainHistoryProps> = ({ selectedDate }) => {
   return (
     <Container>
-      <HeaderDate />
+      <HeaderDate selectedDate={selectedDate} />
       <MainWrapper>
         <TimerContainer>
           <TimerRecord />

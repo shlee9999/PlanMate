@@ -9,12 +9,17 @@ import {
 } from './styled'
 import { MainHistory } from './component/MainHistory'
 import { BumpGraph } from '../CompareChart/component/BumpGraph'
+import { DayValue } from 'react-modern-calendar-datepicker'
 
-export const HistoryChart = () => {
+interface HistoryChartProps {
+  selectedDate: DayValue | null
+}
+
+export const HistoryChart: React.FC<HistoryChartProps> = ({ selectedDate }) => {
   return (
     <ResultContainer>
       <ResultStatsContainer>
-        <MainHistory />
+        <MainHistory selectedDate={selectedDate} />
       </ResultStatsContainer>
       <CompareStatsContainer>
         <CompareTitleWrapper>
