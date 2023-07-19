@@ -108,6 +108,12 @@ export const StatsDatePicker: React.FC<StatsDatePickerProps> = ({ onDateSelect }
       shouldHighlightWeekends
       calendarClassName="custom-calendar"
       locale={myCustomLocale}
+      customDaysClassName={[
+        { year: 2023, month: 7, day: 1, className: 'zeroToThreeDay' },
+        { year: 2023, month: 7, day: 2, className: 'fourToSevenDay' },
+        { year: 2023, month: 7, day: 3, className: 'eightToElevenDay' },
+        { year: 2023, month: 7, day: 4, className: 'overTwelveDay' },
+      ]}
       renderFooter={() => <DatePickerFooter />}
     />
   )
