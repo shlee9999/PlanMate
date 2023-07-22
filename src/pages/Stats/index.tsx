@@ -6,7 +6,6 @@ import { MenuBox } from 'components/Stats/menu'
 const StatsContainer = styled.div`
   width: 100%;
   height: 500px;
-  border: 3px solid blue;
   margin-top: 30px;
   display: flex;
   flex-direction: row;

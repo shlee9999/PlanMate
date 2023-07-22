@@ -1,31 +1,6 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import StudyPieChart from './StudyPieChart'
-
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`
-
-const StudyPiechartWrapper = styled.div`
-  width: 180px;
-  height: 142px;
-  display: flex;
-  flex-direction: column;
-`
-
-const PiechartTitle = styled.span`
-  margin-bottom: 5px;
-  font-family: Spoqa Han Sans Neo;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #666666;
-`
+import { PieChartContainer, StudyPiechartWrapper, PiechartTitle } from './styled'
 
 export interface PieChartData {
   name: string
@@ -46,7 +21,7 @@ export const PieChartRecord: React.FC = () => {
   const [isStudyData, setStudyData] = useState<PieChartData[]>(StudyData)
   const [isRestData, setRestData] = useState<PieChartData[]>(RestData)
   return (
-    <Container>
+    <PieChartContainer>
       <StudyPiechartWrapper>
         <PiechartTitle>종목별 비율</PiechartTitle>
         <StudyPieChart data={isStudyData} />
@@ -55,6 +30,8 @@ export const PieChartRecord: React.FC = () => {
         <PiechartTitle>공부/휴식 비율</PiechartTitle>
         <StudyPieChart data={isRestData} />
       </StudyPiechartWrapper>
-    </Container>
+    </PieChartContainer>
   )
 }
+
+// 종목별 비율, 공부/휴식 비율 -> StudyPieChart 컴포넌트 재사용 (API 설정 후, 수정)

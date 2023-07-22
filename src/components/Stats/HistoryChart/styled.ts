@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 const ResultContainer = styled.div`
   width: 850px;
-  height: 392px;
-  border: 1px solid gray;
+  height: 380px;
+  border: 1px solid #d9d9d9;
   border-radius: 8px;
   display: flex;
   flex-direction: column;

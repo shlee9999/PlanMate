@@ -1,13 +1,7 @@
 import React, { useState } from 'react'
 import { FocusTimer } from './FocusTimer'
 import { RecordTimer } from './RecordTimer'
-import styled from 'styled-components'
-
-const Container = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`
+import { TimerRecordWrapper } from './styled'
 
 //총 공부시간, 최대 집중 시간
 export interface FocusTimerData {
@@ -60,11 +54,11 @@ export const TimerRecord: React.FC = () => {
   const [isEndTitle, setEndTitle] = useState<string>(EndTimerTitle)
 
   return (
-    <Container>
+    <TimerRecordWrapper>
       <FocusTimer title={isTotalTitle} data={isTotalTimer} />
       <FocusTimer title={isMaxFocusTitle} data={MaxFocusData} />
       <RecordTimer title={isStartTitle} data={StartTimerData} />
       <RecordTimer title={isEndTitle} data={EndTimerData} />
-    </Container>
+    </TimerRecordWrapper>
   )
 }

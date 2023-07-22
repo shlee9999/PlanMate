@@ -8,7 +8,6 @@ interface OwnProps {
 }
 
 export const RecordTimer: React.FC<OwnProps> = ({ data, title }) => {
-  // Function to add leading zero if value is less than 10
   const addLeadingZero = (value: number) => {
     return value < 10 ? `0${value}` : value
   }
