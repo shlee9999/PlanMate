@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-const ContainerRecord = styled.div`
+const RecordContainer = styled.div`
   width: 100%;
   height: 60px;
 `
@@ -31,4 +31,12 @@ const MainRecord = styled.div`
   color: #222222;
 `
 
-export { ContainerRecord, HeaderRecord, MainRecord }
+//DatePickerFooter
+
+const DatePickerFooterWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: right;
+`
+
+export { RecordContainer, HeaderRecord, MainRecord, DatePickerFooterWrapper }

@@ -9,7 +9,6 @@ export const MenuBox = () => {
 
   const handleDateSelect = (selectedDate: DayValue | null) => {
     setSelectedDate(selectedDate)
-    console.log(selectedDate)
   }
 
   return (

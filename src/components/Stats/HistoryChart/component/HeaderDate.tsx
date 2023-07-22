@@ -21,6 +21,3 @@ export const HeaderDate: React.FC<HeaderDateProps> = ({ selectedDate }) => {
 
   return <Container>{year && month && day ? `${year}년 ${month}월 ${day}일 ` : ''}</Container>
 }
-
-// import { useFormattedDate } from 'utils/helper'
-// const formattedDate: string = useFormattedDate()

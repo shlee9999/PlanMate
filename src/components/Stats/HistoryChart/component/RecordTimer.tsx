@@ -1,5 +1,5 @@
 import React from 'react'
-import { ContainerRecord, HeaderRecord, MainRecord } from './styled'
+import { RecordContainer, HeaderRecord, MainRecord } from './styled'
 import { RecordTimerData } from './TimerRecord'
 
 interface OwnProps {
@@ -14,11 +14,11 @@ export const RecordTimer: React.FC<OwnProps> = ({ data, title }) => {
   }
 
   return (
-    <ContainerRecord>
+    <RecordContainer>
       <HeaderRecord>{title}</HeaderRecord>
       <MainRecord>
         {data.hour}시 {data.minute}분
       </MainRecord>
-    </ContainerRecord>
+    </RecordContainer>
   )
 }

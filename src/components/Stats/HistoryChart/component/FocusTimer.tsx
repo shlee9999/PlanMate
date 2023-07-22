@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { ContainerRecord, HeaderRecord, MainRecord } from './styled'
+import { RecordContainer, HeaderRecord, MainRecord } from './styled'
 import { RootState } from 'modules'
 import { FocusTimerData } from './TimerRecord'
 
@@ -18,11 +18,11 @@ export const FocusTimer: React.FC<OwnProps> = ({ data, title }) => {
   }
 
   return (
-    <ContainerRecord>
+    <RecordContainer>
       <HeaderRecord>{title}</HeaderRecord>
       <MainRecord>
         {addLeadingZero(data.hour)} : {addLeadingZero(data.minute)} : {addLeadingZero(data.second)}
       </MainRecord>
-    </ContainerRecord>
+    </RecordContainer>
   )
 }
