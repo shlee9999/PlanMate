@@ -6,8 +6,8 @@ import { Root } from './styled'
 function MenuBox() {
   return (
     <Root>
-      <Calendar/>
-      <HistoryChart/>
+      <Calendar />
+      <HistoryChart />
     </Root>
   )
 }

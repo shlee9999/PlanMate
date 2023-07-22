@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { ButtonWrapper, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { useDispatch } from 'react-redux'
 import { TodoItems } from 'types'
-import { ModalExitButton, ModalFooter } from '../SubjectModal/styled'
+
 import { removeTodo } from 'modules/todos'
-import { ConfirmButton, ExitButton, ModalWrapper } from 'components/common/commonStyle'
+import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import SubjectModal from '../SubjectModal'
 const EllipsisModal = ({
   closeModal,
@@ -58,8 +58,8 @@ const EllipsisModal = ({
           </DeleteSubjectButton>
         </ButtonWrapper>
         <ModalFooter>
-          <ExitButton onClick={closeModal}>취소</ExitButton>
-          <ConfirmButton onClick={onClickConfirmButton}>확인</ConfirmButton>
+          <WhiteButton onClick={closeModal}>취소</WhiteButton>
+          <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
         </ModalFooter>
         <ModalExitButton onClick={closeModal} />
       </Root>

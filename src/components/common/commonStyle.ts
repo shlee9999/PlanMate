@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import modalExitButton from 'assets/images/modal_exit_button.png'
+
 const FOOTER_HEIGHT = 40
 
 export const ModalWrapper = styled.div`
@@ -8,9 +10,10 @@ export const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
 `
 
-export const FooterButton = styled.div`
+export const FooterButton = styled.button`
   font-size: 16px;
   font-weight: 500;
   line-height: ${FOOTER_HEIGHT}px;
@@ -19,12 +22,36 @@ export const FooterButton = styled.div`
   width: 50%;
 `
 
-export const ExitButton = styled(FooterButton)`
+export const WhiteButton = styled(FooterButton)`
   color: #666666;
   border-top: 1px solid #dddede;
 `
-export const ConfirmButton = styled(FooterButton)`
+export const GreenButton = styled(FooterButton)`
   color: #ffffff;
   background-color: #01cb45;
-  border: 1px solid #1db951;
+  border-top: 1px solid #1db951;
+`
+
+export const ModalFooter = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+`
+
+export const ModalExitButton = styled.button`
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  border: none;
+  width: 20px;
+  height: 20px;
+  background: url(${modalExitButton}) no-repeat 0 0;
+  background-size: 20px 20px;
 `

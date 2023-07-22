@@ -1,42 +1,123 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react'
-import { CancelButton, ContentInput, RegisterButton, Root, TitleInput, WriteTypo } from './styled'
+import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import {
+  ButtonWrapper,
+  CancelButton,
+  CancelImg,
+  DownArrowImg,
+  Root,
+  TagOption,
+  TagOptionWrapper,
+  TagSelector,
+  TagSelectorWrapper,
+  TagTypo,
+  TitleInput,
+  UpperWrapper,
+  WriteTypo,
+} from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
+import { EditorState } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-type InputType = {
-  title: string
-  content: string
-}
+import { serializeContent } from 'utils/wysiwyg'
+import { CheckImg, RegisterButton } from 'styled'
+
+import downArrowImg from 'assets/images/left_arrow.png'
+import { tagList } from 'constants/tagList'
 export const BulletinPage: FC = () => {
-  const [inputValue, setInputValue] = useState<InputType>({ title: '', content: '' })
-  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setInputValue({ ...inputValue, [event.target.name]: event.target.value })
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  const [isSelecting, setIsSelecting] = useState<boolean>(false)
+  const [selectedTag, setSelectedTag] = useState<string>('선택해주세요')
+  const onEditorStateChange = (editorState: EditorState) => {
+    setEditorState(editorState)
+  }
+  const [inputValue, setInputValue] = useState<string>('')
+  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(event.target.value)
   }
   const navigate = useNavigate()
   const onClickRegisterButton = async () => {
+    if (inputValue === '' || selectedTag === '선택해주세요') return
+
     await createPost({
-      content: inputValue.content,
-      tagList: ['태그1', '태그2'],
-      title: inputValue.title,
+      content: serializeContent(editorState),
+      tagList: [selectedTag],
+      title: inputValue,
     }).then((res) => {
-      console.log(res)
+      if (res) navigate(-1)
     })
-    navigate(-1)
+
     //등록하시겠습니까? 확인
   }
   const onClickCancelButton = () => {
     navigate(-1)
   }
+  const onClickTagSelector = (e: React.MouseEvent) => {
+    setIsSelecting((prev) => !prev)
+    e.stopPropagation()
+  }
+  const onClickTagOption = (id: number) => (e: React.MouseEvent) => {
+    setSelectedTag(tagList[id])
+    e.stopPropagation()
+    setIsSelecting(false)
+  }
+  const onClickRoot = () => {
+    setIsSelecting(false)
+  }
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
+
   return (
-    <Root>
+    <Root onClick={onClickRoot}>
       <WriteTypo>글쓰기 ✏️</WriteTypo>
-      <TitleInput name="title" value={inputValue.title} onChange={onChange} placeholder="제목을 입력해주세요" />
-      <ContentInput name="content" value={inputValue.content} onChange={onChange} />
-      <CancelButton onClick={onClickCancelButton}>취소</CancelButton>
-      <RegisterButton onClick={onClickRegisterButton}>등록</RegisterButton>
+      <UpperWrapper>
+        <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
+        <TagSelectorWrapper>
+          <TagTypo>태그</TagTypo>
+          <TagSelector onClick={onClickTagSelector}>
+            {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
+            <DownArrowImg alt="down_arrow_img" src={downArrowImg} />
+            {isSelecting && (
+              <TagOptionWrapper>
+                {tagList.map((tag, index) => (
+                  <TagOption key={index} onClick={onClickTagOption(index)}>
+                    {tag}
+                  </TagOption>
+                ))}
+              </TagOptionWrapper>
+            )}
+          </TagSelector>
+        </TagSelectorWrapper>
+      </UpperWrapper>
+      <Editor
+        wrapperClassName="wrapper-class"
+        editorClassName="editor"
+        toolbarClassName="toolbar-class"
+        toolbar={{
+          list: { inDropdown: true },
+          textAlign: { inDropdown: true },
+          link: { inDropdown: true },
+          history: { inDropdown: false },
+        }}
+        placeholder="내용을 작성해주세요"
+        localization={{
+          locale: 'ko',
+        }}
+        editorState={editorState}
+        onEditorStateChange={onEditorStateChange}
+      />
+      <ButtonWrapper>
+        <CancelButton onClick={onClickCancelButton}>
+          <CancelImg />
+          취소
+        </CancelButton>
+        <RegisterButton onClick={onClickRegisterButton}>
+          <CheckImg />
+          등록
+        </RegisterButton>
+      </ButtonWrapper>
     </Root>
   )
 }

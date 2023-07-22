@@ -7,10 +7,10 @@ function HistoryChart() {
   return (
     <ResultContainer>
       <ResultStatsContainer>
-        <MainHistory/>
+        <MainHistory />
       </ResultStatsContainer>
       <CompareStatsContainer>
-        <BumpGraph/>
+        <BumpGraph />
       </CompareStatsContainer>
     </ResultContainer>
   )

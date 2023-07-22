@@ -1,7 +1,7 @@
 import { HeaderSection } from 'pages/CommonSections/HeaderSection'
 import { Outlet } from 'react-router-dom'
 import { Root } from 'styled'
-import { ExamInfoPage } from 'pages/ExamInfo'
+import { ExamInfoPage } from 'pages/ExamInfo/ExamInfoPage'
 import { BulletinPage } from 'pages/ExamInfo/BulletinPage'
 import { TimerPage } from 'pages/Timer'
 import StatsPage from 'pages/Stats'
@@ -9,8 +9,12 @@ import PlannerPage from 'pages/Planner'
 import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
 import { findAll } from 'api/post/find/findAll'
 import { ResponsePostType } from 'api/common/commonType'
-import { checkPost } from 'api/post/checkPost'
+import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import sampleInfoList from 'constants/sampleInfoList.json'
+import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
+import { ExamInfoDetailDataType } from 'types'
+import { FooterSection } from 'pages/CommonSections/FooterSection'
+
 export const routerInfo = [
   {
     path: '/',
@@ -18,6 +22,7 @@ export const routerInfo = [
       <Root>
         <HeaderSection />
         <Outlet />
+        <FooterSection />
       </Root>
     ),
     children: [
@@ -37,11 +42,11 @@ export const routerInfo = [
         path: 'examinfo',
         element: <ExamInfoPage />,
 
-        // loader: async (): Promise<ResponsePostType[]> => {
-        //   return (await findAll({
-        //     pages: 0,
-        //   })) as ResponsePostType[]
-        // }, //비동기 처리 등
+        loader: async (): Promise<FindAllCommentsResponseProps> => {
+          return (await findAll({
+            pages: 0,
+          })) as FindAllCommentsResponseProps
+        }, //비동기 처리 등
       },
       {
         path: 'examinfo/post',
@@ -50,16 +55,19 @@ export const routerInfo = [
       {
         path: 'examinfo/detail/:postId',
         element: <ExamInfoDetailPage />,
-        // loader: async ({ params }: any): Promise<ResponsePostType[]> => {
-        //   try {
-        //     return (await checkPost({
-        //       postId: +params.postId,
-        //     })) as ResponsePostType[]
-        //   } catch (error) {
-        //     console.error('API 호출 불가')
-        //     return sampleInfoList.postInfoList
-        //   }
-        // },
+        loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
+          const checkPostResult = (await checkPost({
+            postId: +params.postId,
+          })) as CheckPostResponseProps
+          const findAllCommentsResult = (await findAllComments({
+            pages: 0,
+            postId: +params.postId,
+          })) as FindAllCommentsResponseProps
+          return {
+            checkPostResult: checkPostResult,
+            findAllCommentsResult: findAllCommentsResult,
+          }
+        },
       },
       {
         path: '*',
