@@ -11,10 +11,10 @@ const dummyPlans: TodoPlans[] = [
     title: 'Meeting',
     color: 'red',
     day: '월',
-    beginhour: 9,
-    beginminute: 0,
-    finishhour: 10,
-    finishminute: 30,
+    begin_hour: 9,
+    begin_minute: 0,
+    finish_hour: 10,
+    finish_minute: 30,
     category: 'work',
   },
   {
@@ -22,10 +22,10 @@ const dummyPlans: TodoPlans[] = [
     title: 'Gym',
     color: 'blue',
     day: '화',
-    beginhour: 18,
-    beginminute: 0,
-    finishhour: 19,
-    finishminute: 0,
+    begin_hour: 18,
+    begin_minute: 0,
+    finish_hour: 19,
+    finish_minute: 0,
     category: 'exercise',
   },
 ]
@@ -33,15 +33,15 @@ const dummyPlans: TodoPlans[] = [
 // Convert dummyPlans to match TIMES array
 const convertedPlans: TodoPlans[] = dummyPlans.map((plan) => ({
   ...plan,
-  beginhour: plan.beginhour % 12 === 0 ? 12 : plan.beginhour % 12,
-  finishhour: plan.finishhour % 12 === 0 ? 12 : plan.finishhour % 12,
+  begin_hour: plan.begin_hour % 12 === 0 ? 12 : plan.begin_hour % 12,
+  finish_hour: plan.finish_hour % 12 === 0 ? 12 : plan.finish_hour % 12,
 }))
 
 const DAYS: string[] = ['월', '화', '수', '목', '금', '토', '일']
 const TIMES: number[] = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2, 3, 4]
 
-const Plan: React.FC<TodoPlans> = ({ title, color, day, beginhour, beginminute, finishhour, finishminute }) => {
-  const time = `${beginhour}:${beginminute} - ${finishhour}:${finishminute}`
+const Plan: React.FC<TodoPlans> = ({ title, color, day, begin_hour, begin_minute, finish_hour, finish_minute }) => {
+  const time = `${begin_hour}:${begin_minute} - ${finish_hour}:${finish_minute}`
 
   return (
     <PlanWrapper color={color}>
@@ -76,10 +76,10 @@ export const WeeklyCalendar: React.FC<{ plans: TodoPlans[] }> = ({ plans }) => {
                       title={plan.title}
                       color={plan.color}
                       day={plan.day}
-                      beginhour={plan.beginhour}
-                      beginminute={plan.beginminute}
-                      finishhour={plan.finishhour}
-                      finishminute={plan.finishminute}
+                      begin_hour={plan.begin_hour}
+                      begin_minute={plan.begin_minute}
+                      finish_hour={plan.finish_hour}
+                      finish_minute={plan.finish_minute}
                     />
                   )
                 }

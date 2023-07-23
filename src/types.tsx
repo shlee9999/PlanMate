@@ -4,10 +4,10 @@ export type TodoPlans = {
   category: string
   color: string
   day: string
-  beginhour: number
-  beginminute: number
-  finishhour: number
-  finishminute: number
+  begin_hour: number
+  begin_minute: number
+  finish_hour: number
+  finish_minute: number
 }
 
 export type TodoItems = {
