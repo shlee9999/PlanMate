@@ -1,13 +1,13 @@
 import { axiosPOST } from 'api/common/commonAxios'
 import { ResponseTimeProps } from 'api/common/commonType'
 
-export type EditRequestProps = {
+export type EditSubjectRequestProps = {
   colorHex: string
   name: string
   subjectId: 0
 }
 
-export type EditResponseProps = {
+export type EditSubjectResponseProps = {
   colorHex: 'string'
   endAt: ResponseTimeProps
   id: number
@@ -20,6 +20,6 @@ export type EditResponseProps = {
   type: boolean
 }
 
-export const edit = (req: EditRequestProps) => {
+export const editSubject = (req: EditSubjectRequestProps) => {
   return axiosPOST('/subject/edit', req)
 }

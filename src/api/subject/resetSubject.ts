@@ -1,7 +1,7 @@
 import { axiosPOST } from 'api/common/commonAxios'
 
-export type ResetResponseProps = boolean
+export type ResetSubjectResponseProps = boolean
 
-export const reset = () => {
+export const resetSubject = () => {
   return axiosPOST('/subject/reset')
 }

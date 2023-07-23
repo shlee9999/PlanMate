@@ -1,18 +1,18 @@
 import { axiosPOST } from 'api/common/commonAxios'
 
-export type CreateRequestProps = {
+export type CreateSubjectRequestProps = {
   colorHex: string
   name: string
   type: true
 }
 
-export type CreateResponseProps = {
+export type CreateSubjectResponseProps = {
   colorHex: string
   name: string
   subjectId: 0
   type: string
 }
 
-export const create = (req: CreateRequestProps) => {
+export const createSubject = (req: CreateSubjectRequestProps) => {
   return axiosPOST('/subject/create', req)
 }

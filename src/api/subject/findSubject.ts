@@ -1,16 +1,16 @@
 import { axiosGET } from 'api/common/commonAxios'
 
-export type FindRequestProps = {
+export type FindSubjectRequestProps = {
   subjectId: number
 }
 
-export type FindResponseProps = {
+export type FindSubjectResponseProps = {
   colorHex: string
   name: string
   subjectId: 0
   type: string
 }
 
-export const find = (req: FindRequestProps) => {
+export const findSubject = (req: FindSubjectRequestProps) => {
   return axiosGET('/subject/find', req)
 }
