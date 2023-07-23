@@ -8,7 +8,7 @@ export type EditSubjectRequestProps = {
 }
 
 export type EditSubjectResponseProps = {
-  colorHex: 'string'
+  colorHex: string
   endAt: ResponseTimeProps
   id: number
   maxStudyTime: ResponseTimeProps
