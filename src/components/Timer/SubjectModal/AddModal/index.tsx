@@ -37,7 +37,7 @@ const AddModal = ({
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter') {
-      onConfirmButtonClick()
+      onClickConfirmButton()
     }
     if (e.nativeEvent.key === 'Escape') {
       closeModal()
@@ -46,7 +46,7 @@ const AddModal = ({
   const assignSubjectColor = (color: string) => {
     setSubjectColor(color)
   }
-  const onConfirmButtonClick = () => {
+  const onClickConfirmButton = () => {
     if (inputValue === '') return
     const newTodoItem: TodoItems = {
       title: inputValue,
@@ -95,7 +95,7 @@ const AddModal = ({
           </InputWrapper>
           <ModalFooter>
             <WhiteButton onClick={closeModal}>취소</WhiteButton>
-            <GreenButton onClick={onConfirmButtonClick}>확인</GreenButton>
+            <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
             <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
