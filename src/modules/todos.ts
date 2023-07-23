@@ -9,12 +9,12 @@ export const addTodo = (todo: TodoItems) => ({
   payload: todo,
 })
 
-export const removeTodo = (id: string) => ({
+export const removeTodo = (id: number) => ({
   type: REMOVE_TODO,
   payload: id,
 })
 
-export const updateTodo = (todo: TodoItems, id: string) => ({
+export const updateTodo = (todo: TodoItems, id: number) => ({
   type: UPDATE_TODO,
   payload: { todo: todo, id: id },
 })
@@ -31,10 +31,10 @@ function todos(state: TodosState = InitialState, action: TodosAction) {
       return state.concat(action.payload)
 
     case REMOVE_TODO:
-      return state.filter((todo) => todo.id !== action.payload)
+      return state.filter((todo) => todo.subjectId !== action.payload)
 
     case UPDATE_TODO: {
-      return state.map((todo) => (todo.id === action.payload.id ? action.payload.todo : todo))
+      return state.map((todo) => (todo.subjectId === action.payload.id ? action.payload.todo : todo))
     }
     default:
       return state

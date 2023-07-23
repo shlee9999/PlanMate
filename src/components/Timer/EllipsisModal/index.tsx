@@ -37,7 +37,7 @@ const EllipsisModal = ({
     }
     if (mode === 'delete') {
       if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
-      dispatch(removeTodo(todo.id))
+      dispatch(removeTodo(todo.subjectId))
       closeModal()
       return
     }
@@ -51,10 +51,10 @@ const EllipsisModal = ({
       <Root onClick={onClickModal}>
         <ButtonWrapper>
           <UpdateSubjectButton onClick={onClickEditButton}>
-            {todo.category === 'study' ? '과목수정' : '종목수정'}
+            {todo.type === 'study' ? '과목수정' : '종목수정'}
           </UpdateSubjectButton>
           <DeleteSubjectButton onClick={onClickDeleteButton}>
-            {todo.category === 'study' ? '과목삭제' : '종목삭제'}
+            {todo.type === 'study' ? '과목삭제' : '종목삭제'}
           </DeleteSubjectButton>
         </ButtonWrapper>
         <ModalFooter>
@@ -68,7 +68,7 @@ const EllipsisModal = ({
           todo={todo}
           isModalOpen={isEditModalOpen}
           closeModal={closeEditModal}
-          title={todo.category === 'study' ? '과목수정' : '종목수정'}
+          title={todo.type === 'study' ? '과목수정' : '종목수정'}
         ></SubjectModal>
       )}
     </ModalWrapper>

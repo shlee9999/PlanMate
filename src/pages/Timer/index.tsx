@@ -96,8 +96,8 @@ export const TimerPage: FC = () => {
         <TodoContainer>
           {todos.map(
             (todo: TodoItems) =>
-              todo.category === mode && (
-                <TodoItem title={todo.title} key={todo.id} todo={todo} buttonColor={todo.color} />
+              todo.type === mode && (
+                <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
               )
           )}
         </TodoContainer>

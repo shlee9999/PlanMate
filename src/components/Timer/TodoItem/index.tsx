@@ -18,12 +18,13 @@ import { useTimer } from 'hooks/useTimer'
 import { RootState } from 'modules'
 import { pauseTimer, runTimer } from 'modules/timer'
 import EllipsisModal from '../EllipsisModal'
+
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
   const dispatch = useDispatch()
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const { startTimer, stopTimer, time } = useTimer({ defaultTime: 0 })
+  const { startTimer, stopTimer, time } = useTimer({ defaultTime: +todo.startAt })
   const formattedTime: string = useFormattedTime(time)
   const startTotalTimer = (): void => {
     dispatch(runTimer())
@@ -37,8 +38,8 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
     if (!isTotalTimerRunning) {
       setIsTodoTimerRunning(true)
       startTotalTimer()
-      if (todo.category === 'study') dispatch({ type: 'STUDY' })
-      if (todo.category === 'exercise') dispatch({ type: 'EXERCISE' })
+      if (todo.type === 'study') dispatch({ type: 'STUDY' })
+      if (todo.type === 'exercise') dispatch({ type: 'EXERCISE' })
     }
   }
 
