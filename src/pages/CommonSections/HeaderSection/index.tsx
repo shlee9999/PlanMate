@@ -13,27 +13,44 @@ import {
   PageItem,
   PageList,
 } from './styled'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import logo from 'assets/images/logo.png'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { addTodo, initializeTodo } from 'modules/todos'
+import { studyTime } from 'api/subject/studyTime'
+import { TodoItems } from 'types'
 
 export const HeaderSection: FC = () => {
   const location = useLocation()
   const initialTabIndex = pageList.findIndex((page) => location.pathname.includes(page.url))
-
+  const todos = useSelector((state: RootState) => state.todos)
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
 
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
     if (isRunning) return
     setCurrentTab(index)
     navigate(pageList[index].url)
   }
 
+  useEffect(() => {
+    const fetchStudyTime = async () => {
+      const res = await studyTime()
+      if (res) {
+        const response = res as TodoItems[]
+        // dispatch(initializeTodo(response)) //response 수정 필요
+      }
+    }
+
+    fetchStudyTime()
+  }, [dispatch])
+  useEffect(() => {
+    console.log(todos)
+  }, [todos])
   useEffect(() => {
     if (location.pathname === '/') navigate('/timer')
   }, [location.pathname, navigate])
