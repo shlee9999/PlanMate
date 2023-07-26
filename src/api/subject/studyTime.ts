@@ -7,8 +7,8 @@ import { ResponseTimeProps } from 'api/common/commonType'
 export type StudyTimeResponseProps = {
   name: string
   studyTime: ResponseTimeProps
-  subjectId: 0
-}
+  subjectId: number
+}[]
 
 export const studyTime = () => {
   return axiosGET('/subject/studytime')
