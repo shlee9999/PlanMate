@@ -47,8 +47,8 @@ function todos(state: TodoItems[] = InitialState, action: TodosAction) {
       return state.map((todo) => (todo.subjectId === action.payload.id ? action.payload.todo : todo))
     }
     case INITIALIZE_TODO:
-      if (state.length !== 0) return state
-      return (state = action.payload)
+      return state.concat(...action.payload)
+
     default:
       return state
   }
