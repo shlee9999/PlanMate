@@ -25,6 +25,7 @@ import {
   Test,
   Dday,
   GreenTypo,
+  BannerContentWrapper,
 } from './styled'
 
 import { useFormattedDate } from 'utils/helper'
@@ -47,26 +48,28 @@ export const TimerPage: FC = () => {
   return (
     <Root>
       <Banner>
-        <LeftContainer>
-          <LeftTopDescriptionWrapper>
-            <Date>{formattedDate}</Date>
-            <Title>오늘의 공부량 👏 </Title>
-          </LeftTopDescriptionWrapper>
-          <ModeSelectorWrapper>
-            <ModeSelector>공부</ModeSelector>
-          </ModeSelectorWrapper>
-          <ResultContainer>
-            <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
-            <StudyTimerWidget />
-            <LowerDescriptionTypo>
-              오늘은 휴식 시간을 <YellowTypo>10시간 58분 35초</YellowTypo> 가졌네요!
-            </LowerDescriptionTypo>
-          </ResultContainer>
-        </LeftContainer>
-        <RightContainer>
-          <Title>오늘의 통계 📊</Title>
-          <StatsContainer></StatsContainer>
-        </RightContainer>
+        <BannerContentWrapper>
+          <LeftContainer>
+            <LeftTopDescriptionWrapper>
+              <Date>{formattedDate}</Date>
+              <Title>오늘의 공부량 👏 </Title>
+            </LeftTopDescriptionWrapper>
+            <ModeSelectorWrapper>
+              <ModeSelector>공부</ModeSelector>
+            </ModeSelectorWrapper>
+            <ResultContainer>
+              <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
+              <StudyTimerWidget />
+              <LowerDescriptionTypo>
+                오늘은 휴식 시간을 <YellowTypo>10시간 58분 35초</YellowTypo> 가졌네요!
+              </LowerDescriptionTypo>
+            </ResultContainer>
+          </LeftContainer>
+          <RightContainer>
+            <Title>오늘의 통계 📊</Title>
+            <StatsContainer></StatsContainer>
+          </RightContainer>
+        </BannerContentWrapper>
       </Banner>
       <LowerContainer>
         <CheerTypo>

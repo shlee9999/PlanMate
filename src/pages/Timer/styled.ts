@@ -1,16 +1,20 @@
 import styled from 'styled-components'
 import plusImg from 'assets/images/plus.png'
 import bannerImg from 'assets/images/banner.png'
-import { SIDE_MARGIN } from 'constants/layout'
+import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
 export const Root = styled.div``
 
 export const Banner = styled.div`
   box-sizing: border-box;
   padding: 30px ${SIDE_MARGIN}px;
+  background: url(${bannerImg}) no-repeat 0 0;
+  background-size: cover;
+`
+export const BannerContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  background: url(${bannerImg}) no-repeat 0 0;
-  background-size: 1440px 400px;
+  max-width: ${BODY_MAX_WIDTH};
+  min-width: fit-content;
 `
 export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`
