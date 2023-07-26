@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Root, InputWrapper, ColorPickerButton, ModalTitle, NameInput } from '../styled'
 import { TodoItems } from 'types'
-
 import { updateTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'

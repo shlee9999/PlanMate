@@ -1,5 +1,3 @@
-import { studyTime } from 'api/subject/studyTime'
-import { type } from 'os'
 import { TodoItems } from 'types'
 
 const ADD_TODO = 'todos/ADD_TODO' as const

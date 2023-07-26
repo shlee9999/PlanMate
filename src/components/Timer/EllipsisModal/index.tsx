@@ -6,7 +6,8 @@ import { TodoItems } from 'types'
 
 import { removeTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
-import SubjectModal from '../SubjectModal'
+import EditModal from '../SubjectModal/EditModal'
+
 const EllipsisModal = ({
   closeModal,
   todo,
@@ -50,12 +51,8 @@ const EllipsisModal = ({
     <ModalWrapper onClick={closeModal}>
       <Root onClick={onClickModal}>
         <ButtonWrapper>
-          <UpdateSubjectButton onClick={onClickEditButton}>
-            {todo.type === 'study' ? '과목수정' : '종목수정'}
-          </UpdateSubjectButton>
-          <DeleteSubjectButton onClick={onClickDeleteButton}>
-            {todo.type === 'study' ? '과목삭제' : '종목삭제'}
-          </DeleteSubjectButton>
+          <UpdateSubjectButton onClick={onClickEditButton}>과목수정</UpdateSubjectButton>
+          <DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</DeleteSubjectButton>
         </ButtonWrapper>
         <ModalFooter>
           <WhiteButton onClick={closeModal}>취소</WhiteButton>
@@ -64,12 +61,7 @@ const EllipsisModal = ({
         <ModalExitButton onClick={closeModal} />
       </Root>
       {isEditModalOpen && (
-        <SubjectModal
-          todo={todo}
-          isModalOpen={isEditModalOpen}
-          closeModal={closeEditModal}
-          title={todo.type === 'study' ? '과목수정' : '종목수정'}
-        ></SubjectModal>
+        <EditModal isModalOpen={isEditModalOpen} closeModal={closeEditModal} title="과목수정" todo={todo} />
       )}
     </ModalWrapper>
   )
