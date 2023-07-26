@@ -13,7 +13,6 @@ export type UpdateSubjectResponseProps = {
   restTime: ResponseTimeProps
   studyTime: ResponseTimeProps
   subjectId: number
-  type: string
 }
 
 export const updateSubject = (req: UpdateSubjectRequestProps) => {

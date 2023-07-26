@@ -3,14 +3,12 @@ import { axiosPOST } from 'api/common/commonAxios'
 export type CreateSubjectRequestProps = {
   colorHex: string
   name: string
-  type: true
 }
 
 export type CreateSubjectResponseProps = {
   colorHex: string
   name: string
-  subjectId: 0
-  type: string
+  subjectId: number
 }
 
 export const createSubject = (req: CreateSubjectRequestProps) => {

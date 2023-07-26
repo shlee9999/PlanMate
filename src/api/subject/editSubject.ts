@@ -4,7 +4,7 @@ import { ResponseTimeProps } from 'api/common/commonType'
 export type EditSubjectRequestProps = {
   colorHex: string
   name: string
-  subjectId: 0
+  subjectId: number
 }
 
 export type EditSubjectResponseProps = {
@@ -17,7 +17,6 @@ export type EditSubjectResponseProps = {
   restTime: ResponseTimeProps
   startAt: ResponseTimeProps
   studyTime: ResponseTimeProps
-  type: boolean
 }
 
 export const editSubject = (req: EditSubjectRequestProps) => {

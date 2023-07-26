@@ -53,7 +53,6 @@ const AddModal = ({
     createSubject({
       colorHex: subjectColor,
       name: inputValue,
-      type: true,
     }).then((res) => {
       const result = res as CreateSubjectResponseProps
       const newTodoItem: TodoItems = {

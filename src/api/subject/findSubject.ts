@@ -7,8 +7,7 @@ export type FindSubjectRequestProps = {
 export type FindSubjectResponseProps = {
   colorHex: string
   name: string
-  subjectId: 0
-  type: string
+  subjectId: number
 }
 
 export const findSubject = (req: FindSubjectRequestProps) => {
