@@ -66,5 +66,3 @@ export const PlannerPage: FC = () => {
     </Root>
   )
 }
-
-export default PlannerPage
