@@ -22,6 +22,8 @@ import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { tagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
+import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
+import { FindPostResponseProps } from 'api/post/find/findPost'
 
 export const ExamInfoPage = () => {
   const data = useLoaderData() as FindAllPostResponseProps
@@ -46,6 +48,16 @@ export const ExamInfoPage = () => {
     navigate('/examinfo/post')
   }
 
+  const onClickTagButton = (tagNum: number) => () => {
+    findPostWithTag({
+      tagName: tagList[tagNum],
+      pages: 0,
+    }).then((res) => {
+      const response = res as FindPostWithTagResponseProps
+      setCurrentPage(0)
+      setExamInfoList(response.postDtoList)
+    })
+  }
   useEffect(() => {
     findAll({ pages: currentPage - 1 }).then((res: unknown) => {
       const response = res as FindAllPostResponseProps
@@ -68,7 +80,7 @@ export const ExamInfoPage = () => {
       <UpperTagButtonWrapper>
         {tagList.map((tag, index) =>
           index > 5 ? null : (
-            <TagButton key={index}>
+            <TagButton key={index} onClick={onClickTagButton(index)}>
               <Tag>{tag}</Tag>
             </TagButton>
           )
@@ -77,7 +89,7 @@ export const ExamInfoPage = () => {
       <LowerTagButtonWrapper>
         {tagList.map((tag, index) =>
           index <= 5 ? null : (
-            <TagButton key={index}>
+            <TagButton key={index} onClick={onClickTagButton(index)}>
               <Tag>{tag}</Tag>
             </TagButton>
           )
