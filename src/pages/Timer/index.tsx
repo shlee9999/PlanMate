@@ -26,6 +26,7 @@ import {
   Dday,
   GreenTypo,
   BannerContentWrapper,
+  SizedBox,
 } from './styled'
 
 import { useFormattedDate } from 'utils/helper'
@@ -65,6 +66,7 @@ export const TimerPage: FC = () => {
               </LowerDescriptionTypo>
             </ResultContainer>
           </LeftContainer>
+          <SizedBox />
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
             <StatsContainer></StatsContainer>

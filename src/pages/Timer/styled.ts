@@ -2,22 +2,31 @@ import styled from 'styled-components'
 import plusImg from 'assets/images/plus.png'
 import bannerImg from 'assets/images/banner.png'
 import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
-export const Root = styled.div``
+export const Root = styled.div`
+  margin: 0 auto;
+`
 
 export const Banner = styled.div`
   box-sizing: border-box;
   padding: 30px ${SIDE_MARGIN}px;
   background: url(${bannerImg}) no-repeat 0 0;
   background-size: cover;
+  max-width: 100vw;
+`
+
+export const SizedBox = styled.div`
+  flex-basis: 0;
+  flex-grow: 1;
 `
 export const BannerContentWrapper = styled.div`
+  max-width: ${BODY_MAX_WIDTH};
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
-  max-width: ${BODY_MAX_WIDTH};
-  min-width: fit-content;
 `
 export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`
+  flex-basis: 400px;
   display: flex;
   flex-direction: column;
 `
@@ -57,7 +66,6 @@ export const ResultContainer = styled.div`
   position: relative;
   box-sizing: border-box;
   padding: 32px;
-  width: 400px;
   height: 238px;
   border-radius: 0 8px 8px 8px;
   border-width: 1px 1px 1px 1px;
@@ -94,7 +102,6 @@ export const YellowTypo = styled.span`
 
 export const StatsContainer = styled.div`
   background-color: white;
-  width: 689px;
   height: 270px;
   border-radius: 10px;
   border: 1px solid #dddede;
@@ -102,16 +109,17 @@ export const StatsContainer = styled.div`
   padding: 32px;
 `
 
-export const TodoContainer = styled.div`
-  /* display: flex;
-  justify-content: center; */
-`
+export const TodoContainer = styled.div``
+
 export const RightContainer = styled.div`
+  flex-grow: 1;
+  flex-basis: 689px;
   box-sizing: border-box;
   padding-top: 17px;
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
+  min-width: 400px;
 `
 
 export const AddButton = styled.button`
