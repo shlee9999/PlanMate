@@ -93,10 +93,10 @@ export const AddModal = ({
       color: subjectColor,
       category: title === '과목' ? 'study' : 'exercise',
       day: subjectDay,
-      beginhour: 0,
-      beginminute: 0,
-      finishhour: 0,
-      finishminute: 0,
+      begin_hour: 0,
+      begin_minute: 0,
+      finish_hour: 0,
+      finish_minute: 0,
       id: generateId(),
     }
     dispatch(addPlan(newTodoPlans))
