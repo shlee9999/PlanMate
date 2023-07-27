@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Root, InputWrapper, ColorPickerButton, ModalTitle, NameInput } from '../styled'
 import { TodoItems } from 'types'
-
 import { updateTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'
@@ -20,7 +19,7 @@ const EditModal = ({
   todo: TodoItems
 }) => {
   const [inputValue, setInputValue] = useState<string>('')
-  const [subjectColor, setSubjectColor] = useState<string>(todo.color)
+  const [subjectColor, setSubjectColor] = useState<string>(todo.colorHex)
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -50,13 +49,14 @@ const EditModal = ({
   const onClickConfirmButton = () => {
     if (inputValue === '') return
     const newTodoItem: TodoItems = {
-      title: inputValue,
-      color: subjectColor,
-      category: todo.category,
-      time: todo.time,
-      id: todo.id,
+      name: inputValue,
+      colorHex: subjectColor,
+      type: todo.type,
+      subjectId: todo.subjectId,
+      startAt: todo.startAt,
+      endAt: todo.endAt,
     }
-    dispatch(updateTodo(newTodoItem, todo.id))
+    dispatch(updateTodo(newTodoItem, todo.subjectId))
     setInputValue('')
     closeModalAll()
   }
@@ -86,7 +86,7 @@ const EditModal = ({
           <ModalTitle>{title}</ModalTitle>
           <ModalExitButton onClick={closeEditModal} />
           <InputWrapper>
-            <NameInput defaultValue={todo.title} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
+            <NameInput defaultValue={todo.name} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
             <ColorPickerButton onClick={onClickColorButton} color={subjectColor}>
               {title.slice(0, 2)}색상
             </ColorPickerButton>

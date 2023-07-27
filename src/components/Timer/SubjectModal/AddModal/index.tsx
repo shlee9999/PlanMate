@@ -9,6 +9,7 @@ import { generateId } from 'utils/helper'
 import { addTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'
+import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSubject'
 
 const AddModal = ({
   isModalOpen,
@@ -37,7 +38,7 @@ const AddModal = ({
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter') {
-      onConfirmButtonClick()
+      onClickConfirmButton()
     }
     if (e.nativeEvent.key === 'Escape') {
       closeModal()
@@ -46,18 +47,26 @@ const AddModal = ({
   const assignSubjectColor = (color: string) => {
     setSubjectColor(color)
   }
-  const onConfirmButtonClick = () => {
+  const onClickConfirmButton = () => {
     if (inputValue === '') return
-    const newTodoItem: TodoItems = {
-      title: inputValue,
-      color: subjectColor,
-      category: title === '과목추가' ? 'study' : 'exercise',
-      time: 0,
-      id: generateId(),
-    }
-    dispatch(addTodo(newTodoItem))
-    setInputValue('')
-    closeModal()
+
+    createSubject({
+      colorHex: subjectColor,
+      name: inputValue,
+    }).then((res) => {
+      const result = res as CreateSubjectResponseProps
+      const newTodoItem: TodoItems = {
+        name: inputValue,
+        colorHex: subjectColor,
+        type: title === '과목추가' ? 'study' : 'exercise',
+        subjectId: result.subjectId,
+        startAt: '',
+        endAt: '',
+      }
+      dispatch(addTodo(newTodoItem))
+      setInputValue('')
+      closeModal()
+    })
   }
 
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
@@ -95,7 +104,7 @@ const AddModal = ({
           </InputWrapper>
           <ModalFooter>
             <WhiteButton onClick={closeModal}>취소</WhiteButton>
-            <GreenButton onClick={onConfirmButtonClick}>확인</GreenButton>
+            <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
             <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
