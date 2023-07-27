@@ -37,12 +37,14 @@ export const TagButton = styled.button`
   border-radius: 100px;
   border: 1px solid #dddede;
   color: #666666;
-  &:focus {
+
+  &.isSelected {
     border: 1px solid #01cb45;
     color: #01cb45;
     background-color: #e2f9ea;
   }
 `
+
 const TagButtonWrapper = styled.div`
   min-width: 600px;
   margin: 0 auto;
