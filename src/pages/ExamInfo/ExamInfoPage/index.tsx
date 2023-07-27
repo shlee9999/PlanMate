@@ -31,7 +31,7 @@ export const ExamInfoPage = () => {
   // const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(sampleInfoList.postInfoList) //서버 꺼져있어도 되도록
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
-
+  const [selectedTag, setSelectedTag] = useState<string>('')
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
   }
@@ -48,23 +48,27 @@ export const ExamInfoPage = () => {
     navigate('/examinfo/post')
   }
 
-  const onClickTagButton = (tagNum: number) => () => {
-    findPostWithTag({
-      tagName: tagList[tagNum],
-      pages: 0,
-    }).then((res) => {
-      const response = res as FindPostWithTagResponseProps
-      setCurrentPage(0)
-      setExamInfoList(response.postDtoList)
-    })
+  const onClickTagButton = (tag: string) => () => {
+    if (selectedTag === tag) setSelectedTag('')
+    else setSelectedTag(tag)
+    setCurrentPage(1)
   }
   useEffect(() => {
-    findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-      const response = res as FindAllPostResponseProps
-      setExamInfoList(response.postDtoList)
-      setTotalPage(response.totalPages)
-    })
-  }, [currentPage])
+    if (selectedTag === '')
+      findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+        const response = res as FindAllPostResponseProps
+        setExamInfoList(response.postDtoList)
+        setTotalPage(response.totalPages)
+      })
+    else
+      findPostWithTag({
+        tagName: selectedTag,
+        pages: currentPage - 1,
+      }).then((res) => {
+        const response = res as FindPostWithTagResponseProps
+        setExamInfoList(response.postDtoList)
+      })
+  }, [currentPage, selectedTag])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -80,7 +84,11 @@ export const ExamInfoPage = () => {
       <UpperTagButtonWrapper>
         {tagList.map((tag, index) =>
           index > 5 ? null : (
-            <TagButton key={index} onClick={onClickTagButton(index)}>
+            <TagButton
+              key={index}
+              className={tag === selectedTag ? 'isSelected' : ''}
+              onClick={onClickTagButton(tagList[index])}
+            >
               <Tag>{tag}</Tag>
             </TagButton>
           )
@@ -89,7 +97,11 @@ export const ExamInfoPage = () => {
       <LowerTagButtonWrapper>
         {tagList.map((tag, index) =>
           index <= 5 ? null : (
-            <TagButton key={index} onClick={onClickTagButton(index)}>
+            <TagButton
+              key={index}
+              className={tag === selectedTag ? 'isSelected' : ''}
+              onClick={onClickTagButton(tagList[index])}
+            >
               <Tag>{tag}</Tag>
             </TagButton>
           )
