@@ -4,10 +4,9 @@ import whiteBulletinIcon from 'assets/images/bulletin_white.png'
 import greenBulletinIcon from 'assets/images/bulletin_green.png'
 import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 export const Root = styled.div`
+  margin: 0 auto;
   box-sizing: border-box;
   padding: 45px 160px 40px;
-  display: flex;
-  flex-direction: column;
 `
 const DescriptionTypo = styled.p`
   font-size: 12px;
