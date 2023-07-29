@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'react-modern-calendar-datepicker/lib/DatePicker.css'
 import { Calendar, DayValue, Locale } from 'react-modern-calendar-datepicker'
 import { DatePickerFooter } from './DatePickerFooter'
@@ -81,7 +81,25 @@ interface StatsDatePickerProps {
 }
 
 export const StatsDatePicker: React.FC<StatsDatePickerProps> = ({ onDateSelect }) => {
-  const [selectedDay, setSelectedDay] = useState<DayValue | null>(null)
+  const today = new Date()
+
+  const initialDay: DayValue = {
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    day: today.getDate(),
+  }
+
+  const [selectedDay, setSelectedDay] = useState<DayValue | null>(initialDay)
+
+  useEffect(() => {
+    const handleButtonClick = () => {
+      onDateSelect(selectedDay)
+    }
+    window.addEventListener('click', handleButtonClick)
+    return () => {
+      window.removeEventListener('click', handleButtonClick)
+    }
+  }, [selectedDay])
 
   const handleDateChange = (day: DayValue) => {
     setSelectedDay(day)

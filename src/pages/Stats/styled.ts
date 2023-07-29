@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+export const Root = styled.div``
+
 export const StatsContainer = styled.div`
   width: 100%;
   height: 500px;

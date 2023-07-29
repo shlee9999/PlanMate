@@ -1,12 +1,14 @@
 //통계 탭
-import React from 'react'
+import React, { FC } from 'react'
 import { MenuBox } from 'components/Stats/menu'
-import { StatsContainer } from './styled'
+import { Root, StatsContainer } from './styled'
 
-export const StatsPage: React.FC = () => {
+export const StatsPage: FC = () => {
   return (
-    <StatsContainer>
-      <MenuBox></MenuBox>
-    </StatsContainer>
+    <Root>
+      <StatsContainer>
+        <MenuBox></MenuBox>
+      </StatsContainer>
+    </Root>
   )
 }
