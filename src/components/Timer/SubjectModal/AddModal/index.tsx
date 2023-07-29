@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { defaultColor } from 'constants/color'
 import { Root, InputWrapper, ColorPickerButton, ModalTitle, NameInput, ButtonTypoWrapper } from '../styled'
-import { TodoItems } from 'types'
+import { TodoItemType } from 'types'
 
 import { generateId } from 'utils/helper'
 
@@ -55,13 +55,11 @@ const AddModal = ({
       name: inputValue,
     }).then((res) => {
       const result = res as CreateSubjectResponseProps
-      const newTodoItem: TodoItems = {
+      const newTodoItem: TodoItemType = {
         name: inputValue,
         colorHex: subjectColor,
-        type: title === '과목추가' ? 'study' : 'exercise',
         subjectId: result.subjectId,
-        startAt: '',
-        endAt: '',
+        time: 0,
       }
       dispatch(addTodo(newTodoItem))
       setInputValue('')

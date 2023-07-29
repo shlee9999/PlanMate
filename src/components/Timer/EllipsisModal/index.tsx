@@ -2,11 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import { ButtonWrapper, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { useDispatch } from 'react-redux'
-import { TodoItems } from 'types'
+import { TodoItemType } from 'types'
 
 import { removeTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import EditModal from '../SubjectModal/EditModal'
+import { removeSubject } from 'api/subject/removeSubject'
 
 const EllipsisModal = ({
   closeModal,
@@ -14,7 +15,7 @@ const EllipsisModal = ({
   isTodoTimerRunning,
 }: {
   closeModal: () => void
-  todo: TodoItems
+  todo: TodoItemType
   isTodoTimerRunning: boolean
 }) => {
   const [mode, setMode] = useState<string>('edit') // 'edit' | 'delete'
@@ -38,8 +39,15 @@ const EllipsisModal = ({
     }
     if (mode === 'delete') {
       if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
-      dispatch(removeTodo(todo.subjectId))
-      closeModal()
+      removeSubject({
+        subjectId: todo.subjectId,
+      }).then((res) => {
+        if (res) {
+          dispatch(removeTodo(todo.subjectId))
+          closeModal()
+        }
+      })
+
       return
     }
   }

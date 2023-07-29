@@ -19,8 +19,9 @@ import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { addTodo, initializeTodo } from 'modules/todos'
-import { studyTime } from 'api/subject/studyTime'
-import { TodoItems } from 'types'
+import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
+import { TodoItemType } from 'types'
+import { timeToSecond } from 'utils/helper'
 
 export const HeaderSection: FC = () => {
   const location = useLocation()
@@ -41,8 +42,14 @@ export const HeaderSection: FC = () => {
     const fetchStudyTime = async () => {
       const res = await studyTime()
       if (res) {
-        const response = res as TodoItems[]
-        // dispatch(initializeTodo(response)) //response 수정 필요
+        const response = res as StudyTimeResponseProps
+        const newTodoItems: Array<TodoItemType> = response.map((todo) => ({
+          subjectId: todo.subjectId,
+          colorHex: todo.colorHex,
+          name: todo.name,
+          time: timeToSecond(todo.studyTimeHours, todo.studyTimeMinutes, todo.studyTimeSeconds),
+        }))
+        dispatch(initializeTodo(newTodoItems)) //response 수정 필요
       }
     }
 

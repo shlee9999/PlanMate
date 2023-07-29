@@ -36,3 +36,25 @@ export const generateArray = (num: number) => {
   }
   return arr
 }
+export const getStudyTime = (startAt: string, endAt: string): string => {
+  let hour = +endAt.slice(0, 2) - +startAt.slice(0, 2)
+  let minute = +endAt.slice(3, 5) - +startAt.slice(3, 5)
+  let second = +endAt.slice(6, 8) - +startAt.slice(6, 8)
+
+  if (second < 0) {
+    second += 60
+    minute -= 1
+  }
+
+  if (minute < 0) {
+    minute += 60
+    hour -= 1
+  }
+  const format = (num: number) => (num < 10 ? '0' : '') + num
+  const studyTime = format(hour) + ':' + format(minute) + ':' + format(second)
+  return studyTime
+}
+
+export const timeToSecond = (hour, minutes, seconds): number => {
+  return +hour * 60 * 60 + +minutes * 60 + +seconds
+}
