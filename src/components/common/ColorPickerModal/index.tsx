@@ -20,7 +20,7 @@ const ColorPickerModal = ({
   }
   return (
     <>
-      <ColorPickerModalWrapper onClick={closeColorPickerModal} />
+      <ColorPickerModalWrapper onClick={closeColorPickerModal}></ColorPickerModalWrapper>
       <Root onClick={onClickModal}>
         <ColorPicker closeModal={closeModal} assignSubjectColor={assignSubjectColor} />
       </Root>

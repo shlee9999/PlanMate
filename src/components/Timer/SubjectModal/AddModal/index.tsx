@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { defaultColor } from 'constants/color'
-import { Root, InputWrapper, ColorPickerButton, ModalTitle, NameInput, ButtonTypoWrapper } from '../styled'
+import { Root, InputWrapper, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from '../styled'
 import { TodoItemType } from 'types'
-
-import { generateId } from 'utils/helper'
-
 import { addTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'
 import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSubject'
+import { ColorPicker } from 'components/common/ColorPickerModal/ColorPicker'
 
 const AddModal = ({
   isModalOpen,
@@ -86,7 +84,7 @@ const AddModal = ({
           <ModalTitle>{title}</ModalTitle>
           <ModalExitButton onClick={closeModal} />
           <InputWrapper>
-            <ButtonTypoWrapper>
+            <UpperWrapper>
               과목명
               <NameInput
                 placeholder={`${title.slice(0, 2)}명을 입력해주세요`}
@@ -94,11 +92,12 @@ const AddModal = ({
                 onKeyDown={onKeyDown}
                 ref={inputRef}
               />
-            </ButtonTypoWrapper>
-            <ButtonTypoWrapper>
-              색상선택
-              <ColorPickerButton onClick={onClickColorButton} color={subjectColor}></ColorPickerButton>
-            </ButtonTypoWrapper>
+            </UpperWrapper>
+            <LowerWrapper>
+              <LowerTypo>색상선택</LowerTypo>
+              <ColorPicker assignSubjectColor={assignSubjectColor} />
+              {/* <ColorPickerButton onClick={onClickColorButton} color={subjectColor}></ColorPickerButton> */}
+            </LowerWrapper>
           </InputWrapper>
           <ModalFooter>
             <WhiteButton onClick={closeModal}>취소</WhiteButton>

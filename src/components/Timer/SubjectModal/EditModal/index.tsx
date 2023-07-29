@@ -1,12 +1,22 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Root, InputWrapper, ColorPickerButton, ModalTitle, NameInput } from '../styled'
+import {
+  Root,
+  InputWrapper,
+  ColorPickerButton,
+  ModalTitle,
+  NameInput,
+  UpperWrapper,
+  LowerWrapper,
+  LowerTypo,
+} from '../styled'
 import { TodoItemType } from 'types'
 import { updateTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'
 import { editSubject } from 'api/subject/editSubject'
+import { ColorPicker } from 'components/common/ColorPickerModal/ColorPicker'
 
 const EditModal = ({
   isModalOpen,
@@ -95,10 +105,17 @@ const EditModal = ({
           <ModalTitle>{title}</ModalTitle>
           <ModalExitButton onClick={closeEditModal} />
           <InputWrapper>
-            <NameInput defaultValue={todo.name} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
-            <ColorPickerButton onClick={onClickColorButton} color={subjectColor}>
+            <UpperWrapper>
+              과목명
+              <NameInput defaultValue={todo.name} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
+            </UpperWrapper>
+            <LowerWrapper>
+              <LowerTypo>색상선택</LowerTypo>
+              <ColorPicker assignSubjectColor={assignSubjectColor} />
+              {/* <ColorPickerButton onClick={onClickColorButton} color={subjectColor}>
               {title.slice(0, 2)}색상
-            </ColorPickerButton>
+            </ColorPickerButton> */}
+            </LowerWrapper>
           </InputWrapper>
           <ModalFooter>
             <WhiteButton onClick={closeEditModal}>취소</WhiteButton>
