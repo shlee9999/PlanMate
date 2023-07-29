@@ -13,16 +13,14 @@ export type TodoPlans = {
   finishminute: number
 }
 
-export type TodoItems = {
+export type TodoItemType = {
   subjectId: number
   name: string
-  type: string
   colorHex: string
-  startAt: string
-  endAt: string
+  time: number
+  startAt?: string
+  endAt?: string
 } //time은 파싱
-
-export type TodoItemList = Array<TodoItems>
 
 export type PageInfo = {
   title: string
