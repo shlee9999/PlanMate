@@ -6,6 +6,7 @@ import { TodoItemType } from 'types'
 import { updateTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'
+import { editSubject } from 'api/subject/editSubject'
 
 const EditModal = ({
   isModalOpen,
@@ -47,6 +48,11 @@ const EditModal = ({
   }
 
   const onClickConfirmButton = () => {
+    editSubject({
+      colorHex: subjectColor,
+      name: inputValue,
+      subjectId: todo.subjectId,
+    })
     if (inputValue === '') return
     const newTodoItem: TodoItemType = {
       name: inputValue,

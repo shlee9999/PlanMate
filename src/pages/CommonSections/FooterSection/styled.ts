@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const Root = styled.div`
   position: absolute;
-  bottom: -${FOOTER_HEIGHT}px;
+  bottom: -${FOOTER_HEIGHT * 2}px;
   display: flex;
   justify-content: center;
   align-items: center;
