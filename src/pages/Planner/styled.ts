@@ -1,21 +1,38 @@
 import styled, { css } from 'styled-components'
 
-export const Root = styled.div``
+export const Root = styled.div`
+  width: 100%;
+  height: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 100px 0 0 50px;
+  /* padding: 0 30px 0 0; */
+`
 
 export const HeaderContainer = styled.div`
   display: flex;
+  width: 100%;
+  height: 70px;
+  align-items: center;
+  margin-bottom: 20px;
 `
-export const HeaderTitleContainer = styled.div`
+export const HeaderContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: none;
+  padding-left: 70px;
 `
 
-export const UserGreeting = styled.div`
+export const HeaderMessage = styled.span`
+  font-family: Spoqa Han Sans Neo;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: center;
+  color: #444444;
 `
 
 export const HeaderTitleLogo = styled.p`
@@ -23,7 +40,8 @@ export const HeaderTitleLogo = styled.p`
   font-weight: 700;
   line-height: 26px;
   letter-spacing: 0em;
-  text-align: center;
+  text-align: left;
+  margin-top: 2px;
 `
 
 interface Buttonprops {
@@ -31,18 +49,19 @@ interface Buttonprops {
 }
 
 export const HeaderButton = styled.button<Buttonprops>`
-  position: absolute;
-  top: 107px;
-  left: 284px;
   width: 96px;
   height: 32px;
+  margin-left: 20px;
   border: 1px solid #01cb45;
   border-radius: 100px;
   background-color: ${(props) => (props.isButtonHovered ? '#01CB45' : 'white')};
   color: ${(props) => (props.isButtonHovered ? 'white' : '#01CB45')};
 `
 
-export const MainContainer = styled.div``
+export const MainContainer = styled.div`
+  display: flex;
+  width: 100%;
+`
 
 export const MainNavContainer = styled.span`
   font-size: 12px;

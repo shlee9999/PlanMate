@@ -4,8 +4,8 @@ import { FC, useState } from 'react'
 import {
   Root,
   HeaderContainer,
-  HeaderTitleContainer,
-  UserGreeting,
+  HeaderContentWrapper,
+  HeaderMessage,
   HeaderTitleLogo,
   HeaderButton,
   MainContainer,
@@ -42,10 +42,10 @@ export const PlannerPage: FC = () => {
   return (
     <Root>
       <HeaderContainer>
-        <HeaderTitleContainer>
-          <UserGreeting>안녕하세요!메이트 님!</UserGreeting>
-          <HeaderTitleLogo>플래너</HeaderTitleLogo>
-        </HeaderTitleContainer>
+        <HeaderContentWrapper>
+          <HeaderMessage>안녕하세요!메이트 님!</HeaderMessage>
+          <HeaderTitleLogo>플래너 🗓</HeaderTitleLogo>
+        </HeaderContentWrapper>
         <HeaderButton
           isButtonHovered={isButtonHovered}
           onMouseOver={handleMouseEnter}
