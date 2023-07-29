@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useFormattedTime } from 'utils/helper'
-import { TodoItems } from 'types'
+import { getStudyTime, useFormattedTime } from 'utils/helper'
+import { TodoItemType } from 'types'
 import {
   Root,
   LeftWrapper,
@@ -21,14 +21,14 @@ import EllipsisModal from '../EllipsisModal'
 import moment from 'moment'
 import { updateSubject } from 'api/subject/updateSubject'
 
-const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
+const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
   const dispatch = useDispatch()
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const { startTimer, stopTimer, time } = useTimer({ defaultTime: +todo.startAt })
+  const { startTimer, stopTimer, time } = useTimer({ defaultTime: todo.time })
   const formattedTime: string = useFormattedTime(time)
-  let startTime = todo.startAt
+  const [startTime, setStartTime] = useState<string>('')
 
   const startTotalTimer = (): void => {
     dispatch(runTimer())
@@ -39,20 +39,22 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
   }
 
   const onClickStartButton = (): void => {
-    if (startTime === '') startTime = moment().format('HH:mm:ss') //백엔드 리스폰스 확인할것
+    setStartTime(moment().format('HH:mm:ss')) //백엔드 리스폰스 확인할것
+    console.log(startTime)
     if (!isTotalTimerRunning) {
       setIsTodoTimerRunning(true)
       startTotalTimer()
-      if (todo.type === 'study') dispatch({ type: 'STUDY' })
-      if (todo.type === 'exercise') dispatch({ type: 'EXERCISE' })
     }
   }
 
   const onClickPauseButton = (): void => {
+    console.log(getStudyTime(startTime, moment().format('HH:mm:ss')))
     updateSubject({
       endAt: moment().format('HH:mm:ss'),
       startAt: startTime,
       subjectId: todo.subjectId,
+    }).then((res) => {
+      console.log(res)
     })
     setIsTodoTimerRunning(false)
     stopTotalTimer()
