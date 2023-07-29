@@ -95,7 +95,7 @@ const AddModal = ({
             </UpperWrapper>
             <LowerWrapper>
               <LowerTypo>색상선택</LowerTypo>
-              <ColorPicker assignSubjectColor={assignSubjectColor} />
+              <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
               {/* <ColorPickerButton onClick={onClickColorButton} color={subjectColor}></ColorPickerButton> */}
             </LowerWrapper>
           </InputWrapper>

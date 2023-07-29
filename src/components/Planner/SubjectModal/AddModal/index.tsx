@@ -141,7 +141,7 @@ export const AddModal = ({
               <ColorSelect assignSubjectColor={assignSubjectColor} />
             </ColorSelectWrapper> */}
             색상선택
-            <ColorPicker assignSubjectColor={assignSubjectColor} />
+            <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
             <ButtonTypoWrapper>
               요일
               <DaySelect assignSubjectDay={assignSubjectDay}></DaySelect>

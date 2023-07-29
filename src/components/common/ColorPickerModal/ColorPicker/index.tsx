@@ -6,10 +6,11 @@ import ColorButton from '../ColorButton'
 type ColorPickerProps = {
   closeModal?: () => void
   assignSubjectColor: (color: string) => void
+  defaultColor: string
 }
 
-export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectColor }) => {
-  const [selectedColor, setSelectedColor] = useState<string>('')
+export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectColor, defaultColor }) => {
+  const [selectedColor, setSelectedColor] = useState<string>(defaultColor)
   return (
     <ColorButtonWrapper>
       {colorList.map((row: Array<string>, rowIndex: number) => (
@@ -21,7 +22,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectCol
               closeModal={closeModal}
               assignSubjectColor={assignSubjectColor}
               isSelected={selectedColor === color}
-              setSelectedColor={setSelectedColor}
+              setSelectedColor={() => setSelectedColor(color)}
             ></ColorButton>
           ))}
         </RowWrapper>
