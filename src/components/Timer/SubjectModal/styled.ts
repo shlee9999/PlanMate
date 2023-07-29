@@ -13,6 +13,7 @@ export const Root = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 10px;
+  overflow: hidden;
 `
 
 export const InputWrapper = styled.div`

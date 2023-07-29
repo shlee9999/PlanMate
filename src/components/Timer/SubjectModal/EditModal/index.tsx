@@ -13,11 +13,13 @@ const EditModal = ({
   closeModal,
   title,
   todo,
+  closeEllipsisModal,
 }: {
   isModalOpen: boolean
   closeModal: () => void
   title: string
   todo: TodoItemType
+  closeEllipsisModal: () => void
 }) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [subjectColor, setSubjectColor] = useState<string>(todo.colorHex)
@@ -52,17 +54,20 @@ const EditModal = ({
       colorHex: subjectColor,
       name: inputValue,
       subjectId: todo.subjectId,
+    }).then((res) => {
+      if (res) {
+        if (inputValue === '') return
+        const newTodoItem: TodoItemType = {
+          name: inputValue,
+          colorHex: subjectColor,
+          subjectId: todo.subjectId,
+          time: todo.time,
+        }
+        dispatch(updateTodo(newTodoItem, todo.subjectId))
+        setInputValue('')
+        closeEllipsisModal()
+      }
     })
-    if (inputValue === '') return
-    const newTodoItem: TodoItemType = {
-      name: inputValue,
-      colorHex: subjectColor,
-      subjectId: todo.subjectId,
-      time: todo.time,
-    }
-    dispatch(updateTodo(newTodoItem, todo.subjectId))
-    setInputValue('')
-    closeModalAll()
   }
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
