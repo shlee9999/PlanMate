@@ -1,6 +1,6 @@
 //타이머 탭
 import { useSelector } from 'react-redux'
-import { TodoItems } from 'types'
+import { TodoItemType } from 'types'
 import { useState, FC } from 'react'
 import {
   Banner,
@@ -82,7 +82,7 @@ export const TimerPage: FC = () => {
           조금만 더 힘을 내볼까요? 🏃
         </CheerTypo>
         <TodoContainer>
-          {todos.map((todo: TodoItems) => (
+          {todos.map((todo: TodoItemType) => (
             <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
           ))}
         </TodoContainer>

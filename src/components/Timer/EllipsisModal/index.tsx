@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { ButtonWrapper, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { useDispatch } from 'react-redux'
-import { TodoItems } from 'types'
+import { TodoItemType } from 'types'
 
 import { removeTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
@@ -14,7 +14,7 @@ const EllipsisModal = ({
   isTodoTimerRunning,
 }: {
   closeModal: () => void
-  todo: TodoItems
+  todo: TodoItemType
   isTodoTimerRunning: boolean
 }) => {
   const [mode, setMode] = useState<string>('edit') // 'edit' | 'delete'

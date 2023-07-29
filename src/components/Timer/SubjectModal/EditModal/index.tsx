@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Root, InputWrapper, ColorPickerButton, ModalTitle, NameInput } from '../styled'
-import { TodoItems } from 'types'
+import { TodoItemType } from 'types'
 import { updateTodo } from 'modules/todos'
 import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'
@@ -16,7 +16,7 @@ const EditModal = ({
   isModalOpen: boolean
   closeModal: () => void
   title: string
-  todo: TodoItems
+  todo: TodoItemType
 }) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [subjectColor, setSubjectColor] = useState<string>(todo.colorHex)
@@ -48,13 +48,11 @@ const EditModal = ({
 
   const onClickConfirmButton = () => {
     if (inputValue === '') return
-    const newTodoItem: TodoItems = {
+    const newTodoItem: TodoItemType = {
       name: inputValue,
       colorHex: subjectColor,
-      type: todo.type,
       subjectId: todo.subjectId,
-      startAt: todo.startAt,
-      endAt: todo.endAt,
+      time: todo.time,
     }
     dispatch(updateTodo(newTodoItem, todo.subjectId))
     setInputValue('')
