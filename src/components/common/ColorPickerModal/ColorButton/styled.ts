@@ -7,6 +7,8 @@ export const Root = styled.button`
   background-color: ${(props) => props.color};
   margin: 5px 4px;
   border: none;
+
+  &.isSelected,
   &:hover {
     width: 24px;
     height: 24px;
