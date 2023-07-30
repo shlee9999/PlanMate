@@ -38,6 +38,10 @@ export const HeaderSection: FC = () => {
     navigate(pageList[index].url)
   }
 
+  const onClickNickname = () => {
+    navigate('mypage')
+  }
+
   useEffect(() => {
     const fetchStudyTime = async () => {
       const res = await studyTime()
@@ -83,7 +87,7 @@ export const HeaderSection: FC = () => {
         </LeftContainer>
         <RightContainer>
           <GreetTypo>
-            안녕하세요, <GreenTypo>메이트</GreenTypo>님!
+            안녕하세요, <GreenTypo onClick={onClickNickname}>메이트</GreenTypo>님!
             {/* 닉네임으로 변경 */}
           </GreetTypo>
           <Logout>로그아웃</Logout>
