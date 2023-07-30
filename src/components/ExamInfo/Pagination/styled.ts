@@ -12,14 +12,16 @@ export const Root = styled.div`
   column-gap: 16px;
 `
 const ArrowImg = styled.img`
-  width: 6px;
-  height: 10px;
   cursor: pointer;
 `
 export const LeftArrowImg = styled(ArrowImg)`
+  width: 6px;
+  height: 10px;
   content: url(${leftArrowImg});
 `
 export const RightArrowImg = styled(ArrowImg)`
+  width: 18px;
+  height: 18px;
   content: url(${rightArrowImg});
 `
 

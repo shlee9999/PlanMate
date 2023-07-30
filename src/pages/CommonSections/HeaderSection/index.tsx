@@ -59,9 +59,7 @@ export const HeaderSection: FC = () => {
 
     fetchStudyTime()
   }, [dispatch])
-  useEffect(() => {
-    console.log(todos)
-  }, [todos])
+
   useEffect(() => {
     if (location.pathname === '/') navigate('/timer')
   }, [location.pathname, navigate])
