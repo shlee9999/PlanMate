@@ -5,6 +5,7 @@ import {
   EllipsisImg,
   Email,
   GoogleLogo,
+  LeftArrow,
   LeftContainer,
   Nickname,
   ProfileContainer,
@@ -63,6 +64,8 @@ export const MyPage: FC = () => {
         </TypoWrapper>
         <DDayContainer>
           <DDayItem title={'테스트'} dDay={100} date={'2023-08-32'} isMarked={true} />
+          <LeftArrow src={rightArrow} />
+          <RightArrow src={rightArrow} />
         </DDayContainer>
       </LeftContainer>
       <RightContainer>

@@ -100,6 +100,11 @@ export const RightArrow = styled.img`
   width: 18px;
   height: 18px;
 `
+export const LeftArrow = styled.img`
+  width: 18px;
+  height: 18px;
+  transform: rotate(180deg);
+`
 export const DDayContainer = styled.div`
   box-sizing: border-box;
   max-width: 402px;
