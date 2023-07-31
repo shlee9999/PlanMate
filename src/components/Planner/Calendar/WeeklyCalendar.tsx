@@ -76,18 +76,12 @@ export const WeeklyCalendar: React.FC = () => {
   ]
   const [isPlans, isSetPlans] = useState<Plan[]>(PlanArr)
 
-  const [addPlan, setAddPlan] = useState<Plan[]>()
-
   const AddPlan = (plan: Plan): void => {
-    ;(PlanArr: Plan[]) => [...PlanArr, plan]
+    isSetPlans((prevPlans) => [...prevPlans, plan])
   }
 
   const hourNow = new Date().getHours()
   const minutesNow = new Date().getMinutes()
-
-  const addPlanToExist = (plans: Plan[], newPlan: Plan): Plan[] => {
-    return [...plans, newPlan]
-  }
 
   const onAddEvent = (date: Date) => {
     const name = prompt('name')
@@ -99,18 +93,11 @@ export const WeeklyCalendar: React.FC = () => {
 
     const newPlan: Plan = { date: date, name: name, howLong: Number(to - from) }
 
-    isSetPlans(addPlanToExist(PlanArr, newPlan))
-
-    // date.setHours(from)
-
-    // setAddPlan((PlanArr) => [...PlanArr, { date, name, howLong: Number(to - from) }])
-    // AddPlan({ date, name, howLong: Number(to - from) })
+    AddPlan(newPlan)
   }
 
   const nextWeek = () => setMondayDate(addDateBy(mondayDate, 7))
   const prevWeek = () => setMondayDate(addDateBy(mondayDate, -7))
-
-  // type isToday = object
 
   return (
     <>
