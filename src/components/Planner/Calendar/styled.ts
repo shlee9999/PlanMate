@@ -4,7 +4,7 @@ import { EventType, HourLineType } from './types'
 
 export const CalendarWrapper = styled.div`
   width: 1200px;
-  height: 700px;
+  height: 900px;
   border: 5px solid black;
   margin: 15px;
 `
@@ -83,24 +83,25 @@ export const Event = styled.div<EventType>`
   background: green;
   height: ${({ howLong }) => howLong * HOUR_HEIGHT}px;
   color: white;
-  /* width: calc(100%-10x); */
-  margin: -10px;
+  width: calc(100%-10px);
+  /* width: 100%; */
+  margin: 5px;
   border-radius: 6px;
 `
 
 //plan
-export const PlanWrapper = styled.div<{ color: string }>`
-  background-color: ${(props) => props.color};
-  padding: 8px;
-  border-radius: 4px;
-`
+// export const PlanWrapper = styled.div<{ color: string }>`
+//   background-color: ${(props) => props.color};
+//   padding: 8px;
+//   border-radius: 4px;
+// `
 
-export const PlanTitle = styled.h3`
-  font-size: 16px;
-  margin-bottom: 4px;
-`
+// export const PlanTitle = styled.h3`
+//   font-size: 16px;
+//   margin-bottom: 4px;
+// `
 
-export const PlanColor = styled.span`
-  font-size: 12px;
-  color: #888;
-`
+// export const PlanColor = styled.span`
+//   font-size: 12px;
+//   color: #888;
+// `

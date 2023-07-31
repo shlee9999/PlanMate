@@ -7,7 +7,7 @@ export const Root = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin: 100px 0 0 50px;
+  margin: 300px 0 0 50px;
   /* padding: 0 30px 0 0; */
 `
 

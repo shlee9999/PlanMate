@@ -1,71 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  CalendarWrapper,
-  HGrid,
-  VGrid,
-  HourLine,
-  DateButton,
-  FlexBox,
-  DayWrapper,
-  Event,
-  Hour,
-  PlanWrapper,
-  PlanTitle,
-  PlanColor,
-} from './styled'
+import { CalendarWrapper, HGrid, VGrid, HourLine, DateButton, FlexBox, DayWrapper, Event, Hour } from './styled'
 import { RootState } from 'modules'
 import { TodoPlans } from 'types'
 import { DAYS, TIMES, HOUR_HEIGHT, HOUR_MARGIN_TOP } from './constant'
 import { addDateBy, areDatesSame, getMonday } from './utils'
 import { PlanDate, Plan } from './types'
-// Test data
-// const dummyPlans: TodoPlans[] = [
-//   {
-//     id: '1',
-//     title: 'Meeting',
-//     color: 'red',
-//     day: '월',
-//     begin_hour: 9,
-//     begin_minute: 0,
-//     finish_hour: 10,
-//     finish_minute: 30,
-//     category: 'work',
-//   },
-//   {
-//     id: '2',
-//     title: 'Gym',
-//     color: 'blue',
-//     day: '화',
-//     begin_hour: 18,
-//     begin_minute: 0,
-//     finish_hour: 19,
-//     finish_minute: 0,
-//     category: 'exercise',
-//   },
-// ]
-
-// Convert dummyPlans to match TIMES array
-// const convertedPlans: TodoPlans[] = dummyPlans.map((plan) => ({
-//   ...plan,
-//   begin_hour: plan.begin_hour % 12 === 0 ? 12 : plan.begin_hour % 12,
-//   finish_hour: plan.finish_hour % 12 === 0 ? 12 : plan.finish_hour % 12,
-// }))
-
-//Plans with redux
-
-// const Plan: React.FC<TodoPlans> = ({ title, color, day, begin_hour, begin_minute, finish_hour, finish_minute }) => {
-//   const time = `${begin_hour}:${begin_minute} - ${finish_hour}:${finish_minute}`
-
-//   return (
-//     <PlanWrapper color={color}>
-//       <PlanTitle>{title}</PlanTitle>
-//       <PlanColor>{color}</PlanColor>
-//       <p>{time}</p>
-//       <p>{day}</p>
-//     </PlanWrapper>
-//   )
-// }
 
 export const WeeklyCalendar: React.FC = () => {
   const [mondayDate, setMondayDate] = useState<Date>(getMonday())
@@ -85,13 +25,16 @@ export const WeeklyCalendar: React.FC = () => {
 
   const onAddEvent = (date: Date) => {
     const name = prompt('name')
-    const fromString = prompt('from')
-    const from = parseInt(fromString, 10)
+    const from = prompt('from')
+    const to = prompt('to')
 
-    const toString = prompt('to')
-    const to = parseInt(toString, 10)
+    let howlong = 0
 
-    const newPlan: Plan = { date: date, name: name, howLong: Number(to - from) }
+    if (from && to) {
+      howlong = +to - +from
+    }
+
+    const newPlan: Plan = { date: date, name: name, howLong: howlong }
 
     AddPlan(newPlan)
   }
@@ -125,10 +68,7 @@ export const WeeklyCalendar: React.FC = () => {
           </VGrid>
           <HGrid cols={7}>
             {DAYS.map((day, index) => (
-              <DayWrapper
-                onDoubleClick={() => onAddEvent(addDateBy(mondayDate, index))}
-                // isToday={areDatesSame(new Date(),7 addDateBy(mondayDate, index))}
-              >
+              <DayWrapper onDoubleClick={() => onAddEvent(addDateBy(mondayDate, index))}>
                 <p>{day}</p>
                 {isPlans.map(
                   (plan: Plan) =>
@@ -146,26 +86,6 @@ export const WeeklyCalendar: React.FC = () => {
                       </Event>
                     )
                 )}
-
-                {/* {plans.map((plan) => {
-                if (plan.day === day) {
-                  return (
-                    <Plan
-                      key={plan.id}
-                      id={plan.id}
-                      category={plan.category}
-                      title={plan.title}
-                      color={plan.color}
-                      day={plan.day}
-                      begin_hour={plan.begin_hour}
-                      begin_minute={plan.begin_minute}
-                      finish_hour={plan.finish_hour}
-                      finish_minute={plan.finish_minute}
-                    />
-                  )
-                }
-                return null
-              })} */}
               </DayWrapper>
             ))}
           </HGrid>

@@ -91,7 +91,7 @@ export const AddModal = ({
     const newTodoPlans: TodoPlans = {
       title: inputTitle,
       color: subjectColor,
-      category: title === '과목' ? 'study' : 'exercise',
+      // category: title === '과목' ? 'study' : 'exercise',
       day: subjectDay,
       begin_hour: 0,
       begin_minute: 0,

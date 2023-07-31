@@ -1,7 +1,7 @@
 export type TodoPlans = {
   id: string
   title: string
-  category: string
+  // category: string
   color: string
   day: string
   begin_hour: number
