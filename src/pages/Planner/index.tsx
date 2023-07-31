@@ -1,5 +1,5 @@
 //플래너 탭
-import Main from 'components/Planner/Calendar/WeeklyCalendar'
+import { WeeklyCalendar } from 'components/Planner/Calendar/WeeklyCalendar'
 import { FC, useState } from 'react'
 import {
   Root,
@@ -58,7 +58,7 @@ export const PlannerPage: FC = () => {
       <MainContainer>
         <MainNavContainer>4월 넷째주</MainNavContainer>
         <MainWeeklyScheduler>
-          <Main></Main>
+          <WeeklyCalendar />
         </MainWeeklyScheduler>
       </MainContainer>
 

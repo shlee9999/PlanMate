@@ -1,9 +1,8 @@
 import styled from 'styled-components'
+import { HOUR_HEIGHT, HOUR_MARGIN_TOP } from './constant'
+import { EventType, HourLineType } from './types'
 
-const HOUR_HEIGHT = 17
-const HOUR_MARGIN_TOP = 10
-
-export const Wrapper = styled.div`
+export const CalendarWrapper = styled.div`
   width: 1200px;
   height: 700px;
   border: 5px solid black;
@@ -19,6 +18,7 @@ export const HGrid = styled.div<HGridProps>`
   grid-template-columns: ${({ first, cols }) => `${first || ''} repeat(${cols}, 1fr)`};
   text-align: center;
   height: 700px;
+  position: relative;
 `
 
 interface VGridProps {
@@ -40,8 +40,11 @@ export const VGrid = styled.div<VGridProps>`
   text-align: center;
 `
 
+type isToday = boolean
+
 export const DayWrapper = styled.span`
-  border: 1px solid gray;
+  border: 10px solid gray;
+  display: relative;
 `
 
 export const Hour = styled.div`
@@ -53,6 +56,39 @@ export const Hour = styled.div`
     margin-top: ${HOUR_MARGIN_TOP}px;
   }
 `
+
+export const FlexBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.2rem;
+  margin-top: 20px;
+`
+
+export const DateButton = styled.button`
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+`
+
+export const HourLine = styled.div<HourLineType>`
+  position: absolute;
+  width: 100%;
+  top: 100px;
+  border: 1px solid orange;
+`
+
+export const Event = styled.div<EventType>`
+  position: relative;
+  top: ${({ fromTop }) => fromTop}px;
+  background: green;
+  height: ${({ howLong }) => howLong * HOUR_HEIGHT}px;
+  color: white;
+  /* width: calc(100%-10x); */
+  margin: -10px;
+  border-radius: 6px;
+`
+
+//plan
 export const PlanWrapper = styled.div<{ color: string }>`
   background-color: ${(props) => props.color};
   padding: 8px;
