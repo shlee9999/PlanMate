@@ -27,14 +27,24 @@ import {
 } from './styled'
 import { DDayItem } from 'components/MyPage/DDayItem'
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
-import { ResponsePostType } from 'api/common/commonType'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import googleLogo from 'assets/images/google_logo.png'
 import rightArrow from 'assets/images/right_arrow.png'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
+import { findScrappedPost } from 'api/post/find/findScrappedPost'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
+const sampleDDayList = [
+  { title: '테스트1', dDay: 30, date: '2023-08-32', isMarked: true, dDayId: 0 },
+  { title: '테스트2', dDay: 38, date: '2023-08-32', isMarked: true, dDayId: 1 },
+  { title: '테스트3', dDay: 50, date: '2023-08-32', isMarked: true, dDayId: 2 },
+  { title: '테스트4', dDay: 80, date: '2023-08-32', isMarked: false, dDayId: 3 },
+  { title: '테스트5', dDay: 90, date: '2023-08-32', isMarked: false, dDayId: 4 },
+  { title: '테스트6', dDay: 100, date: '2023-08-32', isMarked: false, dDayId: 5 },
+  { title: '테스트7', dDay: 105, date: '2023-08-32', isMarked: false, dDayId: 6 },
+]
+
 export const MyPage: FC = () => {
   const [myActivityList, setMyActivityList] = useState([])
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -66,6 +76,13 @@ export const MyPage: FC = () => {
         })
         return
       case myPageTabList[2]:
+        findScrappedPost({ pages: currentPage - 1 }).then((res) => {
+          if (res) {
+            const response = res as FindPostResponseProps
+            setMyActivityList(response.postDtoList)
+            setCurrentPage(1)
+          }
+        })
         return
     }
   }, [currentPage, currentTab])
@@ -98,7 +115,10 @@ export const MyPage: FC = () => {
           </SeeMore>
         </TypoWrapper>
         <DDayContainer>
-          <DDayItem title={'테스트'} dDay={100} date={'2023-08-32'} isMarked={true} />
+          {sampleDDayList.map((dday) => (
+            <DDayItem {...dday} key={dday.dDayId} />
+          ))}
+
           <ArrowWrapper>
             <LeftArrow src={rightArrow} />
             <RightArrow src={rightArrow} />
@@ -127,7 +147,7 @@ export const MyPage: FC = () => {
                 case myPageTabList[1]:
                   return <ExamInfoComment {...activity} key={activity.commentId} />
                 case myPageTabList[2]:
-                  return
+                  return <ExamInfoItem {...activity} key={activity.postId} />
               }
             })}
           </ExamInfoItemContainer>
