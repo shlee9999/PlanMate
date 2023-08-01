@@ -80,7 +80,7 @@ export const HourLine = styled.div<HourLineType>`
 export const Event = styled.div<EventType>`
   position: relative;
   top: ${({ fromTop }) => fromTop}px;
-  background: green;
+  background: ${({ planColor }) => planColor};
   height: ${({ howLong }) => howLong * HOUR_HEIGHT}px;
   color: white;
   width: calc(100%-10px);
@@ -88,20 +88,3 @@ export const Event = styled.div<EventType>`
   margin: 5px;
   border-radius: 6px;
 `
-
-//plan
-// export const PlanWrapper = styled.div<{ color: string }>`
-//   background-color: ${(props) => props.color};
-//   padding: 8px;
-//   border-radius: 4px;
-// `
-
-// export const PlanTitle = styled.h3`
-//   font-size: 16px;
-//   margin-bottom: 4px;
-// `
-
-// export const PlanColor = styled.span`
-//   font-size: 12px;
-//   color: #888;
-// `

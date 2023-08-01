@@ -18,3 +18,7 @@ export const getMonday = (): Date => {
   const first = today.getDate() - today.getDay() + 1
   return new Date(today.setDate(first))
 }
+
+export const areDaySame = (first: number, second: number): boolean => {
+  return first === second
+}

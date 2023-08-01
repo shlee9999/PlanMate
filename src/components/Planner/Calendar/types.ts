@@ -15,6 +15,7 @@ export interface Plan {
 export interface EventType {
   howLong: number
   fromTop: number
+  planColor: string
 }
 
 export interface HourLineType {

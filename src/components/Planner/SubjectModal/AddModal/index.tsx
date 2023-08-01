@@ -53,14 +53,14 @@ export const AddModal = ({
   }
 
   //색상 선택 버튼 클릭 시 컬러피커 모달열기
-  const handleOnClickColorButton = () => {
-    setIsColorPickerModalOpen(true)
-  }
+  // const handleOnClickColorButton = () => {
+  //   setIsColorPickerModalOpen(true)
+  // }
 
   //일정명 변경 시 상태 업데이트
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputTitle(e.target.value)
-  }
+  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInputTitle(e.target.value)
+  // }
 
   //키보드 입력처리
   const handleOnKeyDown = (e: React.KeyboardEvent) => {
@@ -75,15 +75,26 @@ export const AddModal = ({
     setSubjectDay(color)
   }
   //시간 버튼 입력처리
-  const [selectedHour, setSelectedHour] = useState<number>(0)
-  const [selectedMinute, setSelectedMinute] = useState<number>(0)
+  const [selectedBeginHour, setselectedBeginHour] = useState<number>(0)
+  const [selectedBeginMinute, setselectedBeginMinute] = useState<number>(0)
 
-  const assignFromHour = (fromHour: number) => {
-    setSelectedHour(fromHour)
+  const [selectedFinishHour, setselectedFinishHour] = useState<number>(0)
+  const [selectedFinishMinute, setselectedFinishMinute] = useState<number>(0)
+
+  const assignBeginHour = (fromHour: number) => {
+    setselectedBeginHour(fromHour)
   }
 
-  const assignFromMinute = (fromMinute: number) => {
-    setSelectedHour(fromMinute)
+  const assignBeginMinute = (fromMinute: number) => {
+    setselectedBeginMinute(fromMinute)
+  }
+
+  const assignFinishHour = (fromHour: number) => {
+    setselectedFinishHour(fromHour)
+  }
+
+  const assignFinishMinute = (fromMinute: number) => {
+    setselectedFinishMinute(fromMinute)
   }
 
   // const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -109,10 +120,10 @@ export const AddModal = ({
       color: subjectColor,
       // category: title === '과목' ? 'study' : 'exercise',
       day: subjectDay,
-      begin_hour: selectedHour,
-      begin_minute: selectedMinute,
-      finish_hour: selectedHour,
-      finish_minute: selectedMinute,
+      begin_hour: selectedBeginHour,
+      begin_minute: selectedBeginMinute,
+      finish_hour: selectedFinishHour,
+      finish_minute: selectedFinishMinute,
       id: generateId(),
     }
     dispatch(addPlan(newTodoPlans))
@@ -165,7 +176,8 @@ export const AddModal = ({
             <ButtonTypoWrapper>
               시간
               <TimeSelectWrapper>
-                <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'부터'} />
+                <TimeSelect assignHour={setselectedBeginHour} assignMinute={setselectedBeginMinute} set={'부터'} />
+                <TimeSelect assignHour={setselectedFinishHour} assignMinute={setselectedFinishMinute} set={'까지'} />
                 {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
               </TimeSelectWrapper>
             </ButtonTypoWrapper>

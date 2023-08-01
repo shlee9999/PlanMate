@@ -2,26 +2,26 @@ import React, { useState, ChangeEvent } from 'react'
 import { StyledSelect, SelectOption, SelectWrapper } from './styled'
 
 type TimeSelectModeProps = {
-  assignFromHour: (FromHour: number) => void
-  assignFromMinute: (FromMinute: number) => void
+  assignHour: (FromHour: number) => void
+  assignMinute: (FromMinute: number) => void
   set: string
 }
 
 //옵션 시간 추가 필요요
-export const TimeSelect: React.FC<TimeSelectModeProps> = ({ assignFromHour, assignFromMinute }, { set }) => {
+export const TimeSelect: React.FC<TimeSelectModeProps> = ({ assignHour, assignMinute }, { set }) => {
   //State관리 여기는 필요없음
   // const [selectedHour, setSelectedHour] = useState<number>(0)
   // const [selectedMinute, setSelectedMinute] = useState<number>(0)
 
   const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const hourValue = Number(e.target.value)
-    assignFromHour(hourValue)
+    assignHour(hourValue)
     // setSelectedHour(hourValue)
   }
 
   const handleMinuteChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const minuteValue = Number(e.target.value)
-    assignFromHour(minuteValue)
+    assignMinute(minuteValue)
     // setSelectedMinute(Number(e.target.value))
   }
 

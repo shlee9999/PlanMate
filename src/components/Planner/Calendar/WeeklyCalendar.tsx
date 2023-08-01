@@ -4,7 +4,7 @@ import { CalendarWrapper, HGrid, VGrid, HourLine, DateButton, FlexBox, DayWrappe
 import { RootState } from 'modules'
 import { TodoPlans } from 'types'
 import { DAYS, TIMES, HOUR_HEIGHT, HOUR_MARGIN_TOP } from './constant'
-import { addDateBy, areDatesSame, getMonday } from './utils'
+import { addDateBy, areDatesSame, getMonday, areDaySame } from './utils'
 import { PlanDate, Plan } from './types'
 
 export const WeeklyCalendar: React.FC = () => {
@@ -12,40 +12,41 @@ export const WeeklyCalendar: React.FC = () => {
 
   const planList = useSelector((state: RootState) => state.todoplans)
 
-  //PlanArr -> planList(redux) 대체해야함.
-  const PlanArr: Plan[] | [] = [
-    { date: new Date(2023, 6, 31, 1), name: 'first hi', howLong: 1 },
-    { date: new Date(2023, 7, 1, 13), name: 'second hi', howLong: 3 },
-  ]
-  const [isPlans, isSetPlans] = useState<Plan[]>(PlanArr)
-
-  const AddPlan = (plan: Plan): void => {
-    isSetPlans((prevPlans) => [...prevPlans, plan])
+  const calHowLongHour = (beginHour: number, finishHour: number): number => {
+    return +finishHour - +beginHour
   }
-
-  //
 
   const hourNow = new Date().getHours()
   const minutesNow = new Date().getMinutes()
 
-  const onAddEvent = (date: Date) => {
-    const name = prompt('name')
-    const from = prompt('from')
-    const to = prompt('to')
+  // const onAddEvent = (date: Date) => {
+  //   const name = prompt('name')
+  //   const from = prompt('from')
+  //   const to = prompt('to')
 
-    let howlong = 0
+  //   let howlong = 0
 
-    if (from && to) {
-      howlong = +to - +from
-    }
+  //   if (from && to) {
+  //     howlong = +to - +from
+  //   }
 
-    const newPlan: Plan = { date: date, name: name, howLong: howlong }
+  //   const newPlan: Plan = { date: date, name: name, howLong: howlong }
 
-    AddPlan(newPlan)
-  }
+  //   AddPlan(newPlan)
+  // }
 
   const nextWeek = () => setMondayDate(addDateBy(mondayDate, 7))
   const prevWeek = () => setMondayDate(addDateBy(mondayDate, -7))
+
+  const dayIndex = (day: string): number => {
+    if (day === '월') return 0
+    else if (day === '화') return 1
+    else if (day === '수') return 2
+    else if (day === '목') return 3
+    else if (day === '금') return 4
+    else if (day === '토') return 5
+    else return 6
+  }
 
   return (
     <>
@@ -66,21 +67,20 @@ export const WeeklyCalendar: React.FC = () => {
           </VGrid>
           <HGrid cols={7}>
             {DAYS.map((day, index) => (
-              <DayWrapper onDoubleClick={() => onAddEvent(addDateBy(mondayDate, index))}>
+              <DayWrapper>
                 <p>{day}</p>
-                {isPlans.map(
-                  (plan: Plan) =>
-                    areDatesSame(addDateBy(mondayDate, index), plan.date) && (
+                {planList.map(
+                  (plan: TodoPlans) =>
+                    // areDatesSame(addDateBy(mondayDate, index), plan.date) && ( //넘기는것이 필요할때
+                    areDaySame(index, dayIndex(plan.day)) && (
                       <Event
-                        howLong={plan.howLong}
+                        howLong={calHowLongHour(plan.begin_hour, plan.finish_hour)}
                         fromTop={
-                          plan.date.getHours() * HOUR_HEIGHT +
-                          HOUR_MARGIN_TOP +
-                          HOUR_HEIGHT / 2 +
-                          plan.date.getMinutes() / 2
+                          plan.begin_hour * HOUR_HEIGHT + HOUR_MARGIN_TOP + HOUR_HEIGHT / 2 + plan.begin_minute / 2
                         }
+                        planColor={plan.color}
                       >
-                        {plan.name}
+                        {plan.title}
                       </Event>
                     )
                 )}
@@ -88,9 +88,8 @@ export const WeeklyCalendar: React.FC = () => {
             ))}
           </HGrid>
         </HGrid>
-        {/* <HourLine fromTop={hourNow * HOUR_HEIGHT + HOUR_MARGIN_TOP + HOUR_HEIGHT / 2 + minutesNow} /> */}
       </CalendarWrapper>
-      <ul>
+      {/* <ul>
         <span>아 멘탈나가</span>
         {planList.map((plan) => (
           <li key={plan.id}>
@@ -103,12 +102,7 @@ export const WeeklyCalendar: React.FC = () => {
             <p>F_m : {plan.finish_minute}</p>
           </li>
         ))}
-        {/* {PlanArr.map((plan: Plan, index) => (
-          <div key={index}>
-            <div>{plan.name}</div>
-          </div>
-        ))} */}
-      </ul>
+      </ul> */}
     </>
   )
 }
