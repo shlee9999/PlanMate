@@ -67,13 +67,14 @@ export const WeeklyCalendar: React.FC = () => {
           </VGrid>
           <HGrid cols={7}>
             {DAYS.map((day, index) => (
-              <DayWrapper>
+              <DayWrapper key={index}>
                 <p>{day}</p>
                 {planList.map(
                   (plan: TodoPlans) =>
                     // areDatesSame(addDateBy(mondayDate, index), plan.date) && ( //넘기는것이 필요할때
                     areDaySame(index, dayIndex(plan.day)) && (
                       <Event
+                        key={plan.id}
                         howLong={calHowLongHour(plan.begin_hour, plan.finish_hour)}
                         fromTop={
                           plan.begin_hour * HOUR_HEIGHT + HOUR_MARGIN_TOP + HOUR_HEIGHT / 2 + plan.begin_minute / 2
