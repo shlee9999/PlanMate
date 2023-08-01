@@ -6,12 +6,12 @@ const SubjectModal = ({
   isModalOpen,
   closeModal,
   title,
-  todo,
+  todoplan,
 }: {
   isModalOpen: boolean
   closeModal: () => void
   title: string
-  todo: TodoPlans | null
+  todoplan: TodoPlans | null
 }) => {
   switch (title.slice(-2)) {
     case '추가':

@@ -10,6 +10,8 @@ export type TodoPlans = {
   finish_minute: number
 }
 
+export type TodoPlanList = Array<TodoPlans>
+
 export type TodoItems = {
   id: string
   title: string

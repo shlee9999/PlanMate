@@ -8,6 +8,8 @@ import { addDateBy, areDatesSame, getMonday } from './utils'
 import { PlanDate, Plan } from './types'
 
 export const WeeklyCalendar: React.FC = () => {
+  const planList = useSelector((state: RootState) => state.todoplans)
+
   const [mondayDate, setMondayDate] = useState<Date>(getMonday())
 
   const PlanArr: Plan[] | [] = [
@@ -44,13 +46,6 @@ export const WeeklyCalendar: React.FC = () => {
 
   return (
     <>
-      <div>
-        {PlanArr.map((plan: Plan, index) => (
-          <div key={index}>
-            <div>{plan.name}</div>
-          </div>
-        ))}
-      </div>
       <FlexBox>
         <p>today: {new Date().toDateString()}</p>
         <p>from: {mondayDate?.toDateString()}</p>
@@ -92,6 +87,20 @@ export const WeeklyCalendar: React.FC = () => {
         </HGrid>
         <HourLine fromTop={hourNow * HOUR_HEIGHT + HOUR_MARGIN_TOP + HOUR_HEIGHT / 2 + minutesNow} />
       </CalendarWrapper>
+      <ul>
+        <span>아 멘탈나가</span>
+        {planList.map((plan) => (
+          <li key={plan.id}>
+            <span>{plan.title}</span>
+            <span>아 멘탈나가</span>
+          </li>
+        ))}
+        {/* {PlanArr.map((plan: Plan, index) => (
+          <div key={index}>
+            <div>{plan.name}</div>
+          </div>
+        ))} */}
+      </ul>
     </>
   )
 }

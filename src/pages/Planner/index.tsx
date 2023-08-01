@@ -62,7 +62,7 @@ export const PlannerPage: FC = () => {
         </MainWeeklyScheduler>
       </MainContainer>
 
-      <SubjectModal todo={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
+      <SubjectModal todoplan={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
     </Root>
   )
 }

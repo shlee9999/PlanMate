@@ -48,6 +48,10 @@ export const AddModal = ({
     inputRef.current?.focus()
   }
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputTitle(e.target.value)
+  }
+
   //색상 선택 버튼 클릭 시 컬러피커 모달열기
   const handleOnClickColorButton = () => {
     setIsColorPickerModalOpen(true)
@@ -134,7 +138,7 @@ export const AddModal = ({
             </ButtonTypoWrapper>
             <ButtonTypoWrapper>
               일정명
-              <NameInput placeholder="일정명을 입력해주세요" />
+              <NameInput placeholder={'일정명을 입력해주세요'} onChange={onChange} ref={inputRef} />
             </ButtonTypoWrapper>
             {/* <ColorSelectWrapper>
               색상선택
