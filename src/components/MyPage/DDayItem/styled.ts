@@ -15,7 +15,10 @@ export const Root = styled.div`
     background-color: #e2f9e9;
   }
 `
-
+export const LeftContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+`
 export const MarkImg = styled.img`
   width: 20px;
   height: 20px;
@@ -23,12 +26,14 @@ export const MarkImg = styled.img`
   flex-basis: content;
 `
 export const Title = styled.p`
+  max-width: 180px;
   margin-right: 2px;
-  flex-basis: content;
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
   color: #444444;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 export const Date = styled.p`
   font-size: 10px;
@@ -41,9 +46,6 @@ export const DDay = styled.p`
   &::before {
     content: 'D - ';
   }
-  flex-grow: 1;
-  text-align: right;
-
   right: 16px;
   font-size: 21px;
   font-weight: 700;

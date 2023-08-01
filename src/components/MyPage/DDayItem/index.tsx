@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Date, MarkImg, Root, Title, DDay } from './styled'
+import { Date, MarkImg, Root, Title, DDay, LeftContainer } from './styled'
 import pinImg from 'assets/images/pin.png'
 import pinFilledImg from 'assets/images/pin_fill.png'
 
@@ -13,9 +13,11 @@ type DDayItemProps = {
 export const DDayItem: FC<DDayItemProps> = ({ title, dDay, date, isMarked }) => {
   return (
     <Root className={isMarked ? 'isMarked' : ''}>
-      <MarkImg src={isMarked ? pinFilledImg : pinImg} />
-      <Title>{title}</Title>
-      <Date>{date}</Date>
+      <LeftContainer>
+        <MarkImg src={isMarked ? pinFilledImg : pinImg} />
+        <Title>{title}</Title>
+        <Date>{date}</Date>
+      </LeftContainer>
       <DDay>{dDay}</DDay>
     </Root>
   )

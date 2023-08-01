@@ -36,7 +36,13 @@ import { findScrappedPost } from 'api/post/find/findScrappedPost'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
-  { title: '테스트1', dDay: 30, date: '2023-08-32', isMarked: true, dDayId: 0 },
+  {
+    title: '테스트1saasdsadfhjoisdfoasdjofjdsaofjdsoajsdfojdsoajo',
+    dDay: 30,
+    date: '2023-08-32',
+    isMarked: true,
+    dDayId: 0,
+  },
   { title: '테스트2', dDay: 38, date: '2023-08-32', isMarked: true, dDayId: 1 },
   { title: '테스트3', dDay: 50, date: '2023-08-32', isMarked: true, dDayId: 2 },
   { title: '테스트4', dDay: 80, date: '2023-08-32', isMarked: false, dDayId: 3 },
