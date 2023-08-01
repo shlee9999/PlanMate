@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Root = styled.div`
+  min-width: fit-content;
   position: relative;
   height: 48px;
   box-sizing: border-box;
@@ -9,6 +10,7 @@ export const Root = styled.div`
   align-items: center;
   background-color: #f9f9f9;
   border-radius: 8px;
+  white-space: nowrap;
   &.isMarked {
     background-color: #e2f9e9;
   }
@@ -39,10 +41,10 @@ export const DDay = styled.p`
   &::before {
     content: 'D - ';
   }
-  position: absolute;
-  top: 50%;
+  flex-grow: 1;
+  text-align: right;
+
   right: 16px;
-  transform: translateY(-50%);
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
