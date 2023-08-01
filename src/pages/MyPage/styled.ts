@@ -112,11 +112,18 @@ export const LeftArrow = styled.img`
   transform: rotate(180deg);
 `
 export const DDayContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
   box-sizing: border-box;
   height: 384px;
   border: 1px solid #dddede;
   border-radius: 8px;
   padding: 24px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export const RightContainer = styled.div`
@@ -132,6 +139,10 @@ export const MyActivityContainer = styled.div`
   box-sizing: border-box;
   padding: 60.5px 32px;
   height: 536px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 export const MyActivity = styled.p`
   margin-bottom: 8px;
