@@ -75,16 +75,28 @@ export const AddModal = ({
     setSubjectDay(color)
   }
   //시간 버튼 입력처리
-  const [selectedHour, setSelectedHour] = useState('')
-  const [selectedMinute, setSelectedMinute] = useState('')
+  const [selectedHour, setSelectedHour] = useState<number>(0)
+  const [selectedMinute, setSelectedMinute] = useState<number>(0)
 
-  const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedHour(e.target.value)
+  const assignFromHour = (fromHour: number) => {
+    setSelectedHour(fromHour)
   }
 
-  const handleMinuteChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedMinute(e.target.value)
+  const assignFromMinute = (fromMinute: number) => {
+    setSelectedHour(fromMinute)
   }
+
+  // const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   if (typeof e === 'number') {
+  //     setSelectedHour(e.target.value)
+  //   }
+  // }
+
+  // const handleMinuteChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   if (typeof e === 'number') {
+  //     setSelectedMinute(e.target.value)
+  //   }
+  // }
 
   const assignSubjectColor = (color: string) => {
     setSubjectColor(color)
@@ -97,10 +109,10 @@ export const AddModal = ({
       color: subjectColor,
       // category: title === '과목' ? 'study' : 'exercise',
       day: subjectDay,
-      begin_hour: 0,
-      begin_minute: 0,
-      finish_hour: 0,
-      finish_minute: 0,
+      begin_hour: selectedHour,
+      begin_minute: selectedMinute,
+      finish_hour: selectedHour,
+      finish_minute: selectedMinute,
       id: generateId(),
     }
     dispatch(addPlan(newTodoPlans))
@@ -153,8 +165,8 @@ export const AddModal = ({
             <ButtonTypoWrapper>
               시간
               <TimeSelectWrapper>
-                <TimeSelect set={'부터'} />
-                <TimeSelect set={'까지'} />
+                <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'부터'} />
+                {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
               </TimeSelectWrapper>
             </ButtonTypoWrapper>
           </InputWrapper>

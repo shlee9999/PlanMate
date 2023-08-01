@@ -8,10 +8,11 @@ import { addDateBy, areDatesSame, getMonday } from './utils'
 import { PlanDate, Plan } from './types'
 
 export const WeeklyCalendar: React.FC = () => {
-  const planList = useSelector((state: RootState) => state.todoplans)
-
   const [mondayDate, setMondayDate] = useState<Date>(getMonday())
 
+  const planList = useSelector((state: RootState) => state.todoplans)
+
+  //PlanArr -> planList(redux) 대체해야함.
   const PlanArr: Plan[] | [] = [
     { date: new Date(2023, 6, 31, 1), name: 'first hi', howLong: 1 },
     { date: new Date(2023, 7, 1, 13), name: 'second hi', howLong: 3 },
@@ -21,6 +22,8 @@ export const WeeklyCalendar: React.FC = () => {
   const AddPlan = (plan: Plan): void => {
     isSetPlans((prevPlans) => [...prevPlans, plan])
   }
+
+  //
 
   const hourNow = new Date().getHours()
   const minutesNow = new Date().getMinutes()
@@ -85,14 +88,19 @@ export const WeeklyCalendar: React.FC = () => {
             ))}
           </HGrid>
         </HGrid>
-        <HourLine fromTop={hourNow * HOUR_HEIGHT + HOUR_MARGIN_TOP + HOUR_HEIGHT / 2 + minutesNow} />
+        {/* <HourLine fromTop={hourNow * HOUR_HEIGHT + HOUR_MARGIN_TOP + HOUR_HEIGHT / 2 + minutesNow} /> */}
       </CalendarWrapper>
       <ul>
         <span>아 멘탈나가</span>
         {planList.map((plan) => (
           <li key={plan.id}>
-            <span>{plan.title}</span>
-            <span>아 멘탈나가</span>
+            <p>title : {plan.title}</p>
+            <p>color : {plan.color}</p>
+            <p>day : {plan.day}</p>
+            <p>B_h : {plan.begin_hour}</p>
+            <p>B_m : {plan.begin_minute}</p>
+            <p>F_h : {plan.finish_hour}</p>
+            <p>F_m : {plan.finish_minute}</p>
           </li>
         ))}
         {/* {PlanArr.map((plan: Plan, index) => (
