@@ -1,76 +1,81 @@
 import React from 'react'
 import { useState } from 'react'
-import { ButtonWrapper, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
+import { ButtonWrapper, CloseButton, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { useDispatch } from 'react-redux'
-import { TodoItems } from 'types'
-import { ModalExitButton, ModalFooter } from '../SubjectModal/styled'
+import { TodoItemType } from 'types'
+
 import { removeTodo } from 'modules/todos'
-import { ConfirmButton, ExitButton, ModalWrapper } from 'components/common/commonStyle'
-import SubjectModal from '../SubjectModal'
+import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
+import EditModal from '../SubjectModal/EditModal'
+import { removeSubject } from 'api/subject/removeSubject'
+import { DeleteModal } from './DeleteModal'
+
 const EllipsisModal = ({
   closeModal,
   todo,
   isTodoTimerRunning,
 }: {
   closeModal: () => void
-  todo: TodoItems
+  todo: TodoItemType
   isTodoTimerRunning: boolean
 }) => {
   const [mode, setMode] = useState<string>('edit') // 'edit' | 'delete'
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const dispatch = useDispatch()
 
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false)
+  }
   const onClickDeleteButton = () => {
-    setMode('delete')
+    setIsDeleteModalOpen(true)
   }
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }
 
   const onClickEditButton = () => {
-    setMode('edit')
+    setIsEditModalOpen(true)
   }
-  const onClickConfirmButton = () => {
-    if (mode === 'edit') {
-      setIsEditModalOpen(true)
-      return
-    }
-    if (mode === 'delete') {
-      if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
-      dispatch(removeTodo(todo.id))
-      closeModal()
-      return
-    }
-  }
+
   const closeEditModal = () => {
     setIsEditModalOpen(false)
+  }
+  const deleteSubject = () => {
+    if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
+    removeSubject({
+      subjectId: todo.subjectId,
+    }).then((res) => {
+      if (res) {
+        dispatch(removeTodo(todo.subjectId))
+        closeModal()
+      }
+    })
+    closeModal()
   }
 
   return (
     <ModalWrapper onClick={closeModal}>
       <Root onClick={onClickModal}>
         <ButtonWrapper>
-          <UpdateSubjectButton onClick={onClickEditButton}>
-            {todo.category === 'study' ? '과목수정' : '종목수정'}
-          </UpdateSubjectButton>
-          <DeleteSubjectButton onClick={onClickDeleteButton}>
-            {todo.category === 'study' ? '과목삭제' : '종목삭제'}
-          </DeleteSubjectButton>
+          <UpdateSubjectButton onClick={onClickEditButton}>과목수정</UpdateSubjectButton>
+          <DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</DeleteSubjectButton>
         </ButtonWrapper>
         <ModalFooter>
-          <ExitButton onClick={closeModal}>취소</ExitButton>
-          <ConfirmButton onClick={onClickConfirmButton}>확인</ConfirmButton>
+          <CloseButton onClick={closeModal}>취소</CloseButton>
         </ModalFooter>
         <ModalExitButton onClick={closeModal} />
       </Root>
       {isEditModalOpen && (
-        <SubjectModal
-          todo={todo}
+        <EditModal
           isModalOpen={isEditModalOpen}
           closeModal={closeEditModal}
-          title={todo.category === 'study' ? '과목수정' : '종목수정'}
-        ></SubjectModal>
+          title="과목수정"
+          todo={todo}
+          closeEllipsisModal={closeModal}
+        />
       )}
+      {isDeleteModalOpen && <DeleteModal closeModal={closeDeleteModal} deleteSubject={deleteSubject} />}
     </ModalWrapper>
   )
 }

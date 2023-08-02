@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useFormattedTime } from 'utils/helper'
-import { TodoItems } from 'types'
+import { getStudyTime, useFormattedTime } from 'utils/helper'
+import { TodoItemType } from 'types'
 import {
   Root,
   LeftWrapper,
@@ -18,13 +18,18 @@ import { useTimer } from 'hooks/useTimer'
 import { RootState } from 'modules'
 import { pauseTimer, runTimer } from 'modules/timer'
 import EllipsisModal from '../EllipsisModal'
-const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems; buttonColor: string }) => {
+import moment from 'moment'
+import { updateSubject } from 'api/subject/updateSubject'
+
+const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
   const dispatch = useDispatch()
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const { startTimer, stopTimer, time } = useTimer({ defaultTime: 0 })
+  const { startTimer, stopTimer, time } = useTimer({ defaultTime: todo.time })
   const formattedTime: string = useFormattedTime(time)
+  const [startTime, setStartTime] = useState<string>('')
+
   const startTotalTimer = (): void => {
     dispatch(runTimer())
   }
@@ -34,23 +39,23 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
   }
 
   const onClickStartButton = (): void => {
+    setStartTime(moment().format('HH:mm:ss')) //백엔드 리스폰스 확인할것
+    console.log(startTime)
     if (!isTotalTimerRunning) {
       setIsTodoTimerRunning(true)
       startTotalTimer()
-      if (todo.category === 'study') dispatch({ type: 'STUDY' })
-      if (todo.category === 'exercise') dispatch({ type: 'EXERCISE' })
     }
   }
 
-  useEffect(() => {
-    if (!isTodoTimerRunning) {
-      stopTimer()
-      return
-    }
-    startTimer()
-  }, [isTodoTimerRunning])
-
   const onClickPauseButton = (): void => {
+    console.log(getStudyTime(startTime, moment().format('HH:mm:ss')))
+    updateSubject({
+      endAt: moment().format('HH:mm:ss'),
+      startAt: startTime,
+      subjectId: todo.subjectId,
+    }).then((res) => {
+      console.log(res)
+    })
     setIsTodoTimerRunning(false)
     stopTotalTimer()
   }
@@ -61,6 +66,15 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
   const closeEllipsisModal = () => {
     setIsEllipsisOpen(false)
   }
+
+  useEffect(() => {
+    if (!isTodoTimerRunning) {
+      stopTimer()
+      return
+    }
+    startTimer()
+  }, [isTodoTimerRunning])
+
   return (
     <Root>
       <LeftWrapper>
@@ -77,6 +91,7 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItems
         ) : (
           <Time>{formattedTime}</Time>
         )}
+
         <EllipsisButton onClick={OnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
       {isEllipsisOpen && (

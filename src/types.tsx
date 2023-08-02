@@ -1,3 +1,6 @@
+import { FindAllCommentsResponseProps } from 'api/comment/findAll'
+import { CheckPostResponseProps } from 'api/post/checkPost'
+
 export type TodoPlans = {
   id: string
   title: string
@@ -12,16 +15,21 @@ export type TodoPlans = {
 
 export type TodoPlanList = Array<TodoPlans>
 
-export type TodoItems = {
-  id: string
-  title: string
-  category: string
-  color: string
+export type TodoItemType = {
+  subjectId: number
+  name: string
+  colorHex: string
   time: number
-}
-export type TodoItemList = Array<TodoItems>
+  startAt?: string
+  endAt?: string
+} //time은 파싱
 
 export type PageInfo = {
   title: string
   url: string
+}
+
+export type ExamInfoDetailDataType = {
+  checkPostResult: CheckPostResponseProps
+  findAllCommentsResult: FindAllCommentsResponseProps
 }

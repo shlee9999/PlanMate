@@ -1,7 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { RecordContainer, HeaderRecord, MainRecord } from './styled'
-import { RootState } from 'modules'
 import { FocusTimerData } from './TimerRecord'
 
 interface OwnProps {
@@ -10,8 +8,6 @@ interface OwnProps {
 }
 
 export const FocusTimer: React.FC<OwnProps> = ({ data, title }) => {
-  const TotalFocusTime = useSelector((state: RootState) => state.mode.isStudying)
-
   // Function to add leading zero if value is less than 10
   const addLeadingZero = (value: number) => {
     return value < 10 ? `0${value}` : value

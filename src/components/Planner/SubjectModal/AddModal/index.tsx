@@ -21,7 +21,7 @@ import { addPlan } from 'modules/todoplans'
 import { CategorySelect } from './CategorySelect'
 import { TimeSelect } from './TimeSelect'
 import { DaySelect } from './DaySelect'
-import { ConfirmButton, ExitButton, ModalWrapper } from 'components/common/commonStyle'
+import { GreenButton, WhiteButton, ModalWrapper } from 'components/common/commonStyle'
 import { ColorPicker } from 'components/common/ColorPickerModal/ColorPicker'
 
 const DefaultColor: string = '#ff0000' as const
@@ -168,7 +168,7 @@ export const AddModal = ({
               <ColorSelect assignSubjectColor={assignSubjectColor} />
             </ColorSelectWrapper> */}
             색상선택
-            <ColorPicker assignSubjectColor={assignSubjectColor} />
+            <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
             <ButtonTypoWrapper>
               요일
               <DaySelect assignSubjectDay={assignSubjectDay}></DaySelect>
@@ -184,8 +184,8 @@ export const AddModal = ({
           </InputWrapper>
 
           <ModalFooter>
-            <ExitButton onClick={closeModalAll}>취소</ExitButton>
-            <ConfirmButton onClick={handleAddConfirm}>확인</ConfirmButton>
+            <WhiteButton onClick={closeModalAll}>취소</WhiteButton>
+            <GreenButton onClick={handleAddConfirm}>확인</GreenButton>
           </ModalFooter>
         </Root>
       </ModalWrapper>

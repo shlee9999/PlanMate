@@ -6,7 +6,6 @@ export const Root = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 110%;
   width: 70%;
   border-radius: 10px;
   height: 80%;

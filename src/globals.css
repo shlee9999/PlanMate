@@ -12,4 +12,9 @@ button {
 }
 input {
   outline: none;
+  border: none;
+}
+textarea {
+  outline: none;
+  border: none;
 }

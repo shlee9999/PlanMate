@@ -1,23 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { defaultColor } from 'constants/color'
-import {
-  Root,
-  ModalExitButton,
-  ModalFooter,
-  InputWrapper,
-  ColorPickerButton,
-  ModalTitle,
-  NameInput,
-  ButtonTypoWrapper,
-} from '../styled'
-import { TodoItems } from 'types'
-
-import { generateId } from 'utils/helper'
-
+import { Root, InputWrapper, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from '../styled'
+import { TodoItemType } from 'types'
 import { addTodo } from 'modules/todos'
-import { ConfirmButton, ExitButton, ModalWrapper } from 'components/common/commonStyle'
+import { GreenButton, WhiteButton, ModalFooter, ModalWrapper, ModalExitButton } from 'components/common/commonStyle'
 import ColorPickerModal from 'components/common/ColorPickerModal'
+import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSubject'
+import { ColorPicker } from 'components/common/ColorPickerModal/ColorPicker'
 
 const AddModal = ({
   isModalOpen,
@@ -46,7 +36,7 @@ const AddModal = ({
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter') {
-      onConfirmButtonClick()
+      onClickConfirmButton()
     }
     if (e.nativeEvent.key === 'Escape') {
       closeModal()
@@ -55,18 +45,24 @@ const AddModal = ({
   const assignSubjectColor = (color: string) => {
     setSubjectColor(color)
   }
-  const onConfirmButtonClick = () => {
+  const onClickConfirmButton = () => {
     if (inputValue === '') return
-    const newTodoItem: TodoItems = {
-      title: inputValue,
-      color: subjectColor,
-      category: title === '과목추가' ? 'study' : 'exercise',
-      time: 0,
-      id: generateId(),
-    }
-    dispatch(addTodo(newTodoItem))
-    setInputValue('')
-    closeModal()
+
+    createSubject({
+      colorHex: subjectColor,
+      name: inputValue,
+    }).then((res) => {
+      const result = res as CreateSubjectResponseProps
+      const newTodoItem: TodoItemType = {
+        name: inputValue,
+        colorHex: subjectColor,
+        subjectId: result.subjectId,
+        time: 0,
+      }
+      dispatch(addTodo(newTodoItem))
+      setInputValue('')
+      closeModal()
+    })
   }
 
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
@@ -88,7 +84,7 @@ const AddModal = ({
           <ModalTitle>{title}</ModalTitle>
           <ModalExitButton onClick={closeModal} />
           <InputWrapper>
-            <ButtonTypoWrapper>
+            <UpperWrapper>
               과목명
               <NameInput
                 placeholder={`${title.slice(0, 2)}명을 입력해주세요`}
@@ -96,15 +92,16 @@ const AddModal = ({
                 onKeyDown={onKeyDown}
                 ref={inputRef}
               />
-            </ButtonTypoWrapper>
-            <ButtonTypoWrapper>
-              색상선택
-              <ColorPickerButton onClick={onClickColorButton} color={subjectColor}></ColorPickerButton>
-            </ButtonTypoWrapper>
+            </UpperWrapper>
+            <LowerWrapper>
+              <LowerTypo>색상선택</LowerTypo>
+              <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+              {/* <ColorPickerButton onClick={onClickColorButton} color={subjectColor}></ColorPickerButton> */}
+            </LowerWrapper>
           </InputWrapper>
           <ModalFooter>
-            <ExitButton onClick={closeModal}>취소</ExitButton>
-            <ConfirmButton onClick={onConfirmButtonClick}>확인</ConfirmButton>
+            <WhiteButton onClick={closeModal}>취소</WhiteButton>
+            <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
           </ModalFooter>
           {isColorPickerModalOpen && (
             <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />

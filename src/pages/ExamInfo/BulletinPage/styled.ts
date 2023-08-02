@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 import cancelImg from 'assets/images/cancel.png'
-import greenCheckImg from 'assets/images/check_green.png'
-import whiteCheckImg from 'assets/images/check_white.png'
 
 export const Root = styled.div`
   display: flex;
@@ -29,6 +27,76 @@ export const ButtonWrapper = styled.div`
   justify-content: end;
   column-gap: 8px;
 `
+export const UpperWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+export const TagSelectorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  cursor: pointer;
+`
+export const TagTypo = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 48px;
+`
+export const TagSelector = styled.div`
+  position: relative;
+  box-sizing: border-box;
+  padding: 15px 8px;
+  width: 209px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #c6c6c6;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #888888;
+`
+export const TagOptionWrapper = styled.div`
+  position: absolute;
+  top: 56px;
+  left: 0;
+  box-sizing: border-box;
+  padding: 6px 12px 6px 6px;
+  width: 209px;
+  height: 102px;
+  border-radius: 8px;
+  border: 1px solid #dddede;
+  overflow-y: scroll;
+  background-color: white;
+  z-index: 2;
+`
+export const TagOption = styled.button`
+  width: 191px;
+  height: 30px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 30px;
+  color: #888888;
+
+  &:hover {
+    border-radius: 5px;
+    background-color: #e2f9e9;
+    color: #01cb45;
+  }
+
+  &::before {
+    content: '# ';
+  }
+`
+export const DownArrowImg = styled.img`
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+`
 export const CancelButton = styled.button`
   width: 96px;
   height: 32px;
@@ -43,31 +111,6 @@ export const CancelImg = styled.img`
   width: 11px;
   height: 11px;
   margin-right: 5px;
-`
-export const CheckImg = styled.img`
-  content: url(${greenCheckImg});
-  width: 9px;
-  height: 7px;
-  margin-right: 3px;
-`
-export const RegisterButton = styled.button`
-  width: 96px;
-  height: 32px;
-  top: 801px;
-  left: 1184px;
-  border-radius: 100px;
-  border: 1px solid #01cb45;
-  color: #01cb45;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    ${CheckImg} {
-      content: url(${whiteCheckImg});
-    }
-    color: white;
-    background-color: #1db951;
-  }
 `
 
 export const TitleInput = styled.input`
