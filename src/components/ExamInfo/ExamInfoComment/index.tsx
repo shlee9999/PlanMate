@@ -124,7 +124,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
         <UpperTypoWrapper>
           <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
           {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
-          <Date>{updatedAt}</Date>
+          <Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</Date>
         </UpperTypoWrapper>
         {isEditing ? (
           <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
