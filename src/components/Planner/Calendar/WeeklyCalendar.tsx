@@ -6,6 +6,7 @@ import { TodoPlans } from 'types'
 import { DAYS, TIMES, HOUR_HEIGHT, HOUR_MARGIN_TOP } from './constant'
 import { addDateBy, areDatesSame, getMonday, areDaySame } from './utils'
 import { PlanDate, Plan } from './types'
+import { CalendarTable } from './CalendarTable'
 
 export const WeeklyCalendar: React.FC = () => {
   const [mondayDate, setMondayDate] = useState<Date>(getMonday())
@@ -15,25 +16,6 @@ export const WeeklyCalendar: React.FC = () => {
   const calHowLongHour = (beginHour: number, finishHour: number): number => {
     return +finishHour - +beginHour
   }
-
-  const hourNow = new Date().getHours()
-  const minutesNow = new Date().getMinutes()
-
-  // const onAddEvent = (date: Date) => {
-  //   const name = prompt('name')
-  //   const from = prompt('from')
-  //   const to = prompt('to')
-
-  //   let howlong = 0
-
-  //   if (from && to) {
-  //     howlong = +to - +from
-  //   }
-
-  //   const newPlan: Plan = { date: date, name: name, howLong: howlong }
-
-  //   AddPlan(newPlan)
-  // }
 
   const nextWeek = () => setMondayDate(addDateBy(mondayDate, 7))
   const prevWeek = () => setMondayDate(addDateBy(mondayDate, -7))
@@ -58,6 +40,7 @@ export const WeeklyCalendar: React.FC = () => {
         <DateButton onClick={prevWeek}>prev</DateButton>
         <DateButton onClick={nextWeek}>next</DateButton>
       </FlexBox>
+      {/* <CalendarTable /> */}
       <CalendarWrapper>
         <HGrid first={'80px'} cols={1}>
           <VGrid rows={24}>
@@ -90,20 +73,6 @@ export const WeeklyCalendar: React.FC = () => {
           </HGrid>
         </HGrid>
       </CalendarWrapper>
-      {/* <ul>
-        <span>아 멘탈나가</span>
-        {planList.map((plan) => (
-          <li key={plan.id}>
-            <p>title : {plan.title}</p>
-            <p>color : {plan.color}</p>
-            <p>day : {plan.day}</p>
-            <p>B_h : {plan.begin_hour}</p>
-            <p>B_m : {plan.begin_minute}</p>
-            <p>F_h : {plan.finish_hour}</p>
-            <p>F_m : {plan.finish_minute}</p>
-          </li>
-        ))}
-      </ul> */}
     </>
   )
 }

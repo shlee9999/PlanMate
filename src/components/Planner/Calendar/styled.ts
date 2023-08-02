@@ -4,7 +4,7 @@ import { EventType, HourLineType } from './types'
 
 export const CalendarWrapper = styled.div`
   width: 1200px;
-  height: 900px;
+  height: 750px;
   border: 5px solid black;
   margin: 15px;
 `
@@ -17,7 +17,7 @@ export const HGrid = styled.div<HGridProps>`
   display: grid;
   grid-template-columns: ${({ first, cols }) => `${first || ''} repeat(${cols}, 1fr)`};
   text-align: center;
-  height: 700px;
+  height: 740px;
   position: relative;
 `
 
@@ -32,6 +32,8 @@ export const VGrid = styled.div<VGridProps>`
   justify-items: right;
   padding-right: 5px;
 
+  margin-top: 20px;
+
   font-family: Spoqa Han Sans Neo;
   font-size: 12px;
   font-weight: 400;
@@ -43,7 +45,7 @@ export const VGrid = styled.div<VGridProps>`
 type isToday = boolean
 
 export const DayWrapper = styled.span`
-  border: 10px solid gray;
+  border: 3px solid gray;
   display: relative;
 `
 
