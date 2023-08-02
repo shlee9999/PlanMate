@@ -34,6 +34,10 @@ import { RootState } from 'modules'
 import { StudyTimerWidget } from 'components/Timer/TimerWidget'
 import TodoItem from 'components/Timer/TodoItem'
 import AddModal from 'components/Timer/SubjectModal/AddModal'
+import { HistoryChart } from 'components/Stats/HistoryChart'
+import { DayValue } from 'react-modern-calendar-datepicker'
+import { MainHistory } from 'components/Stats/HistoryChart/component/MainHistory'
+import { BumpGraph } from 'components/Stats/CompareChart'
 
 export const TimerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -44,6 +48,12 @@ export const TimerPage: FC = () => {
   }
   const closeModal = (): void => {
     setIsModalOpen(false)
+  }
+
+  const nowDay: DayValue = {
+    year: 2023,
+    month: 7,
+    day: 31,
   }
 
   return (
@@ -69,7 +79,17 @@ export const TimerPage: FC = () => {
           <SizedBox />
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
-            <StatsContainer></StatsContainer>
+            <StatsContainer>
+              {/* <HistoryChart selectedDate={nowDay} /> */}
+              <MainHistory
+                selectedDate={{
+                  year: 0,
+                  month: 0,
+                  day: 0,
+                }}
+              />
+              <BumpGraph />
+            </StatsContainer>
           </RightContainer>
         </BannerContentWrapper>
       </Banner>
