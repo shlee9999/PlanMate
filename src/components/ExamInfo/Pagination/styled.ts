@@ -15,9 +15,10 @@ const ArrowImg = styled.img`
   cursor: pointer;
 `
 export const LeftArrowImg = styled(ArrowImg)`
-  width: 6px;
-  height: 10px;
-  content: url(${leftArrowImg});
+  width: 18px;
+  height: 18px;
+  content: url(${rightArrowImg});
+  transform: rotate(180deg);
 `
 export const RightArrowImg = styled(ArrowImg)`
   width: 18px;
