@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, ReactComponentElement, useEffect, useState } from 'react'
 import {
   AdminDDay,
   ArrowWrapper,
   DDayContainer,
   EllipsisImg,
   Email,
-  ExamInfoItemContainer,
+  CurrentContentContainer,
   GoogleLogo,
   LeftArrow,
   LeftContainer,
@@ -33,6 +33,7 @@ import rightArrow from 'assets/images/right_arrow.png'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { findScrappedPost } from 'api/post/find/findScrappedPost'
+import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -52,46 +53,78 @@ const sampleDDayList = [
 ]
 
 export const MyPage: FC = () => {
-  const [myActivityList, setMyActivityList] = useState([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
+
+  const [myPostList, setMyPostList] = useState<ResponsePostType[]>()
+  const [myCommentList, setMyCommentList] = useState<ResponseCommentType[]>()
+  const [scrappedPostList, setScrappedPostList] = useState<ResponsePostType[]>()
+
   const onClickEllipsisButton = () => {
     console.log('클릭')
   }
   const onClickTabItem = (tab: string) => () => {
-    setCurrentTab(tab)
-  }
-  useEffect(() => {
-    switch (currentTab) {
+    switch (tab) {
       case myPageTabList[0]:
-        findPost({ pages: currentPage - 1 }).then((res) => {
-          if (res) {
-            const response = res as FindPostResponseProps
-            setMyActivityList(response.postDtoList)
-            setCurrentPage(1)
-          }
-        })
+        if (!myPostList)
+          findPost({ pages: currentPage - 1 }).then((res) => {
+            if (res) {
+              const response = res as FindPostResponseProps
+              setMyPostList(response.postDtoList)
+              setCurrentPage(1)
+              setCurrentTab(tab)
+            }
+          })
+        else setCurrentTab(tab)
         return
       case myPageTabList[1]:
-        findComment({
-          pages: currentPage - 1,
-        }).then((res) => {
-          const response = res as FindCommentResponseProps
-          console.log(response)
-          setMyActivityList(response.commentDtoList)
-        })
+        if (!myCommentList)
+          findComment({
+            pages: currentPage - 1,
+          }).then((res) => {
+            const response = res as FindCommentResponseProps
+            setMyCommentList(response.commentDtoList)
+            setCurrentTab(tab)
+          })
+        else setCurrentTab(tab)
         return
       case myPageTabList[2]:
-        findScrappedPost({ pages: currentPage - 1 }).then((res) => {
-          if (res) {
-            const response = res as FindPostResponseProps
-            setMyActivityList(response.postDtoList)
-            setCurrentPage(1)
-          }
-        })
+        if (!scrappedPostList)
+          findScrappedPost({ pages: currentPage - 1 }).then((res) => {
+            if (res) {
+              const response = res as FindPostResponseProps
+              setScrappedPostList(response.postDtoList)
+              setCurrentPage(1)
+              setCurrentTab(tab)
+            }
+          })
+        else setCurrentTab(tab)
         return
     }
-  }, [currentPage, currentTab])
+    setCurrentTab(tab)
+  }
+  const renderTabContent = () => {
+    switch (currentTab) {
+      case myPageTabList[0]: // "작성한 글"
+        return myPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
+      case myPageTabList[1]: // "작성한 댓글"
+        return myCommentList?.map((comment) => <ExamInfoComment {...comment} key={comment.commentId} />)
+      case myPageTabList[2]: // "스크랩한 글"
+        return scrappedPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
+      default:
+        return null
+    }
+  }
+
+  useEffect(() => {
+    findPost({ pages: currentPage - 1 }).then((res) => {
+      if (res) {
+        const response = res as FindPostResponseProps
+        setMyPostList(response.postDtoList)
+        setCurrentPage(1)
+      }
+    })
+  }, [])
 
   useEffect(() => {
     setCurrentPage(1)
@@ -145,18 +178,7 @@ export const MyPage: FC = () => {
               </TabItem>
             ))}
           </TabSelector>
-          <ExamInfoItemContainer>
-            {myActivityList.map((activity) => {
-              switch (currentTab) {
-                case myPageTabList[0]:
-                  return <ExamInfoItem {...activity} key={activity.postId} />
-                case myPageTabList[1]:
-                  return <ExamInfoComment {...activity} key={activity.commentId} />
-                case myPageTabList[2]:
-                  return <ExamInfoItem {...activity} key={activity.postId} />
-              }
-            })}
-          </ExamInfoItemContainer>
+          <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
         </MyActivityContainer>
       </RightContainer>
     </Root>

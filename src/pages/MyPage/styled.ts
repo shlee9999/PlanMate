@@ -151,7 +151,7 @@ export const MyActivity = styled.p`
   line-height: 20px;
   color: #444444;
 `
-export const ExamInfoItemContainer = styled.div`
+export const CurrentContentContainer = styled.div`
   border-top: 1px solid #c6c6c6;
 `
 export const TabSelector = styled.div`
