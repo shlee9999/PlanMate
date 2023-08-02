@@ -12,14 +12,17 @@ export const Root = styled.div`
   column-gap: 16px;
 `
 const ArrowImg = styled.img`
-  width: 6px;
-  height: 10px;
   cursor: pointer;
 `
 export const LeftArrowImg = styled(ArrowImg)`
-  content: url(${leftArrowImg});
+  width: 18px;
+  height: 18px;
+  content: url(${rightArrowImg});
+  transform: rotate(180deg);
 `
 export const RightArrowImg = styled(ArrowImg)`
+  width: 18px;
+  height: 18px;
   content: url(${rightArrowImg});
 `
 

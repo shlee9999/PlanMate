@@ -24,7 +24,7 @@ import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 
 type ExamInfoCommentProps = {
-  deleteComment: () => void
+  deleteComment?: () => void
 } & ResponseCommentType
 
 const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
@@ -112,7 +112,8 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
 
   return (
     <Root onClick={closeEllipsisModal} ref={ref}>
-      <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
+      {deleteComment && <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>}
+
       {isEllipsisOpen && (
         <EllipsisModal onClick={onClickModal}>
           <EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</EllipsisEditButton>
@@ -123,14 +124,14 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
         <UpperTypoWrapper>
           <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
           {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
-          <Date>{updatedAt}</Date>
+          <Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</Date>
         </UpperTypoWrapper>
         {isEditing ? (
           <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
         ) : (
           <Comment>{currentContent}</Comment>
         )}
-        <ReplyButton>답글</ReplyButton>
+        {deleteComment && <ReplyButton>답글</ReplyButton>}
       </LeftContainer>
       <LikeButton onClick={onClickLikeButton}>
         <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />

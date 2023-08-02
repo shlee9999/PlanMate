@@ -3,9 +3,14 @@ import { ResponsePostType } from '../../common/commonType'
 
 //내 게시물 조회 api
 
-export type FindPostRequestProps = {}
+export type FindPostRequestProps = {
+  pages: number
+}
 
-export type FindPostResponseProps = ResponsePostType[]
+export type FindPostResponseProps = {
+  postDtoList: ResponsePostType[]
+  totalPages: number
+}
 
 export const findPost = (req: FindPostRequestProps) => {
   return axiosGET('/post/find', req)

@@ -23,7 +23,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { serializeContent } from 'utils/wysiwyg'
 import { CheckImg, RegisterButton } from 'styled'
 
-import downArrowImg from 'assets/images/left_arrow.png'
+import downArrowImg from 'assets/images/right_arrow.png'
 import { tagList } from 'constants/tagList'
 export const BulletinPage: FC = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())

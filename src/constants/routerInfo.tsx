@@ -14,6 +14,7 @@ import sampleInfoList from 'constants/sampleInfoList.json'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { ExamInfoDetailDataType } from 'types'
 import { FooterSection } from 'pages/CommonSections/FooterSection'
+import { MyPage } from 'pages/MyPage'
 
 export const routerInfo = [
   {
@@ -26,8 +27,9 @@ export const routerInfo = [
       </Root>
     ),
     children: [
+      { path: 'mypage', element: <MyPage /> },
       {
-        path: '/timer',
+        path: 'timer',
         element: <TimerPage />,
       },
       {

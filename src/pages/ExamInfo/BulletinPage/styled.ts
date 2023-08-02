@@ -91,11 +91,11 @@ export const TagOption = styled.button`
 `
 export const DownArrowImg = styled.img`
   position: absolute;
-  width: 6.2px;
-  height: 10.5px;
-  top: 50%;
+  width: 18px;
+  height: 18px;
   right: 13px;
-  transform: rotate(-90deg) translate(50%);
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
 `
 export const CancelButton = styled.button`
   width: 96px;
