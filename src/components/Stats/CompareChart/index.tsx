@@ -15,46 +15,60 @@ const data: Data[] = [
     어제: 0,
     lastDot: undefined,
   },
+  // {
+  //   // hour: '7:00',
+  //   hour: undefined,
+  //   오늘: 10,
+  //   어제: 20,
+  //   lastDot: undefined,
+  // },
   {
     hour: '11:00',
-    오늘: 0,
-    어제: 60,
+    오늘: 20,
+    어제: 40,
     lastDot: undefined,
   },
   {
     hour: '17:00',
     오늘: 50,
     어제: 120,
-    lastDot: undefined,
+    lastDot: 50,
   },
+  // {
+  //   // hour: '18:00',
+  //   hour: undefined,
+  //   오늘: 50,
+  //   어제: 120,
+  //   lastDot: 50,
+  // },
   {
     hour: '23:00',
-    오늘: 100,
-    어제: 180,
+    오늘: undefined,
+    어제: 120,
     lastDot: undefined,
   },
   {
     hour: '5:00',
-    오늘: 120,
-    어제: 240,
-    lastDot: 120,
+    오늘: undefined,
+    어제: 120,
+    lastDot: undefined,
   },
 ]
 
-const legendPayload = [
-  { value: '오늘', type: 'line', color: '#01CB45' },
-  { value: '어제', type: 'area', color: '#C4F0D3' },
-]
+// const legendPayload = [
+//   { value: '오늘', type: 'line', color: '#01CB45' },
+//   { value: '어제', type: 'area', color: '#C4F0D3' },
+// ]
 
 export const BumpGraph = () => {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="60%">
       <ComposedChart
         width={500}
         height={400}
         data={data}
         margin={{
-          top: 20,
+          top: 30,
           right: 20,
           bottom: 20,
           left: 20,
@@ -75,10 +89,11 @@ export const BumpGraph = () => {
           tickLine={{ stroke: '#white' }}
         />
         <Legend
-          height={36}
-          wrapperStyle={{ top: 40, left: 20 }}
+          height={20}
+          wrapperStyle={{ top: 20, left: 0 }}
           layout="vertical"
-          iconType="plainline"
+          iconType="circle"
+          iconSize={8}
           align="left"
           verticalAlign="middle"
         />

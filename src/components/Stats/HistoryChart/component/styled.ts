@@ -46,8 +46,10 @@ const PieChartContainer = styled.div`
 const StudyPiechartWrapper = styled.div`
   width: 180px;
   height: 142px;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
+  margin-top: 18px;
 `
 
 const PiechartTitle = styled.span`
@@ -64,7 +66,7 @@ const PiechartTitle = styled.span`
 //MainHistory
 const MainHistoryContainer = styled.div`
   width: 100%;
-  height: 221px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -74,7 +76,7 @@ const MainHistoryContainer = styled.div`
 const MainWrapper = styled.div`
   width: 100%;
   height: 160px;
-  border-bottom: 1px solid #d9d9da;
+  /* border-bottom: 1px solid #d9d9da; */
   display: flex;
   justify-content: space-around;
   align-items: center;
