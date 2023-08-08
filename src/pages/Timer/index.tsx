@@ -37,6 +37,7 @@ import AddModal from 'components/Timer/SubjectModal/AddModal'
 import { HistoryChart } from 'components/Stats/HistoryChart'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { MainHistory } from 'components/Stats/HistoryChart/component/MainHistory'
+import { CompareTip } from 'components/Stats/HistoryChart/component/CompareTip'
 import { BumpGraph } from 'components/Stats/CompareChart'
 
 export const TimerPage: FC = () => {
@@ -88,6 +89,7 @@ export const TimerPage: FC = () => {
                   day: 0,
                 }}
               />
+              <CompareTip />
               <BumpGraph />
             </StatsContainer>
           </RightContainer>
