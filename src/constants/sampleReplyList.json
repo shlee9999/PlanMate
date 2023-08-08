@@ -1,0 +1,31 @@
+{
+  "replyList": [
+    {
+      "commentId": 0,
+      "content": "답글 내용",
+      "isAuthor": false,
+      "isMyHearted": false,
+      "likeCount": 0,
+      "memberName": "이성훈",
+      "updatedAt": "2023-08-23"
+    },
+    {
+      "commentId": 0,
+      "content": "답글 내용",
+      "isAuthor": false,
+      "isMyHearted": false,
+      "likeCount": 0,
+      "memberName": "이성훈",
+      "updatedAt": "2023-08-23"
+    },
+    {
+      "commentId": 0,
+      "content": "답글 내용",
+      "isAuthor": false,
+      "isMyHearted": false,
+      "likeCount": 0,
+      "memberName": "이성훈",
+      "updatedAt": "2023-08-23"
+    }
+  ]
+}

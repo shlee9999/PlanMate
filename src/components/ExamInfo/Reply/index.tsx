@@ -17,6 +17,7 @@ import {
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
+import { ReplyMark } from '../ExamInfoComment/styled'
 
 type ExamInfoReplyProps = {
   deleteComment: () => void
@@ -73,6 +74,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
 
   return (
     <Root onClick={closeEllipsisModal}>
+      <ReplyMark />
       <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
       {isEllipsisOpen && (
         <EllipsisModal onClick={onClickModal}>
@@ -87,7 +89,6 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
           <Date>{updatedAt}</Date>
         </UpperTypoWrapper>
         <Comment>{content}</Comment>
-        <ReplyButton>답글</ReplyButton>
       </LeftContainer>
       <LikeButton onClick={onClickLikeButton}>
         <LikeImg isLiked={isLiked} />

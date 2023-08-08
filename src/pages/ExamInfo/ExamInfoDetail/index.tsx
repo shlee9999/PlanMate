@@ -324,6 +324,7 @@ export const ExamInfoDetailPage: FC = () => {
               content={comment.content}
               deleteComment={deleteComment(comment.commentId)}
               isMyHearted={comment.isMyHearted}
+              postId={+postId}
               ref={index === commentList.length - 1 ? target : null}
             />
           ))}
