@@ -1,7 +1,7 @@
 //타이머 탭
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TodoItemType } from 'types'
-import { useState, FC } from 'react'
+import { useState, FC, useEffect } from 'react'
 import {
   Banner,
   Date,
@@ -39,11 +39,13 @@ import { DayValue } from 'react-modern-calendar-datepicker'
 import { MainHistory } from 'components/Stats/HistoryChart/component/MainHistory'
 import { CompareTip } from 'components/Stats/HistoryChart/component/CompareTip'
 import { BumpGraph } from 'components/Stats/CompareChart'
+import { initializeTimer } from 'modules/timer'
 
 export const TimerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const formattedDate: string = useFormattedDate()
   const todos = useSelector((state: RootState) => state.todos)
+  const dispatch = useDispatch()
   const openModal = (): void => {
     setIsModalOpen(true)
   }
@@ -56,6 +58,15 @@ export const TimerPage: FC = () => {
     month: 7,
     day: 31,
   }
+  useEffect(() => {
+    if (todos.length !== 0) {
+      let sum = 0
+      todos.forEach((todo) => {
+        sum += todo.time
+      })
+      dispatch(initializeTimer(sum))
+    }
+  }, [todos])
 
   return (
     <Root>
@@ -104,9 +115,9 @@ export const TimerPage: FC = () => {
           조금만 더 힘을 내볼까요? 🏃
         </CheerTypo>
         <TodoContainer>
-          {todos.map((todo: TodoItemType) => (
-            <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
-          ))}
+          {todos.map((todo: TodoItemType) => {
+            return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
+          })}
         </TodoContainer>
 
         <AddButton onClick={openModal}>

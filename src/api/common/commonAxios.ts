@@ -1,13 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { authorization } from 'constants/authorization'
-import { baseUrl } from 'constants/url'
 
 const axiosInstance = axios.create({
   withCredentials: true,
-  baseURL: baseUrl,
+  baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: authorization,
+    Authorization: process.env.REACT_APP_TOKEN,
   },
 })
 

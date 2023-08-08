@@ -6,22 +6,8 @@ import { useTimer } from 'hooks/useTimer'
 import { RootState } from 'modules'
 
 export const StudyTimerWidget = () => {
-  const isRunning = useSelector((state: RootState) => state.timer.isRunning)
-
-  const { startTimer, stopTimer, time } = useTimer({ defaultTime: 0 })
-  const formattedTime: string = useFormattedTime(time)
-
-  useEffect(() => {
-    if (!isRunning) {
-      stopTimer()
-      return
-    }
-    if (isRunning) {
-      startTimer()
-      return
-    }
-  }, [isRunning])
-
+  const totalTime = useSelector((state: RootState) => state.timer.totalTime)
+  const formattedTime: string = useFormattedTime(totalTime)
   return (
     <Root>
       <Mode>공부</Mode>

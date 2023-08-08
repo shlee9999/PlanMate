@@ -22,11 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# url
-url.ts
 
-# authorization
-authorization.ts
-
-# clientId
-clientId.ts
+# .env
+.env

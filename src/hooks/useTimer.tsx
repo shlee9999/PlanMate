@@ -7,7 +7,6 @@ type useTimerProps = {
 export const useTimer = ({ defaultTime }: useTimerProps) => {
   const [time, setTime] = useState<number>(defaultTime)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-
   const startTimer = (): void => {
     if (intervalRef.current) return
     intervalRef.current = setInterval(() => {
