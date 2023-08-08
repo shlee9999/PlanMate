@@ -27,3 +27,6 @@ url.ts
 
 # authorization
 authorization.ts
+
+# clientId
+clientId.ts

@@ -15,6 +15,7 @@ import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findA
 import { ExamInfoDetailDataType } from 'types'
 import { FooterSection } from 'pages/CommonSections/FooterSection'
 import { MyPage } from 'pages/MyPage'
+import { LoginPage } from 'pages/Login'
 
 export const routerInfo = [
   {
@@ -70,6 +71,10 @@ export const routerInfo = [
             findAllCommentsResult: findAllCommentsResult,
           }
         },
+      },
+      {
+        path: '/login',
+        element: <LoginPage />,
       },
       {
         path: '*',
