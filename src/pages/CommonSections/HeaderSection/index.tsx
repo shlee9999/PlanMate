@@ -22,6 +22,7 @@ import { addTodo, initializeTodo } from 'modules/todos'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { TodoItemType } from 'types'
 import { timeToSecond } from 'utils/helper'
+import { googleToken } from 'api/login/googleToken'
 
 export const HeaderSection: FC = () => {
   const location = useLocation()
@@ -56,8 +57,10 @@ export const HeaderSection: FC = () => {
         dispatch(initializeTodo(newTodoItems)) //response 수정 필요
       }
     }
-
     fetchStudyTime()
+    googleToken().then((res) => {
+      console.log(res)
+    })
   }, [dispatch])
 
   useEffect(() => {
