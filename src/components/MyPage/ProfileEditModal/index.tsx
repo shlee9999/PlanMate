@@ -1,17 +1,20 @@
 import { ChangeEvent, FC, useState } from 'react'
 import { GreenButton, ModalExitButton, ModalFooter, ModalWrapper, WhiteButton } from 'components/common/commonStyle'
 import { Container, NicknameInput, NicknameTypo, Root, Title } from './styled'
+import { changeName } from 'api/member/changeName'
 
 type ProfileEditModalProps = {
   closeModal: () => void
   nickname: string
+  changeNickname: (newNickname: string) => void
 }
 
-export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickname }) => {
+export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickname, changeNickname }) => {
   const onClickModal = (e: React.MouseEvent) => {
     e.stopPropagation()
   }
   const onClickEditButton = () => {
+    changeNickname(inputValue)
     //profileEdit api
   }
   const [inputValue, setInputValue] = useState<string>(nickname)

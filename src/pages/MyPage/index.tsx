@@ -37,11 +37,13 @@ import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { findScrappedPost } from 'api/post/find/findScrappedPost'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
 import { ProfileEditModal } from 'components/MyPage/ProfileEditModal'
 import { ResignModal } from 'components/MyPage/ResignModal'
+import { changeName } from 'api/member/changeName'
+import { changeuserAuthInfo } from 'modules/userAuthInfo'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -64,7 +66,7 @@ export const MyPage: FC = () => {
   const [scrappedPostList, setScrappedPostList] = useState<ResponsePostType[]>()
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
-
+  const dispatch = useDispatch()
   const openProfileEditModal = () => {
     setIsProfileEditModalOpen(true)
     setIsEllipsisModalOpen(false)
@@ -141,7 +143,14 @@ export const MyPage: FC = () => {
   const onClickRoot = () => {
     setIsEllipsisModalOpen(false)
   }
-
+  const changeNickname = (newNickname: string) => {
+    changeName({ name: newNickname }).then((res) => {
+      const newUserAuth = { ...userAuthInfo, name: newNickname }
+      dispatch(changeuserAuthInfo(newUserAuth))
+      localStorage.setItem('userAuthInfo', JSON.stringify(newUserAuth))
+      closeProfileEditModal()
+    })
+  }
   useEffect(() => {
     findPost({ pages: currentPage - 1 }).then((res) => {
       if (res) {
@@ -217,7 +226,13 @@ export const MyPage: FC = () => {
           <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
         </MyActivityContainer>
       </RightContainer>
-      {isProfileEditModalOpen && <ProfileEditModal closeModal={closeProfileEditModal} nickname={userAuthInfo.name} />}
+      {isProfileEditModalOpen && (
+        <ProfileEditModal
+          closeModal={closeProfileEditModal}
+          nickname={userAuthInfo.name}
+          changeNickname={changeNickname}
+        />
+      )}
       {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
     </Root>
   )
