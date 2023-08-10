@@ -18,10 +18,11 @@ import logo from 'assets/images/logo.png'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { initializeTodo } from 'modules/todos'
+import { logout } from 'api/login/logout'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { TodoItemType } from 'types'
 import { timeToSecond } from 'utils/helper'
+import { initializeTodo } from 'modules/todos'
 import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 
 export const HeaderSection: FC = () => {
@@ -30,12 +31,11 @@ export const HeaderSection: FC = () => {
   const initialTabIndex = pageList.findIndex((page) => location.pathname.includes(page.url))
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
-    if (isRunning) return
     setCurrentTab(index)
+    if (isRunning) return
     navigate(pageList[index].url)
   }
 
@@ -45,7 +45,20 @@ export const HeaderSection: FC = () => {
   const onClickLogin = () => {
     navigate('login')
   }
+  const onClickLogout = () => {
+    logout().then((res) => {
+      navigate('timer')
+      localStorage.removeItem('userAuthInfo')
+      window.location.reload()
+    })
+  }
+
   useEffect(() => {
+    if (location.pathname === '/') navigate('/timer')
+  }, [currentTab])
+
+  useEffect(() => {
+    const currentUrl = window.location.href
     const fetchStudyTime = async () => {
       const res = await studyTime()
       if (res) {
@@ -60,22 +73,22 @@ export const HeaderSection: FC = () => {
       }
     }
     fetchStudyTime()
-    try {
-      const currentUrl = window.location.href
-      googleToken({ id: +currentUrl.split('id')[1].replace('=', '') }).then((res) => {
-        const response = res as GoogleTokenResponseProps
-        localStorage.setItem('userAuthInfo', JSON.stringify(response))
-        console.log(JSON.parse(localStorage.getItem('userAuthInfo')))
-      })
-    } catch (error) {
-      console.log('')
+    const split = currentUrl.split('id')
+    if (split.length >= 2) {
+      const userId = +split[1].replace('=', '')
+      const getUserAuth = async () => {
+        const res = await googleToken({ id: userId })
+        if (res) {
+          const response = res as GoogleTokenResponseProps
+          localStorage.setItem('userAuthInfo', JSON.stringify(response)) //최초 저장
+          console.log(JSON.parse(localStorage.getItem('userAuthInfo')))
+          navigate('/')
+          window.location.reload()
+        }
+      }
+      getUserAuth()
     }
-  }, [dispatch])
-
-  useEffect(() => {
-    if (location.pathname === '/') navigate('/timer')
-  }, [location.pathname, navigate])
-
+  }, [])
   return (
     <Root>
       <ContentWrapper>
@@ -99,10 +112,13 @@ export const HeaderSection: FC = () => {
           {userAuthInfo.name && (
             <GreetTypo>
               안녕하세요, <GreenTypo onClick={onClickNickname}>{userAuthInfo.name}</GreenTypo>님!
-              {/* 닉네임으로 변경 */}
             </GreetTypo>
           )}
-          {userAuthInfo.name ? <LoginTypo>로그아웃</LoginTypo> : <LoginTypo onClick={onClickLogin}>로그인</LoginTypo>}
+          {userAuthInfo.name ? (
+            <LoginTypo onClick={onClickLogout}>로그아웃</LoginTypo>
+          ) : (
+            <LoginTypo onClick={onClickLogin}>로그인</LoginTypo>
+          )}
           <Notice>공지사항</Notice>
         </RightContainer>
       </ContentWrapper>
