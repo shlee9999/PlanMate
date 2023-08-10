@@ -31,6 +31,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   memberName,
   updatedAt,
   content, //댓글임
+  postId,
   deleteComment,
 }) => {
   //대댓글 로직
