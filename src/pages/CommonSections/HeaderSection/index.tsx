@@ -5,7 +5,7 @@ import {
   GreetTypo,
   LeftContainer,
   Logo,
-  Logout,
+  LoginTypo,
   Notice,
   RightContainer,
   Root,
@@ -18,16 +18,16 @@ import logo from 'assets/images/logo.png'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { addTodo, initializeTodo } from 'modules/todos'
+import { initializeTodo } from 'modules/todos'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { TodoItemType } from 'types'
 import { timeToSecond } from 'utils/helper'
-import { googleToken } from 'api/login/googleToken'
+import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 
 export const HeaderSection: FC = () => {
+  const [userAuthInfo, setUserAuthInfo] = useState(JSON.parse(localStorage.getItem('userAuthInfo') || '{}'))
   const location = useLocation()
   const initialTabIndex = pageList.findIndex((page) => location.pathname.includes(page.url))
-  const todos = useSelector((state: RootState) => state.todos)
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
 
@@ -42,7 +42,9 @@ export const HeaderSection: FC = () => {
   const onClickNickname = () => {
     navigate('mypage')
   }
-
+  const onClickLogin = () => {
+    navigate('login')
+  }
   useEffect(() => {
     const fetchStudyTime = async () => {
       const res = await studyTime()
@@ -58,10 +60,16 @@ export const HeaderSection: FC = () => {
       }
     }
     fetchStudyTime()
-    const currentUrl = window.location.href
-    googleToken({ id: +currentUrl.split('id')[1].replace('=', '') }).then((res) => {
-      console.log(res)
-    })
+    try {
+      const currentUrl = window.location.href
+      googleToken({ id: +currentUrl.split('id')[1].replace('=', '') }).then((res) => {
+        const response = res as GoogleTokenResponseProps
+        localStorage.setItem('userAuthInfo', JSON.stringify(response))
+        console.log(JSON.parse(localStorage.getItem('userAuthInfo')))
+      })
+    } catch (error) {
+      console.log('')
+    }
   }, [dispatch])
 
   useEffect(() => {
@@ -88,11 +96,13 @@ export const HeaderSection: FC = () => {
           </PageList>
         </LeftContainer>
         <RightContainer>
-          <GreetTypo>
-            안녕하세요, <GreenTypo onClick={onClickNickname}>메이트</GreenTypo>님!
-            {/* 닉네임으로 변경 */}
-          </GreetTypo>
-          <Logout>로그아웃</Logout>
+          {userAuthInfo.name && (
+            <GreetTypo>
+              안녕하세요, <GreenTypo onClick={onClickNickname}>{userAuthInfo.name}</GreenTypo>님!
+              {/* 닉네임으로 변경 */}
+            </GreetTypo>
+          )}
+          {userAuthInfo.name ? <LoginTypo>로그아웃</LoginTypo> : <LoginTypo onClick={onClickLogin}>로그인</LoginTypo>}
           <Notice>공지사항</Notice>
         </RightContainer>
       </ContentWrapper>
