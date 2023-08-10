@@ -34,6 +34,8 @@ import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { findScrappedPost } from 'api/post/find/findScrappedPost'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
+import { useSelector } from 'react-redux'
+import { RootState } from 'modules'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -53,6 +55,7 @@ const sampleDDayList = [
 ]
 
 export const MyPage: FC = () => {
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
 
@@ -134,15 +137,15 @@ export const MyPage: FC = () => {
     <Root>
       <LeftContainer>
         <TitleWrapper>
-          <Nickname>메이트</Nickname>
+          <Nickname>{userAuthInfo.name}</Nickname>
           님의 <Title>마이페이지 👋</Title>
         </TitleWrapper>
         <ProfileTypo>프로필</ProfileTypo>
         <ProfileContainer>
-          <UserName>이성훈</UserName>님
+          <UserName>{userAuthInfo.name}</UserName>님
           <Email>
             <GoogleLogo alt="google_logo" src={googleLogo} />
-            oklshop555@naver.com
+            {userAuthInfo.email}
           </Email>
           <EllipsisImg onClick={onClickEllipsisButton} />
         </ProfileContainer>
@@ -158,10 +161,10 @@ export const MyPage: FC = () => {
             <DDayItem {...dday} key={dday.dDayId} />
           ))}
 
-          <ArrowWrapper>
+          {/* <ArrowWrapper>
             <LeftArrow src={rightArrow} />
             <RightArrow src={rightArrow} />
-          </ArrowWrapper>
+          </ArrowWrapper> */}
         </DDayContainer>
       </LeftContainer>
       <RightContainer>
