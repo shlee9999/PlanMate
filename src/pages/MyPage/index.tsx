@@ -40,6 +40,8 @@ import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
+import { ProfileEditModal } from 'components/MyPage/ProfileEditModal'
+import { ResignModal } from 'components/MyPage/ResignModal'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -60,7 +62,23 @@ export const MyPage: FC = () => {
   const [myPostList, setMyPostList] = useState<ResponsePostType[]>()
   const [myCommentList, setMyCommentList] = useState<ResponseCommentType[]>()
   const [scrappedPostList, setScrappedPostList] = useState<ResponsePostType[]>()
+  const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
+  const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
 
+  const openProfileEditModal = () => {
+    setIsProfileEditModalOpen(true)
+    setIsEllipsisModalOpen(false)
+  }
+  const openResignModal = () => {
+    setIsResignModalOpen(true)
+    setIsEllipsisModalOpen(false)
+  }
+  const closeProfileEditModal = () => {
+    setIsProfileEditModalOpen(false)
+  }
+  const closeResignModal = () => {
+    setIsResignModalOpen(false)
+  }
   const onClickEllipsisButton = (e: React.MouseEvent): void => {
     setIsEllipsisModalOpen((prev) => !prev)
     e.stopPropagation()
@@ -159,8 +177,8 @@ export const MyPage: FC = () => {
           <EllipsisImg onClick={onClickEllipsisButton} />
           {isEllipsisModalOpen && (
             <EllipsisModal onClick={onClickModal}>
-              <EllipsisEditButton>프로필 수정</EllipsisEditButton>
-              <EllipsisResignButton>탈퇴하기</EllipsisResignButton>
+              <EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</EllipsisEditButton>
+              <EllipsisResignButton onClick={openResignModal}>탈퇴하기</EllipsisResignButton>
             </EllipsisModal>
           )}
         </ProfileContainer>
@@ -199,6 +217,8 @@ export const MyPage: FC = () => {
           <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
         </MyActivityContainer>
       </RightContainer>
+      {isProfileEditModalOpen && <ProfileEditModal closeModal={closeProfileEditModal} />}
+      {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
     </Root>
   )
 }
