@@ -1,5 +1,9 @@
 import { axiosGET } from 'api/common/commonAxios'
 
+export type GoogleTokenRequestProps = {
+  id: number
+}
+
 export type GoogleTokenResponseProps = {
   accessToken: string
   email: string
@@ -9,6 +13,6 @@ export type GoogleTokenResponseProps = {
   refreshToken: string
 }
 
-export const googleToken = () => {
-  return axiosGET('/info/auth')
+export const googleToken = (req: GoogleTokenRequestProps) => {
+  return axiosGET('/info/auth', req)
 }

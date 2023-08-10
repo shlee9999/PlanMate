@@ -58,7 +58,8 @@ export const HeaderSection: FC = () => {
       }
     }
     fetchStudyTime()
-    googleToken().then((res) => {
+    const currentUrl = window.location.href
+    googleToken({ id: +currentUrl.split('id')[1].replace('=', '') }).then((res) => {
       console.log(res)
     })
   }, [dispatch])
