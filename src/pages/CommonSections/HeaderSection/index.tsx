@@ -24,9 +24,10 @@ import { TodoItemType } from 'types'
 import { timeToSecond } from 'utils/helper'
 import { initializeTodo } from 'modules/todos'
 import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
+import { changeuserAuthInfo } from 'modules/userAuthInfo'
 
 export const HeaderSection: FC = () => {
-  const [userAuthInfo, setUserAuthInfo] = useState(JSON.parse(localStorage.getItem('userAuthInfo') || '{}'))
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const location = useLocation()
   const initialTabIndex = pageList.findIndex((page) => location.pathname.includes(page.url))
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
@@ -34,9 +35,9 @@ export const HeaderSection: FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
-    setCurrentTab(index)
     if (isRunning) return
-    navigate(pageList[index].url)
+    setCurrentTab(index)
+    if (userAuthInfo.name) navigate(pageList[index].url)
   }
 
   const onClickNickname = () => {
@@ -81,7 +82,7 @@ export const HeaderSection: FC = () => {
         if (res) {
           const response = res as GoogleTokenResponseProps
           localStorage.setItem('userAuthInfo', JSON.stringify(response)) //최초 저장
-          console.log(JSON.parse(localStorage.getItem('userAuthInfo')))
+          dispatch(changeuserAuthInfo(response))
           navigate('/')
           window.location.reload()
         }
@@ -89,6 +90,9 @@ export const HeaderSection: FC = () => {
       getUserAuth()
     }
   }, [])
+  useEffect(() => {
+    if (!userAuthInfo.name) navigate('login')
+  }, [userAuthInfo])
   return (
     <Root>
       <ContentWrapper>
