@@ -24,6 +24,9 @@ import {
   TitleWrapper,
   TypoWrapper,
   UserName,
+  EllipsisModal,
+  EllipsisEditButton,
+  EllipsisResignButton,
 } from './styled'
 import { DDayItem } from 'components/MyPage/DDayItem'
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
@@ -58,13 +61,17 @@ export const MyPage: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
-
+  const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
   const [myPostList, setMyPostList] = useState<ResponsePostType[]>()
   const [myCommentList, setMyCommentList] = useState<ResponseCommentType[]>()
   const [scrappedPostList, setScrappedPostList] = useState<ResponsePostType[]>()
 
-  const onClickEllipsisButton = () => {
-    console.log('클릭')
+  const onClickEllipsisButton = (e: React.MouseEvent): void => {
+    setIsEllipsisModalOpen((prev) => !prev)
+    e.stopPropagation()
+  }
+  const onClickModal = (e: React.MouseEvent): void => {
+    e.stopPropagation()
   }
   const onClickTabItem = (tab: string) => () => {
     switch (tab) {
@@ -118,6 +125,9 @@ export const MyPage: FC = () => {
         return null
     }
   }
+  const onClickRoot = () => {
+    setIsEllipsisModalOpen(false)
+  }
 
   useEffect(() => {
     findPost({ pages: currentPage - 1 }).then((res) => {
@@ -134,7 +144,7 @@ export const MyPage: FC = () => {
   }, [currentTab])
 
   return (
-    <Root>
+    <Root onClick={onClickRoot}>
       <LeftContainer>
         <TitleWrapper>
           <Nickname>{userAuthInfo.name}</Nickname>
@@ -148,6 +158,12 @@ export const MyPage: FC = () => {
             {userAuthInfo.email}
           </Email>
           <EllipsisImg onClick={onClickEllipsisButton} />
+          {isEllipsisModalOpen && (
+            <EllipsisModal onClick={onClickModal}>
+              <EllipsisEditButton>프로필 수정</EllipsisEditButton>
+              <EllipsisResignButton>탈퇴하기</EllipsisResignButton>
+            </EllipsisModal>
+          )}
         </ProfileContainer>
         <TypoWrapper>
           <AdminDDay>D-DAY 관리</AdminDDay>
