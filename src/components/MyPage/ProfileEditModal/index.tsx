@@ -21,13 +21,18 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickna
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      onClickEditButton()
+    }
+  }
   return (
     <ModalWrapper onClick={closeModal}>
       <Root onClick={onClickModal}>
         <Title>닉네임 수정</Title>
         <Container>
           <NicknameTypo>닉네임</NicknameTypo>
-          <NicknameInput onChange={onChange} value={inputValue} />
+          <NicknameInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} />
         </Container>
         <ModalFooter>
           <WhiteButton onClick={closeModal}>취소</WhiteButton>
