@@ -217,7 +217,7 @@ export const MyPage: FC = () => {
           <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
         </MyActivityContainer>
       </RightContainer>
-      {isProfileEditModalOpen && <ProfileEditModal closeModal={closeProfileEditModal} />}
+      {isProfileEditModalOpen && <ProfileEditModal closeModal={closeProfileEditModal} nickname={userAuthInfo.name} />}
       {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
     </Root>
   )
