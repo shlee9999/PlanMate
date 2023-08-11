@@ -91,7 +91,7 @@ export const HeaderSection: FC = () => {
     }
   }, [])
   useEffect(() => {
-    if (!userAuthInfo.name) navigate('login')
+    if (!userAuthInfo.name) navigate('../login')
   }, [userAuthInfo])
   return (
     <Root>
