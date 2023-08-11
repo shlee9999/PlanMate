@@ -32,4 +32,5 @@ export type ResponseCommentType = {
   likeCount: number
   memberName: string
   updatedAt: string
+  postId: number
 }

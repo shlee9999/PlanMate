@@ -50,6 +50,9 @@ export const Comment = styled.p`
   line-height: 18px;
   color: #222222;
   white-space: pre-line;
+  &.mypage_comment {
+    cursor: pointer;
+  }
 `
 export const EditInput = styled.textarea`
   font-size: 14px;

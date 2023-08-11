@@ -31,11 +31,12 @@ import { modifyComment } from 'api/comment/modifyComment'
 import { BulletinIcon } from 'pages/ExamInfo/ExamInfoPage/styled'
 import { createChildComment } from 'api/comment/createChildComment'
 import { ExamInfoReply } from '../Reply'
-import sampleReplyList from 'constants/sampleReplyList.json'
+import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
+import { removeComment } from 'api/comment/removeComment'
+import { useNavigate } from 'react-router-dom'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
-  postId?: number
 } & ResponseCommentType
 
 const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
@@ -46,7 +47,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     likeCount: initialLikeCount,
     memberName,
     updatedAt,
-    content, //댓글임
+    content,
     deleteComment,
     postId,
   },
@@ -65,9 +66,15 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const [replyInput, setReplyInput] = useState<string>('')
   const [inputValue, setInputValue] = useState<string>(content)
   const [currentContent, setCurrentContent] = useState<string>(content)
-  const [currentReplyList, setCurrentReplyList] = useState<ResponseCommentType[]>(sampleReplyList.replyList)
+  const [currentReplyList, setCurrentReplyList] = useState<ResponseCommentType[]>([])
+  const navigate = useNavigate()
   const deleteReply = (commentId: number) => () => {
-    setCurrentReplyList((prev) => prev.filter((reply) => reply.commentId !== commentId))
+    removeComment({
+      commentId: commentId,
+    }).then((res) => {
+      console.log(res)
+      if (res) setCurrentReplyList((prev) => prev.filter((reply) => reply.commentId !== commentId))
+    })
   }
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
@@ -132,23 +139,31 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
       console.log(res)
     })
   }
+  const onClickComment = () => {
+    if (deleteComment) return
+    //mypage에서
+    navigate(`/examinfo/detail/${postId}`)
+  }
   useEffect(() => {
     inputRef.current?.focus()
   }, [isEditing])
 
-  // useEffect(() => {
-  //   return () => {
-  //     if (currentLikeCount !== initialLikeCount) {
-  //       likeComment({ commentId: commentId })
-  //     }
-  //   }
-  // }, []) // Empty dependencies so the effect only runs at mount and cleanup at unmount.
+  useEffect(() => {
+    findAllChild({
+      parentCommentId: commentId,
+      postId: postId,
+    }).then((res) => {
+      if (res) {
+        const response = res as FindAllChildResponseProps
+        setCurrentReplyList(response.commentDtoList)
+      }
+    })
+  }, [])
 
   return (
     <>
       <Root onClick={closeEllipsisModal} ref={ref}>
         {deleteComment && <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>}
-
         {isEllipsisOpen && (
           <EllipsisModal onClick={onClickModal}>
             <EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</EllipsisEditButton>
@@ -164,7 +179,9 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           {isEditing ? (
             <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
-            <Comment>{currentContent}</Comment>
+            <Comment onClick={onClickComment} className={deleteComment ? '' : 'mypage_comment'}>
+              {currentContent}
+            </Comment>
           )}
           {deleteComment && <ReplyButton onClick={onClickReplyButton}>답글</ReplyButton>}
         </LeftContainer>

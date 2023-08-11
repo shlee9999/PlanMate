@@ -5,7 +5,7 @@ import {
   GreetTypo,
   LeftContainer,
   Logo,
-  Logout,
+  LoginTypo,
   Notice,
   RightContainer,
   Root,
@@ -18,31 +18,48 @@ import logo from 'assets/images/logo.png'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { addTodo, initializeTodo } from 'modules/todos'
+import { logout } from 'api/login/logout'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { TodoItemType } from 'types'
 import { timeToSecond } from 'utils/helper'
+import { initializeTodo } from 'modules/todos'
+import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
+import { changeuserAuthInfo } from 'modules/userAuthInfo'
 
 export const HeaderSection: FC = () => {
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const location = useLocation()
   const initialTabIndex = pageList.findIndex((page) => location.pathname.includes(page.url))
-  const todos = useSelector((state: RootState) => state.todos)
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
     if (isRunning) return
     setCurrentTab(index)
-    navigate(pageList[index].url)
+    if (userAuthInfo.name) navigate(pageList[index].url)
   }
 
   const onClickNickname = () => {
     navigate('mypage')
   }
+  const onClickLogin = () => {
+    navigate('login')
+  }
+  const onClickLogout = () => {
+    logout().then((res) => {
+      navigate('timer')
+      localStorage.removeItem('userAuthInfo')
+      window.location.reload()
+    })
+  }
 
   useEffect(() => {
+    if (location.pathname === '/') navigate('/timer')
+  }, [currentTab])
+
+  useEffect(() => {
+    const currentUrl = window.location.href
     const fetchStudyTime = async () => {
       const res = await studyTime()
       if (res) {
@@ -56,14 +73,26 @@ export const HeaderSection: FC = () => {
         dispatch(initializeTodo(newTodoItems)) //response 수정 필요
       }
     }
-
     fetchStudyTime()
-  }, [dispatch])
-
+    const split = currentUrl.split('id')
+    if (split.length >= 2) {
+      const userId = +split[1].replace('=', '')
+      const getUserAuth = async () => {
+        const res = await googleToken({ id: userId })
+        if (res) {
+          const response = res as GoogleTokenResponseProps
+          localStorage.setItem('userAuthInfo', JSON.stringify(response)) //최초 저장
+          dispatch(changeuserAuthInfo(response))
+          navigate('/')
+          window.location.reload()
+        }
+      }
+      getUserAuth()
+    }
+  }, [])
   useEffect(() => {
-    if (location.pathname === '/') navigate('/timer')
-  }, [location.pathname, navigate])
-
+    if (!userAuthInfo.name) navigate('login')
+  }, [userAuthInfo])
   return (
     <Root>
       <ContentWrapper>
@@ -84,11 +113,16 @@ export const HeaderSection: FC = () => {
           </PageList>
         </LeftContainer>
         <RightContainer>
-          <GreetTypo>
-            안녕하세요, <GreenTypo onClick={onClickNickname}>메이트</GreenTypo>님!
-            {/* 닉네임으로 변경 */}
-          </GreetTypo>
-          <Logout>로그아웃</Logout>
+          {userAuthInfo.name && (
+            <GreetTypo>
+              안녕하세요, <GreenTypo onClick={onClickNickname}>{userAuthInfo.name}</GreenTypo>님!
+            </GreetTypo>
+          )}
+          {userAuthInfo.name ? (
+            <LoginTypo onClick={onClickLogout}>로그아웃</LoginTypo>
+          ) : (
+            <LoginTypo onClick={onClickLogin}>로그인</LoginTypo>
+          )}
           <Notice>공지사항</Notice>
         </RightContainer>
       </ContentWrapper>

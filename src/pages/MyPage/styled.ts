@@ -79,8 +79,6 @@ export const GoogleLogo = styled.img`
   width: 16px;
   height: 16px;
 `
-export const EllipsisModal = styled.div``
-export const EllipsisModalItem = styled.p``
 
 export const TypoWrapper = styled.div`
   display: flex;
@@ -182,3 +180,40 @@ export const ArrowWrapper = styled.div`
   justify-content: flex-end;
   column-gap: 10px;
 `
+
+export const EllipsisModal = styled.div`
+  position: absolute;
+  top: 16px;
+  right: 0;
+  transform: translate(0, 16px);
+  width: 160px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #dddede;
+  border-radius: 8px;
+  background-color: white;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 6px 5px;
+`
+const EllipsisButtonRoot = styled.button`
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #e2f9e9;
+    color: #01cb45;
+  }
+  text-align: left;
+  box-sizing: border-box;
+  padding-left: 6px;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #888888;
+`
+export const EllipsisEditButton = styled(EllipsisButtonRoot)``
+export const EllipsisResignButton = styled(EllipsisButtonRoot)``
