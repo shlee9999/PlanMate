@@ -75,9 +75,8 @@ export const ReplyButton = styled.button`
 `
 
 export const LikeImg = styled.img`
-  width: 13px;
-  height: 12px;
-  margin-right: 2px;
+  width: 16px;
+  height: 16px;
 `
 
 export const LikeButton = styled.button`

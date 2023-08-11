@@ -125,14 +125,12 @@ export const IconContainer = styled.div`
 `
 
 export const LikeImg = styled.img`
-  width: 13px;
-  height: 12px;
-  margin-right: 2px;
+  width: 16px;
+  height: 16px;
 `
 export const ScrapImg = styled.img`
-  width: 9px;
-  height: 12px;
-  margin-right: 3px;
+  width: 16px;
+  height: 16px;
 `
 const ImgButton = styled.button`
   display: flex;

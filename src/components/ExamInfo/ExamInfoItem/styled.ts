@@ -42,7 +42,10 @@ export const IconContainer = styled.div`
 `
 export const IconCountWrapper = styled.div`
   display: flex;
-  column-gap: 1px;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 13px;
 `
 export const Icon = styled.img`
   width: 12px;
