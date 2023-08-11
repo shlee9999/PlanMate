@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import plusImg from 'assets/images/plus.png'
-import bannerImg from 'assets/images/banner.png'
+import bannerImg from 'assets/images/banner.jpeg'
 import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
 export const Root = styled.div`
   margin: 0 auto;
@@ -31,7 +31,7 @@ export const LeftContainer = styled.div`
   flex-direction: column;
 `
 export const Date = styled.p`
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
@@ -43,34 +43,15 @@ export const Title = styled.p`
   line-height: 26px;
   margin-bottom: 8px;
 `
-export const ModeSelectorWrapper = styled.div`
-  width: fit-content;
-  border-collapse: collapse;
-  display: flex;
-  text-align: center;
-`
-export const ModeSelector = styled.div`
-  background-color: white;
-  width: 96px;
-  height: 32px;
-  line-height: 32px;
-  border-width: 1px 1px 0 1px;
-  border-radius: 8px 8px 0 0;
-  border-style: solid;
-  border-color: #dddede;
-  cursor: pointer;
-`
-
 export const ResultContainer = styled.div`
+  overflow: hidden;
   background-color: white;
   position: relative;
   box-sizing: border-box;
   padding: 32px;
-  height: 238px;
-  border-radius: 0 8px 8px 8px;
-  border-width: 1px 1px 1px 1px;
-  border-style: solid;
-  border-color: #dddede;
+  height: 270px;
+  border-radius: 8px;
+  border: 1px solid #dddede;
 `
 export const UpperDescriptionTypo = styled.p`
   font-size: 14px;
@@ -145,12 +126,12 @@ export const PlusImg = styled.img`
 `
 export const LowerContainer = styled.div`
   position: relative;
-  padding: 100px 160px 0;
+  padding: 112px 160px 0;
 `
 
 export const CheerTypo = styled.div`
   position: absolute;
-  top: 8px;
+  top: 23px;
   left: 162px;
   font-size: 14px;
   font-weight: 500;

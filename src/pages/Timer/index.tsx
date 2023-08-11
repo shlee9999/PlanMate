@@ -6,8 +6,6 @@ import {
   Banner,
   Date,
   LowerDescriptionTypo,
-  ModeSelector,
-  ModeSelectorWrapper,
   ResultContainer,
   Root,
   Title,
@@ -34,7 +32,6 @@ import { RootState } from 'modules'
 import { StudyTimerWidget } from 'components/Timer/TimerWidget'
 import TodoItem from 'components/Timer/TodoItem'
 import AddModal from 'components/Timer/SubjectModal/AddModal'
-import { HistoryChart } from 'components/Stats/HistoryChart'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { MainHistory } from 'components/Stats/HistoryChart/component/MainHistory'
 import { CompareTip } from 'components/Stats/HistoryChart/component/CompareTip'
@@ -77,9 +74,6 @@ export const TimerPage: FC = () => {
               <Date>{formattedDate}</Date>
               <Title>오늘의 공부량 👏 </Title>
             </LeftTopDescriptionWrapper>
-            <ModeSelectorWrapper>
-              <ModeSelector>공부</ModeSelector>
-            </ModeSelectorWrapper>
             <ResultContainer>
               <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
               <StudyTimerWidget />
