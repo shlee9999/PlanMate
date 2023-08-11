@@ -27,6 +27,7 @@ import {
   EllipsisModal,
   EllipsisEditButton,
   EllipsisResignButton,
+  TabRow,
 } from './styled'
 import { DDayItem } from 'components/MyPage/DDayItem'
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
@@ -213,15 +214,18 @@ export const MyPage: FC = () => {
         <MyActivity>나의 활동</MyActivity>
         <MyActivityContainer>
           <TabSelector>
-            {myPageTabList.map((tab, index) => (
-              <TabItem
-                onClick={onClickTabItem(myPageTabList[index])}
-                key={index}
-                className={currentTab === tab ? 'isSelected' : ''}
-              >
-                {tab}
-              </TabItem>
-            ))}
+            <TabRow>
+              {myPageTabList.map((tab, index) => (
+                <TabItem
+                  onClick={onClickTabItem(myPageTabList[index])}
+                  key={index}
+                  className={currentTab === tab ? 'isSelected' : ''}
+                >
+                  {tab}
+                </TabItem>
+              ))}
+            </TabRow>
+            <TabRow />
           </TabSelector>
           <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
         </MyActivityContainer>

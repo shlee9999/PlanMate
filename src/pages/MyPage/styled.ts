@@ -135,7 +135,7 @@ export const MyActivityContainer = styled.div`
   border: 1px solid #dddede;
   border-radius: 8px;
   box-sizing: border-box;
-  padding: 60.5px 32px;
+  padding: 0 32px;
   height: 536px;
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -149,19 +149,32 @@ export const MyActivity = styled.p`
   line-height: 20px;
   color: #444444;
 `
-export const CurrentContentContainer = styled.div`
-  border-top: 1px solid #c6c6c6;
-`
+export const CurrentContentContainer = styled.div``
 export const TabSelector = styled.div`
-  position: absolute;
-  top: 32.5px;
-  left: 35px;
+  width: 100%;
+  position: sticky;
+  display: table;
+  border-collapse: collapse;
+  background-color: white;
+  z-index: 1;
+  top: 0;
+  height: 62px;
   box-sizing: border-box;
-  width: fit-content;
-  display: flex;
-  column-gap: 16px;
 `
-export const TabItem = styled.p`
+export const TabRow = styled.div`
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  &:last-child {
+    border-top: 1px solid #c6c6c6;
+    z-index: -1;
+  }
+  display: table-row;
+`
+export const TabItem = styled.div`
+  text-align: center;
+  padding: 0 8px;
+  display: table-cell;
   padding-bottom: 10px;
   font-size: 14px;
   font-weight: 400;
