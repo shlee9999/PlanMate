@@ -30,10 +30,11 @@ import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 import { BulletinIcon } from 'pages/ExamInfo/ExamInfoPage/styled'
 import { createChildComment } from 'api/comment/createChildComment'
-import { ExamInfoReply } from '../Reply'
+
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { removeComment } from 'api/comment/removeComment'
 import { useNavigate } from 'react-router-dom'
+import { ExamInfoReply } from '../Reply'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
@@ -155,7 +156,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     }).then((res) => {
       if (res) {
         const response = res as FindAllChildResponseProps
-        setCurrentReplyList(response.commentDtoList)
+        setCurrentReplyList(response)
       }
     })
   }, [])

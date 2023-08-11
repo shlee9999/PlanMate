@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import {
   AuthorIcon,
   Comment,
   CommentOwnerNickname,
   Date,
+  EditInput,
   EllipsisButton,
   EllipsisDeleteButton,
   EllipsisEditButton,
@@ -12,15 +13,29 @@ import {
   LikeButton,
   LikeImg,
   ReplyButton,
+  ReplyInput,
+  ReplyInputWrapper,
+  ReplyMark,
+  ReplyRegisterButton,
+  ReplyRightWrapper,
   Root,
   UpperTypoWrapper,
+  UserNickname,
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
-import { ReplyMark } from '../ExamInfoComment/styled'
+import hollowLikeImg from 'assets/images/like_button_hollow.png'
+import filledLikeImg from 'assets/images/like_button_filled.png'
+import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
+import { modifyComment } from 'api/comment/modifyComment'
+import { BulletinIcon } from 'pages/ExamInfo/ExamInfoPage/styled'
+import { createChildComment } from 'api/comment/createChildComment'
+import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
+import { removeComment } from 'api/comment/removeComment'
+import { useNavigate } from 'react-router-dom'
 
 type ExamInfoReplyProps = {
-  deleteComment: () => void
+  deleteComment?: () => void
 } & ResponseCommentType
 
 export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
@@ -30,9 +45,9 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   likeCount: initialLikeCount,
   memberName,
   updatedAt,
-  content, //댓글임
-  postId,
+  content,
   deleteComment,
+  postId,
 }) => {
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
@@ -40,17 +55,33 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const closeEllipsisModal = (): void => {
     if (isEllipsisOpen) setIsEllipsisOpen(false)
   }
+  const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [isReplying, setIsReplying] = useState<boolean>(false)
+  const [replyInput, setReplyInput] = useState<string>('')
+  const [inputValue, setInputValue] = useState<string>(content)
+  const [currentContent, setCurrentContent] = useState<string>(content)
+  const [currentReplyList, setCurrentReplyList] = useState<ResponseCommentType[]>([])
+  const navigate = useNavigate()
+  const deleteReply = (commentId: number) => () => {
+    removeComment({
+      commentId: commentId,
+    }).then((res) => {
+      console.log(res)
+      if (res) setCurrentReplyList((prev) => prev.filter((reply) => reply.commentId !== commentId))
+    })
+  }
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
   }
+  const inputRef = useRef(null)
   const onClickModal = (e: React.MouseEvent): void => {
     e.stopPropagation()
   }
   const onClickEllipsisDeleteButton = (): void => {
-    deleteComment()
-    //total개수 하나 줄여야 함
+    setIsDeleteCommentModalOpen(true)
   }
   const onClickLikeButton = (): void => {
     likeComment({ commentId: commentId }) //like api
@@ -62,39 +93,106 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
       setCurrentLikeCount((prev) => prev + 1)
     }
   }
-  useEffect(() => {
-    return () => {
-      // Cleanup function runs at unmount.
-      if (currentLikeCount !== initialLikeCount) {
-        likeComment({ commentId: commentId }).then((res) => {
-          console.log(res)
-        })
-      }
+
+  const closeDeleteCommentModal = () => {
+    setIsDeleteCommentModalOpen(false)
+  }
+  const onClickReplyButton = () => {
+    setIsReplying((prev) => !prev)
+  }
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value)
+  }
+  const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setReplyInput(e.target.value)
+  }
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (e.shiftKey) return
+      e.preventDefault()
+      modifyComment({
+        commentId: commentId,
+        content: inputValue,
+      }).then((res) => {
+        if (res) {
+          setCurrentContent(inputValue)
+          setIsEditing(false)
+        }
+      })
     }
-  }, []) // Empty dependencies so the effect only runs at mount and cleanup at unmount.
+  }
+  const onClickEllipsisEditButton = () => {
+    setIsEditing(true)
+    closeEllipsisModal()
+  }
+  const onClickReplyRegisterButton = () => {
+    if (!postId) return
+    createChildComment({
+      content: replyInput,
+      parentCommentId: commentId,
+      postId: postId,
+    }).then((res) => {
+      console.log(res)
+    })
+  }
+  const onClickComment = () => {
+    if (deleteComment) return
+    //mypage에서
+    navigate(`/examinfo/detail/${postId}`)
+  }
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [isEditing])
 
   return (
-    <Root onClick={closeEllipsisModal}>
-      <ReplyMark />
-      <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>
-      {isEllipsisOpen && (
-        <EllipsisModal onClick={onClickModal}>
-          <EllipsisEditButton>수정</EllipsisEditButton>
-          <EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</EllipsisDeleteButton>
-        </EllipsisModal>
+    <>
+      <Root onClick={closeEllipsisModal}>
+        <ReplyMark />
+        {deleteComment && <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>}
+        {isEllipsisOpen && (
+          <EllipsisModal onClick={onClickModal}>
+            <EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</EllipsisEditButton>
+            <EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</EllipsisDeleteButton>
+          </EllipsisModal>
+        )}
+        <LeftContainer>
+          <UpperTypoWrapper>
+            <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
+            {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
+            <Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</Date>
+          </UpperTypoWrapper>
+          {isEditing ? (
+            <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
+          ) : (
+            <Comment onClick={onClickComment} className={deleteComment ? '' : 'mypage_comment'}>
+              {currentContent}
+            </Comment>
+          )}
+        </LeftContainer>
+        <LikeButton onClick={onClickLikeButton}>
+          <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
+          {currentLikeCount}
+        </LikeButton>
+        {isDeleteCommentModalOpen && (
+          <DeleteCommentModal closeModal={closeDeleteCommentModal} deleteComment={deleteComment} />
+        )}
+      </Root>
+      {isReplying && (
+        <ReplyInputWrapper>
+          <ReplyMark />
+          <ReplyRightWrapper>
+            <UserNickname>메이트</UserNickname>
+            <ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
+            <ReplyRegisterButton onClick={onClickReplyRegisterButton}>
+              <BulletinIcon />
+              댓글등록
+            </ReplyRegisterButton>
+          </ReplyRightWrapper>
+        </ReplyInputWrapper>
       )}
-      <LeftContainer>
-        <UpperTypoWrapper>
-          <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
-          {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
-          <Date>{updatedAt}</Date>
-        </UpperTypoWrapper>
-        <Comment>{content}</Comment>
-      </LeftContainer>
-      <LikeButton onClick={onClickLikeButton}>
-        <LikeImg isLiked={isLiked} />
-        {currentLikeCount}
-      </LikeButton>
-    </Root>
+      {currentReplyList?.map((reply) => (
+        <ExamInfoReply deleteComment={deleteReply(reply.commentId)} key={reply.commentId} {...reply} />
+      ))}
+    </>
   )
 }
