@@ -4,7 +4,6 @@ import greenCheckImg from 'assets/images/check_green.png'
 import whiteCheckImg from 'assets/images/check_white.png'
 
 export const Root = styled.div`
-  position: relative;
   margin: ${HEADER_HEIGHT}px auto 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
   min-width: ${BODY_MIN_WIDTH}px;

@@ -8,9 +8,7 @@ import { StatsPage } from 'pages/Stats'
 import { PlannerPage } from 'pages/Planner'
 import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
 import { findAll } from 'api/post/find/findAll'
-import { ResponsePostType } from 'api/common/commonType'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
-import sampleInfoList from 'constants/sampleInfoList.json'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { ExamInfoDetailDataType } from 'types'
 import { FooterSection } from 'pages/CommonSections/FooterSection'
@@ -21,11 +19,13 @@ export const routerInfo = [
   {
     path: '/',
     element: (
-      <Root>
+      <>
         <HeaderSection />
-        <Outlet />
+        <Root>
+          <Outlet />
+        </Root>
         <FooterSection />
-      </Root>
+      </>
     ),
     children: [
       { path: 'mypage', element: <MyPage /> },
@@ -72,14 +72,20 @@ export const routerInfo = [
           }
         },
       },
-      {
-        path: '/login',
-        element: <LoginPage />,
-      },
+
       {
         path: '*',
         element: <>없는 페이지</>,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: (
+      <>
+        <HeaderSection />
+        <LoginPage />
+      </>
+    ),
   },
 ]
