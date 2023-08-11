@@ -97,9 +97,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const closeDeleteCommentModal = () => {
     setIsDeleteCommentModalOpen(false)
   }
-  const onClickReplyButton = () => {
-    setIsReplying((prev) => !prev)
-  }
+
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value)
   }

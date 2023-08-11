@@ -13,6 +13,7 @@ import {
   LikeButton,
   LikeImg,
   ReplyButton,
+  ReplyCount,
   ReplyInput,
   ReplyInputWrapper,
   ReplyMark,
@@ -184,7 +185,11 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
               {currentContent}
             </Comment>
           )}
-          {deleteComment && <ReplyButton onClick={onClickReplyButton}>답글</ReplyButton>}
+          {deleteComment && (
+            <ReplyButton onClick={onClickReplyButton}>
+              답글 <ReplyCount>{currentReplyList.length}</ReplyCount>
+            </ReplyButton>
+          )}
         </LeftContainer>
         <LikeButton onClick={onClickLikeButton}>
           <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
@@ -195,21 +200,23 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
         )}
       </Root>
       {isReplying && (
-        <ReplyInputWrapper>
-          <ReplyMark />
-          <ReplyRightWrapper>
-            <UserNickname>메이트</UserNickname>
-            <ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
-            <ReplyRegisterButton onClick={onClickReplyRegisterButton}>
-              <BulletinIcon />
-              댓글등록
-            </ReplyRegisterButton>
-          </ReplyRightWrapper>
-        </ReplyInputWrapper>
+        <>
+          {currentReplyList?.map((reply) => (
+            <ExamInfoReply deleteComment={deleteReply(reply.commentId)} key={reply.commentId} {...reply} />
+          ))}
+          <ReplyInputWrapper>
+            <ReplyMark />
+            <ReplyRightWrapper>
+              <UserNickname>메이트</UserNickname>
+              <ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
+              <ReplyRegisterButton onClick={onClickReplyRegisterButton}>
+                <BulletinIcon />
+                댓글등록
+              </ReplyRegisterButton>
+            </ReplyRightWrapper>
+          </ReplyInputWrapper>
+        </>
       )}
-      {currentReplyList?.map((reply) => (
-        <ExamInfoReply deleteComment={deleteReply(reply.commentId)} key={reply.commentId} {...reply} />
-      ))}
     </>
   )
 }
