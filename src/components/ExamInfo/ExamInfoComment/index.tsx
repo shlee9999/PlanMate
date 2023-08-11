@@ -33,6 +33,7 @@ import { createChildComment } from 'api/comment/createChildComment'
 import { ExamInfoReply } from '../Reply'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { removeComment } from 'api/comment/removeComment'
+import { useNavigate } from 'react-router-dom'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
@@ -66,7 +67,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const [inputValue, setInputValue] = useState<string>(content)
   const [currentContent, setCurrentContent] = useState<string>(content)
   const [currentReplyList, setCurrentReplyList] = useState<ResponseCommentType[]>([])
-
+  const navigate = useNavigate()
   const deleteReply = (commentId: number) => () => {
     removeComment({
       commentId: commentId,
@@ -138,6 +139,11 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
       console.log(res)
     })
   }
+  const onClickComment = () => {
+    if (deleteComment) return
+    //mypage에서
+    navigate(`/examinfo/detail/${postId}`)
+  }
   useEffect(() => {
     inputRef.current?.focus()
   }, [isEditing])
@@ -173,7 +179,9 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           {isEditing ? (
             <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
-            <Comment>{currentContent}</Comment>
+            <Comment onClick={onClickComment} className={deleteComment ? '' : 'mypage_comment'}>
+              {currentContent}
+            </Comment>
           )}
           {deleteComment && <ReplyButton onClick={onClickReplyButton}>답글</ReplyButton>}
         </LeftContainer>
