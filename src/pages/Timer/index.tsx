@@ -37,7 +37,9 @@ import { MainHistory } from 'components/Stats/HistoryChart/component/MainHistory
 import { CompareTip } from 'components/Stats/HistoryChart/component/CompareTip'
 import { BumpGraph } from 'components/Stats/CompareChart'
 import { initializeTimer } from 'modules/timer'
-
+import { NoContentDescription } from 'components/common/NoContentDescription'
+import bookCheckImg from 'assets/images/book_check.png'
+import { NoContentTypo } from 'components/common/NoContentDescription/styled'
 export const TimerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const formattedDate: string = useFormattedDate()
@@ -109,9 +111,16 @@ export const TimerPage: FC = () => {
           조금만 더 힘을 내볼까요? 🏃
         </CheerTypo>
         <TodoContainer>
-          {todos.map((todo: TodoItemType) => {
-            return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
-          })}
+          {todos.length !== 0 ? (
+            todos.map((todo: TodoItemType) => {
+              return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
+            })
+          ) : (
+            <NoContentDescription src={bookCheckImg}>
+              <NoContentTypo>아직 공부할 과목이 없어요!</NoContentTypo>{' '}
+              <NoContentTypo>일정을 설정해 과목을 추가해볼까요?</NoContentTypo>
+            </NoContentDescription>
+          )}
         </TodoContainer>
 
         <AddButton onClick={openModal}>

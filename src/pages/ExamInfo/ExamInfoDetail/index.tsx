@@ -53,7 +53,11 @@ import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertFromRaw } from 'draft-js'
 import { editPost } from 'api/post/editPost'
-
+import { NoContentDescription } from 'components/common/NoContentDescription'
+import chatImg from 'assets/images/chat.png'
+import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { useSelector } from 'react-redux'
+import { RootState } from 'modules'
 /**
  * @title
  * @like
@@ -71,6 +75,7 @@ export const ExamInfoDetailPage: FC = () => {
   if (!postId) return <Root>Error!</Root>
   const data = useLoaderData() as ExamInfoDetailDataType
 
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
   const [totalPage, setTotalPage] = useState<number>(data.findAllCommentsResult.totalPages)
@@ -297,34 +302,54 @@ export const ExamInfoDetailPage: FC = () => {
           </ScrapButton>
         </IconContainer>
       </ContentWrapper>
-      <CommentInputWrapper>
-        <UserNickname>사용자 닉네임</UserNickname>
-        <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-        <CommentRegisterButton onClick={onClickRegisterButton}>
-          <CheckImg />
-          댓글등록
-        </CommentRegisterButton>
-      </CommentInputWrapper>
+
+      {commentList.length !== 0 && (
+        <CommentInputWrapper>
+          <UserNickname>{userAuthInfo.name}</UserNickname>
+          <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
+          <CommentRegisterButton onClick={onClickRegisterButton}>
+            <CheckImg />
+            댓글등록
+          </CommentRegisterButton>
+        </CommentInputWrapper>
+      )}
       <CommentWrapper>
         <CommentTitle>
           댓글 <CommentCount>{commentList.length}</CommentCount>개
         </CommentTitle>
-        <CommentContainer>
-          {commentList.map((comment, index) => (
-            <ExamInfoComment
-              key={comment.commentId}
-              commentId={comment.commentId}
-              isAuthor={comment.isAuthor}
-              likeCount={comment.likeCount}
-              memberName={comment.memberName}
-              updatedAt={comment.updatedAt}
-              content={comment.content}
-              deleteComment={deleteComment(comment.commentId)}
-              isMyHearted={comment.isMyHearted}
-              postId={+postId}
-              ref={index === commentList.length - 1 ? target : null}
-            />
-          ))}
+        <CommentContainer className={commentList.length !== 0 ? '' : 'no_content'}>
+          {commentList.length !== 0 ? (
+            commentList.map((comment, index) => (
+              <ExamInfoComment
+                key={comment.commentId}
+                commentId={comment.commentId}
+                isAuthor={comment.isAuthor}
+                likeCount={comment.likeCount}
+                memberName={comment.memberName}
+                updatedAt={comment.updatedAt}
+                content={comment.content}
+                deleteComment={deleteComment(comment.commentId)}
+                isMyHearted={comment.isMyHearted}
+                postId={+postId}
+                ref={index === commentList.length - 1 ? target : null}
+              />
+            ))
+          ) : (
+            <>
+              <NoContentDescription src={chatImg}>
+                <NoContentTypo>아직 댓글이 없어요</NoContentTypo>
+                <NoContentTypo>첫 댓글을 남겨볼까요?</NoContentTypo>
+              </NoContentDescription>
+              <CommentInputWrapper className="no_content">
+                <UserNickname>{userAuthInfo.name}</UserNickname>
+                <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
+                <CommentRegisterButton onClick={onClickRegisterButton}>
+                  <CheckImg />
+                  댓글등록
+                </CommentRegisterButton>
+              </CommentInputWrapper>
+            </>
+          )}
         </CommentContainer>
       </CommentWrapper>
       {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} deletePost={deletePost} />}
