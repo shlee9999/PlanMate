@@ -2,8 +2,6 @@ import { FOOTER_HEIGHT, FOOTER_MAX_WIDTH, FOOTER_MIN_WIDTH } from 'constants/lay
 import styled from 'styled-components'
 
 export const Root = styled.div`
-  position: absolute;
-  bottom: -${FOOTER_HEIGHT * 2}px;
   display: flex;
   justify-content: center;
   align-items: center;

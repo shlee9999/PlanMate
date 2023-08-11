@@ -6,10 +6,7 @@ export type FindAllChildRequestProps = {
   postId: number
 }
 
-export type FindAllChildResponseProps = {
-  commentDtoList: ResponseCommentType[]
-  totalPages: number
-}
+export type FindAllChildResponseProps = ResponseCommentType[]
 
 export const findAllChild = (req: FindAllChildRequestProps) => {
   return axiosPOST('/comment/child/recent', req)

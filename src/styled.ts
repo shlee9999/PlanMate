@@ -7,7 +7,7 @@ export const Root = styled.div`
   margin: ${HEADER_HEIGHT}px auto 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
   min-width: ${BODY_MIN_WIDTH}px;
-  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
+  min-height: calc(100vh - ${HEADER_HEIGHT}px);
 `
 
 export const TagRoot = styled.span`

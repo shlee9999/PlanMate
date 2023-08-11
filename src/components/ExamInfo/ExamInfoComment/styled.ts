@@ -62,7 +62,7 @@ export const EditInput = styled.textarea`
   resize: none;
 `
 export const ReplyButton = styled.button`
-  width: 48px;
+  width: fit-content;
   height: 28px;
   border-radius: 28px;
   border: 1px solid #c6c6c6;
@@ -70,6 +70,8 @@ export const ReplyButton = styled.button`
   font-weight: 400;
   line-height: 18px;
   color: #666666;
+  padding: 5px 11px;
+  box-sizing: border-box;
 `
 
 export const LikeImg = styled.img`
@@ -188,4 +190,11 @@ export const UserNickname = styled.p`
   font-weight: 700;
   line-height: 18px;
   color: #222222;
+`
+
+export const ReplyCount = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #666666;
 `
