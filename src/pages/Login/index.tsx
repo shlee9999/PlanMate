@@ -50,7 +50,7 @@ const LoginContent: FC = () => {
         <LoginTypo>SNS 간편로그인</LoginTypo>
         <GoogleButton onClick={() => googleSocialLogin()}>
           <GoogleIcon src={googleIcon} alt="google_icon" />
-          <GoogleButtonTypo>Sign in with Google</GoogleButtonTypo>
+          <GoogleButtonTypo>Google 계정으로 로그인</GoogleButtonTypo>
         </GoogleButton>
         <Footer>
           <FooterItem>이용약관</FooterItem>

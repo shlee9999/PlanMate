@@ -41,7 +41,7 @@ export const LowerDescriptionTypo = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
   color: #666666;
 `
 export const LoginTypo = styled.p`
@@ -53,26 +53,28 @@ export const LoginTypo = styled.p`
 `
 
 export const GoogleButton = styled.button`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 240px;
+  height: 48px;
   box-sizing: border-box;
   padding: 0 8px;
   background: white;
-  color: #444;
-  border-radius: 5px;
+  border-radius: 3px;
   white-space: nowrap;
   font-family: serif !important;
-  font-weight: normal;
-  height: 40px;
+  box-shadow: 0px 4px 5px 0px #0000000f;
   border: 1px solid #dddede;
   &:hover {
-    filter: brightness(0.98);
+    border-color: #4285f4;
   }
 `
 
 export const GoogleIcon = styled.img`
-  vertical-align: middle;
   width: 18px;
   height: 18px;
-  margin-right: 24px;
+  margin-right: 35px;
   border: none;
 `
 
@@ -83,7 +85,8 @@ export const GoogleButtonTypo = styled.span`
   font-weight: bold;
   /* Use the Roboto font that is loaded in the <head> */
   font-family: 'Roboto', sans-serif !important;
-  color: #848484;
+  color: black;
+  line-height: 16px;
 `
 
 export const Footer = styled.div`
