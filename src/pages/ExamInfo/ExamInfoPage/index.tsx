@@ -54,6 +54,7 @@ export const ExamInfoPage = () => {
     setCurrentPage(1)
   }
   useEffect(() => {
+    console.log(selectedTag)
     if (selectedTag === '')
       findAll({ pages: currentPage - 1 }).then((res: unknown) => {
         const response = res as FindAllPostResponseProps
