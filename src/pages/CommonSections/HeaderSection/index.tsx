@@ -44,7 +44,7 @@ export const HeaderSection: FC = () => {
     navigate('mypage')
   }
   const onClickLogin = () => {
-    navigate('login')
+    navigate('/login')
   }
   const onClickLogout = () => {
     logout().then((res) => {
