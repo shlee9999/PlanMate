@@ -12,15 +12,9 @@ import {
   LeftContainer,
   LikeButton,
   LikeImg,
-  ReplyButton,
-  ReplyInput,
-  ReplyInputWrapper,
   ReplyMark,
-  ReplyRegisterButton,
-  ReplyRightWrapper,
   Root,
   UpperTypoWrapper,
-  UserNickname,
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
@@ -28,10 +22,7 @@ import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import filledLikeImg from 'assets/images/like_button_filled.png'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
-import { BulletinIcon } from 'pages/ExamInfo/ExamInfoPage/styled'
 import { createChildComment } from 'api/comment/createChildComment'
-import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
-import { removeComment } from 'api/comment/removeComment'
 import { useNavigate } from 'react-router-dom'
 
 type ExamInfoReplyProps = {
@@ -58,20 +49,11 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const [isReplying, setIsReplying] = useState<boolean>(false)
-  const [replyInput, setReplyInput] = useState<string>('')
+
   const [inputValue, setInputValue] = useState<string>(content)
   const [currentContent, setCurrentContent] = useState<string>(content)
-  const [currentReplyList, setCurrentReplyList] = useState<ResponseCommentType[]>([])
   const navigate = useNavigate()
-  const deleteReply = (commentId: number) => () => {
-    removeComment({
-      commentId: commentId,
-    }).then((res) => {
-      console.log(res)
-      if (res) setCurrentReplyList((prev) => prev.filter((reply) => reply.commentId !== commentId))
-    })
-  }
+
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
@@ -101,9 +83,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value)
   }
-  const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setReplyInput(e.target.value)
-  }
+
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) return
@@ -123,16 +103,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
     setIsEditing(true)
     closeEllipsisModal()
   }
-  const onClickReplyRegisterButton = () => {
-    if (!postId) return
-    createChildComment({
-      content: replyInput,
-      parentCommentId: commentId,
-      postId: postId,
-    }).then((res) => {
-      console.log(res)
-    })
-  }
+
   const onClickComment = () => {
     if (deleteComment) return
     //mypage에서
@@ -175,22 +146,6 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
           <DeleteCommentModal closeModal={closeDeleteCommentModal} deleteComment={deleteComment} />
         )}
       </Root>
-      {isReplying && (
-        <ReplyInputWrapper>
-          <ReplyMark />
-          <ReplyRightWrapper>
-            <UserNickname>메이트</UserNickname>
-            <ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
-            <ReplyRegisterButton onClick={onClickReplyRegisterButton}>
-              <BulletinIcon />
-              댓글등록
-            </ReplyRegisterButton>
-          </ReplyRightWrapper>
-        </ReplyInputWrapper>
-      )}
-      {currentReplyList?.map((reply) => (
-        <ExamInfoReply deleteComment={deleteReply(reply.commentId)} key={reply.commentId} {...reply} />
-      ))}
     </>
   )
 }

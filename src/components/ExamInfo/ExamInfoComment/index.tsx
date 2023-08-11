@@ -30,12 +30,14 @@ import filledLikeImg from 'assets/images/like_button_filled.png'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 import { BulletinIcon } from 'pages/ExamInfo/ExamInfoPage/styled'
-import { createChildComment } from 'api/comment/createChildComment'
+import { CreateChildCommentResponseProps, createChildComment } from 'api/comment/createChildComment'
 
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { removeComment } from 'api/comment/removeComment'
 import { useNavigate } from 'react-router-dom'
 import { ExamInfoReply } from '../Reply'
+import { useSelector } from 'react-redux'
+import { RootState } from 'modules'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
@@ -56,6 +58,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   ref
 ) => {
   //대댓글 로직
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(isMyHearted)
   const closeEllipsisModal = (): void => {
@@ -137,8 +140,16 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
       content: replyInput,
       parentCommentId: commentId,
       postId: postId,
-    }).then((res) => {
-      console.log(res)
+    }).then((res1) => {
+      if (!res1) return
+      findAllChild({
+        parentCommentId: commentId,
+        postId: postId,
+      }).then((res2: unknown) => {
+        const response = res2 as FindAllChildResponseProps
+        setCurrentReplyList(response)
+        setReplyInput('')
+      })
     })
   }
   const onClickComment = () => {
@@ -207,7 +218,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           <ReplyInputWrapper>
             <ReplyMark />
             <ReplyRightWrapper>
-              <UserNickname>메이트</UserNickname>
+              <UserNickname>{userAuthInfo.name}</UserNickname>
               <ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
               <ReplyRegisterButton onClick={onClickReplyRegisterButton}>
                 <BulletinIcon />
