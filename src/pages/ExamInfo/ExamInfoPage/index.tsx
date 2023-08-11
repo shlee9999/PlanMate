@@ -67,6 +67,7 @@ export const ExamInfoPage = () => {
       }).then((res) => {
         const response = res as FindPostWithTagResponseProps
         setExamInfoList(response.postDtoList)
+        setTotalPage(response.totalPages)
       })
   }, [currentPage, selectedTag])
 
