@@ -29,7 +29,6 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
   const { startTimer, stopTimer, time } = useTimer({ defaultTime: todo.time })
   const formattedTime: string = useFormattedTime(time)
   const [startTime, setStartTime] = useState<string>('')
-  const totalTime = useSelector((state: RootState) => state.timer.totalTime)
 
   const startTotalTimer = (): void => {
     dispatch(runTimer())

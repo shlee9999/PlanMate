@@ -4,7 +4,6 @@ import { TodoItemType } from 'types'
 import { useState, FC, useEffect } from 'react'
 import {
   Banner,
-  Date,
   LowerDescriptionTypo,
   ResultContainer,
   Root,
@@ -25,9 +24,10 @@ import {
   GreenTypo,
   BannerContentWrapper,
   SizedBox,
+  DateTypo,
 } from './styled'
 
-import { useFormattedDate } from 'utils/helper'
+import { useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
 import { StudyTimerWidget } from 'components/Timer/TimerWidget'
 import TodoItem from 'components/Timer/TodoItem'
@@ -42,7 +42,11 @@ import bookCheckImg from 'assets/images/book_check.png'
 import { NoContentTypo } from 'components/common/NoContentDescription/styled'
 import { FindClosestScheduleResponseProps, findClosestSchedule } from 'api/schedule/findClosestSchedule'
 import { useNavigate } from 'react-router-dom'
+import { useTimer } from 'hooks/useTimer'
 export const TimerPage: FC = () => {
+  const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
+  const totalTime = useSelector((state: RootState) => state.timer.totalTime)
+  const { startTimer, stopTimer, time: breakTime, setDefaultTime } = useTimer({ defaultTime: 0 })
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [closestDDay, setClosestDDay] = useState<number>()
@@ -70,12 +74,22 @@ export const TimerPage: FC = () => {
       dispatch(initializeTimer(sum))
     }
   }, [todos])
+
   useEffect(() => {
     findClosestSchedule().then((res) => {
       const response = res as FindClosestScheduleResponseProps
       setClosestDDay(response.dday)
     })
+    const now = new Date()
+    const newTime = new Date(now.getTime() - 5 * 60 * 60 * 1000 - totalTime * 1000).toString().split(' ')[4]
+    const split = newTime.toString().split(':')
+    setDefaultTime(+split[0] * 60 * 60 + +split[1] * 60 + +split[2])
   }, [])
+
+  useEffect(() => {
+    if (isTotalTimerRunning) stopTimer()
+    else startTimer()
+  }, [isTotalTimerRunning])
 
   return (
     <Root>
@@ -83,14 +97,14 @@ export const TimerPage: FC = () => {
         <BannerContentWrapper>
           <LeftContainer>
             <LeftTopDescriptionWrapper>
-              <Date>{formattedDate}</Date>
+              <DateTypo>{formattedDate}</DateTypo>
               <Title>오늘의 공부량 👏 </Title>
             </LeftTopDescriptionWrapper>
             <ResultContainer>
               <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
-              <StudyTimerWidget />
+              <StudyTimerWidget totalTime={totalTime} />
               <LowerDescriptionTypo>
-                오늘은 휴식 시간을 <YellowTypo>10시간 58분 35초</YellowTypo> 가졌네요!
+                오늘은 휴식 시간을 <YellowTypo>{useFormattedTimeKorean(breakTime)}</YellowTypo> 가졌네요!
               </LowerDescriptionTypo>
             </ResultContainer>
           </LeftContainer>

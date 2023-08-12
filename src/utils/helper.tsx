@@ -20,6 +20,21 @@ export const useFormattedTime = (time: number) => {
   return formattedTime
 }
 
+export const useFormattedTimeKorean = (time: number) => {
+  const minute: number = Math.floor(time / 60) % 60
+  const second: number = Math.floor(time % 60)
+  const hour: number = Math.floor(time / 3600) % 24
+
+  const formattedTime: string =
+    hour.toString().padStart(2, '0') +
+    '시간 ' +
+    minute.toString().padStart(2, '0') +
+    '분 ' +
+    second.toString().padStart(2, '0') +
+    '초'
+  return formattedTime
+}
+
 export const useFormattedDate = (): string => {
   const now: Date = new Date()
   const month: string = `${now.getMonth() + 1}`.padStart(2, '0')
