@@ -30,7 +30,7 @@ export const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
-export const Date = styled.p`
+export const DateTypo = styled.p`
   margin-bottom: 3px;
   font-size: 12px;
   font-weight: 400;

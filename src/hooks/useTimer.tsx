@@ -25,5 +25,9 @@ export const useTimer = ({ defaultTime }: useTimerProps) => {
     setTime(defaultTime)
   }
 
-  return { startTimer, stopTimer, initializeTimer, time }
+  const setDefaultTime = (newDefaultTime): void => {
+    setTime(newDefaultTime)
+  }
+
+  return { startTimer, stopTimer, initializeTimer, setDefaultTime, time }
 }
