@@ -3,11 +3,12 @@ import { LowerDescriptionTypo, Root, TitleTypo, UpperDescriptionTypo } from './s
 import { GreenButton, ModalExitButton, ModalFooter, ModalWrapper, WhiteButton } from 'components/common/commonStyle'
 
 type DeleteModalProps = {
+  title: string
   closeModal: () => void
   deleteSubject: () => void
 }
 
-export const DeleteModal: FC<DeleteModalProps> = ({ closeModal, deleteSubject }) => {
+export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteSubject }) => {
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }
@@ -17,7 +18,7 @@ export const DeleteModal: FC<DeleteModalProps> = ({ closeModal, deleteSubject })
       <Root onClick={onClickModal}>
         <TitleTypo>일정삭제</TitleTypo>
         <UpperDescriptionTypo>
-          런닝을(를)
+          {title}을(를)
           <br />
           삭제하시겠어요?
         </UpperDescriptionTypo>

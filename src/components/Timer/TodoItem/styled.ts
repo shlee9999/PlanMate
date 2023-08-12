@@ -54,8 +54,12 @@ export const PauseButton = styled(CircleButton)`
 `
 
 export const SubjectTitle = styled.p`
+  max-width: 20rem;
   font-size: 36px;
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 export const Time = styled.p`
