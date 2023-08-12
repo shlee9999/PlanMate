@@ -40,8 +40,12 @@ import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/common/NoContentDescription'
 import bookCheckImg from 'assets/images/book_check.png'
 import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { FindClosestScheduleResponseProps, findClosestSchedule } from 'api/schedule/findClosestSchedule'
+import { useNavigate } from 'react-router-dom'
 export const TimerPage: FC = () => {
+  const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [closestDDay, setClosestDDay] = useState<number>()
   const formattedDate: string = useFormattedDate()
   const todos = useSelector((state: RootState) => state.todos)
   const dispatch = useDispatch()
@@ -66,6 +70,12 @@ export const TimerPage: FC = () => {
       dispatch(initializeTimer(sum))
     }
   }, [todos])
+  useEffect(() => {
+    findClosestSchedule().then((res) => {
+      const response = res as FindClosestScheduleResponseProps
+      setClosestDDay(response.dday)
+    })
+  }, [])
 
   return (
     <Root>
@@ -103,13 +113,28 @@ export const TimerPage: FC = () => {
         </BannerContentWrapper>
       </Banner>
       <LowerContainer>
-        <CheerTypo>
-          <Test>감평사 시험 </Test>까지{' '}
-          <Dday>
-            D- <GreenTypo>191</GreenTypo>{' '}
-          </Dday>
-          조금만 더 힘을 내볼까요? 🏃
-        </CheerTypo>
+        {closestDDay ? (
+          <CheerTypo>
+            <Test>감평사 시험 </Test>까지{' '}
+            <Dday>
+              D- <GreenTypo>{closestDDay}</GreenTypo>{' '}
+            </Dday>
+            조금만 더 힘을 내볼까요? 🏃
+          </CheerTypo>
+        ) : (
+          <CheerTypo>
+            아직 디데이가 없어요!{' '}
+            <GreenTypo
+              onClick={() => {
+                navigate('/mypage')
+              }}
+              className="no_dday"
+            >
+              디데이를 설정하러 가볼까요?
+            </GreenTypo>
+          </CheerTypo>
+        )}
+
         <TodoContainer>
           {todos.length !== 0 ? (
             todos.map((todo: TodoItemType) => {

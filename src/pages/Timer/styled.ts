@@ -148,6 +148,10 @@ export const Dday = styled.span`
 export const GreenTypo = styled.span`
   color: #10d178;
   word-wrap: break-word;
+  &.no_dday {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `
 export const Test = styled.span`
   font-weight: 700;
