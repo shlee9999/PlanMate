@@ -3,7 +3,6 @@ import leftArrowImg from 'assets/images/left_arrow.png'
 import rightArrowImg from 'assets/images/right_arrow.png'
 export const Root = styled.div`
   margin: 0 auto;
-  position: relative;
   width: fit-content;
   height: 24px;
   display: flex;

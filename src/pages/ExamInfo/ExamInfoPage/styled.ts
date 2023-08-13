@@ -65,9 +65,9 @@ export const BulletinIcon = styled.img`
   content: url(${greenBulletinIcon});
 `
 export const BulletinButton = styled.button`
-  position: absolute;
-  right: 0;
-  bottom: -40px;
+  align-self: flex-end;
+  margin: 24px 0;
+  bottom: -50px;
   width: 96px;
   height: 32px;
   border-radius: 100px;
@@ -92,14 +92,20 @@ export const GreenBulletinIcon = styled(BulletinIcon)``
 export const WhiteBulletinIcon = styled(BulletinIcon)``
 
 export const ExamInfoWrapper = styled.div`
-  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
   min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
   position: relative;
   border-top: 2px solid #666666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
-export const NoPostTypo = styled.div`
-  width: 1088px;
-  text-align: center;
-  border-bottom: 2px solid #666666;
-  margin-bottom: 30px;
+
+export const NoContentWrapper = styled.div`
+  margin-top: 84px;
+  margin-bottom: 100px;
+`
+
+export const PaginationWrapper = styled.div`
+  position: relative;
+  width: 100%;
 `
