@@ -90,7 +90,11 @@ export const StatsContainer = styled.div`
   padding: 32px;
 `
 
-export const TodoContainer = styled.div``
+export const TodoContainer = styled.div`
+  &.no_content {
+    margin-bottom: 50px;
+  }
+`
 
 export const RightContainer = styled.div`
   flex-grow: 1;

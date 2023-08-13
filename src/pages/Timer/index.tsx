@@ -162,7 +162,7 @@ export const TimerPage: FC = () => {
           </CheerTypo>
         )}
 
-        <TodoContainer>
+        <TodoContainer className={todos.length === 0 ? 'no_content' : ''}>
           {todos.length !== 0 ? (
             todos.map((todo: TodoItemType) => {
               return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
