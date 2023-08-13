@@ -5,7 +5,8 @@ import {
   ExamInfoWrapper,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
-  NoPostTypo,
+  NoContentWrapper,
+  PaginationWrapper,
   Root,
   Tag,
   TagButton,
@@ -16,12 +17,14 @@ import {
 } from './styled'
 import { useEffect, useState } from 'react'
 import { ResponsePostType } from 'api/common/commonType'
-
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
+import { NoContentDescription } from 'components/common/NoContentDescription'
+import pencilImg from 'assets/images/pencil.png'
+import { NoContentTypo } from 'components/common/NoContentDescription/styled'
 
 export const ExamInfoPage = () => {
   const data = useLoaderData() as FindAllPostResponseProps
@@ -110,7 +113,12 @@ export const ExamInfoPage = () => {
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
-          <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
+          <NoContentWrapper>
+            <NoContentDescription src={pencilImg}>
+              <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
+              <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
+            </NoContentDescription>
+          </NoContentWrapper>
         )}
 
         <BulletinButton onClick={onClickBulletinButton}>
@@ -118,13 +126,17 @@ export const ExamInfoPage = () => {
           글쓰기
         </BulletinButton>
       </ExamInfoWrapper>
-      <Pagination
-        currentPage={currentPage}
-        totalPage={totalPage}
-        onClickLeftArrow={loadPrevPage}
-        onClickRightArrow={loadNextPage}
-        onClickPageNumber={handleCurrentPage}
-      />
+      <PaginationWrapper>
+        {
+          <Pagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            onClickLeftArrow={loadPrevPage}
+            onClickRightArrow={loadNextPage}
+            onClickPageNumber={handleCurrentPage}
+          />
+        }
+      </PaginationWrapper>
     </Root>
   )
 }
