@@ -19,7 +19,7 @@ import { ResponsePostType } from 'api/common/commonType'
 
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
-import { tagList } from 'constants/tagList'
+import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 
@@ -81,12 +81,12 @@ export const ExamInfoPage = () => {
         <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
       </TypoWrapper>
       <UpperTagButtonWrapper>
-        {tagList.map((tag, index) =>
+        {examinfoTagList.map((tag, index) =>
           index > 5 ? null : (
             <TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(tagList[index])}
+              onClick={onClickTagButton(examinfoTagList[index])}
             >
               <Tag>{tag}</Tag>
             </TagButton>
@@ -94,12 +94,12 @@ export const ExamInfoPage = () => {
         )}
       </UpperTagButtonWrapper>
       <LowerTagButtonWrapper>
-        {tagList.map((tag, index) =>
+        {examinfoTagList.map((tag, index) =>
           index <= 5 ? null : (
             <TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(tagList[index])}
+              onClick={onClickTagButton(examinfoTagList[index])}
             >
               <Tag>{tag}</Tag>
             </TagButton>
