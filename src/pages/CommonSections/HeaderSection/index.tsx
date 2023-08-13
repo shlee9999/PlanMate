@@ -12,6 +12,7 @@ import {
   SelectedPageItem,
   PageItem,
   PageList,
+  LogoutTypo,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import logo from 'assets/images/logo.png'
@@ -121,11 +122,11 @@ export const HeaderSection: FC = () => {
             </GreetTypo>
           )}
           {userAuthInfo.name ? (
-            <LoginTypo onClick={onClickLogout}>로그아웃</LoginTypo>
+            <LogoutTypo onClick={onClickLogout}>로그아웃</LogoutTypo>
           ) : (
             <LoginTypo onClick={onClickLogin}>로그인</LoginTypo>
           )}
-          <Notice onClick={onClickNotice}>공지사항</Notice>
+          {userAuthInfo.name && <Notice onClick={onClickNotice}>공지사항</Notice>}
         </RightContainer>
       </ContentWrapper>
     </Root>

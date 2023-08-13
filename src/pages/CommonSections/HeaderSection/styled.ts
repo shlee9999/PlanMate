@@ -46,6 +46,10 @@ export const GreenTypo = styled.span`
 `
 export const LoginTypo = styled.p`
   cursor: pointer;
+  margin-right: 100px;
+`
+export const LogoutTypo = styled.p`
+  cursor: pointer;
 `
 export const Notice = styled.p`
   cursor: pointer;
