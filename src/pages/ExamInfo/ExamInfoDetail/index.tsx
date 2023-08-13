@@ -204,7 +204,11 @@ export const ExamInfoDetailPage: FC = () => {
     if (!target.current) return
     const observer = new IntersectionObserver(callback, options)
     setTimeout(() => {
-      observer.observe(target.current)
+      try {
+        observer.observe(target.current)
+      } catch (err) {
+        return
+      }
     }, 1000)
     return () => observer.disconnect()
   }, [currentPage])
