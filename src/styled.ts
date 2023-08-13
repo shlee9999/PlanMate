@@ -26,8 +26,6 @@ export const CheckImg = styled.img`
 export const RegisterButton = styled.button`
   width: 96px;
   height: 32px;
-  top: 801px;
-  left: 1184px;
   border-radius: 100px;
   border: 1px solid #01cb45;
   color: #01cb45;

@@ -15,10 +15,18 @@ import { FooterSection } from 'pages/CommonSections/FooterSection'
 import { MyPage } from 'pages/MyPage'
 import { LoginPage } from 'pages/Login'
 import { NoticePage } from 'pages/NoticePage'
+import { ErrorPage } from 'pages/ErrorPage'
 
 export const routerInfo = [
   {
     path: '/',
+    errorElement: (
+      <>
+        <HeaderSection />
+        <ErrorPage />
+        <FooterSection />
+      </>
+    ),
     element: (
       <>
         <HeaderSection />
@@ -118,9 +126,5 @@ export const routerInfo = [
         <LoginPage />
       </>
     ),
-  },
-  {
-    path: '*',
-    element: <>없는 페이지</>,
   },
 ]
