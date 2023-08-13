@@ -80,19 +80,6 @@ export const ExamInfoDetailPage: FC = () => {
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
   const [totalPage, setTotalPage] = useState<number>(data.findAllCommentsResult.totalPages)
   const [currentPage, setCurrentPage] = useState<number>(1)
-  // const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
-  //   commentCount: 0,
-  //   title: '예시',
-  //   likeCount: 5,
-  //   scrapCount: 2,
-  //   nickname: '닉네임',
-  //   postId: -1,
-  //   postTagList: ['태그1'],
-  //   updatedAt: '2023-06-12',
-  //   content: '',
-  //   isMyHearted: false,
-  //   isMyScraped: false,
-  // })
   const [isLiked, setIsLiked] = useState<boolean>(data.checkPostResult.isMyHearted)
   const [isScrapped, setIsScrapped] = useState<boolean>(data.checkPostResult.isMyScraped)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(data.checkPostResult.likeCount)

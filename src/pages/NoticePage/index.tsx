@@ -23,7 +23,7 @@ import { tagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 
-export const ExamInfoPage = () => {
+export const NoticePage = () => {
   const data = useLoaderData() as FindAllPostResponseProps
   const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -42,7 +42,7 @@ export const ExamInfoPage = () => {
   const navigate = useNavigate()
 
   const onClickBulletinButton = (): void => {
-    navigate('/examinfo/post')
+    navigate('/notice/post')
   }
 
   const onClickTagButton = (tag: string) => () => {

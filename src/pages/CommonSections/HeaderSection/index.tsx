@@ -41,19 +41,21 @@ export const HeaderSection: FC = () => {
   }
 
   const onClickNickname = () => {
-    navigate('mypage')
+    navigate('/mypage')
   }
   const onClickLogin = () => {
     navigate('/login')
   }
   const onClickLogout = () => {
     logout().then((res) => {
-      navigate('timer')
+      navigate('/timer')
       localStorage.removeItem('userAuthInfo')
       window.location.reload()
     })
   }
-
+  const onClickNotice = () => {
+    navigate('/notice')
+  }
   useEffect(() => {
     if (location.pathname === '/') navigate('/timer')
   }, [currentTab])
@@ -123,7 +125,7 @@ export const HeaderSection: FC = () => {
           ) : (
             <LoginTypo onClick={onClickLogin}>로그인</LoginTypo>
           )}
-          <Notice>공지사항</Notice>
+          <Notice onClick={onClickNotice}>공지사항</Notice>
         </RightContainer>
       </ContentWrapper>
     </Root>
