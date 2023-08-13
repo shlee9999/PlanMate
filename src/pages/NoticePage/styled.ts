@@ -18,6 +18,7 @@ const DescriptionTypo = styled.p`
 export const TypoWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 24px;
 `
 export const TitleTypo = styled.p`
   font-size: 21px;
@@ -27,9 +28,6 @@ export const TitleTypo = styled.p`
 `
 
 export const UpperDescriptionTypo = styled(DescriptionTypo)``
-export const LowerDescriptionTypo = styled(DescriptionTypo)`
-  margin-top: 24px;
-`
 export const Tag = styled(TagRoot)``
 export const TagButton = styled.button`
   width: 100px;

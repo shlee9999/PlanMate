@@ -3,16 +3,11 @@ import {
   BulletinButton,
   BulletinIcon,
   ExamInfoWrapper,
-  LowerDescriptionTypo,
-  LowerTagButtonWrapper,
   NoPostTypo,
   Root,
-  Tag,
-  TagButton,
   TitleTypo,
   TypoWrapper,
   UpperDescriptionTypo,
-  UpperTagButtonWrapper,
 } from './styled'
 import { useEffect, useState } from 'react'
 import { ResponsePostType } from 'api/common/commonType'
@@ -76,36 +71,9 @@ export const NoticePage = () => {
   return (
     <Root>
       <TypoWrapper>
-        <UpperDescriptionTypo>유용한 정보를 찾아볼까요? </UpperDescriptionTypo>
-        <TitleTypo>수험정보 👀</TitleTypo>
-        <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
+        <UpperDescriptionTypo>플랜메이트</UpperDescriptionTypo>
+        <TitleTypo>공지사항 📢</TitleTypo>
       </TypoWrapper>
-      <UpperTagButtonWrapper>
-        {tagList.map((tag, index) =>
-          index > 5 ? null : (
-            <TagButton
-              key={index}
-              className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(tagList[index])}
-            >
-              <Tag>{tag}</Tag>
-            </TagButton>
-          )
-        )}
-      </UpperTagButtonWrapper>
-      <LowerTagButtonWrapper>
-        {tagList.map((tag, index) =>
-          index <= 5 ? null : (
-            <TagButton
-              key={index}
-              className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(tagList[index])}
-            >
-              <Tag>{tag}</Tag>
-            </TagButton>
-          )
-        )}
-      </LowerTagButtonWrapper>
       <ExamInfoWrapper>
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
