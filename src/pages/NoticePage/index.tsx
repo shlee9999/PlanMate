@@ -10,17 +10,15 @@ import {
   UpperDescriptionTypo,
 } from './styled'
 import { useEffect, useState } from 'react'
-import { ResponsePostType } from 'api/common/commonType'
-
+import { ResponseNoticeType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
-import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
-import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
-import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
+import { findPostWithTag } from 'api/post/find/findPostWithTag'
+import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 
 export const NoticePage = () => {
-  const data = useLoaderData() as FindAllPostResponseProps
-  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
+  const data = useLoaderData() as FindAllNoticeResponseProps
+  const [examInfoList, setExamInfoList] = useState<ResponseNoticeType[]>(data.noticeDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
   const [selectedTag, setSelectedTag] = useState<string>('')
@@ -40,17 +38,11 @@ export const NoticePage = () => {
     navigate('/notice/post')
   }
 
-  const onClickTagButton = (tag: string) => () => {
-    if (selectedTag === tag) setSelectedTag('')
-    else setSelectedTag(tag)
-    setCurrentPage(1)
-  }
-
   useEffect(() => {
     if (selectedTag === '')
-      findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-        const response = res as FindAllPostResponseProps
-        setExamInfoList(response.postDtoList)
+      findAllNotice({ pages: currentPage - 1 }).then((res: unknown) => {
+        const response = res as FindAllNoticeResponseProps
+        setExamInfoList(response.noticeDtoList)
         setTotalPage(response.totalPages)
       })
     else
@@ -58,8 +50,8 @@ export const NoticePage = () => {
         tagName: selectedTag,
         pages: currentPage - 1,
       }).then((res) => {
-        const response = res as FindPostWithTagResponseProps
-        setExamInfoList(response.postDtoList)
+        const response = res as FindAllNoticeResponseProps
+        setExamInfoList(response.noticeDtoList)
         setTotalPage(response.totalPages)
       })
   }, [currentPage, selectedTag])
@@ -76,7 +68,7 @@ export const NoticePage = () => {
       </TypoWrapper>
       <ExamInfoWrapper>
         {examInfoList.length !== 0 ? (
-          examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
+          examInfoList.map((examInfo) => <ExamInfoItem postTagList={[]} {...examInfo} key={examInfo.noticeId} />)
         ) : (
           <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
         )}
