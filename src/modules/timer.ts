@@ -21,7 +21,7 @@ type TimerState = {
 
 const InitialState: TimerState = {
   isRunning: false,
-  totalTime: 0,
+  totalTime: +localStorage.getItem('totalTime') || 0,
 }
 
 function timer(state: TimerState = InitialState, action: TimerAction) {

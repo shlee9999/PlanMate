@@ -44,7 +44,6 @@ import { FindClosestScheduleResponseProps, findClosestSchedule } from 'api/sched
 import { useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
 
-let flag = 0
 export const TimerPage: FC = () => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const totalTime = useSelector((state: RootState) => state.timer.totalTime)
@@ -85,16 +84,10 @@ export const TimerPage: FC = () => {
   }, [])
 
   useEffect(() => {
-    if (flag === 2) return
-    if (totalTime === 0) {
-      flag = 1
-      return
-    }
     const now = new Date()
     const newTime = new Date(now.getTime() - 5 * 60 * 60 * 1000 - totalTime * 1000).toString().split(' ')[4]
     const split = newTime.toString().split(':')
     setDefaultBreakTime(+split[0] * 60 * 60 + +split[1] * 60 + +split[2])
-    flag = 2
   }, [totalTime])
 
   useEffect(() => {
