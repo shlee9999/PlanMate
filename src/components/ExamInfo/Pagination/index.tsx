@@ -20,16 +20,22 @@ export const Pagination: FC<PaginationProps> = ({
   return (
     <Root>
       <LeftArrowImg onClick={onClickLeftArrow} />
-      {generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
-        if (index >= totalPage) return null
-        return num === currentPage ? (
-          <CurrentPageNumberTypo key={index}>{num}</CurrentPageNumberTypo>
-        ) : (
-          <PageNumberTypo key={index} onClick={onClickPageNumber(num)}>
-            {num}
-          </PageNumberTypo>
-        )
-      })}
+      {totalPage === 0 && currentPage === 1 ? (
+        <CurrentPageNumberTypo>1</CurrentPageNumberTypo>
+      ) : (
+        generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
+          if (index >= totalPage) return null
+          if (num === currentPage) {
+            return <CurrentPageNumberTypo key={index}>{num}</CurrentPageNumberTypo>
+          } else {
+            return (
+              <PageNumberTypo key={index} onClick={onClickPageNumber(num)}>
+                {num}
+              </PageNumberTypo>
+            )
+          }
+        })
+      )}
       <RightArrowImg onClick={onClickRightArrow} />
     </Root>
   )

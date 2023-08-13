@@ -37,6 +37,7 @@ export const ExamInfoPage = () => {
   }
 
   const loadPrevPage = (): void => {
+    if (totalPage === 0) return
     if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
   }
   const loadNextPage = (): void => {
