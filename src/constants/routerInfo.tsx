@@ -54,7 +54,7 @@ export const routerInfo = [
       },
       {
         path: 'examinfo/post',
-        element: <BulletinPage />,
+        element: <BulletinPage mode={'examinfo'} />,
       },
       {
         path: 'examinfo/detail/:postId',
@@ -85,7 +85,7 @@ export const routerInfo = [
       },
       {
         path: 'notice/post',
-        element: <BulletinPage />,
+        element: <BulletinPage mode={'notice'} />,
       },
       {
         path: 'notice/detail/:postId',

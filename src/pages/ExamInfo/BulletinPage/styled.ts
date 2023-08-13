@@ -37,11 +37,13 @@ export const TagSelectorWrapper = styled.div`
   align-items: center;
   column-gap: 8px;
   cursor: pointer;
+  z-index: 100;
 `
 export const TagTypo = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 48px;
+  white-space: nowrap;
 `
 export const TagSelector = styled.div`
   position: relative;
