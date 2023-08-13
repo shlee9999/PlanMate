@@ -1,4 +1,4 @@
-export const tagList = [
+export const examinfoTagList = [
   '감정평가사',
   '회계사',
   '변호사',
@@ -16,3 +16,5 @@ export const tagList = [
   '공시',
   '기타',
 ]
+
+export const suggestTagList = ['개설', '요청/신고', '광고']

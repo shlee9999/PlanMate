@@ -4,7 +4,10 @@ import {
   CancelButton,
   CancelImg,
   DownArrowImg,
+  GreenTypo,
   Root,
+  SuggestInput,
+  SuggestTypo,
   TagOption,
   TagOptionWrapper,
   TagSelector,
@@ -24,12 +27,17 @@ import { serializeContent } from 'utils/wysiwyg'
 import { CheckImg, RegisterButton } from 'styled'
 
 import downArrowImg from 'assets/images/right_arrow.png'
-import { tagList } from 'constants/tagList'
+import { examinfoTagList, suggestTagList } from 'constants/tagList'
 
 type BulletinPageProps = {
   mode: string
 }
 export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
+  const tagList = (): string[] => {
+    if (mode === 'examinfo') return examinfoTagList
+    if (mode === 'suggest') return suggestTagList
+    else return []
+  }
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [isSelecting, setIsSelecting] = useState<boolean>(false)
   const [selectedTag, setSelectedTag] = useState<string>('선택해주세요')
@@ -65,7 +73,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
     e.stopPropagation()
   }
   const onClickTagOption = (id: number) => (e: React.MouseEvent) => {
-    setSelectedTag(tagList[id])
+    setSelectedTag(tagList()[id])
     e.stopPropagation()
     setIsSelecting(false)
   }
@@ -78,10 +86,22 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
 
   return (
     <Root onClick={onClickRoot}>
-      <WriteTypo>글쓰기 ✏️</WriteTypo>
+      <WriteTypo>
+        {mode === 'suggest' ? (
+          <>
+            건의사항 🚀
+            <SuggestTypo>
+              <GreenTypo>플랜메이트</GreenTypo>에게 하시고 싶으신 말씀이 있으시다면 언제든지 의견을 보내주세요!
+            </SuggestTypo>
+          </>
+        ) : (
+          '글쓰기 ✏️'
+        )}
+      </WriteTypo>
+
       <UpperWrapper>
         <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
-        {mode === 'examinfo' && (
+        {mode !== 'notice' && (
           <TagSelectorWrapper>
             <TagTypo>태그</TagTypo>
             <TagSelector onClick={onClickTagSelector}>
@@ -89,7 +109,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
               <DownArrowImg alt="down_arrow_img" src={downArrowImg} />
               {isSelecting && (
                 <TagOptionWrapper>
-                  {tagList.map((tag, index) => (
+                  {tagList().map((tag, index) => (
                     <TagOption key={index} onClick={onClickTagOption(index)}>
                       {tag}
                     </TagOption>
@@ -100,23 +120,27 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
           </TagSelectorWrapper>
         )}
       </UpperWrapper>
-      <Editor
-        wrapperClassName="wrapper-class"
-        editorClassName="editor"
-        toolbarClassName="toolbar-class"
-        toolbar={{
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: false },
-        }}
-        placeholder="내용을 작성해주세요"
-        localization={{
-          locale: 'ko',
-        }}
-        editorState={editorState}
-        onEditorStateChange={onEditorStateChange}
-      />
+      {mode === 'suggest' ? (
+        <SuggestInput placeholder="내용을 작성해주세요." />
+      ) : (
+        <Editor
+          wrapperClassName="wrapper-class"
+          editorClassName="editor"
+          toolbarClassName="toolbar-class"
+          toolbar={{
+            list: { inDropdown: true },
+            textAlign: { inDropdown: true },
+            link: { inDropdown: true },
+            history: { inDropdown: false },
+          }}
+          placeholder="내용을 작성해주세요"
+          localization={{
+            locale: 'ko',
+          }}
+          editorState={editorState}
+          onEditorStateChange={onEditorStateChange}
+        />
+      )}
       <ButtonWrapper>
         <CancelButton onClick={onClickCancelButton}>
           <CancelImg />

@@ -105,8 +105,8 @@ export const routerInfo = [
         },
       },
       {
-        path: '*',
-        element: <>없는 페이지</>,
+        path: 'suggest',
+        element: <BulletinPage mode={'suggest'} />,
       },
     ],
   },
@@ -118,5 +118,9 @@ export const routerInfo = [
         <LoginPage />
       </>
     ),
+  },
+  {
+    path: '*',
+    element: <>없는 페이지</>,
   },
 ]

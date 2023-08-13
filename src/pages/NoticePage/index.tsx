@@ -14,7 +14,7 @@ import { ResponsePostType } from 'api/common/commonType'
 
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
-import { tagList } from 'constants/tagList'
+import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 
