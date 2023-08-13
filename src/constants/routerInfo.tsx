@@ -14,6 +14,7 @@ import { ExamInfoDetailDataType } from 'types'
 import { FooterSection } from 'pages/CommonSections/FooterSection'
 import { MyPage } from 'pages/MyPage'
 import { LoginPage } from 'pages/Login'
+import { NoticePage } from 'pages/NoticePage'
 
 export const routerInfo = [
   {
@@ -53,7 +54,7 @@ export const routerInfo = [
       },
       {
         path: 'examinfo/post',
-        element: <BulletinPage />,
+        element: <BulletinPage mode={'examinfo'} />,
       },
       {
         path: 'examinfo/detail/:postId',
@@ -72,7 +73,37 @@ export const routerInfo = [
           }
         },
       },
+      {
+        path: 'notice',
+        element: <NoticePage />,
 
+        loader: async (): Promise<FindAllCommentsResponseProps> => {
+          return (await findAll({
+            pages: 0,
+          })) as FindAllCommentsResponseProps
+        }, //비동기 처리 등
+      },
+      {
+        path: 'notice/post',
+        element: <BulletinPage mode={'notice'} />,
+      },
+      {
+        path: 'notice/detail/:postId',
+        element: <ExamInfoDetailPage />,
+        loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
+          const checkPostResult = (await checkPost({
+            postId: +params.postId,
+          })) as CheckPostResponseProps
+          const findAllCommentsResult = (await findAllComments({
+            pages: 0,
+            postId: +params.postId,
+          })) as FindAllCommentsResponseProps
+          return {
+            checkPostResult: checkPostResult,
+            findAllCommentsResult: findAllCommentsResult,
+          }
+        },
+      },
       {
         path: '*',
         element: <>없는 페이지</>,

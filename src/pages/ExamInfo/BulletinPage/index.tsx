@@ -25,7 +25,11 @@ import { CheckImg, RegisterButton } from 'styled'
 
 import downArrowImg from 'assets/images/right_arrow.png'
 import { tagList } from 'constants/tagList'
-export const BulletinPage: FC = () => {
+
+type BulletinPageProps = {
+  mode: string
+}
+export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [isSelecting, setIsSelecting] = useState<boolean>(false)
   const [selectedTag, setSelectedTag] = useState<string>('선택해주세요')
@@ -38,16 +42,19 @@ export const BulletinPage: FC = () => {
   }
   const navigate = useNavigate()
   const onClickRegisterButton = async () => {
-    if (inputValue === '' || selectedTag === '선택해주세요') return
-
-    await createPost({
-      content: serializeContent(editorState),
-      tagList: [selectedTag],
-      title: inputValue,
-    }).then((res) => {
-      if (res) navigate(-1)
-    })
-
+    if (inputValue === '' || (mode === 'examinfo' && selectedTag === '선택해주세요')) return
+    if (mode === 'examinfo')
+      await createPost({
+        content: serializeContent(editorState),
+        tagList: [selectedTag],
+        title: inputValue,
+      }).then((res) => {
+        if (res) navigate(-1)
+      })
+    if (mode === 'notice') {
+      console.log('노티스')
+      return
+    }
     //등록하시겠습니까? 확인
   }
   const onClickCancelButton = () => {
@@ -74,22 +81,24 @@ export const BulletinPage: FC = () => {
       <WriteTypo>글쓰기 ✏️</WriteTypo>
       <UpperWrapper>
         <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
-        <TagSelectorWrapper>
-          <TagTypo>태그</TagTypo>
-          <TagSelector onClick={onClickTagSelector}>
-            {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
-            <DownArrowImg alt="down_arrow_img" src={downArrowImg} />
-            {isSelecting && (
-              <TagOptionWrapper>
-                {tagList.map((tag, index) => (
-                  <TagOption key={index} onClick={onClickTagOption(index)}>
-                    {tag}
-                  </TagOption>
-                ))}
-              </TagOptionWrapper>
-            )}
-          </TagSelector>
-        </TagSelectorWrapper>
+        {mode === 'examinfo' && (
+          <TagSelectorWrapper>
+            <TagTypo>태그</TagTypo>
+            <TagSelector onClick={onClickTagSelector}>
+              {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
+              <DownArrowImg alt="down_arrow_img" src={downArrowImg} />
+              {isSelecting && (
+                <TagOptionWrapper>
+                  {tagList.map((tag, index) => (
+                    <TagOption key={index} onClick={onClickTagOption(index)}>
+                      {tag}
+                    </TagOption>
+                  ))}
+                </TagOptionWrapper>
+              )}
+            </TagSelector>
+          </TagSelectorWrapper>
+        )}
       </UpperWrapper>
       <Editor
         wrapperClassName="wrapper-class"
