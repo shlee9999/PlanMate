@@ -33,15 +33,17 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
   likeCount,
   nickname,
   postId,
+  noticeId,
   scrapCount,
   title,
-  updatedAt,
+  createdAt,
   isMyHearted,
   isMyScraped,
 }) => {
   const navigate = useNavigate()
   const onClickTitle = (): void => {
-    navigate(`/examinfo/detail/${postId}`)
+    if (postId) navigate(`/examinfo/detail/${postId}`)
+    else navigate(`/examinfo/detail/${noticeId}`)
   }
 
   return (
@@ -50,7 +52,7 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
         <TitleTypo onClick={onClickTitle}>{title}</TitleTypo>
         <InfoTypo>
           <NickName>{nickname}</NickName>
-          <UpdatedDate>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -9)}</UpdatedDate>
+          <UpdatedDate>{createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -9)}</UpdatedDate>
         </InfoTypo>
       </TypoWrapper>
       <IconContainer>
