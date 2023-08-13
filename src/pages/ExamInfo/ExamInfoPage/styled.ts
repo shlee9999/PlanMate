@@ -32,7 +32,7 @@ export const LowerDescriptionTypo = styled(DescriptionTypo)`
 `
 export const Tag = styled(TagRoot)``
 export const TagButton = styled.button`
-  width: 100px;
+  flex-basis: 100px;
   height: 40px;
   border-radius: 100px;
   border: 1px solid #dddede;
@@ -46,12 +46,13 @@ export const TagButton = styled.button`
 `
 
 const TagButtonWrapper = styled.div`
-  min-width: 600px;
+  min-width: 230px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  column-gap: 8px;
+  gap: 8px;
+  flex-wrap: wrap;
 `
 export const UpperTagButtonWrapper = styled(TagButtonWrapper)`
   margin: 12px 0;
