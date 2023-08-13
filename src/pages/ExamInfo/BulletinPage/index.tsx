@@ -28,6 +28,7 @@ import { CheckImg, RegisterButton } from 'styled'
 
 import downArrowImg from 'assets/images/right_arrow.png'
 import { examinfoTagList, suggestTagList } from 'constants/tagList'
+import { suggest } from 'api/suggest/suggest'
 
 type BulletinPageProps = {
   mode: string
@@ -45,13 +46,14 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
     setEditorState(editorState)
   }
   const [inputValue, setInputValue] = useState<string>('')
+  const [suggestInput, setSuggestInput] = useState<string>('')
   const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value)
   }
   const navigate = useNavigate()
   const onClickRegisterButton = async () => {
     if (inputValue === '' || (mode === 'examinfo' && selectedTag === '선택해주세요')) return
-    if (mode === 'examinfo')
+    if (mode === 'examinfo') {
       await createPost({
         content: serializeContent(editorState),
         tagList: [selectedTag],
@@ -59,12 +61,24 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
       }).then((res) => {
         if (res) navigate(-1)
       })
+      return
+    }
     if (mode === 'notice') {
       console.log('노티스')
       return
     }
+    if (mode === 'suggest') {
+      suggest({
+        body: suggestInput,
+        tag: selectedTag,
+        title: inputValue,
+      }).then((res) => {
+        navigate(-1)
+      })
+    }
     //등록하시겠습니까? 확인
   }
+
   const onClickCancelButton = () => {
     navigate(-1)
   }
@@ -79,6 +93,9 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   }
   const onClickRoot = () => {
     setIsSelecting(false)
+  }
+  const onSuggestInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setSuggestInput(e.target.value)
   }
   useEffect(() => {
     window.scrollTo({ top: 0 })
@@ -121,7 +138,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         )}
       </UpperWrapper>
       {mode === 'suggest' ? (
-        <SuggestInput placeholder="내용을 작성해주세요." />
+        <SuggestInput placeholder="내용을 작성해주세요." onChange={onSuggestInputChange} value={suggestInput} />
       ) : (
         <Editor
           wrapperClassName="wrapper-class"
