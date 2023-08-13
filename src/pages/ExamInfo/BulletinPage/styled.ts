@@ -38,6 +38,7 @@ export const TagSelectorWrapper = styled.div`
   column-gap: 8px;
   cursor: pointer;
   z-index: 100;
+  margin-left: 24px;
 `
 export const TagTypo = styled.p`
   font-size: 16px;
@@ -120,7 +121,7 @@ export const TitleInput = styled.input`
   padding: 11px 16px;
   border: 1px solid #c6c6c6;
   border-radius: 8px;
-  width: 850px;
+  width: 100%;
   height: 48px;
   font-size: 21px;
   font-weight: 700;
