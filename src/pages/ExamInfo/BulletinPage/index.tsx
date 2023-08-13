@@ -73,7 +73,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         tag: selectedTag,
         title: inputValue,
       }).then((res) => {
-        navigate(-1)
+        navigate('/timer', { state: true })
       })
     }
     //등록하시겠습니까? 확인

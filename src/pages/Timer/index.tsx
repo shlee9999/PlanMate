@@ -41,11 +41,14 @@ import { NoContentDescription } from 'components/common/NoContentDescription'
 import bookCheckImg from 'assets/images/book_check.png'
 import { NoContentTypo } from 'components/common/NoContentDescription/styled'
 import { FindClosestScheduleResponseProps, findClosestSchedule } from 'api/schedule/findClosestSchedule'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
+import { SuggestModal } from 'components/Timer/SuggestModal'
 
 let flag = 0
 export const TimerPage: FC = () => {
+  const location = useLocation()
+  const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const totalTime = useSelector((state: RootState) => state.timer.totalTime)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
@@ -66,6 +69,9 @@ export const TimerPage: FC = () => {
     year: 2023,
     month: 7,
     day: 31,
+  }
+  const closeSuggestModal = (): void => {
+    setIsSuggestModalOpen(false)
   }
   useEffect(() => {
     if (todos.length !== 0) {
@@ -102,6 +108,9 @@ export const TimerPage: FC = () => {
     else startTimer()
   }, [isTotalTimerRunning])
 
+  useEffect(() => {
+    if (location.state) setIsSuggestModalOpen(true)
+  }, [location.state])
   return (
     <Root>
       <Banner>
@@ -178,7 +187,8 @@ export const TimerPage: FC = () => {
           과목
         </AddButton>
       </LowerContainer>
-      <AddModal isModalOpen={isModalOpen} closeModal={closeModal} title="과목 추가"></AddModal>
+      <AddModal isModalOpen={isModalOpen} closeModal={closeModal} title="과목 추가" />
+      {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
     </Root>
   )
 }
