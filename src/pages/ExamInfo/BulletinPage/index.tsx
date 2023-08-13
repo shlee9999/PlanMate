@@ -42,7 +42,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   }
   const navigate = useNavigate()
   const onClickRegisterButton = async () => {
-    if (inputValue === '' || selectedTag === '선택해주세요') return
+    if (inputValue === '' || (mode === 'examinfo' && selectedTag === '선택해주세요')) return
     if (mode === 'examinfo')
       await createPost({
         content: serializeContent(editorState),
@@ -52,6 +52,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         if (res) navigate(-1)
       })
     if (mode === 'notice') {
+      console.log('노티스')
       return
     }
     //등록하시겠습니까? 확인
