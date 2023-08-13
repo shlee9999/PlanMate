@@ -81,7 +81,6 @@ export const TimerPage: FC = () => {
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
             <StatsContainer>
-              {/* <HistoryChart selectedDate={nowDay} /> */}
               <MainHistory
                 selectedDate={{
                   year: 0,

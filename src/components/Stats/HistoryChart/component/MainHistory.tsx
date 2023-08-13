@@ -12,7 +12,6 @@ interface MainHistoryProps {
 export const MainHistory: React.FC<MainHistoryProps> = ({ selectedDate }) => {
   return (
     <MainHistoryContainer>
-      {/* <HeaderDate selectedDate={selectedDate} /> */}
       <MainWrapper>
         <TimerWrapper>
           <TimerRecord />

@@ -40,7 +40,6 @@ export const WeeklyCalendar: React.FC = () => {
         <DateButton onClick={prevWeek}>prev</DateButton>
         <DateButton onClick={nextWeek}>next</DateButton>
       </FlexBox>
-      {/* <CalendarTable /> */}
       <CalendarWrapper>
         <HGrid first={'80px'} cols={1}>
           <VGrid rows={24}>

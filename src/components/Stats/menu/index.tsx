@@ -49,6 +49,7 @@ export const MenuBox = () => {
         <MainHeaderTitle>공부량 한 눈에 보기</MainHeaderTitle>
         <MainContentsWrapper>
           <StatsDatePicker onDateSelect={handleDateSelect} />
+
           <HistoryChart selectedDate={selectedDate} />
         </MainContentsWrapper>
       </MainContainer>

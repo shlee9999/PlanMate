@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'react-modern-calendar-datepicker/lib/DatePicker.css'
-import { Calendar, DayValue, Locale } from 'react-modern-calendar-datepicker'
 import { DatePickerFooter } from './DatePickerFooter'
+import { Calendar, DayValue, Locale } from '@hassanmojab/react-modern-calendar-datepicker'
 import './index.css'
 
 const myCustomLocale: Locale = {
@@ -90,16 +90,6 @@ export const StatsDatePicker: React.FC<StatsDatePickerProps> = ({ onDateSelect }
   }
 
   const [selectedDay, setSelectedDay] = useState<DayValue | null>(initialDay)
-
-  useEffect(() => {
-    const handleButtonClick = () => {
-      onDateSelect(selectedDay)
-    }
-    window.addEventListener('click', handleButtonClick)
-    return () => {
-      window.removeEventListener('click', handleButtonClick)
-    }
-  }, [selectedDay])
 
   const handleDateChange = (day: DayValue) => {
     setSelectedDay(day)
