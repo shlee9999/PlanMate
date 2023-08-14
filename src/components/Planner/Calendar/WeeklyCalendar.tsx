@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { CalendarWrapper, HGrid, VGrid, HourLine, DateButton, FlexBox, DayWrapper, Event, Hour } from './styled'
+import { CalendarWrapper, HGrid, VGrid, DateButton, FlexBox, DayWrapper, Event, Hour } from './styled'
 import { RootState } from 'modules'
 import { TodoPlans } from 'types'
 import { DAYS, TIMES, HOUR_HEIGHT, HOUR_MARGIN_TOP } from './constant'
 import { addDateBy, areDatesSame, getMonday, areDaySame } from './utils'
-import { PlanDate, Plan } from './types'
-import { CalendarTable } from './CalendarTable'
+import { Tooltip } from './Tooltip'
 
 export const WeeklyCalendar: React.FC = () => {
   const [mondayDate, setMondayDate] = useState<Date>(getMonday())
@@ -29,6 +28,8 @@ export const WeeklyCalendar: React.FC = () => {
     else if (day === '토') return 5
     else return 6
   }
+
+  const [hoveredPlan, setHoveredPlan] = useState<TodoPlans | null>(null)
 
   return (
     <>
@@ -58,10 +59,10 @@ export const WeeklyCalendar: React.FC = () => {
                       <Event
                         key={plan.id}
                         howLong={calHowLongHour(plan.begin_hour, plan.finish_hour)}
-                        fromTop={
-                          plan.begin_hour * HOUR_HEIGHT + HOUR_MARGIN_TOP + HOUR_HEIGHT / 2 + plan.begin_minute / 2
-                        }
+                        fromTop={plan.begin_hour * HOUR_HEIGHT + plan.begin_minute / 2 + HOUR_MARGIN_TOP}
                         planColor={plan.color}
+                        onClick={() => setHoveredPlan(plan)}
+                        // onMouseOutCapture={() => setHoveredPlan(null)}
                       >
                         {plan.title}
                       </Event>
@@ -72,6 +73,8 @@ export const WeeklyCalendar: React.FC = () => {
           </HGrid>
         </HGrid>
       </CalendarWrapper>
+      {/* hoveredPlan */}
+      {hoveredPlan && <Tooltip hoveredPlan={hoveredPlan} planDayIndex={dayIndex(hoveredPlan.day)}></Tooltip>}
     </>
   )
 }

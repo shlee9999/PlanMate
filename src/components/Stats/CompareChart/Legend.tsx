@@ -8,7 +8,7 @@ export const Legend: React.FC = () => {
     <LegendWrapper>
       <MainContentWrapper>
         <LegendTitle>오늘 </LegendTitle>
-        <IconYesterdayDot alt="yesterday_dot" src={yesterdayDotImg} />
+        <IconTodayDot alt="today_dot" src={todayDotImg} />
       </MainContentWrapper>
       <MainContentWrapper>
         <LegendTitle>어제</LegendTitle>

@@ -37,7 +37,7 @@ export const LegendWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 40px;
+  width: 60px;
   height: 30px;
   /* border: 1px solid black; */
 `
@@ -59,4 +59,8 @@ export const MainContentWrapper = styled.div`
 
 export const IconTodayDot = styled.img``
 
-export const IconYesterdayDot = styled.img``
+export const IconYesterdayDot = styled.img`
+  margin: 4px 20px 0px 0px;
+  width: 9px;
+  height: 9px;
+`
