@@ -4,11 +4,10 @@ import greenCheckImg from 'assets/images/check_green.png'
 import whiteCheckImg from 'assets/images/check_white.png'
 
 export const Root = styled.div`
-  position: relative;
   margin: ${HEADER_HEIGHT}px auto 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
   min-width: ${BODY_MIN_WIDTH}px;
-  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
+  min-height: calc(100vh - ${HEADER_HEIGHT}px);
 `
 
 export const TagRoot = styled.span`
@@ -27,8 +26,6 @@ export const CheckImg = styled.img`
 export const RegisterButton = styled.button`
   width: 96px;
   height: 32px;
-  top: 801px;
-  left: 1184px;
   border-radius: 100px;
   border: 1px solid #01cb45;
   color: #01cb45;

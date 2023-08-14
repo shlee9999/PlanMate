@@ -53,7 +53,13 @@ import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertFromRaw } from 'draft-js'
 import { editPost } from 'api/post/editPost'
-
+import { NoContentDescription } from 'components/common/NoContentDescription'
+import chatImg from 'assets/images/chat.png'
+import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { useSelector } from 'react-redux'
+import { RootState } from 'modules'
+import { deleteNotice } from 'api/notice/admin/deleteNotice'
+import { editNotice } from 'api/notice/admin/editNotice'
 /**
  * @title
  * @like
@@ -64,34 +70,24 @@ import { editPost } from 'api/post/editPost'
  * @content 게시물 내용
  * @tagList 태그 리스트
  */
-
-export const ExamInfoDetailPage: FC = () => {
+type ExamInfoDetailPageProps = {
+  mode: string
+}
+export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
   const data = useLoaderData() as ExamInfoDetailDataType
-
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
   const [totalPage, setTotalPage] = useState<number>(data.findAllCommentsResult.totalPages)
   const [currentPage, setCurrentPage] = useState<number>(1)
-  // const [examInfoDetail, setExamInfoDetail] = useState<ResponsePostType>({
-  //   commentCount: 0,
-  //   title: '예시',
-  //   likeCount: 5,
-  //   scrapCount: 2,
-  //   nickname: '닉네임',
-  //   postId: -1,
-  //   postTagList: ['태그1'],
-  //   updatedAt: '2023-06-12',
-  //   content: '',
-  //   isMyHearted: false,
-  //   isMyScraped: false,
-  // })
   const [isLiked, setIsLiked] = useState<boolean>(data.checkPostResult.isMyHearted)
   const [isScrapped, setIsScrapped] = useState<boolean>(data.checkPostResult.isMyScraped)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(data.checkPostResult.likeCount)
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(data.checkPostResult.scrapCount)
+  const [currentCommentCount, setCurrentCommentCount] = useState<number>(data.checkPostResult.commentCount)
   const [currentContent, setCurrentContent] = useState<string>(examInfoDetail.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
@@ -102,7 +98,6 @@ export const ExamInfoDetailPage: FC = () => {
     const contentState = convertFromRaw(rawContentFromServer)
     return EditorState.createWithContent(contentState)
   })
-  const [currentCommentCount, setCurrentCommentCount] = useState<number>(examInfoDetail.commentCount)
 
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState)
@@ -112,20 +107,25 @@ export const ExamInfoDetailPage: FC = () => {
   }
   const deleteComment = (id: number) => (): void => {
     removeComment({ commentId: id }).then((res) => {
-      if (res) {
-        setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
-        setCurrentCommentCount((prev) => prev - 1)
-      }
+      setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
+      setCurrentCommentCount((prev) => prev - 1)
     })
     //댓글 total 개수 하나 줄여야 함
   }
 
   const deletePost = (): void => {
-    removePost({
-      postId: +postId,
-    }).then((res) => {
-      navigate(-1)
-    })
+    if (mode === 'examinfo')
+      removePost({
+        postId: +postId,
+      }).then((res) => {
+        navigate(-1)
+      })
+    else
+      deleteNotice({
+        noticeId: +postId,
+      }).then((res) => {
+        navigate(-1)
+      })
   }
 
   const loadNextPage = (): void => {
@@ -134,12 +134,11 @@ export const ExamInfoDetailPage: FC = () => {
 
   const options = {
     root: null,
-    rootMargin: '0px', // root에 마진값을 주어 범위를 확장 가능합니다.
-    threshold: 1, // 타겟 요소가 얼마나 들어왔을때 백함수를 실행할 것인지 결정합니다. 1이면 타겟 요소 전체가 들어와야 합니다.
+    rootMargin: '0px',
+    threshold: 1,
   }
   const callback = (entries, observer) => {
     const entry = entries[0]
-    console.log('currentPage : ' + currentPage + '\ntotalPage : ' + totalPage)
 
     if (entry.isIntersecting && entry.intersectionRatio === 1) {
       observer.unobserve(target.current)
@@ -154,17 +153,24 @@ export const ExamInfoDetailPage: FC = () => {
     setIsEditing((prev) => !prev)
   }
   const onClickEditCompleteButton = () => {
-    editPost({
-      content: serializeContent(editorState),
-      id: +postId,
-      tagList: examInfoDetail.postTagList,
-      title: examInfoDetail.title,
-    }).then((res) => {
-      if (res) {
-        setIsEditing(false)
-        setCurrentContent(serializeContent(editorState))
-      }
-    })
+    if (mode === 'examinfo')
+      editPost({
+        content: serializeContent(editorState),
+        id: +postId,
+        tagList: examInfoDetail.postTagList,
+        title: examInfoDetail.title,
+      }).then((res) => {
+        if (res) {
+          setIsEditing(false)
+          setCurrentContent(serializeContent(editorState))
+        }
+      })
+    else
+      editNotice({
+        content: serializeContent(editorState),
+        noticeId: +postId,
+        title: examInfoDetail.title,
+      })
   }
   const onClickRegisterButton = (): void => {
     createComment({
@@ -215,7 +221,11 @@ export const ExamInfoDetailPage: FC = () => {
     if (!target.current) return
     const observer = new IntersectionObserver(callback, options)
     setTimeout(() => {
-      observer.observe(target.current)
+      try {
+        observer.observe(target.current)
+      } catch (err) {
+        return
+      }
     }, 1000)
     return () => observer.disconnect()
   }, [currentPage])
@@ -252,7 +262,7 @@ export const ExamInfoDetailPage: FC = () => {
           </TagWrapper>
           <TitleTypoWrapper>
             <TitleTypo>{examInfoDetail.title}</TitleTypo>
-            <UpdatedDate>{examInfoDetail.updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</UpdatedDate>
+            <UpdatedDate>{examInfoDetail.createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</UpdatedDate>
           </TitleTypoWrapper>
         </LeftTypoWrapper>
         <RightTypoWrapper>
@@ -300,33 +310,54 @@ export const ExamInfoDetailPage: FC = () => {
           </ScrapButton>
         </IconContainer>
       </ContentWrapper>
-      <CommentInputWrapper>
-        <UserNickname>사용자 닉네임</UserNickname>
-        <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-        <CommentRegisterButton onClick={onClickRegisterButton}>
-          <CheckImg />
-          댓글등록
-        </CommentRegisterButton>
-      </CommentInputWrapper>
+
+      {commentList.length !== 0 && (
+        <CommentInputWrapper>
+          <UserNickname>{userAuthInfo.name}</UserNickname>
+          <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
+          <CommentRegisterButton onClick={onClickRegisterButton}>
+            <CheckImg />
+            댓글등록
+          </CommentRegisterButton>
+        </CommentInputWrapper>
+      )}
       <CommentWrapper>
         <CommentTitle>
           댓글 <CommentCount>{currentCommentCount}</CommentCount>개
         </CommentTitle>
-        <CommentContainer>
-          {commentList.map((comment, index) => (
-            <ExamInfoComment
-              key={comment.commentId}
-              commentId={comment.commentId}
-              isAuthor={comment.isAuthor}
-              likeCount={comment.likeCount}
-              memberName={comment.memberName}
-              updatedAt={comment.updatedAt}
-              content={comment.content}
-              deleteComment={deleteComment(comment.commentId)}
-              isMyHearted={comment.isMyHearted}
-              ref={index === commentList.length - 1 ? target : null}
-            />
-          ))}
+        <CommentContainer className={commentList.length !== 0 ? '' : 'no_content'}>
+          {commentList.length !== 0 ? (
+            commentList.map((comment, index) => (
+              <ExamInfoComment
+                key={comment.commentId}
+                commentId={comment.commentId}
+                isAuthor={comment.isAuthor}
+                likeCount={comment.likeCount}
+                memberName={comment.memberName}
+                updatedAt={comment.updatedAt}
+                content={comment.content}
+                deleteComment={deleteComment(comment.commentId)}
+                isMyHearted={comment.isMyHearted}
+                postId={+postId}
+                ref={index === commentList.length - 1 ? target : null}
+              />
+            ))
+          ) : (
+            <>
+              <NoContentDescription src={chatImg}>
+                <NoContentTypo>아직 댓글이 없어요</NoContentTypo>
+                <NoContentTypo>첫 댓글을 남겨볼까요?</NoContentTypo>
+              </NoContentDescription>
+              <CommentInputWrapper className="no_content">
+                <UserNickname>{userAuthInfo.name}</UserNickname>
+                <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
+                <CommentRegisterButton onClick={onClickRegisterButton}>
+                  <CheckImg />
+                  댓글등록
+                </CommentRegisterButton>
+              </CommentInputWrapper>
+            </>
+          )}
         </CommentContainer>
       </CommentWrapper>
       {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} deletePost={deletePost} />}

@@ -5,13 +5,26 @@ export type ResponsePostType = {
   isMyScraped: boolean
   likeCount: number
   nickname: string
-  postId: number
   postTagList: string[]
   scrapCount: number
   title: string
-  updatedAt: string
+  createdAt: string
+  postId?: number
+  noticeId?: number
 }
 
+export type ResponseNoticeType = {
+  commentCount: number
+  content: string
+  createdAt: string
+  isMyHearted: boolean
+  isMyScraped: boolean
+  likeCount: number
+  nickname: string
+  noticeId: number
+  scrapCount: number
+  title: string
+}
 export type ResponseTimeProps = {
   date: string
   day: string
@@ -32,4 +45,5 @@ export type ResponseCommentType = {
   likeCount: number
   memberName: string
   updatedAt: string
+  postId: number
 }

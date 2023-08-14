@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.png'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import filledLikeImg from 'assets/images/like_button_filled.png'
+import { RegisterButton } from 'styled'
 
 export const EllipsisButton = styled.img`
   position: relative;
@@ -50,6 +49,17 @@ export const Comment = styled.p`
   font-weight: 400;
   line-height: 18px;
   color: #222222;
+  white-space: pre-line;
+  &.mypage_comment {
+    cursor: pointer;
+  }
+`
+export const EditInput = styled.textarea`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #222222;
+  resize: none;
 `
 export const ReplyButton = styled.button`
   width: 48px;
@@ -62,13 +72,7 @@ export const ReplyButton = styled.button`
   color: #666666;
 `
 
-type LikeImgProps = {
-  isLiked: boolean
-}
-
-export const LikeImg = styled.img.attrs<LikeImgProps>((props) => ({
-  src: props.isLiked ? filledLikeImg : hollowLikeImg,
-}))<LikeImgProps>`
+export const LikeImg = styled.img`
   width: 13px;
   height: 12px;
   margin-right: 2px;
@@ -137,4 +141,51 @@ export const AuthorIcon = styled.div`
   text-align: center;
   font-size: 10px;
   font-weight: 400;
+`
+export const ReplyInputWrapper = styled.div`
+  padding-bottom: 10px;
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid #c6c6c6;
+`
+export const ReplyRightWrapper = styled.div`
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+`
+export const ReplyMark = styled.div`
+  margin-top: 10px;
+  margin-left: 24px;
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  border-left: 1px solid #666666;
+  border-bottom: 1px solid #666666;
+`
+export const ReplyInput = styled.textarea`
+  box-sizing: border-box;
+  padding: 9px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid #c6c6c6;
+  background-color: #f9f9f9;
+  resize: none;
+  &::placeholder {
+    color: #c6c6c6;
+  }
+`
+export const ReplyRegisterButton = styled(RegisterButton)`
+  align-self: flex-end;
+`
+export const UserNickname = styled.p`
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #222222;
 `

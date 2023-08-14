@@ -5,7 +5,8 @@ import {
   ExamInfoWrapper,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
-  NoPostTypo,
+  NoContentWrapper,
+  PaginationWrapper,
   Root,
   Tag,
   TagButton,
@@ -16,19 +17,18 @@ import {
 } from './styled'
 import { useEffect, useState } from 'react'
 import { ResponsePostType } from 'api/common/commonType'
-import sampleInfoList from 'constants/sampleInfoList.json'
-
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
-import { tagList } from 'constants/tagList'
+import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'components/ExamInfo/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
-import { FindPostResponseProps } from 'api/post/find/findPost'
+import { NoContentDescription } from 'components/common/NoContentDescription'
+import pencilImg from 'assets/images/pencil.png'
+import { NoContentTypo } from 'components/common/NoContentDescription/styled'
 
 export const ExamInfoPage = () => {
   const data = useLoaderData() as FindAllPostResponseProps
   const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
-  // const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(sampleInfoList.postInfoList) //서버 꺼져있어도 되도록
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
   const [selectedTag, setSelectedTag] = useState<string>('')
@@ -37,6 +37,7 @@ export const ExamInfoPage = () => {
   }
 
   const loadPrevPage = (): void => {
+    if (totalPage === 0) return
     if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
   }
   const loadNextPage = (): void => {
@@ -53,6 +54,7 @@ export const ExamInfoPage = () => {
     else setSelectedTag(tag)
     setCurrentPage(1)
   }
+
   useEffect(() => {
     if (selectedTag === '')
       findAll({ pages: currentPage - 1 }).then((res: unknown) => {
@@ -67,6 +69,7 @@ export const ExamInfoPage = () => {
       }).then((res) => {
         const response = res as FindPostWithTagResponseProps
         setExamInfoList(response.postDtoList)
+        setTotalPage(response.totalPages)
       })
   }, [currentPage, selectedTag])
 
@@ -82,12 +85,12 @@ export const ExamInfoPage = () => {
         <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
       </TypoWrapper>
       <UpperTagButtonWrapper>
-        {tagList.map((tag, index) =>
+        {examinfoTagList.map((tag, index) =>
           index > 5 ? null : (
             <TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(tagList[index])}
+              onClick={onClickTagButton(examinfoTagList[index])}
             >
               <Tag>{tag}</Tag>
             </TagButton>
@@ -95,12 +98,12 @@ export const ExamInfoPage = () => {
         )}
       </UpperTagButtonWrapper>
       <LowerTagButtonWrapper>
-        {tagList.map((tag, index) =>
+        {examinfoTagList.map((tag, index) =>
           index <= 5 ? null : (
             <TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(tagList[index])}
+              onClick={onClickTagButton(examinfoTagList[index])}
             >
               <Tag>{tag}</Tag>
             </TagButton>
@@ -111,24 +114,30 @@ export const ExamInfoPage = () => {
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
-          <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
+          <NoContentWrapper>
+            <NoContentDescription src={pencilImg}>
+              <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
+              <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
+            </NoContentDescription>
+          </NoContentWrapper>
         )}
-        {/* {sampleInfoList.postInfoList.map((sampleInfo, index) => (
-        <ExamInfoItem {...sampleInfo} key={index} />
-      ))} */}
 
         <BulletinButton onClick={onClickBulletinButton}>
           <BulletinIcon />
           글쓰기
         </BulletinButton>
       </ExamInfoWrapper>
-      <Pagination
-        currentPage={currentPage}
-        totalPage={totalPage}
-        onClickLeftArrow={loadPrevPage}
-        onClickRightArrow={loadNextPage}
-        onClickPageNumber={handleCurrentPage}
-      />
+      <PaginationWrapper>
+        {
+          <Pagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            onClickLeftArrow={loadPrevPage}
+            onClickRightArrow={loadNextPage}
+            onClickPageNumber={handleCurrentPage}
+          />
+        }
+      </PaginationWrapper>
     </Root>
   )
 }

@@ -13,7 +13,7 @@ export const Root = styled.div`
     padding: 0 14px;
     border: 1px solid #c6c6c6;
     border-radius: 8px;
-    width: 1120px;
+    max-width: 1120px;
     min-height: 200px;
   }
 `
@@ -21,6 +21,16 @@ export const WriteTypo = styled.div`
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
+  margin-bottom: 4px;
+`
+export const SuggestTypo = styled.div`
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+`
+export const GreenTypo = styled.span`
+  color: #01cb45;
+  font-size: 12px;
 `
 export const ButtonWrapper = styled.div`
   display: flex;
@@ -37,11 +47,14 @@ export const TagSelectorWrapper = styled.div`
   align-items: center;
   column-gap: 8px;
   cursor: pointer;
+  z-index: 100;
+  margin-left: 24px;
 `
 export const TagTypo = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 48px;
+  white-space: nowrap;
 `
 export const TagSelector = styled.div`
   position: relative;
@@ -67,6 +80,7 @@ export const TagOptionWrapper = styled.div`
   border-radius: 8px;
   border: 1px solid #dddede;
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: white;
   z-index: 2;
 `
@@ -118,7 +132,7 @@ export const TitleInput = styled.input`
   padding: 11px 16px;
   border: 1px solid #c6c6c6;
   border-radius: 8px;
-  width: 850px;
+  width: 100%;
   height: 48px;
   font-size: 21px;
   font-weight: 700;
@@ -135,4 +149,23 @@ export const ContentInput = styled.textarea`
   border-radius: 8px;
   width: 1120px;
   height: 535px;
+`
+
+export const SuggestInput = styled.textarea`
+  outline: none;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  max-width: 1120px;
+  min-width: 528px;
+  min-height: 500px;
+  height: auto;
+  &::placeholder {
+    color: #c6c6c6;
+  }
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #444444;
 `

@@ -75,7 +75,9 @@ const EllipsisModal = ({
           closeEllipsisModal={closeModal}
         />
       )}
-      {isDeleteModalOpen && <DeleteModal closeModal={closeDeleteModal} deleteSubject={deleteSubject} />}
+      {isDeleteModalOpen && (
+        <DeleteModal closeModal={closeDeleteModal} deleteSubject={deleteSubject} title={todo.name} />
+      )}
     </ModalWrapper>
   )
 }

@@ -16,7 +16,7 @@ import {
 
 import { useTimer } from 'hooks/useTimer'
 import { RootState } from 'modules'
-import { pauseTimer, runTimer } from 'modules/timer'
+import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
 import EllipsisModal from '../EllipsisModal'
 import moment from 'moment'
 import { updateSubject } from 'api/subject/updateSubject'
@@ -40,7 +40,6 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
 
   const onClickStartButton = (): void => {
     setStartTime(moment().format('HH:mm:ss')) //백엔드 리스폰스 확인할것
-    console.log(startTime)
     if (!isTotalTimerRunning) {
       setIsTodoTimerRunning(true)
       startTotalTimer()
@@ -48,16 +47,14 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
   }
 
   const onClickPauseButton = (): void => {
-    console.log(getStudyTime(startTime, moment().format('HH:mm:ss')))
     updateSubject({
       endAt: moment().format('HH:mm:ss'),
       startAt: startTime,
       subjectId: todo.subjectId,
     }).then((res) => {
-      console.log(res)
+      setIsTodoTimerRunning(false)
+      stopTotalTimer()
     })
-    setIsTodoTimerRunning(false)
-    stopTotalTimer()
   }
 
   const OnClickEllipsisButton = () => {
@@ -74,6 +71,10 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
     }
     startTimer()
   }, [isTodoTimerRunning])
+
+  useEffect(() => {
+    dispatch(increaseTimer())
+  }, [time])
 
   return (
     <Root>

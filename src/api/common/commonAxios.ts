@@ -1,13 +1,15 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { authorization } from 'constants/authorization'
-import { baseUrl } from 'constants/url'
+
+const userAuthInfo = JSON.parse(localStorage.getItem('userAuthInfo') || '{}')
+
+const accessToken = userAuthInfo && userAuthInfo.accessToken ? 'Bearer ' + userAuthInfo.accessToken : null
 
 const axiosInstance = axios.create({
   withCredentials: true,
-  baseURL: baseUrl,
+  baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: authorization,
+    Authorization: accessToken,
   },
 })
 

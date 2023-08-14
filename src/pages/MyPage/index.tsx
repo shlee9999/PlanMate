@@ -24,6 +24,10 @@ import {
   TitleWrapper,
   TypoWrapper,
   UserName,
+  EllipsisModal,
+  EllipsisEditButton,
+  EllipsisResignButton,
+  TabRow,
 } from './styled'
 import { DDayItem } from 'components/MyPage/DDayItem'
 import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
@@ -34,34 +38,56 @@ import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
 import { findScrappedPost } from 'api/post/find/findScrappedPost'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'modules'
+import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
+import { ProfileEditModal } from 'components/MyPage/ProfileEditModal'
+import { ResignModal } from 'components/MyPage/ResignModal'
+import { changeName } from 'api/member/changeName'
+import { changeuserAuthInfo } from 'modules/userAuthInfo'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
-  {
-    title: '테스트1saasdsadfhjoisdfoasdjofjdsaofjdsoajsdfojdsoajo',
-    dDay: 30,
-    date: '2023-08-32',
-    isMarked: true,
-    dDayId: 0,
-  },
-  { title: '테스트2', dDay: 38, date: '2023-08-32', isMarked: true, dDayId: 1 },
-  { title: '테스트3', dDay: 50, date: '2023-08-32', isMarked: true, dDayId: 2 },
-  { title: '테스트4', dDay: 80, date: '2023-08-32', isMarked: false, dDayId: 3 },
-  { title: '테스트5', dDay: 90, date: '2023-08-32', isMarked: false, dDayId: 4 },
-  { title: '테스트6', dDay: 100, date: '2023-08-32', isMarked: false, dDayId: 5 },
-  { title: '테스트7', dDay: 105, date: '2023-08-32', isMarked: false, dDayId: 6 },
+  { id: 0, title: '테스트2', targetDate: '2023-08-20', isMarked: true },
+  { id: 1, title: '테스트3', targetDate: '2023-08-30', isMarked: true },
+  { id: 2, title: '테스트4', targetDate: '2023-09-20', isMarked: false },
+  { id: 3, title: '테스트5', targetDate: '2023-10-25', isMarked: false },
+  { id: 4, title: '테스트6', targetDate: '2023-11-30', isMarked: false },
+  { id: 5, title: '테스트7', targetDate: '2023-12-31', isMarked: false },
 ]
 
 export const MyPage: FC = () => {
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
+  const [currentDDayList, setCurrentDDayList] = useState([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
-
+  const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
   const [myPostList, setMyPostList] = useState<ResponsePostType[]>()
   const [myCommentList, setMyCommentList] = useState<ResponseCommentType[]>()
   const [scrappedPostList, setScrappedPostList] = useState<ResponsePostType[]>()
-
-  const onClickEllipsisButton = () => {
-    console.log('클릭')
+  const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
+  const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
+  const dispatch = useDispatch()
+  const openProfileEditModal = () => {
+    setIsProfileEditModalOpen(true)
+    setIsEllipsisModalOpen(false)
+  }
+  const openResignModal = () => {
+    setIsResignModalOpen(true)
+    setIsEllipsisModalOpen(false)
+  }
+  const closeProfileEditModal = () => {
+    setIsProfileEditModalOpen(false)
+  }
+  const closeResignModal = () => {
+    setIsResignModalOpen(false)
+  }
+  const onClickEllipsisButton = (e: React.MouseEvent): void => {
+    setIsEllipsisModalOpen((prev) => !prev)
+    e.stopPropagation()
+  }
+  const onClickModal = (e: React.MouseEvent): void => {
+    e.stopPropagation()
   }
   const onClickTabItem = (tab: string) => () => {
     switch (tab) {
@@ -115,7 +141,17 @@ export const MyPage: FC = () => {
         return null
     }
   }
-
+  const onClickRoot = () => {
+    setIsEllipsisModalOpen(false)
+  }
+  const changeNickname = (newNickname: string) => {
+    changeName({ name: newNickname }).then((res) => {
+      const newUserAuth = { ...userAuthInfo, name: newNickname }
+      dispatch(changeuserAuthInfo(newUserAuth))
+      localStorage.setItem('userAuthInfo', JSON.stringify(newUserAuth))
+      closeProfileEditModal()
+    })
+  }
   useEffect(() => {
     findPost({ pages: currentPage - 1 }).then((res) => {
       if (res) {
@@ -124,6 +160,10 @@ export const MyPage: FC = () => {
         setCurrentPage(1)
       }
     })
+    findAllSchedule().then((res) => {
+      const response = res as FindAllScheduleResponseProps
+      setCurrentDDayList(response)
+    })
   }, [])
 
   useEffect(() => {
@@ -131,20 +171,26 @@ export const MyPage: FC = () => {
   }, [currentTab])
 
   return (
-    <Root>
+    <Root onClick={onClickRoot}>
       <LeftContainer>
         <TitleWrapper>
-          <Nickname>메이트</Nickname>
+          <Nickname>{userAuthInfo.name}</Nickname>
           님의 <Title>마이페이지 👋</Title>
         </TitleWrapper>
         <ProfileTypo>프로필</ProfileTypo>
         <ProfileContainer>
-          <UserName>이성훈</UserName>님
+          <UserName>{userAuthInfo.name}</UserName>님
           <Email>
             <GoogleLogo alt="google_logo" src={googleLogo} />
-            oklshop555@naver.com
+            {userAuthInfo.email}
           </Email>
           <EllipsisImg onClick={onClickEllipsisButton} />
+          {isEllipsisModalOpen && (
+            <EllipsisModal onClick={onClickModal}>
+              <EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</EllipsisEditButton>
+              <EllipsisResignButton onClick={openResignModal}>탈퇴하기</EllipsisResignButton>
+            </EllipsisModal>
+          )}
         </ProfileContainer>
         <TypoWrapper>
           <AdminDDay>D-DAY 관리</AdminDDay>
@@ -154,33 +200,44 @@ export const MyPage: FC = () => {
           </SeeMore>
         </TypoWrapper>
         <DDayContainer>
-          {sampleDDayList.map((dday) => (
-            <DDayItem {...dday} key={dday.dDayId} />
+          {currentDDayList.map((dday) => (
+            <DDayItem {...dday} key={dday.id} />
           ))}
 
-          <ArrowWrapper>
+          {/* <ArrowWrapper>
             <LeftArrow src={rightArrow} />
             <RightArrow src={rightArrow} />
-          </ArrowWrapper>
+          </ArrowWrapper> */}
         </DDayContainer>
       </LeftContainer>
       <RightContainer>
         <MyActivity>나의 활동</MyActivity>
         <MyActivityContainer>
           <TabSelector>
-            {myPageTabList.map((tab, index) => (
-              <TabItem
-                onClick={onClickTabItem(myPageTabList[index])}
-                key={index}
-                className={currentTab === tab ? 'isSelected' : ''}
-              >
-                {tab}
-              </TabItem>
-            ))}
+            <TabRow>
+              {myPageTabList.map((tab, index) => (
+                <TabItem
+                  onClick={onClickTabItem(myPageTabList[index])}
+                  key={index}
+                  className={currentTab === tab ? 'isSelected' : ''}
+                >
+                  {tab}
+                </TabItem>
+              ))}
+            </TabRow>
+            <TabRow />
           </TabSelector>
           <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
         </MyActivityContainer>
       </RightContainer>
+      {isProfileEditModalOpen && (
+        <ProfileEditModal
+          closeModal={closeProfileEditModal}
+          nickname={userAuthInfo.name}
+          changeNickname={changeNickname}
+        />
+      )}
+      {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
     </Root>
   )
 }

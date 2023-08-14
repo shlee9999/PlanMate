@@ -125,14 +125,12 @@ export const IconContainer = styled.div`
 `
 
 export const LikeImg = styled.img`
-  width: 13px;
-  height: 12px;
-  margin-right: 2px;
+  width: 16px;
+  height: 16px;
 `
 export const ScrapImg = styled.img`
-  width: 9px;
-  height: 12px;
-  margin-right: 3px;
+  width: 16px;
+  height: 16px;
 `
 const ImgButton = styled.button`
   display: flex;
@@ -162,11 +160,17 @@ export const CommentCount = styled.span`
 
 export const CommentContainer = styled.div`
   border-top: 1px solid #c6c6c6;
+  &.no_content {
+    border-top: none;
+  }
 `
 export const CommentInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+  &.no_content {
+    margin-top: 40px;
+  }
 `
 export const CommentInput = styled.textarea`
   box-sizing: border-box;

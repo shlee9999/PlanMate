@@ -10,7 +10,7 @@ export const Root = styled.div`
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT};
   background-color: white;
-  z-index: 1;
+  z-index: 10;
 `
 export const ContentWrapper = styled.div`
   max-width: ${HEADER_MAX_WIDTH}px;
@@ -44,7 +44,11 @@ export const GreenTypo = styled.span`
   color: #01cb45;
   text-decoration: underline;
 `
-export const Logout = styled.p`
+export const LoginTypo = styled.p`
+  cursor: pointer;
+  margin-right: 100px;
+`
+export const LogoutTypo = styled.p`
   cursor: pointer;
 `
 export const Notice = styled.p`
