@@ -7,7 +7,6 @@ import {
   UserName,
   HeaderMessage,
   HeaderPageTitle,
-  DividingLine,
   MainContainer,
   MainHeaderTitle,
   MainContentsWrapper,
@@ -20,6 +19,7 @@ import {
   IconKakaoTalk,
   IconInstagram,
   IconContents,
+  HeaderDividingLine,
 } from './styled'
 import vectorImg from 'assets/images/vector.png'
 import urlImg from 'assets/images/url.png'
@@ -44,7 +44,7 @@ export const MenuBox = () => {
         </HeaderContentWrapper>
         <HeaderPageTitle>통계 📊</HeaderPageTitle>
       </HeaderContainer>
-      <DividingLine />
+      <HeaderDividingLine />
       <MainContainer>
         <MainHeaderTitle>공부량 한 눈에 보기</MainHeaderTitle>
         <MainContentsWrapper>

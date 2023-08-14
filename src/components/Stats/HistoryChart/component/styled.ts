@@ -83,7 +83,7 @@ const MainWrapper = styled.div`
 `
 
 const TimerWrapper = styled.div`
-  width: 35%;
+  width: 40%;
   height: 140px;
   display: flex;
   justify-content: center;

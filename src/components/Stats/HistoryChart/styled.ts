@@ -15,7 +15,7 @@ export const ResultContainer = styled.div`
 export const HeaderDateWrapper = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 20px;
+  margin: 20px 0px 20px 17px;
   align-items: flex-start;
 `
 
@@ -48,7 +48,7 @@ export const CompareTitleWrapper = styled.div`
   padding-bottom: 5px;
 `
 
-export const CompareTitle = styled.p`
+export const CompareTitle = styled.div`
   font-family: Spoqa Han Sans Neo;
   font-size: 12px;
   font-weight: 400;
@@ -57,7 +57,8 @@ export const CompareTitle = styled.p`
   text-align: center;
   color: #666666;
 `
-export const CompareTimer = styled.p`
+
+export const CompareTimer = styled.div`
   font-family: Spoqa Han Sans Neo;
   font-size: 12px;
   font-weight: 500;
@@ -65,4 +66,9 @@ export const CompareTimer = styled.p`
   letter-spacing: 0em;
   text-align: left;
   color: #444444;
+`
+
+export const DivdingLine = styled.div`
+  width: 100%;
+  border-bottom: 3px solid gray;
 `

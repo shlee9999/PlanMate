@@ -10,7 +10,10 @@ export interface Plan {
   howLong: number
 }
 
-//export to styled
+export interface TooltipType {
+  planDayIndex: number
+  planFromTop: number
+}
 
 export interface EventType {
   howLong: number
@@ -20,4 +23,8 @@ export interface EventType {
 
 export interface HourLineType {
   fromTop: number
+}
+
+export interface PlanColorCircleType {
+  planColor: string
 }

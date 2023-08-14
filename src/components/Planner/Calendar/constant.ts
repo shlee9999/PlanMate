@@ -1,4 +1,4 @@
-export const HOUR_HEIGHT = 20
+export const HOUR_HEIGHT = 13
 export const HOUR_MARGIN_TOP = 0
 
 export const DAYS: string[] = ['월', '화', '수', '목', '금', '토', '일']

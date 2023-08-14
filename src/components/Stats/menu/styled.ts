@@ -46,8 +46,9 @@ export const HeaderPageTitle = styled.div`
   letter-spacing: 0em;
 `
 
-export const DividingLine = styled.hr`
+export const HeaderDividingLine = styled.hr`
   width: 100%;
+  margin: 20px 0px;
   align-items: left;
 `
 
@@ -64,6 +65,12 @@ export const MainHeaderTitle = styled.div`
   line-height: 26px;
   letter-spacing: 0em;
   margin-bottom: 20px;
+`
+
+export const ChartDividingLine = styled.hr`
+  width: 98%;
+  margin-top: 20px;
+  align-items: left;
 `
 
 export const MainContentsWrapper = styled.div`

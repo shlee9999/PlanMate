@@ -1,18 +1,10 @@
 import React from 'react'
-import {
-  ResultContainer,
-  HeaderDateWrapper,
-  ResultStatsContainer,
-  CompareStatsContainer,
-  CompareTitleWrapper,
-  CompareTitle,
-  CompareTimer,
-} from './styled'
+import { ResultContainer, HeaderDateWrapper, ResultStatsContainer, CompareStatsContainer } from './styled'
 import { MainHistory } from './component/MainHistory'
-import { BumpGraph } from '../CompareChart'
+import { CompareChart } from '../CompareChart'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { HeaderDate } from './component/HeaderDate'
-import { CompareTip } from './component/CompareTip'
+import { ChartDividingLine } from '../menu/styled'
 
 interface HistoryChartProps {
   selectedDate: DayValue | null
@@ -27,9 +19,9 @@ export const HistoryChart: React.FC<HistoryChartProps> = ({ selectedDate }) => {
       <ResultStatsContainer>
         <MainHistory selectedDate={selectedDate} />
       </ResultStatsContainer>
+      <ChartDividingLine />
       <CompareStatsContainer>
-        <CompareTip />
-        <BumpGraph />
+        <CompareChart />
       </CompareStatsContainer>
     </ResultContainer>
   )

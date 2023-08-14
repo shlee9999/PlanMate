@@ -32,10 +32,12 @@ import { RootState } from 'modules'
 import { StudyTimerWidget } from 'components/Timer/TimerWidget'
 import TodoItem from 'components/Timer/TodoItem'
 import AddModal from 'components/Timer/SubjectModal/AddModal'
-import { DayValue } from 'react-modern-calendar-datepicker'
 import { MainHistory } from 'components/Stats/HistoryChart/component/MainHistory'
+import { CompareChart } from 'components/Stats/CompareChart'
+import { DayValue } from 'react-modern-calendar-datepicker'
+
 import { CompareTip } from 'components/Stats/HistoryChart/component/CompareTip'
-import { BumpGraph } from 'components/Stats/CompareChart'
+
 import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/common/NoContentDescription'
 import bookCheckImg from 'assets/images/book_check.png'
@@ -125,7 +127,6 @@ export const TimerPage: FC = () => {
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
             <StatsContainer>
-              {/* <HistoryChart selectedDate={nowDay} /> */}
               <MainHistory
                 selectedDate={{
                   year: 0,
@@ -133,8 +134,7 @@ export const TimerPage: FC = () => {
                   day: 0,
                 }}
               />
-              <CompareTip />
-              <BumpGraph />
+              <CompareChart />
             </StatsContainer>
           </RightContainer>
         </BannerContentWrapper>
