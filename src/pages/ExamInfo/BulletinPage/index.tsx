@@ -29,6 +29,7 @@ import { CheckImg, RegisterButton } from 'styled'
 import downArrowImg from 'assets/images/right_arrow.png'
 import { examinfoTagList, suggestTagList } from 'constants/tagList'
 import { suggest } from 'api/suggest/suggest'
+import { createNotice } from 'api/notice/admin/createNotice'
 
 type BulletinPageProps = {
   mode: string
@@ -59,12 +60,17 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         tagList: [selectedTag],
         title: inputValue,
       }).then((res) => {
-        if (res) navigate(-1)
+        navigate(-1)
       })
       return
     }
     if (mode === 'notice') {
-      console.log('노티스')
+      createNotice({
+        content: serializeContent(editorState),
+        title: inputValue,
+      }).then((res) => {
+        if (res) navigate(-1)
+      })
       return
     }
     if (mode === 'suggest') {

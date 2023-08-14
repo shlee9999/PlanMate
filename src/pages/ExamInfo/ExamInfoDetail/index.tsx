@@ -58,6 +58,8 @@ import chatImg from 'assets/images/chat.png'
 import { NoContentTypo } from 'components/common/NoContentDescription/styled'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
+import { deleteNotice } from 'api/notice/admin/deleteNotice'
+import { editNotice } from 'api/notice/admin/editNotice'
 /**
  * @title
  * @like
@@ -68,13 +70,14 @@ import { RootState } from 'modules'
  * @content 게시물 내용
  * @tagList 태그 리스트
  */
-
-export const ExamInfoDetailPage: FC = () => {
+type ExamInfoDetailPageProps = {
+  mode: string
+}
+export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
   const data = useLoaderData() as ExamInfoDetailDataType
-
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
@@ -111,11 +114,18 @@ export const ExamInfoDetailPage: FC = () => {
   }
 
   const deletePost = (): void => {
-    removePost({
-      postId: +postId,
-    }).then((res) => {
-      navigate(-1)
-    })
+    if (mode === 'examinfo')
+      removePost({
+        postId: +postId,
+      }).then((res) => {
+        navigate(-1)
+      })
+    else
+      deleteNotice({
+        noticeId: +postId,
+      }).then((res) => {
+        navigate(-1)
+      })
   }
 
   const loadNextPage = (): void => {
@@ -124,12 +134,11 @@ export const ExamInfoDetailPage: FC = () => {
 
   const options = {
     root: null,
-    rootMargin: '0px', // root에 마진값을 주어 범위를 확장 가능합니다.
-    threshold: 1, // 타겟 요소가 얼마나 들어왔을때 백함수를 실행할 것인지 결정합니다. 1이면 타겟 요소 전체가 들어와야 합니다.
+    rootMargin: '0px',
+    threshold: 1,
   }
   const callback = (entries, observer) => {
     const entry = entries[0]
-    console.log('currentPage : ' + currentPage + '\ntotalPage : ' + totalPage)
 
     if (entry.isIntersecting && entry.intersectionRatio === 1) {
       observer.unobserve(target.current)
@@ -144,17 +153,24 @@ export const ExamInfoDetailPage: FC = () => {
     setIsEditing((prev) => !prev)
   }
   const onClickEditCompleteButton = () => {
-    editPost({
-      content: serializeContent(editorState),
-      id: +postId,
-      tagList: examInfoDetail.postTagList,
-      title: examInfoDetail.title,
-    }).then((res) => {
-      if (res) {
-        setIsEditing(false)
-        setCurrentContent(serializeContent(editorState))
-      }
-    })
+    if (mode === 'examinfo')
+      editPost({
+        content: serializeContent(editorState),
+        id: +postId,
+        tagList: examInfoDetail.postTagList,
+        title: examInfoDetail.title,
+      }).then((res) => {
+        if (res) {
+          setIsEditing(false)
+          setCurrentContent(serializeContent(editorState))
+        }
+      })
+    else
+      editNotice({
+        content: serializeContent(editorState),
+        noticeId: +postId,
+        title: examInfoDetail.title,
+      })
   }
   const onClickRegisterButton = (): void => {
     createComment({
@@ -245,7 +261,7 @@ export const ExamInfoDetailPage: FC = () => {
           </TagWrapper>
           <TitleTypoWrapper>
             <TitleTypo>{examInfoDetail.title}</TitleTypo>
-            <UpdatedDate>{examInfoDetail.updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</UpdatedDate>
+            <UpdatedDate>{examInfoDetail.createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</UpdatedDate>
           </TitleTypoWrapper>
         </LeftTypoWrapper>
         <RightTypoWrapper>
