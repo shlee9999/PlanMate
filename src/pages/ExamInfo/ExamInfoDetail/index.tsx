@@ -87,6 +87,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const [isScrapped, setIsScrapped] = useState<boolean>(data.checkPostResult.isMyScraped)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(data.checkPostResult.likeCount)
   const [currentScrapCount, setCurrentScrapCount] = useState<number>(data.checkPostResult.scrapCount)
+  const [currentCommentCount, setCurrentCommentCount] = useState<number>(data.checkPostResult.commentCount)
   const [currentContent, setCurrentContent] = useState<string>(examInfoDetail.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
@@ -106,9 +107,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   }
   const deleteComment = (id: number) => (): void => {
     removeComment({ commentId: id }).then((res) => {
-      if (res) {
-        setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
-      }
+      setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
+      setCurrentCommentCount((prev) => prev - 1)
     })
     //댓글 total 개수 하나 줄여야 함
   }
@@ -186,6 +186,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         setTotalPage(response.totalPages)
         setCommentInput('')
         setCurrentPage(0)
+        setCurrentCommentCount((prev) => prev + 1)
       })
     })
   }
@@ -322,7 +323,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       )}
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{commentList.length}</CommentCount>개
+          댓글 <CommentCount>{currentCommentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer className={commentList.length !== 0 ? '' : 'no_content'}>
           {commentList.length !== 0 ? (
