@@ -135,7 +135,6 @@ export const TimerPage: FC = () => {
                 }}
               />
               <CompareChart />
-              <CompareTip />
             </StatsContainer>
           </RightContainer>
         </BannerContentWrapper>
