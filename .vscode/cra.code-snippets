@@ -1,0 +1,127 @@
+{
+  "react-function-component-skeleton": {
+    "scope": "typescriptreact",
+    "prefix": "rfc",
+    "body": [
+      "import { FC } from 'react'",
+      "import { Root } from './styled'",
+      "",
+      "type ${TM_FILENAME_BASE}$1Props = {",
+      " className?: string",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1: FC<${TM_FILENAME_BASE}$1Props> = ({ className }) => {",
+      " return <Root className={className}>${TM_FILENAME_BASE}$1</Root>",
+      "}",
+      ""
+    ]
+  },
+  "react-hook-skeleton": {
+    "scope": "typescript",
+    "prefix": "hook",
+    "body": [
+      "type ${TM_FILENAME_BASE}$1Props = {",
+      "",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1 = ({}: ${TM_FILENAME_BASE}$1Props) => {",
+      " return {}",
+      "}",
+      ""
+    ]
+  },
+  "react-styled-components-skeleton": {
+    "scope": "typescript",
+    "prefix": "rsc",
+    "body": ["import styled from 'styled-components'", "", "export const Root = styled.div``"]
+  },
+  "react-export-const-skeleton": {
+    "scope": "typescript",
+    "prefix": "ec",
+    "body": ["export const "]
+  },
+  "redux-reducer-skeleton": {
+    "scope": "typescript",
+    "prefix": "rrs",
+    "body": [
+      "const CHANGE_${TM_FILENAME_BASE/(.*)/${1:/upcase}/} = 'timer/CHANGE_TAB' as const",
+      "",
+      "export const change${TM_FILENAME_BASE}$1 = () => ({ type: CHANGE_${TM_FILENAME_BASE/(.*)/${1:/upcase}/} })",
+      "",
+      "type ${TM_FILENAME_BASE}$1Action = ReturnType<typeof change${TM_FILENAME_BASE}$1>",
+      "",
+      "type ${TM_FILENAME_BASE}$1State = { currentTab: number }",
+      "",
+      "const InitialState: ${TM_FILENAME_BASE}$1State = {currentTab: 0,}",
+      "",
+      "function ${TM_FILENAME_BASE}(state: ${TM_FILENAME_BASE}$1State = InitialState, action: ${TM_FILENAME_BASE}$1Action) {",
+      "",
+      "switch (action.type) {",
+      "",
+      "case CHANGE_${TM_FILENAME_BASE/(.*)/${1:/upcase}/}: return ",
+      "",
+      "default: return state}",
+      "",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}"
+    ]
+  },
+  "react-post-axios": {
+    "scope": "typescript",
+    "prefix": "api-post",
+    "body": [
+      "import { axiosPOST } from 'api/common/commonAxios'",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps = {",
+      "",
+      "}",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1ResponseProps = {",
+      "",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1 = ({}: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
+      "  return axiosPOST('', {})",
+      "}"
+    ]
+  },
+  "react-get-axios": {
+    "scope": "typescript",
+    "prefix": "api-get",
+    "body": [
+      "import { axiosGET } from 'api/common/commonAxios'",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps = {",
+      "",
+      "}",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1ResponseProps = {",
+      "",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1 = (req: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
+      "  return axiosGET('', req)",
+      "}"
+    ]
+  },
+  "react-delete-axios": {
+    "scope": "typescript",
+    "prefix": "api-delete",
+    "body": [
+      "import { axiosDELETE } from 'api/common/commonAxios'",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps = {",
+      "",
+      "}",
+      "",
+      "export type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1ResponseProps = {",
+      "",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}$1 = (req: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}$1RequestProps) => {",
+      "  return axiosDELETE('', req)",
+      "}"
+    ]
+  }
+}
