@@ -4,7 +4,7 @@ import { MainHistory } from './component/MainHistory'
 import { CompareChart } from '../CompareChart'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { HeaderDate } from './component/HeaderDate'
-import { ChartDividingLine } from '../Menu/styled'
+import { ChartDividingLine } from '../menu/styled'
 
 interface HistoryChartProps {
   selectedDate: DayValue | null
