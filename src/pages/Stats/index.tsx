@@ -1,6 +1,6 @@
 //통계 탭
 import React, { FC } from 'react'
-import { MenuBox } from 'components/Stats/menu'
+import { MenuBox } from 'components/Stats/Menu'
 import { Root, StatsContainer } from './styled'
 
 export const StatsPage: FC = () => {

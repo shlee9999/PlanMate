@@ -83,11 +83,12 @@ export const Event = styled.div<EventType>`
   position: relative;
   top: ${({ fromTop }) => fromTop}px;
   background: ${({ planColor }) => planColor};
-  opacity: 60%;
+  opacity: 40%;
   height: ${({ howLong }) => howLong * HOUR_HEIGHT}px;
-  color: white;
+  color: black;
   width: calc(100%-10px);
-  /* width: 100%; */
   margin: 5px;
   border-radius: 6px;
+  text-align: left;
+  padding: 10px 5px 32px 8px;
 `

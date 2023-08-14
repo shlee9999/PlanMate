@@ -106,7 +106,7 @@ export const StatsContainer = styled.div`
   border-radius: 10px;
   border: 1px solid #dddede;
   box-sizing: border-box;
-  padding: 32px;
+  padding: 10px 15px 0px 15px;
 `
 
 export const TodoContainer = styled.div``
