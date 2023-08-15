@@ -207,19 +207,7 @@ export const MyPage: FC = () => {
         </ProfileContainer>
         <TypoWrapper>
           <AdminDDay>D-DAY 관리</AdminDDay>
-          <SeeMore
-            onClick={() => {
-              addSchedule({
-                targetDate: '2023-10-23',
-                title: 'test5',
-              }).then((res1) => {
-                findAllSchedule().then((res2) => {
-                  const response = res2 as FindAllScheduleResponseProps
-                  setCurrentDDayList(response)
-                })
-              })
-            }}
-          >
+          <SeeMore>
             더보기
             <RightArrow src={rightArrow} alt="right_arrow" />
           </SeeMore>
