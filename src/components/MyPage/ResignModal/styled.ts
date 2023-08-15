@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import resignImg from 'assets/images/resign.png'
 export const Root = styled.div`
   position: fixed;
   top: 50%;
@@ -10,9 +10,27 @@ export const Root = styled.div`
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: white;
   box-shadow: 0px 4px 10px 0px #00000024;
   overflow: hidden;
+  background-image: url(${resignImg});
+  background-position: 50% 43%;
+  background-size: 144px 144px;
+  background-repeat: no-repeat;
+`
+
+export const Title = styled.p`
+  margin-top: 40px;
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #444444;
+`
+export const DescriptionTypo = styled.p`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #ec6c73;
 `
