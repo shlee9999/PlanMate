@@ -5,7 +5,6 @@ import {
   GreetTypo,
   LeftContainer,
   Logo,
-  LoginTypo,
   Notice,
   RightContainer,
   Root,
@@ -121,11 +120,7 @@ export const HeaderSection: FC = () => {
               안녕하세요, <GreenTypo onClick={onClickNickname}>{userAuthInfo.name}</GreenTypo>님!
             </GreetTypo>
           )}
-          {userAuthInfo.name ? (
-            <LogoutTypo onClick={onClickLogout}>로그아웃</LogoutTypo>
-          ) : (
-            <LoginTypo onClick={onClickLogin}>로그인</LoginTypo>
-          )}
+          {userAuthInfo.name && <LogoutTypo onClick={onClickLogout}>로그아웃</LogoutTypo>}
           {userAuthInfo.name && <Notice onClick={onClickNotice}>공지사항</Notice>}
         </RightContainer>
       </ContentWrapper>
