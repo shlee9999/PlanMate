@@ -29,7 +29,8 @@ import { changeuserAuthInfo } from 'modules/userAuthInfo'
 export const HeaderSection: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const location = useLocation()
-  const initialTabIndex = pageList.findIndex((page) => location.pathname.includes(page.url))
+  const [currentPath, setCurrentPath] = useState(location.pathname)
+  const initialTabIndex = pageList.findIndex((page) => currentPath.includes(page.url))
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const isRunning = useSelector((state: RootState) => state.timer.isRunning)
   const navigate = useNavigate()
@@ -96,6 +97,12 @@ export const HeaderSection: FC = () => {
       getUserAuth()
     }
   }, [])
+
+  useEffect(() => {
+    setCurrentTab(pageList.findIndex((page) => location.pathname.includes(page.url)))
+    setCurrentPath(location.pathname)
+  }, [location, currentTab])
+
   useEffect(() => {
     if (!userAuthInfo.name) navigate('../login')
   }, [userAuthInfo])
