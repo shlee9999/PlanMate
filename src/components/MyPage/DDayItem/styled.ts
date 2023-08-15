@@ -11,8 +11,9 @@ export const Root = styled.div`
   background-color: #f9f9f9;
   border-radius: 8px;
   white-space: nowrap;
-  &.isMarked {
+  &.isFixed {
     background-color: #e2f9e9;
+    order: -1;
   }
 `
 export const LeftContainer = styled.div`
@@ -24,6 +25,7 @@ export const MarkImg = styled.img`
   height: 20px;
   margin-right: 4px;
   flex-basis: content;
+  cursor: pointer;
 `
 export const Title = styled.p`
   max-width: 180px;

@@ -5,7 +5,7 @@ export type FindClosestScheduleResponseProps = {
   dday: number
   id: number
   title: string
-}
+} | null
 
 export const findClosestSchedule = () => {
   return axiosGET('/schedule/min')

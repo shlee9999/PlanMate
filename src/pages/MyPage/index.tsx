@@ -45,6 +45,8 @@ import { ProfileEditModal } from 'components/MyPage/ProfileEditModal'
 import { ResignModal } from 'components/MyPage/ResignModal'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
+import { fixSchedule } from 'api/schedule/fixSchedule'
+import { addSchedule } from 'api/schedule/addSchedule'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -58,7 +60,7 @@ const sampleDDayList = [
 
 export const MyPage: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const [currentDDayList, setCurrentDDayList] = useState([])
+  const [currentDDayList, setCurrentDDayList] = useState<FindAllScheduleResponseProps>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
@@ -67,6 +69,7 @@ export const MyPage: FC = () => {
   const [scrappedPostList, setScrappedPostList] = useState<ResponsePostType[]>()
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
+  const [fixedIndex, setFixedIndex] = useState<number>(0)
   const dispatch = useDispatch()
   const openProfileEditModal = () => {
     setIsProfileEditModalOpen(true)
@@ -152,6 +155,13 @@ export const MyPage: FC = () => {
       closeProfileEditModal()
     })
   }
+  const fixDDay = (id: number, index: number) => () => {
+    fixSchedule({
+      id: id,
+    }).then((res) => {
+      setFixedIndex(index)
+    })
+  }
   useEffect(() => {
     findPost({ pages: currentPage - 1 }).then((res) => {
       if (res) {
@@ -163,6 +173,9 @@ export const MyPage: FC = () => {
     findAllSchedule().then((res) => {
       const response = res as FindAllScheduleResponseProps
       setCurrentDDayList(response)
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].isFixed) setFixedIndex(i)
+      }
     })
   }, [])
 
@@ -194,20 +207,27 @@ export const MyPage: FC = () => {
         </ProfileContainer>
         <TypoWrapper>
           <AdminDDay>D-DAY 관리</AdminDDay>
-          <SeeMore>
+          <SeeMore
+            onClick={() => {
+              addSchedule({
+                targetDate: '2023-09-25',
+                title: 'test2',
+              }).then((res1) => {
+                findAllSchedule().then((res2) => {
+                  const response = res2 as FindAllScheduleResponseProps
+                  setCurrentDDayList(response)
+                })
+              })
+            }}
+          >
             더보기
             <RightArrow src={rightArrow} alt="right_arrow" />
           </SeeMore>
         </TypoWrapper>
         <DDayContainer>
-          {currentDDayList.map((dday) => (
-            <DDayItem {...dday} key={dday.id} />
+          {currentDDayList.map((dday, index) => (
+            <DDayItem {...dday} key={dday.id} fixDDay={fixDDay(dday.id, index)} isFixed={index === fixedIndex} />
           ))}
-
-          {/* <ArrowWrapper>
-            <LeftArrow src={rightArrow} />
-            <RightArrow src={rightArrow} />
-          </ArrowWrapper> */}
         </DDayContainer>
       </LeftContainer>
       <RightContainer>

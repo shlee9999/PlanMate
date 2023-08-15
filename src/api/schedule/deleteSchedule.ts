@@ -4,7 +4,7 @@ export type DeleteScheduleRequestProps = {
   id: number
 }
 
-export type DeleteScheduleResponseProps = { body: {}; statusCode: string; statusCodeValue: number }
+export type DeleteScheduleResponseProps = boolean
 
 export const deleteSchedule = (req: DeleteScheduleRequestProps) => {
   return axiosDELETE('/schedule/remove', req)
