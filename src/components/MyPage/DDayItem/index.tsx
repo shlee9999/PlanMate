@@ -22,13 +22,19 @@ export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDa
     return differenceInDays
   }
   const dDay = daysUntil()
+  const getWeekDay = () => {
+    const days = ['일', '월', '화', '수', '목', '금', '토']
+    const split = targetDate.split('-')
+    const date = new Date(+split[0], +split[1] - 1, +split[2])
+    return '(' + days[date.getDay()] + ')'
+  }
   if (dDay < 0) return null
   return (
     <Root className={isFixed ? 'isFixed' : ''}>
       <LeftContainer>
         <MarkImg src={isFixed ? pinFilledImg : pinImg} onClick={fixDDay} />
         <Title>{title}</Title>
-        <TargetDate>{targetDate}</TargetDate>
+        <TargetDate>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</TargetDate>
       </LeftContainer>
       <DDay>{dDay}</DDay>
     </Root>

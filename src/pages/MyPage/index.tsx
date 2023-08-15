@@ -210,8 +210,8 @@ export const MyPage: FC = () => {
           <SeeMore
             onClick={() => {
               addSchedule({
-                targetDate: '2023-09-25',
-                title: 'test2',
+                targetDate: '2023-10-23',
+                title: 'test5',
               }).then((res1) => {
                 findAllSchedule().then((res2) => {
                   const response = res2 as FindAllScheduleResponseProps

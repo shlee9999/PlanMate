@@ -5,7 +5,7 @@ export const Root = styled.div`
   position: relative;
   height: 48px;
   box-sizing: border-box;
-  padding: 15px 8px;
+  padding: 15px 16px 15px 8px;
   display: flex;
   align-items: center;
   background-color: #f9f9f9;
@@ -19,6 +19,7 @@ export const Root = styled.div`
 export const LeftContainer = styled.div`
   display: flex;
   flex-grow: 1;
+  align-items: center;
 `
 export const MarkImg = styled.img`
   width: 20px;
@@ -38,11 +39,9 @@ export const Title = styled.p`
   text-overflow: ellipsis;
 `
 export const Date = styled.p`
+  color: #666666;
   font-size: 10px;
   font-weight: 400;
-  line-height: 13px;
-  color: #666666;
-  align-self: flex-end;
 `
 export const DDay = styled.p`
   &::before {
