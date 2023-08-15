@@ -10,7 +10,6 @@ export const Root = styled.div`
   background-color: #f9f9f9;
   width: 100vw;
   height: ${FOOTER_HEIGHT}px;
-  margin-top: 102px;
 `
 
 export const ContentWrapper = styled.div`
