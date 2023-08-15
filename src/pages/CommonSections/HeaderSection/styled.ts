@@ -44,10 +44,7 @@ export const GreenTypo = styled.span`
   color: #01cb45;
   text-decoration: underline;
 `
-export const LoginTypo = styled.p`
-  cursor: pointer;
-  margin-right: 100px;
-`
+
 export const LogoutTypo = styled.p`
   cursor: pointer;
 `
