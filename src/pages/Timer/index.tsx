@@ -42,16 +42,18 @@ import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/common/NoContentDescription'
 import bookCheckImg from 'assets/images/book_check.png'
 import { NoContentTypo } from 'components/common/NoContentDescription/styled'
-import { FindClosestScheduleResponseProps, findClosestSchedule } from 'api/schedule/findClosestSchedule'
+
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
 import { SuggestModal } from 'components/Timer/SuggestModal'
 import { addSchedule } from 'api/schedule/addSchedule'
 import { deleteSchedule } from 'api/schedule/deleteSchedule'
+import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
+  const [fixedDDay, setFixedDDay] = useState<FindFixedScheduleResponseProps>()
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const totalTime = useSelector((state: RootState) => state.timer.totalTime)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
@@ -88,9 +90,10 @@ export const TimerPage: FC = () => {
   }, [todos])
 
   useEffect(() => {
-    findClosestSchedule().then((res) => {
-      const response = res as FindClosestScheduleResponseProps
-      if (response !== null) setClosestDDay(response.dday)
+    findFixedSchedule().then((res) => {
+      const response = res as FindFixedScheduleResponseProps
+      if (response !== null) setFixedDDay(response)
+      console.log(res)
     })
   }, [])
 
@@ -143,11 +146,11 @@ export const TimerPage: FC = () => {
         </BannerContentWrapper>
       </Banner>
       <LowerContainer>
-        {closestDDay ? (
+        {fixedDDay ? (
           <CheerTypo>
-            <Test>감평사 시험 </Test>까지{' '}
+            <Test>{fixedDDay.title} </Test>까지{' '}
             <Dday>
-              D- <GreenTypo>{closestDDay}</GreenTypo>{' '}
+              D- <GreenTypo>{fixedDDay.dday}</GreenTypo>{' '}
             </Dday>
             조금만 더 힘을 내볼까요? 🏃
           </CheerTypo>
