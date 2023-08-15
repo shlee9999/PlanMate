@@ -41,12 +41,15 @@ export const HeaderSection: FC = () => {
   }
 
   const onClickNickname = () => {
+    if (isRunning) return
     navigate('/mypage')
   }
   const onClickLogin = () => {
+    if (isRunning) return
     navigate('/login')
   }
   const onClickLogout = () => {
+    if (isRunning) return
     logout().then((res) => {
       navigate('/timer')
       localStorage.removeItem('userAuthInfo')
@@ -54,6 +57,7 @@ export const HeaderSection: FC = () => {
     })
   }
   const onClickNotice = () => {
+    if (isRunning) return
     navigate('/notice')
   }
   useEffect(() => {

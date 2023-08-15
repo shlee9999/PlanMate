@@ -62,6 +62,7 @@ export const TimerPage: FC = () => {
   const todos = useSelector((state: RootState) => state.todos)
   const dispatch = useDispatch()
   const openModal = (): void => {
+    if (isTotalTimerRunning) return
     setIsModalOpen(true)
   }
   const closeModal = (): void => {

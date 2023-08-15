@@ -58,6 +58,7 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
   }
 
   const OnClickEllipsisButton = () => {
+    if (isTotalTimerRunning) return
     setIsEllipsisOpen(true)
   }
   const closeEllipsisModal = () => {
