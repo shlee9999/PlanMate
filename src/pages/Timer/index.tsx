@@ -46,6 +46,8 @@ import { FindClosestScheduleResponseProps, findClosestSchedule } from 'api/sched
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
 import { SuggestModal } from 'components/Timer/SuggestModal'
+import { addSchedule } from 'api/schedule/addSchedule'
+import { deleteSchedule } from 'api/schedule/deleteSchedule'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -55,7 +57,7 @@ export const TimerPage: FC = () => {
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [closestDDay, setClosestDDay] = useState<number>()
+  const [closestDDay, setClosestDDay] = useState<number | null>()
   const formattedDate: string = useFormattedDate()
   const todos = useSelector((state: RootState) => state.todos)
   const dispatch = useDispatch()
@@ -87,7 +89,7 @@ export const TimerPage: FC = () => {
   useEffect(() => {
     findClosestSchedule().then((res) => {
       const response = res as FindClosestScheduleResponseProps
-      setClosestDDay(response.dday)
+      if (response !== null) setClosestDDay(response.dday)
     })
   }, [])
 
