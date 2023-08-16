@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Date as TargetDate, MarkImg, Root, Title, DDay, LeftContainer } from './styled'
 import pinImg from 'assets/images/pin.png'
 import pinFilledImg from 'assets/images/pin_fill.png'
+import { daysUntil } from 'utils/helper'
 
 type DDayItemProps = {
   id: number
@@ -12,16 +13,7 @@ type DDayItemProps = {
 }
 
 export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDay }) => {
-  function daysUntil() {
-    const specificDate = new Date(targetDate)
-    const today = new Date()
-    specificDate.setHours(0, 0, 0, 0)
-    today.setHours(0, 0, 0, 0)
-    const differenceInTime = specificDate.getTime() - today.getTime()
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24)
-    return differenceInDays
-  }
-  const dDay = daysUntil()
+  const dDay = daysUntil(targetDate)
   const getWeekDay = () => {
     const days = ['일', '월', '화', '수', '목', '금', '토']
     const split = targetDate.split('-')

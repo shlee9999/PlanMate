@@ -27,7 +27,7 @@ import {
   DateTypo,
 } from './styled'
 
-import { useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
+import { daysUntil, useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
 import { StudyTimerWidget } from 'components/Timer/TimerWidget'
 import TodoItem from 'components/Timer/TodoItem'
@@ -150,7 +150,7 @@ export const TimerPage: FC = () => {
           <CheerTypo>
             <Test>{fixedDDay.title} </Test>까지{' '}
             <Dday>
-              D- <GreenTypo>{fixedDDay.dday}</GreenTypo>{' '}
+              D- <GreenTypo>{daysUntil(fixedDDay.date)}</GreenTypo>{' '}
             </Dday>
             조금만 더 힘을 내볼까요? 🏃
           </CheerTypo>
