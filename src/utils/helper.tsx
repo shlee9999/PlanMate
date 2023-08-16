@@ -73,3 +73,13 @@ export const getStudyTime = (startAt: string, endAt: string): string => {
 export const timeToSecond = (hour, minutes, seconds): number => {
   return +hour * 60 * 60 + +minutes * 60 + +seconds
 }
+
+export const daysUntil = (targetDate) => {
+  const specificDate = new Date(targetDate)
+  const today = new Date()
+  specificDate.setHours(0, 0, 0, 0)
+  today.setHours(0, 0, 0, 0)
+  const differenceInTime = specificDate.getTime() - today.getTime()
+  const differenceInDays = differenceInTime / (1000 * 3600 * 24)
+  return differenceInDays
+}
