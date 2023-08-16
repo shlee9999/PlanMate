@@ -2,34 +2,33 @@ import { FC } from 'react'
 import { Date as TargetDate, MarkImg, Root, Title, DDay, LeftContainer } from './styled'
 import pinImg from 'assets/images/pin.png'
 import pinFilledImg from 'assets/images/pin_fill.png'
+import { daysUntil } from 'utils/helper'
 
 type DDayItemProps = {
   id: number
   title: string
   targetDate: string
-  isMarked: boolean
+  isFixed: boolean
+  fixDDay: () => void
 }
 
-export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isMarked }) => {
-  function daysUntil() {
-    const specificDate = new Date(targetDate) // Example specific date
-    const today = new Date() // Current date
-    specificDate.setHours(0, 0, 0, 0)
-    today.setHours(0, 0, 0, 0)
-    const differenceInTime = specificDate.getTime() - today.getTime()
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24)
-    return differenceInDays
+export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDay }) => {
+  const dDay = daysUntil(targetDate)
+  const getWeekDay = () => {
+    const days = ['일', '월', '화', '수', '목', '금', '토']
+    const split = targetDate.split('-')
+    const date = new Date(+split[0], +split[1] - 1, +split[2])
+    return '(' + days[date.getDay()] + ')'
   }
-  const dDay = daysUntil()
+  if (dDay < 0) return null
   return (
-    <Root className={isMarked ? 'isMarked' : ''}>
+    <Root className={isFixed ? 'isFixed' : ''}>
       <LeftContainer>
-        <MarkImg src={isMarked ? pinFilledImg : pinImg} />
+        <MarkImg src={isFixed ? pinFilledImg : pinImg} onClick={fixDDay} />
         <Title>{title}</Title>
-        <TargetDate>{targetDate}</TargetDate>
+        <TargetDate>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</TargetDate>
       </LeftContainer>
       <DDay>{dDay}</DDay>
-      {/* D-Day가 오늘 이전이면 X */}
     </Root>
   )
 }

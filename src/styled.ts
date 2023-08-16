@@ -1,13 +1,16 @@
-import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, FOOTER_HEIGHT, HEADER_HEIGHT } from 'constants/layout'
+import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 import greenCheckImg from 'assets/images/check_green.png'
 import whiteCheckImg from 'assets/images/check_white.png'
 
 export const Root = styled.div`
-  margin: ${HEADER_HEIGHT}px auto 0 auto;
+  box-sizing: border-box;
+  margin: 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
   min-width: ${BODY_MIN_WIDTH}px;
-  min-height: calc(100vh - ${HEADER_HEIGHT}px);
+  min-height: 100vh;
+  padding-top: ${HEADER_HEIGHT}px;
+  padding-bottom: 30px;
 `
 
 export const TagRoot = styled.span`
