@@ -21,7 +21,7 @@ const InitialState: userAuthInfoState = JSON.parse(localStorage.getItem('userAut
   email: null,
   id: null,
   img: null,
-  name: null,
+  name: 'Default',
   refreshToken: null,
 }
 

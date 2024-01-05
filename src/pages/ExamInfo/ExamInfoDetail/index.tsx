@@ -234,7 +234,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     // checkPost({ postId: +postId }).then((res) => {
     //   const response = res as CheckPostResponseProps
     //   setExamInfoDetail(response)
-    //   setIsLiked(response.isMyHearted)
+    //   setIsLiked(response.isMyHearted)ㅌㅈ
     //   setCurrentLikeCount(response.likeCount)
     //   setIsScrapped(response.isMyScraped)
     //   setCurrentScrapCount(response.scrapCount)
@@ -246,7 +246,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     }).then((res: unknown) => {
       const response = res as FindAllCommentsResponseProps
       setCommentList((prev) => prev.concat(response.commentDtoList))
-
       setTotalPage(response.totalPages)
     })
   }, [currentPage, totalPage])
