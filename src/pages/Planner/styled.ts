@@ -1,14 +1,11 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 export const Root = styled.div`
   width: 100%;
-  height: 750px;
+  height: 100vh;
+  background-color: aliceblue;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin: 200px 0 0 50px;
-  /* padding: 0 30px 0 0; */
 `
 
 export const HeaderContainer = styled.div`
@@ -22,7 +19,6 @@ export const HeaderContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: none;
-  padding-left: 70px;
 `
 
 export const HeaderMessage = styled.span`

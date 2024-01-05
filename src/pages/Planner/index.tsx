@@ -1,5 +1,4 @@
 //플래너 탭
-import { WeeklyCalendar } from 'components/Planner/Calendar/WeeklyCalendar'
 import { FC, useState } from 'react'
 import {
   Root,
@@ -13,6 +12,7 @@ import {
   MainWeeklyScheduler,
 } from './styled'
 import SubjectModal from 'components/Planner/SubjectModal'
+import { Scheduler } from 'components/Planner/Scheduler'
 
 export const PlannerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -58,7 +58,7 @@ export const PlannerPage: FC = () => {
       <MainContainer>
         <MainNavContainer>4월 넷째주</MainNavContainer>
         <MainWeeklyScheduler>
-          <WeeklyCalendar />
+          <Scheduler />
         </MainWeeklyScheduler>
       </MainContainer>
 
