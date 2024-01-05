@@ -21,6 +21,8 @@ import { TimeSelect } from './TimeSelect'
 import { DaySelect } from './DaySelect'
 import { GreenButton, WhiteButton, ModalWrapper } from 'components/common/commonStyle'
 import { ColorPicker } from 'components/common/ColorPickerModal/ColorPicker'
+import appointments, { addAppoint } from 'modules/appointments'
+import { defaultColor } from 'constants/color'
 
 const DefaultColor: string = '#ff0000' as const
 
@@ -127,6 +129,20 @@ export const AddModal = ({
     dispatch(addPlan(newTodoPlans))
     setInputTitle('')
     closeModalAll()
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = now.getMonth()
+    const day = now.getDate()
+    dispatch(
+      addAppoint({
+        text: inputTitle,
+        startDate: new Date(year, month, day, selectedBeginHour, selectedBeginMinute),
+        endDate: new Date(year, month, day, selectedFinishHour, selectedFinishMinute),
+        bgColor: subjectColor,
+      })
+    )
+
+    console.log('hello')
   }
 
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {

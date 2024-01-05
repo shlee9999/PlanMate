@@ -42,12 +42,9 @@ import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/common/NoContentDescription'
 import bookCheckImg from 'assets/images/book_check.png'
 import { NoContentTypo } from 'components/common/NoContentDescription/styled'
-
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
 import { SuggestModal } from 'components/Timer/SuggestModal'
-import { addSchedule } from 'api/schedule/addSchedule'
-import { deleteSchedule } from 'api/schedule/deleteSchedule'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
 
 export const TimerPage: FC = () => {
