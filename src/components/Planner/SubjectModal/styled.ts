@@ -1,6 +1,5 @@
 import { styled } from 'styled-components'
 import modalExitButton from 'assets/images/modal_exit_button.png'
-import exp from 'constants'
 
 export const Root = styled.div`
   width: 320px;
@@ -81,14 +80,13 @@ export const ColorPickerButton = styled.button`
   border-radius: 8px;
   border: 1px solid #dddede;
   box-sizing: border-box;
-  padding: 12px 8px 10px;
 `
 
 export const ButtonTypoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  column-gap: 16px;
+  column-gap: 15px;
   font-size: 14px;
   font-weight: 500;
   line-height: 100%;
@@ -96,17 +94,13 @@ export const ButtonTypoWrapper = styled.div`
 `
 export const ColorSelectWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  column-gap: 16px;
+  column-gap: 8px;
   font-size: 14px;
   font-weight: 500;
-  line-height: 100%;
   color: #666666;
 `
 
 export const TimeSelectWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
 `

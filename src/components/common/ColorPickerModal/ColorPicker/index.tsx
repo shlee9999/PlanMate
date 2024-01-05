@@ -23,7 +23,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectCol
               assignSubjectColor={assignSubjectColor}
               isSelected={selectedColor === color}
               setSelectedColor={() => setSelectedColor(color)}
-            ></ColorButton>
+            />
           ))}
         </RowWrapper>
       ))}

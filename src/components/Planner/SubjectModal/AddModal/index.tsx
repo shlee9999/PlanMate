@@ -6,7 +6,6 @@ import {
   ModalExitButton,
   ModalFooter,
   InputWrapper,
-  ColorPickerButton,
   ModalTitle,
   NameInput,
   ButtonTypoWrapper,
@@ -18,7 +17,6 @@ import { TodoPlans } from 'types'
 import { generateId } from 'utils/helper'
 
 import { addPlan } from 'modules/todoplans'
-import { CategorySelect } from './CategorySelect'
 import { TimeSelect } from './TimeSelect'
 import { DaySelect } from './DaySelect'
 import { GreenButton, WhiteButton, ModalWrapper } from 'components/common/commonStyle'
@@ -156,19 +154,13 @@ export const AddModal = ({
           <ModalExitButton onClick={closeModalAll} />
           <InputWrapper>
             <ButtonTypoWrapper>
-              분류
-              <CategorySelect />
-            </ButtonTypoWrapper>
-            <ButtonTypoWrapper>
               일정명
               <NameInput placeholder={'일정명을 입력해주세요'} onChange={onChange} ref={inputRef} />
             </ButtonTypoWrapper>
-            {/* <ColorSelectWrapper>
+            <ColorSelectWrapper>
               색상선택
-              <ColorSelect assignSubjectColor={assignSubjectColor} />
-            </ColorSelectWrapper> */}
-            색상선택
-            <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+              <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+            </ColorSelectWrapper>
             <ButtonTypoWrapper>
               요일
               <DaySelect assignSubjectDay={assignSubjectDay}></DaySelect>

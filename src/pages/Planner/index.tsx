@@ -61,7 +61,6 @@ export const PlannerPage: FC = () => {
           <Scheduler />
         </MainWeeklyScheduler>
       </MainContainer>
-
       <SubjectModal todoplan={null} title={modalTitle} isModalOpen={isModalOpen} closeModal={closeModal}></SubjectModal>
     </Root>
   )
