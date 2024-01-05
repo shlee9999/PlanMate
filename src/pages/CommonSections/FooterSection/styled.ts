@@ -2,9 +2,6 @@ import { FOOTER_HEIGHT, FOOTER_MAX_WIDTH, FOOTER_MIN_WIDTH } from 'constants/lay
 import styled from 'styled-components'
 
 export const Root = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
   padding: 32px 160px 42px;
   background-color: #f9f9f9;

@@ -8,7 +8,6 @@ import {
   HeaderTitleLogo,
   HeaderButton,
   MainContainer,
-  MainNavContainer,
   MainWeeklyScheduler,
 } from './styled'
 import SubjectModal from 'components/Planner/SubjectModal'
@@ -56,7 +55,6 @@ export const PlannerPage: FC = () => {
         </HeaderButton>
       </HeaderContainer>
       <MainContainer>
-        <MainNavContainer>4월 넷째주</MainNavContainer>
         <MainWeeklyScheduler>
           <Scheduler />
         </MainWeeklyScheduler>

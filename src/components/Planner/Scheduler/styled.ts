@@ -2,14 +2,15 @@ import styled from 'styled-components'
 import { Scheduler } from '@devexpress/dx-react-scheduler-material-ui'
 
 export const Root = styled.div`
-  width: 90vw;
+  width: 80vw;
+  height: fit-content;
 `
 export const StyledScheduler = styled(Scheduler)``
 
 export const AppointmentWrapper = styled.div<{ $bgColor: string }>`
   height: 100%;
   padding-top: 20px;
-  text-transform: uppercas e;
+  text-transform: uppercase;
   color: white;
   text-align: center;
   font-weight: 600;

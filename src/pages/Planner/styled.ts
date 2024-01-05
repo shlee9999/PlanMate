@@ -2,10 +2,11 @@ import styled from 'styled-components'
 
 export const Root = styled.div`
   width: 100%;
-  height: 100vh;
-  background-color: aliceblue;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 30px 160px;
 `
 
 export const HeaderContainer = styled.div`
@@ -22,7 +23,6 @@ export const HeaderContentWrapper = styled.div`
 `
 
 export const HeaderMessage = styled.span`
-  font-family: Spoqa Han Sans Neo;
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
@@ -57,14 +57,6 @@ export const HeaderButton = styled.button<Buttonprops>`
 export const MainContainer = styled.div`
   display: flex;
   width: 100%;
-`
-
-export const MainNavContainer = styled.span`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  letter-spacing: 0em;
-  text-align: center;
 `
 
 export const MainWeeklyScheduler = styled.div``

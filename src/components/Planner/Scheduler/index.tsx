@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { Appointment, AppointmentWrapper, Root, StyledScheduler } from './styled'
-import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler'
-import { AppointmentForm, Appointments, WeekView } from '@devexpress/dx-react-scheduler-material-ui'
+import { ViewState } from '@devexpress/dx-react-scheduler'
+import { Appointments, WeekView } from '@devexpress/dx-react-scheduler-material-ui'
 import { IAppointment } from 'types'
 import { useDispatch, useSelector } from 'react-redux'
-import { addAppoint, removeAppoint } from 'modules/appointments'
+import { removeAppoint } from 'modules/appointments'
 import { RootState } from 'modules'
 
 type SchedulerProps = {
