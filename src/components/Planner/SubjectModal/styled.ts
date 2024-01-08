@@ -3,19 +3,28 @@ import modalExitButton from 'assets/images/modal_exit_button.png'
 
 export const Root = styled.div`
   width: 320px;
-  height: 500px;
+  height: 400px;
   position: fixed;
   left: 50%;
   top: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 10px;
+  box-sizing: border-box;
+  padding: 70px 20px 80px 20px;
 `
-
+export const Title = styled.h1`
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #444444;
+  margin-bottom: 20px;
+`
 export const ModalExitButton = styled.button`
   position: absolute;
   top: 16px;
@@ -91,6 +100,10 @@ export const ButtonTypoWrapper = styled.div`
   font-weight: 500;
   line-height: 100%;
   color: #666666;
+  &:last-child {
+    position: relative;
+    left: 7px;
+  }
 `
 export const ColorSelectWrapper = styled.div`
   display: flex;
@@ -99,8 +112,15 @@ export const ColorSelectWrapper = styled.div`
   font-weight: 500;
   color: #666666;
 `
+export const ColorSelectTypo = styled.p`
+  position: relative;
+  top: 5px;
+  right: 5px;
+`
 
 export const TimeSelectWrapper = styled.div`
+  padding-right: 8px;
   display: flex;
-  flex-direction: column;
+  justify-content: start;
+  gap: 20px;
 `

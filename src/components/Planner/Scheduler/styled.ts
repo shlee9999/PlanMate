@@ -1,15 +1,102 @@
 import styled from 'styled-components'
-import { Scheduler } from '@devexpress/dx-react-scheduler-material-ui'
 
-export const Root = styled.div`
+export const Root = styled.table`
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
   width: 80vw;
-  height: fit-content;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
-export const StyledScheduler = styled(Scheduler)``
+const Cell = styled.td`
+  &:first-child {
+    border-bottom: none;
+  }
+  border-right: 1px solid #dddede;
+  border-bottom: 1px solid #dddede;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  color: #666666;
+`
+export const DayCellRow = styled.tr`
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  color: #666666;
+`
+interface DayCellProps {
+  $today: boolean
+}
+export const DayCell = styled(Cell)<DayCellProps>`
+  color: ${(props) => (props.$today ? '#1DB951' : '')};
+`
+export const DayTypo = styled.p``
+export const DateTypo = styled.p``
+interface DataCellProps {
+  $isSelected: boolean
+}
+export const DataCell = styled(Cell)<DataCellProps>`
+  position: relative;
+  background-color: ${(props) => (props.$isSelected ? 'rgba(0, 0, 0, 0.1)' : 'transparent')};
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
-export const AppointmentWrapper = styled.div<{ $bgColor: string }>`
-  height: 100%;
-  padding-top: 20px;
+  &:first-child {
+    p {
+      position: relative;
+      top: -50%;
+      left: 10%;
+    }
+    &::after {
+      position: absolute;
+      content: '';
+      width: 24px;
+      height: 1px;
+      background-color: #dddede;
+      top: -1px;
+      right: 0;
+    }
+  }
+`
+export const DataCellRow = styled.tr`
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  &:last-child {
+    ${DataCell} {
+      border-bottom: 0;
+    }
+  }
+`
+
+interface AppointmentWrapperProps {
+  $bgColor: string
+  $height: number
+}
+export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: ${(props) => props.$height * 103}%;
+  box-sizing: border-box;
   text-transform: uppercase;
   color: white;
   text-align: center;
@@ -23,5 +110,7 @@ export const AppointmentWrapper = styled.div<{ $bgColor: string }>`
   &:active {
     opacity: 0.7;
   }
+  z-index: 2;
+  padding-top: 10px;
 `
 export const Appointment = styled.p``

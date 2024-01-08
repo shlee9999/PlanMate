@@ -57,7 +57,7 @@ export const TimerPage: FC = () => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [closestDDay, setClosestDDay] = useState<number | null>()
-  const formattedDate: string = useFormattedDate()
+  const formattedDate: string = useFormattedDate(new Date())
   const todos = useSelector((state: RootState) => state.todos)
   const dispatch = useDispatch()
   const openModal = (): void => {

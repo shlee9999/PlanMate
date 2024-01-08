@@ -1,49 +1,56 @@
 import React, { useState, ChangeEvent } from 'react'
 import { StyledSelect, SelectOption, SelectWrapper } from './styled'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'modules'
+import { updateInfo } from 'modules/selectedInfo'
 
 type TimeSelectModeProps = {
-  assignHour: (FromHour: number) => void
-  assignMinute: (FromMinute: number) => void
   set: string
 }
 
 //옵션 시간 추가 필요요
-export const TimeSelect: React.FC<TimeSelectModeProps> = ({ assignHour, assignMinute }, { set }) => {
-  //State관리 여기는 필요없음
-  // const [selectedHour, setSelectedHour] = useState<number>(0)
-  // const [selectedMinute, setSelectedMinute] = useState<number>(0)
-
+export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
+  const defaultStartHour = useSelector((state: RootState) => state.selectedInfo.startDate.getHours())
+  const defaultEndHour = useSelector((state: RootState) => state.selectedInfo.endDate.getHours())
+  const dispatch = useDispatch()
+  const { startDate, endDate, text, bgColor } = useSelector((state: RootState) => state.selectedInfo)
   const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const hourValue = Number(e.target.value)
-    assignHour(hourValue)
-    // setSelectedHour(hourValue)
+    const year = startDate.getFullYear()
+    const month = startDate.getMonth()
+    const date = startDate.getDate()
+    if (set === '부터')
+      dispatch(
+        updateInfo({
+          startDate: new Date(year, month, date, +e.target.value),
+          endDate: new Date(year, month, date, endDate.getHours()),
+          text,
+          bgColor,
+        })
+      )
+    else
+      dispatch(
+        updateInfo({
+          startDate: new Date(year, month, date, startDate.getHours()),
+          endDate: new Date(year, month, date, +e.target.value),
+          text: '',
+          bgColor: '',
+        })
+      )
   }
-
-  const handleMinuteChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const minuteValue = Number(e.target.value)
-    assignMinute(minuteValue)
-    // setSelectedMinute(Number(e.target.value))
-  }
-
-  //0~24까지 숫자 배열생성
-  const hours = Array.from(Array(25).keys())
 
   return (
     <SelectWrapper>
-      <StyledSelect onChange={handleHourChange}>
-        {hours.map((hour) => (
+      <StyledSelect
+        onChange={handleHourChange}
+        defaultValue={(set === '부터' ? defaultStartHour : defaultEndHour).toString().padStart(2, '0')}
+      >
+        {Array.from(Array(25).keys()).map((hour) => (
           <SelectOption key={hour} value={hour.toString().padStart(2, '0')}>
             {hour.toString().padStart(2, '0')}
           </SelectOption>
         ))}
       </StyledSelect>
-      <span>시</span>
-      <StyledSelect onChange={handleMinuteChange}>
-        <SelectOption value="00">00</SelectOption>
-        <SelectOption value="20">20</SelectOption>
-        <SelectOption value="40">40</SelectOption>
-      </StyledSelect>
-      <span>분 {set}</span>
+      <span>{set}</span>
     </SelectWrapper>
   )
 }

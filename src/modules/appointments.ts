@@ -26,14 +26,14 @@ type AppointAction = ReturnType<typeof addAppoint> | ReturnType<typeof removeApp
 const IntialAppointState: IAppointment[] = [
   {
     text: '기타 연습',
-    startDate: new Date('2024-01-04T08:00:00.000'),
-    endDate: new Date('2024-01-04T11:00:00.000'),
+    startDate: new Date(2024, 0, 7, 5),
+    endDate: new Date(2024, 0, 7, 24),
     bgColor: 'tomato',
   },
   {
     text: '프로젝트',
-    startDate: new Date('2024-01-05T10:00:00.000'),
-    endDate: new Date('2024-01-05T11:30:00.000'),
+    startDate: new Date(2024, 0, 8, 10),
+    endDate: new Date(2024, 0, 8, 12),
     bgColor: 'teal',
   },
 ]

@@ -1,25 +1,15 @@
-import { TodoPlans } from 'types'
 import { AddModal } from './AddModal'
-// import EditModal from './EditModal'
 
 const SubjectModal = ({
   isModalOpen,
   closeModal,
   title,
-  todoplan,
 }: {
   isModalOpen: boolean
   closeModal: () => void
   title: string
-  todoplan: TodoPlans | null
 }) => {
-  switch (title.slice(-2)) {
-    case '추가':
-      return <AddModal isModalOpen={isModalOpen} closeModal={closeModal} title={title}></AddModal>
-    // case '수정':
-    //   return todo && <EditModal isModalOpen={isModalOpen} closeModal={closeModal} title={title} todo={todo}></EditModal>
-  }
-  return null
+  return <AddModal isModalOpen={isModalOpen} closeModal={closeModal} title={title}></AddModal>
 }
 
 export default SubjectModal

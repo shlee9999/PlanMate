@@ -2,10 +2,9 @@ import styled from 'styled-components'
 
 export const SelectWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 5px;
   align-items: center;
-  width: 210px;
-  height: 38px;
 `
 
 export const StyledCategorySelect = styled.select`
