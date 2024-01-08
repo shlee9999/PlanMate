@@ -15,10 +15,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { createArray, getWeekDates } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
-import SubjectModal from '../SubjectModal'
+
 import { updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
+import { SelectModal } from '../SelectModal'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -69,6 +70,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     const year = +selectedCells[0].slice(0, 4)
     const month = +selectedCells[0].slice(5, 7)
     const date = +selectedCells[0].slice(8, 10)
+
     dispatch(
       updateInfo({
         startDate: new Date(year, month, date, startHour),
@@ -148,7 +150,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         {currentDate.getMonth() + 1}월
         <NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
       </ButtonWrapper>
-      <SubjectModal isModalOpen={isModalOpen} closeModal={closeModal} title={modalTitle} />
+      <SelectModal isModalOpen={isModalOpen} closeModal={closeModal} title={modalTitle} />
     </Root>
   )
 }

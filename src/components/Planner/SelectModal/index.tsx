@@ -13,7 +13,7 @@ import {
   ColorSelectWrapper,
   Title,
   ColorSelectTypo,
-} from '../styled'
+} from './styled'
 
 import { TimeSelect } from './TimeSelect'
 import { DaySelect } from './DaySelect'
@@ -27,7 +27,7 @@ import { updateInfo, updateProp } from 'modules/selectedInfo'
 
 const DefaultColor: string = '#ff0000' as const
 
-export const AddModal = ({
+export const SelectModal = ({
   isModalOpen,
   closeModal,
   title,
