@@ -1,9 +1,20 @@
 import React, { FC, useEffect, useState } from 'react'
-import { AppointmentWrapper, DataCell, DataCellRow, DateTypo, DayCell, DayTypo, Root } from './styled'
+import {
+  AppointmentWrapper,
+  ButtonWrapper,
+  DataCell,
+  DataCellRow,
+  DateTypo,
+  DayCell,
+  DayTypo,
+  NextButton,
+  PrevButton,
+  Root,
+} from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeAppoint } from 'modules/appointments'
 import { RootState } from 'modules'
-import { createArray, getWeekDates } from 'utils/helper'
+import { createArray, getWeekDates, useFormattedDate } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 import SubjectModal from '../SubjectModal'
 //직접 scheduler week view 구현
@@ -19,7 +30,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
   const now = new Date()
-  const currentDate = new Date()
+  const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
   const openModal = (title: '일정추가' | '일정수정') => {
@@ -74,14 +85,13 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   return (
     <Root>
       <DataCellRow>
-        {createArray(-1, 6).map((dayIndex) => (
-          <DayCell $today={now.getDate() === currentDate.getDate() - (currentDate.getDay() - dayIndex)} key={dayIndex}>
-            {dayIndex === -1 ? null : (
-              <>
-                <DayTypo>{dayList[dayIndex]}</DayTypo>
-                <DateTypo>{currentDate.getDate() - (currentDate.getDay() - dayIndex)}</DateTypo>
-              </>
-            )}
+        <DayCell $today={null}></DayCell>
+        {getWeekDates(currentDate).map((date, index) => (
+          <DayCell $today={now.getDate() === currentDate.getDate() - (currentDate.getDay() - date)} key={date}>
+            <>
+              <DayTypo>{dayList[index]}</DayTypo>
+              <DateTypo>{date.slice(-2)}</DateTypo>
+            </>
           </DayCell>
         ))}
       </DataCellRow>
@@ -134,6 +144,11 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
           ))}
         </DataCellRow>
       ))}
+      <ButtonWrapper>
+        <PrevButton onClick={() => setCurrentDate(new Date(currentDate.getTime() - 1000 * 60 * 60 * 24 * 7))} />
+        {currentDate.getMonth() + 1}월
+        <NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
+      </ButtonWrapper>
       <SubjectModal isModalOpen={isModalOpen} closeModal={closeModal} title={modalTitle} />
     </Root>
   )

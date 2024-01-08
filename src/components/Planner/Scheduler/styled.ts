@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import RightArrowImg from 'assets/images/right_arrow.png'
 export const Root = styled.table`
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -9,6 +9,7 @@ export const Root = styled.table`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 `
 const Cell = styled.td`
   &:first-child {
@@ -114,3 +115,32 @@ export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
   padding-top: 10px;
 `
 export const Appointment = styled.p``
+
+export const ButtonWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+  font-size: 15px;
+  color: #666666;
+`
+const ArrowButton = styled.button`
+  background-image: url(${RightArrowImg});
+  width: 20px;
+  height: 20px;
+  background-position: center center;
+  background-size: contain;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 0.7;
+  }
+`
+export const PrevButton = styled(ArrowButton)`
+  transform: rotate(180deg);
+`
+export const NextButton = styled(ArrowButton)``
