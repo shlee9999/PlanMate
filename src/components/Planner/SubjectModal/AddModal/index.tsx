@@ -36,7 +36,7 @@ export const AddModal = ({
   title: string
 }) => {
   //입력값과 색상 상태 관리
-  const { startDate, endDate, text, bgColor } = useSelector((state: RootState) => state.selectedInfo)
+  const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
 
   const year = startDate.getFullYear()
   const month = startDate.getMonth() - 1
@@ -72,6 +72,7 @@ export const AddModal = ({
           startDate: new Date(year, month, date, startDate.getHours()),
           endDate: new Date(year, month, date, endDate.getHours()),
           bgColor: subjectColor,
+          id: new Date().getTime(),
         })
       )
     else {
@@ -81,6 +82,7 @@ export const AddModal = ({
           startDate,
           endDate,
           bgColor,
+          id,
         })
       )
     }
@@ -113,7 +115,7 @@ export const AddModal = ({
           <InputWrapper>
             <ButtonTypoWrapper>
               일정명
-              <NameInput placeholder={'일정명을 입력해주세요'} onChange={onChange} ref={inputRef} />
+              <NameInput placeholder={'일정명을 입력해주세요'} onChange={onChange} ref={inputRef} defaultValue={text} />
             </ButtonTypoWrapper>
             <ColorSelectWrapper>
               <ColorSelectTypo>색상선택</ColorSelectTypo>

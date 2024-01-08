@@ -12,11 +12,13 @@ import {
   Root,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeAppoint } from 'modules/appointments'
 import { RootState } from 'modules'
-import { createArray, getWeekDates, useFormattedDate } from 'utils/helper'
+import { createArray, getWeekDates } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 import SubjectModal from '../SubjectModal'
+import { updateAppoint } from 'modules/appointments'
+import { defaultColor } from 'constants/color'
+import { IAppointment } from 'types'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -26,7 +28,7 @@ type SchedulerProps = {
 const dayList = ['일', '월', '화', '수', '목', '금', '토']
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { startDate, endDate, text, bgColor } = useSelector((state: RootState) => state.selectedInfo)
+  const { text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
   const now = new Date()
@@ -45,22 +47,20 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
       updateInfo({
         startDate: new Date(),
         endDate: new Date(),
-        text,
-        bgColor,
+        text: '',
+        bgColor: defaultColor,
+        id: new Date().getTime(),
       })
     )
   }
 
-  const onClickAppointment = (startDate: Date, endDate: Date) => (e: React.MouseEvent) => {
-    openModal('일정수정')
+  const onClickAppointment = (appoint: IAppointment) => () => {
     dispatch(
       updateInfo({
-        startDate,
-        endDate,
-        text,
-        bgColor,
+        ...appoint,
       })
     )
+    openModal('일정수정')
   }
   useEffect(() => {
     if (selectedCells.length === 0) return
@@ -75,12 +75,10 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         endDate: new Date(year, month, date, endHour),
         text,
         bgColor,
+        id: new Date().getTime(),
       })
     )
   }, [selectedCells])
-  useEffect(() => {
-    console.log(appointments)
-  }, [appointments])
 
   return (
     <Root>
@@ -126,14 +124,15 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                   dateOffset.toISOString().split('T')[0] === date &&
                   hour === app.startDate.getHours() && (
                     <AppointmentWrapper
-                      key={app.startDate.getTime()}
+                      key={app.id}
                       $bgColor={app.bgColor}
                       $height={
                         app.endDate.getHours() === 0
                           ? 24 - app.startDate.getHours()
                           : app.endDate.getHours() - app.startDate.getHours()
                       }
-                      onClick={onClickAppointment(app.startDate, app.endDate)}
+                      onClick={onClickAppointment(app)}
+                      onMouseDown={(e) => e.stopPropagation()}
                     >
                       {app.text}
                     </AppointmentWrapper>

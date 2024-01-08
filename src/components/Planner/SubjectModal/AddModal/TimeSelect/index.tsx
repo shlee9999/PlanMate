@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useEffect } from 'react'
 import { StyledSelect, SelectOption, SelectWrapper } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -10,10 +10,9 @@ type TimeSelectModeProps = {
 
 //옵션 시간 추가 필요요
 export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
-  const defaultStartHour = useSelector((state: RootState) => state.selectedInfo.startDate.getHours())
-  const defaultEndHour = useSelector((state: RootState) => state.selectedInfo.endDate.getHours())
   const dispatch = useDispatch()
-  const { startDate, endDate, text, bgColor } = useSelector((state: RootState) => state.selectedInfo)
+  const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const value = set === '부터' ? startDate.getHours() : endDate.getHours() === 0 ? 24 : endDate.getHours()
   const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const year = startDate.getFullYear()
     const month = startDate.getMonth()
@@ -21,29 +20,28 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
     if (set === '부터')
       dispatch(
         updateInfo({
-          startDate: new Date(year, month, date, +e.target.value),
-          endDate: new Date(year, month, date, endDate.getHours()),
+          endDate,
           text,
           bgColor,
+          id,
+          startDate: new Date(year, month, date, +e.target.value),
         })
       )
     else
       dispatch(
         updateInfo({
-          startDate: new Date(year, month, date, startDate.getHours()),
+          startDate,
           endDate: new Date(year, month, date, +e.target.value),
-          text: '',
-          bgColor: '',
+          text,
+          bgColor,
+          id,
         })
       )
   }
 
   return (
     <SelectWrapper>
-      <StyledSelect
-        onChange={handleHourChange}
-        defaultValue={(set === '부터' ? defaultStartHour : defaultEndHour).toString().padStart(2, '0')}
-      >
+      <StyledSelect onChange={handleHourChange} value={value.toString().padStart(2, '0')}>
         {Array.from(Array(25).keys()).map((hour) => (
           <SelectOption key={hour} value={hour.toString().padStart(2, '0')}>
             {hour.toString().padStart(2, '0')}

@@ -25,4 +25,5 @@ export interface IAppointment {
   startDate: Date
   endDate: Date
   bgColor: string
+  id: number
 }

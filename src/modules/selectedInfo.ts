@@ -1,3 +1,4 @@
+import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 
 const UPDATE_INFO = 'selectedInfo/UPDATE_INFO' as const
@@ -17,13 +18,14 @@ const IntialInfoState: ISelectedInfo = {
   startDate: new Date(),
   endDate: new Date(),
   text: '',
-  bgColor: 'white',
+  bgColor: defaultColor,
+  id: -1,
 }
 
 function selectedInfo(state: ISelectedInfo = IntialInfoState, action: InfoAction) {
   switch (action.type) {
     case UPDATE_INFO: {
-      return action.payload
+      return { ...action.payload }
     }
     default:
       return state

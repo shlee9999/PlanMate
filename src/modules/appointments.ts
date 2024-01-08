@@ -29,12 +29,14 @@ const IntialAppointState: IAppointment[] = [
     startDate: new Date(2024, 0, 7, 5),
     endDate: new Date(2024, 0, 7, 24),
     bgColor: 'tomato',
+    id: 0,
   },
   {
     text: '프로젝트',
     startDate: new Date(2024, 0, 8, 10),
-    endDate: new Date(2024, 0, 8, 12),
+    endDate: new Date(2024, 0, 8, 15),
     bgColor: 'teal',
+    id: 1,
   },
 ]
 
@@ -48,7 +50,7 @@ function appointments(state: IAppointment[] = IntialAppointState, action: Appoin
 
     case UPDATE_APPOINT: {
       return state.map((appoint) =>
-        appoint.startDate === action.payload.appointment.startDate ? action.payload.appointment : appoint
+        appoint.id === action.payload.appointment.id ? action.payload.appointment : appoint
       )
     }
     default:
