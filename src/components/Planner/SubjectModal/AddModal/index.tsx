@@ -23,6 +23,7 @@ import { addAppoint, updateAppoint } from 'modules/appointments'
 
 import { RootState } from 'modules'
 import { useFormattedDate } from 'utils/helper'
+import { updateInfo, updateProp } from 'modules/selectedInfo'
 
 const DefaultColor: string = '#ff0000' as const
 
@@ -96,7 +97,9 @@ export const AddModal = ({
     if (isColorPickerModalOpen) closeColorPickerModal()
     closeModal()
   }
-
+  const onClickColor = (color: string) => (e: React.MouseEvent) => {
+    dispatch(updateProp('bgColor', color))
+  }
   useEffect(() => {
     if (!inputRef || !inputRef.current) return
     if (isModalOpen) {
@@ -119,7 +122,11 @@ export const AddModal = ({
             </ButtonTypoWrapper>
             <ColorSelectWrapper>
               <ColorSelectTypo>색상선택</ColorSelectTypo>
-              <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+              <ColorPicker
+                assignSubjectColor={assignSubjectColor}
+                defaultColor={subjectColor}
+                onClickButton={onClickColor}
+              />
             </ColorSelectWrapper>
             {/* <ButtonTypoWrapper>
               요일

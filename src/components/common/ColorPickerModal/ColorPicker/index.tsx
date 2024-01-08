@@ -7,9 +7,10 @@ type ColorPickerProps = {
   closeModal?: () => void
   assignSubjectColor: (color: string) => void
   defaultColor: string
+  onClickButton?: (color: string) => (e: React.MouseEvent) => void
 }
 
-export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectColor, defaultColor }) => {
+export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectColor, defaultColor, onClickButton }) => {
   const [selectedColor, setSelectedColor] = useState<string>(defaultColor)
   return (
     <ColorButtonWrapper>
@@ -23,6 +24,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectCol
               assignSubjectColor={assignSubjectColor}
               isSelected={selectedColor === color}
               setSelectedColor={() => setSelectedColor(color)}
+              onClick={onClickButton(color)}
             />
           ))}
         </RowWrapper>
