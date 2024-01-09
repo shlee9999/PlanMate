@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import RightArrowImg from 'assets/images/right_arrow.png'
+import { ModalExitButton } from '../SelectModal/styled'
 export const Root = styled.table`
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -91,6 +92,14 @@ interface AppointmentWrapperProps {
   $bgColor: string
   $height: number
 }
+export const CloseButton = styled(ModalExitButton)`
+  opacity: 0;
+  top: 5px;
+  right: 5px;
+  width: 15px;
+  background-size: contain;
+`
+
 export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
   position: absolute;
   top: 0;
@@ -107,6 +116,9 @@ export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
   border-radius: 5px;
   &:hover {
     opacity: 0.6;
+    ${CloseButton} {
+      opacity: 1;
+    }
   }
   &:active {
     opacity: 0.7;

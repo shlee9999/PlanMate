@@ -11,9 +11,9 @@ export const addAppoint = (appoint: IAppointment) => ({
   payload: appoint,
 })
 
-export const removeAppoint = (startDate: Date) => ({
+export const removeAppoint = (id: number) => ({
   type: REMOVE_APPOINT,
-  payload: startDate,
+  payload: id,
 })
 
 export const updateAppoint = (appointment: IAppointment) => ({
@@ -47,7 +47,7 @@ function appointments(state: IAppointment[] = IntialAppointState, action: Appoin
       return state.concat(action.payload)
 
     case REMOVE_APPOINT:
-      return state.filter((appoint) => appoint.startDate !== action.payload)
+      return state.filter((appoint) => appoint.id !== action.payload)
 
     case UPDATE_APPOINT: {
       return state.map((appoint) =>

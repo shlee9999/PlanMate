@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import {
   AppointmentWrapper,
   ButtonWrapper,
+  CloseButton,
   DataCell,
   DataCellRow,
   DateTypo,
@@ -16,7 +17,7 @@ import { RootState } from 'modules'
 import { createArray, getDateSaveForm, getWeekDates } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 
-import { updateAppoint } from 'modules/appointments'
+import { removeAppoint, updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 import { SelectModal } from '../SelectModal'
@@ -36,6 +37,10 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
+  const onClickClose = (id: number) => (e: React.MouseEvent) => {
+    e.stopPropagation()
+    dispatch(removeAppoint(id))
+  }
   const openModal = (title: '일정추가' | '일정수정') => {
     setModalTitle(title)
     setIsModalOpen(true)
@@ -136,6 +141,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                       onClick={onClickAppointment(app)}
                       onMouseDown={(e) => e.stopPropagation()}
                     >
+                      <CloseButton onClick={onClickClose(app.id)} />
                       {app.text}
                     </AppointmentWrapper>
                   )
