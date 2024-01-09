@@ -10,7 +10,7 @@ declare module 'styled-components' {
     body: string
     border: {
       default: string
-      primary: string
+      dark: string
     }
     text: {
       white: string

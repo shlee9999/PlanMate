@@ -9,7 +9,7 @@ export const lightTheme: DefaultTheme = {
   body: '#FFFFFF',
   border: {
     default: '#DDDEDE',
-    primary: '#1DB951',
+    dark: '#c6c6c6',
   },
   text: {
     white: '#FFFFFF',

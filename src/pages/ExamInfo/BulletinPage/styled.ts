@@ -11,7 +11,7 @@ export const Root = styled.div`
     outline: none;
     box-sizing: border-box;
     padding: 0 14px;
-    border: 1px solid #c6c6c6;
+    border: 1px solid ${(props) => props.theme.border.dark};
     border-radius: 8px;
     max-width: 1120px;
     min-height: 200px;
@@ -29,7 +29,7 @@ export const SuggestTypo = styled.div`
   line-height: 15px;
 `
 export const GreenTypo = styled.span`
-  color: #01cb45;
+  color: ${(props) => props.theme.primary.default};
   font-size: 12px;
 `
 export const ButtonWrapper = styled.div`
@@ -63,11 +63,11 @@ export const TagSelector = styled.div`
   width: 209px;
   height: 48px;
   border-radius: 8px;
-  border: 1px solid #c6c6c6;
+  border: 1px solid ${(props) => props.theme.border.dark};
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
 `
 export const TagOptionWrapper = styled.div`
   position: absolute;
@@ -78,10 +78,10 @@ export const TagOptionWrapper = styled.div`
   width: 209px;
   height: 102px;
   border-radius: 8px;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   z-index: 2;
 `
 export const TagOption = styled.button`
@@ -91,12 +91,12 @@ export const TagOption = styled.button`
   font-size: 14px;
   font-weight: 400;
   line-height: 30px;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
 
   &:hover {
     border-radius: 5px;
-    background-color: #e2f9e9;
-    color: #01cb45;
+    background-color: ${(props) => props.theme.primary.light};
+    color: ${(props) => props.theme.primary.default};
   }
 
   &::before {
@@ -115,7 +115,7 @@ export const CancelButton = styled.button`
   width: 96px;
   height: 32px;
   border-radius: 100px;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,7 +130,7 @@ export const CancelImg = styled.img`
 export const TitleInput = styled.input`
   box-sizing: border-box;
   padding: 11px 16px;
-  border: 1px solid #c6c6c6;
+  border: 1px solid ${(props) => props.theme.border.dark};
   border-radius: 8px;
   width: 100%;
   height: 48px;
@@ -138,14 +138,14 @@ export const TitleInput = styled.input`
   font-weight: 700;
   line-height: 26px;
   &::placeholder {
-    color: #c6c6c6;
+    color: ${(props) => props.theme.text.gray3};
   }
 `
 export const ContentInput = styled.textarea`
   outline: none;
   box-sizing: border-box;
   padding: 18px 16px;
-  border: 1px solid #c6c6c6;
+  border: 1px solid ${(props) => props.theme.text.gray3};
   border-radius: 8px;
   width: 1120px;
   height: 535px;
@@ -155,17 +155,17 @@ export const SuggestInput = styled.textarea`
   outline: none;
   box-sizing: border-box;
   padding: 14px;
-  border: 1px solid #c6c6c6;
+  border: 1px solid ${(props) => props.theme.text.gray3};
   border-radius: 8px;
   max-width: 1120px;
   min-width: 528px;
   min-height: 500px;
   height: auto;
   &::placeholder {
-    color: #c6c6c6;
+    color: ${(props) => props.theme.text.gray3};
   }
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `

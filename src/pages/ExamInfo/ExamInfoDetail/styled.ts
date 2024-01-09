@@ -8,7 +8,6 @@ export const Root = styled.div`
   padding: 40px 0;
   width: 100%;
   max-width: ${EXAMINFODETAIL_MAX_WIDTH}px;
-
   .editor {
     min-height: 150px;
     padding-left: 10px;
@@ -24,13 +23,13 @@ export const Tag = styled(TagRoot)`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
 `
 export const UserNickname = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #222222;
+  color: ${(props) => props.theme.text.black1};
 `
 export const UpperTypoWrapper = styled.div`
   margin-bottom: 16px;
@@ -60,7 +59,7 @@ export const PostOwnerNickname = styled.span`
   font-weight: 500;
   line-height: 15px;
   text-align: center;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
   margin-right: 12px;
 `
 const ButtonTypo = styled.span`
@@ -78,7 +77,7 @@ export const EditTypo = styled(ButtonTypo)`
 export const DistributionLine = styled.hr`
   border: none;
   display: inline-block;
-  background-color: #888888;
+  background-color: ${(props) => props.theme.text.gray2};
   width: 1px;
   height: 12px;
   margin-right: 5px;
@@ -91,7 +90,7 @@ export const TitleTypo = styled.p`
 export const UpdatedDate = styled.p`
   font-size: 12px;
   font-weight: 400;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
   margin-bottom: 2px; //없으면 줄이 안맞음
 `
 export const Nickname = styled.p`
@@ -106,8 +105,8 @@ export const ContentWrapper = styled.div`
   padding: 32px 8px;
   font-size: 14px;
   font-weight: 400;
-  border-top: 2px solid #444444;
-  border-bottom: 1px solid #c6c6c6;
+  border-top: 2px solid ${(props) => props.theme.text.black2};
+  border-bottom: 1px solid ${(props) => props.theme.border.dark};
   margin-bottom: 32px;
   white-space: pre-line;
   overflow-wrap: break-word;
@@ -139,7 +138,7 @@ const ImgButton = styled.button`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 export const LikeButton = styled(ImgButton)``
 export const ScrapButton = styled(ImgButton)``
@@ -154,12 +153,12 @@ export const CommentTitle = styled.div`
   margin-bottom: 24px;
 `
 export const CommentCount = styled.span`
-  color: #01cb45;
+  color: ${(props) => props.theme.primary.default};
   word-wrap: break-word; /*불확실*/
 `
 
 export const CommentContainer = styled.div`
-  border-top: 1px solid #c6c6c6;
+  border-top: 1px solid ${(props) => props.theme.border.dark};
   &.no_content {
     border-top: none;
   }
@@ -180,11 +179,11 @@ export const CommentInput = styled.textarea`
   line-height: 18px;
   height: 80px;
   border-radius: 8px;
-  border: 1px solid #c6c6c6;
-  background-color: #f9f9f9;
+  border: 1px solid ${(props) => props.theme.border.dark};
+  background-color: ${(props) => props.theme.background.gray2};
 
   &::placeholder {
-    color: #c6c6c6;
+    color: ${(props) => props.theme.text.gray3};
   }
 `
 export const CommentRegisterButton = styled(RegisterButton)`
