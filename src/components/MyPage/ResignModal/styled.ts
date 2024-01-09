@@ -26,11 +26,11 @@ export const Title = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `
 export const DescriptionTypo = styled.p`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #ec6c73;
+  color: ${(props) => props.theme.warning};
 `
