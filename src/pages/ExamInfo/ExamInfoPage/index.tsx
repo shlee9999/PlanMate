@@ -25,9 +25,10 @@ import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/fin
 import { NoContentDescription } from 'components/common/NoContentDescription'
 import pencilImg from 'assets/images/pencil.png'
 import { NoContentTypo } from 'components/common/NoContentDescription/styled'
-
+import { sampleInfoList } from 'constants/sampleData'
 export const ExamInfoPage = () => {
-  const data = useLoaderData() as FindAllPostResponseProps
+  // const data = useLoaderData() as FindAllPostResponseProps
+  const data: FindAllPostResponseProps = sampleInfoList
   const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
@@ -56,21 +57,21 @@ export const ExamInfoPage = () => {
   }
 
   useEffect(() => {
-    if (selectedTag === '')
-      findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-        const response = res as FindAllPostResponseProps
-        setExamInfoList(response.postDtoList)
-        setTotalPage(response.totalPages)
-      })
-    else
-      findPostWithTag({
-        tagName: selectedTag,
-        pages: currentPage - 1,
-      }).then((res) => {
-        const response = res as FindPostWithTagResponseProps
-        setExamInfoList(response.postDtoList)
-        setTotalPage(response.totalPages)
-      })
+    // if (selectedTag === '')
+    //   findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+    //     const response = res as FindAllPostResponseProps
+    //     setExamInfoList(response.postDtoList)
+    //     setTotalPage(response.totalPages)
+    //   })
+    // else
+    //   findPostWithTag({
+    //     tagName: selectedTag,
+    //     pages: currentPage - 1,
+    //   }).then((res) => {
+    //     const response = res as FindPostWithTagResponseProps
+    //     setExamInfoList(response.postDtoList)
+    //     setTotalPage(response.totalPages)
+    //   })
   }, [currentPage, selectedTag])
 
   useEffect(() => {

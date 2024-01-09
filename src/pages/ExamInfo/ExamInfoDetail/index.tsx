@@ -60,6 +60,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { deleteNotice } from 'api/notice/admin/deleteNotice'
 import { editNotice } from 'api/notice/admin/editNotice'
+import { sampleExamInfoData } from 'constants/sampleData'
 /**
  * @title
  * @like
@@ -77,7 +78,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
-  const data = useLoaderData() as ExamInfoDetailDataType
+  // const data = useLoaderData() as ExamInfoDetailDataType
+  const data = sampleExamInfoData
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
@@ -93,15 +95,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const [editorState, setEditorState] = useState(() => {
-    const rawContentFromServer = JSON.parse(examInfoDetail.content)
-    const contentState = convertFromRaw(rawContentFromServer)
-    return EditorState.createWithContent(contentState)
-  })
 
-  const onEditorStateChange = (editorState: EditorState) => {
-    setEditorState(editorState)
-  }
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -153,24 +147,24 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setIsEditing((prev) => !prev)
   }
   const onClickEditCompleteButton = () => {
-    if (mode === 'examinfo')
-      editPost({
-        content: serializeContent(editorState),
-        id: +postId,
-        tagList: examInfoDetail.postTagList,
-        title: examInfoDetail.title,
-      }).then((res) => {
-        if (res) {
-          setIsEditing(false)
-          setCurrentContent(serializeContent(editorState))
-        }
-      })
-    else
-      editNotice({
-        content: serializeContent(editorState),
-        noticeId: +postId,
-        title: examInfoDetail.title,
-      })
+    // if (mode === 'examinfo')
+    //   editPost({
+    //     content: serializeContent(editorState),
+    //     id: +postId,
+    //     tagList: examInfoDetail.postTagList,
+    //     title: examInfoDetail.title,
+    //   }).then((res) => {
+    //     if (res) {
+    //       setIsEditing(false)
+    //       setCurrentContent(serializeContent(editorState))
+    //     }
+    //   })
+    // else
+    //   editNotice({
+    //     content: serializeContent(editorState),
+    //     noticeId: +postId,
+    //     title: examInfoDetail.title,
+    //   })
   }
   const onClickRegisterButton = (): void => {
     createComment({
@@ -275,7 +269,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       <ContentWrapper>
         {isEditing ? (
           <EditorWrapper>
-            <Editor
+            {/* <Editor
               wrapperClassName="wrapper-class"
               editorClassName="editor"
               toolbarClassName="toolbar-class"
@@ -291,7 +285,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
               }}
               editorState={editorState}
               onEditorStateChange={onEditorStateChange}
-            />
+            /> */}
             <EditCompleteButton onClick={onClickEditCompleteButton}>수정완료</EditCompleteButton>
           </EditorWrapper>
         ) : (
