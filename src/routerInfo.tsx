@@ -1,6 +1,4 @@
 import { HeaderSection } from 'pages/CommonSections/HeaderSection'
-import { Outlet } from 'react-router-dom'
-import { Root } from 'styled'
 import { ExamInfoPage } from 'pages/ExamInfo/ExamInfoPage'
 import { BulletinPage } from 'pages/ExamInfo/BulletinPage'
 import { TimerPage } from 'pages/Timer'
@@ -10,33 +8,19 @@ import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { ExamInfoDetailDataType } from 'types'
-import { FooterSection } from 'pages/CommonSections/FooterSection'
 import { MyPage } from 'pages/MyPage'
 import { LoginPage } from 'pages/Login'
 import { NoticePage } from 'pages/NoticePage'
 import { ErrorPage } from 'pages/ErrorPage'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
+import App from 'App'
 
 export const routerInfo = [
   {
     path: '/',
-    errorElement: (
-      <>
-        <HeaderSection />
-        <ErrorPage />
-        <FooterSection />
-      </>
-    ),
-    element: (
-      <>
-        <HeaderSection />
-        <Root>
-          <Outlet />
-        </Root>
-        <FooterSection />
-      </>
-    ),
+    errorElement: <ErrorPage />,
+    element: <App />,
     children: [
       { path: 'mypage', element: <MyPage /> },
       {
