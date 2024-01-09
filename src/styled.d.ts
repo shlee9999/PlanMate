@@ -2,14 +2,17 @@ import 'styled-components'
 
 declare module 'styled-components' {
   export interface DefaultTheme extends ThemeType {
-    primary: string
-    light_primary: string
-    dark_primary: string
-    border: {
-      gray: string
-      green: string
+    primary: {
+      default: string
+      light: string
+      dark: string
     }
-    font: {
+    body: string
+    border: {
+      default: string
+      primary: string
+    }
+    text: {
       white: string
       black1: string
       black2: string
@@ -18,6 +21,7 @@ declare module 'styled-components' {
       gray3: string
     }
     background: {
+      white: string
       gray1: string
       gray2: string
     }

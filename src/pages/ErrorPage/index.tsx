@@ -5,9 +5,11 @@ import { HeaderSection } from 'pages/CommonSections/HeaderSection'
 import { FooterSection } from 'pages/CommonSections/FooterSection'
 import { ThemeProvider } from 'styled-components'
 import { lightTheme } from 'theme'
+import { GlobalStyle } from 'globalStyle'
 export const ErrorPage: FC = () => {
   return (
     <ThemeProvider theme={lightTheme}>
+      <GlobalStyle />
       <HeaderSection />
       <Root>
         <ErrorImg alt="error_img" src={noConnectionImg} />
