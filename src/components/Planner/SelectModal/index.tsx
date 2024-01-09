@@ -102,7 +102,7 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
           </ButtonTypoWrapper>
           <ColorSelectWrapper>
             <ColorSelectTypo>색상선택</ColorSelectTypo>
-            <ColorPicker assignSubjectColor={assignSubjectColor} />
+            <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
           </ColorSelectWrapper>
           {/* <ButtonTypoWrapper>
               요일

@@ -1,3 +1,4 @@
+import { colorList } from 'constants/color'
 import { IAppointment } from 'types'
 
 const ADD_APPOINT = 'appointments/ADD_APPOINT' as const
@@ -28,14 +29,14 @@ const IntialAppointState: IAppointment[] = [
     text: '기타 연습',
     startDate: new Date(2024, 0, 7, 5),
     endDate: new Date(2024, 0, 7, 24),
-    bgColor: 'tomato',
+    bgColor: colorList[0][5],
     id: 0,
   },
   {
     text: '프로젝트',
     startDate: new Date(2024, 0, 8, 10),
     endDate: new Date(2024, 0, 8, 15),
-    bgColor: 'teal',
+    bgColor: colorList[2][2],
     id: 1,
   },
 ]
