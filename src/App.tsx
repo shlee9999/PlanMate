@@ -3,7 +3,7 @@ import { FooterSection } from 'pages/CommonSections/FooterSection'
 import { HeaderSection } from 'pages/CommonSections/HeaderSection'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Root } from 'styled'
+import { Root } from 'commonStyled'
 import { ThemeProvider } from 'styled-components'
 
 export default function App() {

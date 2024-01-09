@@ -1,4 +1,4 @@
-import { TagRoot } from 'styled'
+import { TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import whiteBulletinIcon from 'assets/images/bulletin_white.png'
 import greenBulletinIcon from 'assets/images/bulletin_green.png'

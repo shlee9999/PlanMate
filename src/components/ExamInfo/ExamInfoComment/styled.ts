@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.png'
-import { RegisterButton } from 'styled'
+import { RegisterButton } from 'commonStyled'
 
 export const EllipsisButton = styled.img`
   position: relative;

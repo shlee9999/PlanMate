@@ -1,5 +1,5 @@
 import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
-import { RegisterButton, TagRoot } from 'styled'
+import { RegisterButton, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
