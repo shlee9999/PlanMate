@@ -80,13 +80,14 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
   const closeModalAll = () => {
     closeModal()
   }
-  const onClickColor = (color: string) => (e: React.MouseEvent) => {
-    dispatch(updateProp('bgColor', color))
-  }
+
   useEffect(() => {
     inputRef.current.focus()
     setSubjectColor(defaultColor)
   }, [])
+  useEffect(() => {
+    dispatch(updateProp('bgColor', subjectColor))
+  }, [subjectColor])
 
   return (
     <ModalWrapper onClick={closeModalAll}>
@@ -101,11 +102,7 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
           </ButtonTypoWrapper>
           <ColorSelectWrapper>
             <ColorSelectTypo>색상선택</ColorSelectTypo>
-            <ColorPicker
-              assignSubjectColor={assignSubjectColor}
-              defaultColor={subjectColor}
-              onClickButton={onClickColor}
-            />
+            <ColorPicker assignSubjectColor={assignSubjectColor} />
           </ColorSelectWrapper>
           {/* <ButtonTypoWrapper>
               요일

@@ -7,20 +7,18 @@ const ColorButton = ({
   assignSubjectColor,
   isSelected,
   setSelectedColor,
-  onClick,
 }: {
   color: string
   closeModal?: () => void
   assignSubjectColor: (color: string) => void
   isSelected: boolean
   setSelectedColor: () => void
-  onClick?: (e: React.MouseEvent) => void
 }) => {
   const onClickButton: React.MouseEventHandler<HTMLButtonElement> = () => {
     assignSubjectColor(color)
     setSelectedColor()
     if (closeModal) closeModal()
   }
-  return <Root color={color} onClick={onClick || onClickButton} className={isSelected ? 'isSelected' : ''} />
+  return <Root color={color} onClick={onClickButton} className={isSelected ? 'isSelected' : ''} />
 }
 export default ColorButton

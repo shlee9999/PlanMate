@@ -111,7 +111,7 @@ const EditModal = ({
             </UpperWrapper>
             <LowerWrapper>
               <LowerTypo>색상선택</LowerTypo>
-              <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+              <ColorPicker assignSubjectColor={assignSubjectColor} />
               {/* <ColorPickerButton onClick={onClickColorButton} color={subjectColor}>
               {title.slice(0, 2)}색상
             </ColorPickerButton> */}
