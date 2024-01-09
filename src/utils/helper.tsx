@@ -35,11 +35,10 @@ export const useFormattedTimeKorean = (time: number) => {
   return formattedTime
 }
 
-export const useFormattedDate = (): string => {
-  const now: Date = new Date()
-  const month: string = `${now.getMonth() + 1}`.padStart(2, '0')
-  const date: string = `${now.getDate()}`.padStart(2, '0')
-  const day: number = now.getDay()
+export const useFormattedDate = (currentDate: Date): string => {
+  const month: string = `${currentDate.getMonth() + 1}`.padStart(2, '0')
+  const date: string = `${currentDate.getDate()}`.padStart(2, '0')
+  const day: number = currentDate.getDay()
   const formattedDate: string = month + '월 ' + date + '일 (' + week[day] + ')요일'
   return formattedDate
 }
@@ -82,4 +81,30 @@ export const daysUntil = (targetDate) => {
   const differenceInTime = specificDate.getTime() - today.getTime()
   const differenceInDays = differenceInTime / (1000 * 3600 * 24)
   return differenceInDays
+}
+export function createArray(n, m) {
+  return Array.from({ length: m - n + 1 }, (_, index) => n + index)
+}
+export const getWeekDates = (currentDate: Date) => {
+  const firstDayOfWeek = new Date(currentDate)
+  firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay())
+  const weekDates: Date[] = []
+  for (let i = 0; i < 7; i++) {
+    const newDate = new Date(firstDayOfWeek)
+    newDate.setDate(firstDayOfWeek.getDate() + i)
+    weekDates.push(newDate)
+  }
+  return weekDates
+}
+
+export const getDateInfo = (currentDate: Date) => ({
+  year: currentDate.getFullYear(),
+  month: currentDate.getMonth(),
+  date: currentDate.getDate(),
+  day: currentDate.getDay(),
+})
+
+export const getDateSaveForm = (currentDate: Date) => {
+  const { year, month, date } = getDateInfo(currentDate)
+  return year + month.toString().padStart(2, '0') + date.toString().padStart(2, '0')
 }

@@ -19,6 +19,6 @@ const ColorButton = ({
     setSelectedColor()
     if (closeModal) closeModal()
   }
-  return <Root color={color} onClick={onClickButton} className={isSelected ? 'isSelected' : ''}></Root>
+  return <Root color={color} onClick={onClickButton} className={isSelected ? 'isSelected' : ''} />
 }
 export default ColorButton
