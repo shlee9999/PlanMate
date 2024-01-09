@@ -13,7 +13,7 @@ import {
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { createArray, getWeekDates } from 'utils/helper'
+import { createArray, getDateSaveForm, getWeekDates } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 
 import { updateAppoint } from 'modules/appointments'
@@ -63,13 +63,14 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     )
     openModal('일정수정')
   }
-  useEffect(() => {
+  const onMouseUp = () => {
     if (selectedCells.length === 0) return
     const startHour = +selectedCells[0].split('T')[1]
     const endHour = +selectedCells[selectedCells.length - 1].split('T')[1] + 1
     const year = +selectedCells[0].slice(0, 4)
-    const month = +selectedCells[0].slice(5, 7)
-    const date = +selectedCells[0].slice(8, 10)
+    const month = +selectedCells[0].slice(4, 6)
+    const date = +selectedCells[0].slice(6, 8)
+    console.log(selectedCells)
 
     dispatch(
       updateInfo({
@@ -80,17 +81,18 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         id: new Date().getTime(),
       })
     )
-  }, [selectedCells])
+    openModal('일정추가')
+  }
 
   return (
     <Root>
       <DataCellRow>
         <DayCell $today={null}></DayCell>
         {getWeekDates(currentDate).map((date, index) => (
-          <DayCell $today={now.getDate() === currentDate.getDate() - (currentDate.getDay() - date)} key={date}>
+          <DayCell $today={getDateSaveForm(now) === getDateSaveForm(date)} key={getDateSaveForm(date)}>
             <>
               <DayTypo>{dayList[index]}</DayTypo>
-              <DateTypo>{date.slice(-2)}</DateTypo>
+              <DateTypo>{getDateSaveForm(date).slice(-2)}</DateTypo>
             </>
           </DayCell>
         ))}
@@ -102,28 +104,26 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
           </DataCell>
           {getWeekDates(currentDate).map((date) => (
             <DataCell
-              key={date}
-              $isSelected={selectedCells.includes(date + 'T' + hour)}
+              key={getDateSaveForm(date)}
+              $isSelected={selectedCells.includes(getDateSaveForm(date) + 'T' + hour)}
               onMouseDown={() => {
-                setSelectedCells([date + 'T' + hour])
+                setSelectedCells([getDateSaveForm(date) + 'T' + hour])
               }}
               onMouseEnter={(e) => {
                 if (e.buttons === 1) {
                   if (
-                    selectedCells.includes(date + 'T' + `${hour - 1}`) ||
-                    selectedCells.includes(date + 'T' + `${hour + 1}`)
+                    selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour - 1}`) ||
+                    selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour + 1}`)
                   )
-                    setSelectedCells((prev) => prev.concat(date + 'T' + hour))
+                    setSelectedCells((prev) => prev.concat(getDateSaveForm(date) + 'T' + hour))
                   else setSelectedCells([])
                 }
               }}
-              onMouseUp={() => openModal('일정추가')}
+              onMouseUp={onMouseUp}
             >
               {appointments.map((app) => {
-                const offset = new Date().getTimezoneOffset() * 60000
-                const dateOffset = new Date(app.startDate.getTime() - offset)
                 return (
-                  dateOffset.toISOString().split('T')[0] === date &&
+                  getDateSaveForm(app.startDate) === getDateSaveForm(date) &&
                   hour === app.startDate.getHours() && (
                     <AppointmentWrapper
                       key={app.id}
@@ -150,7 +150,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         {currentDate.getMonth() + 1}월
         <NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
       </ButtonWrapper>
-      <SelectModal isModalOpen={isModalOpen} closeModal={closeModal} title={modalTitle} />
+      {isModalOpen && <SelectModal closeModal={closeModal} title={modalTitle} />}
     </Root>
   )
 }

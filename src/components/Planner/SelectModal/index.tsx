@@ -7,7 +7,7 @@ import {
   ModalFooter,
   InputWrapper,
   ModalTitle,
-  NameInput,
+  Input,
   ButtonTypoWrapper,
   TimeSelectWrapper,
   ColorSelectWrapper,
@@ -23,40 +23,24 @@ import { addAppoint, updateAppoint } from 'modules/appointments'
 
 import { RootState } from 'modules'
 import { useFormattedDate } from 'utils/helper'
-import { updateInfo, updateProp } from 'modules/selectedInfo'
+import { updateProp } from 'modules/selectedInfo'
+import { defaultColor } from 'constants/color'
 
-const DefaultColor: string = '#ff0000' as const
-
-export const SelectModal = ({
-  isModalOpen,
-  closeModal,
-  title,
-}: {
-  isModalOpen: boolean
-  closeModal: () => void
-  title: string
-}) => {
+export const SelectModal = ({ closeModal, title }: { closeModal: () => void; title: string }) => {
   //입력값과 색상 상태 관리
   const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
-
   const year = startDate.getFullYear()
-  const month = startDate.getMonth() - 1
+  const month = startDate.getMonth()
   const date = startDate.getDate()
 
-  const [inputTitle, setInputTitle] = useState<string>('')
-  const [subjectColor, setSubjectColor] = useState<string>(DefaultColor)
-
-  const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
-
+  const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? text : '')
+  const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? bgColor : defaultColor)
   const inputRef = useRef<HTMLInputElement | null>(null)
+
   const dispatch = useDispatch()
-  const closeColorPickerModal = () => {
-    setIsColorPickerModalOpen(false)
-    inputRef.current?.focus()
-  }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputTitle(e.target.value)
+    setInputValue(e.target.value)
   }
 
   const assignSubjectColor = (color: string) => {
@@ -64,12 +48,12 @@ export const SelectModal = ({
   }
 
   const handleAddConfirm = () => {
-    if (inputTitle === '') return
-    setInputTitle('')
+    if (inputValue === '') return
+    setInputValue('')
     if (title.slice(-2) === '추가')
       dispatch(
         addAppoint({
-          text: inputTitle,
+          text: inputValue,
           startDate: new Date(year, month, date, startDate.getHours()),
           endDate: new Date(year, month, date, endDate.getHours()),
           bgColor: subjectColor,
@@ -79,7 +63,7 @@ export const SelectModal = ({
     else {
       dispatch(
         updateAppoint({
-          text: inputTitle,
+          text: inputValue,
           startDate,
           endDate,
           bgColor,
@@ -94,60 +78,53 @@ export const SelectModal = ({
   }
 
   const closeModalAll = () => {
-    if (isColorPickerModalOpen) closeColorPickerModal()
     closeModal()
   }
   const onClickColor = (color: string) => (e: React.MouseEvent) => {
     dispatch(updateProp('bgColor', color))
   }
   useEffect(() => {
-    if (!inputRef || !inputRef.current) return
-    if (isModalOpen) {
-      inputRef.current.focus()
-      setSubjectColor(DefaultColor)
-    }
-  }, [isModalOpen])
+    inputRef.current.focus()
+    setSubjectColor(defaultColor)
+  }, [])
 
-  if (isModalOpen)
-    return (
-      <ModalWrapper onClick={closeModalAll}>
-        <Root onClick={handleModalClick}>
-          <ModalTitle>{title}</ModalTitle>
-          <Title>{useFormattedDate(new Date(year, month, date))}</Title>
-          <ModalExitButton onClick={closeModalAll} />
-          <InputWrapper>
-            <ButtonTypoWrapper>
-              일정명
-              <NameInput placeholder={'일정명을 입력해주세요'} onChange={onChange} ref={inputRef} defaultValue={text} />
-            </ButtonTypoWrapper>
-            <ColorSelectWrapper>
-              <ColorSelectTypo>색상선택</ColorSelectTypo>
-              <ColorPicker
-                assignSubjectColor={assignSubjectColor}
-                defaultColor={subjectColor}
-                onClickButton={onClickColor}
-              />
-            </ColorSelectWrapper>
-            {/* <ButtonTypoWrapper>
+  return (
+    <ModalWrapper onClick={closeModalAll}>
+      <Root onClick={handleModalClick}>
+        <ModalTitle>{title}</ModalTitle>
+        <Title>{useFormattedDate(new Date(year, month, date))}</Title>
+        <ModalExitButton onClick={closeModalAll} />
+        <InputWrapper>
+          <ButtonTypoWrapper>
+            일정명
+            <Input placeholder={'일정명을 입력해주세요'} onChange={onChange} value={inputValue} ref={inputRef} />
+          </ButtonTypoWrapper>
+          <ColorSelectWrapper>
+            <ColorSelectTypo>색상선택</ColorSelectTypo>
+            <ColorPicker
+              assignSubjectColor={assignSubjectColor}
+              defaultColor={subjectColor}
+              onClickButton={onClickColor}
+            />
+          </ColorSelectWrapper>
+          {/* <ButtonTypoWrapper>
               요일
               <DaySelect assignSubjectDay={}></DaySelect>
             </ButtonTypoWrapper> */}
-            <ButtonTypoWrapper>
-              시간
-              <TimeSelectWrapper>
-                <TimeSelect set={'부터'} />
-                <TimeSelect set={'까지'} />
-                {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
-              </TimeSelectWrapper>
-            </ButtonTypoWrapper>
-          </InputWrapper>
-          <ModalFooter>
-            <WhiteButton onClick={closeModalAll}>취소</WhiteButton>
-            <GreenButton onClick={handleAddConfirm}>확인</GreenButton>
-          </ModalFooter>
-        </Root>
-      </ModalWrapper>
-    )
-
-  return null
+          <ButtonTypoWrapper>
+            시간
+            <TimeSelectWrapper>
+              <TimeSelect set={'부터'} />
+              <TimeSelect set={'까지'} />
+              {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
+            </TimeSelectWrapper>
+          </ButtonTypoWrapper>
+        </InputWrapper>
+        <ModalFooter>
+          <WhiteButton onClick={closeModalAll}>취소</WhiteButton>
+          <GreenButton onClick={handleAddConfirm}>확인</GreenButton>
+        </ModalFooter>
+      </Root>
+    </ModalWrapper>
+  )
 }

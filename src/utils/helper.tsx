@@ -88,14 +88,23 @@ export function createArray(n, m) {
 export const getWeekDates = (currentDate: Date) => {
   const firstDayOfWeek = new Date(currentDate)
   firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay())
-  const weekDates = []
+  const weekDates: Date[] = []
   for (let i = 0; i < 7; i++) {
-    const date = new Date(firstDayOfWeek)
-    date.setDate(firstDayOfWeek.getDate() + i)
-    // 날짜 형식을 YYYY-MM-DD로 변환
-    const formattedDate = date.toISOString().split('T')[0]
-    // 배열에 추가
-    weekDates.push(formattedDate)
+    const newDate = new Date(firstDayOfWeek)
+    newDate.setDate(firstDayOfWeek.getDate() + i)
+    weekDates.push(newDate)
   }
   return weekDates
+}
+
+export const getDateInfo = (currentDate: Date) => ({
+  year: currentDate.getFullYear(),
+  month: currentDate.getMonth(),
+  date: currentDate.getDate(),
+  day: currentDate.getDay(),
+})
+
+export const getDateSaveForm = (currentDate: Date) => {
+  const { year, month, date } = getDateInfo(currentDate)
+  return year + month.toString().padStart(2, '0') + date.toString().padStart(2, '0')
 }

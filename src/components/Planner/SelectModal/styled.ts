@@ -55,7 +55,7 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   height: 300px;
 `
-export const NameInput = styled.input`
+export const Input = styled.input`
   width: 208px;
   height: 40px;
   border-radius: 8px;
