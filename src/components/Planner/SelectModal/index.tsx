@@ -47,7 +47,7 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
     setSubjectColor(color)
   }
 
-  const handleAddConfirm = () => {
+  const onClickConfirm = () => {
     if (inputValue === '') return
     setInputValue('')
     if (title.slice(-2) === '추가')
@@ -72,6 +72,9 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
       )
     }
     closeModalAll()
+  }
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') onClickConfirm()
   }
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
@@ -98,7 +101,13 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
         <InputWrapper>
           <ButtonTypoWrapper>
             일정명
-            <Input placeholder={'일정명을 입력해주세요'} onChange={onChange} value={inputValue} ref={inputRef} />
+            <Input
+              placeholder={'일정명을 입력해주세요'}
+              onChange={onChange}
+              value={inputValue}
+              ref={inputRef}
+              onKeyDown={onKeyDown}
+            />
           </ButtonTypoWrapper>
           <ColorSelectWrapper>
             <ColorSelectTypo>색상선택</ColorSelectTypo>
@@ -119,7 +128,7 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
         </InputWrapper>
         <ModalFooter>
           <WhiteButton onClick={closeModalAll}>취소</WhiteButton>
-          <GreenButton onClick={handleAddConfirm}>확인</GreenButton>
+          <GreenButton onClick={onClickConfirm}>확인</GreenButton>
         </ModalFooter>
       </Root>
     </ModalWrapper>
