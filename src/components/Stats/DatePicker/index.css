@@ -1,32 +1,32 @@
-.custom-calendar {
+/* .custom-calendar {
   width: 35em !important;
   height: 42em !important;
   box-shadow: 0 !important;
   border-radius: 8px !important;
   border: 1px solid #d9d9d9 !important;
   opacity: 0.800000011920929px !important;
-}
-
+} */
+/* 
 .zeroToThreeDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
   color: #666666 !important;
-}
+} */
 
-.fourToSevenDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
+/* .fourToSevenDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
   border: 1px solid #ffffff !important;
   background-color: #01cb451a !important;
   color: #666666 !important;
-}
+} */
 
-.eightToElevenDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
+/* .eightToElevenDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
   width: 3em !important;
   height: 3em !important;
   border: 1px solid #ffffff !important;
   background-color: #01cb4599 !important;
   color: #ffffff !important;
-}
+} */
 
-.overTwelveDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
+/* .overTwelveDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
   border: 1px solid #ffffff !important;
   background-color: #01cb45 !important;
   color: #ffffff !important;
-}
+} */

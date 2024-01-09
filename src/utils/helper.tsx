@@ -101,7 +101,6 @@ export const getDateInfo = (currentDate: Date) => ({
   year: currentDate.getFullYear(),
   month: currentDate.getMonth(),
   date: currentDate.getDate(),
-  day: currentDate.getDay(),
 })
 
 export const getDateSaveForm = (currentDate: Date) => {

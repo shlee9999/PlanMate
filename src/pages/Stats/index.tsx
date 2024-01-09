@@ -7,7 +7,7 @@ export const StatsPage: FC = () => {
   return (
     <Root>
       <StatsContainer>
-        <MenuBox></MenuBox>
+        <MenuBox />
       </StatsContainer>
     </Root>
   )

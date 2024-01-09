@@ -27,14 +27,17 @@ import instagramImg from 'assets/images/instagram.png'
 import kakaoTalkImg from 'assets/images/kakaoTalk.png'
 import { StatsDatePicker } from '../DatePicker'
 import { DayValue } from 'react-modern-calendar-datepicker'
+import { getDateInfo } from 'utils/helper'
 
 export const MenuBox = () => {
-  const [selectedDate, setSelectedDate] = useState<DayValue | null>(null)
+  const [selectedDate, setSelectedDate] = useState<DayValue>(() => {
+    const { year, month, date: day } = getDateInfo(new Date())
+    return { year, month: month + 1, day }
+  })
 
   const handleDateSelect = (selectedDate: DayValue | null) => {
     setSelectedDate(selectedDate)
   }
-
   return (
     <Root>
       <HeaderContainer>

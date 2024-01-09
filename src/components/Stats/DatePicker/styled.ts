@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components'
 
 const DatePickerFooterWrapper = styled.div`
+  box-sizing: border-box;
   width: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: center;
+  align-items: center;
 `
 const MainWrapper = styled.div`
   width: 70px;
