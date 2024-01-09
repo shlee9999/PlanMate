@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Root = styled.div`
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   display: flex;
   justify-content: center;
   align-items: center;

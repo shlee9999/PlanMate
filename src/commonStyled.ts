@@ -30,8 +30,8 @@ export const RegisterButton = styled.button`
   width: 96px;
   height: 32px;
   border-radius: 100px;
-  border: 1px solid #01cb45;
-  color: #01cb45;
+  border: 1px solid ${(props) => props.theme.primary.default};
+  color: ${(props) => props.theme.primary.default};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +39,7 @@ export const RegisterButton = styled.button`
     ${CheckImg} {
       content: url(${whiteCheckImg});
     }
-    color: white;
-    background-color: #1db951;
+    color: ${(props) => props.theme.background.white};
+    background-color: ${(props) => props.theme.primary.dark};
   }
 `
