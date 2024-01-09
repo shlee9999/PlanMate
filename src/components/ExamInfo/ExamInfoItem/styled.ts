@@ -8,7 +8,7 @@ export const Root = styled.div`
   padding: 16px 0 10px 8px;
   min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
   height: 80px;
-  border-bottom: 1px solid #c6c6c6;
+  border-bottom: 1px solid ${(props) => props.theme.border.dark};
 `
 export const TypoWrapper = styled.div`
   display: flex;
@@ -18,14 +18,14 @@ export const TypoWrapper = styled.div`
 export const TitleTypo = styled.div`
   font-size: 16px;
   line-height: 20px;
-  color: #222222;
+  color: ${(props) => props.theme.text.black1};
   cursor: pointer;
 `
 export const InfoTypo = styled.div`
   font-weight: 400;
   font-size: 10px;
   line-height: 12.5px;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
 `
 
 export const NickName = styled.div``

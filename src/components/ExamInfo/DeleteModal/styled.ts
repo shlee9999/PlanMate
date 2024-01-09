@@ -12,7 +12,7 @@ export const Root = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   box-shadow: 0px 4px 10px 0px #00000024;
   overflow: hidden;
 `
@@ -23,7 +23,7 @@ export const UpperTypo = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `
 export const CenterTypoWrapper = styled.div`
   position: absolute;
@@ -43,6 +43,6 @@ export const DescriptionTypo = styled.p`
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0em;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
   margin-top: 4px;
 `
