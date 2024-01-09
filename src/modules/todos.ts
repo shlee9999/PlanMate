@@ -1,3 +1,4 @@
+import { defaultColor } from 'constants/color'
 import { TodoItemType } from 'types'
 
 const ADD_TODO = 'todos/ADD_TODO' as const
@@ -31,7 +32,16 @@ type TodosAction =
   | ReturnType<typeof updateTodo>
   | ReturnType<typeof initializeTodo>
 
-const InitialState: TodoItemType[] = []
+const InitialState: TodoItemType[] = [
+  {
+    subjectId: 0,
+    name: 'example',
+    colorHex: defaultColor,
+    time: 5,
+    startAt: '1',
+    endAt: '2',
+  },
+]
 
 function todos(state: TodoItemType[] = InitialState, action: TodosAction) {
   switch (action.type) {

@@ -12,7 +12,7 @@ export const Root = styled.div`
   flex-direction: column;
   align-items: center;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   border-radius: 10px;
 `
 export const ButtonWrapper = styled.div`
@@ -30,31 +30,30 @@ export const CenterButton = styled.button`
   line-height: ${BUTTON_HEIGHT}px;
   border-radius: 100px;
   text-align: center;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
 `
 
 export const UpdateSubjectButton = styled(CenterButton)`
-  color: #666666;
-  border: 1px solid #01cb45;
-  color: #01cb45;
+  border: 1px solid ${(props) => props.theme.primary.dark};
+  color: ${(props) => props.theme.primary.dark};
   &:hover {
-    background-color: #e2f9ea;
+    background-color: ${(props) => props.theme.primary.light};
   }
 `
 export const DeleteSubjectButton = styled(CenterButton)`
-  background-color: white;
-  color: #ec6c73;
-  border: 1px solid #ec6c73;
+  background-color: ${(props) => props.theme.background.white};
+  color: ${(props) => props.theme.warning};
+  border: 1px solid ${(props) => props.theme.warning};
   &:hover {
-    background-color: #fbe6e7;
+    background-color: ${(props) => props.theme.background.red};
   }
 `
 
 export const CloseButton = styled.button`
   width: 100%;
   height: 40px;
-  color: #666666;
-  border-top: 1px solid #dddede;
+  color: ${(props) => props.theme.text.gray1};
+  border-top: 1px solid ${(props) => props.theme.border.default};
   font-size: 16px;
   font-weight: 500;
   text-align: center;

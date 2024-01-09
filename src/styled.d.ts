@@ -25,6 +25,7 @@ declare module 'styled-components' {
       gray1: string
       gray2: string
       gray3: string
+      red: string
     }
     warning: string
     yellow: string

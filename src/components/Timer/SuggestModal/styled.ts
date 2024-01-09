@@ -13,7 +13,7 @@ export const Root = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   box-shadow: 0px 4px 10px 0px #00000024;
   overflow: hidden;
 `
@@ -33,5 +33,5 @@ export const LowerTypo = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `

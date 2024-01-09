@@ -24,6 +24,7 @@ export const lightTheme: DefaultTheme = {
     gray1: '#D9D9D9',
     gray2: '#F9F9F9',
     gray3: '#ebebeb',
+    red: 'fbe6e7',
   },
   warning: '#FF3636',
   yellow: '#ffc955',
