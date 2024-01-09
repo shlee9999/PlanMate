@@ -6,6 +6,7 @@ export const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
   padding: 30px 160px;
 `
 

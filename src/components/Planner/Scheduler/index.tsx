@@ -75,7 +75,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     const year = +selectedCells[0].slice(0, 4)
     const month = +selectedCells[0].slice(4, 6)
     const date = +selectedCells[0].slice(6, 8)
-    console.log(selectedCells)
 
     dispatch(
       updateInfo({
