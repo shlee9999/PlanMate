@@ -23,7 +23,9 @@ export const lightTheme: DefaultTheme = {
     white: '#FFFFFF',
     gray1: '#D9D9D9',
     gray2: '#F9F9F9',
+    gray3: '#ebebeb',
   },
   warning: '#FF3636',
+  yellow: '#ffc955',
 }
 // export const darkTheme: DefaultTheme = {}
