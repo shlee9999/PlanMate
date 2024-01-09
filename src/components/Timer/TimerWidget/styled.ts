@@ -14,5 +14,5 @@ export const Mode = styled.p`
 export const Timer = styled.p`
   font-size: 36px;
   font-weight: 500;
-  color: #01cb45;
+  color: ${(props) => props.theme.primary.default};
 `

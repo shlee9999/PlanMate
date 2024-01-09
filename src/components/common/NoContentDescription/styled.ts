@@ -17,7 +17,7 @@ export const DescriptionTypoContainer = styled.div`
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
-  color: #c6c6c6;
+  color: ${(props) => props.theme.text.gray3};
   text-align: center;
 `
 

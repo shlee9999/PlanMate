@@ -35,7 +35,7 @@ export const DateTypo = styled.p`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `
 export const Title = styled.p`
   font-size: 21px;
@@ -45,13 +45,13 @@ export const Title = styled.p`
 `
 export const ResultContainer = styled.div`
   overflow: hidden;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   position: relative;
   box-sizing: border-box;
   padding: 32px;
   height: 270px;
   border-radius: 8px;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
 `
 export const UpperDescriptionTypo = styled.p`
   font-size: 14px;
@@ -68,8 +68,7 @@ export const LowerDescriptionTypo = styled.p`
   line-height: 18px;
   letter-spacing: 0em;
   text-align: center;
-  color: #666666;
-
+  color: ${(props) => props.theme.text.gray1};
   bottom: 20px;
   left: 32px;
 `
@@ -77,15 +76,15 @@ export const YellowTypo = styled.span`
   font-weight: 400;
   letter-spacing: 0em;
   text-align: center;
-  color: #ffc955;
+  color: ${(props) => props.theme.yellow};
   word-wrap: break-word;
 `
 
 export const StatsContainer = styled.div`
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   height: 270px;
   border-radius: 10px;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   box-sizing: border-box;
   padding: 10px 15px 0px 15px;
 `
@@ -118,10 +117,10 @@ export const AddButton = styled.button`
   font-size: 14px;
   font-weight: 400;
   line-height: 32px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
   text-align: center;
   cursor: pointer;
-  background-color: #ebebeb;
+  background-color: ${(props) => props.theme.background.gray3};
 `
 export const PlusImg = styled.img`
   width: 15px;
@@ -139,18 +138,18 @@ export const CheerTypo = styled.div`
   left: 162px;
   font-size: 14px;
   font-weight: 500;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
   line-height: 18px;
 `
 export const Dday = styled.span`
   font-size: 32px;
   font-weight: 700;
   line-height: 40px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `
 
 export const GreenTypo = styled.span`
-  color: #10d178;
+  color: ${(props) => props.theme.primary.default};
   word-wrap: break-word;
   &.no_dday {
     text-decoration: underline;

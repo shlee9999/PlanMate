@@ -26,7 +26,7 @@ export const TitleWrapper = styled.div`
 export const UpperTypo = styled.p``
 export const Nickname = styled.span`
   font-weight: 500;
-  color: #01cb45;
+  color: ${(props) => props.theme.primary.default};
 `
 export const Title = styled.p`
   font-size: 21px;
@@ -47,10 +47,10 @@ export const ProfileContainer = styled.div`
   position: relative;
   box-sizing: border-box;
   padding: 24px;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   border-radius: 8px;
   font-weight: 400;
-  color: #222222;
+  color: ${(props) => props.theme.text.black1};
   margin-bottom: 24px;
   &:hover {
     ${EllipsisImg} {
@@ -73,7 +73,7 @@ export const Email = styled.div`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 export const GoogleLogo = styled.img`
   width: 16px;
@@ -98,7 +98,7 @@ export const SeeMore = styled.p`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 export const RightArrow = styled.img`
   width: 18px;
@@ -115,7 +115,7 @@ export const DDayContainer = styled.div`
   row-gap: 8px;
   box-sizing: border-box;
   height: 384px;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   border-radius: 8px;
   padding: 24px;
   overflow-y: scroll;
@@ -132,7 +132,7 @@ export const RightContainer = styled.div`
 
 export const MyActivityContainer = styled.div`
   position: relative;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   border-radius: 8px;
   box-sizing: border-box;
   padding: 0 32px;
@@ -147,7 +147,7 @@ export const MyActivity = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `
 export const CurrentContentContainer = styled.div``
 export const TabSelector = styled.div`
@@ -155,7 +155,7 @@ export const TabSelector = styled.div`
   position: sticky;
   display: table;
   border-collapse: collapse;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   z-index: 1;
   top: 0;
   height: 62px;
@@ -166,7 +166,7 @@ export const TabRow = styled.div`
   position: absolute;
   bottom: 0;
   &:last-child {
-    border-top: 1px solid #c6c6c6;
+    border-top: 1px solid ${(props) => props.theme.border.default};
     z-index: -1;
   }
   display: table-row;
@@ -182,8 +182,8 @@ export const TabItem = styled.div`
   cursor: pointer;
   &.isSelected {
     font-weight: 500;
-    color: #01cb45;
-    border-bottom: 1px solid #01cb45;
+    color: ${(props) => props.theme.primary.default};
+    border-bottom: 1px solid ${(props) => props.theme.primary.default};
   }
 `
 
@@ -204,9 +204,9 @@ export const EllipsisModal = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   border-radius: 8px;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   z-index: 1;
   box-sizing: border-box;
   padding: 6px 5px;
@@ -216,17 +216,16 @@ const EllipsisButtonRoot = styled.button`
   height: 30px;
   border-radius: 5px;
   &:hover {
-    background-color: #e2f9e9;
-    color: #01cb45;
+    background-color: ${(props) => props.theme.primary.light};
+    color: ${(props) => props.theme.primary.default};
   }
   text-align: left;
   box-sizing: border-box;
   padding-left: 6px;
-
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
 `
 export const EllipsisEditButton = styled(EllipsisButtonRoot)``
 export const EllipsisResignButton = styled(EllipsisButtonRoot)``

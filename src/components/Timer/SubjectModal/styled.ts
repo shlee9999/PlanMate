@@ -11,7 +11,7 @@ export const Root = styled.div`
   justify-content: space-evenly;
   align-items: center;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   border-radius: 10px;
   overflow: hidden;
 `
@@ -27,7 +27,7 @@ export const NameInput = styled.input`
   width: 198px;
   height: 40px;
   border-radius: 8px;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   box-sizing: border-box;
   padding: 12px 8px 10px;
 `
@@ -39,25 +39,7 @@ export const ModalTitle = styled.div`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #444444;
-`
-
-export const ColorPickerButton = styled.button`
-  text-align: left;
-  background-color: ${(props) => props.color};
-  color: white;
-  width: 208px;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid #dddede;
-  color: #dddede;
-  outline: none;
-  width: 208px;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid #dddede;
-  box-sizing: border-box;
-  padding: 12px 8px 10px;
+  color: ${(props) => props.theme.text.black2};
 `
 
 export const UpperWrapper = styled.div`
@@ -67,7 +49,7 @@ export const UpperWrapper = styled.div`
   font-size: 14px;
   font-weight: 500;
   line-height: 100%;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 
 export const LowerWrapper = styled.div`
@@ -79,5 +61,5 @@ export const LowerTypo = styled.p`
   margin-top: 8px;
   font-size: 14px;
   font-weight: 500;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `

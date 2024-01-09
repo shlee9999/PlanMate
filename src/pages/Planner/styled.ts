@@ -25,14 +25,14 @@ export const HeaderContentWrapper = styled.div`
 
 export const HeaderMessage = styled.span`
   span {
-    color: #01cb45;
+    color: ${(props) => props.theme.primary.default};
   }
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: center;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `
 
 export const HeaderTitleLogo = styled.p`

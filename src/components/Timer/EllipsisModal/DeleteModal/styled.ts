@@ -10,7 +10,7 @@ export const Root = styled.div`
   flex-direction: column;
   align-items: center;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   border-radius: 10px;
   overflow: hidden;
 `
@@ -20,7 +20,7 @@ export const TitleTypo = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `
 export const UpperDescriptionTypo = styled.p`
   margin-top: 24px;
@@ -34,5 +34,5 @@ export const LowerDescriptionTypo = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `

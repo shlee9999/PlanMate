@@ -13,8 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./src",
-    "typeRoots": ["./src/index"]
+    "baseUrl": "./src"
   },
   "include": ["**/*.ts", "**/*.tsx", "src/components/Planner/Scheduler/utils.jsx"],
   "exclude": ["node_modules", "deployManager.ts"]

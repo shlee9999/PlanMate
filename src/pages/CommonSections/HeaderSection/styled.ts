@@ -9,7 +9,7 @@ export const Root = styled.div`
   width: 100vw;
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT};
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   z-index: 10;
 `
 export const ContentWrapper = styled.div`
@@ -41,7 +41,7 @@ export const GreetTypo = styled.p`
   cursor: pointer;
 `
 export const GreenTypo = styled.span`
-  color: #01cb45;
+  color: ${(props) => props.theme.primary.default};
   text-decoration: underline;
 `
 
@@ -77,7 +77,7 @@ export const SelectedPageItem = styled.p`
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0;
-  color: #01cb45;
+  color: ${(props) => props.theme.primary.default};
   &::after {
     content: '';
     background: url(${yellowCircle}) no-repeat 0 0;

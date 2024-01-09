@@ -8,11 +8,11 @@ export const Root = styled.div`
   padding: 15px 16px 15px 8px;
   display: flex;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: ${(props) => props.theme.background.gray2};
   border-radius: 8px;
   white-space: nowrap;
   &.isFixed {
-    background-color: #e2f9e9;
+    background-color: ${(props) => props.theme.primary.light};
     order: -1;
   }
 `
@@ -34,12 +34,12 @@ export const Title = styled.p`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
   overflow: hidden;
   text-overflow: ellipsis;
 `
 export const Date = styled.p`
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
   font-size: 10px;
   font-weight: 400;
 `
@@ -51,5 +51,5 @@ export const DDay = styled.p`
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `

@@ -23,13 +23,13 @@ export const FooterButton = styled.button`
 `
 
 export const WhiteButton = styled(FooterButton)`
-  color: #666666;
-  border-top: 1px solid #dddede;
+  color: ${(props) => props.theme.text.gray1};
+  border-top: 1px solid ${(props) => props.theme.border.default};
 `
 export const GreenButton = styled(FooterButton)`
-  color: #ffffff;
-  background-color: #01cb45;
-  border-top: 1px solid #1db951;
+  color: ${(props) => props.theme.text.white};
+  background-color: ${(props) => props.theme.primary.default};
+  border-top: 1px solid ${(props) => props.theme.primary.dark};
 `
 
 export const ModalFooter = styled.div`

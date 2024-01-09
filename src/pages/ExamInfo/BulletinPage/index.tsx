@@ -24,7 +24,7 @@ import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import { serializeContent } from 'utils/wysiwyg'
-import { CheckImg, RegisterButton } from 'styled'
+import { CheckImg, RegisterButton } from 'commonStyled'
 
 import downArrowImg from 'assets/images/right_arrow.png'
 import { examinfoTagList, suggestTagList } from 'constants/tagList'

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.png'
-import { RegisterButton } from 'styled'
+import { RegisterButton } from 'commonStyled'
 
 export const EllipsisButton = styled.img`
   position: relative;
@@ -10,7 +10,7 @@ export const Root = styled.div`
   position: relative;
   margin: 0 auto;
   display: flex;
-  border-bottom: 1px solid #c6c6c6;
+  border-bottom: 1px solid ${(props) => props.theme.border.dark};
   &:hover {
     ${EllipsisButton} {
       content: url(${ellipsisButton});
@@ -41,14 +41,14 @@ export const Date = styled.p`
   font-size: 10px;
   font-weight: 400;
   line-height: 13px;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
   margin-bottom: 1px;
 `
 export const Comment = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #222222;
+  color: ${(props) => props.theme.text.black1};
   white-space: pre-line;
   &.mypage_comment {
     cursor: pointer;
@@ -58,18 +58,18 @@ export const EditInput = styled.textarea`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #222222;
+  color: ${(props) => props.theme.text.black1};
   resize: none;
 `
 export const ReplyButton = styled.button`
   width: fit-content;
   height: 28px;
   border-radius: 28px;
-  border: 1px solid #c6c6c6;
+  border: 1px solid ${(props) => props.theme.border.dark};
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
   padding: 5px 11px;
   box-sizing: border-box;
 `
@@ -91,7 +91,7 @@ export const LikeButton = styled.button`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 export const EllipsisModal = styled.div`
   position: absolute;
@@ -104,9 +104,9 @@ export const EllipsisModal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #dddede;
+  border: 1px solid ${(props) => props.theme.border.default};
   border-radius: 8px;
-  background-color: white;
+  background-color: ${(props) => props.theme.background.white};
   z-index: 1;
   box-sizing: border-box;
   padding: 6px 5px;
@@ -116,8 +116,8 @@ const EllipsisButtonRoot = styled.button`
   height: 30px;
   border-radius: 5px;
   &:hover {
-    background-color: #e2f9e9;
-    color: #01cb45;
+    background-color: ${(props) => props.theme.primary.light};
+    color: ${(props) => props.theme.primary.default};
   }
   text-align: left;
   box-sizing: border-box;
@@ -126,7 +126,7 @@ const EllipsisButtonRoot = styled.button`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
 `
 export const EllipsisEditButton = styled(EllipsisButtonRoot)``
 export const EllipsisDeleteButton = styled(EllipsisButtonRoot)``
@@ -136,9 +136,9 @@ export const AuthorIcon = styled.div`
   height: 14px;
   line-height: 14px;
   border-radius: 100px;
-  border: 1px solid #01cb45;
-  background-color: #e2f9ea;
-  color: #01cb45;
+  border: 1px solid ${(props) => props.theme.primary.default};
+  background-color: ${(props) => props.theme.primary.light};
+  color: ${(props) => props.theme.primary.default};
   text-align: center;
   font-size: 10px;
   font-weight: 400;
@@ -147,7 +147,7 @@ export const ReplyInputWrapper = styled.div`
   padding-bottom: 10px;
   position: relative;
   display: flex;
-  border-bottom: 1px solid #c6c6c6;
+  border-bottom: 1px solid ${(props) => props.theme.border.dark};
 `
 export const ReplyRightWrapper = styled.div`
   width: 100%;
@@ -162,8 +162,8 @@ export const ReplyMark = styled.div`
   margin-right: 8px;
   width: 16px;
   height: 16px;
-  border-left: 1px solid #666666;
-  border-bottom: 1px solid #666666;
+  border-left: 1px solid ${(props) => props.theme.text.gray1};
+  border-bottom: 1px solid ${(props) => props.theme.text.gray1};
 `
 export const ReplyInput = styled.textarea`
   box-sizing: border-box;
@@ -173,11 +173,11 @@ export const ReplyInput = styled.textarea`
   line-height: 18px;
   height: 80px;
   border-radius: 8px;
-  border: 1px solid #c6c6c6;
-  background-color: #f9f9f9;
+  border: 1px solid ${(props) => props.theme.border.dark};
+  background-color: ${(props) => props.theme.background.gray2};
   resize: none;
   &::placeholder {
-    color: #c6c6c6;
+    color: ${(props) => props.theme.text.gray3};
   }
 `
 export const ReplyRegisterButton = styled(RegisterButton)`
@@ -188,12 +188,12 @@ export const UserNickname = styled.p`
   font-size: 14px;
   font-weight: 700;
   line-height: 18px;
-  color: #222222;
+  color: ${(props) => props.theme.text.black1};
 `
 
 export const ReplyCount = styled.span`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `

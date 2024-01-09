@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import leftArrowImg from 'assets/images/left_arrow.png'
 import rightArrowImg from 'assets/images/right_arrow.png'
 export const Root = styled.div`
   margin: 0 auto;
@@ -31,8 +30,8 @@ export const PageNumberTypo = styled.p`
   font-weight: 500;
   line-height: 15px;
   text-align: center;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 export const CurrentPageNumberTypo = styled(PageNumberTypo)`
-  color: #444444;
+  color: ${(props) => props.theme.text.black2};
 `

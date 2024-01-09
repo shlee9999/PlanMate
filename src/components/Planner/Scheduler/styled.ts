@@ -19,8 +19,8 @@ const Cell = styled.td`
   &:last-child {
     border-right: none;
   }
-  border-right: 1px solid #dddede;
-  border-bottom: 1px solid #dddede;
+  border-right: 1px solid ${(props) => props.theme.border.default};
+  border-bottom: 1px solid ${(props) => props.theme.border.default};
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ const Cell = styled.td`
   font-weight: 400;
   line-height: 15px;
   letter-spacing: 0em;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 export const DayCellRow = styled.tr`
   flex-grow: 1;
@@ -42,13 +42,13 @@ export const DayCellRow = styled.tr`
   font-weight: 400;
   line-height: 15px;
   letter-spacing: 0em;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 interface DayCellProps {
   $today: boolean
 }
 export const DayCell = styled(Cell)<DayCellProps>`
-  color: ${(props) => (props.$today ? '#1DB951' : '')};
+  color: ${(props) => (props.$today ? `${props.theme.primary.default}` : '')};
 `
 export const DayTypo = styled.p``
 export const DateTypo = styled.p``
@@ -73,7 +73,7 @@ export const DataCell = styled(Cell)<DataCellProps>`
       content: '';
       width: 24px;
       height: 1px;
-      background-color: #dddede;
+      background-color: ${(props) => props.theme.border.default};
       top: -1px;
       right: 0;
     }
@@ -111,7 +111,7 @@ export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
   height: ${(props) => props.$height * 102.5}%;
   box-sizing: border-box;
   text-transform: uppercase;
-  color: white;
+  color: ${(props) => props.theme.background.white};
   text-align: center;
   font-weight: 600;
   opacity: 0.5;
@@ -140,7 +140,7 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   width: 100px;
   font-size: 15px;
-  color: #666666;
+  color: ${(props) => props.theme.text.gray1};
 `
 const ArrowButton = styled.button`
   background-image: url(${RightArrowImg});
