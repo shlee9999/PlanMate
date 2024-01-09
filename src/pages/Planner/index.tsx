@@ -8,7 +8,9 @@ export const PlannerPage: FC = () => {
     <Root>
       <HeaderContainer>
         <HeaderContentWrapper>
-          <HeaderMessage>안녕하세요!메이트 님!</HeaderMessage>
+          <HeaderMessage>
+            안녕하세요! <span>메이트</span> 님!
+          </HeaderMessage>
           <HeaderTitleLogo>플래너 🗓</HeaderTitleLogo>
         </HeaderContentWrapper>
       </HeaderContainer>

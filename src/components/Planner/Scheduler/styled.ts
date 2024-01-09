@@ -16,6 +16,9 @@ const Cell = styled.td`
   &:first-child {
     border-bottom: none;
   }
+  &:last-child {
+    border-right: none;
+  }
   border-right: 1px solid #dddede;
   border-bottom: 1px solid #dddede;
   width: 100%;
@@ -81,7 +84,7 @@ export const DataCellRow = styled.tr`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  &:last-child {
+  &:last-of-type {
     ${DataCell} {
       border-bottom: 0;
     }
@@ -105,7 +108,7 @@ export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
   top: 0;
   left: 0;
   width: 100%;
-  height: ${(props) => props.$height * 103}%;
+  height: ${(props) => props.$height * 102.5}%;
   box-sizing: border-box;
   text-transform: uppercase;
   color: white;

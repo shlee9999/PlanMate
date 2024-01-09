@@ -24,6 +24,9 @@ export const HeaderContentWrapper = styled.div`
 `
 
 export const HeaderMessage = styled.span`
+  span {
+    color: #01cb45;
+  }
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
