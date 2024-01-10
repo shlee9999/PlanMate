@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
 export const Root = styled.div`
+  height: 400px;
   padding: 22px 24px;
-  width: 100%;
+  max-width: 800px;
   border: 1px solid ${(props) => props.theme.background.gray1};
   border-radius: 8px;
 `

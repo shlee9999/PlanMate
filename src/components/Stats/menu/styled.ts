@@ -59,10 +59,14 @@ export const MainHeaderTitle = styled.div`
 
 export const MainContentsWrapper = styled.div`
   display: flex;
-  height: 400px;
   justify-content: space-between;
+  height: 400px;
+  flex-wrap: wrap;
 `
-
+export const SizedBox = styled.div`
+  flex-basis: 0;
+  flex-grow: 1;
+`
 export const FooterContainer = styled.div`
   width: 100%;
   height: 100px;
@@ -80,19 +84,18 @@ export const ShareButton = styled.button`
   width: 75px;
   height: 30px;
   border-radius: 8px;
-  border: 1px solid #dddede;
-  font-family: Spoqa Han Sans Neo;
+  border: 1px solid ${(props) => props.theme.border.default};
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  letter-spacing: 0em;
+
   text-align: center;
   text-transform: center;
 `
 
 export const IconVector = styled.img`
   width: 12px;
-  height: 13.333333015441895px;
+  height: 13px;
   margin-right: 2px;
 `
 

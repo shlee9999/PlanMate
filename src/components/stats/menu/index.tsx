@@ -20,6 +20,7 @@ import {
   IconInstagram,
   IconContents,
   HeaderDividingLine,
+  SizedBox,
 } from './styled'
 import vectorImg from 'assets/images/vector.png'
 import urlImg from 'assets/images/url.png'
@@ -52,6 +53,7 @@ export const MenuBox = () => {
         <MainHeaderTitle>공부량 한 눈에 보기</MainHeaderTitle>
         <MainContentsWrapper>
           <StatsDatePicker onDateSelect={handleDateSelect} />
+          <SizedBox />
           <InfoContainer selectedDate={selectedDate} />
         </MainContentsWrapper>
       </MainContainer>
