@@ -29,24 +29,24 @@ import {
 
 import { daysUntil, useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
-import { StudyTimerWidget } from 'components/Timer/TimerWidget'
-import TodoItem from 'components/Timer/TodoItem'
-import AddModal from 'components/Timer/SubjectModal/AddModal'
-import { GraphContainer } from 'components/Stats/InfoContainer/component/GraphContainer'
+import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
+import TodoItem from 'pages/Timer/components/TodoItem'
+import AddModal from 'pages/Timer/components/SubjectModal/AddModal'
+import { GraphContainer } from 'pages/Stats/components/InfoContainer/component/GraphContainer'
 import { DayValue } from 'react-modern-calendar-datepicker'
 
 import { initializeTimer } from 'modules/timer'
-import { NoContentDescription } from 'components/common/NoContentDescription'
+import { NoContentDescription } from 'components/NoContentDescription'
 import bookCheckImg from 'assets/images/book_check.png'
-import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
-import { SuggestModal } from 'components/Timer/SuggestModal'
+import { SuggestModal } from 'pages/Timer/components/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
-import { PieChartBox } from 'components/Stats/InfoContainer/component/PieChartContainer/PieChartContainer'
+import { PieChartBox } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
 
-import { TimerContainer } from 'components/Stats/InfoContainer/component/TimerContainer/TimerContainer'
-import { StudyContainer } from 'components/Stats/InfoContainer/styled'
+import { TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
+import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 
 export const TimerPage: FC = () => {
   const location = useLocation()

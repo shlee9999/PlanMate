@@ -1,4 +1,4 @@
-import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
+import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
 import {
   BulletinButton,
   BulletinIcon,
@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
-import { Pagination } from 'components/ExamInfo/Pagination'
+import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 

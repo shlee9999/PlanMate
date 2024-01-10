@@ -18,8 +18,8 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "src/components/Planner/Scheduler/utils.jsx",
-    "src/components/Stats/InfoContainer/component/PieChartContainer"
+    "src/pages/Planner/components/Scheduler/utils.jsx",
+    "src/pages/Stats/components/InfoContainer/component/PieChartContainer"
   ],
   "exclude": ["node_modules", "deployManager.ts"]
 }

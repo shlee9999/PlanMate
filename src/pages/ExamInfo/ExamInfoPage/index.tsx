@@ -1,4 +1,4 @@
-import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
+import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
 import {
   BulletinButton,
   BulletinIcon,
@@ -20,11 +20,11 @@ import { ResponsePostType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examinfoTagList } from 'constants/tagList'
-import { Pagination } from 'components/ExamInfo/Pagination'
+import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
-import { NoContentDescription } from 'components/common/NoContentDescription'
+import { NoContentDescription } from 'components/NoContentDescription'
 import pencilImg from 'assets/images/pencil.png'
-import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { sampleInfoList } from 'constants/sampleData'
 export const ExamInfoPage = () => {
   // const data = useLoaderData() as FindAllPostResponseProps

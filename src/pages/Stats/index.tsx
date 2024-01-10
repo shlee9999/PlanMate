@@ -26,8 +26,8 @@ import {
   ShareButton,
   UserName,
 } from './styled'
-import { InfoContainer } from 'components/Stats/InfoContainer'
-import { StatsDatePicker } from 'components/Stats/DatePicker'
+import { InfoContainer } from 'pages/Stats/components/InfoContainer'
+import { StatsDatePicker } from 'pages/Stats/components/DatePicker'
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DayValue>(() => {
