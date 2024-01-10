@@ -1,6 +1,7 @@
+import { PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div``
+export const Root = styled(PageRoot)``
 
 export const Container = styled.div`
   box-sizing: border-box;

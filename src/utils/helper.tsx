@@ -5,11 +5,18 @@ export const generateId = (): string => {
   const random = Math.random().toString().slice(2, 8) // 6자리 난수 생성
   return `${timestamp}-${random}` // 타임스탬프와 난수를 합쳐 고유한 ID 생성
 }
+export const useFormattedTime = (time: number | { hour: number; minute: number; second: number }): string => {
+  let hour: number, minute: number, second: number
 
-export const useFormattedTime = (time: number) => {
-  const minute: number = Math.floor(time / 60) % 60
-  const second: number = Math.floor(time % 60)
-  const hour: number = Math.floor(time / 3600) % 24
+  if (typeof time === 'number') {
+    minute = Math.floor(time / 60) % 60
+    second = Math.floor(time % 60)
+    hour = Math.floor(time / 3600) % 24
+  } else {
+    hour = time.hour
+    minute = time.minute
+    second = time.second
+  }
 
   const formattedTime: string =
     hour.toString().padStart(2, '0') +
@@ -20,18 +27,24 @@ export const useFormattedTime = (time: number) => {
   return formattedTime
 }
 
-export const useFormattedTimeKorean = (time: number) => {
-  const minute: number = Math.floor(time / 60) % 60
-  const second: number = Math.floor(time % 60)
-  const hour: number = Math.floor(time / 3600) % 24
+export const useFormattedTimeKorean = (time: number | { hour: number; minute: number; second?: number }): string => {
+  let hour: number, minute: number, second: number
 
-  const formattedTime: string =
-    hour.toString().padStart(2, '0') +
-    '시간 ' +
-    minute.toString().padStart(2, '0') +
-    '분 ' +
-    second.toString().padStart(2, '0') +
-    '초'
+  if (typeof time === 'number') {
+    minute = Math.floor(time / 60) % 60
+    second = Math.floor(time % 60)
+    hour = Math.floor(time / 3600) % 24
+  } else {
+    hour = time.hour
+    minute = time.minute
+    second = time.second
+  }
+
+  let formattedTime: string = hour.toString().padStart(2, '0') + '시간 ' + minute.toString().padStart(2, '0') + '분'
+
+  if (second !== undefined) {
+    formattedTime += ' ' + second.toString().padStart(2, '0') + '초'
+  }
   return formattedTime
 }
 
@@ -101,7 +114,6 @@ export const getDateInfo = (currentDate: Date) => ({
   year: currentDate.getFullYear(),
   month: currentDate.getMonth(),
   date: currentDate.getDate(),
-  day: currentDate.getDay(),
 })
 
 export const getDateSaveForm = (currentDate: Date) => {

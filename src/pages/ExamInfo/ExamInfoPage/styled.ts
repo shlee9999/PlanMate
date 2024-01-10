@@ -1,11 +1,9 @@
-import { TagRoot } from 'commonStyled'
+import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import whiteBulletinIcon from 'assets/images/bulletin_white.png'
 import greenBulletinIcon from 'assets/images/bulletin_green.png'
 import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
-export const Root = styled.div`
-  margin: 0 auto;
-  box-sizing: border-box;
+export const Root = styled(PageRoot)`
   padding: 45px 160px 40px;
 `
 const DescriptionTypo = styled.p`

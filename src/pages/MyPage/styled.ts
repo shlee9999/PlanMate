@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import ellipsisImg from 'assets/images/ellipsis.png'
+import { PageRoot } from 'commonStyled'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -8,9 +9,7 @@ export const EllipsisImg = styled.img`
   cursor: pointer;
   transform: rotate(90deg);
 `
-export const Root = styled.div`
-  margin: 0 auto;
-  box-sizing: border-box;
+export const Root = styled(PageRoot)`
   padding: 31px 160px;
   display: flex;
   justify-content: space-between;

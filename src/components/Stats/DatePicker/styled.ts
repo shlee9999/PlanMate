@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components'
 
-const DatePickerFooterWrapper = styled.div`
+export const DatePickerFooterWrapper = styled.div`
+  box-sizing: border-box;
   width: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: center;
+  align-items: center;
 `
-const MainWrapper = styled.div`
+export const MainWrapper = styled.div`
   width: 70px;
   height: 30px;
   display: flex;
@@ -17,7 +19,7 @@ interface CircleProps {
   color?: string
 }
 
-const Circle = styled.div<CircleProps>`
+export const Circle = styled.div<CircleProps>`
   width: 16px;
   height: 16px;
   border-radius: 10px;
@@ -29,14 +31,11 @@ const Circle = styled.div<CircleProps>`
     `}
 `
 
-const Time = styled.p`
-  font-family: Spoqa Han Sans Neo;
+export const Time = styled.p`
   font-size: 10px;
   font-weight: 400;
   line-height: 13px;
   letter-spacing: -0.05em;
   text-align: center;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
 `
-
-export { DatePickerFooterWrapper, MainWrapper, Circle, Time }

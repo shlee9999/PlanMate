@@ -1,12 +1,10 @@
+import { PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
-  width: 100%;
-  min-height: 100vh;
+export const Root = styled(PageRoot)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-sizing: border-box;
   padding: 30px 160px;
 `
 
