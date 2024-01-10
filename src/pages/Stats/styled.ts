@@ -1,12 +1,7 @@
+import { PageRoot } from 'commonStyled'
+import { SIDE_MARGIN } from 'constants/layout'
 import styled from 'styled-components'
 
-export const Root = styled.div``
-
-export const StatsContainer = styled.div`
-  width: 100%;
-  height: 500px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+export const Root = styled(PageRoot)`
+  padding: 31px ${SIDE_MARGIN}px 0 ${SIDE_MARGIN}px;
 `

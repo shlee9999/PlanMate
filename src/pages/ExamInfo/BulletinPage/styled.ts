@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import cancelImg from 'assets/images/cancel.png'
+import { PageRoot } from 'commonStyled'
 
-export const Root = styled.div`
+export const Root = styled(PageRoot)`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

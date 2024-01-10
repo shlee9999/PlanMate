@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 
-const Root = styled.div`
+export const Root = styled.div`
+  width: 100%;
+  height: 650px;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+  margin-top: 200px;
+  padding: 60px;
 `
 export const HeaderContainer = styled.div`
   display: flex;
@@ -14,24 +19,27 @@ export const HeaderContainer = styled.div`
 export const HeaderContentWrapper = styled.div``
 
 export const UserName = styled.span`
+  font-family: Spoqa Han Sans Neo;
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: center;
-  color: ${(props) => props.theme.primary.default};
+  color: #01cb45;
 `
 
 export const HeaderMessage = styled.span`
+  font-family: Spoqa Han Sans Neo;
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
   letter-spacing: 0em;
   text-align: center;
-  color: ${(props) => props.theme.text.black2};
+  color: #444444;
 `
 
 export const HeaderPageTitle = styled.div`
+  font-family: Spoqa Han Sans Neo;
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
@@ -51,6 +59,7 @@ export const MainContainer = styled.div`
   justify-content: space-around;
 `
 export const MainHeaderTitle = styled.div`
+  font-family: Spoqa Han Sans Neo;
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
@@ -143,6 +152,7 @@ export const IconInstagram = styled.img`
 `
 
 export const IconContents = styled.p`
+  font-family: Spoqa Han Sans Neo;
   font-size: 8px;
   font-weight: 400;
   line-height: 10px;
@@ -151,5 +161,3 @@ export const IconContents = styled.p`
   color: #888888;
   margin-top: 3px;
 `
-
-export { Root }

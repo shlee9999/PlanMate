@@ -1,10 +1,8 @@
 import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
-import { RegisterButton, TagRoot } from 'commonStyled'
+import { PageRoot, RegisterButton, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
-  margin: 0 auto;
-  box-sizing: border-box;
+export const Root = styled(PageRoot)`
   padding: 40px 0;
   width: 100%;
   max-width: ${EXAMINFODETAIL_MAX_WIDTH}px;

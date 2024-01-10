@@ -1,6 +1,7 @@
+import { PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const Root = styled(PageRoot)`
   height: 100vh;
   display: flex;
   flex-direction: column;

@@ -1,33 +1,34 @@
 import React, { useState } from 'react'
-import { HistoryChart } from '../HistoryChart'
-import {
-  Root,
-  HeaderContainer,
-  HeaderContentWrapper,
-  UserName,
-  HeaderMessage,
-  HeaderPageTitle,
-  MainContainer,
-  MainHeaderTitle,
-  MainContentsWrapper,
-  FooterContainer,
-  IconVector,
-  ShareButton,
-  MessengerButtonWrapper,
-  MessengerContentsWrapper,
-  IconURl,
-  IconKakaoTalk,
-  IconInstagram,
-  IconContents,
-  HeaderDividingLine,
-} from './styled'
+import { HistoryChart } from './HistoryChart'
+
 import vectorImg from 'assets/images/vector.png'
 import urlImg from 'assets/images/url.png'
 import instagramImg from 'assets/images/instagram.png'
 import kakaoTalkImg from 'assets/images/kakaoTalk.png'
-import { StatsDatePicker } from '../DatePicker'
+import { StatsDatePicker } from './DatePicker'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { getDateInfo } from 'utils/helper'
+import {
+  FooterContainer,
+  HeaderContainer,
+  HeaderContentWrapper,
+  HeaderDividingLine,
+  HeaderMessage,
+  HeaderPageTitle,
+  IconContents,
+  IconInstagram,
+  IconKakaoTalk,
+  IconURl,
+  IconVector,
+  MainContainer,
+  MainContentsWrapper,
+  MainHeaderTitle,
+  MessengerButtonWrapper,
+  MessengerContentsWrapper,
+  Root,
+  ShareButton,
+  UserName,
+} from './styled'
 
 export const MenuBox = () => {
   const [selectedDate, setSelectedDate] = useState<DayValue>(() => {

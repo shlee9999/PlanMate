@@ -65,5 +65,7 @@ textarea {
   border: none;
   resize: none;
 }
-
+*{
+	box-sizing: border-box;
+}
 `
