@@ -1,6 +1,6 @@
 import React from 'react'
-import { PieChart, Pie, Legend, Cell } from 'recharts'
-import { PieChartData } from './PieChartRecord'
+import { PieChart as MyPieChart, Pie, Legend, Cell } from 'recharts'
+import { PieChartData } from './PieChartContainer'
 
 const RADIAN = Math.PI / 180
 
@@ -46,19 +46,18 @@ const renderCustomizedLabel = ({
 }
 
 const renderColorfulLegendText = (value: string, entry: any) => {
-  return <span style={{ color: '#666666', fontWeight: 400, padding: '10px' }}>{value}</span>
+  return <span style={{ color: '#666666', fontWeight: 400, fontSize: '10px' }}>{value}</span>
 }
 
-const StudyPieChart: React.FC<OwnProps> = ({ data }) => {
+export const PieChart: React.FC<OwnProps> = ({ data }) => {
   return (
-    <PieChart width={200} height={200}>
+    <MyPieChart width={200} height={200} margin={{ top: 0, left: 45 }}>
       <Legend
-        height={13}
         iconType="circle"
         layout="vertical"
         align="right"
         verticalAlign="top"
-        iconSize={10}
+        iconSize={8}
         formatter={renderColorfulLegendText}
       />
       <Pie
@@ -77,8 +76,6 @@ const StudyPieChart: React.FC<OwnProps> = ({ data }) => {
           <Cell key={`cell-${index}`} fill={entry.fill} />
         ))}
       </Pie>
-    </PieChart>
+    </MyPieChart>
   )
 }
-
-export default StudyPieChart

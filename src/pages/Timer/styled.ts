@@ -112,6 +112,7 @@ export const RightContainer = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   min-width: 400px;
+  max-width: 780px;
 `
 
 export const AddButton = styled.button`

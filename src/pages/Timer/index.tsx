@@ -32,11 +32,8 @@ import { RootState } from 'modules'
 import { StudyTimerWidget } from 'components/Timer/TimerWidget'
 import TodoItem from 'components/Timer/TodoItem'
 import AddModal from 'components/Timer/SubjectModal/AddModal'
-import { MainHistory } from 'components/Stats/HistoryChart/component/MainHistory'
-import { CompareChart } from 'components/Stats/CompareChart'
+import { GraphContainer } from 'components/Stats/InfoContainer/component/GraphContainer'
 import { DayValue } from 'react-modern-calendar-datepicker'
-
-import { CompareTip } from 'components/Stats/HistoryChart/component/CompareTip'
 
 import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/common/NoContentDescription'
@@ -46,6 +43,10 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
 import { SuggestModal } from 'components/Timer/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
+import { PieChartBox } from 'components/Stats/InfoContainer/component/PieChartContainer/PieChartContainer'
+
+import { TimerContainer } from 'components/Stats/InfoContainer/component/TimerContainer/TimerContainer'
+import { StudyContainer } from 'components/Stats/InfoContainer/styled'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -130,14 +131,11 @@ export const TimerPage: FC = () => {
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
             <StatsContainer>
-              <MainHistory
-                selectedDate={{
-                  year: 0,
-                  month: 0,
-                  day: 0,
-                }}
-              />
-              <CompareChart />
+              <StudyContainer>
+                <TimerContainer />
+                <PieChartBox />
+              </StudyContainer>
+              <GraphContainer />
             </StatsContainer>
           </RightContainer>
         </BannerContentWrapper>

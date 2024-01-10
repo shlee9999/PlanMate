@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { HistoryChart } from './HistoryChart'
+import { InfoContainer } from './InfoContainer'
 
 import vectorImg from 'assets/images/vector.png'
 import urlImg from 'assets/images/url.png'
@@ -53,7 +53,7 @@ export const MenuBox = () => {
         <MainHeaderTitle>공부량 한 눈에 보기</MainHeaderTitle>
         <MainContentsWrapper>
           <StatsDatePicker onDateSelect={handleDateSelect} />
-          <HistoryChart selectedDate={selectedDate} />
+          <InfoContainer selectedDate={selectedDate} />
         </MainContentsWrapper>
       </MainContainer>
       <FooterContainer>

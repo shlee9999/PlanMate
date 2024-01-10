@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import StudyPieChart from './StudyPieChart'
-import { PieChartContainer, StudyPiechartWrapper, PiechartTitle } from './styled'
+
+import { Root, Wrapper, PiechartTitle } from './styled'
+import { PieChart } from './PieChart'
 
 export interface PieChartData {
   name: string
@@ -17,20 +18,20 @@ const StudyData: PieChartData[] = [
 
 const RestData: PieChartData[] = [{ name: '기타', value: 400, fill: '#D9D9D9' }]
 
-export const PieChartRecord: React.FC = () => {
+export const PieChartBox: React.FC = () => {
   const [isStudyData, setStudyData] = useState<PieChartData[]>(StudyData)
   const [isRestData, setRestData] = useState<PieChartData[]>(RestData)
   return (
-    <PieChartContainer>
-      <StudyPiechartWrapper>
+    <Root>
+      <Wrapper>
         <PiechartTitle>종목별 비율</PiechartTitle>
-        <StudyPieChart data={isStudyData} />
-      </StudyPiechartWrapper>
-      <StudyPiechartWrapper>
+        <PieChart data={isStudyData} />
+      </Wrapper>
+      <Wrapper>
         <PiechartTitle>공부/휴식 비율</PiechartTitle>
-        <StudyPieChart data={isRestData} />
-      </StudyPiechartWrapper>
-    </PieChartContainer>
+        <PieChart data={isRestData} />
+      </Wrapper>
+    </Root>
   )
 }
 

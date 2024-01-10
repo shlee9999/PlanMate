@@ -1,11 +1,11 @@
-/* .custom-calendar {
-  width: 35em !important;
-  height: 42em !important;
+.custom-calendar {
+  width: 400px !important;
+  height: 400px !important;
   box-shadow: 0 !important;
   border-radius: 8px !important;
   border: 1px solid #d9d9d9 !important;
   opacity: 0.800000011920929px !important;
-} */
+}
 /* 
 .zeroToThreeDay:not(.-selectedStart):not(.-selectedBetween):not(.-selectedEnd):not(.-selected) {
   color: #666666 !important;

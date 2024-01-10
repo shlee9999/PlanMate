@@ -42,16 +42,12 @@ const data: Data[] = [
 ]
 export const BumpGraph = () => {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer>
       <ComposedChart
-        width={500}
-        height={400}
         data={data}
         margin={{
-          top: 30,
           right: 20,
-          bottom: 0,
-          left: 20,
+          left: 80,
         }}
       >
         <defs>

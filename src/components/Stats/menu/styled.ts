@@ -48,7 +48,6 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: space-around;
 `
 export const MainHeaderTitle = styled.div`
   font-size: 21px;
@@ -58,15 +57,9 @@ export const MainHeaderTitle = styled.div`
   margin-bottom: 20px;
 `
 
-export const ChartDividingLine = styled.hr`
-  width: 98%;
-  margin-top: 20px;
-  align-items: left;
-`
-
 export const MainContentsWrapper = styled.div`
   display: flex;
-  width: 100%;
+  height: 400px;
   justify-content: space-between;
 `
 

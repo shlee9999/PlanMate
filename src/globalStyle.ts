@@ -65,6 +65,12 @@ textarea {
   border: none;
   resize: none;
 }
+hr{
+  margin: 2px;
+  border: none;
+  height: 1px;
+  width: 98%;
+}
 *{
 	box-sizing: border-box;
 }
