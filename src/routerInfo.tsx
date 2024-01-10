@@ -39,11 +39,11 @@ export const routerInfo = [
         path: 'examinfo',
         element: <ExamInfoPage />,
 
-        loader: async (): Promise<FindAllPostResponseProps> => {
-          return (await findAll({
-            pages: 0,
-          })) as FindAllPostResponseProps
-        }, //비동기 처리 등
+        // loader: async (): Promise<FindAllPostResponseProps> => {
+        //   return (await findAll({
+        //     pages: 0,
+        //   })) as FindAllPostResponseProps
+        // }, //비동기 처리 등
       },
       {
         path: 'examinfo/post',
@@ -52,29 +52,29 @@ export const routerInfo = [
       {
         path: 'examinfo/detail/:postId',
         element: <ExamInfoDetailPage mode={'examinfo'} />,
-        loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
-          const checkPostResult = (await checkPost({
-            postId: +params.postId,
-          })) as CheckPostResponseProps
-          const findAllCommentsResult = (await findAllComments({
-            pages: 0,
-            postId: +params.postId,
-          })) as FindAllCommentsResponseProps
-          return {
-            checkPostResult: checkPostResult,
-            findAllCommentsResult: findAllCommentsResult,
-          }
-        },
+        // loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
+        //   const checkPostResult = (await checkPost({
+        //     postId: +params.postId,
+        //   })) as CheckPostResponseProps
+        //   const findAllCommentsResult = (await findAllComments({
+        //     pages: 0,
+        //     postId: +params.postId,
+        //   })) as FindAllCommentsResponseProps
+        //   return {
+        //     checkPostResult: checkPostResult,
+        //     findAllCommentsResult: findAllCommentsResult,
+        //   }
+        // },
       },
       {
         path: 'notice',
         element: <NoticePage />,
 
-        loader: async (): Promise<FindAllNoticeResponseProps> => {
-          return (await findAllNotice({
-            pages: 0,
-          })) as FindAllNoticeResponseProps
-        }, //비동기 처리 등
+        // loader: async (): Promise<FindAllNoticeResponseProps> => {
+        //   return (await findAllNotice({
+        //     pages: 0,
+        //   })) as FindAllNoticeResponseProps
+        // }, //비동기 처리 등
       },
       {
         path: 'notice/post',
@@ -83,19 +83,19 @@ export const routerInfo = [
       {
         path: 'notice/detail/:postId',
         element: <ExamInfoDetailPage mode="notice" />,
-        loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
-          const checkPostResult = (await checkPost({
-            postId: +params.postId,
-          })) as CheckPostResponseProps
-          const findAllCommentsResult = (await findAllComments({
-            pages: 0,
-            postId: +params.postId,
-          })) as FindAllCommentsResponseProps
-          return {
-            checkPostResult: checkPostResult,
-            findAllCommentsResult: findAllCommentsResult,
-          }
-        },
+        // loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
+        //   const checkPostResult = (await checkPost({
+        //     postId: +params.postId,
+        //   })) as CheckPostResponseProps
+        //   const findAllCommentsResult = (await findAllComments({
+        //     pages: 0,
+        //     postId: +params.postId,
+        //   })) as FindAllCommentsResponseProps
+        //   return {
+        //     checkPostResult: checkPostResult,
+        //     findAllCommentsResult: findAllCommentsResult,
+        //   }
+        // },
       },
       {
         path: 'suggest',
