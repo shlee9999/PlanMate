@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import cancelImg from 'assets/images/cancel.png'
 import { PageRoot } from 'commonStyled'
+import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const Root = styled(PageRoot)`
   display: flex;
@@ -112,21 +112,7 @@ export const DownArrowImg = styled.img`
   top: 50%;
   transform: translateY(-50%) rotate(90deg);
 `
-export const CancelButton = styled.button`
-  width: 96px;
-  height: 32px;
-  border-radius: 100px;
-  border: 1px solid ${(props) => props.theme.border.default};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-export const CancelImg = styled.img`
-  content: url(${cancelImg});
-  width: 11px;
-  height: 11px;
-  margin-right: 5px;
-`
+export const CancelButton = styled(ActionButton)``
 
 export const TitleInput = styled.input`
   box-sizing: border-box;
@@ -170,3 +156,4 @@ export const SuggestInput = styled.textarea`
   line-height: 18px;
   color: ${(props) => props.theme.text.black2};
 `
+export const RegisterButton = styled(ActionButton)``

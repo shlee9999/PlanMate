@@ -1,20 +1,12 @@
 import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
-import {
-  BulletinButton,
-  BulletinIcon,
-  ExamInfoWrapper,
-  NoPostTypo,
-  Root,
-  TitleTypo,
-  TypoWrapper,
-  UpperDescriptionTypo,
-} from './styled'
+import { ExamInfoWrapper, NoPostTypo, Root, TitleTypo, TypoWrapper, UpperDescriptionTypo } from './styled'
 import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
+import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const NoticePage = () => {
   const data = useLoaderData() as FindAllNoticeResponseProps
@@ -73,10 +65,9 @@ export const NoticePage = () => {
           <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
         )}
 
-        <BulletinButton onClick={onClickBulletinButton}>
-          <BulletinIcon />
+        <ActionButton onClick={onClickBulletinButton} icon="register">
           글쓰기
-        </BulletinButton>
+        </ActionButton>
       </ExamInfoWrapper>
       <Pagination
         currentPage={currentPage}

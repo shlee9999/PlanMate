@@ -36,7 +36,6 @@ import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import { ResponseCommentType } from 'api/common/commonType'
 import { CheckPostResponseProps } from 'api/post/checkPost'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
-import { CheckImg } from 'commonStyled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
@@ -286,7 +285,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
               editorState={editorState}
               onEditorStateChange={onEditorStateChange}
             /> */}
-            <EditCompleteButton onClick={onClickEditCompleteButton}>수정완료</EditCompleteButton>
+            <EditCompleteButton onClick={onClickEditCompleteButton} icon="register">
+              수정완료
+            </EditCompleteButton>
           </EditorWrapper>
         ) : (
           <Content dangerouslySetInnerHTML={{ __html: deserializeContent(currentContent) }} />
@@ -308,8 +309,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         <CommentInputWrapper>
           <UserNickname>{userAuthInfo.name}</UserNickname>
           <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-          <CommentRegisterButton onClick={onClickRegisterButton}>
-            <CheckImg />
+          <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
             댓글등록
           </CommentRegisterButton>
         </CommentInputWrapper>
@@ -344,8 +344,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
               <CommentInputWrapper className="no_content">
                 <UserNickname>{userAuthInfo.name}</UserNickname>
                 <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-                <CommentRegisterButton onClick={onClickRegisterButton}>
-                  <CheckImg />
+                <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
                   댓글등록
                 </CommentRegisterButton>
               </CommentInputWrapper>

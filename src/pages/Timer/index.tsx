@@ -16,7 +16,6 @@ import {
   StatsContainer,
   RightContainer,
   AddButton,
-  PlusImg,
   LowerContainer,
   CheerTypo,
   Test,
@@ -47,7 +46,7 @@ import { PieChartBox } from 'pages/Stats/components/InfoContainer/component/PieC
 
 import { TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
-import { ActionButton } from 'components/ActionButton/ActionButton'
+import { PlusIcon } from 'assets/SvgComponents'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -178,7 +177,7 @@ export const TimerPage: FC = () => {
         </TodoContainer>
 
         <AddButton onClick={openModal}>
-          <PlusImg />
+          <PlusIcon />
           과목
         </AddButton>
       </LowerContainer>

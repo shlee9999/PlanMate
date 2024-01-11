@@ -1,7 +1,6 @@
 import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
 import {
   BulletinButton,
-  BulletinIcon,
   ExamInfoWrapper,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
@@ -26,6 +25,7 @@ import { NoContentDescription } from 'components/NoContentDescription'
 import pencilImg from 'assets/images/pencil.png'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { sampleInfoList } from 'constants/sampleData'
+import { ActionButton } from 'components/ActionButton/ActionButton'
 export const ExamInfoPage = () => {
   // const data = useLoaderData() as FindAllPostResponseProps
   const data: FindAllPostResponseProps = sampleInfoList
@@ -123,8 +123,7 @@ export const ExamInfoPage = () => {
           </NoContentWrapper>
         )}
 
-        <BulletinButton onClick={onClickBulletinButton}>
-          <BulletinIcon />
+        <BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </BulletinButton>
       </ExamInfoWrapper>

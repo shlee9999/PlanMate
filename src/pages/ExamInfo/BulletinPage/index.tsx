@@ -2,9 +2,9 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import {
   ButtonWrapper,
   CancelButton,
-  CancelImg,
   DownArrowImg,
   GreenTypo,
+  RegisterButton,
   Root,
   SuggestInput,
   SuggestTypo,
@@ -22,10 +22,7 @@ import { useNavigate } from 'react-router-dom'
 import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-
 import { serializeContent } from 'utils/wysiwyg'
-import { CheckImg, RegisterButton } from 'commonStyled'
-
 import downArrowImg from 'assets/images/right_arrow.png'
 import { examinfoTagList, suggestTagList } from 'constants/tagList'
 import { suggest } from 'api/suggest/suggest'
@@ -165,12 +162,10 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         />
       )}
       <ButtonWrapper>
-        <CancelButton onClick={onClickCancelButton}>
-          <CancelImg />
+        <CancelButton onClick={onClickCancelButton} icon="close">
           취소
         </CancelButton>
-        <RegisterButton onClick={onClickRegisterButton}>
-          <CheckImg />
+        <RegisterButton onClick={onClickRegisterButton} icon="register">
           등록
         </RegisterButton>
       </ButtonWrapper>

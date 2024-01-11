@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.png'
-import { RegisterButton } from 'commonStyled'
+import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const EllipsisButton = styled.img`
   position: relative;
@@ -179,7 +179,7 @@ export const ReplyInput = styled.textarea`
     color: ${(props) => props.theme.border.dark};
   }
 `
-export const ReplyRegisterButton = styled(RegisterButton)`
+export const ReplyRegisterButton = styled(ActionButton)`
   align-self: flex-end;
 `
 export const UserNickname = styled.p`

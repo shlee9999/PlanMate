@@ -29,7 +29,6 @@ import hollowLikeImg from 'assets/images/like_button_hollow.png'
 import filledLikeImg from 'assets/images/like_button_filled.png'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
-import { BulletinIcon } from 'pages/ExamInfo/ExamInfoPage/styled'
 import { CreateChildCommentResponseProps, createChildComment } from 'api/comment/createChildComment'
 
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
@@ -220,8 +219,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
             <ReplyRightWrapper>
               <UserNickname>{userAuthInfo.name}</UserNickname>
               <ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
-              <ReplyRegisterButton onClick={onClickReplyRegisterButton}>
-                <BulletinIcon />
+              <ReplyRegisterButton onClick={onClickReplyRegisterButton} icon="register">
                 댓글등록
               </ReplyRegisterButton>
             </ReplyRightWrapper>

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import plusImg from 'assets/images/plus.png'
 import bannerImg from 'assets/images/banner.jpeg'
 import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
 import { PageRoot } from 'commonStyled'
@@ -130,11 +129,7 @@ export const AddButton = styled.button`
   cursor: pointer;
   background-color: ${(props) => props.theme.background.gray3};
 `
-export const PlusImg = styled.img`
-  width: 15px;
-  height: 15px;
-  content: url(${plusImg});
-`
+
 export const LowerContainer = styled.div`
   position: relative;
   padding: 112px 160px 0;

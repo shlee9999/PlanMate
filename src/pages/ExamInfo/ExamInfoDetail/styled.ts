@@ -1,6 +1,7 @@
 import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
-import { PageRoot, RegisterButton, TagRoot } from 'commonStyled'
+import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
+import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const Root = styled(PageRoot)`
   padding: 40px 0;
@@ -184,7 +185,7 @@ export const CommentInput = styled.textarea`
     color: ${(props) => props.theme.text.gray3};
   }
 `
-export const CommentRegisterButton = styled(RegisterButton)`
+export const CommentRegisterButton = styled(ActionButton)`
   align-self: flex-end;
 `
 
@@ -192,7 +193,7 @@ export const EditorWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
-export const EditCompleteButton = styled(RegisterButton)`
+export const EditCompleteButton = styled(ActionButton)`
   align-self: flex-end;
   margin-bottom: 10px;
 `
