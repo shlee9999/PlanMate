@@ -13,7 +13,7 @@ import {
 } from './styled'
 import { CredentialResponse, GoogleLogin, useGoogleLogin } from '@react-oauth/google'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { GoogleLogo, HandIcon, Logo } from 'assets/SvgComponents'
+import { GoogleLogo, HandIcon } from 'assets/SvgComponents'
 
 export const LoginPage: FC = () => {
   return (
@@ -39,7 +39,7 @@ const LoginContent: FC = () => {
       <Container>
         <UpperContainer>
           <HandIcon />
-          <Logo />
+          {/* <Logo /> */}
         </UpperContainer>
         <UpperDescriptionTypo>Planmate에 오신것을 환영합니다.</UpperDescriptionTypo>
         <LowerDescriptionTypo>플랜메이트는 여러분들의 성장을 돕는 플랫폼 입니다.</LowerDescriptionTypo>

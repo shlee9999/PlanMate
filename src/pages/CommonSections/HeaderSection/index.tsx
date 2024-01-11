@@ -4,7 +4,6 @@ import {
   Username,
   GreetTypo,
   NavItemContainer,
-  Logo,
   Notice,
   RightContainer,
   Root,
@@ -13,6 +12,7 @@ import {
   LogoutTypo,
   YellowCircle,
   NavItemVar,
+  StyledLogo,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { pageList } from 'constants/pageList'
@@ -25,6 +25,7 @@ import { timeToSecond } from 'utils/helper'
 import { initializeTodo } from 'modules/todos'
 import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
+import { Logo } from 'assets/Logo'
 
 export const HeaderSection: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
@@ -110,7 +111,7 @@ export const HeaderSection: FC = () => {
     <Root>
       <ContentWrapper>
         <NavItemContainer>
-          <Logo />
+          <StyledLogo />
           <NavItems>
             {pageList.map((item, index) => (
               <NavItem

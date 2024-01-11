@@ -1,7 +1,7 @@
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
-import { Logo as OriginLogo } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
+import { Logo } from 'assets/Logo'
 export const Root = styled.nav`
   position: fixed;
   left: 50%;
@@ -52,12 +52,6 @@ export const Notice = styled.p`
   cursor: pointer;
 `
 
-export const Logo = styled(OriginLogo)`
-  width: 104px;
-  height: 31px;
-  margin-right: 56px;
-`
-
 export const NavItems = styled.ul`
   display: flex;
   column-gap: 16px;
@@ -102,4 +96,10 @@ export const YellowCircle = styled(motion.div)`
   height: 5px;
   background-color: ${(props) => props.theme.yellow};
   border-radius: 100px;
+`
+
+export const StyledLogo = styled(Logo)`
+  width: 104px;
+  height: 31px;
+  margin-right: 56px;
 `

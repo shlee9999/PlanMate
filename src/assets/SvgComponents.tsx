@@ -16,7 +16,6 @@ import { ReactComponent as GoogleCustom } from 'assets/images/google_custom.svg'
 import { ReactComponent as HandIcon } from 'assets/images/hand.svg'
 import { ReactComponent as InstagramIcon } from 'assets/images/instagram.svg'
 import { ReactComponent as KakaoIcon } from 'assets/images/kakao.svg'
-import { ReactComponent as Logo } from 'assets/images/logo.svg'
 import { ReactComponent as NoConnectionIcon } from 'assets/images/no_connection.svg'
 import { ReactComponent as Resign } from 'assets/images/resign.svg'
 import { ReactComponent as RightArrow } from 'assets/images/right_arrow.svg'
@@ -43,7 +42,6 @@ export {
   HandIcon,
   InstagramIcon,
   KakaoIcon,
-  Logo,
   NoConnectionIcon,
   Resign,
   RightArrow,
