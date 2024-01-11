@@ -101,15 +101,15 @@ export const routerInfo = [
         path: 'suggest',
         element: <BulletinPage mode={'suggest'} />,
       },
+      {
+        path: 'login',
+        element: (
+          <>
+            <HeaderSection />
+            <LoginPage />
+          </>
+        ),
+      },
     ],
-  },
-  {
-    path: '/login',
-    element: (
-      <>
-        <HeaderSection />
-        <LoginPage />
-      </>
-    ),
   },
 ]

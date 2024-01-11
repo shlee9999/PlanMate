@@ -60,8 +60,9 @@ export const TagTypo = styled.p`
 `
 export const TagSelector = styled.div`
   position: relative;
-  box-sizing: border-box;
-  padding: 15px 8px;
+  display: flex;
+  align-items: center;
+  padding-left: 9px;
   width: 209px;
   height: 48px;
   border-radius: 8px;
