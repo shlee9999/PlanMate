@@ -1,8 +1,7 @@
 import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
-import { ActionButton } from 'components/ActionButton/ActionButton'
-import { HeartIcon, RightArrow, ScrapIcon } from 'assets/SvgComponents'
+import { RightArrow } from 'assets/SvgComponents'
 
 export const PageRoot = styled.div`
   margin: 0 auto;

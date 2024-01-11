@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import ellipsisImg from 'assets/images/ellipsis.svg'
 import { PageRoot } from 'commonStyled'
 import { RightArrow } from 'assets/SvgComponents'
+import { HEADER_HEIGHT, FOOTER_HEIGHT } from 'constants/layout'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -11,7 +12,13 @@ export const EllipsisImg = styled.img`
   transform: rotate(90deg);
 `
 export const Root = styled(PageRoot)`
-  padding: 31px 160px;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
+`
+export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

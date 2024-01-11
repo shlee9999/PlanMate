@@ -15,7 +15,7 @@ import {
   ProfileTypo,
   NextArrow,
   RightContainer,
-  Root,
+  Container,
   SeeMore,
   TabItem,
   TabSelector,
@@ -27,6 +27,7 @@ import {
   EllipsisEditButton,
   EllipsisResignButton,
   TabRow,
+  Root,
 } from './styled'
 import { DDayItem } from 'pages/MyPage/components/DDayItem'
 import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
@@ -182,68 +183,70 @@ export const MyPage: FC = () => {
   }, [currentTab])
 
   return (
-    <Root onClick={onClickRoot}>
-      <LeftContainer>
-        <TitleWrapper>
-          <Nickname>{userAuthInfo.name}</Nickname>
-          님의 <Title>마이페이지 👋</Title>
-        </TitleWrapper>
-        <ProfileTypo>프로필</ProfileTypo>
-        <ProfileContainer>
-          <UserName>{userAuthInfo.name}</UserName>님
-          <Email>
-            <GoogleLogo />
-            {userAuthInfo.email}
-          </Email>
-          <EllipsisImg onClick={onClickEllipsisButton} />
-          {isEllipsisModalOpen && (
-            <EllipsisModal onClick={onClickModal}>
-              <EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</EllipsisEditButton>
-              <EllipsisResignButton onClick={openResignModal}>탈퇴하기</EllipsisResignButton>
-            </EllipsisModal>
-          )}
-        </ProfileContainer>
-        <TypoWrapper>
-          <AdminDDay>D-DAY 관리</AdminDDay>
-          <SeeMore>
-            더보기
-            <NextArrow />
-          </SeeMore>
-        </TypoWrapper>
-        <DDayContainer>
-          {currentDDayList.map((dday, index) => (
-            <DDayItem {...dday} key={dday.id} fixDDay={fixDDay(dday.id, index)} isFixed={index === fixedIndex} />
-          ))}
-        </DDayContainer>
-      </LeftContainer>
-      <RightContainer>
-        <MyActivity>나의 활동</MyActivity>
-        <MyActivityContainer>
-          <TabSelector>
-            <TabRow>
-              {myPageTabList.map((tab, index) => (
-                <TabItem
-                  onClick={onClickTabItem(myPageTabList[index])}
-                  key={index}
-                  className={currentTab === tab ? 'isSelected' : ''}
-                >
-                  {tab}
-                </TabItem>
-              ))}
-            </TabRow>
-            <TabRow />
-          </TabSelector>
-          <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
-        </MyActivityContainer>
-      </RightContainer>
-      {isProfileEditModalOpen && (
-        <ProfileEditModal
-          closeModal={closeProfileEditModal}
-          nickname={userAuthInfo.name}
-          changeNickname={changeNickname}
-        />
-      )}
-      {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
+    <Root>
+      <Container onClick={onClickRoot}>
+        <LeftContainer>
+          <TitleWrapper>
+            <Nickname>{userAuthInfo.name}</Nickname>
+            님의 <Title>마이페이지 👋</Title>
+          </TitleWrapper>
+          <ProfileTypo>프로필</ProfileTypo>
+          <ProfileContainer>
+            <UserName>{userAuthInfo.name}</UserName>님
+            <Email>
+              <GoogleLogo />
+              {userAuthInfo.email}
+            </Email>
+            <EllipsisImg onClick={onClickEllipsisButton} />
+            {isEllipsisModalOpen && (
+              <EllipsisModal onClick={onClickModal}>
+                <EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</EllipsisEditButton>
+                <EllipsisResignButton onClick={openResignModal}>탈퇴하기</EllipsisResignButton>
+              </EllipsisModal>
+            )}
+          </ProfileContainer>
+          <TypoWrapper>
+            <AdminDDay>D-DAY 관리</AdminDDay>
+            <SeeMore>
+              더보기
+              <NextArrow />
+            </SeeMore>
+          </TypoWrapper>
+          <DDayContainer>
+            {currentDDayList.map((dday, index) => (
+              <DDayItem {...dday} key={dday.id} fixDDay={fixDDay(dday.id, index)} isFixed={index === fixedIndex} />
+            ))}
+          </DDayContainer>
+        </LeftContainer>
+        <RightContainer>
+          <MyActivity>나의 활동</MyActivity>
+          <MyActivityContainer>
+            <TabSelector>
+              <TabRow>
+                {myPageTabList.map((tab, index) => (
+                  <TabItem
+                    onClick={onClickTabItem(myPageTabList[index])}
+                    key={index}
+                    className={currentTab === tab ? 'isSelected' : ''}
+                  >
+                    {tab}
+                  </TabItem>
+                ))}
+              </TabRow>
+              <TabRow />
+            </TabSelector>
+            <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
+          </MyActivityContainer>
+        </RightContainer>
+        {isProfileEditModalOpen && (
+          <ProfileEditModal
+            closeModal={closeProfileEditModal}
+            nickname={userAuthInfo.name}
+            changeNickname={changeNickname}
+          />
+        )}
+        {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
+      </Container>
     </Root>
   )
 }

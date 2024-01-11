@@ -1,9 +1,13 @@
 import { PageRoot } from 'commonStyled'
-import { SIDE_MARGIN } from 'constants/layout'
+import { FOOTER_HEIGHT, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
 import styled from 'styled-components'
 
 export const Root = styled(PageRoot)`
-  padding: 31px ${SIDE_MARGIN}px 0 ${SIDE_MARGIN}px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5%;
+  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
 `
 
 export const HeaderContainer = styled.div`
