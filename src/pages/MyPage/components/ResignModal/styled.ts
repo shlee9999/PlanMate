@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import resignImg from 'assets/images/resign.png'
+import resignImg from 'assets/images/resign.svg'
 export const Root = styled.div`
   position: fixed;
   top: 50%;

@@ -1,8 +1,4 @@
 import React, { useState } from 'react'
-import vectorImg from 'assets/images/vector.png'
-import urlImg from 'assets/images/url.png'
-import instagramImg from 'assets/images/instagram.png'
-import kakaoTalkImg from 'assets/images/kakaoTalk.png'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { getDateInfo } from 'utils/helper'
 import {
@@ -13,10 +9,6 @@ import {
   HeaderMessage,
   HeaderPageTitle,
   IconContents,
-  IconInstagram,
-  IconKakaoTalk,
-  IconURl,
-  IconVector,
   MainContainer,
   MainContentsWrapper,
   MainHeaderTitle,
@@ -28,6 +20,7 @@ import {
 } from './styled'
 import { InfoContainer } from 'pages/Stats/components/InfoContainer'
 import { StatsDatePicker } from 'pages/Stats/components/DatePicker'
+import { InstagramIcon, KakaoIcon, ShareIcon, UrlIcon } from 'assets/SvgComponents'
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DayValue>(() => {
@@ -57,20 +50,20 @@ export const StatsPage = () => {
       </MainContainer>
       <FooterContainer>
         <ShareButton>
-          <IconVector alt="vector_icon" src={vectorImg} />
+          <ShareIcon />
           <p>공유하기</p>
         </ShareButton>
         <MessengerButtonWrapper>
           <MessengerContentsWrapper>
-            <IconURl alt="url_icon" src={urlImg} />
+            <UrlIcon />
             <IconContents>URL</IconContents>
           </MessengerContentsWrapper>
           <MessengerContentsWrapper>
-            <IconKakaoTalk alt="kakaoTalk_icon" src={kakaoTalkImg} />
+            <KakaoIcon />
             <IconContents>카카오톡</IconContents>
           </MessengerContentsWrapper>
           <MessengerContentsWrapper>
-            <IconInstagram alt="instagram_icon" src={instagramImg} />
+            <InstagramIcon />
             <IconContents>인스타</IconContents>
           </MessengerContentsWrapper>
         </MessengerButtonWrapper>

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { PageRoot } from 'commonStyled'
 import { ActionButton } from 'components/ActionButton/ActionButton'
+import { RightArrow } from 'assets/SvgComponents'
 
 export const Root = styled(PageRoot)`
   display: flex;
@@ -103,14 +104,6 @@ export const TagOption = styled.button`
   &::before {
     content: '# ';
   }
-`
-export const DownArrowImg = styled.img`
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  right: 13px;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
 `
 export const CancelButton = styled(ActionButton)``
 

@@ -6,15 +6,14 @@ import {
   EllipsisImg,
   Email,
   CurrentContentContainer,
-  GoogleLogo,
-  LeftArrow,
+  PrevArrow,
   LeftContainer,
   MyActivity,
   MyActivityContainer,
   Nickname,
   ProfileContainer,
   ProfileTypo,
-  RightArrow,
+  NextArrow,
   RightContainer,
   Root,
   SeeMore,
@@ -32,8 +31,6 @@ import {
 import { DDayItem } from 'pages/MyPage/components/DDayItem'
 import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
-import googleLogo from 'assets/images/google_logo.png'
-import rightArrow from 'assets/images/right_arrow.png'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { findScrappedPost } from 'api/post/find/findScrappedPost'
@@ -47,6 +44,7 @@ import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { fixSchedule } from 'api/schedule/fixSchedule'
 import { addSchedule } from 'api/schedule/addSchedule'
+import { GoogleLogo } from 'assets/SvgComponents'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -194,7 +192,7 @@ export const MyPage: FC = () => {
         <ProfileContainer>
           <UserName>{userAuthInfo.name}</UserName>님
           <Email>
-            <GoogleLogo alt="google_logo" src={googleLogo} />
+            <GoogleLogo />
             {userAuthInfo.email}
           </Email>
           <EllipsisImg onClick={onClickEllipsisButton} />
@@ -209,7 +207,7 @@ export const MyPage: FC = () => {
           <AdminDDay>D-DAY 관리</AdminDDay>
           <SeeMore>
             더보기
-            <RightArrow src={rightArrow} alt="right_arrow" />
+            <NextArrow />
           </SeeMore>
         </TypoWrapper>
         <DDayContainer>

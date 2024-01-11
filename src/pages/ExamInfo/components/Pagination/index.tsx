@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import { CurrentPageNumberTypo, LeftArrowImg, PageNumberTypo, RightArrowImg, Root } from './styled'
+import { CurrentPageNumberTypo, LeftArrow, PageNumberTypo, Root } from './styled'
 import { generateArray } from 'utils/helper'
+import { RightArrow } from 'assets/SvgComponents'
 
 type PaginationProps = {
   currentPage: number
@@ -19,7 +20,7 @@ export const Pagination: FC<PaginationProps> = ({
 }) => {
   return (
     <Root>
-      <LeftArrowImg onClick={onClickLeftArrow} />
+      <LeftArrow onClick={onClickLeftArrow} />
       {totalPage === 0 && currentPage === 1 ? (
         <CurrentPageNumberTypo>1</CurrentPageNumberTypo>
       ) : (
@@ -36,7 +37,7 @@ export const Pagination: FC<PaginationProps> = ({
           }
         })
       )}
-      <RightArrowImg onClick={onClickRightArrow} />
+      <RightArrow onClick={onClickRightArrow} />
     </Root>
   )
 }

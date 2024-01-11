@@ -1,6 +1,7 @@
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 import yellowCircle from 'assets/images/yellow_circle.png'
+import { Logo as OriginLogo } from 'assets/SvgComponents'
 export const Root = styled.div`
   position: fixed;
   left: 50%;
@@ -52,7 +53,7 @@ export const Notice = styled.p`
   cursor: pointer;
 `
 
-export const Logo = styled.img`
+export const Logo = styled(OriginLogo)`
   width: 104px;
   height: 31px;
   margin-right: 56px;

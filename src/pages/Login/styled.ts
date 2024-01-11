@@ -22,14 +22,6 @@ export const UpperContainer = styled.div`
   display: flex;
   margin-bottom: 18.5px;
 `
-export const HandIcon = styled.img`
-  width: 47px;
-  height: 40px;
-`
-export const Logo = styled.img`
-  width: 200px;
-  height: 59.433963775634766px;
-`
 
 export const UpperDescriptionTypo = styled.p`
   font-size: 24px;
@@ -70,13 +62,6 @@ export const GoogleButton = styled.button`
   &:hover {
     border-color: #4285f4;
   }
-`
-
-export const GoogleIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  margin-right: 35px;
-  border: none;
 `
 
 export const GoogleButtonTypo = styled.span`

@@ -11,19 +11,18 @@ import {
   EllipsisModal,
   LeftContainer,
   LikeButton,
-  LikeImg,
   ReplyMark,
   Root,
   UpperTypoWrapper,
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import filledLikeImg from 'assets/images/like_button_filled.png'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 import { createChildComment } from 'api/comment/createChildComment'
 import { useNavigate } from 'react-router-dom'
+import { HeartIcon } from 'assets/SvgComponents'
+import { HEART_COLOR } from 'constants/color'
 
 type ExamInfoReplyProps = {
   deleteComment?: () => void
@@ -139,7 +138,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
           )}
         </LeftContainer>
         <LikeButton onClick={onClickLikeButton}>
-          <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
+          <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
           {currentLikeCount}
         </LikeButton>
         {isDeleteCommentModalOpen && (

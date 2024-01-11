@@ -25,8 +25,6 @@ import {
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import filledLikeImg from 'assets/images/like_button_filled.png'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 import { CreateChildCommentResponseProps, createChildComment } from 'api/comment/createChildComment'
@@ -37,6 +35,8 @@ import { useNavigate } from 'react-router-dom'
 import { ExamInfoReply } from '../Reply'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
+import { HeartIcon } from 'assets/SvgComponents'
+import { HEART_COLOR } from 'constants/color'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
@@ -202,7 +202,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           )}
         </LeftContainer>
         <LikeButton onClick={onClickLikeButton}>
-          <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
+          <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
           {currentLikeCount}
         </LikeButton>
         {isDeleteCommentModalOpen && (

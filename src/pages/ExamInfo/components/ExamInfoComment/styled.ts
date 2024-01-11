@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import ellipsisButton from 'assets/images/ellipsis.png'
+import ellipsisButton from 'assets/images/ellipsis.svg'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const EllipsisButton = styled.img`

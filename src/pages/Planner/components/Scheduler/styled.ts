@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import RightArrowImg from 'assets/images/right_arrow.png'
 import { ModalExitButton } from '../SelectModal/styled'
+import { RightArrow } from 'assets/SvgComponents'
 export const Root = styled.table`
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -142,20 +142,8 @@ export const ButtonWrapper = styled.div`
   font-size: 15px;
   color: ${(props) => props.theme.text.gray1};
 `
-const ArrowButton = styled.button`
-  background-image: url(${RightArrowImg});
-  width: 20px;
-  height: 20px;
-  background-position: center center;
-  background-size: contain;
-  &:hover {
-    opacity: 0.8;
-  }
-  &:active {
-    opacity: 0.7;
-  }
-`
-export const PrevButton = styled(ArrowButton)`
+
+export const PrevButton = styled(RightArrow)`
   transform: rotate(180deg);
 `
-export const NextButton = styled(ArrowButton)``
+export const NextButton = styled(RightArrow)``

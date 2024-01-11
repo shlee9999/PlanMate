@@ -1,5 +1,5 @@
 import { styled } from 'styled-components'
-import modalExitButton from 'assets/images/modal_exit_button.png'
+import modalExitButton from 'assets/images/close.svg'
 
 export const Root = styled.div`
   width: 320px;
@@ -32,6 +32,7 @@ export const ModalExitButton = styled.button`
   border: none;
   width: 20px;
   height: 20px;
+  /* 차후 수정 */
   background: url(${modalExitButton}) no-repeat 0 0;
   background-size: 20px 20px;
 `

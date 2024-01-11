@@ -11,13 +11,10 @@ import {
   UpdatedDate,
 } from './styled'
 
-import commentImg from 'assets/images/comment.png'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import filledLikeImg from 'assets/images/like_button_filled.png'
-import hollowScrapImg from 'assets/images/scrap_button_hollow.png'
-import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ResponsePostType } from 'api/common/commonType'
 import { useNavigate } from 'react-router-dom'
+import { CommentIcon, HeartIcon, ScrapIcon } from 'assets/SvgComponents'
+import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 
 type ExamInfoItemProps = ResponsePostType
 /**
@@ -57,15 +54,15 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
       </TypoWrapper>
       <IconContainer>
         <IconCountWrapper>
-          <Icon alt="comment_icon" src={commentImg} />
+          <CommentIcon />
           {commentCount}
         </IconCountWrapper>
         <IconCountWrapper>
-          <Icon alt="like_icon" src={isMyHearted ? filledLikeImg : hollowLikeImg} />
+          <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
           {likeCount}
         </IconCountWrapper>
         <IconCountWrapper>
-          <Icon alt="scrap_icon" src={isMyScraped ? filledScrapImg : hollowScrapImg} />
+          <ScrapIcon fill={isMyScraped ? `${SCRAP_COLOR}` : 'none'} />
           {scrapCount}
         </IconCountWrapper>
       </IconContainer>

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import ellipsisImg from 'assets/images/ellipsis.png'
+import ellipsisImg from 'assets/images/ellipsis.svg'
 import { PageRoot } from 'commonStyled'
+import { RightArrow } from 'assets/SvgComponents'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -74,10 +75,6 @@ export const Email = styled.div`
   line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
 `
-export const GoogleLogo = styled.img`
-  width: 16px;
-  height: 16px;
-`
 
 export const TypoWrapper = styled.div`
   display: flex;
@@ -99,13 +96,8 @@ export const SeeMore = styled.p`
   line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
 `
-export const RightArrow = styled.img`
-  width: 18px;
-  height: 18px;
-`
-export const LeftArrow = styled.img`
-  width: 18px;
-  height: 18px;
+export const NextArrow = styled(RightArrow)``
+export const PrevArrow = styled(RightArrow)`
   transform: rotate(180deg);
 `
 export const DDayContainer = styled.div`

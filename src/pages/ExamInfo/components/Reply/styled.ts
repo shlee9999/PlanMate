@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import ellipsisButton from 'assets/images/ellipsis.png'
+import ellipsisButton from 'assets/images/ellipsis.svg'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const EllipsisButton = styled.img`
@@ -70,12 +70,6 @@ export const ReplyButton = styled.button`
   font-weight: 400;
   line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
-`
-
-export const LikeImg = styled.img`
-  width: 13px;
-  height: 12px;
-  margin-right: 2px;
 `
 
 export const LikeButton = styled.button`

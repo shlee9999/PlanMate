@@ -1,3 +1,4 @@
+import { NoConnectionIcon } from 'assets/SvgComponents'
 import { PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
@@ -8,7 +9,7 @@ export const Root = styled(PageRoot)`
   align-items: center;
   row-gap: 8px;
 `
-export const ErrorImg = styled.img`
+export const ErrorImg = styled(NoConnectionIcon)`
   margin-top: 140px;
   width: 80px;
   height: 80px;

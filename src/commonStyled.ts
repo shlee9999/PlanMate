@@ -1,7 +1,8 @@
 import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
-import modalExitButton from 'assets/images/modal_exit_button.png'
+import modalExitButton from 'assets/images/close.svg'
 import { ActionButton } from 'components/ActionButton/ActionButton'
+import { RightArrow } from 'assets/SvgComponents'
 
 export const PageRoot = styled.div`
   margin: 0 auto;
@@ -70,4 +71,14 @@ export const ModalExitButton = styled.button`
   height: 20px;
   background: url(${modalExitButton}) no-repeat 0 0;
   background-size: 20px 20px;
+`
+
+export const LeftArrow = styled(RightArrow)`
+  transform: rotate(180deg);
+`
+export const DownArrow = styled(RightArrow)`
+  transform: rotate(90deg);
+`
+export const UpArrow = styled(RightArrow)`
+  transform: rotate(-90deg);
 `

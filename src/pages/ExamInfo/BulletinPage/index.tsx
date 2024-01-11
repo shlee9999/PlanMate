@@ -2,7 +2,6 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import {
   ButtonWrapper,
   CancelButton,
-  DownArrowImg,
   GreenTypo,
   RegisterButton,
   Root,
@@ -27,6 +26,7 @@ import downArrowImg from 'assets/images/right_arrow.png'
 import { examinfoTagList, suggestTagList } from 'constants/tagList'
 import { suggest } from 'api/suggest/suggest'
 import { createNotice } from 'api/notice/admin/createNotice'
+import { DownArrow } from 'commonStyled'
 
 type BulletinPageProps = {
   mode: string
@@ -126,7 +126,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
             <TagTypo>태그</TagTypo>
             <TagSelector onClick={onClickTagSelector}>
               {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
-              <DownArrowImg alt="down_arrow_img" src={downArrowImg} />
+              <DownArrow />
               {isSelecting && (
                 <TagOptionWrapper>
                   {tagList().map((tag, index) => (

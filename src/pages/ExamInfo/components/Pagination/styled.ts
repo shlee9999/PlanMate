@@ -1,5 +1,5 @@
+import { RightArrow } from 'assets/SvgComponents'
 import styled from 'styled-components'
-import rightArrowImg from 'assets/images/right_arrow.png'
 export const Root = styled.div`
   margin: 0 auto;
   width: fit-content;
@@ -12,16 +12,8 @@ export const Root = styled.div`
 const ArrowImg = styled.img`
   cursor: pointer;
 `
-export const LeftArrowImg = styled(ArrowImg)`
-  width: 18px;
-  height: 18px;
-  content: url(${rightArrowImg});
+export const LeftArrow = styled(RightArrow)`
   transform: rotate(180deg);
-`
-export const RightArrowImg = styled(ArrowImg)`
-  width: 18px;
-  height: 18px;
-  content: url(${rightArrowImg});
 `
 
 export const PageNumberTypo = styled.p`

@@ -42,10 +42,6 @@ import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
 import { likePost } from 'api/post/likePost'
 import { scrapPost } from 'api/post/scrapPost'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import filledLikeImg from 'assets/images/like_button_filled.png'
-import hollowScrapImg from 'assets/images/scrap_button_hollow.png'
-import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ExamInfoDetailDataType } from 'types'
 import { DeletePostModal } from 'pages/ExamInfo/components/DeleteModal/DeletePostModal'
 import { removePost } from 'api/post/remove/removePost'
@@ -53,13 +49,14 @@ import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertFromRaw } from 'draft-js'
 import { editPost } from 'api/post/editPost'
 import { NoContentDescription } from 'components/NoContentDescription'
-import chatImg from 'assets/images/chat.png'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { deleteNotice } from 'api/notice/admin/deleteNotice'
 import { editNotice } from 'api/notice/admin/editNotice'
 import { sampleExamInfoData } from 'constants/sampleData'
+import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
+import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 /**
  * @title
  * @like
@@ -295,11 +292,11 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
 
         <IconContainer>
           <LikeButton onClick={onClickLikeButton}>
-            <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
+            <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
             {currentLikeCount}
           </LikeButton>
           <ScrapButton onClick={onClickScrapButton}>
-            <ScrapImg alt="scrap_img" src={isScrapped ? filledScrapImg : hollowScrapImg} />
+            <ScrapIcon fill={isLiked ? `${SCRAP_COLOR}` : 'none'} />
             {currentScrapCount}
           </ScrapButton>
         </IconContainer>

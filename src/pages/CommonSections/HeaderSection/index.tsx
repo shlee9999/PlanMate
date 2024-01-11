@@ -14,7 +14,6 @@ import {
   LogoutTypo,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
-import logo from 'assets/images/logo.png'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -110,7 +109,7 @@ export const HeaderSection: FC = () => {
     <Root>
       <ContentWrapper>
         <LeftContainer>
-          <Logo src={logo} />
+          <Logo />
           <PageList>
             {pageList.map((item, index) =>
               index === currentTab ? (

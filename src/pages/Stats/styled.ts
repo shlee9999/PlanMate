@@ -103,12 +103,6 @@ export const ShareButton = styled.button`
   text-transform: center;
 `
 
-export const IconVector = styled.img`
-  width: 12px;
-  height: 13.333333015441895px;
-  margin-right: 2px;
-`
-
 export const MessengerButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -131,21 +125,6 @@ export const MessengerContentsWrapper = styled.button`
   line-height: 10px;
   letter-spacing: 0em;
   text-align: center;
-`
-
-export const IconURl = styled.img`
-  width: 19.8px;
-  height: 19.8px;
-`
-
-export const IconKakaoTalk = styled.img`
-  width: 21px;
-  height: 19.2px;
-`
-
-export const IconInstagram = styled.img`
-  width: 20px;
-  height: 20px;
 `
 
 export const IconContents = styled.p`
