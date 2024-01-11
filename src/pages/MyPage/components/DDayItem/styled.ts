@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import { PinIcon } from 'assets/SvgComponents'
 export const Root = styled.div`
   min-width: fit-content;
   position: relative;
@@ -45,4 +45,7 @@ export const DDay = styled.p`
   font-weight: 700;
   line-height: 26px;
   color: ${(props) => props.theme.text.black2};
+`
+export const StyledPinIcon = styled(PinIcon)`
+  cursor: pointer;
 `

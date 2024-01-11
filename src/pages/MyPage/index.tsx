@@ -1,12 +1,10 @@
 import { FC, ReactComponentElement, useEffect, useState } from 'react'
 import {
   AdminDDay,
-  ArrowWrapper,
   DDayContainer,
   EllipsisImg,
   Email,
   CurrentContentContainer,
-  PrevArrow,
   LeftContainer,
   MyActivity,
   MyActivityContainer,
@@ -45,21 +43,21 @@ import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { fixSchedule } from 'api/schedule/fixSchedule'
 import { addSchedule } from 'api/schedule/addSchedule'
-import { GoogleLogo } from 'assets/SvgComponents'
+import { GoogleCustom } from 'assets/SvgComponents'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
-  { id: 0, title: '테스트2', targetDate: '2023-08-20', isMarked: true },
-  { id: 1, title: '테스트3', targetDate: '2023-08-30', isMarked: true },
-  { id: 2, title: '테스트4', targetDate: '2023-09-20', isMarked: false },
-  { id: 3, title: '테스트5', targetDate: '2023-10-25', isMarked: false },
-  { id: 4, title: '테스트6', targetDate: '2023-11-30', isMarked: false },
-  { id: 5, title: '테스트7', targetDate: '2023-12-31', isMarked: false },
+  { id: 0, memberId: 3, title: '테스트2', targetDate: '2024-08-20', isFixed: true },
+  { id: 1, memberId: 3, title: '테스트3', targetDate: '2024-08-30', isFixed: true },
+  { id: 2, memberId: 3, title: '테스트4', targetDate: '2024-09-20', isFixed: false },
+  { id: 3, memberId: 3, title: '테스트5', targetDate: '2024-10-25', isFixed: false },
+  { id: 4, memberId: 3, title: '테스트6', targetDate: '2024-11-30', isFixed: false },
+  { id: 5, memberId: 3, title: '테스트7', targetDate: '2024-12-31', isFixed: false },
 ]
 
 export const MyPage: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const [currentDDayList, setCurrentDDayList] = useState<FindAllScheduleResponseProps>([])
+  const [currentDDayList, setCurrentDDayList] = useState<FindAllScheduleResponseProps>(sampleDDayList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
@@ -78,19 +76,16 @@ export const MyPage: FC = () => {
     setIsResignModalOpen(true)
     setIsEllipsisModalOpen(false)
   }
-  const closeProfileEditModal = () => {
-    setIsProfileEditModalOpen(false)
-  }
-  const closeResignModal = () => {
-    setIsResignModalOpen(false)
-  }
+  const closeProfileEditModal = () => setIsProfileEditModalOpen(false)
+
+  const closeResignModal = () => setIsResignModalOpen(false)
+
   const onClickEllipsisButton = (e: React.MouseEvent): void => {
     setIsEllipsisModalOpen((prev) => !prev)
     e.stopPropagation()
   }
-  const onClickModal = (e: React.MouseEvent): void => {
-    e.stopPropagation()
-  }
+  const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
+
   const onClickTabItem = (tab: string) => () => {
     switch (tab) {
       case myPageTabList[0]:
@@ -194,7 +189,7 @@ export const MyPage: FC = () => {
           <ProfileContainer>
             <UserName>{userAuthInfo.name}</UserName>님
             <Email>
-              <GoogleLogo />
+              <GoogleCustom />
               {userAuthInfo.email}
             </Email>
             <EllipsisImg onClick={onClickEllipsisButton} />
@@ -209,7 +204,7 @@ export const MyPage: FC = () => {
             <AdminDDay>D-DAY 관리</AdminDDay>
             <SeeMore>
               더보기
-              <NextArrow />
+              <NextArrow fill="currentColor" />
             </SeeMore>
           </TypoWrapper>
           <DDayContainer>

@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react'
-import { Date as TargetDate, Root, Title, DDay, LeftContainer } from './styled'
+import { Date as TargetDate, Root, Title, DDay, LeftContainer, StyledPinIcon } from './styled'
 import { daysUntil } from 'utils/helper'
 import { PinIcon } from 'assets/SvgComponents'
 import { ThemeContext } from 'styled-components'
@@ -26,7 +26,7 @@ export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDa
   return (
     <Root className={isFixed ? 'isFixed' : ''}>
       <LeftContainer>
-        <PinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={fixDDay} />
+        <StyledPinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={fixDDay} />
         <Title>{title}</Title>
         <TargetDate>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</TargetDate>
       </LeftContainer>

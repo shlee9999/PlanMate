@@ -96,6 +96,7 @@ export const AdminDDay = styled.p`
   margin-bottom: 8px;
 `
 export const SeeMore = styled.p`
+  cursor: pointer;
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -104,9 +105,7 @@ export const SeeMore = styled.p`
   color: ${(props) => props.theme.text.gray1};
 `
 export const NextArrow = styled(RightArrow)``
-export const PrevArrow = styled(RightArrow)`
-  transform: rotate(180deg);
-`
+
 export const DDayContainer = styled.div`
   display: flex;
   flex-direction: column;
