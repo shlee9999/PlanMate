@@ -2,7 +2,7 @@ import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
 import { ActionButton } from 'components/ActionButton/ActionButton'
-import { RightArrow } from 'assets/SvgComponents'
+import { HeartIcon, RightArrow, ScrapIcon } from 'assets/SvgComponents'
 
 export const PageRoot = styled.div`
   margin: 0 auto;
@@ -82,3 +82,10 @@ export const DownArrow = styled(RightArrow)`
 export const UpArrow = styled(RightArrow)`
   transform: rotate(-90deg);
 `
+
+// export const StyledHeartIcon = styled(HeartIcon)`
+//   cursor: pointer;
+// `
+// export const StyledScrapIcon = styled(ScrapIcon)`
+//   cursor: pointer;
+// `

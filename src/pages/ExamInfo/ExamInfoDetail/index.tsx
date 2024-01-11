@@ -22,14 +22,11 @@ import {
   DeleteTypo,
   UpperTypoWrapper,
   DistributionLine,
-  LikeButton,
-  LikeImg,
-  ScrapImg,
-  ScrapButton,
   UserNickname,
   EditCompleteButton,
   EditorWrapper,
   Content,
+  Count,
 } from './styled'
 
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
@@ -291,14 +288,15 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         )}
 
         <IconContainer>
-          <LikeButton onClick={onClickLikeButton}>
-            <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
-            {currentLikeCount}
-          </LikeButton>
-          <ScrapButton onClick={onClickScrapButton}>
-            <ScrapIcon fill={isLiked ? `${SCRAP_COLOR}` : 'none'} />
-            {currentScrapCount}
-          </ScrapButton>
+          <HeartIcon
+            fill={isLiked ? `${HEART_COLOR}` : 'none'}
+            color="red"
+            fillRule="nonzero"
+            onClick={onClickLikeButton}
+          />
+          <Count onClick={onClickLikeButton}>{currentLikeCount}</Count>
+          <ScrapIcon fill={isScrapped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
+          <Count onClick={onClickScrapButton}>{currentScrapCount}</Count>
         </IconContainer>
       </ContentWrapper>
 

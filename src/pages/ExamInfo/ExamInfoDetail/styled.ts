@@ -112,36 +112,20 @@ export const ContentWrapper = styled.div`
 `
 
 export const IconContainer = styled.div`
+  cursor: pointer;
   position: absolute;
   right: 8px;
   bottom: 10px;
   display: flex;
-  column-gap: 8px;
+  align-items: center;
   font-weight: 400;
   font-size: 10px;
   line-height: 12.5px;
 `
-
-export const LikeImg = styled.img`
-  width: 16px;
-  height: 16px;
-`
-export const ScrapImg = styled.img`
-  width: 16px;
-  height: 16px;
-`
-const ImgButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const Count = styled.p`
+  margin-right: 5px;
   font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  color: ${(props) => props.theme.text.gray1};
 `
-export const LikeButton = styled(ImgButton)``
-export const ScrapButton = styled(ImgButton)``
-
 export const CommentWrapper = styled.div`
   margin-bottom: 24px;
 `
