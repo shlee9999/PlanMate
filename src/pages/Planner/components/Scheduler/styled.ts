@@ -146,6 +146,11 @@ export const ButtonWrapper = styled.div`
 `
 
 export const PrevButton = styled(RightArrow)`
+  fill: ${(props) => props.theme.text.gray1};
   transform: rotate(180deg);
+  cursor: pointer;
 `
-export const NextButton = styled(RightArrow)``
+export const NextButton = styled(RightArrow)`
+  fill: ${(props) => props.theme.text.gray1};
+  cursor: pointer;
+`
