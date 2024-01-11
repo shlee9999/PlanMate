@@ -3,6 +3,7 @@ import ellipsisButton from 'assets/images/ellipsis.svg'
 import timerStartButton from 'assets/images/timer_start.svg'
 import timerPauseButton from 'assets/images/timer_pause.svg'
 import { TODOITEM_MAX_WIDTH, TODOITEM_MIN_WIDTH } from 'constants/layout'
+import { Ellipsis, TimerPause, TimerStart } from 'assets/SvgComponents'
 
 export const Root = styled.div`
   display: flex;
@@ -25,12 +26,7 @@ export const RightWrapper = styled.div`
   align-items: center;
   column-gap: 16px;
 `
-export const EllipsisButton = styled.button`
-  width: 48px;
-  height: 48px;
-  background: url(${ellipsisButton}) no-repeat 50% 50%;
-  background-size: 48px 48px;
-  border: none;
+export const EllipsisButton = styled(Ellipsis)`
   cursor: pointer;
 `
 
@@ -41,16 +37,12 @@ export const CircleButton = styled.button`
   height: 46px;
 `
 
-export const StartButton = styled(CircleButton)`
-  background: url(${timerStartButton}) no-repeat 60% 50%;
-  background-size: 21px 21px;
-  background-color: ${(props) => props.color};
+export const StartButton = styled(TimerStart)`
+  cursor: pointer;
 `
 
-export const PauseButton = styled(CircleButton)`
-  background: url(${timerPauseButton}) no-repeat 50% 50%;
-  background-size: 15px 21px;
-  background-color: ${(props) => props.color};
+export const PauseButton = styled(TimerPause)`
+  cursor: pointer;
 `
 
 export const SubjectTitle = styled.p`

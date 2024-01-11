@@ -81,9 +81,9 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
     <Root>
       <LeftWrapper>
         {isTodoTimerRunning ? (
-          <PauseButton color={buttonColor} onClick={onClickPauseButton}></PauseButton>
+          <PauseButton color={buttonColor} onClick={onClickPauseButton} fill={buttonColor} />
         ) : (
-          <StartButton color={buttonColor} onClick={onClickStartButton}></StartButton>
+          <StartButton color={buttonColor} onClick={onClickStartButton} fill={buttonColor} />
         )}
         <SubjectTitle>{title}</SubjectTitle>
       </LeftWrapper>
