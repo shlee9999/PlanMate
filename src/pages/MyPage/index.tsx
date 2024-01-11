@@ -26,6 +26,7 @@ import {
   EllipsisResignButton,
   TabRow,
   Root,
+  SelectedLine,
 } from './styled'
 import { DDayItem } from 'pages/MyPage/components/DDayItem'
 import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
@@ -89,39 +90,44 @@ export const MyPage: FC = () => {
   const onClickTabItem = (tab: string) => () => {
     switch (tab) {
       case myPageTabList[0]:
-        if (!myPostList)
-          findPost({ pages: currentPage - 1 }).then((res) => {
-            if (res) {
-              const response = res as FindPostResponseProps
-              setMyPostList(response.postDtoList)
-              setCurrentPage(1)
-              setCurrentTab(tab)
-            }
-          })
-        else setCurrentTab(tab)
+        if (!myPostList) {
+          // findPost({ pages: currentPage - 1 }).then((res) => {
+          //   if (res) {
+          //     const response = res as FindPostResponseProps
+          //     setMyPostList(response.postDtoList)
+          //     setCurrentPage(1)
+          //     setCurrentTab(tab)
+          //   }
+          // })
+          setCurrentPage(1)
+          setCurrentTab(tab)
+        } else setCurrentTab(tab)
         return
       case myPageTabList[1]:
-        if (!myCommentList)
-          findComment({
-            pages: currentPage - 1,
-          }).then((res) => {
-            const response = res as FindCommentResponseProps
-            setMyCommentList(response.commentDtoList)
-            setCurrentTab(tab)
-          })
-        else setCurrentTab(tab)
+        if (!myCommentList) {
+          // findComment({
+          //   pages: currentPage - 1,
+          // }).then((res) => {
+          //   const response = res as FindCommentResponseProps
+          //   setMyCommentList(response.commentDtoList)
+          //   setCurrentTab(tab)
+          // })
+          setCurrentTab(tab)
+        } else setCurrentTab(tab)
         return
       case myPageTabList[2]:
-        if (!scrappedPostList)
-          findScrappedPost({ pages: currentPage - 1 }).then((res) => {
-            if (res) {
-              const response = res as FindPostResponseProps
-              setScrappedPostList(response.postDtoList)
-              setCurrentPage(1)
-              setCurrentTab(tab)
-            }
-          })
-        else setCurrentTab(tab)
+        if (!scrappedPostList) {
+          // findScrappedPost({ pages: currentPage - 1 }).then((res) => {
+          //   if (res) {
+          //     const response = res as FindPostResponseProps
+          //     setScrappedPostList(response.postDtoList)
+          //     setCurrentPage(1)
+          //     setCurrentTab(tab)
+          //   }
+          // })
+          setCurrentPage(1)
+          setCurrentTab(tab)
+        } else setCurrentTab(tab)
         return
     }
     setCurrentTab(tab)
@@ -219,12 +225,9 @@ export const MyPage: FC = () => {
             <TabSelector>
               <TabRow>
                 {myPageTabList.map((tab, index) => (
-                  <TabItem
-                    onClick={onClickTabItem(myPageTabList[index])}
-                    key={index}
-                    className={currentTab === tab ? 'isSelected' : ''}
-                  >
+                  <TabItem $isSelected={currentTab === tab} onClick={onClickTabItem(myPageTabList[index])} key={index}>
                     {tab}
+                    {currentTab === tab && <SelectedLine layoutId="selected_line" transition={{ duration: 0.2 }} />}
                   </TabItem>
                 ))}
               </TabRow>

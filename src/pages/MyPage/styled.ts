@@ -3,6 +3,7 @@ import ellipsisImg from 'assets/images/ellipsis.svg'
 import { PageRoot } from 'commonStyled'
 import { RightArrow } from 'assets/SvgComponents'
 import { HEADER_HEIGHT, FOOTER_HEIGHT } from 'constants/layout'
+import { motion } from 'framer-motion'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -168,22 +169,29 @@ export const TabRow = styled.div`
   }
   display: table-row;
 `
-export const TabItem = styled.div`
+
+export const TabItem = styled.div<{ $isSelected: boolean }>`
   text-align: center;
   padding: 0 8px;
   display: table-cell;
   padding-bottom: 10px;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: ${(props) => (props.$isSelected ? 500 : 400)};
   line-height: 18px;
   cursor: pointer;
-  &.isSelected {
-    font-weight: 500;
-    color: ${(props) => props.theme.primary.default};
-    border-bottom: 1px solid ${(props) => props.theme.primary.default};
-  }
+  color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
+  position: relative;
+  transition: color 0.2s ease-in-out;
 `
-
+export const SelectedLine = styled(motion.hr)`
+  position: absolute;
+  width: 70px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 0;
+  background-color: ${(props) => props.theme.primary.default};
+`
 export const ArrowWrapper = styled.div`
   margin-top: 8px;
   display: flex;
