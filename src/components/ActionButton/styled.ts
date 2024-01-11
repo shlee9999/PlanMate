@@ -13,4 +13,12 @@ export const Root = styled.button`
     color: ${(props) => props.theme.background.white};
     background-color: ${(props) => props.theme.primary.dark};
   }
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  box-shadow: 0px 4px 6px 0px #0000001f;
+`
+export const CloseButton = styled(Root)`
+  border: 1px solid ${(props) => props.theme.border.default};
+  color: ${(props) => props.theme.text.black2};
 `

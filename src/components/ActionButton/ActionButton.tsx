@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react'
-import { Root } from './styled'
+import { CloseButton, Root } from './styled'
 import { CheckIcon, CloseIcon, PlusIcon, RegisterIcon } from 'assets/SvgComponents'
-type IconType = 'close' | 'register' | 'check' | 'plus'
+type IconType = 'close' | 'register' | 'check' | 'plus' | 'none'
 
 type ActionButtonProps = {
   className?: string
@@ -16,9 +16,15 @@ export const ActionButton: FC<ActionButtonProps> = ({ className, onClick, childr
     check: <CheckIcon fill="currentColor" />,
     close: <CloseIcon fill="currentColor" />,
     plus: <PlusIcon fill="currentColor" />,
+    none: null,
   }
   const IconComponent = Icons[icon]
-  return (
+  return icon === 'close' ? (
+    <CloseButton>
+      {IconComponent}
+      {children}
+    </CloseButton>
+  ) : (
     <Root className={className} onClick={onClick}>
       {IconComponent}
       {children}
