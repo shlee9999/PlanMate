@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import {
-  AppointmentWrapper,
   ButtonWrapper,
-  CloseButton,
   DataCell,
   DataCellRow,
   DateTypo,
@@ -21,6 +19,7 @@ import { removeAppoint, updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 import { SelectModal } from '../SelectModal'
+import { Appointment } from '../Appointment'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -132,20 +131,18 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                 return (
                   getDateSaveForm(app.startDate) === getDateSaveForm(date) &&
                   hour === app.startDate.getHours() && (
-                    <AppointmentWrapper
+                    <Appointment
                       key={app.id}
-                      $bgColor={app.bgColor}
-                      $height={
+                      title={app.text}
+                      bgColor={app.bgColor}
+                      height={
                         app.endDate.getHours() === 0
                           ? 24 - app.startDate.getHours()
                           : app.endDate.getHours() - app.startDate.getHours()
                       }
                       onClick={onClickAppointment(app)}
                       onMouseDown={(e) => e.stopPropagation()}
-                    >
-                      <CloseButton onClick={onClickClose(app.id)} />
-                      {app.text}
-                    </AppointmentWrapper>
+                    />
                   )
                 )
               })}

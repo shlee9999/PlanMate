@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { ModalExitButton } from '../SelectModal/styled'
-import { CloseIcon, RightArrow } from 'assets/SvgComponents'
+import { RightArrow } from 'assets/SvgComponents'
 export const Root = styled.table`
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -91,48 +90,6 @@ export const DataCellRow = styled.tr`
     }
   }
 `
-
-interface AppointmentWrapperProps {
-  $bgColor: string
-  $height: number
-}
-export const CloseButton = styled(CloseIcon)`
-  position: absolute;
-  opacity: 0;
-  top: 5px;
-  right: 5px;
-  width: 15px;
-  cursor: pointer;
-  fill: ${(props) => props.theme.text.gray1};
-`
-
-export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: ${(props) => props.$height * 102.5}%;
-  box-sizing: border-box;
-  text-transform: uppercase;
-  color: ${(props) => props.theme.background.white};
-  text-align: center;
-  font-weight: 600;
-  opacity: 0.5;
-  background-color: ${(props) => props.$bgColor};
-  border-radius: 5px;
-  &:hover {
-    opacity: 0.6;
-    ${CloseButton} {
-      opacity: 1;
-    }
-  }
-  &:active {
-    opacity: 0.7;
-  }
-  z-index: 2;
-  padding-top: 10px;
-`
-export const Appointment = styled.p``
 
 export const ButtonWrapper = styled.div`
   position: absolute;
