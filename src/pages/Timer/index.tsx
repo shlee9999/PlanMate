@@ -177,7 +177,7 @@ export const TimerPage: FC = () => {
         </TodoContainer>
 
         <AddButton onClick={openModal}>
-          <PlusIcon />
+          <PlusIcon fill="currentColor" />
           과목
         </AddButton>
       </LowerContainer>
