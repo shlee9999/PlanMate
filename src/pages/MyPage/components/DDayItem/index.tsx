@@ -1,8 +1,8 @@
-import { FC } from 'react'
-import { Date as TargetDate, MarkImg, Root, Title, DDay, LeftContainer } from './styled'
-import pinImg from 'assets/images/pin.png'
-import pinFilledImg from 'assets/images/pin_fill.png'
+import { FC, useContext } from 'react'
+import { Date as TargetDate, Root, Title, DDay, LeftContainer } from './styled'
 import { daysUntil } from 'utils/helper'
+import { PinIcon } from 'assets/SvgComponents'
+import { ThemeContext } from 'styled-components'
 
 type DDayItemProps = {
   id: number
@@ -13,6 +13,8 @@ type DDayItemProps = {
 }
 
 export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDay }) => {
+  const theme = useContext(ThemeContext)
+
   const dDay = daysUntil(targetDate)
   const getWeekDay = () => {
     const days = ['일', '월', '화', '수', '목', '금', '토']
@@ -24,7 +26,7 @@ export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDa
   return (
     <Root className={isFixed ? 'isFixed' : ''}>
       <LeftContainer>
-        <MarkImg src={isFixed ? pinFilledImg : pinImg} onClick={fixDDay} />
+        <PinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={fixDDay} />
         <Title>{title}</Title>
         <TargetDate>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</TargetDate>
       </LeftContainer>

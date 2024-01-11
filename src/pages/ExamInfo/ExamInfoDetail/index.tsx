@@ -337,7 +337,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
             ))
           ) : (
             <>
-              <NoContentDescription src={chatImg}>
+              <NoContentDescription icon="chat">
                 <NoContentTypo>아직 댓글이 없어요</NoContentTypo>
                 <NoContentTypo>첫 댓글을 남겨볼까요?</NoContentTypo>
               </NoContentDescription>

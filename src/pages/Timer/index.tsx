@@ -36,7 +36,6 @@ import { DayValue } from 'react-modern-calendar-datepicker'
 
 import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/NoContentDescription'
-import bookCheckImg from 'assets/images/book_check.png'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
@@ -169,7 +168,7 @@ export const TimerPage: FC = () => {
               return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
             })
           ) : (
-            <NoContentDescription src={bookCheckImg}>
+            <NoContentDescription icon="book_check">
               <NoContentTypo>아직 공부할 과목이 없어요!</NoContentTypo>{' '}
               <NoContentTypo>일정을 설정해 과목을 추가해볼까요?</NoContentTypo>
             </NoContentDescription>

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import bannerImg from 'assets/images/banner.jpeg'
+import bannerImg from 'assets/images/banner_light.svg'
 import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
 import { PageRoot } from 'commonStyled'
 
