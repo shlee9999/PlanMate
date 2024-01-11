@@ -1,15 +1,25 @@
 import styled from 'styled-components'
 import { RightArrow } from 'assets/SvgComponents'
-export const Root = styled.table`
+
+export const Root = styled.div`
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-  width: 80vw;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
   position: relative;
+`
+export const Table = styled.table`
+  width: 100%;
+  height: 100%;
+  tbody {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
 `
 const Cell = styled.td`
   &:first-child {
@@ -52,11 +62,13 @@ export const DayCell = styled(Cell)<DayCellProps>`
 export const DayTypo = styled.p``
 export const DateTypo = styled.p``
 interface DataCellProps {
-  $isSelected: boolean
+  $isSelected?: boolean
+  $hour?: string
 }
 export const DataCell = styled(Cell)<DataCellProps>`
   position: relative;
   background-color: ${(props) => (props.$isSelected ? 'rgba(0, 0, 0, 0.1)' : 'transparent')};
+
   &:not(:first-child):hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
@@ -75,6 +87,24 @@ export const DataCell = styled(Cell)<DataCellProps>`
       background-color: ${(props) => props.theme.border.default};
       top: -1px;
       right: 0;
+      line-height: 0;
+    }
+  }
+  @media (max-width: 1200px) {
+    &:first-child {
+      opacity: 0;
+      border-right: 0;
+    }
+    &:nth-child(2) {
+      position: relative;
+      border-left: 1px solid ${(props) => props.theme.border.default};
+      &::before {
+        content: '${(props) => props.$hour}';
+        position: absolute;
+        right: calc(100% + 10px);
+        font-size: 15px;
+        top: -8px;
+      }
     }
   }
 `
@@ -92,8 +122,14 @@ export const DataCellRow = styled.tr`
 `
 
 export const ButtonWrapper = styled.div`
+  @media (max-width: 1200px) {
+    top: -40px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
   position: absolute;
-  top: 0;
+  top: 0px;
   left: 0;
   display: flex;
   justify-content: space-between;

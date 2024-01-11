@@ -5,6 +5,7 @@ import { RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 
 export const PageRoot = styled.div`
+  position: relative;
   margin: 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
   min-width: ${BODY_MIN_WIDTH}px;

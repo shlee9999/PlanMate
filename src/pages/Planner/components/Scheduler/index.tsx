@@ -9,6 +9,7 @@ import {
   NextButton,
   PrevButton,
   Root,
+  Table,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -92,70 +93,75 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
 
   return (
     <Root>
-      <DataCellRow>
-        <DayCell $today={null}></DayCell>
-        {getWeekDates(currentDate).map((date, index) => (
-          <DayCell $today={getDateSaveForm(now) === getDateSaveForm(date)} key={getDateSaveForm(date)}>
-            <>
-              <DayTypo>{dayList[index]}</DayTypo>
-              <DateTypo>{getDateSaveForm(date).slice(-2)}</DateTypo>
-            </>
-          </DayCell>
-        ))}
-      </DataCellRow>
-      {createArray(startHour, endHour).map((hour) => (
-        <DataCellRow key={hour}>
-          <DataCell $isSelected={false}>
-            <p>{hour <= 12 ? `오전 ${hour}시` : `오후 ${hour - 12}시`}</p>
-          </DataCell>
-          {getWeekDates(currentDate).map((date) => (
-            <DataCell
-              key={getDateSaveForm(date)}
-              $isSelected={selectedCells.includes(getDateSaveForm(date) + 'T' + hour)}
-              onMouseDown={() => {
-                setSelectedCells([getDateSaveForm(date) + 'T' + hour])
-              }}
-              onMouseEnter={(e) => {
-                if (e.buttons === 1) {
-                  if (
-                    selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour - 1}`) ||
-                    selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour + 1}`)
-                  )
-                    setSelectedCells((prev) => prev.concat(getDateSaveForm(date) + 'T' + hour))
-                  else setSelectedCells([])
-                }
-              }}
-              onMouseUp={onMouseUp}
-            >
-              {appointments.map((app) => {
-                return (
-                  getDateSaveForm(app.startDate) === getDateSaveForm(date) &&
-                  hour === app.startDate.getHours() && (
-                    <Appointment
-                      key={app.id}
-                      title={app.text}
-                      bgColor={app.bgColor}
-                      height={
-                        app.endDate.getHours() === 0
-                          ? 24 - app.startDate.getHours()
-                          : app.endDate.getHours() - app.startDate.getHours()
-                      }
-                      onClick={onClickAppointment(app)}
-                      onMouseDown={(e) => e.stopPropagation()}
-                    />
-                  )
-                )
-              })}
-            </DataCell>
-          ))}
-        </DataCellRow>
-      ))}
       <ButtonWrapper>
         <PrevButton onClick={() => setCurrentDate(new Date(currentDate.getTime() - 1000 * 60 * 60 * 24 * 7))} />
         {currentDate.getMonth() + 1}월
         <NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
       </ButtonWrapper>
       <SelectModal closeModal={closeModal} title={modalTitle} isOpen={isModalOpen} onExitComplete={onExitComplete} />
+      <Table>
+        <tbody>
+          <DataCellRow>
+            <DayCell $today={null}></DayCell>
+            {getWeekDates(currentDate).map((date, index) => (
+              <DayCell $today={getDateSaveForm(now) === getDateSaveForm(date)} key={getDateSaveForm(date)}>
+                <>
+                  <DayTypo>{dayList[index]}</DayTypo>
+                  <DateTypo>{getDateSaveForm(date).slice(-2)}</DateTypo>
+                </>
+              </DayCell>
+            ))}
+          </DataCellRow>
+          {createArray(startHour, endHour).map((hour) => (
+            <DataCellRow key={hour}>
+              <DataCell $hour={hour}>
+                <p>{hour <= 12 ? `오전 ${hour}시` : `오후 ${hour - 12}시`}</p>
+              </DataCell>
+              {getWeekDates(currentDate).map((date) => (
+                <DataCell
+                  key={getDateSaveForm(date)}
+                  $isSelected={selectedCells.includes(getDateSaveForm(date) + 'T' + hour)}
+                  $hour={hour}
+                  onMouseDown={() => {
+                    setSelectedCells([getDateSaveForm(date) + 'T' + hour])
+                  }}
+                  onMouseEnter={(e) => {
+                    if (e.buttons === 1) {
+                      if (
+                        selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour - 1}`) ||
+                        selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour + 1}`)
+                      )
+                        setSelectedCells((prev) => prev.concat(getDateSaveForm(date) + 'T' + hour))
+                      else setSelectedCells([])
+                    }
+                  }}
+                  onMouseUp={onMouseUp}
+                >
+                  {appointments.map((app) => {
+                    return (
+                      getDateSaveForm(app.startDate) === getDateSaveForm(date) &&
+                      hour === app.startDate.getHours() && (
+                        <Appointment
+                          key={app.id}
+                          title={app.text}
+                          bgColor={app.bgColor}
+                          height={
+                            app.endDate.getHours() === 0
+                              ? 24 - app.startDate.getHours()
+                              : app.endDate.getHours() - app.startDate.getHours()
+                          }
+                          onClick={onClickAppointment(app)}
+                          onMouseDown={(e) => e.stopPropagation()}
+                        />
+                      )
+                    )
+                  })}
+                </DataCell>
+              ))}
+            </DataCellRow>
+          ))}
+        </tbody>
+      </Table>
     </Root>
   )
 }
