@@ -58,7 +58,7 @@ interface DataCellProps {
 export const DataCell = styled(Cell)<DataCellProps>`
   position: relative;
   background-color: ${(props) => (props.$isSelected ? 'rgba(0, 0, 0, 0.1)' : 'transparent')};
-  &:hover {
+  &:not(:first-child):hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
@@ -84,6 +84,7 @@ export const DataCellRow = styled.tr`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
   &:last-of-type {
     ${DataCell} {
       border-bottom: 0;
