@@ -1,7 +1,7 @@
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
-import yellowCircle from 'assets/images/yellow_circle.png'
 import { Logo as OriginLogo } from 'assets/SvgComponents'
+import { motion } from 'framer-motion'
 export const Root = styled.div`
   position: fixed;
   left: 50%;
@@ -41,7 +41,8 @@ export const RightContainer = styled.div`
 export const GreetTypo = styled.p`
   cursor: pointer;
 `
-export const GreenTypo = styled.span`
+export const Username = styled.span`
+  position: relative;
   color: ${(props) => props.theme.primary.default};
   text-decoration: underline;
 `
@@ -65,28 +66,26 @@ export const PageList = styled.div`
   cursor: pointer;
 `
 
-export const PageItem = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0;
-`
-
-export const SelectedPageItem = styled.p`
+type PageItemProps = {
+  $isSelected: boolean
+}
+export const PageItem = styled.p<PageItemProps>`
   position: relative;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0;
-  color: ${(props) => props.theme.primary.default};
-  &::after {
-    content: '';
-    background: url(${yellowCircle}) no-repeat 0 0;
-    width: 6px;
-    height: 6px;
-    position: absolute;
-    bottom: 110%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
+  transition: color 0.15s ease-in-out;
+`
+export const YellowCircle = styled(motion.div)`
+  position: absolute;
+  top: -7px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
+  height: 5px;
+  background-color: ${(props) => props.theme.yellow};
+  border-radius: 100px;
 `

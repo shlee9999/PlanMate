@@ -1,17 +1,17 @@
 import { FC, useEffect, useState } from 'react'
 import {
   ContentWrapper,
-  GreenTypo,
+  Username,
   GreetTypo,
   LeftContainer,
   Logo,
   Notice,
   RightContainer,
   Root,
-  SelectedPageItem,
   PageItem,
   PageList,
   LogoutTypo,
+  YellowCircle,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { pageList } from 'constants/pageList'
@@ -111,23 +111,23 @@ export const HeaderSection: FC = () => {
         <LeftContainer>
           <Logo />
           <PageList>
-            {pageList.map((item, index) =>
-              index === currentTab ? (
-                <SelectedPageItem key={index} onClick={onClickTabItem(index)}>
-                  {item.title}
-                </SelectedPageItem>
-              ) : (
-                <PageItem key={index} onClick={onClickTabItem(index)}>
-                  {item.title}
-                </PageItem>
-              )
-            )}
+            {pageList.map((item, index) => (
+              <PageItem key={index} onClick={onClickTabItem(index)} $isSelected={index === currentTab}>
+                {item.title}
+                {index === currentTab && <YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
+              </PageItem>
+            ))}
           </PageList>
         </LeftContainer>
         <RightContainer>
           {userAuthInfo.name && (
             <GreetTypo>
-              안녕하세요, <GreenTypo onClick={onClickNickname}>{userAuthInfo.name}</GreenTypo>님!
+              안녕하세요,{' '}
+              <Username onClick={onClickNickname}>
+                {userAuthInfo.name}
+                {currentPath === '/mypage' && <YellowCircle layoutId="yellow_circle" />}
+              </Username>
+              님!
             </GreetTypo>
           )}
           {userAuthInfo.name && <LogoutTypo onClick={onClickLogout}>로그아웃</LogoutTypo>}
