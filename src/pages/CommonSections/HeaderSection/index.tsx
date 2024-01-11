@@ -3,15 +3,16 @@ import {
   ContentWrapper,
   Username,
   GreetTypo,
-  LeftContainer,
+  NavItemContainer,
   Logo,
   Notice,
   RightContainer,
   Root,
-  PageItem,
-  PageList,
+  NavItem,
+  NavItems,
   LogoutTypo,
   YellowCircle,
+  NavItemVar,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { pageList } from 'constants/pageList'
@@ -108,17 +109,24 @@ export const HeaderSection: FC = () => {
   return (
     <Root>
       <ContentWrapper>
-        <LeftContainer>
+        <NavItemContainer>
           <Logo />
-          <PageList>
+          <NavItems>
             {pageList.map((item, index) => (
-              <PageItem key={index} onClick={onClickTabItem(index)} $isSelected={index === currentTab}>
+              <NavItem
+                key={index}
+                onClick={onClickTabItem(index)}
+                $isSelected={index === currentTab}
+                variants={NavItemVar}
+                initial="initial"
+                whileHover="hover"
+              >
                 {item.title}
                 {index === currentTab && <YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
-              </PageItem>
+              </NavItem>
             ))}
-          </PageList>
-        </LeftContainer>
+          </NavItems>
+        </NavItemContainer>
         <RightContainer>
           {userAuthInfo.name && (
             <GreetTypo>

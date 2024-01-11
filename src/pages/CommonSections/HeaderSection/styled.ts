@@ -1,8 +1,8 @@
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 import { Logo as OriginLogo } from 'assets/SvgComponents'
-import { motion } from 'framer-motion'
-export const Root = styled.div`
+import { Variants, motion } from 'framer-motion'
+export const Root = styled.nav`
   position: fixed;
   left: 50%;
   top: 0;
@@ -22,10 +22,9 @@ export const ContentWrapper = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
 `
-export const LeftContainer = styled.div`
+export const NavItemContainer = styled.div`
   display: flex;
   align-items: center;
-  width: fit-content;
   height: 30px;
 `
 
@@ -33,7 +32,6 @@ export const RightContainer = styled.div`
   display: flex;
   column-gap: 18px;
   align-items: center;
-  width: fit-content;
   font-weight: 500;
   font-size: 14px;
   line-height: 17.5px;
@@ -60,7 +58,7 @@ export const Logo = styled(OriginLogo)`
   margin-right: 56px;
 `
 
-export const PageList = styled.div`
+export const NavItems = styled.ul`
   display: flex;
   column-gap: 16px;
   cursor: pointer;
@@ -69,15 +67,31 @@ export const PageList = styled.div`
 type PageItemProps = {
   $isSelected: boolean
 }
-export const PageItem = styled.p<PageItemProps>`
+
+export const NavItem = styled(motion.li)<PageItemProps>`
   position: relative;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0;
   color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
-  transition: color 0.15s ease-in-out;
+  transition: color 0.2s;
+  &:hover {
+    color: ${(props) => props.theme.primary.default};
+  }
 `
+export const NavItemVar: Variants = {
+  initial: {
+    y: 0,
+  },
+  hover: {
+    y: -2,
+    transition: {
+      type: 'tween',
+      duration: 0.2,
+    },
+  },
+}
 export const YellowCircle = styled(motion.div)`
   position: absolute;
   top: -7px;
