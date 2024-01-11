@@ -1,17 +1,19 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 const BUTTON_HEIGHT = 40
 
-export const Root = styled.div`
+export const Root = styled(motion.div)`
   width: 320px;
   height: 240px;
   position: fixed;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: calc((100vh - 240px) / 2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translate(-50%, -50%);
   background-color: ${(props) => props.theme.background.white};
   border-radius: 10px;
 `

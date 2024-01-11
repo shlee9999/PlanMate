@@ -46,9 +46,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     setIsModalOpen(true)
   }
 
-  const closeModal = () => {
-    setSelectedCells([])
-    setIsModalOpen(false)
+  const onExitComplete = () => {
+    // modal 종료 애니메이션 대기
     dispatch(
       updateInfo({
         startDate: new Date(),
@@ -58,6 +57,10 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         id: new Date().getTime(),
       })
     )
+  }
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedCells([])
   }
 
   const onClickAppointment = (appoint: IAppointment) => () => {
@@ -155,7 +158,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         {currentDate.getMonth() + 1}월
         <NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
       </ButtonWrapper>
-      {isModalOpen && <SelectModal closeModal={closeModal} title={modalTitle} />}
+      <SelectModal closeModal={closeModal} title={modalTitle} isOpen={isModalOpen} onExitComplete={onExitComplete} />
     </Root>
   )
 }

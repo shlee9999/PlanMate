@@ -25,9 +25,20 @@ import { RootState } from 'modules'
 import { useFormattedDate } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
-import { ModalWrapper, WhiteButton, GreenButton } from 'commonStyled'
+import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
+import { AnimatePresence } from 'framer-motion'
 
-export const SelectModal = ({ closeModal, title }: { closeModal: () => void; title: string }) => {
+export const SelectModal = ({
+  closeModal,
+  title,
+  isOpen,
+  onExitComplete,
+}: {
+  closeModal: () => void
+  title: string
+  isOpen: boolean
+  onExitComplete: () => void
+}) => {
   //입력값과 색상 상태 관리
   const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const year = startDate.getFullYear()
@@ -72,7 +83,7 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
         })
       )
     }
-    closeModalAll()
+    closeModal()
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') onClickConfirm()
@@ -81,57 +92,57 @@ export const SelectModal = ({ closeModal, title }: { closeModal: () => void; tit
     e.stopPropagation()
   }
 
-  const closeModalAll = () => {
-    closeModal()
-  }
-
   useEffect(() => {
-    inputRef.current.focus()
+    inputRef?.current?.focus()
     setSubjectColor(defaultColor)
-  }, [])
+  }, [isOpen])
   useEffect(() => {
     dispatch(updateProp('bgColor', subjectColor))
   }, [subjectColor])
 
   return (
-    <ModalWrapper onClick={closeModalAll}>
-      <Root onClick={handleModalClick}>
-        <ModalTitle>{title}</ModalTitle>
-        <Title>{useFormattedDate(new Date(year, month, date))}</Title>
-        <ModalExitButton onClick={closeModalAll} />
-        <InputWrapper>
-          <ButtonTypoWrapper>
-            일정명
-            <Input
-              placeholder={'일정명을 입력해주세요'}
-              onChange={onChange}
-              value={inputValue}
-              ref={inputRef}
-              onKeyDown={onKeyDown}
-            />
-          </ButtonTypoWrapper>
-          <ColorSelectWrapper>
-            <ColorSelectTypo>색상선택</ColorSelectTypo>
-            <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
-          </ColorSelectWrapper>
-          {/* <ButtonTypoWrapper>
+    <AnimatePresence onExitComplete={onExitComplete}>
+      {isOpen && (
+        <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
+          <Root onClick={handleModalClick}>
+            <ModalTitle>{title}</ModalTitle>
+            <Title>{useFormattedDate(new Date(year, month, date))}</Title>
+            <ModalExitButton onClick={closeModal} />
+            <InputWrapper>
+              <ButtonTypoWrapper>
+                일정명
+                <Input
+                  placeholder={'일정명을 입력해주세요'}
+                  onChange={onChange}
+                  value={inputValue}
+                  ref={inputRef}
+                  onKeyDown={onKeyDown}
+                />
+              </ButtonTypoWrapper>
+              <ColorSelectWrapper>
+                <ColorSelectTypo>색상선택</ColorSelectTypo>
+                <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+              </ColorSelectWrapper>
+              {/* <ButtonTypoWrapper>
               요일
               <DaySelect assignSubjectDay={}></DaySelect>
             </ButtonTypoWrapper> */}
-          <ButtonTypoWrapper>
-            시간
-            <TimeSelectWrapper>
-              <TimeSelect set={'부터'} />
-              <TimeSelect set={'까지'} />
-              {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
-            </TimeSelectWrapper>
-          </ButtonTypoWrapper>
-        </InputWrapper>
-        <ModalFooter>
-          <WhiteButton onClick={closeModalAll}>취소</WhiteButton>
-          <GreenButton onClick={onClickConfirm}>확인</GreenButton>
-        </ModalFooter>
-      </Root>
-    </ModalWrapper>
+              <ButtonTypoWrapper>
+                시간
+                <TimeSelectWrapper>
+                  <TimeSelect set={'부터'} />
+                  <TimeSelect set={'까지'} />
+                  {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
+                </TimeSelectWrapper>
+              </ButtonTypoWrapper>
+            </InputWrapper>
+            <ModalFooter>
+              <WhiteButton onClick={closeModal}>취소</WhiteButton>
+              <GreenButton onClick={onClickConfirm}>확인</GreenButton>
+            </ModalFooter>
+          </Root>
+        </ModalWrapper>
+      )}
+    </AnimatePresence>
   )
 }

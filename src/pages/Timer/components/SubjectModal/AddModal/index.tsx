@@ -8,22 +8,15 @@ import { addTodo } from 'modules/todos'
 import ColorPickerModal from 'components/ColorPickerModal'
 import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSubject'
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
-import { ModalWrapper, ModalExitButton, ModalFooter, WhiteButton, GreenButton } from 'commonStyled'
+import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
+import { AnimatePresence } from 'framer-motion'
 
-const AddModal = ({
-  isModalOpen,
-  closeModal,
-  title,
-}: {
-  isModalOpen: boolean
-  closeModal: () => void
-  title: string
-}) => {
+const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: () => void; title: string }) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [subjectColor, setSubjectColor] = useState<string>(defaultColor)
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
 
-  const inputRef = useRef<HTMLInputElement | null>(null)
+  const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
   const closeColorPickerModal = () => {
     setIsColorPickerModalOpen(false)
@@ -71,47 +64,44 @@ const AddModal = ({
   }
 
   useEffect(() => {
-    if (!inputRef || !inputRef.current) return
-    if (isModalOpen) {
-      inputRef.current.focus()
-      setSubjectColor(defaultColor)
-    }
-  }, [isModalOpen])
+    inputRef?.current?.focus()
+    setSubjectColor(defaultColor)
+  }, [isOpen])
 
-  if (isModalOpen)
-    return (
-      <ModalWrapper onClick={closeModal}>
-        <Root onClick={onClickModal}>
-          <ModalTitle>{title}</ModalTitle>
-          <ModalExitButton onClick={closeModal} />
-          <InputWrapper>
-            <UpperWrapper>
-              과목명
-              <NameInput
-                placeholder={`${title.slice(0, 2)}명을 입력해주세요`}
-                onChange={onChange}
-                onKeyDown={onKeyDown}
-                ref={inputRef}
-              />
-            </UpperWrapper>
-            <LowerWrapper>
-              <LowerTypo>색상선택</LowerTypo>
-              <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
-              {/* <ColorPickerButton onClick={onClickColorButton} color={subjectColor}></ColorPickerButton> */}
-            </LowerWrapper>
-          </InputWrapper>
-          <ModalFooter>
-            <WhiteButton onClick={closeModal}>취소</WhiteButton>
-            <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
-          </ModalFooter>
-          {isColorPickerModalOpen && (
-            <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
-          )}
-        </Root>
-      </ModalWrapper>
-    )
-
-  return null
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
+          <Root onClick={onClickModal}>
+            <ModalTitle>{title}</ModalTitle>
+            <ModalExitButton onClick={closeModal} />
+            <InputWrapper>
+              <UpperWrapper>
+                과목명
+                <NameInput
+                  placeholder={`${title.slice(0, 2)}명을 입력해주세요`}
+                  onChange={onChange}
+                  onKeyDown={onKeyDown}
+                  ref={inputRef}
+                />
+              </UpperWrapper>
+              <LowerWrapper>
+                <LowerTypo>색상선택</LowerTypo>
+                <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+              </LowerWrapper>
+            </InputWrapper>
+            <ModalFooter>
+              <WhiteButton onClick={closeModal}>취소</WhiteButton>
+              <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
+            </ModalFooter>
+            {isColorPickerModalOpen && (
+              <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
+            )}
+          </Root>
+        </ModalWrapper>
+      )}
+    </AnimatePresence>
+  )
 }
 
 export default AddModal

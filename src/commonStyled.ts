@@ -2,6 +2,7 @@ import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
+import { Variants, motion } from 'framer-motion'
 
 export const PageRoot = styled.div`
   margin: 0 auto;
@@ -17,23 +18,33 @@ export const TagRoot = styled.span`
   }
 `
 
-const FOOTER_HEIGHT = 40
+const MODAL_FOOTER_HEIGHT = 40
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 11;
   background-color: #2222224d;
-  z-index: 5;
 `
+export const ModalWrapperVar: Variants = {
+  initial: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.35,
+    },
+  },
+  exit: { opacity: 0 },
+}
 
 export const FooterButton = styled.button`
   font-size: 16px;
   font-weight: 500;
-  line-height: ${FOOTER_HEIGHT}px;
-  height: ${FOOTER_HEIGHT}px;
+  line-height: ${MODAL_FOOTER_HEIGHT}px;
+  height: ${MODAL_FOOTER_HEIGHT}px;
   text-align: center;
   width: 50%;
 `

@@ -20,12 +20,15 @@ import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
 import EllipsisModal from '../EllipsisModal'
 import moment from 'moment'
 import { updateSubject } from 'api/subject/updateSubject'
+import { AnimatePresence } from 'framer-motion'
+import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
 
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
   const dispatch = useDispatch()
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
+  const closeModal = () => setIsEllipsisOpen(false)
   const { startTimer, stopTimer, time } = useTimer({ defaultTime: todo.time })
   const formattedTime: string = useFormattedTime(time)
   const [startTime, setStartTime] = useState<string>('')
@@ -96,9 +99,18 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
 
         <EllipsisButton onClick={OnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
-      {isEllipsisOpen && (
-        <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isTodoTimerRunning={isTodoTimerRunning} />
-      )}
+      <AnimatePresence>
+        {isEllipsisOpen && (
+          <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
+            <EllipsisModal
+              closeModal={closeEllipsisModal}
+              todo={todo}
+              isTodoTimerRunning={isTodoTimerRunning}
+              isOpen={isEllipsisOpen}
+            />
+          </ModalWrapper>
+        )}
+      </AnimatePresence>
     </Root>
   )
 }

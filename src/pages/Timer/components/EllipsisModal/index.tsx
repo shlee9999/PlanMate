@@ -8,16 +8,19 @@ import { removeTodo } from 'modules/todos'
 import EditModal from '../SubjectModal/EditModal'
 import { removeSubject } from 'api/subject/removeSubject'
 import { DeleteModal } from './DeleteModal'
-import { ModalWrapper, ModalFooter, ModalExitButton } from 'commonStyled'
+import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
+import { AnimatePresence } from 'framer-motion'
 
 const EllipsisModal = ({
   closeModal,
   todo,
   isTodoTimerRunning,
+  isOpen,
 }: {
   closeModal: () => void
   todo: TodoItemType
   isTodoTimerRunning: boolean
+  isOpen: boolean
 }) => {
   const [mode, setMode] = useState<string>('edit') // 'edit' | 'delete'
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -55,30 +58,34 @@ const EllipsisModal = ({
   }
 
   return (
-    <ModalWrapper onClick={closeModal}>
-      <Root onClick={onClickModal}>
-        <ButtonWrapper>
-          <UpdateSubjectButton onClick={onClickEditButton}>과목수정</UpdateSubjectButton>
-          <DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</DeleteSubjectButton>
-        </ButtonWrapper>
-        <ModalFooter>
-          <CloseButton onClick={closeModal}>취소</CloseButton>
-        </ModalFooter>
-        <ModalExitButton onClick={closeModal} />
-      </Root>
-      {isEditModalOpen && (
-        <EditModal
-          isModalOpen={isEditModalOpen}
-          closeModal={closeEditModal}
-          title="과목수정"
-          todo={todo}
-          closeEllipsisModal={closeModal}
-        />
+    <AnimatePresence>
+      {isOpen && (
+        <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
+          <Root onClick={onClickModal} layoutId="ellipsis">
+            <ButtonWrapper>
+              <UpdateSubjectButton onClick={onClickEditButton}>과목수정</UpdateSubjectButton>
+              <DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</DeleteSubjectButton>
+            </ButtonWrapper>
+            <ModalFooter>
+              <CloseButton onClick={closeModal}>취소</CloseButton>
+            </ModalFooter>
+            <ModalExitButton onClick={closeModal} />
+          </Root>
+          {isEditModalOpen && (
+            <EditModal
+              isModalOpen={isEditModalOpen}
+              closeModal={closeEditModal}
+              title="과목수정"
+              todo={todo}
+              closeEllipsisModal={closeModal}
+            />
+          )}
+          {isDeleteModalOpen && (
+            <DeleteModal closeModal={closeDeleteModal} deleteSubject={deleteSubject} title={todo.name} />
+          )}
+        </ModalWrapper>
       )}
-      {isDeleteModalOpen && (
-        <DeleteModal closeModal={closeDeleteModal} deleteSubject={deleteSubject} title={todo.name} />
-      )}
-    </ModalWrapper>
+    </AnimatePresence>
   )
 }
 export default EllipsisModal

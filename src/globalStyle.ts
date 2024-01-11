@@ -23,7 +23,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -57,10 +57,12 @@ button {
   background-color: inherit;
 }
 input {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   outline: none;
   border: none;
 }
 textarea {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   outline: none;
   border: none;
   resize: none;

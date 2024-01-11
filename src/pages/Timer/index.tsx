@@ -46,6 +46,8 @@ import { PieChartBox } from 'pages/Stats/components/InfoContainer/component/PieC
 import { TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { PlusIcon } from 'assets/SvgComponents'
+import { AnimatePresence } from 'framer-motion'
+import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -180,7 +182,9 @@ export const TimerPage: FC = () => {
           과목
         </AddButton>
       </LowerContainer>
-      <AddModal isModalOpen={isModalOpen} closeModal={closeModal} title="과목 추가" />
+
+      <AddModal closeModal={closeModal} title="과목 추가" isOpen={isModalOpen} />
+
       {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
     </Root>
   )

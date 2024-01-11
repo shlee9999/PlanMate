@@ -7,7 +7,7 @@ import { updateTodo } from 'modules/todos'
 
 import { editSubject } from 'api/subject/editSubject'
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
-import { ModalWrapper, ModalExitButton, ModalFooter, WhiteButton, GreenButton } from 'commonStyled'
+import { ModalExitButton, ModalFooter, WhiteButton, GreenButton } from 'commonStyled'
 
 const EditModal = ({
   isModalOpen,
@@ -86,31 +86,26 @@ const EditModal = ({
     }
   }, [isModalOpen])
 
-  if (isModalOpen)
-    return (
-      <ModalWrapper onClick={closeEditModal}>
-        <Root onClick={onClickModal}>
-          <ModalTitle>{title}</ModalTitle>
-          <ModalExitButton onClick={closeEditModal} />
-          <InputWrapper>
-            <UpperWrapper>
-              과목명
-              <NameInput defaultValue={todo.name} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
-            </UpperWrapper>
-            <LowerWrapper>
-              <LowerTypo>색상선택</LowerTypo>
-              <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
-            </LowerWrapper>
-          </InputWrapper>
-          <ModalFooter>
-            <WhiteButton onClick={closeEditModal}>취소</WhiteButton>
-            <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
-          </ModalFooter>
-        </Root>
-      </ModalWrapper>
-    )
-
-  return null
+  return (
+    <Root onClick={onClickModal} layoutId="ellipsis">
+      <ModalTitle>{title}</ModalTitle>
+      <ModalExitButton onClick={closeEditModal} />
+      <InputWrapper>
+        <UpperWrapper>
+          과목명
+          <NameInput defaultValue={todo.name} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
+        </UpperWrapper>
+        <LowerWrapper>
+          <LowerTypo>색상선택</LowerTypo>
+          <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+        </LowerWrapper>
+      </InputWrapper>
+      <ModalFooter>
+        <WhiteButton onClick={closeEditModal}>취소</WhiteButton>
+        <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
+      </ModalFooter>
+    </Root>
+  )
 }
 
 export default EditModal

@@ -1,16 +1,18 @@
+import { motion } from 'framer-motion'
 import { styled } from 'styled-components'
 
-export const Root = styled.div`
+export const Root = styled(motion.div)`
   width: 320px;
   height: 266px;
   position: fixed;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: calc((100vh - 266px) / 2);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  transform: translate(-50%, -50%);
   background-color: ${(props) => props.theme.background.white};
   border-radius: 10px;
   overflow: hidden;

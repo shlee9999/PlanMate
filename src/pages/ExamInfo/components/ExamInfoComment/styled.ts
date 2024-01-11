@@ -56,7 +56,6 @@ export const Comment = styled.p`
 `
 export const EditInput = styled.textarea`
   font-size: 14px;
-  font-weight: 400;
   line-height: 18px;
   color: ${(props) => props.theme.text.black1};
   resize: none;
