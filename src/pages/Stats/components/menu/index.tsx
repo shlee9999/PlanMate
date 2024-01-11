@@ -26,7 +26,7 @@ import vectorImg from 'assets/images/vector.png'
 import urlImg from 'assets/images/url.png'
 import instagramImg from 'assets/images/instagram.png'
 import kakaoTalkImg from 'assets/images/kakaoTalk.png'
-import { StatsDatePicker } from '../DatePicker'
+import { DatePicker } from '../DatePicker'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { getDateInfo } from 'utils/helper'
 
@@ -52,7 +52,7 @@ export const MenuBox = () => {
       <MainContainer>
         <MainHeaderTitle>공부량 한 눈에 보기</MainHeaderTitle>
         <MainContentsWrapper>
-          <StatsDatePicker onDateSelect={handleDateSelect} />
+          <DatePicker onDateSelect={handleDateSelect} />
           <SizedBox />
           <InfoContainer selectedDate={selectedDate} />
         </MainContentsWrapper>

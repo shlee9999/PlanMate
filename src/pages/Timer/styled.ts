@@ -2,9 +2,9 @@ import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
 import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
 import { PageRoot } from 'commonStyled'
+import { InfoBox } from 'components/InfoBox'
 
 export const Banner = styled.div`
-  box-sizing: border-box;
   padding: 30px ${SIDE_MARGIN}px;
   background: url(${bannerImg}) no-repeat 0 0;
   background-size: cover;
@@ -50,15 +50,11 @@ export const Title = styled.p`
   line-height: 26px;
   margin-bottom: 8px;
 `
-export const ResultContainer = styled.div`
-  overflow: hidden;
-  background-color: ${(props) => props.theme.background.white};
+export const ResultContainer = styled(InfoBox)`
   position: relative;
-  box-sizing: border-box;
   padding: 32px;
+  width: fit-content;
   height: 270px;
-  border-radius: 8px;
-  border: 1px solid ${(props) => props.theme.border.default};
 `
 export const UpperDescriptionTypo = styled.p`
   font-size: 14px;
@@ -87,12 +83,9 @@ export const YellowTypo = styled.span`
   word-wrap: break-word;
 `
 
-export const StatsContainer = styled.div`
-  background-color: ${(props) => props.theme.background.white};
+export const StatsContainer = styled(InfoBox)`
   height: 270px;
   border-radius: 10px;
-  border: 1px solid ${(props) => props.theme.border.default};
-  box-sizing: border-box;
   padding: 10px 15px 0px 15px;
 `
 
@@ -105,10 +98,8 @@ export const TodoContainer = styled.div`
 export const RightContainer = styled.div`
   flex-grow: 1;
   flex-basis: 689px;
-  box-sizing: border-box;
   padding-top: 17px;
   display: flex;
-  box-sizing: border-box;
   flex-direction: column;
   min-width: 400px;
 `

@@ -19,59 +19,44 @@ export const HeaderContainer = styled.div`
 export const HeaderContentWrapper = styled.div``
 
 export const UserName = styled.span`
-  font-family: Spoqa Han Sans Neo;
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
-  letter-spacing: 0em;
-  text-align: center;
   color: #01cb45;
 `
 
-export const HeaderMessage = styled.span`
-  font-family: Spoqa Han Sans Neo;
+export const PageDescription = styled.span`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
   letter-spacing: 0em;
-  text-align: center;
   color: #444444;
 `
 
-export const HeaderPageTitle = styled.div`
-  font-family: Spoqa Han Sans Neo;
+export const PageName = styled.div`
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
-  letter-spacing: 0em;
 `
 
 export const HeaderDividingLine = styled.hr`
   width: 100%;
   margin: 20px 0px;
   align-items: left;
+  background-color: ${(props) => props.theme.border.default};
 `
 
-export const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+export const Container = styled.div`
   width: 100%;
-  justify-content: space-around;
 `
-export const MainHeaderTitle = styled.div`
+export const Title = styled.div`
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
   margin-bottom: 20px;
 `
 
-export const ChartDividingLine = styled.hr`
-  width: 98%;
-  margin-top: 20px;
-  align-items: left;
-`
-
-export const MainContentsWrapper = styled.div`
+export const StatsContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -97,19 +82,16 @@ export const ShareButton = styled.button`
   width: 75px;
   height: 30px;
   border-radius: 8px;
-  border: 1px solid #dddede;
-  font-family: Spoqa Han Sans Neo;
+  border: 1px solid ${(props) => props.theme.border.default};
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  letter-spacing: 0em;
   text-align: center;
   text-transform: center;
 `
 
-export const MessengerButtonWrapper = styled.div`
+export const SNSItems = styled.ul`
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   width: 120px;
@@ -119,25 +101,22 @@ export const MessengerButtonWrapper = styled.div`
   font-size: 8px;
 `
 
-export const MessengerContentsWrapper = styled.button`
+export const SNSItem = styled.li`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: Spoqa Han Sans Neo;
+  justify-content: center;
   font-size: 8px;
   font-weight: 400;
   line-height: 10px;
-  letter-spacing: 0em;
-  text-align: center;
 `
 
-export const IconContents = styled.p`
-  font-family: Spoqa Han Sans Neo;
+export const SNSLabel = styled.p`
   font-size: 8px;
   font-weight: 400;
   line-height: 10px;
-  letter-spacing: 0em;
   text-align: center;
-  color: #888888;
+  color: ${(props) => props.theme.text.gray2};
   margin-top: 3px;
 `

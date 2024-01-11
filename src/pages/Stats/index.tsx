@@ -6,20 +6,20 @@ import {
   HeaderContainer,
   HeaderContentWrapper,
   HeaderDividingLine,
-  HeaderMessage,
-  HeaderPageTitle,
-  IconContents,
-  MainContainer,
-  MainContentsWrapper,
-  MainHeaderTitle,
-  MessengerButtonWrapper,
-  MessengerContentsWrapper,
+  PageDescription,
+  PageName,
+  SNSLabel,
+  Container,
+  StatsContainer,
+  Title,
+  SNSItems,
+  SNSItem,
   Root,
   ShareButton,
   UserName,
 } from './styled'
 import { InfoContainer } from 'pages/Stats/components/InfoContainer'
-import { StatsDatePicker } from 'pages/Stats/components/DatePicker'
+import { DatePicker } from 'pages/Stats/components/DatePicker'
 import { InstagramIcon, KakaoIcon, ShareIcon, UrlIcon } from 'assets/SvgComponents'
 
 export const StatsPage = () => {
@@ -36,37 +36,37 @@ export const StatsPage = () => {
       <HeaderContainer>
         <HeaderContentWrapper>
           <UserName>메이트 </UserName>
-          <HeaderMessage>님의 공부량을 한눈에 볼 수 있어요!</HeaderMessage>
+          <PageDescription>님의 공부량을 한눈에 볼 수 있어요!</PageDescription>
         </HeaderContentWrapper>
-        <HeaderPageTitle>통계 📊</HeaderPageTitle>
+        <PageName>통계 📊</PageName>
       </HeaderContainer>
       <HeaderDividingLine />
-      <MainContainer>
-        <MainHeaderTitle>공부량 한 눈에 보기</MainHeaderTitle>
-        <MainContentsWrapper>
-          <StatsDatePicker onDateSelect={handleDateSelect} />
+      <Container>
+        <Title>공부량 한 눈에 보기</Title>
+        <StatsContainer>
+          <DatePicker onDateSelect={handleDateSelect} />
           <InfoContainer selectedDate={selectedDate} />
-        </MainContentsWrapper>
-      </MainContainer>
+        </StatsContainer>
+      </Container>
       <FooterContainer>
         <ShareButton>
           <ShareIcon />
           <p>공유하기</p>
         </ShareButton>
-        <MessengerButtonWrapper>
-          <MessengerContentsWrapper>
+        <SNSItems>
+          <SNSItem>
             <UrlIcon />
-            <IconContents>URL</IconContents>
-          </MessengerContentsWrapper>
-          <MessengerContentsWrapper>
+            <SNSLabel>URL</SNSLabel>
+          </SNSItem>
+          <SNSItem>
             <KakaoIcon />
-            <IconContents>카카오톡</IconContents>
-          </MessengerContentsWrapper>
-          <MessengerContentsWrapper>
+            <SNSLabel>카카오톡</SNSLabel>
+          </SNSItem>
+          <SNSItem>
             <InstagramIcon />
-            <IconContents>인스타</IconContents>
-          </MessengerContentsWrapper>
-        </MessengerButtonWrapper>
+            <SNSLabel>인스타</SNSLabel>
+          </SNSItem>
+        </SNSItems>
       </FooterContainer>
     </Root>
   )

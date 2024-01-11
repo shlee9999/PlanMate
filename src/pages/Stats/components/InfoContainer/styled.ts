@@ -1,11 +1,10 @@
+import { InfoBox } from 'components/InfoBox'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const Root = styled(InfoBox)`
   height: 400px;
   padding: 22px 24px;
   max-width: 800px;
-  border: 1px solid ${(props) => props.theme.background.gray1};
-  border-radius: 8px;
 `
 
 export const CompareTitle = styled.div`

@@ -13,7 +13,7 @@ interface HistoryChartProps {
 export const InfoContainer: React.FC<HistoryChartProps> = ({ selectedDate }) => {
   const { year, month, day } = selectedDate || {}
   return (
-    <Root>
+    <Root right={true}>
       <Header>{year && month && day ? `${year}년 ${month}월 ${day}일 ` : ''}</Header>
       <StudyContainer>
         <TimerContainer />

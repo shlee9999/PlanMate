@@ -76,11 +76,11 @@ const myCustomLocale: Locale = {
   isRtl: false,
 }
 
-interface StatsDatePickerProps {
+interface DatePickerProps {
   onDateSelect: (selectedDate: DayValue | null) => void
 }
 
-export const StatsDatePicker: React.FC<StatsDatePickerProps> = ({ onDateSelect }) => {
+export const DatePicker: React.FC<DatePickerProps> = ({ onDateSelect }) => {
   const today = new Date()
 
   const initialDay: DayValue = {

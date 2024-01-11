@@ -48,6 +48,7 @@ import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { PlusIcon } from 'assets/SvgComponents'
 import { AnimatePresence } from 'framer-motion'
 import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
+import { InfoBox } from 'components/InfoBox'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -120,7 +121,7 @@ export const TimerPage: FC = () => {
               <DateTypo>{formattedDate}</DateTypo>
               <Title>오늘의 공부량 👏 </Title>
             </LeftTopDescriptionWrapper>
-            <ResultContainer>
+            <ResultContainer left>
               <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
               <StudyTimerWidget totalTime={totalTime} />
               <LowerDescriptionTypo>
@@ -131,7 +132,7 @@ export const TimerPage: FC = () => {
           <SizedBox />
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
-            <StatsContainer>
+            <StatsContainer right>
               <StudyContainer>
                 <TimerContainer />
                 <PieChartBox />
