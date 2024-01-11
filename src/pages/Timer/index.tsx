@@ -47,6 +47,7 @@ import { PieChartBox } from 'pages/Stats/components/InfoContainer/component/PieC
 
 import { TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
+import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
