@@ -44,11 +44,10 @@ export const SelectModal = ({
   const year = startDate.getFullYear()
   const month = startDate.getMonth()
   const date = startDate.getDate()
-
   const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? text : '')
-  const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? bgColor : defaultColor)
-  const inputRef = useRef<HTMLInputElement | null>(null)
 
+  const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? bgColor : defaultColor)
+  const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,10 +95,14 @@ export const SelectModal = ({
     inputRef?.current?.focus()
     setSubjectColor(defaultColor)
   }, [isOpen])
+
   useEffect(() => {
     dispatch(updateProp('bgColor', subjectColor))
   }, [subjectColor])
 
+  useEffect(() => {
+    setInputValue(text)
+  }, [text])
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (

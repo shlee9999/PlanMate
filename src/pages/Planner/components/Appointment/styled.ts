@@ -1,4 +1,5 @@
 import { CloseIcon } from 'assets/SvgComponents'
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 interface RootProps {
@@ -16,12 +17,11 @@ export const CloseButton = styled(CloseIcon)`
   fill: ${(props) => props.theme.text.gray1};
 `
 
-export const Root = styled.div<RootProps>`
+export const Root = styled(motion.div)<RootProps>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: ${(props) => props.$height * 102.5}%;
   box-sizing: border-box;
   text-transform: uppercase;
   color: ${(props) => props.theme.background.white};
@@ -41,6 +41,7 @@ export const Root = styled.div<RootProps>`
   }
   z-index: 2;
   padding-top: 10px;
+  transform-origin: center top;
 `
 
 export const Title = styled.p``
