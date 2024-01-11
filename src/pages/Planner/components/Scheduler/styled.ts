@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ModalExitButton } from '../SelectModal/styled'
-import { RightArrow } from 'assets/SvgComponents'
+import { CloseIcon, RightArrow } from 'assets/SvgComponents'
 export const Root = styled.table`
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -95,12 +95,14 @@ interface AppointmentWrapperProps {
   $bgColor: string
   $height: number
 }
-export const CloseButton = styled(ModalExitButton)`
+export const CloseButton = styled(CloseIcon)`
+  position: absolute;
   opacity: 0;
   top: 5px;
   right: 5px;
   width: 15px;
-  background-size: contain;
+  cursor: pointer;
+  fill: ${(props) => props.theme.text.gray1};
 `
 
 export const AppointmentWrapper = styled.div<AppointmentWrapperProps>`
