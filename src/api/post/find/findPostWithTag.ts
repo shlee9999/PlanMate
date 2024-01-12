@@ -11,6 +11,6 @@ export type FindPostWithTagResponseProps = {
   totalPages: number
 }
 
-export const findPostWithTag = (req: FindPostWithTagRequestProps) => {
+export const findPostWithTag = (req: FindPostWithTagRequestProps): Promise<FindPostWithTagResponseProps> => {
   return axiosGET('/post/find/with', req)
 }

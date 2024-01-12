@@ -27,13 +27,19 @@ import { useQuery } from 'react-query'
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [selectedTag, setSelectedTag] = useState<string>('')
-  const { data, isLoading } = useQuery<Promise<FindAllPostResponseProps>, Error, FindAllPostResponseProps, string[]>(
-    ['findAllResponse', currentPage + '', selectedTag],
-    () => findAll({ pages: currentPage - 1 })
+  const { data, isLoading } = useQuery<
+    Promise<FindAllPostResponseProps | FindPostWithTagResponseProps>,
+    Error,
+    FindAllPostResponseProps,
+    string[]
+  >(['findAllResponse', currentPage + '', selectedTag], () =>
+    selectedTag === ''
+      ? findAll({ pages: currentPage - 1 })
+      : findPostWithTag({ pages: currentPage - 1, tagName: selectedTag })
   )
 
-  const examInfoList = data?.postDtoList
-  const totalPage = data?.totalPages
+  const examInfoList = data?.postDtoList || []
+  const totalPage = data?.totalPages || 0
 
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
@@ -58,24 +64,6 @@ export const ExamInfoPage = () => {
     setCurrentPage(1)
   }
 
-  // useEffect(() => {
-  //   if (selectedTag === '')
-  //     findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-  //       const response = res as FindAllPostResponseProps
-  //       setExamInfoList(response.postDtoList)
-  //       setTotalPage(response.totalPages)
-  //     })
-  //   else
-  //     findPostWithTag({
-  //       tagName: selectedTag,
-  //       pages: currentPage - 1,
-  //     }).then((res) => {
-  //       const response = res as FindPostWithTagResponseProps
-  //       setExamInfoList(response.postDtoList)
-  //       setTotalPage(response.totalPages)
-  //     })
-  // }, [currentPage, selectedTag])
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [data])
@@ -88,18 +76,17 @@ export const ExamInfoPage = () => {
         <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
       </TypoWrapper>
       <UpperTagButtonWrapper>
-        {!isLoading &&
-          examinfoTagList.map((tag, index) =>
-            index > 5 ? null : (
-              <TagButton
-                key={index}
-                className={tag === selectedTag ? 'isSelected' : ''}
-                onClick={onClickTagButton(examinfoTagList[index])}
-              >
-                <Tag>{tag}</Tag>
-              </TagButton>
-            )
-          )}
+        {examinfoTagList.map((tag, index) =>
+          index > 5 ? null : (
+            <TagButton
+              key={index}
+              className={tag === selectedTag ? 'isSelected' : ''}
+              onClick={onClickTagButton(examinfoTagList[index])}
+            >
+              <Tag>{tag}</Tag>
+            </TagButton>
+          )
+        )}
       </UpperTagButtonWrapper>
       <LowerTagButtonWrapper>
         {examinfoTagList.map((tag, index) =>
@@ -115,7 +102,9 @@ export const ExamInfoPage = () => {
         )}
       </LowerTagButtonWrapper>
       <ExamInfoWrapper>
-        {examInfoList?.length !== 0 ? (
+        {isLoading ? (
+          'Loading...'
+        ) : examInfoList?.length !== 0 ? (
           examInfoList?.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
           <NoContent icon="pencil">
@@ -129,7 +118,7 @@ export const ExamInfoPage = () => {
         </BulletinButton>
       </ExamInfoWrapper>
       <PaginationWrapper>
-        {
+        {!isLoading && (
           <Pagination
             currentPage={currentPage}
             totalPage={totalPage}
@@ -137,7 +126,7 @@ export const ExamInfoPage = () => {
             onClickRightArrow={loadNextPage}
             onClickPageNumber={handleCurrentPage}
           />
-        }
+        )}
       </PaginationWrapper>
     </Root>
   )

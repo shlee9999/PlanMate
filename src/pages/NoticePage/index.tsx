@@ -13,10 +13,7 @@ import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { Pagination } from 'pages/ExamInfo/components/Pagination'
-import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
-import { ActionButton } from 'components/ActionButton/ActionButton'
-import { NoContentDescription } from 'components/NoContentDescription'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 
 export const NoticePage = () => {
@@ -24,7 +21,6 @@ export const NoticePage = () => {
   const [examInfoList, setExamInfoList] = useState<ResponseNoticeType[]>(data.noticeDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
-  const [selectedTag, setSelectedTag] = useState<string>('')
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
   }
@@ -42,22 +38,12 @@ export const NoticePage = () => {
   }
 
   useEffect(() => {
-    if (selectedTag === '')
-      findAllNotice({ pages: currentPage - 1 }).then((res: unknown) => {
-        const response = res as FindAllNoticeResponseProps
-        setExamInfoList(response.noticeDtoList)
-        setTotalPage(response.totalPages)
-      })
-    else
-      findPostWithTag({
-        tagName: selectedTag,
-        pages: currentPage - 1,
-      }).then((res) => {
-        const response = res as FindAllNoticeResponseProps
-        setExamInfoList(response.noticeDtoList)
-        setTotalPage(response.totalPages)
-      })
-  }, [currentPage, selectedTag])
+    findAllNotice({ pages: currentPage - 1 }).then((res: unknown) => {
+      const response = res as FindAllNoticeResponseProps
+      setExamInfoList(response.noticeDtoList)
+      setTotalPage(response.totalPages)
+    })
+  }, [currentPage])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
