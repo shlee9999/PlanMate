@@ -4,7 +4,7 @@ import {
   ExamInfoWrapper,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
-  NoContentWrapper,
+  NoContent,
   PaginationWrapper,
   Root,
   Tag,
@@ -26,8 +26,8 @@ import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { sampleInfoList } from 'constants/sampleData'
 
 export const ExamInfoPage = () => {
-  // const data = useLoaderData() as FindAllPostResponseProps
-  const data: FindAllPostResponseProps = sampleInfoList
+  const data = useLoaderData() as FindAllPostResponseProps
+  // const data: FindAllPostResponseProps = sampleInfoList
   const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
@@ -56,21 +56,21 @@ export const ExamInfoPage = () => {
   }
 
   useEffect(() => {
-    // if (selectedTag === '')
-    //   findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-    //     const response = res as FindAllPostResponseProps
-    //     setExamInfoList(response.postDtoList)
-    //     setTotalPage(response.totalPages)
-    //   })
-    // else
-    //   findPostWithTag({
-    //     tagName: selectedTag,
-    //     pages: currentPage - 1,
-    //   }).then((res) => {
-    //     const response = res as FindPostWithTagResponseProps
-    //     setExamInfoList(response.postDtoList)
-    //     setTotalPage(response.totalPages)
-    //   })
+    if (selectedTag === '')
+      findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+        const response = res as FindAllPostResponseProps
+        setExamInfoList(response.postDtoList)
+        setTotalPage(response.totalPages)
+      })
+    else
+      findPostWithTag({
+        tagName: selectedTag,
+        pages: currentPage - 1,
+      }).then((res) => {
+        const response = res as FindPostWithTagResponseProps
+        setExamInfoList(response.postDtoList)
+        setTotalPage(response.totalPages)
+      })
   }, [currentPage, selectedTag])
 
   useEffect(() => {
@@ -114,12 +114,10 @@ export const ExamInfoPage = () => {
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
-          <NoContentWrapper>
-            <NoContentDescription icon="pencil">
-              <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
-              <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
-            </NoContentDescription>
-          </NoContentWrapper>
+          <NoContent icon="pencil">
+            <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
+            <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
+          </NoContent>
         )}
 
         <BulletinButton onClick={onClickBulletinButton} icon="register">

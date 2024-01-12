@@ -31,7 +31,7 @@ import {
 
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import { ResponseCommentType } from 'api/common/commonType'
-import { CheckPostResponseProps } from 'api/post/checkPost'
+import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
@@ -71,8 +71,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
   const { postId } = useParams()
   if (!postId) return <Root>Error!</Root>
-  // const data = useLoaderData() as ExamInfoDetailDataType
-  const data = sampleExamInfoData
+  const data = useLoaderData() as ExamInfoDetailDataType
+  // const data = sampleExamInfoData
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
@@ -218,14 +218,14 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   }, [currentPage])
 
   useEffect(() => {
-    // checkPost({ postId: +postId }).then((res) => {
-    //   const response = res as CheckPostResponseProps
-    //   setExamInfoDetail(response)
-    //   setIsLiked(response.isMyHearted)ㅌㅈ
-    //   setCurrentLikeCount(response.likeCount)
-    //   setIsScrapped(response.isMyScraped)
-    //   setCurrentScrapCount(response.scrapCount)
-    // })
+    checkPost({ postId: +postId }).then((res) => {
+      const response = res as CheckPostResponseProps
+      setExamInfoDetail(response)
+      setIsLiked(response.isMyHearted)
+      setCurrentLikeCount(response.likeCount)
+      setIsScrapped(response.isMyScraped)
+      setCurrentScrapCount(response.scrapCount)
+    })
     if (currentPage <= 1 || currentPage > totalPage) return
     findAllComments({
       pages: currentPage - 1,
