@@ -39,8 +39,36 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = ({
 }) => {
   const navigate = useNavigate()
   const onClickTitle = (): void => {
-    if (postId) navigate(`/examinfo/detail/${postId}`)
-    else navigate(`/examinfo/detail/${noticeId}`)
+    if (postId)
+      navigate(`/examinfo/detail/${postId}`, {
+        state: {
+          commentCount,
+          likeCount,
+          nickname,
+          postId,
+          noticeId,
+          scrapCount,
+          title,
+          createdAt,
+          isMyHearted,
+          isMyScraped,
+        },
+      })
+    else
+      navigate(`/examinfo/detail/${noticeId}`, {
+        state: {
+          commentCount,
+          likeCount,
+          nickname,
+          postId,
+          noticeId,
+          scrapCount,
+          title,
+          createdAt,
+          isMyHearted,
+          isMyScraped,
+        },
+      })
   }
 
   return (

@@ -29,8 +29,8 @@ import {
   Count,
 } from './styled'
 
-import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
-import { ResponseCommentType } from 'api/common/commonType'
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom'
+import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
@@ -51,7 +51,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { deleteNotice } from 'api/notice/admin/deleteNotice'
 import { editNotice } from 'api/notice/admin/editNotice'
-import { sampleExamInfoData } from 'constants/sampleData'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 /**
@@ -67,22 +66,29 @@ import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 type ExamInfoDetailPageProps = {
   mode: string
 }
+type LocationState = ResponsePostType
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
-  const { postId } = useParams()
+  const location = useLocation()
+  const {
+    commentCount,
+    likeCount,
+    nickname,
+    postId,
+    scrapCount,
+    title,
+    createdAt,
+    isMyHearted: isLiked,
+    isMyScraped: isScrapped,
+  } = location.state as LocationState
+
   if (!postId) return <Root>Error!</Root>
   const data = useLoaderData() as ExamInfoDetailDataType
-  // const data = sampleExamInfoData
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
   const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
   const [totalPage, setTotalPage] = useState<number>(data.findAllCommentsResult.totalPages)
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [isLiked, setIsLiked] = useState<boolean>(data.checkPostResult.isMyHearted)
-  const [isScrapped, setIsScrapped] = useState<boolean>(data.checkPostResult.isMyScraped)
-  const [currentLikeCount, setCurrentLikeCount] = useState<number>(data.checkPostResult.likeCount)
-  const [currentScrapCount, setCurrentScrapCount] = useState<number>(data.checkPostResult.scrapCount)
-  const [currentCommentCount, setCurrentCommentCount] = useState<number>(data.checkPostResult.commentCount)
   const [currentContent, setCurrentContent] = useState<string>(examInfoDetail.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
@@ -93,10 +99,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setCommentInput(event.target.value)
   }
   const deleteComment = (id: number) => (): void => {
-    removeComment({ commentId: id }).then((res) => {
-      setCommentList((prev) => prev?.filter((comment) => comment.commentId !== id))
-      setCurrentCommentCount((prev) => prev - 1)
-    })
+    removeComment({ commentId: id })
     //댓글 total 개수 하나 줄여야 함
   }
 
@@ -173,7 +176,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         setTotalPage(response.totalPages)
         setCommentInput('')
         setCurrentPage(0)
-        setCurrentCommentCount((prev) => prev + 1)
       })
     })
   }
@@ -181,23 +183,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setIsDeletePostModalOpen(false)
   }
   const onClickLikeButton = () => {
-    if (isLiked) {
-      setIsLiked(false)
-      setCurrentLikeCount((prev) => prev - 1)
-    } else {
-      setIsLiked(true)
-      setCurrentLikeCount((prev) => prev + 1)
-    }
     likePost({ postId: +postId })
   }
   const onClickScrapButton = () => {
-    if (isScrapped) {
-      setIsScrapped(false)
-      setCurrentScrapCount((prev) => prev - 1)
-    } else {
-      setIsScrapped(true)
-      setCurrentScrapCount((prev) => prev + 1)
-    }
     scrapPost({ postId: +postId })
   }
   const onClickDeleteTypo = () => {
@@ -221,10 +209,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     checkPost({ postId: +postId }).then((res) => {
       const response = res as CheckPostResponseProps
       setExamInfoDetail(response)
-      setIsLiked(response.isMyHearted)
-      setCurrentLikeCount(response.likeCount)
-      setIsScrapped(response.isMyScraped)
-      setCurrentScrapCount(response.scrapCount)
     })
     if (currentPage <= 1 || currentPage > totalPage) return
     findAllComments({
@@ -247,12 +231,12 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
             ))}
           </TagWrapper>
           <TitleTypoWrapper>
-            <TitleTypo>{examInfoDetail.title}</TitleTypo>
-            <UpdatedDate>{examInfoDetail.createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</UpdatedDate>
+            <TitleTypo>{title}</TitleTypo>
+            <UpdatedDate>{createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</UpdatedDate>
           </TitleTypoWrapper>
         </LeftTypoWrapper>
         <RightTypoWrapper>
-          <PostOwnerNickname>{examInfoDetail.nickname}</PostOwnerNickname>
+          <PostOwnerNickname>{nickname}</PostOwnerNickname>
           <EditTypo onClick={onClickEditTypo}>수정</EditTypo>
           <DistributionLine />
           <DeleteTypo onClick={onClickDeleteTypo}>삭제</DeleteTypo>
@@ -294,9 +278,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
             fillRule="nonzero"
             onClick={onClickLikeButton}
           />
-          <Count onClick={onClickLikeButton}>{currentLikeCount}</Count>
+          <Count onClick={onClickLikeButton}>{likeCount}</Count>
           <ScrapIcon fill={isScrapped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
-          <Count onClick={onClickScrapButton}>{currentScrapCount}</Count>
+          <Count onClick={onClickScrapButton}>{scrapCount}</Count>
         </IconContainer>
       </ContentWrapper>
 
@@ -311,7 +295,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       )}
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{currentCommentCount}</CommentCount>개
+          댓글 <CommentCount>{commentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer className={commentList.length !== 0 ? '' : 'no_content'}>
           {commentList.length !== 0 ? (
