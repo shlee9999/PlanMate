@@ -5,10 +5,7 @@ import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export const Root = styled(InfoBox)`
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: space-between;
+  position: relative;
   flex-grow: 1;
   padding: 24px 25px;
   height: 400px;
@@ -106,6 +103,9 @@ export const DateCell = styled(Cell)<DateCellProps>`
 `
 
 export const LegendContainer = styled.ul`
+  position: absolute;
+  right: 18px;
+  bottom: 15px;
   display: flex;
 `
 export const Legend = styled.legend`
