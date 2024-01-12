@@ -1,5 +1,5 @@
 import React from 'react'
-import { week } from 'constants/week'
+import { weekDays } from 'constants/week'
 import { DaySelectWrapper } from './styled'
 import { DayButton } from './DayButton'
 
@@ -10,7 +10,7 @@ type DaySelectProps = {
 export const DaySelect: React.FC<DaySelectProps> = ({ assignSubjectDay }) => {
   return (
     <DaySelectWrapper>
-      {week.map((day, index) => (
+      {weekDays.map((day, index) => (
         <DayButton key={index} day={day} assignSubjectDay={assignSubjectDay} />
       ))}
     </DaySelectWrapper>

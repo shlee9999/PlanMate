@@ -22,13 +22,14 @@ import { IAppointment } from 'types'
 import { SelectModal } from '../SelectModal'
 import { Appointment } from '../Appointment'
 import { AnimatePresence } from 'framer-motion'
+import { weekDays } from 'constants/week'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
   startHour?: number
   endHour?: number
 }
-const dayList = ['일', '월', '화', '수', '목', '금', '토']
+
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
@@ -107,7 +108,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
             {getWeekDates(currentDate).map((date, index) => (
               <DayCell $today={getDateSaveForm(now) === getDateSaveForm(date)} key={getDateSaveForm(date)}>
                 <>
-                  <DayTypo>{dayList[index]}</DayTypo>
+                  <DayTypo>{weekDays[index]}</DayTypo>
                   <DateTypo>{getDateSaveForm(date).slice(-2)}</DateTypo>
                 </>
               </DayCell>

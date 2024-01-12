@@ -1,4 +1,4 @@
-import { week } from 'constants/week'
+import { weekDays } from 'constants/week'
 
 export const generateId = (): string => {
   const timestamp = Date.now().toString() // 현재 시간을 밀리초 단위로 가져옴
@@ -52,7 +52,7 @@ export const useFormattedDate = (currentDate: Date): string => {
   const month: string = `${currentDate.getMonth() + 1}`.padStart(2, '0')
   const date: string = `${currentDate.getDate()}`.padStart(2, '0')
   const day: number = currentDate.getDay()
-  const formattedDate: string = month + '월 ' + date + '일 (' + week[day] + ')요일'
+  const formattedDate: string = month + '월 ' + date + '일 (' + weekDays[day] + ')요일'
   return formattedDate
 }
 

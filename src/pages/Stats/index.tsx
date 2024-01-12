@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { DayValue } from 'react-modern-calendar-datepicker'
 import { getDateInfo } from 'utils/helper'
 import {
   HeaderContainer,
@@ -14,7 +13,8 @@ import {
   UserName,
 } from './styled'
 import { InfoContainer } from 'pages/Stats/components/InfoContainer'
-import { DatePicker } from 'pages/Stats/components/DatePicker'
+import { Calendar } from './components/Calendar'
+import { DayValue } from 'react-modern-calendar-datepicker'
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DayValue>(() => {
@@ -22,9 +22,9 @@ export const StatsPage = () => {
     return { year, month: month + 1, day }
   })
 
-  const handleDateSelect = (selectedDate: DayValue | null) => {
-    setSelectedDate(selectedDate)
-  }
+  // const handleDateSelect = (selectedDate: DayValue | null) => {
+  //   setSelectedDate(selectedDate)
+  // }
   return (
     <Root>
       <HeaderContainer>
@@ -38,7 +38,8 @@ export const StatsPage = () => {
       <Container>
         <Title>공부량 한 눈에 보기</Title>
         <StatsContainer>
-          <DatePicker onDateSelect={handleDateSelect} />
+          {/* <DatePicker onDateSelect={handleDateSelect} /> */}
+          <Calendar />
           <InfoContainer selectedDate={selectedDate} />
         </StatsContainer>
       </Container>
