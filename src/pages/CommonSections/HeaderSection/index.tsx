@@ -25,7 +25,7 @@ import { timeToSecond } from 'utils/helper'
 import { initializeTodo } from 'modules/todos'
 import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
-import { Logo } from 'assets/Logo'
+import { CheckUserInfoResponseProps, checkUserInfo } from 'api/member/checkUserInfo'
 
 export const HeaderSection: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
@@ -67,7 +67,7 @@ export const HeaderSection: FC = () => {
   }, [currentTab])
 
   useEffect(() => {
-    const currentUrl = window.location.href
+    // const currentUrl = window.location.href
     const fetchStudyTime = async () => {
       const res = await studyTime()
       if (res) {
@@ -82,21 +82,36 @@ export const HeaderSection: FC = () => {
       }
     }
     fetchStudyTime()
-    const split = currentUrl.split('id')
-    if (split.length >= 2) {
-      const userId = +split[1].replace('=', '')
-      const getUserAuth = async () => {
-        const res = await googleToken({ id: userId })
-        if (res) {
-          const response = res as GoogleTokenResponseProps
-          localStorage.setItem('userAuthInfo', JSON.stringify(response)) //최초 저장
-          dispatch(changeuserAuthInfo(response))
-          navigate('/')
-          window.location.reload()
-        }
-      }
-      getUserAuth()
-    }
+    // const split = currentUrl.split('id')
+    // if (split.length >= 2) {
+    //   const userId = +split[1].replace('=', '')
+    //   const getUserAuth = async () => {
+    //     const res = await googleToken({ id: userId })
+    //     if (res) {
+    //       const response = res as GoogleTokenResponseProps
+    //       localStorage.setItem('userAuthInfo', JSON.stringify(response)) //최초 저장
+    //       dispatch(changeuserAuthInfo(response))
+    //       navigate('/')
+    //       window.location.reload()
+    //     }
+    //   }
+    //   getUserAuth()
+    // }
+
+    // 로그인 구현 전 임시 userInfo초기화 코드입니다.
+    checkUserInfo().then((res) => {
+      const response = res as CheckUserInfoResponseProps
+      // localStorage.setItem('userAuthInfo', JSON.stringify(res as CheckUserInfoResponseProps)) //최초 저장
+      dispatch(
+        changeuserAuthInfo({
+          accessToken: process.env.REACT_APP_ACCESS_TOKEN,
+          email: response.email,
+          id: response.memberId,
+          img: response.profile,
+          name: response.memberName,
+        })
+      )
+    })
   }, [])
 
   useEffect(() => {

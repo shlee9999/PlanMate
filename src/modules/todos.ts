@@ -32,16 +32,7 @@ type TodosAction =
   | ReturnType<typeof updateTodo>
   | ReturnType<typeof initializeTodo>
 
-const InitialState: TodoItemType[] = [
-  {
-    subjectId: 0,
-    name: 'example',
-    colorHex: defaultColor,
-    time: 5,
-    startAt: '1',
-    endAt: '2',
-  },
-]
+const InitialState: TodoItemType[] = []
 
 function todos(state: TodoItemType[] = InitialState, action: TodosAction) {
   switch (action.type) {
