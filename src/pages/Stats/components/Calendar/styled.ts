@@ -18,9 +18,7 @@ export const Table = styled.table`
   width: 100%;
   height: 100%;
 `
-export const Header = styled.thead`
-  /* background-color: tomato; */
-`
+export const Header = styled.thead``
 export const HeaderRow = styled.tr`
   display: flex;
   justify-content: space-between;
@@ -38,7 +36,6 @@ export const Month = styled(motion.p)`
   right: 0;
   margin: 0 auto;
   text-align: center;
-  /* background-color: tomato; */
   font-size: 20px;
   font-weight: 700;
   line-height: 25px;
@@ -52,7 +49,6 @@ export const NextButton = styled(RightArrow)`
 
 export const Body = styled.tbody`
   height: 100%;
-  /* background-color: tomato; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -95,6 +91,7 @@ type DateCellProps = {
 export const DateCell = styled(Cell)<DateCellProps>`
   border: 1px solid ${(props) => (props.$isSelected ? props.theme.primary.dark : 'none')};
   scale: ${(props) => (props.$isSelected ? 1.2 : 1)};
+
   cursor: pointer;
   &:hover {
     scale: 1.2;
@@ -105,6 +102,7 @@ export const DateCell = styled(Cell)<DateCellProps>`
   height: 33px;
   background-color: ${(props) => (props.$currentMonth ? props.theme.primary.default : 'none')};
   color: ${(props) => (props.$currentMonth ? props.theme.text.white : props.theme.background.gray1)};
+  background-color: ${(props) => (props.$isSelected ? props.theme.primary.dark : '')};
 `
 
 export const LegendContainer = styled.ul`

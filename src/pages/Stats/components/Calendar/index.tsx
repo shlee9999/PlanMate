@@ -72,39 +72,40 @@ export const Calendar: FC<CalendarProps> = ({ className }) => {
             ))}
           </DayRow>
           <Line />
-          <DateContainer
-            key={currentDate.month}
-            variants={MonthVar}
-            initial="initial"
-            animate="visible"
-            exit="exit"
-            transition={{ duration: 0.5 }}
-            custom={back}
-          >
-            {Array.from(Array(weekCount(currentDate.year, currentDate.month + 1)).keys()).map((week) => (
-              <WeekRow key={week}>
-                {getWeekDates(new Date(currentDate.year, currentDate.month, week * 7 + 1)).map((date) => (
-                  <DateCell
-                    key={date.getTime()}
-                    $currentMonth={date.getMonth() === currentDate.month}
-                    onClick={() => setCurrentDate(getDateInfo(date))}
-                    $isSelected={
-                      getDateInfo(date).date == currentDate.date && getDateInfo(date).month === currentDate.month
-                    }
-                  >
-                    {/* 달력 이전달, 이번달만 표시하고, 이후는 표시 안하는 로직 */}
-                    {date.getMonth() <= currentDate.month
-                      ? currentDate.month === 11 && date.getMonth() === 0
-                        ? null
-                        : date.getDate()
-                      : currentDate.month === 0 && date.getMonth() === 11
-                      ? date.getDate()
-                      : null}
-                  </DateCell>
-                ))}
-              </WeekRow>
-            ))}
-          </DateContainer>
+          <AnimatePresence initial={false}>
+            <DateContainer
+              key={currentDate.month}
+              variants={MonthVar}
+              initial="initial"
+              animate="visible"
+              transition={{ duration: 0.5 }}
+              custom={back}
+            >
+              {Array.from(Array(weekCount(currentDate.year, currentDate.month + 1)).keys()).map((week) => (
+                <WeekRow key={week}>
+                  {getWeekDates(new Date(currentDate.year, currentDate.month, week * 7 + 1)).map((date) => (
+                    <DateCell
+                      key={date.getTime()}
+                      $currentMonth={date.getMonth() === currentDate.month}
+                      onClick={() => setCurrentDate(getDateInfo(date))}
+                      $isSelected={
+                        getDateInfo(date).date == currentDate.date && getDateInfo(date).month === currentDate.month
+                      }
+                    >
+                      {/* 달력 이전달, 이번달만 표시하고, 이후는 표시 안하는 로직 */}
+                      {date.getMonth() <= currentDate.month
+                        ? currentDate.month === 11 && date.getMonth() === 0
+                          ? null
+                          : date.getDate()
+                        : currentDate.month === 0 && date.getMonth() === 11
+                        ? date.getDate()
+                        : null}
+                    </DateCell>
+                  ))}
+                </WeekRow>
+              ))}
+            </DateContainer>
+          </AnimatePresence>
         </Body>
       </Table>
       <LegendContainer>
