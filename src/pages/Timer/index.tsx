@@ -59,7 +59,6 @@ export const TimerPage: FC = () => {
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [closestDDay, setClosestDDay] = useState<number | null>()
   const formattedDate: string = useFormattedDate(new Date())
   const todos = useSelector((state: RootState) => state.todos)
   const dispatch = useDispatch()
@@ -71,11 +70,6 @@ export const TimerPage: FC = () => {
     setIsModalOpen(false)
   }
 
-  const nowDay: DayValue = {
-    year: 2023,
-    month: 7,
-    day: 31,
-  }
   const closeSuggestModal = (): void => {
     setIsSuggestModalOpen(false)
   }

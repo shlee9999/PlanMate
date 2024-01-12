@@ -38,12 +38,6 @@ export const routerInfo = [
       {
         path: 'examinfo',
         element: <ExamInfoPage />,
-
-        loader: async (): Promise<FindAllPostResponseProps> => {
-          return (await findAll({
-            pages: 0,
-          })) as FindAllPostResponseProps
-        }, //비동기 처리 등
       },
       {
         path: 'examinfo/post',

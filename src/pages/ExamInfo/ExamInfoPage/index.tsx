@@ -15,23 +15,26 @@ import {
   UpperTagButtonWrapper,
 } from './styled'
 import { useEffect, useState } from 'react'
-import { ResponsePostType } from 'api/common/commonType'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
-import { NoContentDescription } from 'components/NoContentDescription'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
-import { sampleInfoList } from 'constants/sampleData'
+import { checkPost } from 'api/post/checkPost'
+import { useQuery } from 'react-query'
 
 export const ExamInfoPage = () => {
-  const data = useLoaderData() as FindAllPostResponseProps
-  // const data: FindAllPostResponseProps = sampleInfoList
-  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [totalPage, setTotalPage] = useState<number>(data.totalPages)
   const [selectedTag, setSelectedTag] = useState<string>('')
+  const { data, isLoading } = useQuery<Promise<FindAllPostResponseProps>, Error, FindAllPostResponseProps, string[]>(
+    ['findAllResponse', currentPage + '', selectedTag],
+    () => findAll({ pages: currentPage - 1 })
+  )
+
+  const examInfoList = data?.postDtoList
+  const totalPage = data?.totalPages
+
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
   }
@@ -55,27 +58,27 @@ export const ExamInfoPage = () => {
     setCurrentPage(1)
   }
 
-  useEffect(() => {
-    if (selectedTag === '')
-      findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-        const response = res as FindAllPostResponseProps
-        setExamInfoList(response.postDtoList)
-        setTotalPage(response.totalPages)
-      })
-    else
-      findPostWithTag({
-        tagName: selectedTag,
-        pages: currentPage - 1,
-      }).then((res) => {
-        const response = res as FindPostWithTagResponseProps
-        setExamInfoList(response.postDtoList)
-        setTotalPage(response.totalPages)
-      })
-  }, [currentPage, selectedTag])
+  // useEffect(() => {
+  //   if (selectedTag === '')
+  //     findAll({ pages: currentPage - 1 }).then((res: unknown) => {
+  //       const response = res as FindAllPostResponseProps
+  //       setExamInfoList(response.postDtoList)
+  //       setTotalPage(response.totalPages)
+  //     })
+  //   else
+  //     findPostWithTag({
+  //       tagName: selectedTag,
+  //       pages: currentPage - 1,
+  //     }).then((res) => {
+  //       const response = res as FindPostWithTagResponseProps
+  //       setExamInfoList(response.postDtoList)
+  //       setTotalPage(response.totalPages)
+  //     })
+  // }, [currentPage, selectedTag])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [examInfoList])
+  }, [data])
 
   return (
     <Root>
@@ -85,17 +88,18 @@ export const ExamInfoPage = () => {
         <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
       </TypoWrapper>
       <UpperTagButtonWrapper>
-        {examinfoTagList.map((tag, index) =>
-          index > 5 ? null : (
-            <TagButton
-              key={index}
-              className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(examinfoTagList[index])}
-            >
-              <Tag>{tag}</Tag>
-            </TagButton>
-          )
-        )}
+        {!isLoading &&
+          examinfoTagList.map((tag, index) =>
+            index > 5 ? null : (
+              <TagButton
+                key={index}
+                className={tag === selectedTag ? 'isSelected' : ''}
+                onClick={onClickTagButton(examinfoTagList[index])}
+              >
+                <Tag>{tag}</Tag>
+              </TagButton>
+            )
+          )}
       </UpperTagButtonWrapper>
       <LowerTagButtonWrapper>
         {examinfoTagList.map((tag, index) =>
@@ -111,8 +115,8 @@ export const ExamInfoPage = () => {
         )}
       </LowerTagButtonWrapper>
       <ExamInfoWrapper>
-        {examInfoList.length !== 0 ? (
-          examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
+        {examInfoList?.length !== 0 ? (
+          examInfoList?.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
           <NoContent icon="pencil">
             <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
