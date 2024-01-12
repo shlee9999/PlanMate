@@ -11,11 +11,11 @@ export const Root = styled(motion.div)`
 export const InfoBoxVar: Variants = {
   initial_left: {
     opacity: 0,
-    right: 100,
+    right: 20,
   },
   initial_right: {
     opacity: 0,
-    right: -100,
+    right: -25,
   },
   initial: {
     opacity: 0,
