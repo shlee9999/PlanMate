@@ -1,7 +1,6 @@
-import { ExamInfoItem } from 'components/ExamInfo/ExamInfoItem'
+import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
 import {
   BulletinButton,
-  BulletinIcon,
   ExamInfoWrapper,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
@@ -20,12 +19,12 @@ import { ResponsePostType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examinfoTagList } from 'constants/tagList'
-import { Pagination } from 'components/ExamInfo/Pagination'
+import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
-import { NoContentDescription } from 'components/common/NoContentDescription'
-import pencilImg from 'assets/images/pencil.png'
-import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { NoContentDescription } from 'components/NoContentDescription'
+import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { sampleInfoList } from 'constants/sampleData'
+
 export const ExamInfoPage = () => {
   // const data = useLoaderData() as FindAllPostResponseProps
   const data: FindAllPostResponseProps = sampleInfoList
@@ -116,15 +115,14 @@ export const ExamInfoPage = () => {
           examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
           <NoContentWrapper>
-            <NoContentDescription src={pencilImg}>
+            <NoContentDescription icon="pencil">
               <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
               <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
             </NoContentDescription>
           </NoContentWrapper>
         )}
 
-        <BulletinButton onClick={onClickBulletinButton}>
-          <BulletinIcon />
+        <BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </BulletinButton>
       </ExamInfoWrapper>

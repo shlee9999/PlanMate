@@ -1,7 +1,11 @@
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
-import yellowCircle from 'assets/images/yellow_circle.png'
-export const Root = styled.div`
+import { Variants, motion } from 'framer-motion'
+import { Logo } from 'assets/Logo'
+export const Root = styled.nav`
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
   position: fixed;
   left: 50%;
   top: 0;
@@ -21,10 +25,9 @@ export const ContentWrapper = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
 `
-export const LeftContainer = styled.div`
+export const NavItemContainer = styled.div`
   display: flex;
   align-items: center;
-  width: fit-content;
   height: 30px;
 `
 
@@ -32,7 +35,6 @@ export const RightContainer = styled.div`
   display: flex;
   column-gap: 18px;
   align-items: center;
-  width: fit-content;
   font-weight: 500;
   font-size: 14px;
   line-height: 17.5px;
@@ -40,7 +42,8 @@ export const RightContainer = styled.div`
 export const GreetTypo = styled.p`
   cursor: pointer;
 `
-export const GreenTypo = styled.span`
+export const Username = styled.span`
+  position: relative;
   color: ${(props) => props.theme.primary.default};
   text-decoration: underline;
 `
@@ -52,40 +55,54 @@ export const Notice = styled.p`
   cursor: pointer;
 `
 
-export const Logo = styled.img`
-  width: 104px;
-  height: 31px;
-  margin-right: 56px;
-`
-
-export const PageList = styled.div`
+export const NavItems = styled.ul`
   display: flex;
   column-gap: 16px;
   cursor: pointer;
 `
 
-export const PageItem = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0;
-`
+type PageItemProps = {
+  $isSelected: boolean
+}
 
-export const SelectedPageItem = styled.p`
+export const NavItem = styled(motion.li)<PageItemProps>`
   position: relative;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   letter-spacing: 0;
-  color: ${(props) => props.theme.primary.default};
-  &::after {
-    content: '';
-    background: url(${yellowCircle}) no-repeat 0 0;
-    width: 6px;
-    height: 6px;
-    position: absolute;
-    bottom: 110%;
-    left: 50%;
-    transform: translateX(-50%);
+  color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
+  transition: color 0.2s;
+  &:hover {
+    color: ${(props) => props.theme.primary.default};
   }
+`
+export const NavItemVar: Variants = {
+  initial: {
+    y: 0,
+  },
+  hover: {
+    y: -2,
+    transition: {
+      type: 'tween',
+      duration: 0.2,
+    },
+  },
+}
+export const YellowCircle = styled(motion.div)`
+  position: absolute;
+  top: -7px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 5px;
+  height: 5px;
+  background-color: ${(props) => props.theme.yellow};
+  border-radius: 100px;
+`
+
+export const StyledLogo = styled(Logo)`
+  width: 104px;
+  height: 31px;
+  margin-right: 56px;
 `

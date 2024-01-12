@@ -23,7 +23,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -35,8 +35,8 @@ body {
 	line-height: 1;
 	background-color: ${(props) => props.theme.body};
 }
-ol, ul {
-	list-style: none;
+ol, ul, li {
+	list-style: none;  
 }
 blockquote, q {
 	quotes: none;
@@ -55,12 +55,17 @@ button {
   border: none;
   cursor: pointer;
   background-color: inherit;
+  -webkit-user-select: auto;
+  -ms-user-select: auto; /* IE 10 and IE 11 */
+  user-select: auto; /* Standard syntax */
 }
 input {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   outline: none;
   border: none;
 }
 textarea {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   outline: none;
   border: none;
   resize: none;

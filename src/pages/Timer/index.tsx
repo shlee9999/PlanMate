@@ -16,7 +16,6 @@ import {
   StatsContainer,
   RightContainer,
   AddButton,
-  PlusImg,
   LowerContainer,
   CheerTypo,
   Test,
@@ -29,24 +28,27 @@ import {
 
 import { daysUntil, useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
-import { StudyTimerWidget } from 'components/Timer/TimerWidget'
-import TodoItem from 'components/Timer/TodoItem'
-import AddModal from 'components/Timer/SubjectModal/AddModal'
-import { GraphContainer } from 'components/Stats/InfoContainer/component/GraphContainer'
+import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
+import TodoItem from 'pages/Timer/components/TodoItem'
+import AddModal from 'pages/Timer/components/SubjectModal/AddModal'
+import { GraphContainer } from 'pages/Stats/components/InfoContainer/component/GraphContainer'
 import { DayValue } from 'react-modern-calendar-datepicker'
 
 import { initializeTimer } from 'modules/timer'
-import { NoContentDescription } from 'components/common/NoContentDescription'
-import bookCheckImg from 'assets/images/book_check.png'
-import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { NoContentDescription } from 'components/NoContentDescription'
+import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
-import { SuggestModal } from 'components/Timer/SuggestModal'
+import { SuggestModal } from 'pages/Timer/components/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
-import { PieChartBox } from 'components/Stats/InfoContainer/component/PieChartContainer/PieChartContainer'
+import { PieChartBox } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
 
-import { TimerContainer } from 'components/Stats/InfoContainer/component/TimerContainer/TimerContainer'
-import { StudyContainer } from 'components/Stats/InfoContainer/styled'
+import { TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
+import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
+import { PlusIcon } from 'assets/SvgComponents'
+import { AnimatePresence } from 'framer-motion'
+import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
+import { InfoBox } from 'components/InfoBox'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -119,7 +121,7 @@ export const TimerPage: FC = () => {
               <DateTypo>{formattedDate}</DateTypo>
               <Title>오늘의 공부량 👏 </Title>
             </LeftTopDescriptionWrapper>
-            <ResultContainer>
+            <ResultContainer left>
               <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
               <StudyTimerWidget totalTime={totalTime} />
               <LowerDescriptionTypo>
@@ -130,7 +132,7 @@ export const TimerPage: FC = () => {
           <SizedBox />
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
-            <StatsContainer>
+            <StatsContainer right>
               <StudyContainer>
                 <TimerContainer />
                 <PieChartBox />
@@ -169,7 +171,7 @@ export const TimerPage: FC = () => {
               return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
             })
           ) : (
-            <NoContentDescription src={bookCheckImg}>
+            <NoContentDescription icon="book_check">
               <NoContentTypo>아직 공부할 과목이 없어요!</NoContentTypo>{' '}
               <NoContentTypo>일정을 설정해 과목을 추가해볼까요?</NoContentTypo>
             </NoContentDescription>
@@ -177,11 +179,13 @@ export const TimerPage: FC = () => {
         </TodoContainer>
 
         <AddButton onClick={openModal}>
-          <PlusImg />
+          <PlusIcon fill="currentColor" />
           과목
         </AddButton>
       </LowerContainer>
-      <AddModal isModalOpen={isModalOpen} closeModal={closeModal} title="과목 추가" />
+
+      <AddModal closeModal={closeModal} title="과목 추가" isOpen={isModalOpen} />
+
       {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
     </Root>
   )

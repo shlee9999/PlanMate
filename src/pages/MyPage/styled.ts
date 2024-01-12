@@ -1,6 +1,9 @@
 import styled from 'styled-components'
-import ellipsisImg from 'assets/images/ellipsis.png'
+import ellipsisImg from 'assets/images/ellipsis.svg'
 import { PageRoot } from 'commonStyled'
+import { RightArrow } from 'assets/SvgComponents'
+import { HEADER_HEIGHT, FOOTER_HEIGHT } from 'constants/layout'
+import { motion } from 'framer-motion'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -10,7 +13,13 @@ export const EllipsisImg = styled.img`
   transform: rotate(90deg);
 `
 export const Root = styled(PageRoot)`
-  padding: 31px 160px;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
+`
+export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -74,10 +83,6 @@ export const Email = styled.div`
   line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
 `
-export const GoogleLogo = styled.img`
-  width: 16px;
-  height: 16px;
-`
 
 export const TypoWrapper = styled.div`
   display: flex;
@@ -92,6 +97,7 @@ export const AdminDDay = styled.p`
   margin-bottom: 8px;
 `
 export const SeeMore = styled.p`
+  cursor: pointer;
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -99,15 +105,8 @@ export const SeeMore = styled.p`
   line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
 `
-export const RightArrow = styled.img`
-  width: 18px;
-  height: 18px;
-`
-export const LeftArrow = styled.img`
-  width: 18px;
-  height: 18px;
-  transform: rotate(180deg);
-`
+export const NextArrow = styled(RightArrow)``
+
 export const DDayContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -170,22 +169,29 @@ export const TabRow = styled.div`
   }
   display: table-row;
 `
-export const TabItem = styled.div`
+
+export const TabItem = styled.div<{ $isSelected: boolean }>`
   text-align: center;
   padding: 0 8px;
   display: table-cell;
   padding-bottom: 10px;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: ${(props) => (props.$isSelected ? 500 : 400)};
   line-height: 18px;
   cursor: pointer;
-  &.isSelected {
-    font-weight: 500;
-    color: ${(props) => props.theme.primary.default};
-    border-bottom: 1px solid ${(props) => props.theme.primary.default};
-  }
+  color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
+  position: relative;
+  transition: color 0.2s ease-in-out;
 `
-
+export const SelectedLine = styled(motion.hr)`
+  position: absolute;
+  width: 70px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 0;
+  background-color: ${(props) => props.theme.primary.default};
+`
 export const ArrowWrapper = styled.div`
   margin-top: 8px;
   display: flex;

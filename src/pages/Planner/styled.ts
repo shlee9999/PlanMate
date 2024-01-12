@@ -1,4 +1,5 @@
 import { PageRoot } from 'commonStyled'
+import { FOOTER_HEIGHT, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 
 export const Root = styled(PageRoot)`
@@ -6,21 +7,14 @@ export const Root = styled(PageRoot)`
   flex-direction: column;
   align-items: center;
   padding: 30px 160px;
+  min-height: initial;
+  height: calc(100vh - ${HEADER_HEIGHT}px);
 `
 
 export const HeaderContainer = styled.div`
-  display: flex;
   width: 100%;
   height: 70px;
-  align-items: center;
-  margin-bottom: 20px;
 `
-export const HeaderContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: none;
-`
-
 export const HeaderMessage = styled.span`
   span {
     color: ${(props) => props.theme.primary.default};
@@ -40,9 +34,4 @@ export const HeaderTitleLogo = styled.p`
   letter-spacing: 0em;
   text-align: left;
   margin-top: 2px;
-`
-
-export const MainContainer = styled.div`
-  display: flex;
-  width: 100%;
 `

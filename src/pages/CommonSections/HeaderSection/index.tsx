@@ -1,20 +1,20 @@
 import { FC, useEffect, useState } from 'react'
 import {
   ContentWrapper,
-  GreenTypo,
+  Username,
   GreetTypo,
-  LeftContainer,
-  Logo,
+  NavItemContainer,
   Notice,
   RightContainer,
   Root,
-  SelectedPageItem,
-  PageItem,
-  PageList,
+  NavItem,
+  NavItems,
   LogoutTypo,
+  YellowCircle,
+  NavItemVar,
+  StyledLogo,
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
-import logo from 'assets/images/logo.png'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -25,6 +25,7 @@ import { timeToSecond } from 'utils/helper'
 import { initializeTodo } from 'modules/todos'
 import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
+import { Logo } from 'assets/Logo'
 
 export const HeaderSection: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
@@ -109,26 +110,33 @@ export const HeaderSection: FC = () => {
   return (
     <Root>
       <ContentWrapper>
-        <LeftContainer>
-          <Logo src={logo} />
-          <PageList>
-            {pageList.map((item, index) =>
-              index === currentTab ? (
-                <SelectedPageItem key={index} onClick={onClickTabItem(index)}>
-                  {item.title}
-                </SelectedPageItem>
-              ) : (
-                <PageItem key={index} onClick={onClickTabItem(index)}>
-                  {item.title}
-                </PageItem>
-              )
-            )}
-          </PageList>
-        </LeftContainer>
+        <NavItemContainer>
+          <StyledLogo />
+          <NavItems>
+            {pageList.map((item, index) => (
+              <NavItem
+                key={index}
+                onClick={onClickTabItem(index)}
+                $isSelected={index === currentTab}
+                variants={NavItemVar}
+                initial="initial"
+                whileHover="hover"
+              >
+                {item.title}
+                {index === currentTab && <YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
+              </NavItem>
+            ))}
+          </NavItems>
+        </NavItemContainer>
         <RightContainer>
           {userAuthInfo.name && (
             <GreetTypo>
-              안녕하세요, <GreenTypo onClick={onClickNickname}>{userAuthInfo.name}</GreenTypo>님!
+              안녕하세요,{' '}
+              <Username onClick={onClickNickname}>
+                {userAuthInfo.name}
+                {currentPath === '/mypage' && <YellowCircle layoutId="yellow_circle" />}
+              </Username>
+              님!
             </GreetTypo>
           )}
           {userAuthInfo.name && <LogoutTypo onClick={onClickLogout}>로그아웃</LogoutTypo>}

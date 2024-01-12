@@ -1,6 +1,7 @@
 import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
-import { PageRoot, RegisterButton, TagRoot } from 'commonStyled'
+import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
+import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const Root = styled(PageRoot)`
   padding: 40px 0;
@@ -10,6 +11,9 @@ export const Root = styled(PageRoot)`
     min-height: 150px;
     padding-left: 10px;
   }
+  -webkit-user-select: auto;
+  -ms-user-select: auto; /* IE 10 and IE 11 */
+  user-select: auto; /* Standard syntax */
 `
 
 export const TagWrapper = styled.div`
@@ -111,36 +115,20 @@ export const ContentWrapper = styled.div`
 `
 
 export const IconContainer = styled.div`
+  cursor: pointer;
   position: absolute;
   right: 8px;
   bottom: 10px;
   display: flex;
-  column-gap: 8px;
+  align-items: center;
   font-weight: 400;
   font-size: 10px;
   line-height: 12.5px;
 `
-
-export const LikeImg = styled.img`
-  width: 16px;
-  height: 16px;
-`
-export const ScrapImg = styled.img`
-  width: 16px;
-  height: 16px;
-`
-const ImgButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const Count = styled.p`
+  margin-right: 5px;
   font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  color: ${(props) => props.theme.text.gray1};
 `
-export const LikeButton = styled(ImgButton)``
-export const ScrapButton = styled(ImgButton)``
-
 export const CommentWrapper = styled.div`
   margin-bottom: 24px;
 `
@@ -184,7 +172,7 @@ export const CommentInput = styled.textarea`
     color: ${(props) => props.theme.text.gray3};
   }
 `
-export const CommentRegisterButton = styled(RegisterButton)`
+export const CommentRegisterButton = styled(ActionButton)`
   align-self: flex-end;
 `
 
@@ -192,7 +180,7 @@ export const EditorWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
-export const EditCompleteButton = styled(RegisterButton)`
+export const EditCompleteButton = styled(ActionButton)`
   align-self: flex-end;
   margin-bottom: 10px;
 `

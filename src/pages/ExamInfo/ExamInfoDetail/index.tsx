@@ -22,45 +22,38 @@ import {
   DeleteTypo,
   UpperTypoWrapper,
   DistributionLine,
-  LikeButton,
-  LikeImg,
-  ScrapImg,
-  ScrapButton,
   UserNickname,
   EditCompleteButton,
   EditorWrapper,
   Content,
+  Count,
 } from './styled'
 
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom'
 import { ResponseCommentType } from 'api/common/commonType'
 import { CheckPostResponseProps } from 'api/post/checkPost'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
-import { CheckImg } from 'commonStyled'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
-import { ExamInfoComment } from 'components/ExamInfo/ExamInfoComment'
+import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
 import { likePost } from 'api/post/likePost'
 import { scrapPost } from 'api/post/scrapPost'
-import hollowLikeImg from 'assets/images/like_button_hollow.png'
-import filledLikeImg from 'assets/images/like_button_filled.png'
-import hollowScrapImg from 'assets/images/scrap_button_hollow.png'
-import filledScrapImg from 'assets/images/scrap_button_filled.png'
 import { ExamInfoDetailDataType } from 'types'
-import { DeletePostModal } from 'components/ExamInfo/DeleteModal/DeletePostModal'
+import { DeletePostModal } from 'pages/ExamInfo/components/DeleteModal/DeletePostModal'
 import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertFromRaw } from 'draft-js'
 import { editPost } from 'api/post/editPost'
-import { NoContentDescription } from 'components/common/NoContentDescription'
-import chatImg from 'assets/images/chat.png'
-import { NoContentTypo } from 'components/common/NoContentDescription/styled'
+import { NoContentDescription } from 'components/NoContentDescription'
+import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { deleteNotice } from 'api/notice/admin/deleteNotice'
 import { editNotice } from 'api/notice/admin/editNotice'
 import { sampleExamInfoData } from 'constants/sampleData'
+import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
+import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 /**
  * @title
  * @like
@@ -286,21 +279,24 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
               editorState={editorState}
               onEditorStateChange={onEditorStateChange}
             /> */}
-            <EditCompleteButton onClick={onClickEditCompleteButton}>수정완료</EditCompleteButton>
+            <EditCompleteButton onClick={onClickEditCompleteButton} icon="register">
+              수정완료
+            </EditCompleteButton>
           </EditorWrapper>
         ) : (
           <Content dangerouslySetInnerHTML={{ __html: deserializeContent(currentContent) }} />
         )}
 
         <IconContainer>
-          <LikeButton onClick={onClickLikeButton}>
-            <LikeImg alt="like_img" src={isLiked ? filledLikeImg : hollowLikeImg} />
-            {currentLikeCount}
-          </LikeButton>
-          <ScrapButton onClick={onClickScrapButton}>
-            <ScrapImg alt="scrap_img" src={isScrapped ? filledScrapImg : hollowScrapImg} />
-            {currentScrapCount}
-          </ScrapButton>
+          <HeartIcon
+            fill={isLiked ? `${HEART_COLOR}` : 'none'}
+            color="red"
+            fillRule="nonzero"
+            onClick={onClickLikeButton}
+          />
+          <Count onClick={onClickLikeButton}>{currentLikeCount}</Count>
+          <ScrapIcon fill={isScrapped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
+          <Count onClick={onClickScrapButton}>{currentScrapCount}</Count>
         </IconContainer>
       </ContentWrapper>
 
@@ -308,8 +304,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         <CommentInputWrapper>
           <UserNickname>{userAuthInfo.name}</UserNickname>
           <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-          <CommentRegisterButton onClick={onClickRegisterButton}>
-            <CheckImg />
+          <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
             댓글등록
           </CommentRegisterButton>
         </CommentInputWrapper>
@@ -337,15 +332,14 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
             ))
           ) : (
             <>
-              <NoContentDescription src={chatImg}>
+              <NoContentDescription icon="chat">
                 <NoContentTypo>아직 댓글이 없어요</NoContentTypo>
                 <NoContentTypo>첫 댓글을 남겨볼까요?</NoContentTypo>
               </NoContentDescription>
               <CommentInputWrapper className="no_content">
                 <UserNickname>{userAuthInfo.name}</UserNickname>
                 <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-                <CommentRegisterButton onClick={onClickRegisterButton}>
-                  <CheckImg />
+                <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
                   댓글등록
                 </CommentRegisterButton>
               </CommentInputWrapper>

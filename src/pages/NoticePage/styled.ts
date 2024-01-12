@@ -1,10 +1,12 @@
 import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
-import whiteBulletinIcon from 'assets/images/bulletin_white.png'
-import greenBulletinIcon from 'assets/images/bulletin_green.png'
+
 import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 export const Root = styled(PageRoot)`
   padding: 45px 160px 40px;
+  -webkit-user-select: auto;
+  -ms-user-select: auto; /* IE 10 and IE 11 */
+  user-select: auto; /* Standard syntax */
 `
 const DescriptionTypo = styled.p`
   font-size: 12px;
@@ -55,37 +57,6 @@ export const UpperTagButtonWrapper = styled(TagButtonWrapper)`
 export const LowerTagButtonWrapper = styled(TagButtonWrapper)`
   margin-bottom: 32px;
 `
-export const BulletinIcon = styled.img`
-  width: 13.3px;
-  height: 13.3px;
-  content: url(${greenBulletinIcon});
-`
-export const BulletinButton = styled.button`
-  position: absolute;
-  right: 0;
-  bottom: -40px;
-  width: 96px;
-  height: 32px;
-  border-radius: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${(props) => props.theme.primary.default};
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  &:hover {
-    color: ${(props) => props.theme.background.white};
-    background-color: ${(props) => props.theme.primary.dark};
-    ${BulletinIcon} {
-      content: url(${whiteBulletinIcon});
-    }
-    border: none;
-  }
-`
-
-export const GreenBulletinIcon = styled(BulletinIcon)``
-export const WhiteBulletinIcon = styled(BulletinIcon)``
 
 export const ExamInfoWrapper = styled.div`
   max-width: ${EXAMINFOITEM_MAX_WIDTH}px;

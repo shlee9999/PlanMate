@@ -1,4 +1,4 @@
-import { week } from 'constants/week'
+import { weekDays } from 'constants/week'
 
 export const generateId = (): string => {
   const timestamp = Date.now().toString() // 현재 시간을 밀리초 단위로 가져옴
@@ -52,7 +52,7 @@ export const useFormattedDate = (currentDate: Date): string => {
   const month: string = `${currentDate.getMonth() + 1}`.padStart(2, '0')
   const date: string = `${currentDate.getDate()}`.padStart(2, '0')
   const day: number = currentDate.getDay()
-  const formattedDate: string = month + '월 ' + date + '일 (' + week[day] + ')요일'
+  const formattedDate: string = month + '월 ' + date + '일 (' + weekDays[day] + ')요일'
   return formattedDate
 }
 
@@ -119,4 +119,13 @@ export const getDateInfo = (currentDate: Date) => ({
 export const getDateSaveForm = (currentDate: Date) => {
   const { year, month, date } = getDateInfo(currentDate)
   return year + month.toString().padStart(2, '0') + date.toString().padStart(2, '0')
+}
+export const weekCount = (year: number, month_number: number) => {
+  //일요일에 시작하는 달력에서 해당 월이 몇재 주까지 있는지 알아내기
+  const firstOfMonth = new Date(year, month_number - 1, 1)
+  const lastOfMonth = new Date(year, month_number, 0)
+
+  const used = firstOfMonth.getDay() + lastOfMonth.getDate()
+
+  return Math.ceil(used / 7)
 }

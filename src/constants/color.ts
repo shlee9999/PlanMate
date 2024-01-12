@@ -5,3 +5,6 @@ export const colorList = [
 ]
 
 export const defaultColor = colorList[0][0]
+
+export const HEART_COLOR = '#EC6C73'
+export const SCRAP_COLOR = '#FFCF55'

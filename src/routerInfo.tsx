@@ -8,13 +8,13 @@ import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { ExamInfoDetailDataType } from 'types'
-import { MyPage } from 'pages/MyPage'
 import { LoginPage } from 'pages/Login'
 import { NoticePage } from 'pages/NoticePage'
 import { ErrorPage } from 'pages/ErrorPage'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
 import App from 'App'
+import { MyPage } from 'pages/MyPage'
 
 export const routerInfo = [
   {
@@ -101,15 +101,15 @@ export const routerInfo = [
         path: 'suggest',
         element: <BulletinPage mode={'suggest'} />,
       },
+      {
+        path: 'login',
+        element: (
+          <>
+            <HeaderSection />
+            <LoginPage />
+          </>
+        ),
+      },
     ],
-  },
-  {
-    path: '/login',
-    element: (
-      <>
-        <HeaderSection />
-        <LoginPage />
-      </>
-    ),
   },
 ]
