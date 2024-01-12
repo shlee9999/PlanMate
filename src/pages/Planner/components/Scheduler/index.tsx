@@ -21,6 +21,7 @@ import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 import { SelectModal } from '../SelectModal'
 import { Appointment } from '../Appointment'
+import { AnimatePresence } from 'framer-motion'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -137,25 +138,29 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                   }}
                   onMouseUp={onMouseUp}
                 >
-                  {appointments.map((app) => {
-                    return (
-                      getDateSaveForm(app.startDate) === getDateSaveForm(date) &&
-                      hour === app.startDate.getHours() && (
-                        <Appointment
-                          key={app.id}
-                          title={app.text}
-                          bgColor={app.bgColor}
-                          height={
-                            app.endDate.getHours() === 0
-                              ? 24 - app.startDate.getHours()
-                              : app.endDate.getHours() - app.startDate.getHours()
-                          }
-                          onClick={onClickAppointment(app)}
-                          onMouseDown={(e) => e.stopPropagation()}
-                        />
+                  <AnimatePresence>
+                    {appointments.map((app) => {
+                      return (
+                        getDateSaveForm(app.startDate) === getDateSaveForm(date) &&
+                        hour === app.startDate.getHours() && (
+                          <Appointment
+                            key={app.id}
+                            id={app.id}
+                            title={app.text}
+                            bgColor={app.bgColor}
+                            height={
+                              app.endDate.getHours() === 0
+                                ? 24 - app.startDate.getHours()
+                                : app.endDate.getHours() - app.startDate.getHours()
+                            }
+                            onClick={onClickAppointment(app)}
+                            onMouseDown={(e) => e.stopPropagation()}
+                            onClickClose={onClickClose(app.id)}
+                          />
+                        )
                       )
-                    )
-                  })}
+                    })}
+                  </AnimatePresence>
                 </DataCell>
               ))}
             </DataCellRow>

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
-import { Root, Title } from './styled'
-import { Variants } from 'framer-motion'
+import { CloseButton, Root, Title } from './styled'
+import { AnimatePresence, Variants } from 'framer-motion'
 
 type AppointmentProps = {
   bgColor: string
@@ -8,22 +8,37 @@ type AppointmentProps = {
   title: string
   onClick: (e: React.MouseEvent) => void
   onMouseDown: (e: React.MouseEvent) => void
+  onClickClose: (e: React.MouseEvent) => void
+  id: number
 }
 
-export const Appointment: FC<AppointmentProps> = ({ bgColor, height, onClick, onMouseDown, title }) => {
+export const Appointment: FC<AppointmentProps> = ({
+  bgColor,
+  height,
+  onClick,
+  onMouseDown,
+  title,
+  onClickClose,
+
+  id,
+}) => {
   const AppVar: Variants = {
     initial: {
       height: 0,
     },
     animate: {
-      height: height * 102.5 + '%',
+      height: height * 103 + '%',
       transition: {
         bounce: 0.6,
         duration: 0.9,
         type: 'spring',
       },
     },
+    exit: {
+      scaleY: 0,
+    },
   }
+
   return (
     <Root
       $bgColor={bgColor}
@@ -33,8 +48,11 @@ export const Appointment: FC<AppointmentProps> = ({ bgColor, height, onClick, on
       variants={AppVar}
       initial="initial"
       animate="animate"
+      exit="exit"
+      key={id}
     >
       <Title>{title}</Title>
+      <CloseButton onClick={onClickClose} />
     </Root>
   )
 }
