@@ -11,6 +11,9 @@ export const PageRoot = styled.div`
   min-width: ${BODY_MIN_WIDTH}px;
   margin-top: ${HEADER_HEIGHT}px;
   min-height: calc(100vh - ${HEADER_HEIGHT}px);
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 `
 
 export const TagRoot = styled.span`

@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
 export const Root = styled.button`
+  -webkit-user-select: none;
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
   width: 96px;
   height: 32px;
   border-radius: 100px;

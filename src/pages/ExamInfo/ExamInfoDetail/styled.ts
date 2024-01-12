@@ -11,6 +11,9 @@ export const Root = styled(PageRoot)`
     min-height: 150px;
     padding-left: 10px;
   }
+  -webkit-user-select: auto;
+  -ms-user-select: auto; /* IE 10 and IE 11 */
+  user-select: auto; /* Standard syntax */
 `
 
 export const TagWrapper = styled.div`

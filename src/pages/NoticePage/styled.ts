@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 export const Root = styled(PageRoot)`
   padding: 45px 160px 40px;
+  -webkit-user-select: auto;
+  -ms-user-select: auto; /* IE 10 and IE 11 */
+  user-select: auto; /* Standard syntax */
 `
 const DescriptionTypo = styled.p`
   font-size: 12px;

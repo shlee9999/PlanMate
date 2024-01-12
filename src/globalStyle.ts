@@ -55,6 +55,9 @@ button {
   border: none;
   cursor: pointer;
   background-color: inherit;
+  -webkit-user-select: auto;
+  -ms-user-select: auto; /* IE 10 and IE 11 */
+  user-select: auto; /* Standard syntax */
 }
 input {
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';

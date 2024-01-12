@@ -2,6 +2,9 @@ import { FOOTER_HEIGHT, FOOTER_MAX_WIDTH, FOOTER_MIN_WIDTH } from 'constants/lay
 import styled from 'styled-components'
 
 export const Root = styled.div`
+  -webkit-user-select: none;
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
   box-sizing: border-box;
   padding: 32px 160px 42px;
   background-color: ${(props) => props.theme.background.gray2};

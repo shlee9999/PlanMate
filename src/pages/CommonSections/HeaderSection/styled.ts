@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import { Variants, motion } from 'framer-motion'
 import { Logo } from 'assets/Logo'
 export const Root = styled.nav`
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
   position: fixed;
   left: 50%;
   top: 0;
