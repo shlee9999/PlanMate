@@ -2,6 +2,9 @@ import { Variants, motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export const Root = styled(motion.div)`
+  &:hover {
+    border: 1px solid ${(props) => props.theme.text.gray3};
+  }
   position: relative;
   overflow: hidden;
   background-color: ${(props) => props.theme.background.white};

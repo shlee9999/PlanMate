@@ -1,6 +1,7 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { LeftArrow } from 'commonStyled'
 import { InfoBox } from 'components/InfoBox'
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export const Root = styled(InfoBox)`
@@ -11,7 +12,7 @@ export const Root = styled(InfoBox)`
   flex-grow: 1;
   padding: 24px 25px;
   height: 400px;
-  max-width: 480px;
+  max-width: 420px;
 `
 export const Table = styled.table`
   width: 100%;
@@ -29,8 +30,15 @@ export const HeaderRow = styled.tr`
 export const PrevButton = styled(LeftArrow)`
   color: ${(props) => props.theme.text.gray2};
   cursor: pointer;
+  z-index: 2;
 `
-export const Month = styled.p`
+export const Month = styled(motion.p)`
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  /* background-color: tomato; */
   font-size: 20px;
   font-weight: 700;
   line-height: 25px;
@@ -39,6 +47,7 @@ export const Month = styled.p`
 export const NextButton = styled(RightArrow)`
   color: ${(props) => props.theme.text.gray2};
   cursor: pointer;
+  z-index: 2;
 `
 
 export const Body = styled.tbody`
@@ -68,8 +77,15 @@ export const DayCell = styled(Cell)`
   font-weight: 500;
 `
 export const Line = styled.hr`
-  margin: 5px 0;
-  background-color: ${(props) => props.theme.background.gray2};
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: ${(props) => props.theme.background.gray3};
+  width: 360px;
+  top: 84px;
+  height: 1px;
 `
 export const WeekRow = styled(Row)``
 type DateCellProps = {
@@ -85,8 +101,8 @@ export const DateCell = styled(Cell)<DateCellProps>`
   }
   transition: scale 0.1s ease-out;
   border-radius: 100%;
-  width: 28px;
-  height: 28px;
+  width: 33px;
+  height: 33px;
   background-color: ${(props) => (props.$currentMonth ? props.theme.primary.default : 'none')};
   color: ${(props) => (props.$currentMonth ? props.theme.text.white : props.theme.background.gray1)};
 `
@@ -122,4 +138,16 @@ export const Circle = styled.div`
   width: 16px;
   height: 16px;
   border-radius: 100%;
+`
+export const DateContainer = styled(motion.div)`
+  position: absolute;
+  top: 96px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: calc(100% - 46px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px;
 `

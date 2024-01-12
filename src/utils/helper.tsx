@@ -120,3 +120,12 @@ export const getDateSaveForm = (currentDate: Date) => {
   const { year, month, date } = getDateInfo(currentDate)
   return year + month.toString().padStart(2, '0') + date.toString().padStart(2, '0')
 }
+export const weekCount = (year: number, month_number: number) => {
+  //일요일에 시작하는 달력에서 해당 월이 몇재 주까지 있는지 알아내기
+  const firstOfMonth = new Date(year, month_number - 1, 1)
+  const lastOfMonth = new Date(year, month_number, 0)
+
+  const used = firstOfMonth.getDay() + lastOfMonth.getDate()
+
+  return Math.ceil(used / 7)
+}
