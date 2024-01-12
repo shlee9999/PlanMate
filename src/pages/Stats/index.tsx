@@ -2,25 +2,19 @@ import React, { useState } from 'react'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { getDateInfo } from 'utils/helper'
 import {
-  FooterContainer,
   HeaderContainer,
   HeaderContentWrapper,
   HeaderDividingLine,
   PageDescription,
   PageName,
-  SNSLabel,
   Container,
   StatsContainer,
   Title,
-  SNSItems,
-  SNSItem,
   Root,
-  ShareButton,
   UserName,
 } from './styled'
 import { InfoContainer } from 'pages/Stats/components/InfoContainer'
 import { DatePicker } from 'pages/Stats/components/DatePicker'
-import { InstagramIcon, KakaoIcon, ShareIcon, UrlIcon } from 'assets/SvgComponents'
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DayValue>(() => {
@@ -48,26 +42,6 @@ export const StatsPage = () => {
           <InfoContainer selectedDate={selectedDate} />
         </StatsContainer>
       </Container>
-      <FooterContainer>
-        <ShareButton>
-          <ShareIcon />
-          <p>공유하기</p>
-        </ShareButton>
-        <SNSItems>
-          <SNSItem>
-            <UrlIcon />
-            <SNSLabel>URL</SNSLabel>
-          </SNSItem>
-          <SNSItem>
-            <KakaoIcon />
-            <SNSLabel>카카오톡</SNSLabel>
-          </SNSItem>
-          <SNSItem>
-            <InstagramIcon />
-            <SNSLabel>인스타</SNSLabel>
-          </SNSItem>
-        </SNSItems>
-      </FooterContainer>
     </Root>
   )
 }

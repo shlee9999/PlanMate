@@ -5,6 +5,7 @@ import { DayValue } from 'react-modern-calendar-datepicker'
 
 import { PieChartBox } from './component/PieChartContainer/PieChartContainer'
 import { TimerContainer } from './component/TimerContainer/TimerContainer'
+import { ShareContainer } from './component/ShareContainer'
 
 interface HistoryChartProps {
   selectedDate: DayValue | null
@@ -21,6 +22,7 @@ export const InfoContainer: React.FC<HistoryChartProps> = ({ selectedDate }) => 
       </StudyContainer>
       <ChartDividingLine />
       <GraphContainer />
+      <ShareContainer />
     </Root>
   )
 }

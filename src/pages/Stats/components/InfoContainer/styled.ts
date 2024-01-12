@@ -5,6 +5,7 @@ export const Root = styled(InfoBox)`
   height: 400px;
   padding: 22px 24px;
   max-width: 800px;
+  overflow: visible;
 `
 
 export const CompareTitle = styled.div`
