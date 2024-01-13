@@ -29,7 +29,7 @@ import {
   Count,
 } from './styled'
 
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
@@ -39,7 +39,6 @@ import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
 import { likePost } from 'api/post/likePost'
 import { scrapPost } from 'api/post/scrapPost'
-import { ExamInfoDetailDataType } from 'types'
 import { DeletePostModal } from 'pages/ExamInfo/components/DeleteModal/DeletePostModal'
 import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
@@ -53,6 +52,8 @@ import { deleteNotice } from 'api/notice/admin/deleteNotice'
 import { editNotice } from 'api/notice/admin/editNotice'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { getKoreanISOString } from 'utils/helper'
 /**
  * @title
  * @like
@@ -83,13 +84,56 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   } = location.state as LocationState
 
   if (!postId) return <Root>Error!</Root>
-  const data = useLoaderData() as ExamInfoDetailDataType
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const [examInfoDetail, setExamInfoDetail] = useState<CheckPostResponseProps>(data.checkPostResult)
-  const [commentList, setCommentList] = useState<ResponseCommentType[]>(data.findAllCommentsResult.commentDtoList)
-  const [totalPage, setTotalPage] = useState<number>(data.findAllCommentsResult.totalPages)
+  // checkPost에서 새로 얻을 값은 content, tagList뿐이다. 이후 없애고 findAll로 합칠듯
+  const { data: detailData, isLoading: isDetailLoading } = useQuery<
+    Promise<CheckPostResponseProps>,
+    Error,
+    CheckPostResponseProps,
+    string[]
+  >(['detailData'], () => checkPost({ postId }))
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [currentContent, setCurrentContent] = useState<string>(examInfoDetail.content)
+  const { data: commentData, isLoading: isCommentLoading } = useQuery<
+    Promise<FindAllCommentsResponseProps>,
+    Error,
+    FindAllCommentsResponseProps,
+    string[]
+  >(['commentData', currentPage + ''], () => findAllComments({ pages: currentPage - 1, postId }))
+  const queryClient = useQueryClient()
+  const { mutate: mutateCreateComment } = useMutation(() => createComment({ content: commentInput, postId }), {
+    onMutate: async () => {
+      const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
+      queryClient.setQueryData(['commentData', currentPage + ''], (old: FindAllCommentsResponseProps) => ({
+        ...old,
+        commentDtoList: [
+          ...old.commentDtoList,
+          {
+            commentId: new Date().getTime,
+            content: commentInput,
+            isAuthor: false,
+            isMyHearted: false,
+            likeCount: 0,
+            memberName: userAuthInfo.name,
+            updatedAt: getKoreanISOString(new Date()), //시간차 있을듯
+            postId,
+          },
+        ],
+      }))
+
+      return { previousComments }
+    },
+    onError: (err, newComment, context) => {
+      // 오류 발생 시 원래 상태로 복원
+      queryClient.setQueryData(['commentData', currentPage + ''], context.previousComments)
+    },
+    onSuccess: () => {
+      // 성공 시 추가 조치 필요 없음 (옵셔널: 새 댓글 목록을 다시 가져올 수 있음)
+      queryClient.invalidateQueries(['commentData', currentPage + ''])
+    },
+  })
+  const commentList = commentData?.commentDtoList
+  const totalPage = commentData?.totalPages
+  const [currentContent, setCurrentContent] = useState<string>(detailData?.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
@@ -163,21 +207,20 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     //   })
   }
   const onClickRegisterButton = (): void => {
-    createComment({
-      content: commentInput,
-      postId: +postId,
-    }).then((res1) => {
-      findAllComments({
-        pages: 0,
-        postId: +postId,
-      }).then((res2: unknown) => {
-        const response = res2 as FindAllCommentsResponseProps
-        setCommentList(response.commentDtoList as ResponseCommentType[])
-        setTotalPage(response.totalPages)
-        setCommentInput('')
-        setCurrentPage(0)
-      })
-    })
+    // createComment({
+    //   content: commentInput,
+    //   postId: +postId,
+    // }).then((res1) => {
+    //   findAllComments({
+    //     pages: 0,
+    //     postId: +postId,
+    //   }).then((res2: unknown) => {
+    //     const response = res2 as FindAllCommentsResponseProps
+    //     setCommentInput('')
+    //     setCurrentPage(0)
+    //   })
+    // })
+    mutateCreateComment()
   }
   const closeDeletePostModal = () => {
     setIsDeletePostModalOpen(false)
@@ -205,28 +248,28 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     return () => observer.disconnect()
   }, [currentPage])
 
-  useEffect(() => {
-    checkPost({ postId: +postId }).then((res) => {
-      const response = res as CheckPostResponseProps
-      setExamInfoDetail(response)
-    })
-    if (currentPage <= 1 || currentPage > totalPage) return
-    findAllComments({
-      pages: currentPage - 1,
-      postId: +postId,
-    }).then((res: unknown) => {
-      const response = res as FindAllCommentsResponseProps
-      setCommentList((prev) => prev.concat(response.commentDtoList))
-      setTotalPage(response.totalPages)
-    })
-  }, [currentPage, totalPage])
+  // useEffect(() => {
+  //   checkPost({ postId: +postId }).then((res) => {
+  //     const response = res as CheckPostResponseProps
+  //     setExamInfoDetail(response)
+  //   })
+  //   if (currentPage <= 1 || currentPage > totalPage) return
+  //   findAllComments({
+  //     pages: currentPage - 1,
+  //     postId: +postId,
+  //   }).then((res: unknown) => {
+  //     const response = res as FindAllCommentsResponseProps
+  //     setCommentList((prev) => prev.concat(response.commentDtoList))
+  //     setTotalPage(response.totalPages)
+  //   })
+  // }, [currentPage, totalPage])
 
   return (
     <Root>
       <UpperTypoWrapper>
         <LeftTypoWrapper>
           <TagWrapper>
-            {examInfoDetail.postTagList.map((tag, index) => (
+            {detailData?.postTagList.map((tag, index) => (
               <Tag key={index}>{tag}</Tag>
             ))}
           </TagWrapper>
@@ -284,7 +327,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         </IconContainer>
       </ContentWrapper>
 
-      {commentList.length !== 0 && (
+      {commentList?.length !== 0 && (
         <CommentInputWrapper>
           <UserNickname>{userAuthInfo.name}</UserNickname>
           <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
@@ -297,9 +340,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         <CommentTitle>
           댓글 <CommentCount>{commentCount}</CommentCount>개
         </CommentTitle>
-        <CommentContainer className={commentList.length !== 0 ? '' : 'no_content'}>
-          {commentList.length !== 0 ? (
-            commentList.map((comment, index) => (
+        <CommentContainer className={commentList?.length !== 0 ? '' : 'no_content'}>
+          {commentList?.length !== 0 ? (
+            commentList?.map((comment, index) => (
               <ExamInfoComment
                 key={comment.commentId}
                 commentId={comment.commentId}

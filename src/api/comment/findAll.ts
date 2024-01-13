@@ -11,6 +11,6 @@ export type FindAllCommentsResponseProps = {
   totalPages: number
 }
 
-export const findAllComments = (obj: FindAllCommentsRequestProps) => {
+export const findAllComments = (obj: FindAllCommentsRequestProps): Promise<FindAllCommentsResponseProps> => {
   return axiosPOST('/comment/find/all', obj)
 }

@@ -129,3 +129,7 @@ export const weekCount = (year: number, month_number: number) => {
 
   return Math.ceil(used / 7)
 }
+export const getKoreanISOString = (date: Date) => {
+  date.setHours(date.getHours() + 9)
+  return date.toISOString()
+}

@@ -15,11 +15,6 @@ export type PageInfo = {
   url: string
 }
 
-export type ExamInfoDetailDataType = {
-  checkPostResult: CheckPostResponseProps
-  findAllCommentsResult: FindAllCommentsResponseProps
-}
-
 export interface IAppointment {
   text: string
   startDate: Date

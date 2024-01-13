@@ -7,6 +7,6 @@ export type CheckPostRequestProps = {
 
 export type CheckPostResponseProps = ResponsePostType
 
-export const checkPost = (req: CheckPostRequestProps) => {
+export const checkPost = (req: CheckPostRequestProps): Promise<CheckPostResponseProps> => {
   return axiosGET('/post/check', req)
 }
