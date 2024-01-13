@@ -21,7 +21,6 @@ import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
-import { checkPost } from 'api/post/checkPost'
 import { useQuery } from 'react-query'
 
 export const ExamInfoPage = () => {

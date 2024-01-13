@@ -31,7 +31,6 @@ import {
 
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
-import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
@@ -72,6 +71,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
   const location = useLocation()
   const {
+    postTagList,
+    content,
     commentCount,
     likeCount,
     nickname,
@@ -86,12 +87,12 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   if (!postId) return <Root>Error!</Root>
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   // checkPost에서 새로 얻을 값은 content, tagList뿐이다. 이후 없애고 findAll로 합칠듯
-  const { data: detailData, isLoading: isDetailLoading } = useQuery<
-    Promise<CheckPostResponseProps>,
-    Error,
-    CheckPostResponseProps,
-    string[]
-  >(['detailData'], () => checkPost({ postId }))
+  // const { data: detailData, isLoading: isDetailLoading } = useQuery<
+  //   Promise<CheckPostResponseProps>,
+  //   Error,
+  //   CheckPostResponseProps,
+  //   string[]
+  // >(['detailData'], () => checkPost({ postId }))
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { data: commentData, isLoading: isCommentLoading } = useQuery<
     Promise<FindAllCommentsResponseProps>,
@@ -133,7 +134,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   })
   const commentList = commentData?.commentDtoList
   const totalPage = commentData?.totalPages
-  const [currentContent, setCurrentContent] = useState<string>(detailData?.content)
+  const [currentContent, setCurrentContent] = useState<string>(content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
@@ -221,6 +222,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     //   })
     // })
     mutateCreateComment()
+    setCommentInput('')
   }
   const closeDeletePostModal = () => {
     setIsDeletePostModalOpen(false)
@@ -269,7 +271,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       <UpperTypoWrapper>
         <LeftTypoWrapper>
           <TagWrapper>
-            {detailData?.postTagList.map((tag, index) => (
+            {postTagList?.map((tag, index) => (
               <Tag key={index}>{tag}</Tag>
             ))}
           </TagWrapper>

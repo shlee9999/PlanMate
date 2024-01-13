@@ -1,6 +1,3 @@
-import { FindAllCommentsResponseProps } from 'api/comment/findAll'
-import { CheckPostResponseProps } from 'api/post/checkPost'
-
 export type TodoItemType = {
   subjectId: number
   name: string
