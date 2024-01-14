@@ -76,7 +76,11 @@ export const HeaderSection: FC = () => {
           subjectId: todo.subjectId,
           colorHex: todo.colorHex,
           name: todo.name,
-          time: timeToSecond(todo.studyTimeHours, todo.studyTimeMinutes, todo.studyTimeSeconds),
+          time: timeToSecond({
+            hour: todo.studyTimeHours,
+            minute: todo.studyTimeMinutes,
+            second: todo.studyTimeSeconds,
+          }),
         }))
         dispatch(initializeTodo(newTodoItems)) //response 수정 필요
       }

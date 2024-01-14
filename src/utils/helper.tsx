@@ -84,8 +84,8 @@ export const getStudyTime = (startAt: string, endAt: string): string => {
   return studyTime
 }
 
-export const timeToSecond = (hour, minutes, seconds): number => {
-  return +hour * 60 * 60 + +minutes * 60 + +seconds
+export const timeToSecond = ({ hour, minute, second }: TimeProps): number => {
+  return +hour * 60 * 60 + +minute * 60 + +second
 }
 
 export const daysUntil = (targetDate) => {

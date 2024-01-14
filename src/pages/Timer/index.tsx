@@ -41,7 +41,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'hooks/useTimer'
 import { SuggestModal } from 'pages/Timer/components/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
-import { PieChartBox } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
+import { PieChartContainer } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
 
 import { TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
@@ -129,7 +129,7 @@ export const TimerPage: FC = () => {
             <StatsContainer right>
               <StudyContainer>
                 {/* <TimerContainer /> */}
-                <PieChartBox />
+                {/* <PieChartContainer /> */}
               </StudyContainer>
               <GraphContainer />
             </StatsContainer>

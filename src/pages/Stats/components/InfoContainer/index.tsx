@@ -1,9 +1,8 @@
 import React from 'react'
 import { Root, ChartDividingLine, Header, StudyContainer } from './styled'
 import { GraphContainer } from './component/GraphContainer'
-import { DayValue } from 'react-modern-calendar-datepicker'
 
-import { PieChartBox } from './component/PieChartContainer/PieChartContainer'
+import { PieChartContainer } from './component/PieChartContainer/PieChartContainer'
 import { TimeProps, TimerContainer } from './component/TimerContainer/TimerContainer'
 import { ShareContainer } from './component/ShareContainer'
 import { DateProps } from 'pages/Stats'
@@ -85,7 +84,7 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
       </Header>
       <StudyContainer>
         <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
-        <PieChartBox />
+        <PieChartContainer studyTimeList={studyTimeList} restTime={restTime} totalStudyTime={totalStudyTime} />
       </StudyContainer>
       <ChartDividingLine />
       <GraphContainer />
