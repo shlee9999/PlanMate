@@ -139,3 +139,7 @@ export const getKoreanISOString = (date: Date) => {
 export const getYYYYMMDD = ({ year, month, date }: DateProps) => {
   return year + '-' + (month + 1).toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0')
 }
+
+export function isEqualDate(a: DateProps, b: DateProps) {
+  return a.year === b.year && a.month === b.month && a.date === b.date
+}

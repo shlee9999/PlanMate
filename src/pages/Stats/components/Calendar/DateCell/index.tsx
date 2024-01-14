@@ -1,16 +1,13 @@
 import { FC } from 'react'
 import { Root } from './styled'
 import { DateProps } from 'pages/Stats'
+import { isEqualDate } from 'utils/helper'
 
 type DateCellProps = {
   onClick: (e: React.MouseEvent) => void
   cellDate: DateProps
   selectedDate: DateProps
   studyTimeHours?: number
-}
-
-function isEqualDate(a: DateProps, b: DateProps) {
-  return a.year === b.year && a.month === b.month && a.date === b.date
 }
 
 function getIndex(hour: number) {

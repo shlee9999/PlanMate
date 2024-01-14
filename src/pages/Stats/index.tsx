@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getDateInfo, getYYYYMMDD } from 'utils/helper'
+import { getDateInfo, getYYYYMMDD, isEqualDate } from 'utils/helper'
 import {
   HeaderContainer,
   HeaderContentWrapper,
@@ -36,9 +36,10 @@ export const StatsPage = () => {
     ['timeInfo', getYYYYMMDD(selectedDate)],
     () => checkStats(selectedDate)
   )
-  const isToday = selectedDate === getDateInfo(new Date())
+  const isToday = isEqualDate(selectedDate, getDateInfo(new Date()))
   const data = (isToday ? todayStats : selectedDateStats) || defaultStats
   const isLoading = isSelectedLoading ? todayLoading : isSelectedLoading
+
   return (
     <Root>
       <HeaderContainer>
