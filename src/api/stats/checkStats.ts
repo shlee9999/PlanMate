@@ -1,5 +1,6 @@
 import { axiosGET } from 'api/common/commonAxios'
 import { ResponseStats } from 'api/common/commonType'
+import { getYYYYMMDD } from 'utils/helper'
 
 export type StatisticRequestProps = {
   year: number
@@ -7,6 +8,8 @@ export type StatisticRequestProps = {
   date: number
 }
 
-export const checkStats = (req: StatisticRequestProps): Promise<ResponseStats> => {
-  return axiosGET('/statistic', req)
+export const checkStats = ({ year, month, date }: StatisticRequestProps): Promise<ResponseStats> => {
+  return axiosGET('/statistic/day', {
+    studyDate: getYYYYMMDD({ year, month, date }),
+  })
 }

@@ -26,7 +26,7 @@ import {
   DateTypo,
 } from './styled'
 
-import { daysUntil, useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
+import { daysUntil, getDateInfo, useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
 import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
 import TodoItem from 'pages/Timer/components/TodoItem'
@@ -43,12 +43,16 @@ import { SuggestModal } from 'pages/Timer/components/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
 import { PieChartContainer } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
 
-import { TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
+import { TimeProps, TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { PlusIcon } from 'assets/SvgComponents'
 import { AnimatePresence } from 'framer-motion'
 import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { InfoBox } from 'components/InfoBox'
+import { useQuery } from 'react-query'
+import { checkStats } from 'api/stats/checkStats'
+import { ResponseStats } from 'api/common/commonType'
+import { checkTodayStats } from 'api/stats/checkTodayStats'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -72,6 +76,51 @@ export const TimerPage: FC = () => {
 
   const closeSuggestModal = (): void => {
     setIsSuggestModalOpen(false)
+  }
+  const now = getDateInfo(new Date())
+  const {
+    data: statsData,
+    isLoading: isStatsLoading,
+    isFetching,
+  } = useQuery<ResponseStats>(['timeInfo', now], () => checkTodayStats())
+  const {
+    endAtHours,
+    endAtMinutes,
+    maxStudyTimeHours,
+    maxStudyTimeMinutes,
+    maxStudyTimeSeconds,
+    restTimeHours,
+    restTimeMinutes,
+    restTimeSeconds,
+    startAtHours,
+    startAtMinutes,
+    studyTimeList,
+    totalStudyTimeHours,
+    totalStudyTimeMinutes,
+    totalStudyTimeSeconds,
+  } = statsData || {}
+  const totalStudyTime: TimeProps = {
+    hour: totalStudyTimeHours,
+    minute: totalStudyTimeMinutes,
+    second: totalStudyTimeSeconds,
+  }
+  const restTime: TimeProps = {
+    hour: restTimeHours,
+    minute: restTimeMinutes,
+    second: restTimeSeconds,
+  }
+  const maxFocusTime: TimeProps = {
+    hour: maxStudyTimeHours,
+    minute: maxStudyTimeMinutes,
+    second: maxStudyTimeSeconds,
+  }
+  const startAt: TimeProps = {
+    hour: startAtHours,
+    minute: startAtMinutes,
+  }
+  const endAt: TimeProps = {
+    hour: endAtHours,
+    minute: endAtMinutes,
   }
   useEffect(() => {
     if (todos.length !== 0) {
@@ -127,10 +176,23 @@ export const TimerPage: FC = () => {
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
             <StatsContainer right>
-              <StudyContainer>
-                {/* <TimerContainer /> */}
-                {/* <PieChartContainer /> */}
-              </StudyContainer>
+              {isStatsLoading || !statsData || isFetching ? (
+                'Loading...'
+              ) : (
+                <StudyContainer>
+                  <TimerContainer
+                    totalFocusTime={totalStudyTime}
+                    maxFocusTime={maxFocusTime}
+                    startAt={startAt}
+                    endAt={endAt}
+                  />
+                  <PieChartContainer
+                    studyTimeList={studyTimeList}
+                    restTime={restTime}
+                    totalStudyTime={totalStudyTime}
+                  />
+                </StudyContainer>
+              )}
               <GraphContainer />
             </StatsContainer>
           </RightContainer>

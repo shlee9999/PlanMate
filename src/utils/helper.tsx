@@ -135,3 +135,7 @@ export const getKoreanISOString = (date: Date) => {
   date.setHours(date.getHours() + 9)
   return date.toISOString()
 }
+
+export const getYYYYMMDD = ({ year, month, date }: DateProps) => {
+  return year + '-' + (month + 1).toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0')
+}

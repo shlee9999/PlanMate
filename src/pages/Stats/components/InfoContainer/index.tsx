@@ -11,35 +11,14 @@ import { ResponseStats } from 'api/common/commonType'
 interface InfoContainerProps {
   selectedDate: DateProps
   dataSource: ResponseStats
+  isLoading: boolean
 }
 
-const TotalFocusData: TimeProps = {
-  hour: 4,
-  minute: 32,
-  second: 7,
-}
-
-const MaxFocusData: TimeProps = {
-  hour: 2,
-  minute: 32,
-  second: 7,
-}
-
-const StartTimerData: TimeProps = {
-  hour: 10,
-  minute: 22,
-}
-
-const EndTimerData: TimeProps = {
-  hour: 22,
-  minute: 32,
-}
-
-export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data }) => {
+export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data, isLoading }) => {
   const { year, month, date } = selectedDate
   const {
-    endAtHours,
-    endAtMinutes,
+    endAtHours = 0,
+    endAtMinutes = 0,
     maxStudyTimeHours,
     maxStudyTimeMinutes,
     maxStudyTimeSeconds,
@@ -52,7 +31,7 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
     totalStudyTimeHours,
     totalStudyTimeMinutes,
     totalStudyTimeSeconds,
-  } = data
+  } = data || {}
   const totalStudyTime: TimeProps = {
     hour: totalStudyTimeHours,
     minute: totalStudyTimeMinutes,
@@ -82,10 +61,16 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
       <Header>
         {year}년 {month + 1}월 {date}일
       </Header>
-      <StudyContainer>
-        <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
-        <PieChartContainer studyTimeList={studyTimeList} restTime={restTime} totalStudyTime={totalStudyTime} />
-      </StudyContainer>
+
+      {isLoading ? (
+        'isLoading...'
+      ) : (
+        <StudyContainer>
+          <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
+          <PieChartContainer studyTimeList={studyTimeList} restTime={restTime} totalStudyTime={totalStudyTime} />
+        </StudyContainer>
+      )}
+
       <ChartDividingLine />
       <GraphContainer />
       <ShareContainer />

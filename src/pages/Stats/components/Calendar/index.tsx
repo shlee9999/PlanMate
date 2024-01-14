@@ -26,7 +26,7 @@ type CalendarProps = {
   className?: string
   selectedDate: DateProps
   setSelectedDate: (date: DateProps) => void
-  dataSource: ResponseStats
+  dataSource?: ResponseStats
 }
 const momentum = 100
 const MonthVar: Variants = {
@@ -91,7 +91,7 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
                       month: date.getMonth(),
                       date: date.getDate(),
                     }}
-                    studyTimeHours={dataSource.totalStudyTimeHours}
+                    studyTimeHours={dataSource?.totalStudyTimeHours}
                     selectedDate={selectedDate}
                   />
                 ))}

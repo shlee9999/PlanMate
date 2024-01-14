@@ -29,7 +29,7 @@ const getClassName = (cellDate, selectedDate) => {
   return 'current'
 }
 
-export const DateCell: FC<DateCellProps> = ({ onClick, cellDate, selectedDate, studyTimeHours }) => {
+export const DateCell: FC<DateCellProps> = ({ onClick, cellDate, selectedDate, studyTimeHours = 0 }) => {
   const className = getClassName(cellDate, selectedDate)
   const isSelected = isEqualDate(cellDate, selectedDate)
   const opacity = getIndex(studyTimeHours)
