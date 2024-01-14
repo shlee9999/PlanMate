@@ -128,7 +128,7 @@ export const TimerPage: FC = () => {
             <Title>오늘의 통계 📊</Title>
             <StatsContainer right>
               <StudyContainer>
-                <TimerContainer />
+                {/* <TimerContainer /> */}
                 <PieChartBox />
               </StudyContainer>
               <GraphContainer />

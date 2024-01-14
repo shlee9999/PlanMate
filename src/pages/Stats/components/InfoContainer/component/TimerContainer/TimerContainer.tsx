@@ -4,61 +4,31 @@ import { Timer } from './Timer'
 import { Root } from './styled'
 
 //총 공부시간, 최대 집중 시간
-export interface FocusTimerData {
+export interface TimeProps {
   hour: number
   minute: number
-  second: number
+  second?: number
 }
 
-const TotalFocusData: FocusTimerData = {
-  hour: 4,
-  minute: 32,
-  second: 7,
+type TimerContainerProps = {
+  totalFocusTime: TimeProps
+  maxFocusTime: TimeProps
+  startAt: TimeProps
+  endAt: TimeProps
 }
-
-const MaxFocusData: FocusTimerData = {
-  hour: 2,
-  minute: 32,
-  second: 7,
-}
-
-//시작시간, 종료시간
-export interface RecordTimerData {
-  hour: number
-  minute: number
-}
-
-const StartTimerData: RecordTimerData = {
-  hour: 10,
-  minute: 22,
-}
-
-const EndTimerData: RecordTimerData = {
-  hour: 22,
-  minute: 32,
-}
-
-export const TimerContainer: React.FC = () => {
-  const [totalTime, setTotalTime] = useState<FocusTimerData>(TotalFocusData)
-
-  //
-  const TotalFocusTitle = '총 공부시간'
-  const [totalTitle, setTotalTitle] = useState<string>(TotalFocusTitle)
-  const MaxFocusTitle = '최대 집중 시간'
-  const [maxFocusTitle, setMaxFocusTitle] = useState<string>(MaxFocusTitle)
-
-  //
-  const StartTimerTitle = '시작시간'
-  const [startTitle, setStartTitle] = useState<string>(StartTimerTitle)
-  const EndTimerTitle = '종료시간'
-  const [endTitle, setEndTitle] = useState<string>(EndTimerTitle)
-
+export const TimerContainer: React.FC<TimerContainerProps> = ({ totalFocusTime, maxFocusTime, startAt, endAt }) => {
   return (
     <Root>
-      <Timer title={totalTitle} text={useFormattedTime(totalTime)} />
-      <Timer title={maxFocusTitle} text={useFormattedTime(MaxFocusData)} />
-      <Timer title={startTitle} text={useFormattedTimeKorean(StartTimerData)} />
-      <Timer title={endTitle} text={useFormattedTimeKorean(EndTimerData)} />
+      <Timer title="총 공부시간" text={useFormattedTime(totalFocusTime)} />
+      <Timer title="최대 집중 시간" text={useFormattedTime(maxFocusTime)} />
+      <Timer
+        title="시작시간"
+        text={startAt.hour.toString().padStart(2, '0') + '시 ' + startAt.minute.toString().padStart(2, '0') + '분'}
+      />
+      <Timer
+        title="종료시간"
+        text={endAt.hour.toString().padStart(2, '0') + '시 ' + endAt.minute.toString().padStart(2, '0') + '분'}
+      />
     </Root>
   )
 }

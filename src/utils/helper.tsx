@@ -1,11 +1,13 @@
 import { weekDays } from 'constants/week'
+import { DateProps } from 'pages/Stats'
+import { TimeProps } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 
 export const generateId = (): string => {
   const timestamp = Date.now().toString() // 현재 시간을 밀리초 단위로 가져옴
   const random = Math.random().toString().slice(2, 8) // 6자리 난수 생성
   return `${timestamp}-${random}` // 타임스탬프와 난수를 합쳐 고유한 ID 생성
 }
-export const useFormattedTime = (time: number | { hour: number; minute: number; second: number }): string => {
+export const useFormattedTime = (time: number | TimeProps): string => {
   let hour: number, minute: number, second: number
 
   if (typeof time === 'number') {
@@ -110,7 +112,7 @@ export const getWeekDates = (currentDate: Date) => {
   return weekDates
 }
 
-export const getDateInfo = (currentDate: Date) => ({
+export const getDateInfo = (currentDate: Date): DateProps => ({
   year: currentDate.getFullYear(),
   month: currentDate.getMonth(),
   date: currentDate.getDate(),

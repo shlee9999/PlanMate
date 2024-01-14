@@ -4,20 +4,87 @@ import { GraphContainer } from './component/GraphContainer'
 import { DayValue } from 'react-modern-calendar-datepicker'
 
 import { PieChartBox } from './component/PieChartContainer/PieChartContainer'
-import { TimerContainer } from './component/TimerContainer/TimerContainer'
+import { TimeProps, TimerContainer } from './component/TimerContainer/TimerContainer'
 import { ShareContainer } from './component/ShareContainer'
+import { DateProps } from 'pages/Stats'
+import { ResponseStats } from 'api/common/commonType'
 
-interface HistoryChartProps {
-  selectedDate: DayValue | null
+interface InfoContainerProps {
+  selectedDate: DateProps
+  dataSource: ResponseStats
 }
 
-export const InfoContainer: React.FC<HistoryChartProps> = ({ selectedDate }) => {
-  const { year, month, day } = selectedDate || {}
+const TotalFocusData: TimeProps = {
+  hour: 4,
+  minute: 32,
+  second: 7,
+}
+
+const MaxFocusData: TimeProps = {
+  hour: 2,
+  minute: 32,
+  second: 7,
+}
+
+const StartTimerData: TimeProps = {
+  hour: 10,
+  minute: 22,
+}
+
+const EndTimerData: TimeProps = {
+  hour: 22,
+  minute: 32,
+}
+
+export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data }) => {
+  const { year, month, date } = selectedDate
+  const {
+    endAtHours,
+    endAtMinutes,
+    maxStudyTimeHours,
+    maxStudyTimeMinutes,
+    maxStudyTimeSeconds,
+    restTimeHours,
+    restTimeMinutes,
+    restTimeSeconds,
+    startAtHours,
+    startAtMinutes,
+    studyTimeList,
+    totalStudyTimeHours,
+    totalStudyTimeMinutes,
+    totalStudyTimeSeconds,
+  } = data
+  const totalStudyTime: TimeProps = {
+    hour: totalStudyTimeHours,
+    minute: totalStudyTimeMinutes,
+    second: totalStudyTimeSeconds,
+  }
+  const restTime: TimeProps = {
+    hour: restTimeHours,
+    minute: restTimeMinutes,
+    second: restTimeSeconds,
+  }
+  const maxFocusTime: TimeProps = {
+    hour: maxStudyTimeHours,
+    minute: maxStudyTimeMinutes,
+    second: maxStudyTimeSeconds,
+  }
+  const startAt: TimeProps = {
+    hour: startAtHours,
+    minute: startAtMinutes,
+  }
+  const endAt: TimeProps = {
+    hour: endAtHours,
+    minute: endAtMinutes,
+  }
+
   return (
     <Root right={true}>
-      <Header>{year && month && day ? `${year}년 ${month}월 ${day}일 ` : ''}</Header>
+      <Header>
+        {year}년 {month + 1}월 {date}일
+      </Header>
       <StudyContainer>
-        <TimerContainer />
+        <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
         <PieChartBox />
       </StudyContainer>
       <ChartDividingLine />
