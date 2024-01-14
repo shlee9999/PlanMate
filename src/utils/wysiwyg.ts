@@ -3,7 +3,6 @@ import draftToHtml from 'draftjs-to-html'
 
 export const deserializeContent = (jsonString: string): string => {
   try {
-    console.log(jsonString)
     const rawContent = JSON.parse(jsonString)
 
     return draftToHtml(rawContent)

@@ -4,7 +4,7 @@ import {
   ExamInfoWrapper,
   LowerDescriptionTypo,
   LowerTagButtonWrapper,
-  NoContentWrapper,
+  NoContent,
   PaginationWrapper,
   Root,
   Tag,
@@ -15,23 +15,31 @@ import {
   UpperTagButtonWrapper,
 } from './styled'
 import { useEffect, useState } from 'react'
-import { ResponsePostType } from 'api/common/commonType'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examinfoTagList } from 'constants/tagList'
 import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
-import { NoContentDescription } from 'components/NoContentDescription'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
-import { sampleInfoList } from 'constants/sampleData'
+import { useQuery } from 'react-query'
 
 export const ExamInfoPage = () => {
-  // const data = useLoaderData() as FindAllPostResponseProps
-  const data: FindAllPostResponseProps = sampleInfoList
-  const [examInfoList, setExamInfoList] = useState<ResponsePostType[]>(data.postDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [totalPage, setTotalPage] = useState<number>(data.totalPages)
   const [selectedTag, setSelectedTag] = useState<string>('')
+  const { data, isLoading } = useQuery<
+    Promise<FindAllPostResponseProps | FindPostWithTagResponseProps>,
+    Error,
+    FindAllPostResponseProps,
+    string[]
+  >(['findAllResponse', currentPage + '', selectedTag], () =>
+    selectedTag === ''
+      ? findAll({ pages: currentPage - 1 })
+      : findPostWithTag({ pages: currentPage - 1, tagName: selectedTag })
+  )
+
+  const examInfoList = data?.postDtoList || []
+  const totalPage = data?.totalPages || 0
+
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
   }
@@ -56,26 +64,8 @@ export const ExamInfoPage = () => {
   }
 
   useEffect(() => {
-    // if (selectedTag === '')
-    //   findAll({ pages: currentPage - 1 }).then((res: unknown) => {
-    //     const response = res as FindAllPostResponseProps
-    //     setExamInfoList(response.postDtoList)
-    //     setTotalPage(response.totalPages)
-    //   })
-    // else
-    //   findPostWithTag({
-    //     tagName: selectedTag,
-    //     pages: currentPage - 1,
-    //   }).then((res) => {
-    //     const response = res as FindPostWithTagResponseProps
-    //     setExamInfoList(response.postDtoList)
-    //     setTotalPage(response.totalPages)
-    //   })
-  }, [currentPage, selectedTag])
-
-  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [examInfoList])
+  }, [data])
 
   return (
     <Root>
@@ -111,15 +101,15 @@ export const ExamInfoPage = () => {
         )}
       </LowerTagButtonWrapper>
       <ExamInfoWrapper>
-        {examInfoList.length !== 0 ? (
-          examInfoList.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
+        {isLoading ? (
+          'Loading...'
+        ) : examInfoList?.length !== 0 ? (
+          examInfoList?.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
-          <NoContentWrapper>
-            <NoContentDescription icon="pencil">
-              <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
-              <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
-            </NoContentDescription>
-          </NoContentWrapper>
+          <NoContent icon="pencil">
+            <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
+            <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
+          </NoContent>
         )}
 
         <BulletinButton onClick={onClickBulletinButton} icon="register">
@@ -127,7 +117,7 @@ export const ExamInfoPage = () => {
         </BulletinButton>
       </ExamInfoWrapper>
       <PaginationWrapper>
-        {
+        {!isLoading && (
           <Pagination
             currentPage={currentPage}
             totalPage={totalPage}
@@ -135,7 +125,7 @@ export const ExamInfoPage = () => {
             onClickRightArrow={loadNextPage}
             onClickPageNumber={handleCurrentPage}
           />
-        }
+        )}
       </PaginationWrapper>
     </Root>
   )

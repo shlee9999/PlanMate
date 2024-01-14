@@ -2,6 +2,7 @@ import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import { ActionButton } from 'components/ActionButton/ActionButton'
+import { NoContentDescription } from 'components/NoContentDescription'
 export const Root = styled(PageRoot)`
   padding: 45px 160px 40px;
 `
@@ -73,7 +74,7 @@ export const ExamInfoWrapper = styled.div`
   align-items: center;
 `
 
-export const NoContentWrapper = styled.div`
+export const NoContent = styled(NoContentDescription)`
   margin-top: 84px;
   margin-bottom: 100px;
 `

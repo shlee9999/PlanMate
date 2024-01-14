@@ -4,10 +4,6 @@ import { BulletinPage } from 'pages/ExamInfo/BulletinPage'
 import { TimerPage } from 'pages/Timer'
 import { StatsPage } from 'pages/Stats'
 import { PlannerPage } from 'pages/Planner'
-import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
-import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
-import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
-import { ExamInfoDetailDataType } from 'types'
 import { LoginPage } from 'pages/Login'
 import { NoticePage } from 'pages/NoticePage'
 import { ErrorPage } from 'pages/ErrorPage'
@@ -38,12 +34,6 @@ export const routerInfo = [
       {
         path: 'examinfo',
         element: <ExamInfoPage />,
-
-        // loader: async (): Promise<FindAllPostResponseProps> => {
-        //   return (await findAll({
-        //     pages: 0,
-        //   })) as FindAllPostResponseProps
-        // }, //비동기 처리 등
       },
       {
         path: 'examinfo/post',
@@ -52,29 +42,16 @@ export const routerInfo = [
       {
         path: 'examinfo/detail/:postId',
         element: <ExamInfoDetailPage mode={'examinfo'} />,
-        // loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
-        //   const checkPostResult = (await checkPost({
-        //     postId: +params.postId,
-        //   })) as CheckPostResponseProps
-        //   const findAllCommentsResult = (await findAllComments({
-        //     pages: 0,
-        //     postId: +params.postId,
-        //   })) as FindAllCommentsResponseProps
-        //   return {
-        //     checkPostResult: checkPostResult,
-        //     findAllCommentsResult: findAllCommentsResult,
-        //   }
-        // },
       },
       {
         path: 'notice',
         element: <NoticePage />,
 
-        // loader: async (): Promise<FindAllNoticeResponseProps> => {
-        //   return (await findAllNotice({
-        //     pages: 0,
-        //   })) as FindAllNoticeResponseProps
-        // }, //비동기 처리 등
+        loader: async (): Promise<FindAllNoticeResponseProps> => {
+          return (await findAllNotice({
+            pages: 0,
+          })) as FindAllNoticeResponseProps
+        }, //비동기 처리 등
       },
       {
         path: 'notice/post',
@@ -83,19 +60,6 @@ export const routerInfo = [
       {
         path: 'notice/detail/:postId',
         element: <ExamInfoDetailPage mode="notice" />,
-        // loader: async ({ params }: any): Promise<ExamInfoDetailDataType> => {
-        //   const checkPostResult = (await checkPost({
-        //     postId: +params.postId,
-        //   })) as CheckPostResponseProps
-        //   const findAllCommentsResult = (await findAllComments({
-        //     pages: 0,
-        //     postId: +params.postId,
-        //   })) as FindAllCommentsResponseProps
-        //   return {
-        //     checkPostResult: checkPostResult,
-        //     findAllCommentsResult: findAllCommentsResult,
-        //   }
-        // },
       },
       {
         path: 'suggest',

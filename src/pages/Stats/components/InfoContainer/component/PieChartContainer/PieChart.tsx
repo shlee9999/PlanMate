@@ -4,8 +4,9 @@ import { PieChartData } from './PieChartContainer'
 
 const RADIAN = Math.PI / 180
 
-interface OwnProps {
+interface PieChartProps {
   data: PieChartData[]
+  index: number
 }
 
 const renderCustomizedLabel = ({
@@ -15,7 +16,6 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-  index,
 }: {
   cx: number
   cy: number
@@ -23,7 +23,6 @@ const renderCustomizedLabel = ({
   innerRadius: number
   outerRadius: number
   percent: number
-  index: number
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5
   const x = cx + radius * Math.cos(-midAngle * RADIAN)
@@ -40,7 +39,7 @@ const renderCustomizedLabel = ({
       fontWeight={500}
       fontFamily="Spoqa Han Sans Neo"
     >
-      {`${(percent * 100).toFixed(0)}%`}
+      {percent !== 0 && `${(percent * 100).toFixed(0)}%`}
     </text>
   )
 }
@@ -49,7 +48,7 @@ const renderColorfulLegendText = (value: string, entry: any) => {
   return <span style={{ color: '#666666', fontWeight: 400, fontSize: '10px' }}>{value}</span>
 }
 
-export const PieChart: React.FC<OwnProps> = ({ data }) => {
+export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
   return (
     <MyPieChart width={200} height={200} margin={{ top: 0, left: 45 }}>
       <Legend
@@ -68,12 +67,14 @@ export const PieChart: React.FC<OwnProps> = ({ data }) => {
         outerRadius={50}
         fill="#8884d8"
         paddingAngle={0}
-        dataKey="value"
+        dataKey="totalTime"
         label={renderCustomizedLabel}
         labelLine={false}
+        animationBegin={0}
+        animationDuration={1000}
       >
         {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={entry.fill} />
+          <Cell key={`cell-${index}`} fill={entry.colorHex} />
         ))}
       </Pie>
     </MyPieChart>

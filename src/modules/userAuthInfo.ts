@@ -13,7 +13,7 @@ type userAuthInfoState = {
   id: number | null
   img: string | null
   name: string | null
-  refreshToken: string | null
+  // refreshToken: string | null
 }
 
 const InitialState: userAuthInfoState = JSON.parse(localStorage.getItem('userAuthInfo')) || {
@@ -21,8 +21,8 @@ const InitialState: userAuthInfoState = JSON.parse(localStorage.getItem('userAut
   email: null,
   id: null,
   img: null,
-  name: 'Default',
-  refreshToken: null,
+  name: null,
+  // refreshToken: null,
 }
 
 function userAuthInfo(state: userAuthInfoState = InitialState, action: userAuthInfoAction) {

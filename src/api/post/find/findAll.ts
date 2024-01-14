@@ -10,6 +10,6 @@ export type FindAllPostResponseProps = {
   totalPages: number
 }
 
-export const findAll = (req: FindAllPostRequestProps) => {
+export const findAll = (req: FindAllPostRequestProps): Promise<FindAllPostResponseProps> => {
   return axiosGET('post/find/all', req)
 }

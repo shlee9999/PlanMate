@@ -1,19 +1,26 @@
 import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
-import { ExamInfoWrapper, NoPostTypo, Root, TitleTypo, TypoWrapper, UpperDescriptionTypo } from './styled'
+import {
+  BulletinButton,
+  ExamInfoWrapper,
+  NoContent,
+  NoPostTypo,
+  Root,
+  TitleTypo,
+  TypoWrapper,
+  UpperDescriptionTypo,
+} from './styled'
 import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { Pagination } from 'pages/ExamInfo/components/Pagination'
-import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
-import { ActionButton } from 'components/ActionButton/ActionButton'
+import { NoContentTypo } from 'components/NoContentDescription/styled'
 
 export const NoticePage = () => {
   const data = useLoaderData() as FindAllNoticeResponseProps
   const [examInfoList, setExamInfoList] = useState<ResponseNoticeType[]>(data.noticeDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
-  const [selectedTag, setSelectedTag] = useState<string>('')
   const handleCurrentPage = (page: number) => (): void => {
     setCurrentPage(page)
   }
@@ -31,22 +38,12 @@ export const NoticePage = () => {
   }
 
   useEffect(() => {
-    if (selectedTag === '')
-      findAllNotice({ pages: currentPage - 1 }).then((res: unknown) => {
-        const response = res as FindAllNoticeResponseProps
-        setExamInfoList(response.noticeDtoList)
-        setTotalPage(response.totalPages)
-      })
-    else
-      findPostWithTag({
-        tagName: selectedTag,
-        pages: currentPage - 1,
-      }).then((res) => {
-        const response = res as FindAllNoticeResponseProps
-        setExamInfoList(response.noticeDtoList)
-        setTotalPage(response.totalPages)
-      })
-  }, [currentPage, selectedTag])
+    findAllNotice({ pages: currentPage - 1 }).then((res: unknown) => {
+      const response = res as FindAllNoticeResponseProps
+      setExamInfoList(response.noticeDtoList)
+      setTotalPage(response.totalPages)
+    })
+  }, [currentPage])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -62,12 +59,15 @@ export const NoticePage = () => {
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem postTagList={[]} {...examInfo} key={examInfo.noticeId} />)
         ) : (
-          <NoPostTypo>등록된 게시물이 없습니다</NoPostTypo>
+          <NoContent icon="pencil">
+            <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
+            <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
+          </NoContent>
         )}
 
-        <ActionButton onClick={onClickBulletinButton} icon="register">
+        <BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
-        </ActionButton>
+        </BulletinButton>
       </ExamInfoWrapper>
       <Pagination
         currentPage={currentPage}

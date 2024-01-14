@@ -11,12 +11,7 @@ export const Root = styled(InfoBox)`
   height: 400px;
   max-width: 420px;
 `
-export const Table = styled.table`
-  width: 100%;
-  height: 100%;
-`
-export const Header = styled.thead``
-export const HeaderRow = styled.tr`
+export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,19 +39,19 @@ export const NextButton = styled(RightArrow)`
   z-index: 2;
 `
 
-export const Body = styled.tbody`
+export const Body = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `
-const Row = styled.tr`
+const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 export const DayRow = styled(Row)``
-const Cell = styled.td`
+const Cell = styled.div`
   padding: 0 8px;
   font-size: 12px;
   font-weight: 400;

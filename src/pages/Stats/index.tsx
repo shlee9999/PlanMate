@@ -15,16 +15,40 @@ import {
 import { InfoContainer } from 'pages/Stats/components/InfoContainer'
 import { Calendar } from './components/Calendar'
 import { DayValue } from 'react-modern-calendar-datepicker'
+import { useQuery } from 'react-query'
+import { checkStats } from 'api/stats/checkStats'
+import { ResponseStats } from 'api/common/commonType'
 
+export type DateProps = {
+  year: number
+  month: number
+  date: number
+}
+const dummyData: ResponseStats = {
+  endAtHours: 0,
+  endAtMinutes: 0,
+  maxStudyTimeHours: 0,
+  maxStudyTimeMinutes: 0,
+  maxStudyTimeSeconds: 0,
+  restTimeHours: 0,
+  restTimeMinutes: 0,
+  restTimeSeconds: 0,
+  startAtHours: 0,
+  startAtMinutes: 0,
+  studyTimeList: [],
+  totalStudyTimeHours: 0,
+  totalStudyTimeMinutes: 0,
+  totalStudyTimeSeconds: 0,
+}
 export const StatsPage = () => {
-  const [selectedDate, setSelectedDate] = useState<DayValue>(() => {
-    const { year, month, date: day } = getDateInfo(new Date())
-    return { year, month: month + 1, day }
+  const [selectedDate, setSelectedDate] = useState<DateProps>(() => {
+    const { year, month, date } = getDateInfo(new Date())
+    return { year, month, date }
+  })
+  const { data, isLoading } = useQuery<ResponseStats>(['timeInfo', selectedDate], () => checkStats(selectedDate), {
+    initialData: dummyData,
   })
 
-  // const handleDateSelect = (selectedDate: DayValue | null) => {
-  //   setSelectedDate(selectedDate)
-  // }
   return (
     <Root>
       <HeaderContainer>
@@ -38,9 +62,8 @@ export const StatsPage = () => {
       <Container>
         <Title>공부량 한 눈에 보기</Title>
         <StatsContainer>
-          {/* <DatePicker onDateSelect={handleDateSelect} /> */}
-          <Calendar />
-          <InfoContainer selectedDate={selectedDate} />
+          <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+          <InfoContainer selectedDate={selectedDate} dataSource={data} />
         </StatsContainer>
       </Container>
     </Root>

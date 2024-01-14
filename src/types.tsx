@@ -1,6 +1,3 @@
-import { FindAllCommentsResponseProps } from 'api/comment/findAll'
-import { CheckPostResponseProps } from 'api/post/checkPost'
-
 export type TodoItemType = {
   subjectId: number
   name: string
@@ -13,11 +10,6 @@ export type TodoItemType = {
 export type PageInfo = {
   title: string
   url: string
-}
-
-export type ExamInfoDetailDataType = {
-  checkPostResult: CheckPostResponseProps
-  findAllCommentsResult: FindAllCommentsResponseProps
 }
 
 export interface IAppointment {
