@@ -9,6 +9,6 @@ export type FindPlannerResponseProps = {
   type: string
 }[]
 
-export const findPlanner = () => {
+export const findPlanner = (): Promise<FindPlannerResponseProps> => {
   return axiosGET('planner/find')
 }

@@ -6,8 +6,6 @@ import { useQuery } from 'react-query'
 import { findPlanner } from 'api/planner/findPlanner'
 
 export const PlannerPage: FC = () => {
-  const { data, isLoading } = useQuery(['plannerData'], () => findPlanner())
-
   return (
     <Root>
       <HeaderContainer>

@@ -16,13 +16,15 @@ import { RootState } from 'modules'
 import { createArray, getDateSaveForm, getWeekDates } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 
-import { removeAppoint, updateAppoint } from 'modules/appointments'
+import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 import { SelectModal } from '../SelectModal'
 import { Appointment } from '../Appointment'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
+import { useQuery } from 'react-query'
+import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -31,6 +33,7 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
+  const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner())
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
@@ -47,7 +50,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     setModalTitle(title)
     setIsModalOpen(true)
   }
-
+  // dispatch(initializeAppoint(data.map((app) => ({}))))
   const onExitComplete = () => {
     // modal 종료 애니메이션 대기
     dispatch(
