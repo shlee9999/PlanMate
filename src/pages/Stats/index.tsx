@@ -62,7 +62,7 @@ export const StatsPage = () => {
       <Container>
         <Title>공부량 한 눈에 보기</Title>
         <StatsContainer>
-          <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+          <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={data} />
           <InfoContainer selectedDate={selectedDate} dataSource={data} />
         </StatsContainer>
       </Container>

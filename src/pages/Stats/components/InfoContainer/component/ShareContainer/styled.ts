@@ -10,13 +10,14 @@ export const ShareButton = styled(motion.button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3px;
-  width: 75px;
+  gap: 5px;
   height: 30px;
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.border.default};
   font-size: 12px;
   font-weight: 400;
+  box-sizing: border-box;
+  padding: 10px;
 `
 
 export const SNSItems = styled(motion.ul)`

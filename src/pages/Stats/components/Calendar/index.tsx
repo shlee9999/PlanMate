@@ -20,11 +20,13 @@ import { getDateInfo, getWeekDates, weekCount } from 'utils/helper'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'pages/Stats'
 import { DateCell } from './DateCell'
+import { ResponseStats } from 'api/common/commonType'
 
 type CalendarProps = {
   className?: string
   selectedDate: DateProps
   setSelectedDate: (date: DateProps) => void
+  dataSource: ResponseStats
 }
 const momentum = 100
 const MonthVar: Variants = {
@@ -32,7 +34,7 @@ const MonthVar: Variants = {
   visible: { opacity: 1, x: 0 },
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
-export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, selectedDate }) => {
+export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, selectedDate, dataSource }) => {
   const onClickNext = () => {
     setSelectedDate(getDateInfo(new Date(selectedDate.year, selectedDate.month + 1, 1)))
     setBack(false)
@@ -78,29 +80,20 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
             transition={{ duration: 0.5 }}
             custom={back}
           >
-            {/* <DateCell
-                    key={date.getTime()}
-                    $currentMonth={date.getMonth() === selectedDate.month}
-                    onClick={() => setSelectedDate(getDateInfo(date))}
-                    $isSelected={
-                      getDateInfo(date).date == selectedDate.date && getDateInfo(date).month === selectedDate.month
-                    }
-                  ></DateCell> */}
-
             {Array.from(Array(weekCount(selectedDate.year, selectedDate.month + 1)).keys()).map((week) => (
               <WeekRow key={week}>
                 {getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
                   <DateCell
                     key={date.getTime()}
-                    isCurrentMonth={false}
                     onClick={() => setSelectedDate(getDateInfo(date))}
                     cellDate={{
                       year: date.getFullYear(),
                       month: date.getMonth(),
                       date: date.getDate(),
                     }}
+                    studyTimeHours={dataSource.totalStudyTimeHours}
                     selectedDate={selectedDate}
-                  ></DateCell>
+                  />
                 ))}
               </WeekRow>
             ))}
