@@ -11,7 +11,7 @@ type TimeSelectModeProps = {
 //옵션 시간 추가 필요요
 export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
   const dispatch = useDispatch()
-  const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const { startDate, endDate, text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const value = set === '부터' ? startDate.getHours() : endDate.getHours() === 0 ? 24 : endDate.getHours()
   const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const year = startDate.getFullYear()
@@ -22,7 +22,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
         updateInfo({
           endDate,
           text,
-          bgColor,
+          colorHex: bgColor,
           id,
           startDate: new Date(year, month, date, +e.target.value),
         })
@@ -33,7 +33,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
           startDate,
           endDate: new Date(year, month, date, +e.target.value),
           text,
-          bgColor,
+          colorHex: bgColor,
           id,
         })
       )

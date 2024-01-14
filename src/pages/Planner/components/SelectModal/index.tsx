@@ -22,11 +22,13 @@ import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { addAppoint, updateAppoint } from 'modules/appointments'
 
 import { RootState } from 'modules'
-import { useFormattedDate } from 'utils/helper'
+import { getKoreanISOString, useFormattedDate } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
+import { useMutation } from 'react-query'
+import { addPlanner } from 'api/planner/addPlanner'
 
 export const SelectModal = ({
   closeModal,
@@ -40,16 +42,29 @@ export const SelectModal = ({
   onExitComplete: () => void
 }) => {
   //입력값과 색상 상태 관리
-  const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const { startDate, endDate, text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const year = startDate.getFullYear()
   const month = startDate.getMonth()
   const date = startDate.getDate()
   const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? text : '')
-
   const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? bgColor : defaultColor)
   const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
-
+  const { mutate: mutateAddAppoint } = useMutation(
+    () =>
+      addPlanner({
+        colorHex: bgColor,
+        day: getKoreanISOString(startDate).split('T')[0],
+        startAt: startDate.getHours() + '',
+        endAt: endDate.getHours() + '',
+        scheduleName: text,
+        type: '',
+      }),
+    {
+      onSuccess: () => console.log('success'),
+      onError: () => console.log('error'),
+    }
+  )
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
@@ -61,23 +76,24 @@ export const SelectModal = ({
   const onClickConfirm = () => {
     if (inputValue === '') return
     setInputValue('')
-    if (title.slice(-2) === '추가')
+    if (title.slice(-2) === '추가') {
       dispatch(
         addAppoint({
           text: inputValue,
           startDate: new Date(year, month, date, startDate.getHours()),
           endDate: new Date(year, month, date, endDate.getHours()),
-          bgColor: subjectColor,
-          id: new Date().getTime(),
+          colorHex: subjectColor,
+          id: new Date().getTime() + '',
         })
       )
-    else {
+      mutateAddAppoint()
+    } else {
       dispatch(
         updateAppoint({
           text: inputValue,
           startDate,
           endDate,
-          bgColor,
+          colorHex: bgColor,
           id,
         })
       )
@@ -97,7 +113,7 @@ export const SelectModal = ({
   }, [isOpen])
 
   useEffect(() => {
-    dispatch(updateProp('bgColor', subjectColor))
+    dispatch(updateProp('colorHex', subjectColor))
   }, [subjectColor])
 
   useEffect(() => {

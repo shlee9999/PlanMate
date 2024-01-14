@@ -9,7 +9,7 @@ type AppointmentProps = {
   onClick: (e: React.MouseEvent) => void
   onMouseDown: (e: React.MouseEvent) => void
   onClickClose: (e: React.MouseEvent) => void
-  id: number
+  id: string
 }
 
 export const Appointment: FC<AppointmentProps> = ({

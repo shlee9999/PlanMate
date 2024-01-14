@@ -16,13 +16,15 @@ import { RootState } from 'modules'
 import { createArray, getDateSaveForm, getWeekDates } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 
-import { removeAppoint, updateAppoint } from 'modules/appointments'
+import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 import { SelectModal } from '../SelectModal'
 import { Appointment } from '../Appointment'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
+import { useQuery } from 'react-query'
+import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -31,15 +33,16 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
+  const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner())
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const { text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
   const now = new Date()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
-  const onClickClose = (id: number) => (e: React.MouseEvent) => {
+  const onClickClose = (id: string) => (e: React.MouseEvent) => {
     e.stopPropagation()
     dispatch(removeAppoint(id))
   }
@@ -47,7 +50,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     setModalTitle(title)
     setIsModalOpen(true)
   }
-
+  // dispatch(initializeAppoint(data.map((app) => ({}))))
   const onExitComplete = () => {
     // modal 종료 애니메이션 대기
     dispatch(
@@ -55,8 +58,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         startDate: new Date(),
         endDate: new Date(),
         text: '',
-        bgColor: defaultColor,
-        id: new Date().getTime(),
+        colorHex: defaultColor,
+        id: new Date().getTime() + '',
       })
     )
   }
@@ -86,8 +89,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         startDate: new Date(year, month, date, startHour),
         endDate: new Date(year, month, date, endHour),
         text,
-        bgColor,
-        id: new Date().getTime(),
+        colorHex: bgColor,
+        id: new Date().getTime() + '',
       })
     )
     openModal('일정추가')
@@ -148,7 +151,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                             key={app.id}
                             id={app.id}
                             title={app.text}
-                            bgColor={app.bgColor}
+                            bgColor={app.colorHex}
                             height={
                               app.endDate.getHours() === 0
                                 ? 24 - app.startDate.getHours()

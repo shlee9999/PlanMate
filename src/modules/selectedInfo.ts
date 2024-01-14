@@ -23,8 +23,8 @@ const IntialInfoState: ISelectedInfo = {
   startDate: new Date(),
   endDate: new Date(),
   text: '',
-  bgColor: defaultColor,
-  id: -1,
+  colorHex: defaultColor,
+  id: 'tempid',
 }
 
 function selectedInfo(state: ISelectedInfo = IntialInfoState, action: InfoAction) {
