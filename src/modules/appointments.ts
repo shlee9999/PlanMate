@@ -11,7 +11,7 @@ export const addAppoint = (appoint: IAppointment) => ({
   payload: appoint,
 })
 
-export const removeAppoint = (id: number) => ({
+export const removeAppoint = (id: string) => ({
   type: REMOVE_APPOINT,
   payload: id,
 })

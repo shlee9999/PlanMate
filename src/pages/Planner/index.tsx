@@ -2,8 +2,6 @@
 import { FC } from 'react'
 import { Root, HeaderContainer, HeaderMessage, HeaderTitleLogo } from './styled'
 import { Scheduler } from 'pages/Planner/components/Scheduler'
-import { useQuery } from 'react-query'
-import { findPlanner } from 'api/planner/findPlanner'
 
 export const PlannerPage: FC = () => {
   return (

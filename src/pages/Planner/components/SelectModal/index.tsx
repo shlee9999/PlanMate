@@ -42,7 +42,7 @@ export const SelectModal = ({
   onExitComplete: () => void
 }) => {
   //입력값과 색상 상태 관리
-  const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const { startDate, endDate, text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const year = startDate.getFullYear()
   const month = startDate.getMonth()
   const date = startDate.getDate()
@@ -82,8 +82,8 @@ export const SelectModal = ({
           text: inputValue,
           startDate: new Date(year, month, date, startDate.getHours()),
           endDate: new Date(year, month, date, endDate.getHours()),
-          bgColor: subjectColor,
-          id: new Date().getTime(),
+          colorHex: subjectColor,
+          id: new Date().getTime() + '',
         })
       )
       mutateAddAppoint()
@@ -93,7 +93,7 @@ export const SelectModal = ({
           text: inputValue,
           startDate,
           endDate,
-          bgColor,
+          colorHex: bgColor,
           id,
         })
       )
@@ -113,7 +113,7 @@ export const SelectModal = ({
   }, [isOpen])
 
   useEffect(() => {
-    dispatch(updateProp('bgColor', subjectColor))
+    dispatch(updateProp('colorHex', subjectColor))
   }, [subjectColor])
 
   useEffect(() => {

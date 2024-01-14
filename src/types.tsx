@@ -16,6 +16,6 @@ export interface IAppointment {
   text: string
   startDate: Date
   endDate: Date
-  bgColor: string
-  id: number
+  colorHex: string
+  id: string
 }
