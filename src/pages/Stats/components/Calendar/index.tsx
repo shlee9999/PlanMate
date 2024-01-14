@@ -1,8 +1,7 @@
-import { FC, useState } from 'react'
+import { FC, MouseEvent, useState } from 'react'
 import {
   Body,
   Circle,
-  DateCell,
   DateContainer,
   DayCell,
   DayRow,
@@ -20,6 +19,7 @@ import { weekDays } from 'constants/week'
 import { getDateInfo, getWeekDates, weekCount } from 'utils/helper'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'pages/Stats'
+import { DateCell } from './DateCell'
 
 type CalendarProps = {
   className?: string
@@ -78,26 +78,29 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
             transition={{ duration: 0.5 }}
             custom={back}
           >
-            {Array.from(Array(weekCount(selectedDate.year, selectedDate.month + 1)).keys()).map((week) => (
-              <WeekRow key={week}>
-                {getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
-                  <DateCell
+            {/* <DateCell
                     key={date.getTime()}
                     $currentMonth={date.getMonth() === selectedDate.month}
                     onClick={() => setSelectedDate(getDateInfo(date))}
                     $isSelected={
                       getDateInfo(date).date == selectedDate.date && getDateInfo(date).month === selectedDate.month
                     }
-                  >
-                    {/* 달력 이전달, 이번달만 표시하고, 이후는 표시 안하는 로직 */}
-                    {date.getMonth() <= selectedDate.month
-                      ? selectedDate.month === 11 && date.getMonth() === 0
-                        ? null
-                        : date.getDate()
-                      : selectedDate.month === 0 && date.getMonth() === 11
-                      ? date.getDate()
-                      : null}
-                  </DateCell>
+                  ></DateCell> */}
+
+            {Array.from(Array(weekCount(selectedDate.year, selectedDate.month + 1)).keys()).map((week) => (
+              <WeekRow key={week}>
+                {getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
+                  <DateCell
+                    key={date.getTime()}
+                    isCurrentMonth={false}
+                    onClick={() => setSelectedDate(getDateInfo(date))}
+                    cellDate={{
+                      year: date.getFullYear(),
+                      month: date.getMonth(),
+                      date: date.getDate(),
+                    }}
+                    selectedDate={selectedDate}
+                  ></DateCell>
                 ))}
               </WeekRow>
             ))}

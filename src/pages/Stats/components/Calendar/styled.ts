@@ -51,7 +51,7 @@ const Row = styled.div`
   align-items: center;
 `
 export const DayRow = styled(Row)``
-const Cell = styled.div`
+export const Cell = styled.div`
   padding: 0 8px;
   font-size: 12px;
   font-weight: 400;
@@ -76,26 +76,6 @@ export const Line = styled.hr`
   height: 1px;
 `
 export const WeekRow = styled(Row)``
-type DateCellProps = {
-  $currentMonth: boolean
-  $isSelected: boolean
-}
-export const DateCell = styled(Cell)<DateCellProps>`
-  border: 1px solid ${(props) => (props.$isSelected ? props.theme.primary.dark : 'none')};
-  scale: ${(props) => (props.$isSelected ? 1.2 : 1)};
-
-  cursor: pointer;
-  &:hover {
-    scale: 1.2;
-  }
-  transition: scale 0.1s ease-out;
-  border-radius: 100%;
-  width: 33px;
-  height: 33px;
-  background-color: ${(props) => (props.$currentMonth ? props.theme.primary.default : 'none')};
-  color: ${(props) => (props.$currentMonth ? props.theme.text.white : props.theme.background.gray1)};
-  background-color: ${(props) => (props.$isSelected ? props.theme.primary.dark : '')};
-`
 
 export const LegendContainer = styled.ul`
   position: absolute;
