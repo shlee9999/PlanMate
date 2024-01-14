@@ -13,7 +13,7 @@ import {
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { createArray, getDateSaveForm, getWeekDates } from 'utils/helper'
+import { createArray, getDateSaveForm, getWeekDates, getYYYYMMDD } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 
 import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
@@ -35,7 +35,7 @@ type SchedulerProps = {
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
   const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner())
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const { scheduleName: text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
   const now = new Date()
@@ -57,9 +57,10 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
       updateInfo({
         startDate: new Date(),
         endDate: new Date(),
-        text: '',
+        scheduleName: '',
         colorHex: defaultColor,
         id: new Date().getTime() + '',
+        day: getYYYYMMDD(new Date()),
       })
     )
   }
@@ -80,17 +81,18 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     if (selectedCells.length === 0) return
     const startHour = +selectedCells[0].split('T')[1]
     const endHour = +selectedCells[selectedCells.length - 1].split('T')[1] + 1
-    const year = +selectedCells[0].slice(0, 4)
-    const month = +selectedCells[0].slice(4, 6)
-    const date = +selectedCells[0].slice(6, 8)
+    const year = selectedCells[0].slice(0, 4)
+    const month = selectedCells[0].slice(4, 6)
+    const date = selectedCells[0].slice(6, 8)
 
     dispatch(
       updateInfo({
-        startDate: new Date(year, month, date, startHour),
-        endDate: new Date(year, month, date, endHour),
-        text,
+        startDate: new Date(+year, +month, +date, startHour),
+        endDate: new Date(+year, +month, +date, endHour),
+        scheduleName: text,
         colorHex: bgColor,
-        id: new Date().getTime() + '',
+        id: new Date().getTime() + '', // tempId
+        day: year + '-' + month + '-' + date, // YYYY-MM-DD
       })
     )
     openModal('일정추가')
@@ -150,7 +152,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                           <Appointment
                             key={app.id}
                             id={app.id}
-                            title={app.text}
+                            title={app.scheduleName}
                             bgColor={app.colorHex}
                             height={
                               app.endDate.getHours() === 0

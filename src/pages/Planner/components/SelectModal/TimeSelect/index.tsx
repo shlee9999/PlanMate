@@ -3,6 +3,7 @@ import { StyledSelect, SelectOption, SelectWrapper } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { updateInfo } from 'modules/selectedInfo'
+import { getYYYYMMDD } from 'utils/helper'
 
 type TimeSelectModeProps = {
   set: string
@@ -11,7 +12,14 @@ type TimeSelectModeProps = {
 //옵션 시간 추가 필요요
 export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
   const dispatch = useDispatch()
-  const { startDate, endDate, text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const {
+    startDate,
+    endDate,
+    scheduleName: text,
+    colorHex: bgColor,
+    id,
+    day,
+  } = useSelector((state: RootState) => state.selectedInfo)
   const value = set === '부터' ? startDate.getHours() : endDate.getHours() === 0 ? 24 : endDate.getHours()
   const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const year = startDate.getFullYear()
@@ -21,10 +29,11 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
       dispatch(
         updateInfo({
           endDate,
-          text,
+          scheduleName: text,
           colorHex: bgColor,
           id,
           startDate: new Date(year, month, date, +e.target.value),
+          day,
         })
       )
     else
@@ -32,9 +41,10 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
         updateInfo({
           startDate,
           endDate: new Date(year, month, date, +e.target.value),
-          text,
+          scheduleName: text,
           colorHex: bgColor,
           id,
+          day,
         })
       )
   }

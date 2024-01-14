@@ -13,9 +13,10 @@ export type PageInfo = {
 }
 
 export interface IAppointment {
-  text: string
+  scheduleName: string
   startDate: Date
   endDate: Date
   colorHex: string
   id: string
+  day: string
 }

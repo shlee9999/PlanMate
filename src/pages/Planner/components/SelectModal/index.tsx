@@ -22,7 +22,7 @@ import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { addAppoint, updateAppoint } from 'modules/appointments'
 
 import { RootState } from 'modules'
-import { getKoreanISOString, useFormattedDate } from 'utils/helper'
+import { getKoreanISOString, getYYYYMMDD, useFormattedDate } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
@@ -42,7 +42,14 @@ export const SelectModal = ({
   onExitComplete: () => void
 }) => {
   //입력값과 색상 상태 관리
-  const { startDate, endDate, text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const {
+    startDate,
+    endDate,
+    scheduleName: text,
+    colorHex: bgColor,
+    id,
+    day,
+  } = useSelector((state: RootState) => state.selectedInfo)
   const year = startDate.getFullYear()
   const month = startDate.getMonth()
   const date = startDate.getDate()
@@ -79,22 +86,24 @@ export const SelectModal = ({
     if (title.slice(-2) === '추가') {
       dispatch(
         addAppoint({
-          text: inputValue,
+          scheduleName: inputValue,
           startDate: new Date(year, month, date, startDate.getHours()),
           endDate: new Date(year, month, date, endDate.getHours()),
           colorHex: subjectColor,
           id: new Date().getTime() + '',
+          day,
         })
       )
       mutateAddAppoint()
     } else {
       dispatch(
         updateAppoint({
-          text: inputValue,
+          scheduleName: inputValue,
           startDate,
           endDate,
           colorHex: bgColor,
           id,
+          day,
         })
       )
     }
