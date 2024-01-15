@@ -53,6 +53,7 @@ import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { getKoreanISOString } from 'utils/helper'
+import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 /**
  * @title
  * @like
@@ -70,23 +71,14 @@ type LocationState = ResponsePostType
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
   const location = useLocation()
-  const {
-    postTagList,
-    content,
-    commentCount,
-    likeCount,
-    nickname,
-    postId,
-    scrapCount,
-    title,
-    createdAt,
-    isMyHearted: isLiked,
-    isMyScraped: isScrapped,
-  } = location.state as LocationState
+  const { postTagList, nickname, postId, title, createdAt } = location.state as LocationState
+  const { data: detailData, isLoading: isDetailLoading } = useQuery<CheckPostResponseProps>(
+    ['detailData', postId],
+    () => checkPost({ postId })
+  )
 
   if (!postId) return <Root>Error!</Root>
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  // checkPost에서 새로 얻을 값은 content, tagList뿐이다. 이후 없애고 findAll로 합칠듯
   // const { data: detailData, isLoading: isDetailLoading } = useQuery<
   //   Promise<CheckPostResponseProps>,
   //   Error,
@@ -103,11 +95,21 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const queryClient = useQueryClient()
 
   const { mutate: mutateLikePost } = useMutation((id: number) => likePost({ postId: id }), {
-    onSuccess: () => {
-      console.log('like post!')
-      queryClient.invalidateQueries(['findAllResponse'])
+    onMutate: () => {
+      const previousData = queryClient.getQueryData<CheckPostResponseProps>(['detailData', postId])
+      queryClient.setQueryData(['detailData', postId], (old: CheckPostResponseProps) => ({
+        ...old,
+        isMyHearted: !old.isMyHearted,
+        likeCount: old.isMyHearted ? old.likeCount - 1 : old.likeCount + 1,
+      }))
+
+      return { previousData }
     },
-    onError: (err, variables, context) => console.log(err),
+    onSuccess: () => console.log('toggle post!'),
+    onError: (err, variables, context) => {
+      console.error(err)
+      queryClient.setQueryData(['detailData', postId], context.previousData)
+    },
   })
 
   const { mutate: mutateCreateComment } = useMutation(() => createComment({ content: commentInput, postId }), {
@@ -143,7 +145,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   })
   const commentList = commentData?.commentDtoList
   const totalPage = commentData?.totalPages
-  const [currentContent, setCurrentContent] = useState<string>(content)
+  const [currentContent, setCurrentContent] = useState<string>(detailData?.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
@@ -237,7 +239,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setIsDeletePostModalOpen(false)
   }
   const onClickLikeButton = () => {
+    // mutateLikePost(postId)
+    console.log('click')
     mutateLikePost(postId)
+    // likePost({ postId }).then((res) => console.log(res))
   }
   const onClickScrapButton = () => {
     scrapPost({ postId: postId })
@@ -326,15 +331,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         )}
 
         <IconContainer>
-          <HeartIcon
-            fill={isLiked ? `${HEART_COLOR}` : 'none'}
-            color="red"
-            fillRule="nonzero"
-            onClick={onClickLikeButton}
-          />
-          <Count onClick={onClickLikeButton}>{likeCount}</Count>
-          <ScrapIcon fill={isScrapped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
-          <Count onClick={onClickScrapButton}>{scrapCount}</Count>
+          <HeartIcon fill={detailData?.isMyHearted ? `${HEART_COLOR}` : 'none'} onClick={onClickLikeButton} />
+          <Count onClick={onClickLikeButton}>{detailData?.likeCount}</Count>
+          <ScrapIcon fill={detailData?.isMyScraped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
+          <Count onClick={onClickScrapButton}>{detailData?.scrapCount}</Count>
         </IconContainer>
       </ContentWrapper>
 
@@ -349,7 +349,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       )}
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{commentCount}</CommentCount>개
+          댓글 <CommentCount>{detailData?.commentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer className={commentList?.length !== 0 ? '' : 'no_content'}>
           {commentList?.length !== 0 ? (
