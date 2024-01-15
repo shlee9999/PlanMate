@@ -58,9 +58,9 @@ export const Title = styled.div`
 
 export const StatsContainer = styled.div`
   display: flex;
+  height: 400px;
   width: 100%;
   justify-content: space-between;
-  height: fit-content;
   flex-wrap: wrap;
   gap: 20px;
 `
