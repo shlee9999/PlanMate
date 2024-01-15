@@ -36,7 +36,7 @@ import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findA
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
-import { likePost } from 'api/post/likePost'
+import useLikePostMutation, { likePost } from 'api/post/likePost'
 import { scrapPost } from 'api/post/scrapPost'
 import { DeletePostModal } from 'pages/ExamInfo/components/DeleteModal/DeletePostModal'
 import { removePost } from 'api/post/remove/removePost'
@@ -93,25 +93,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     string[]
   >(['commentData', currentPage + ''], () => findAllComments({ pages: currentPage - 1, postId }))
   const queryClient = useQueryClient()
-
-  const { mutate: mutateLikePost } = useMutation((id: number) => likePost({ postId: id }), {
-    onMutate: () => {
-      const previousData = queryClient.getQueryData<CheckPostResponseProps>(['detailData', postId])
-      queryClient.setQueryData(['detailData', postId], (old: CheckPostResponseProps) => ({
-        ...old,
-        isMyHearted: !old.isMyHearted,
-        likeCount: old.isMyHearted ? old.likeCount - 1 : old.likeCount + 1,
-      }))
-
-      return { previousData }
-    },
-    onSuccess: () => console.log('toggle post!'),
-    onError: (err, variables, context) => {
-      console.error(err)
-      queryClient.setQueryData(['detailData', postId], context.previousData)
-    },
-  })
-
+  const mutateLikePost = useLikePostMutation(postId)
   const { mutate: mutateCreateComment } = useMutation(() => createComment({ content: commentInput, postId }), {
     onMutate: async () => {
       const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
@@ -131,7 +113,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
           },
         ],
       }))
-
       return { previousComments }
     },
     onError: (err, newComment, context) => {
@@ -239,10 +220,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setIsDeletePostModalOpen(false)
   }
   const onClickLikeButton = () => {
-    // mutateLikePost(postId)
-    console.log('click')
     mutateLikePost(postId)
-    // likePost({ postId }).then((res) => console.log(res))
   }
   const onClickScrapButton = () => {
     scrapPost({ postId: postId })
