@@ -6,7 +6,15 @@ interface RootProps {
   $bgColor: string
   $height: number
 }
-
+export const Wrapper = styled(motion.div)<RootProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: ${(props) => props.theme.background.white};
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+`
 export const CloseButton = styled(CloseIcon)`
   position: absolute;
   opacity: 0;
@@ -17,11 +25,9 @@ export const CloseButton = styled(CloseIcon)`
   fill: ${(props) => props.theme.text.gray1};
 `
 
-export const Root = styled(motion.div)<RootProps>`
-  position: absolute;
-  top: 0;
-  left: 0;
+export const Root = styled.div<{ $bgColor: string }>`
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
   text-transform: uppercase;
   color: ${(props) => props.theme.background.white};

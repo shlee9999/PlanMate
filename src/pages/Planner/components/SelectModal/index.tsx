@@ -69,6 +69,7 @@ export const SelectModal = ({
           (prev) =>
             prev.concat({ colorHex, day, startAt, endAt, scheduleName: inputValue, plannerId: new Date().getTime() }) // tempId
         )
+        console.log('mutate')
         return { previousAppointments }
       },
       onSuccess: (data) => {
@@ -77,9 +78,6 @@ export const SelectModal = ({
       onError: (err, variables, context) => {
         console.log('error:', err)
         queryClient.setQueryData(['plannerData'], context.previousAppointments)
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries(['plannerData'])
       },
     }
   )
@@ -158,7 +156,9 @@ export const SelectModal = ({
     closeModal()
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') onClickConfirm()
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      onClickConfirm()
+    }
   }
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()

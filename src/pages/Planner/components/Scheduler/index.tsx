@@ -20,12 +20,13 @@ import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appoint
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 import { SelectModal } from '../SelectModal'
-import { Appointment } from '../Appointment'
+
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 import { removePlanner } from 'api/planner/removePlanner'
+import { Appointment } from '../Appointment'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -37,6 +38,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const queryClient = useQueryClient()
   const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner(), {
     initialData: [],
+    keepPreviousData: true,
   })
   const { mutate: mutateRemoveAppoint } = useMutation((plannerId: number) => removePlanner({ plannerId }), {
     onMutate: async (plannerId) => {
@@ -177,7 +179,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                     {appointments.map((app) => {
                       return (
                         app.day === getYYYYMMDD(date) &&
-                        hour === +app.startAt.slice(0, 2) && (
+                        hour === +app.startAt.slice(0, 2) &&
+                        !isLoading && (
                           <Appointment
                             key={app.plannerId}
                             id={app.plannerId}

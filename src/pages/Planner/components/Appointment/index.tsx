@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { CloseButton, Root, Title } from './styled'
+import { CloseButton, Root, Title, Wrapper } from './styled'
 import { AnimatePresence, Variants } from 'framer-motion'
 
 type AppointmentProps = {
@@ -38,7 +38,7 @@ export const Appointment: FC<AppointmentProps> = ({
     },
   }
   return (
-    <Root
+    <Wrapper
       $bgColor={bgColor}
       $height={height}
       onClick={onClick}
@@ -49,8 +49,10 @@ export const Appointment: FC<AppointmentProps> = ({
       exit="exit"
       key={id}
     >
-      <Title>{title}</Title>
-      <CloseButton onClick={onClickClose} />
-    </Root>
+      <Root $bgColor={bgColor}>
+        <Title>{title}</Title>
+        <CloseButton onClick={onClickClose} />
+      </Root>
+    </Wrapper>
   )
 }
