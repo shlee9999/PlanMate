@@ -17,7 +17,7 @@ import { Calendar } from './components/Calendar'
 import { DayValue } from 'react-modern-calendar-datepicker'
 import { useQueries, useQuery } from 'react-query'
 import { checkStats } from 'api/stats/checkStats'
-import { ResponseStats, defaultStats } from 'api/common/commonType'
+import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 
 export type DateProps = {
