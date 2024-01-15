@@ -11,11 +11,12 @@ import {
   Title,
   Root,
   UserName,
+  LeftInfoBox,
+  RightInfoBox,
 } from './styled'
 import { InfoContainer } from 'pages/Stats/components/InfoContainer'
 import { Calendar } from './components/Calendar'
-import { DayValue } from 'react-modern-calendar-datepicker'
-import { useQueries, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import { checkStats } from 'api/stats/checkStats'
 import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
@@ -54,10 +55,14 @@ export const StatsPage = () => {
       <Container>
         <Title>공부량 한 눈에 보기</Title>
         <StatsContainer>
-          {!todayLoading && (
-            <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={data} />
-          )}
-          {!isLoading && <InfoContainer selectedDate={selectedDate} dataSource={data} />}
+          <LeftInfoBox left>
+            {!todayLoading && (
+              <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={data} />
+            )}
+          </LeftInfoBox>
+          <RightInfoBox right>
+            {!isLoading && <InfoContainer selectedDate={selectedDate} dataSource={data} />}
+          </RightInfoBox>
         </StatsContainer>
       </Container>
     </Root>
