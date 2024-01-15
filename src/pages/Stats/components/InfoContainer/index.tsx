@@ -56,7 +56,7 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
   }
 
   return (
-    <Root right={true}>
+    <Root>
       <Header>
         {year}년 {month + 1}월 {date}일
       </Header>

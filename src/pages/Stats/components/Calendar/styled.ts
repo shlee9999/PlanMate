@@ -4,11 +4,13 @@ import { InfoBox } from 'components/InfoBox'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const Root = styled(InfoBox)`
+export const Root = styled.div`
+  width: 100%;
+  overflow: hidden;
   position: relative;
-  flex-grow: 1;
   padding: 24px 25px;
   height: 400px;
+  min-width: 300px;
   max-width: 420px;
 `
 export const Header = styled.div`
