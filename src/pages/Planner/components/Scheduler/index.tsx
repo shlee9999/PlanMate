@@ -23,8 +23,9 @@ import { SelectModal } from '../SelectModal'
 import { Appointment } from '../Appointment'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
+import { removePlanner } from 'api/planner/removePlanner'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -33,19 +34,43 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner())
+  const queryClient = useQueryClient()
+  const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner(), {
+    initialData: [],
+  })
+  const { mutate: mutateRemoveAppoint } = useMutation((plannerId: number) => removePlanner({ plannerId }), {
+    onMutate: async (plannerId) => {
+      const previousAppointments = queryClient.getQueryData<FindPlannerResponseProps>(['plannerData'])
+      queryClient.setQueryData<FindPlannerResponseProps>(['plannerData'], (old) =>
+        old.filter((app) => app.plannerId !== plannerId)
+      )
+      return { previousAppointments }
+    },
+    onError: (err, plannerId, context) => {
+      queryClient.setQueryData(['plannerData'], context.previousAppointments)
+    },
+    onSuccess: () => {
+      console.log('Remove planner successful')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['plannerData'])
+    },
+  })
+
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { scheduleName: text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
+  const { scheduleName: text, colorHex: bgColor, plannerId: id } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
-  console.log(appointments)
   const now = new Date()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
-  const onClickClose = (id: string) => (e: React.MouseEvent) => {
+
+  dispatch(initializeAppoint(data))
+  const onClickClose = (id: number) => (e: React.MouseEvent) => {
     e.stopPropagation()
     dispatch(removeAppoint(id))
+    mutateRemoveAppoint(id)
   }
   const openModal = (title: '일정추가' | '일정수정') => {
     setModalTitle(title)
@@ -60,7 +85,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         endAt: '00',
         scheduleName: '',
         colorHex: defaultColor,
-        id: new Date().getTime() + '',
+        plannerId: new Date().getTime(),
         day: getYYYYMMDD(new Date()),
       })
     )
@@ -91,7 +116,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         endAt: endHour,
         scheduleName: text,
         colorHex: bgColor,
-        id: new Date().getTime() + '', // tempId
+        plannerId: new Date().getTime(), // tempId
         day: getYYYYMMDD({
           year,
           month,
@@ -154,8 +179,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                         app.day === getYYYYMMDD(date) &&
                         hour === +app.startAt.slice(0, 2) && (
                           <Appointment
-                            key={app.id}
-                            id={app.id}
+                            key={app.plannerId}
+                            id={app.plannerId}
                             title={app.scheduleName}
                             bgColor={app.colorHex}
                             height={
@@ -165,7 +190,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                             }
                             onClick={onClickAppointment(app)}
                             onMouseDown={(e) => e.stopPropagation()}
-                            onClickClose={onClickClose(app.id)}
+                            onClickClose={onClickClose(app.plannerId)}
                           />
                         )
                       )

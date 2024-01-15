@@ -9,7 +9,7 @@ type AppointmentProps = {
   onClick: (e: React.MouseEvent) => void
   onMouseDown: (e: React.MouseEvent) => void
   onClickClose: (e: React.MouseEvent) => void
-  id: string
+  id: number
 }
 
 export const Appointment: FC<AppointmentProps> = ({
@@ -19,7 +19,6 @@ export const Appointment: FC<AppointmentProps> = ({
   onMouseDown,
   title,
   onClickClose,
-
   id,
 }) => {
   const AppVar: Variants = {
@@ -38,7 +37,6 @@ export const Appointment: FC<AppointmentProps> = ({
       scaleY: 0,
     },
   }
-  if (height !== 0) console.log(height)
   return (
     <Root
       $bgColor={bgColor}

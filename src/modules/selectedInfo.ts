@@ -25,7 +25,7 @@ const IntialInfoState: ISelectedInfo = {
   endAt: '00',
   scheduleName: '',
   colorHex: defaultColor,
-  id: 'tempId',
+  plannerId: new Date().getTime(),
   day: getYYYYMMDD(new Date()),
 }
 

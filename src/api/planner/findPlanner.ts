@@ -1,13 +1,7 @@
 import { axiosGET } from 'api/common/commonAxios'
+import { IAppointment } from 'types'
 
-export type FindPlannerResponseProps = {
-  colorHex: string
-  day: string
-  endAt: string
-  scheduleName: string
-  startAt: string
-  type: string
-}[]
+export type FindPlannerResponseProps = IAppointment[]
 
 export const findPlanner = (): Promise<FindPlannerResponseProps> => {
   return axiosGET('planner/find')

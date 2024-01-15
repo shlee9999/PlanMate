@@ -27,8 +27,10 @@ import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { addPlanner } from 'api/planner/addPlanner'
+import { IAppointment } from 'types'
+import { editPlanner } from 'api/planner/editPlanner'
 
 export const SelectModal = ({
   closeModal,
@@ -42,32 +44,77 @@ export const SelectModal = ({
   onExitComplete: () => void
 }) => {
   //입력값과 색상 상태 관리
-  const {
-    startAt,
-    endAt,
-    scheduleName: text,
-    colorHex: bgColor,
-    id,
-    day,
-  } = useSelector((state: RootState) => state.selectedInfo)
-
-  const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? text : '')
-  const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? bgColor : defaultColor)
+  const { startAt, endAt, scheduleName, colorHex, plannerId, day } = useSelector(
+    (state: RootState) => state.selectedInfo
+  )
+  const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? scheduleName : '')
+  const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? colorHex : defaultColor)
   const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
+  const queryClient = useQueryClient()
   const { mutate: mutateAddAppoint } = useMutation(
     () =>
       addPlanner({
-        colorHex: bgColor,
+        colorHex,
         day,
-        startAt: useFormattedTime(+startAt * 60 * 60),
-        endAt: useFormattedTime(+endAt * 60 * 60),
-        scheduleName: text,
-        type: '',
+        startAt,
+        endAt,
+        scheduleName: inputValue,
       }),
     {
-      onSuccess: () => console.log('success'),
-      onError: () => console.log('error'),
+      onMutate: async () => {
+        const previousAppointments = queryClient.getQueryData<IAppointment[]>(['plannerData'])
+        queryClient.setQueryData<IAppointment[]>(
+          ['plannerData'],
+          (prev) =>
+            prev.concat({ colorHex, day, startAt, endAt, scheduleName: inputValue, plannerId: new Date().getTime() }) // tempId
+        )
+        return { previousAppointments }
+      },
+      onSuccess: (data) => {
+        console.log('success add')
+      },
+      onError: (err, variables, context) => {
+        console.log('error:', err)
+        queryClient.setQueryData(['plannerData'], context.previousAppointments)
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(['plannerData'])
+      },
+    }
+  )
+  const { mutate: mutateEditAppoint } = useMutation(
+    (plannerId: number) =>
+      editPlanner({
+        colorHex,
+        day,
+        startAt,
+        endAt,
+        scheduleName: inputValue,
+        plannerId,
+      }),
+    {
+      onMutate: async () => {
+        const previousAppointments = queryClient.getQueryData<IAppointment[]>(['plannerData'])
+        queryClient.setQueryData<IAppointment[]>(
+          ['plannerData'],
+          (prev) =>
+            prev.map((app) =>
+              app.plannerId === plannerId ? { colorHex, day, startAt, endAt, scheduleName: inputValue, plannerId } : app
+            ) // tempId
+        )
+        return { previousAppointments }
+      },
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (err, variables, context) => {
+        console.log('error:', err)
+        queryClient.setQueryData(['plannerData'], context.previousAppointments)
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(['plannerData'])
+      },
     }
   )
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +128,7 @@ export const SelectModal = ({
   const onClickConfirm = () => {
     if (inputValue === '') return
     setInputValue('')
+
     if (title.slice(-2) === '추가') {
       dispatch(
         addAppoint({
@@ -88,22 +136,24 @@ export const SelectModal = ({
           startAt: startAt,
           endAt: endAt,
           colorHex: subjectColor,
-          id: new Date().getTime() + '',
+          plannerId: new Date().getTime(),
           day,
         })
       )
-      // mutateAddAppoint()
+      mutateAddAppoint()
     } else {
+      // 수정
       dispatch(
         updateAppoint({
           scheduleName: inputValue,
           startAt: startAt,
           endAt: endAt,
-          colorHex: bgColor,
-          id,
+          colorHex: colorHex,
+          plannerId: plannerId,
           day,
         })
       )
+      mutateEditAppoint(plannerId)
     }
     closeModal()
   }
@@ -124,8 +174,8 @@ export const SelectModal = ({
   }, [subjectColor])
 
   useEffect(() => {
-    setInputValue(text)
-  }, [text])
+    setInputValue(scheduleName)
+  }, [scheduleName])
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
