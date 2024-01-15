@@ -101,6 +101,15 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     string[]
   >(['commentData', currentPage + ''], () => findAllComments({ pages: currentPage - 1, postId }))
   const queryClient = useQueryClient()
+
+  const { mutate: mutateLikePost } = useMutation((id: number) => likePost({ postId: id }), {
+    onSuccess: () => {
+      console.log('like post!')
+      queryClient.invalidateQueries(['findAllResponse'])
+    },
+    onError: (err, variables, context) => console.log(err),
+  })
+
   const { mutate: mutateCreateComment } = useMutation(() => createComment({ content: commentInput, postId }), {
     onMutate: async () => {
       const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
@@ -151,13 +160,13 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const deletePost = (): void => {
     if (mode === 'examinfo')
       removePost({
-        postId: +postId,
+        postId: postId,
       }).then((res) => {
         navigate(-1)
       })
     else
       deleteNotice({
-        noticeId: +postId,
+        noticeId: postId,
       }).then((res) => {
         navigate(-1)
       })
@@ -228,10 +237,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setIsDeletePostModalOpen(false)
   }
   const onClickLikeButton = () => {
-    likePost({ postId: +postId })
+    mutateLikePost(postId)
   }
   const onClickScrapButton = () => {
-    scrapPost({ postId: +postId })
+    scrapPost({ postId: postId })
   }
   const onClickDeleteTypo = () => {
     setIsDeletePostModalOpen(true)
