@@ -24,7 +24,8 @@ export const initializeAppoint = (appointList: IAppointment[]) => ({
   type: INITIALIZE_APPOINT,
   payload: { appointList: appointList },
 })
-//toAppoint
+
+//Appoint
 type AppointAction =
   | ReturnType<typeof addAppoint>
   | ReturnType<typeof removeAppoint>

@@ -13,7 +13,7 @@ import {
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { createArray, getDateSaveForm, getWeekDates, getYYYYMMDD } from 'utils/helper'
+import { createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 
 import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
@@ -38,6 +38,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const { scheduleName: text, colorHex: bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
+  console.log(appointments)
   const now = new Date()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedCells, setSelectedCells] = useState<string[]>([])
@@ -55,8 +56,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     // modal 종료 애니메이션 대기
     dispatch(
       updateInfo({
-        startDate: new Date(),
-        endDate: new Date(),
+        startAt: '00',
+        endAt: '00',
         scheduleName: '',
         colorHex: defaultColor,
         id: new Date().getTime() + '',
@@ -79,20 +80,23 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   }
   const onMouseUp = () => {
     if (selectedCells.length === 0) return
-    const startHour = +selectedCells[0].split('T')[1]
-    const endHour = +selectedCells[selectedCells.length - 1].split('T')[1] + 1
-    const year = selectedCells[0].slice(0, 4)
-    const month = selectedCells[0].slice(4, 6)
-    const date = selectedCells[0].slice(6, 8)
-
+    const startHour = useFormattedTime(+selectedCells[0].split('T')[1] * 60 * 60)
+    const endHour = useFormattedTime((+selectedCells[selectedCells.length - 1].split('T')[1] + 1) * 60 * 60)
+    const year = +selectedCells[0].slice(0, 4)
+    const month = +selectedCells[0].slice(5, 7)
+    const date = +selectedCells[0].slice(8, 10)
     dispatch(
       updateInfo({
-        startDate: new Date(+year, +month, +date, startHour),
-        endDate: new Date(+year, +month, +date, endHour),
+        startAt: startHour,
+        endAt: endHour,
         scheduleName: text,
         colorHex: bgColor,
         id: new Date().getTime() + '', // tempId
-        day: year + '-' + month + '-' + date, // YYYY-MM-DD
+        day: getYYYYMMDD({
+          year,
+          month,
+          date,
+        }), // YYYY-MM-DD
       })
     )
     openModal('일정추가')
@@ -111,10 +115,10 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
           <DataCellRow>
             <DayCell $today={null}></DayCell>
             {getWeekDates(currentDate).map((date, index) => (
-              <DayCell $today={getDateSaveForm(now) === getDateSaveForm(date)} key={getDateSaveForm(date)}>
+              <DayCell $today={getYYYYMMDD(now) === getYYYYMMDD(date)} key={getYYYYMMDD(date)}>
                 <>
                   <DayTypo>{weekDays[index]}</DayTypo>
-                  <DateTypo>{getDateSaveForm(date).slice(-2)}</DateTypo>
+                  <DateTypo>{getYYYYMMDD(date).slice(-2)}</DateTypo>
                 </>
               </DayCell>
             ))}
@@ -126,19 +130,19 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
               </DataCell>
               {getWeekDates(currentDate).map((date) => (
                 <DataCell
-                  key={getDateSaveForm(date)}
-                  $isSelected={selectedCells.includes(getDateSaveForm(date) + 'T' + hour)}
+                  key={getYYYYMMDD(date)}
+                  $isSelected={selectedCells.includes(getYYYYMMDD(date) + 'T' + hour)}
                   $hour={hour}
                   onMouseDown={() => {
-                    setSelectedCells([getDateSaveForm(date) + 'T' + hour])
+                    setSelectedCells([getYYYYMMDD(date) + 'T' + hour])
                   }}
                   onMouseEnter={(e) => {
                     if (e.buttons === 1) {
                       if (
-                        selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour - 1}`) ||
-                        selectedCells.includes(getDateSaveForm(date) + 'T' + `${hour + 1}`)
+                        selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`) ||
+                        selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`)
                       )
-                        setSelectedCells((prev) => prev.concat(getDateSaveForm(date) + 'T' + hour))
+                        setSelectedCells((prev) => prev.concat(getYYYYMMDD(date) + 'T' + hour))
                       else setSelectedCells([])
                     }
                   }}
@@ -147,17 +151,17 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                   <AnimatePresence>
                     {appointments.map((app) => {
                       return (
-                        getDateSaveForm(app.startDate) === getDateSaveForm(date) &&
-                        hour === app.startDate.getHours() && (
+                        app.day === getYYYYMMDD(date) &&
+                        hour === +app.startAt.slice(0, 2) && (
                           <Appointment
                             key={app.id}
                             id={app.id}
                             title={app.scheduleName}
                             bgColor={app.colorHex}
                             height={
-                              app.endDate.getHours() === 0
-                                ? 24 - app.startDate.getHours()
-                                : app.endDate.getHours() - app.startDate.getHours()
+                              app.endAt.slice(0, 2) === '00'
+                                ? 24 - +app.startAt.slice(0, 2)
+                                : +app.endAt.slice(0, 2) - +app.startAt.slice(0, 2)
                             }
                             onClick={onClickAppointment(app)}
                             onMouseDown={(e) => e.stopPropagation()}

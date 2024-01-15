@@ -38,7 +38,7 @@ export const Appointment: FC<AppointmentProps> = ({
       scaleY: 0,
     },
   }
-
+  if (height !== 0) console.log(height)
   return (
     <Root
       $bgColor={bgColor}

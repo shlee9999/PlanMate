@@ -21,8 +21,8 @@ export const updateProp = (propName: keyof ISelectedInfo, value: any) => ({
 type InfoAction = ReturnType<typeof updateInfo> | ReturnType<typeof updateProp>
 
 const IntialInfoState: ISelectedInfo = {
-  startDate: new Date(),
-  endDate: new Date(),
+  startAt: '00',
+  endAt: '00',
   scheduleName: '',
   colorHex: defaultColor,
   id: 'tempId',

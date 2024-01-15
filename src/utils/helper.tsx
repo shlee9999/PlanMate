@@ -50,11 +50,12 @@ export const useFormattedTimeKorean = (time: number | { hour: number; minute: nu
   return formattedTime
 }
 
-export const useFormattedDate = (currentDate: Date): string => {
-  const month: string = `${currentDate.getMonth() + 1}`.padStart(2, '0')
-  const date: string = `${currentDate.getDate()}`.padStart(2, '0')
-  const day: number = currentDate.getDay()
-  const formattedDate: string = month + '월 ' + date + '일 (' + weekDays[day] + ')요일'
+export const useFormattedDate = (currentDate: Date | string): string => {
+  if (typeof currentDate === 'string') currentDate = new Date(currentDate)
+  const month = `${currentDate.getMonth() + 1}`.padStart(2, '0')
+  const date = `${currentDate.getDate()}`.padStart(2, '0')
+  const dayIndex = currentDate.getDay()
+  const formattedDate = month + '월 ' + date + '일 (' + weekDays[dayIndex] + ')요일'
   return formattedDate
 }
 
@@ -118,10 +119,11 @@ export const getDateInfo = (currentDate: Date): DateProps => ({
   date: currentDate.getDate(),
 })
 
-export const getDateSaveForm = (currentDate: Date) => {
-  const { year, month, date } = getDateInfo(currentDate)
-  return year + month.toString().padStart(2, '0') + date.toString().padStart(2, '0')
-}
+// export const getYYYYMMDD = (currentDate: Date) => {
+//   //YYYY-MM-DD
+//   const { year, month, date } = getDateInfo(currentDate)
+//   return year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0')
+// }
 export const weekCount = (year: number, month_number: number) => {
   //일요일에 시작하는 달력에서 해당 월이 몇재 주까지 있는지 알아내기
   const firstOfMonth = new Date(year, month_number - 1, 1)
@@ -137,17 +139,15 @@ export const getKoreanISOString = (date: Date) => {
 }
 export const getYYYYMMDD = (currentDate: DateProps | Date) => {
   let year: number, month: number, date: number
-
   if (currentDate instanceof Date) {
     year = currentDate.getFullYear()
     month = currentDate.getMonth()
     date = currentDate.getDate()
   } else {
     year = currentDate.year
-    month = currentDate.month
+    month = currentDate.month - 1
     date = currentDate.date
   }
-
   return year + '-' + (month + 1).toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0')
 }
 

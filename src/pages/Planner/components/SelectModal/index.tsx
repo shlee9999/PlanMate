@@ -22,7 +22,7 @@ import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { addAppoint, updateAppoint } from 'modules/appointments'
 
 import { RootState } from 'modules'
-import { getKoreanISOString, getYYYYMMDD, useFormattedDate } from 'utils/helper'
+import { getKoreanISOString, getYYYYMMDD, useFormattedDate, useFormattedTime } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
@@ -43,16 +43,14 @@ export const SelectModal = ({
 }) => {
   //입력값과 색상 상태 관리
   const {
-    startDate,
-    endDate,
+    startAt,
+    endAt,
     scheduleName: text,
     colorHex: bgColor,
     id,
     day,
   } = useSelector((state: RootState) => state.selectedInfo)
-  const year = startDate.getFullYear()
-  const month = startDate.getMonth()
-  const date = startDate.getDate()
+
   const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? text : '')
   const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? bgColor : defaultColor)
   const inputRef = useRef<HTMLInputElement>()
@@ -61,9 +59,9 @@ export const SelectModal = ({
     () =>
       addPlanner({
         colorHex: bgColor,
-        day: getKoreanISOString(startDate).split('T')[0],
-        startAt: startDate.getHours() + '',
-        endAt: endDate.getHours() + '',
+        day,
+        startAt: useFormattedTime(+startAt * 60 * 60),
+        endAt: useFormattedTime(+endAt * 60 * 60),
         scheduleName: text,
         type: '',
       }),
@@ -87,20 +85,20 @@ export const SelectModal = ({
       dispatch(
         addAppoint({
           scheduleName: inputValue,
-          startDate: new Date(year, month, date, startDate.getHours()),
-          endDate: new Date(year, month, date, endDate.getHours()),
+          startAt: startAt,
+          endAt: endAt,
           colorHex: subjectColor,
           id: new Date().getTime() + '',
           day,
         })
       )
-      mutateAddAppoint()
+      // mutateAddAppoint()
     } else {
       dispatch(
         updateAppoint({
           scheduleName: inputValue,
-          startDate,
-          endDate,
+          startAt: startAt,
+          endAt: endAt,
           colorHex: bgColor,
           id,
           day,
@@ -134,7 +132,7 @@ export const SelectModal = ({
         <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
           <Root onClick={handleModalClick}>
             <ModalTitle>{title}</ModalTitle>
-            <Title>{useFormattedDate(new Date(year, month, date))}</Title>
+            <Title>{useFormattedDate(day)}</Title>
             <ModalExitButton onClick={closeModal} />
             <InputWrapper>
               <ButtonTypoWrapper>
