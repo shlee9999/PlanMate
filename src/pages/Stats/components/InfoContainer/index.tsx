@@ -11,10 +11,9 @@ import { ResponseStats } from 'api/common/commonType'
 interface InfoContainerProps {
   selectedDate: DateProps
   dataSource: ResponseStats
-  isLoading: boolean
 }
 
-export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data, isLoading }) => {
+export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data }) => {
   const { year, month, date } = selectedDate
   const {
     endAtHours = 0,
@@ -61,16 +60,10 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
       <Header>
         {year}년 {month + 1}월 {date}일
       </Header>
-
-      {isLoading ? (
-        'isLoading...'
-      ) : (
-        <StudyContainer>
-          <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
-          <PieChartContainer studyTimeList={studyTimeList} restTime={restTime} totalStudyTime={totalStudyTime} />
-        </StudyContainer>
-      )}
-
+      <StudyContainer>
+        <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
+        <PieChartContainer studyTimeList={studyTimeList} restTime={restTime} totalStudyTime={totalStudyTime} />
+      </StudyContainer>
       <ChartDividingLine />
       <GraphContainer />
       <ShareContainer />
