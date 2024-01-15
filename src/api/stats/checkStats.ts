@@ -13,6 +13,6 @@ export type CheckStatsResponseProps = ResponseStats
 
 export const checkStats = ({ year, month, date }: CheckStatsRequestProps): Promise<ResponseStats> => {
   return axiosPOST('/statistic/day', {
-    studyDate: getYYYYMMDD({ year, month, date }),
+    studyDate: getYYYYMMDD({ year, month: month + 1, date }),
   })
 }
