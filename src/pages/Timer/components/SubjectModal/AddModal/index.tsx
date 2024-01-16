@@ -41,7 +41,6 @@ const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: 
   }
   const onClickConfirmButton = () => {
     if (inputValue === '') return
-
     createSubject({
       colorHex: subjectColor,
       name: inputValue,

@@ -25,15 +25,12 @@ import {
   SizedBox,
   DateTypo,
 } from './styled'
-
 import { daysUntil, getDateInfo, useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
 import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
 import TodoItem from 'pages/Timer/components/TodoItem'
 import AddModal from 'pages/Timer/components/SubjectModal/AddModal'
 import { GraphContainer } from 'pages/Stats/components/InfoContainer/component/GraphContainer'
-import { DayValue } from 'react-modern-calendar-datepicker'
-
 import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/NoContentDescription'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
@@ -42,15 +39,10 @@ import { useTimer } from 'pages/Timer/hooks/useTimer'
 import { SuggestModal } from 'pages/Timer/components/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
 import { PieChartContainer } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
-
 import { TimeProps, TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { PlusIcon } from 'assets/SvgComponents'
-import { AnimatePresence } from 'framer-motion'
-import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
-import { InfoBox } from 'components/InfoBox'
 import { useQuery } from 'react-query'
-import { checkStats } from 'api/stats/checkStats'
 import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 
@@ -58,31 +50,29 @@ export const TimerPage: FC = () => {
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
   const [fixedDDay, setFixedDDay] = useState<FindFixedScheduleResponseProps>()
-  const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
-  const totalTime = useSelector((state: RootState) => state.timer.totalTime)
+  const todos = useSelector((state: RootState) => state.todos)
+  const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
-  const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const formattedDate: string = useFormattedDate(new Date())
-  const todos = useSelector((state: RootState) => state.todos)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const openModal = (): void => {
-    if (isTotalTimerRunning) return
+    if (isRunning) return
     setIsModalOpen(true)
   }
   const closeModal = (): void => {
     setIsModalOpen(false)
   }
 
-  const closeSuggestModal = (): void => {
-    setIsSuggestModalOpen(false)
-  }
+  const closeSuggestModal = (): void => setIsSuggestModalOpen(false)
   const now = getDateInfo(new Date())
   const {
     data: statsData,
     isLoading: isStatsLoading,
     isFetching,
   } = useQuery<ResponseStats>(['timeInfo', now], () => checkTodayStats())
+
   const {
     endAtHours,
     endAtMinutes,
@@ -136,7 +126,6 @@ export const TimerPage: FC = () => {
     findFixedSchedule().then((res) => {
       const response = res as FindFixedScheduleResponseProps
       if (response !== null) setFixedDDay(response)
-      console.log(res)
     })
   }, [])
 
@@ -148,13 +137,14 @@ export const TimerPage: FC = () => {
   }, [totalTime])
 
   useEffect(() => {
-    if (isTotalTimerRunning) stopTimer()
+    if (isRunning) stopTimer()
     else startTimer()
-  }, [isTotalTimerRunning])
+  }, [isRunning])
 
   useEffect(() => {
     if (location.state) setIsSuggestModalOpen(true)
   }, [location.state])
+
   return (
     <Root>
       <Banner>
