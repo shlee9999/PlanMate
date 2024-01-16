@@ -273,6 +273,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                 isMyHearted={comment.isMyHearted}
                 postId={+postId}
                 ref={index === commentDtoList.length - 1 ? target : null}
+                currentPage={currentPage}
               />
             ))
           ) : (

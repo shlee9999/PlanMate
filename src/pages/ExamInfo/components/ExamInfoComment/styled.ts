@@ -73,11 +73,6 @@ export const ReplyButton = styled.button`
   box-sizing: border-box;
 `
 
-export const LikeImg = styled.img`
-  width: 16px;
-  height: 16px;
-`
-
 export const LikeButton = styled.button`
   margin: 15px 8px;
   display: flex;

@@ -11,7 +11,6 @@ import {
   EllipsisModal,
   LeftContainer,
   LikeButton,
-  LikeImg,
   ReplyButton,
   ReplyCount,
   ReplyInput,
@@ -28,7 +27,6 @@ import { likeComment } from 'api/comment/likeComment'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 import { CreateChildCommentResponseProps, createChildComment } from 'api/comment/createChildComment'
-
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { removeComment } from 'api/comment/removeComment'
 import { useNavigate } from 'react-router-dom'
@@ -37,32 +35,22 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
+import useLikeCommentMutation from 'pages/ExamInfo/hooks/useLikeCommentMutation'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
+  currentPage: number
 } & ResponseCommentType
 
 const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
-  {
-    commentId,
-    isAuthor,
-    isMyHearted,
-    likeCount: initialLikeCount,
-    memberName,
-    updatedAt,
-    content,
-    deleteComment,
-    postId,
-  },
+  { commentId, isAuthor, isMyHearted, likeCount, memberName, updatedAt, content, deleteComment, postId, currentPage },
   ref
 ) => {
   //대댓글 로직
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const [isLiked, setIsLiked] = useState<boolean>(isMyHearted)
   const closeEllipsisModal = (): void => isEllipsisOpen && setIsEllipsisOpen(false)
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
-  const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [isReplying, setIsReplying] = useState<boolean>(false)
   const [replyInput, setReplyInput] = useState<string>('')
@@ -83,21 +71,15 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     e.stopPropagation()
   }
   const inputRef = useRef(null)
-  const onClickModal = (e: React.MouseEvent): void => {
-    e.stopPropagation()
-  }
-  const onClickEllipsisDeleteButton = (): void => {
-    setIsDeleteCommentModalOpen(true)
-  }
+  const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
+  const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
+  const mutateLikeComment = useLikeCommentMutation()
   const onClickLikeButton = (): void => {
-    likeComment({ commentId: commentId }) //like api
-    if (isLiked) {
-      setIsLiked(false)
-      setCurrentLikeCount((prev) => prev - 1)
-    } else {
-      setIsLiked(true)
-      setCurrentLikeCount((prev) => prev + 1)
-    }
+    mutateLikeComment({
+      commentId,
+      postId,
+      currentPage,
+    }) //like api
   }
 
   const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
@@ -193,8 +175,8 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           )}
         </LeftContainer>
         <LikeButton onClick={onClickLikeButton}>
-          <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
-          {currentLikeCount}
+          <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
+          {likeCount}
         </LikeButton>
         <DeleteCommentModal
           closeModal={closeDeleteCommentModal}
