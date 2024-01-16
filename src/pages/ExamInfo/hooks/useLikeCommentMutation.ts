@@ -1,7 +1,5 @@
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { likeComment } from 'api/comment/likeComment'
-import { CheckPostResponseProps } from 'api/post/checkPost'
-import { likePost } from 'api/post/likePost'
 import { useMutation, useQueryClient } from 'react-query'
 
 type MutationProps = {

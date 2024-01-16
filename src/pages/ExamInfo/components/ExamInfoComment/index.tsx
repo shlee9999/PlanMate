@@ -23,7 +23,6 @@ import {
   UserNickname,
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
-import { likeComment } from 'api/comment/likeComment'
 import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 import { CreateChildCommentResponseProps, createChildComment } from 'api/comment/createChildComment'
@@ -40,10 +39,13 @@ import useLikeCommentMutation from 'pages/ExamInfo/hooks/useLikeCommentMutation'
 type ExamInfoCommentProps = {
   deleteComment?: () => void
   currentPage: number
+  reply?: boolean
+  isMine?: boolean
+  postId: number
 } & ResponseCommentType
 
 const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
-  { commentId, isAuthor, isMyHearted, likeCount, memberName, updatedAt, content, deleteComment, postId, currentPage },
+  { commentId, isAuthor, isMyHearted, likeCount, memberName, updatedAt, content, isMine = true, postId, currentPage },
   ref
 ) => {
   //대댓글 로직
@@ -124,11 +126,8 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
       })
     })
   }
-  const onClickComment = () => {
-    if (deleteComment) return
-    //mypage에서
-    navigate(`/examinfo/detail/${postId}`)
-  }
+  const onClickComment = () => isMine && navigate(`/examinfo/detail/${postId}`)
+
   useEffect(() => {
     inputRef.current?.focus()
   }, [isEditing])
@@ -148,7 +147,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   return (
     <>
       <Root onClick={closeEllipsisModal} ref={ref}>
-        {deleteComment && <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>}
+        {isMine && <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>}
         {isEllipsisOpen && (
           <EllipsisModal onClick={onClickModal}>
             <EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</EllipsisEditButton>
@@ -164,11 +163,11 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           {isEditing ? (
             <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
-            <Comment onClick={onClickComment} className={deleteComment ? '' : 'mypage_comment'}>
+            <Comment onClick={onClickComment} className={isMine ? 'mypage_comment' : ''}>
               {currentContent}
             </Comment>
           )}
-          {deleteComment && (
+          {isMine && (
             <ReplyButton onClick={onClickReplyButton}>
               답글 <ReplyCount>{currentReplyList.length}</ReplyCount>
             </ReplyButton>
@@ -180,8 +179,10 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
         </LikeButton>
         <DeleteCommentModal
           closeModal={closeDeleteCommentModal}
-          deleteComment={deleteComment}
           isOpen={isDeleteCommentModalOpen}
+          id={commentId}
+          postId={postId}
+          currentPage={currentPage}
         />
       </Root>
       {isReplying && (

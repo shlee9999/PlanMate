@@ -56,6 +56,7 @@ import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import useLikePostMutation from '../hooks/useLikePostMutation'
 import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
 import useScrapPostMutation from '../hooks/useScrapPostMutation'
+import useDeleteCommentMutation from '../hooks/useDeleteCommentMutation'
 /**
  * @title
  * @like
@@ -98,8 +99,13 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const mutateCreateComment = useCreateCommentMutation()
 
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
+  const mutateRemoveComment = useDeleteCommentMutation()
   const deleteComment = (id: number) => (): void => {
-    removeComment({ commentId: id })
+    mutateRemoveComment({
+      postId,
+      commentId: id,
+      currentPage: 0,
+    })
     //댓글 total 개수 하나 줄여야 함
   }
 
@@ -269,11 +275,11 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                 memberName={comment.memberName}
                 updatedAt={comment.updatedAt}
                 content={comment.content}
-                deleteComment={deleteComment(comment.commentId)}
                 isMyHearted={comment.isMyHearted}
                 postId={+postId}
                 ref={index === commentDtoList.length - 1 ? target : null}
                 currentPage={currentPage}
+                //isMine 추가 예정
               />
             ))
           ) : (
