@@ -10,7 +10,7 @@ import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSub
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useCreateSubjectMutation from './hooks/useCreateSubjectMutation'
+import useCreateSubjectMutation from '../hooks/useCreateSubjectMutation'
 
 const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: () => void; title: string }) => {
   const [inputValue, setInputValue] = useState<string>('')
