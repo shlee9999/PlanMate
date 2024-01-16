@@ -14,8 +14,8 @@ type MutationProps = {
 function useCreateCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ content, postId }: MutationProps) => createComment({ content, postId }), {
-    onMutate: async ({ isAuthor, currentPage, content, postId, callBack, memberName }) => {
-      const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
+    onMutate: ({ isAuthor, currentPage, content, postId, callBack, memberName }) => {
+      const previousComments = queryClient.getQueryData(['commentData', postId, currentPage + ''])
       queryClient.setQueryData<FindAllCommentsResponseProps>(['commentData', postId, currentPage + ''], (prev) => ({
         ...prev,
         totalCount: prev.totalCount + 1,

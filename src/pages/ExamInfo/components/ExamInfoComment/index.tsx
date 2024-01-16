@@ -35,6 +35,7 @@ import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import useLikeCommentMutation from 'pages/ExamInfo/hooks/useLikeCommentMutation'
+import useModifyComment from 'pages/ExamInfo/hooks/useModifyComment'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
@@ -57,7 +58,6 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const [isReplying, setIsReplying] = useState<boolean>(false)
   const [replyInput, setReplyInput] = useState<string>('')
   const [inputValue, setInputValue] = useState<string>(content)
-  const [currentContent, setCurrentContent] = useState<string>(content)
   const [currentReplyList, setCurrentReplyList] = useState<ResponseCommentType[]>([])
   const navigate = useNavigate()
   const deleteReply = (commentId: number) => () => {
@@ -76,6 +76,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
   const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
   const mutateLikeComment = useLikeCommentMutation()
+  const mutateModifyComment = useModifyComment()
   const onClickLikeButton = (): void => {
     mutateLikeComment({
       commentId,
@@ -93,14 +94,12 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       if (e.shiftKey) return
       e.preventDefault()
-      modifyComment({
-        commentId: commentId,
+      mutateModifyComment({
+        commentId,
         content: inputValue,
-      }).then((res) => {
-        if (res) {
-          setCurrentContent(inputValue)
-          setIsEditing(false)
-        }
+        postId,
+        currentPage,
+        callBack: () => setIsEditing(false),
       })
     }
   }
@@ -164,7 +163,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
             <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
             <Comment onClick={onClickComment} className={isMine ? 'mypage_comment' : ''}>
-              {currentContent}
+              {content}
             </Comment>
           )}
           {isMine && (
