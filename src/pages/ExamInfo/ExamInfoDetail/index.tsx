@@ -51,8 +51,7 @@ import { deleteNotice } from 'api/notice/admin/deleteNotice'
 import { editNotice } from 'api/notice/admin/editNotice'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { getKoreanISOString } from 'utils/helper'
+import { useQuery } from 'react-query'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import useLikePostMutation from '../hooks/useLikeMutation'
 import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
@@ -94,7 +93,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
-  const mutateCreateComment = useCreateCommentMutation({ currentPage, content: commentInput, postId })
+  const mutateCreateComment = useCreateCommentMutation()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -161,21 +160,23 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     //   })
   }
   const onClickRegisterButton = (): void => {
-    mutateCreateComment()
-    setCommentInput('')
+    mutateCreateComment({
+      currentPage,
+      content: commentInput,
+      postId,
+      callBack: () => setCommentInput(''),
+      isAuthor: userAuthInfo.name === detailData.nickname,
+      // id 비교로 변경해야함
+      memberName: userAuthInfo.name,
+    })
   }
-  const closeDeletePostModal = () => {
-    setIsDeletePostModalOpen(false)
-  }
-  const onClickLikeButton = () => {
-    mutateLikePost(postId)
-  }
-  const onClickScrapButton = () => {
-    scrapPost({ postId: postId })
-  }
-  const onClickDeleteTypo = () => {
-    setIsDeletePostModalOpen(true)
-  }
+  const closeDeletePostModal = () => setIsDeletePostModalOpen(false)
+
+  const onClickLikeButton = () => mutateLikePost(postId)
+
+  const onClickScrapButton = () => scrapPost({ postId: postId })
+
+  const onClickDeleteTypo = () => setIsDeletePostModalOpen(true)
 
   useEffect(() => {
     if (!target.current) return
@@ -189,9 +190,11 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     }, 1000)
     return () => observer.disconnect()
   }, [currentPage])
+
   useEffect(() => {
     if (!isDetailLoading) setCurrentContent(detailData.content)
   }, [isDetailLoading])
+
   return (
     <Root>
       <UpperTypoWrapper>

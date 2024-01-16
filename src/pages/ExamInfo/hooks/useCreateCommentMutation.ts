@@ -1,47 +1,47 @@
 import { createComment } from 'api/comment/createComment'
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
-import userAuthInfo from 'modules/userAuthInfo'
 import { useQueryClient, useMutation } from 'react-query'
 import { getKoreanISOString } from 'utils/helper'
 
-function useCreateCommentMutation({
-  currentPage,
-  content,
-  postId,
-}: {
+type MutationProps = {
   currentPage: number
   content: string
   postId: number
-}) {
+  callBack: () => void
+  isAuthor: boolean
+  memberName: string
+}
+function useCreateCommentMutation() {
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(() => createComment({ content: content, postId }), {
-    onMutate: async () => {
+  const { mutate } = useMutation(({ content, postId }: MutationProps) => createComment({ content, postId }), {
+    onMutate: async ({ isAuthor, currentPage, content, postId, callBack, memberName }) => {
       const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
-      queryClient.setQueryData(['commentData', currentPage + ''], (old: FindAllCommentsResponseProps) => ({
-        ...old,
+      queryClient.setQueryData<FindAllCommentsResponseProps>(['commentData', postId, currentPage + ''], (prev) => ({
+        ...prev,
+        totalCount: prev.totalCount + 1,
         commentDtoList: [
-          ...old.commentDtoList,
           {
-            commentId: new Date().getTime,
+            commentId: new Date().getTime(), //tempId
             content,
-            isAuthor: false,
+            isAuthor,
             isMyHearted: false,
             likeCount: 0,
-            memberName: userAuthInfo.name,
-            updatedAt: getKoreanISOString(new Date()), //시간차 있을듯
+            memberName,
+            updatedAt: getKoreanISOString(new Date()).slice(0, 19),
             postId,
           },
-        ],
+        ].concat(prev.commentDtoList),
       }))
+      callBack()
       return { previousComments }
     },
-    onError: (err, newComment, context) => {
-      // 오류 발생 시 원래 상태로 복원
-      queryClient.setQueryData(['commentData', currentPage + ''], context.previousComments)
+    onSuccess: (data, { postId, currentPage }) => {
+      // 성공 시 invalidate - commentId값 받아와야 수정 가능하므로)
+      queryClient.invalidateQueries(['commentData', postId, currentPage + ''])
     },
-    onSuccess: () => {
-      // 성공 시 추가 조치 필요 없음 (옵셔널: 새 댓글 목록을 다시 가져올 수 있음)
-      queryClient.invalidateQueries(['commentData', currentPage + ''])
+    onError: (err, { postId, currentPage }, context) => {
+      // 오류 발생 시 원래 상태로 복원
+      queryClient.setQueryData([['commentData', postId, currentPage + '']], context.previousComments)
     },
   })
   return mutate
