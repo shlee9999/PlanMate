@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getStudyTime, useFormattedTime } from 'utils/helper'
+import { useFormattedTime } from 'utils/helper'
 import { TodoItemType } from 'types'
 import {
   Root,
@@ -19,9 +19,9 @@ import { RootState } from 'modules'
 import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
 import EllipsisModal from '../EllipsisModal'
 import moment from 'moment'
-import { updateSubject } from 'api/subject/updateSubject'
 import { AnimatePresence } from 'framer-motion'
 import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
+import useUpdateSubjectMutation from './hooks/useUpdateSubjectMutation'
 
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
@@ -48,16 +48,17 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
       startTotalTimer()
     }
   }
-
-  const onClickPauseButton = (): void => {
-    updateSubject({
-      endAt: moment().format('HH:mm:ss'),
-      startAt: startTime,
-      subjectId: todo.subjectId,
-    }).then((res) => {
+  const mutateUpdateSubject = useUpdateSubjectMutation({
+    endAt: moment().format('HH:mm:ss'),
+    startAt: startTime,
+    subjectId: todo.subjectId,
+    onSuccess: () => {
       setIsTodoTimerRunning(false)
       stopTotalTimer()
-    })
+    },
+  })
+  const onClickPauseButton = (): void => {
+    mutateUpdateSubject()
   }
 
   const OnClickEllipsisButton = () => {
@@ -69,11 +70,8 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
   }
 
   useEffect(() => {
-    if (!isTodoTimerRunning) {
-      stopTimer()
-      return
-    }
-    startTimer()
+    if (!isTodoTimerRunning) stopTimer()
+    else startTimer()
   }, [isTodoTimerRunning])
 
   useEffect(() => {
