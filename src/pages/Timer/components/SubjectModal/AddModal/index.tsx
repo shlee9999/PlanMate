@@ -18,14 +18,7 @@ const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: 
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
-  const mutateCreateSubject = useCreateSubjectMutation({
-    colorHex: subjectColor,
-    name: inputValue,
-    onSuccess: () => {
-      setInputValue('')
-      closeModal()
-    },
-  })
+  const mutateCreateSubject = useCreateSubjectMutation()
   const closeColorPickerModal = () => {
     setIsColorPickerModalOpen(false)
     inputRef.current?.focus()
@@ -49,7 +42,14 @@ const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: 
   }
   const onClickConfirmButton = () => {
     if (inputValue === '') return
-    mutateCreateSubject()
+    mutateCreateSubject({
+      colorHex: subjectColor,
+      name: inputValue,
+      callBack: () => {
+        setInputValue('')
+        closeModal()
+      },
+    })
   }
 
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
