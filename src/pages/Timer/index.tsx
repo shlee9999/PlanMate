@@ -25,64 +25,66 @@ import {
   SizedBox,
   DateTypo,
 } from './styled'
-
-import { daysUntil, getDateInfo, useFormattedDate, useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
+import {
+  daysUntil,
+  getDateInfo,
+  timeToSecond,
+  useFormattedDate,
+  useFormattedTime,
+  useFormattedTimeKorean,
+} from 'utils/helper'
 import { RootState } from 'modules'
 import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
 import TodoItem from 'pages/Timer/components/TodoItem'
 import AddModal from 'pages/Timer/components/SubjectModal/AddModal'
 import { GraphContainer } from 'pages/Stats/components/InfoContainer/component/GraphContainer'
-import { DayValue } from 'react-modern-calendar-datepicker'
-
 import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/NoContentDescription'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useTimer } from 'hooks/useTimer'
+import { useTimer } from 'pages/Timer/hooks/useTimer'
 import { SuggestModal } from 'pages/Timer/components/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
 import { PieChartContainer } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
-
 import { TimeProps, TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { PlusIcon } from 'assets/SvgComponents'
-import { AnimatePresence } from 'framer-motion'
-import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
-import { InfoBox } from 'components/InfoBox'
 import { useQuery } from 'react-query'
-import { checkStats } from 'api/stats/checkStats'
 import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
+import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 
 export const TimerPage: FC = () => {
+  const now = getDateInfo(new Date())
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
   const [fixedDDay, setFixedDDay] = useState<FindFixedScheduleResponseProps>()
-  const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
-  const totalTime = useSelector((state: RootState) => state.timer.totalTime)
-  const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
-  const navigate = useNavigate()
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const formattedDate: string = useFormattedDate(new Date())
-  const todos = useSelector((state: RootState) => state.todos)
-  const dispatch = useDispatch()
-  const openModal = (): void => {
-    if (isTotalTimerRunning) return
-    setIsModalOpen(true)
-  }
-  const closeModal = (): void => {
-    setIsModalOpen(false)
-  }
-
-  const closeSuggestModal = (): void => {
-    setIsSuggestModalOpen(false)
-  }
-  const now = getDateInfo(new Date())
+  const { data, isLoading } = useQuery<StudyTimeResponseProps>(['todoList'], () => studyTime())
+  const todoList: TodoItemType[] = isLoading
+    ? []
+    : data.map((todo) => ({
+        colorHex: todo.colorHex,
+        name: todo.name,
+        subjectId: todo.subjectId,
+        time: timeToSecond({ hour: todo.studyTimeHours, minute: todo.studyTimeMinutes, second: todo.studyTimeSeconds }),
+      }))
   const {
     data: statsData,
     isLoading: isStatsLoading,
     isFetching,
   } = useQuery<ResponseStats>(['timeInfo', now], () => checkTodayStats())
+  const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
+  const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const formattedDate: string = useFormattedDate(new Date())
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const openModal = (): void => {
+    if (!isRunning) setIsModalOpen(true)
+  }
+  const closeModal = (): void => setIsModalOpen(false)
+  const closeSuggestModal = (): void => setIsSuggestModalOpen(false)
+
   const {
     endAtHours,
     endAtMinutes,
@@ -123,20 +125,19 @@ export const TimerPage: FC = () => {
     minute: endAtMinutes,
   }
   useEffect(() => {
-    if (todos.length !== 0) {
+    if (!isLoading) {
       let sum = 0
-      todos.forEach((todo) => {
+      todoList.forEach((todo) => {
         sum += todo.time
       })
       dispatch(initializeTimer(sum))
     }
-  }, [todos])
+  }, [isLoading])
 
   useEffect(() => {
     findFixedSchedule().then((res) => {
       const response = res as FindFixedScheduleResponseProps
       if (response !== null) setFixedDDay(response)
-      console.log(res)
     })
   }, [])
 
@@ -148,13 +149,14 @@ export const TimerPage: FC = () => {
   }, [totalTime])
 
   useEffect(() => {
-    if (isTotalTimerRunning) stopTimer()
+    if (isRunning) stopTimer()
     else startTimer()
-  }, [isTotalTimerRunning])
+  }, [isRunning])
 
   useEffect(() => {
     if (location.state) setIsSuggestModalOpen(true)
   }, [location.state])
+
   return (
     <Root>
       <Banner>
@@ -221,9 +223,9 @@ export const TimerPage: FC = () => {
           </CheerTypo>
         )}
 
-        <TodoContainer className={todos.length === 0 ? 'no_content' : ''}>
-          {todos.length !== 0 ? (
-            todos.map((todo: TodoItemType) => {
+        <TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
+          {todoList.length !== 0 ? (
+            todoList.map((todo: TodoItemType) => {
               return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
             })
           ) : (

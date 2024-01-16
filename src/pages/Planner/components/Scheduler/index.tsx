@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import {
   ButtonWrapper,
   DataCell,
@@ -15,17 +15,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
-
 import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
-import { SelectModal } from '../SelectModal'
-import { Appointment } from '../Appointment'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useQuery } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
-import { removePlanner } from 'api/planner/removePlanner'
+import { Appointment } from '../Appointment'
+import useRemoveAppointMutation from '../../hooks/useRemoveAppointMutation'
+import { SelectModal } from '../SelectModal'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -34,38 +33,20 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const queryClient = useQueryClient()
   const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner(), {
     initialData: [],
-  })
-  const { mutate: mutateRemoveAppoint } = useMutation((plannerId: number) => removePlanner({ plannerId }), {
-    onMutate: async (plannerId) => {
-      const previousAppointments = queryClient.getQueryData<FindPlannerResponseProps>(['plannerData'])
-      queryClient.setQueryData<FindPlannerResponseProps>(['plannerData'], (old) =>
-        old.filter((app) => app.plannerId !== plannerId)
-      )
-      return { previousAppointments }
-    },
-    onError: (err, plannerId, context) => {
-      queryClient.setQueryData(['plannerData'], context.previousAppointments)
-    },
-    onSuccess: () => {
-      console.log('Remove planner successful')
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['plannerData'])
-    },
+    keepPreviousData: true,
   })
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { scheduleName: text, colorHex: bgColor, plannerId: id } = useSelector((state: RootState) => state.selectedInfo)
+  const { scheduleName: text, colorHex: bgColor } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
   const now = new Date()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
-
+  const mutateRemoveAppoint = useRemoveAppointMutation()
   dispatch(initializeAppoint(data))
   const onClickClose = (id: number) => (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -177,7 +158,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                     {appointments.map((app) => {
                       return (
                         app.day === getYYYYMMDD(date) &&
-                        hour === +app.startAt.slice(0, 2) && (
+                        hour === +app.startAt.slice(0, 2) &&
+                        !isLoading && (
                           <Appointment
                             key={app.plannerId}
                             id={app.plannerId}

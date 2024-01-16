@@ -17,8 +17,8 @@ interface InfoContainerProps {
 export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data, isLoading }) => {
   const { year, month, date } = selectedDate
   const {
-    endAtHours = 0,
-    endAtMinutes = 0,
+    endAtHours,
+    endAtMinutes,
     maxStudyTimeHours,
     maxStudyTimeMinutes,
     maxStudyTimeSeconds,

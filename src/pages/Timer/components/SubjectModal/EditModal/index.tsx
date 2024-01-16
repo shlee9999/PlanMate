@@ -8,6 +8,7 @@ import { updateTodo } from 'modules/todos'
 import { editSubject } from 'api/subject/editSubject'
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton } from 'commonStyled'
+import useEditSubjectMutation from '../../../hooks/mutations/useEditSubjectMutation'
 
 const EditModal = ({
   isModalOpen,
@@ -24,14 +25,11 @@ const EditModal = ({
 }) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [subjectColor, setSubjectColor] = useState<string>(todo.colorHex)
-  const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const dispatch = useDispatch()
-  const closeColorPickerModal = () => {
-    setIsColorPickerModalOpen(false)
-    inputRef.current?.focus()
-  }
+
+  const mutateEditSubject = useEditSubjectMutation()
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
@@ -48,31 +46,18 @@ const EditModal = ({
   }
 
   const onClickConfirmButton = () => {
-    editSubject({
+    mutateEditSubject({
       colorHex: subjectColor,
       name: inputValue,
       subjectId: todo.subjectId,
-    }).then((res) => {
-      if (res) {
-        if (inputValue === '') return
-        const newTodoItem: TodoItemType = {
-          name: inputValue,
-          colorHex: subjectColor,
-          subjectId: todo.subjectId,
-          time: todo.time,
-        }
-        dispatch(updateTodo(newTodoItem, todo.subjectId))
-        setInputValue('')
-        closeEllipsisModal()
-      }
+      callBack: closeModalAll,
     })
   }
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }
   const closeModalAll = () => {
-    if (isColorPickerModalOpen) closeColorPickerModal()
-    closeModal()
+    closeEllipsisModal()
   }
   const closeEditModal = (e: React.MouseEvent<HTMLElement>) => {
     closeModal()

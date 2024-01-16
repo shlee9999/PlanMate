@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState, ChangeEvent } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import {
   Root,
   ModalExitButton,
@@ -14,23 +13,17 @@ import {
   Title,
   ColorSelectTypo,
 } from './styled'
-
 import { TimeSelect } from './TimeSelect'
-import { DaySelect } from './DaySelect'
-
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { addAppoint, updateAppoint } from 'modules/appointments'
-
 import { RootState } from 'modules'
-import { getKoreanISOString, getYYYYMMDD, useFormattedDate, useFormattedTime } from 'utils/helper'
+import { useFormattedDate } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import { useMutation, useQueryClient } from 'react-query'
-import { addPlanner } from 'api/planner/addPlanner'
-import { IAppointment } from 'types'
-import { editPlanner } from 'api/planner/editPlanner'
+import useAddAppointMutation from '../../hooks/useAddAppointMutation'
+import useEditAppointMutation from '../../hooks/useEditAppointMutation'
 
 export const SelectModal = ({
   closeModal,
@@ -51,72 +44,15 @@ export const SelectModal = ({
   const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? colorHex : defaultColor)
   const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
-  const queryClient = useQueryClient()
-  const { mutate: mutateAddAppoint } = useMutation(
-    () =>
-      addPlanner({
-        colorHex,
-        day,
-        startAt,
-        endAt,
-        scheduleName: inputValue,
-      }),
-    {
-      onMutate: async () => {
-        const previousAppointments = queryClient.getQueryData<IAppointment[]>(['plannerData'])
-        queryClient.setQueryData<IAppointment[]>(
-          ['plannerData'],
-          (prev) =>
-            prev.concat({ colorHex, day, startAt, endAt, scheduleName: inputValue, plannerId: new Date().getTime() }) // tempId
-        )
-        return { previousAppointments }
-      },
-      onSuccess: (data) => {
-        console.log('success add')
-      },
-      onError: (err, variables, context) => {
-        console.log('error:', err)
-        queryClient.setQueryData(['plannerData'], context.previousAppointments)
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries(['plannerData'])
-      },
-    }
-  )
-  const { mutate: mutateEditAppoint } = useMutation(
-    (plannerId: number) =>
-      editPlanner({
-        colorHex,
-        day,
-        startAt,
-        endAt,
-        scheduleName: inputValue,
-        plannerId,
-      }),
-    {
-      onMutate: async () => {
-        const previousAppointments = queryClient.getQueryData<IAppointment[]>(['plannerData'])
-        queryClient.setQueryData<IAppointment[]>(
-          ['plannerData'],
-          (prev) =>
-            prev.map((app) =>
-              app.plannerId === plannerId ? { colorHex, day, startAt, endAt, scheduleName: inputValue, plannerId } : app
-            ) // tempId
-        )
-        return { previousAppointments }
-      },
-      onSuccess: (data) => {
-        console.log(data)
-      },
-      onError: (err, variables, context) => {
-        console.log('error:', err)
-        queryClient.setQueryData(['plannerData'], context.previousAppointments)
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries(['plannerData'])
-      },
-    }
-  )
+  const mutateAddAppoint = useAddAppointMutation({ colorHex, startAt, day, endAt, scheduleName: inputValue })
+  const mutateEditAppoint = useEditAppointMutation({
+    colorHex,
+    day,
+    startAt,
+    endAt,
+    scheduleName: inputValue,
+    plannerId,
+  })
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
@@ -128,14 +64,13 @@ export const SelectModal = ({
   const onClickConfirm = () => {
     if (inputValue === '') return
     setInputValue('')
-
     if (title.slice(-2) === '추가') {
       dispatch(
         addAppoint({
           scheduleName: inputValue,
-          startAt: startAt,
-          endAt: endAt,
-          colorHex: subjectColor,
+          startAt,
+          endAt,
+          colorHex,
           plannerId: new Date().getTime(),
           day,
         })
@@ -158,7 +93,9 @@ export const SelectModal = ({
     closeModal()
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') onClickConfirm()
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      onClickConfirm()
+    }
   }
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
@@ -208,7 +145,6 @@ export const SelectModal = ({
                 <TimeSelectWrapper>
                   <TimeSelect set={'부터'} />
                   <TimeSelect set={'까지'} />
-                  {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
                 </TimeSelectWrapper>
               </ButtonTypoWrapper>
             </InputWrapper>

@@ -68,24 +68,24 @@ export const HeaderSection: FC = () => {
 
   useEffect(() => {
     // const currentUrl = window.location.href
-    const fetchStudyTime = async () => {
-      const res = await studyTime()
-      if (res) {
-        const response = res as StudyTimeResponseProps
-        const newTodoItems: Array<TodoItemType> = response.map((todo) => ({
-          subjectId: todo.subjectId,
-          colorHex: todo.colorHex,
-          name: todo.name,
-          time: timeToSecond({
-            hour: todo.studyTimeHours,
-            minute: todo.studyTimeMinutes,
-            second: todo.studyTimeSeconds,
-          }),
-        }))
-        dispatch(initializeTodo(newTodoItems)) //response 수정 필요
-      }
-    }
-    fetchStudyTime()
+    // const fetchStudyTime = async () => {
+    //   const res = await studyTime()
+    //   if (res) {
+    //     const response = res as StudyTimeResponseProps
+    //     const newTodoItems: Array<TodoItemType> = response.map((todo) => ({
+    //       subjectId: todo.subjectId,
+    //       colorHex: todo.colorHex,
+    //       name: todo.name,
+    //       time: timeToSecond({
+    //         hour: todo.studyTimeHours,
+    //         minute: todo.studyTimeMinutes,
+    //         second: todo.studyTimeSeconds,
+    //       }),
+    //     }))
+    //     dispatch(initializeTodo(newTodoItems)) //response 수정 필요
+    //   }
+    // }
+    // fetchStudyTime()
     // const split = currentUrl.split('id')
     // if (split.length >= 2) {
     //   const userId = +split[1].replace('=', '')

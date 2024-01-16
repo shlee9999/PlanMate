@@ -36,7 +36,7 @@ import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findA
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
-import { likePost } from 'api/post/likePost'
+
 import { scrapPost } from 'api/post/scrapPost'
 import { DeletePostModal } from 'pages/ExamInfo/components/DeleteModal/DeletePostModal'
 import { removePost } from 'api/post/remove/removePost'
@@ -53,6 +53,9 @@ import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { getKoreanISOString } from 'utils/helper'
+import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
+import useLikePostMutation from '../hooks/useLikeMutation'
+import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
 /**
  * @title
  * @like
@@ -70,23 +73,14 @@ type LocationState = ResponsePostType
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const target = useRef(null)
   const location = useLocation()
-  const {
-    postTagList,
-    content,
-    commentCount,
-    likeCount,
-    nickname,
-    postId,
-    scrapCount,
-    title,
-    createdAt,
-    isMyHearted: isLiked,
-    isMyScraped: isScrapped,
-  } = location.state as LocationState
+  const { postTagList, nickname, postId, title, createdAt } = location.state as LocationState
+  const { data: detailData, isLoading: isDetailLoading } = useQuery<CheckPostResponseProps>(
+    ['detailData', postId],
+    () => checkPost({ postId })
+  )
 
   if (!postId) return <Root>Error!</Root>
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  // checkPost에서 새로 얻을 값은 content, tagList뿐이다. 이후 없애고 findAll로 합칠듯
   // const { data: detailData, isLoading: isDetailLoading } = useQuery<
   //   Promise<CheckPostResponseProps>,
   //   Error,
@@ -100,46 +94,16 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     FindAllCommentsResponseProps,
     string[]
   >(['commentData', currentPage + ''], () => findAllComments({ pages: currentPage - 1, postId }))
-  const queryClient = useQueryClient()
-  const { mutate: mutateCreateComment } = useMutation(() => createComment({ content: commentInput, postId }), {
-    onMutate: async () => {
-      const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
-      queryClient.setQueryData(['commentData', currentPage + ''], (old: FindAllCommentsResponseProps) => ({
-        ...old,
-        commentDtoList: [
-          ...old.commentDtoList,
-          {
-            commentId: new Date().getTime,
-            content: commentInput,
-            isAuthor: false,
-            isMyHearted: false,
-            likeCount: 0,
-            memberName: userAuthInfo.name,
-            updatedAt: getKoreanISOString(new Date()), //시간차 있을듯
-            postId,
-          },
-        ],
-      }))
+  const mutateLikePost = useLikePostMutation(postId)
 
-      return { previousComments }
-    },
-    onError: (err, newComment, context) => {
-      // 오류 발생 시 원래 상태로 복원
-      queryClient.setQueryData(['commentData', currentPage + ''], context.previousComments)
-    },
-    onSuccess: () => {
-      // 성공 시 추가 조치 필요 없음 (옵셔널: 새 댓글 목록을 다시 가져올 수 있음)
-      queryClient.invalidateQueries(['commentData', currentPage + ''])
-    },
-  })
   const commentList = commentData?.commentDtoList
   const totalPage = commentData?.totalPages
-  const [currentContent, setCurrentContent] = useState<string>(content)
+  const [currentContent, setCurrentContent] = useState<string>(detailData?.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
-
+  const mutateCreateComment = useCreateCommentMutation({ currentPage, content: commentInput, postId })
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
@@ -151,13 +115,13 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const deletePost = (): void => {
     if (mode === 'examinfo')
       removePost({
-        postId: +postId,
+        postId: postId,
       }).then((res) => {
         navigate(-1)
       })
     else
       deleteNotice({
-        noticeId: +postId,
+        noticeId: postId,
       }).then((res) => {
         navigate(-1)
       })
@@ -228,10 +192,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setIsDeletePostModalOpen(false)
   }
   const onClickLikeButton = () => {
-    likePost({ postId: +postId })
+    mutateLikePost(postId)
   }
   const onClickScrapButton = () => {
-    scrapPost({ postId: +postId })
+    scrapPost({ postId: postId })
   }
   const onClickDeleteTypo = () => {
     setIsDeletePostModalOpen(true)
@@ -317,15 +281,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         )}
 
         <IconContainer>
-          <HeartIcon
-            fill={isLiked ? `${HEART_COLOR}` : 'none'}
-            color="red"
-            fillRule="nonzero"
-            onClick={onClickLikeButton}
-          />
-          <Count onClick={onClickLikeButton}>{likeCount}</Count>
-          <ScrapIcon fill={isScrapped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
-          <Count onClick={onClickScrapButton}>{scrapCount}</Count>
+          <HeartIcon fill={detailData?.isMyHearted ? `${HEART_COLOR}` : 'none'} onClick={onClickLikeButton} />
+          <Count onClick={onClickLikeButton}>{detailData?.likeCount}</Count>
+          <ScrapIcon fill={detailData?.isMyScraped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
+          <Count onClick={onClickScrapButton}>{detailData?.scrapCount}</Count>
         </IconContainer>
       </ContentWrapper>
 
@@ -340,7 +299,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       )}
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{commentCount}</CommentCount>개
+          댓글 <CommentCount>{detailData?.commentCount}</CommentCount>개
         </CommentTitle>
         <CommentContainer className={commentList?.length !== 0 ? '' : 'no_content'}>
           {commentList?.length !== 0 ? (

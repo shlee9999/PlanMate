@@ -1,11 +1,9 @@
 export type TodoItemType = {
-  subjectId: number
-  name: string
   colorHex: string
+  name: string
+  subjectId: number
   time: number
-  startAt?: string
-  endAt?: string
-} //time은 파싱
+}
 
 export type PageInfo = {
   title: string
