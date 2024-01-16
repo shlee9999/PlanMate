@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { CloseButton, Root, Title, Wrapper } from './styled'
-import { AnimatePresence, Variants } from 'framer-motion'
+import { Variants } from 'framer-motion'
 
 type AppointmentProps = {
   bgColor: string

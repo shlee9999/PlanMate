@@ -14,7 +14,7 @@ import {
   RunningTime,
 } from './styled'
 
-import { useTimer } from 'hooks/useTimer'
+import { useTimer } from 'pages/Timer/hooks/useTimer'
 import { RootState } from 'modules'
 import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
 import EllipsisModal from '../EllipsisModal'

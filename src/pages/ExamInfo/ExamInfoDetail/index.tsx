@@ -36,7 +36,7 @@ import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findA
 import { createComment } from 'api/comment/createComment'
 import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
-import useLikePostMutation, { likePost } from 'api/post/likePost'
+
 import { scrapPost } from 'api/post/scrapPost'
 import { DeletePostModal } from 'pages/ExamInfo/components/DeleteModal/DeletePostModal'
 import { removePost } from 'api/post/remove/removePost'
@@ -54,6 +54,8 @@ import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { getKoreanISOString } from 'utils/helper'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
+import useLikePostMutation from './hooks/useLikeMutation'
+import useCreateCommentMutation from './hooks/useCreateCommentMutation'
 /**
  * @title
  * @like
@@ -92,38 +94,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     FindAllCommentsResponseProps,
     string[]
   >(['commentData', currentPage + ''], () => findAllComments({ pages: currentPage - 1, postId }))
-  const queryClient = useQueryClient()
   const mutateLikePost = useLikePostMutation(postId)
-  const { mutate: mutateCreateComment } = useMutation(() => createComment({ content: commentInput, postId }), {
-    onMutate: async () => {
-      const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
-      queryClient.setQueryData(['commentData', currentPage + ''], (old: FindAllCommentsResponseProps) => ({
-        ...old,
-        commentDtoList: [
-          ...old.commentDtoList,
-          {
-            commentId: new Date().getTime,
-            content: commentInput,
-            isAuthor: false,
-            isMyHearted: false,
-            likeCount: 0,
-            memberName: userAuthInfo.name,
-            updatedAt: getKoreanISOString(new Date()), //시간차 있을듯
-            postId,
-          },
-        ],
-      }))
-      return { previousComments }
-    },
-    onError: (err, newComment, context) => {
-      // 오류 발생 시 원래 상태로 복원
-      queryClient.setQueryData(['commentData', currentPage + ''], context.previousComments)
-    },
-    onSuccess: () => {
-      // 성공 시 추가 조치 필요 없음 (옵셔널: 새 댓글 목록을 다시 가져올 수 있음)
-      queryClient.invalidateQueries(['commentData', currentPage + ''])
-    },
-  })
+
   const commentList = commentData?.commentDtoList
   const totalPage = commentData?.totalPages
   const [currentContent, setCurrentContent] = useState<string>(detailData?.content)
@@ -131,7 +103,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
-
+  const mutateCreateComment = useCreateCommentMutation({ currentPage, content: commentInput, postId })
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCommentInput(event.target.value)
   }
