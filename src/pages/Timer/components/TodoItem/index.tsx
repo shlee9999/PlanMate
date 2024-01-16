@@ -21,7 +21,7 @@ import EllipsisModal from '../EllipsisModal'
 import moment from 'moment'
 import { AnimatePresence } from 'framer-motion'
 import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
-import useUpdateSubjectMutation from './hooks/useUpdateSubjectMutation'
+import useUpdateSubjectMutation from '../../hooks/mutations/useUpdateSubjectMutation'
 
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)

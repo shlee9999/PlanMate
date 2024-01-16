@@ -23,7 +23,7 @@ import { weekDays } from 'constants/week'
 import { useQuery } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 import { Appointment } from '../Appointment'
-import useRemoveAppointMutation from './hooks/useRemoveAppointMutation'
+import useRemoveAppointMutation from '../../hooks/useRemoveAppointMutation'
 import { SelectModal } from '../SelectModal'
 //직접 scheduler week view 구현
 type SchedulerProps = {

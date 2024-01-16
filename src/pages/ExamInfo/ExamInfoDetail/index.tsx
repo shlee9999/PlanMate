@@ -54,8 +54,8 @@ import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { getKoreanISOString } from 'utils/helper'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
-import useLikePostMutation from './hooks/useLikeMutation'
-import useCreateCommentMutation from './hooks/useCreateCommentMutation'
+import useLikePostMutation from '../hooks/useLikeMutation'
+import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
 /**
  * @title
  * @like

@@ -8,7 +8,7 @@ import { updateTodo } from 'modules/todos'
 import { editSubject } from 'api/subject/editSubject'
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton } from 'commonStyled'
-import useEditSubjectMutation from '../hooks/useEditSubjectMutation'
+import useEditSubjectMutation from '../../../hooks/mutations/useEditSubjectMutation'
 
 const EditModal = ({
   isModalOpen,

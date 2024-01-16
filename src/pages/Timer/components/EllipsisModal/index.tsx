@@ -10,7 +10,7 @@ import { removeSubject } from 'api/subject/removeSubject'
 import { DeleteModal } from './DeleteModal'
 import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useDeleteSubjectMutation from './hooks/useDeleteSubjectMutation'
+import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
 
 const EllipsisModal = ({
   closeModal,

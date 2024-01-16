@@ -22,8 +22,8 @@ import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useAddAppointMutation from './hooks/useAddAppointMutation'
-import useEditAppointMutation from './hooks/useEditAppointMutation'
+import useAddAppointMutation from '../../hooks/useAddAppointMutation'
+import useEditAppointMutation from '../../hooks/useEditAppointMutation'
 
 export const SelectModal = ({
   closeModal,
