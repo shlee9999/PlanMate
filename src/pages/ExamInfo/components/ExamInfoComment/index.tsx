@@ -60,9 +60,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(isMyHearted)
-  const closeEllipsisModal = (): void => {
-    if (isEllipsisOpen) setIsEllipsisOpen(false)
-  }
+  const closeEllipsisModal = (): void => isEllipsisOpen && setIsEllipsisOpen(false)
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -102,20 +100,13 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     }
   }
 
-  const closeDeleteCommentModal = () => {
-    setIsDeleteCommentModalOpen(false)
-  }
-  const onClickReplyButton = () => {
-    setIsReplying((prev) => !prev)
-  }
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.target.value)
-  }
-  const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setReplyInput(e.target.value)
-  }
+  const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
+  const onClickReplyButton = () => setIsReplying((prev) => !prev)
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value)
+  const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => setReplyInput(e.target.value)
+
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       if (e.shiftKey) return
       e.preventDefault()
       modifyComment({

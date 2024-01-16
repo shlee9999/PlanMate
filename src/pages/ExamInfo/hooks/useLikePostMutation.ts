@@ -2,11 +2,14 @@ import { CheckPostResponseProps } from 'api/post/checkPost'
 import { likePost } from 'api/post/likePost'
 import { useMutation, useQueryClient } from 'react-query'
 
-function useLikePostMutation(postId) {
+type MutationProps = {
+  postId: number
+}
+function useLikePostMutation() {
   const queryClient = useQueryClient()
 
-  const { mutate } = useMutation((id: number) => likePost({ postId: id }), {
-    onMutate: () => {
+  const { mutate } = useMutation(({ postId }: MutationProps) => likePost({ postId }), {
+    onMutate: ({ postId }) => {
       const previousData = queryClient.getQueryData(['detailData', postId])
       queryClient.setQueryData(['detailData', postId], (old: CheckPostResponseProps) => ({
         ...old,
@@ -16,7 +19,7 @@ function useLikePostMutation(postId) {
 
       return { previousData }
     },
-    onError: (err, variables, context) => {
+    onError: (err, { postId }, context) => {
       console.error(err)
       queryClient.setQueryData(['detailData', postId], context.previousData)
     },

@@ -53,8 +53,9 @@ import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
-import useLikePostMutation from '../hooks/useLikeMutation'
+import useLikePostMutation from '../hooks/useLikePostMutation'
 import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
+import useScrapPostMutation from '../hooks/useScrapPostMutation'
 /**
  * @title
  * @like
@@ -84,7 +85,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     ['commentData', postId, currentPage + ''],
     () => findAllComments({ pages: currentPage - 1, postId })
   )
-  const mutateLikePost = useLikePostMutation(postId)
+  const mutateLikePost = useLikePostMutation()
+  const mutateScrapPost = useScrapPostMutation()
   const { commentDtoList, totalCount, totalPages } = isCommentLoading
     ? { commentDtoList: [], totalCount: 0, totalPages: 0 }
     : { ...commentData }
@@ -94,9 +96,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const mutateCreateComment = useCreateCommentMutation()
-  const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setCommentInput(event.target.value)
-  }
+
+  const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
   const deleteComment = (id: number) => (): void => {
     removeComment({ commentId: id })
     //댓글 total 개수 하나 줄여야 함
@@ -116,11 +117,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         navigate(-1)
       })
   }
-
-  const loadNextPage = (): void => {
-    setCurrentPage((prev) => prev + 1)
-  }
-
+  const loadNextPage = (): void => setCurrentPage((prev) => prev + 1)
   const options = {
     root: null,
     rootMargin: '0px',
@@ -130,9 +127,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     const entry = entries[0]
     if (entry.isIntersecting && entry.intersectionRatio === 1) {
       observer.unobserve(target.current)
-      if (currentPage < totalPages) {
-        loadNextPage()
-      }
+      if (currentPage < totalPages) loadNextPage()
     }
   }
   const onClickEditTypo = () => {
@@ -171,11 +166,8 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     })
   }
   const closeDeletePostModal = () => setIsDeletePostModalOpen(false)
-
-  const onClickLikeButton = () => mutateLikePost(postId)
-
-  const onClickScrapButton = () => scrapPost({ postId: postId })
-
+  const onClickLikeButton = () => mutateLikePost({ postId })
+  const onClickScrapButton = () => mutateScrapPost({ postId: postId })
   const onClickDeleteTypo = () => setIsDeletePostModalOpen(true)
 
   useEffect(() => {
