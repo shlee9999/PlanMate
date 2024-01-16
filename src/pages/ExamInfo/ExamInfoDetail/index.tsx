@@ -60,7 +60,7 @@ import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
  * @title
  * @like
  * @scrap 스크랩 개수
- * @commentList 댓글 내용
+ * @commentDtoList 댓글 내용
  * @nickname owner_id?
  * @updated_at 업데이트 시간
  * @content 게시물 내용
@@ -71,6 +71,7 @@ type ExamInfoDetailPageProps = {
 }
 type LocationState = ResponsePostType
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const target = useRef(null)
   const location = useLocation()
   const { postTagList, nickname, postId, title, createdAt } = location.state as LocationState
@@ -78,26 +79,17 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     ['detailData', postId],
     () => checkPost({ postId })
   )
-
   if (!postId) return <Root>Error!</Root>
-  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  // const { data: detailData, isLoading: isDetailLoading } = useQuery<
-  //   Promise<CheckPostResponseProps>,
-  //   Error,
-  //   CheckPostResponseProps,
-  //   string[]
-  // >(['detailData'], () => checkPost({ postId }))
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const { data: commentData, isLoading: isCommentLoading } = useQuery<
-    Promise<FindAllCommentsResponseProps>,
-    Error,
-    FindAllCommentsResponseProps,
-    string[]
-  >(['commentData', currentPage + ''], () => findAllComments({ pages: currentPage - 1, postId }))
+  const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
+    ['commentData', postId, currentPage + ''],
+    () => findAllComments({ pages: currentPage - 1, postId })
+  )
   const mutateLikePost = useLikePostMutation(postId)
+  const { commentDtoList, totalCount, totalPages } = isCommentLoading
+    ? { commentDtoList: [], totalCount: 0, totalPages: 0 }
+    : { ...commentData }
 
-  const commentList = commentData?.commentDtoList
-  const totalPage = commentData?.totalPages
   const [currentContent, setCurrentContent] = useState<string>(detailData?.content)
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
@@ -138,11 +130,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   }
   const callback = (entries, observer) => {
     const entry = entries[0]
-
     if (entry.isIntersecting && entry.intersectionRatio === 1) {
       observer.unobserve(target.current)
-
-      if (currentPage < totalPage) {
+      if (currentPage < totalPages) {
         loadNextPage()
       }
     }
@@ -172,19 +162,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     //   })
   }
   const onClickRegisterButton = (): void => {
-    // createComment({
-    //   content: commentInput,
-    //   postId: +postId,
-    // }).then((res1) => {
-    //   findAllComments({
-    //     pages: 0,
-    //     postId: +postId,
-    //   }).then((res2: unknown) => {
-    //     const response = res2 as FindAllCommentsResponseProps
-    //     setCommentInput('')
-    //     setCurrentPage(0)
-    //   })
-    // })
     mutateCreateComment()
     setCommentInput('')
   }
@@ -213,22 +190,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     }, 1000)
     return () => observer.disconnect()
   }, [currentPage])
-
-  // useEffect(() => {
-  //   checkPost({ postId: +postId }).then((res) => {
-  //     const response = res as CheckPostResponseProps
-  //     setExamInfoDetail(response)
-  //   })
-  //   if (currentPage <= 1 || currentPage > totalPage) return
-  //   findAllComments({
-  //     pages: currentPage - 1,
-  //     postId: +postId,
-  //   }).then((res: unknown) => {
-  //     const response = res as FindAllCommentsResponseProps
-  //     setCommentList((prev) => prev.concat(response.commentDtoList))
-  //     setTotalPage(response.totalPages)
-  //   })
-  // }, [currentPage, totalPage])
 
   return (
     <Root>
@@ -288,7 +249,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         </IconContainer>
       </ContentWrapper>
 
-      {commentList?.length !== 0 && (
+      {commentDtoList.length !== 0 && (
         <CommentInputWrapper>
           <UserNickname>{userAuthInfo.name}</UserNickname>
           <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
@@ -299,11 +260,11 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       )}
       <CommentWrapper>
         <CommentTitle>
-          댓글 <CommentCount>{detailData?.commentCount}</CommentCount>개
+          댓글 <CommentCount>{totalCount}</CommentCount>개
         </CommentTitle>
-        <CommentContainer className={commentList?.length !== 0 ? '' : 'no_content'}>
-          {commentList?.length !== 0 ? (
-            commentList?.map((comment, index) => (
+        <CommentContainer className={commentDtoList?.length !== 0 ? '' : 'no_content'}>
+          {commentDtoList?.length !== 0 ? (
+            commentDtoList?.map((comment, index) => (
               <ExamInfoComment
                 key={comment.commentId}
                 commentId={comment.commentId}
@@ -315,7 +276,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                 deleteComment={deleteComment(comment.commentId)}
                 isMyHearted={comment.isMyHearted}
                 postId={+postId}
-                ref={index === commentList.length - 1 ? target : null}
+                ref={index === commentDtoList.length - 1 ? target : null}
               />
             ))
           ) : (

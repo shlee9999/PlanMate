@@ -8,6 +8,7 @@ export type FindAllCommentsRequestProps = {
 
 export type FindAllCommentsResponseProps = {
   commentDtoList: ResponseCommentType[]
+  totalCount: number
   totalPages: number
 }
 
