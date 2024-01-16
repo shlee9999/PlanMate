@@ -25,14 +25,13 @@ const EllipsisModal = ({
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  // const dispatch = useDispatch()
-  const mutateDeleteSubject = useDeleteSubjectMutation({ onSuccess: closeModal })
+  const mutateDeleteSubject = useDeleteSubjectMutation()
   const closeDeleteModal = () => setIsDeleteModalOpen(false)
   const onClickDeleteButton = () => setIsDeleteModalOpen(true)
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
   const onClickEditButton = () => setIsEditModalOpen(true)
   const closeEditModal = () => setIsEditModalOpen(false)
-  const deleteSubject = () => !isTodoTimerRunning && mutateDeleteSubject({ subjectId: todo.subjectId })
+  const deleteSubject = () => !isTodoTimerRunning && mutateDeleteSubject({ subjectId: todo.subjectId, closeModal })
 
   return (
     <AnimatePresence>
