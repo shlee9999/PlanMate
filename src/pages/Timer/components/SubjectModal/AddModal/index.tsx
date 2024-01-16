@@ -10,14 +10,22 @@ import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSub
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
+import useCreateSubjectMutation from './hooks/useCreateSubjectMutation'
 
 const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: () => void; title: string }) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [subjectColor, setSubjectColor] = useState<string>(defaultColor)
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
-
   const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
+  const mutateCreateSubject = useCreateSubjectMutation({
+    colorHex: subjectColor,
+    name: inputValue,
+    onSuccess: () => {
+      setInputValue('')
+      closeModal()
+    },
+  })
   const closeColorPickerModal = () => {
     setIsColorPickerModalOpen(false)
     inputRef.current?.focus()
@@ -29,7 +37,7 @@ const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: 
     setInputValue(e.target.value)
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.nativeEvent.key === 'Enter') {
+    if (e.nativeEvent.key === 'Enter' && !e.nativeEvent.isComposing) {
       onClickConfirmButton()
     }
     if (e.nativeEvent.key === 'Escape') {
@@ -41,21 +49,7 @@ const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: 
   }
   const onClickConfirmButton = () => {
     if (inputValue === '') return
-    createSubject({
-      colorHex: subjectColor,
-      name: inputValue,
-    }).then((res) => {
-      const result = res as CreateSubjectResponseProps
-      const newTodoItem: TodoItemType = {
-        name: inputValue,
-        colorHex: subjectColor,
-        subjectId: result.subjectId,
-        time: 0,
-      }
-      dispatch(addTodo(newTodoItem))
-      setInputValue('')
-      closeModal()
-    })
+    mutateCreateSubject()
   }
 
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {

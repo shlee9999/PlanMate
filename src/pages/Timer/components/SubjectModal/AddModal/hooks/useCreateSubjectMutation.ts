@@ -1,9 +1,16 @@
 import { createSubject } from 'api/subject/createSubject'
 import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
 import { TodoItemType } from 'types'
 
-function useCreateSubjectMutation({ colorHex, name }: { colorHex: string; name: string }) {
+function useCreateSubjectMutation({
+  colorHex,
+  name,
+  onSuccess,
+}: {
+  colorHex: string
+  name: string
+  onSuccess: () => void
+}) {
   const queryClient = useQueryClient()
   const { mutate: mutateCreateSubject } = useMutation(
     () =>
@@ -12,8 +19,7 @@ function useCreateSubjectMutation({ colorHex, name }: { colorHex: string; name: 
         name,
       }),
     {
-      onMutate: () => {
-        const prevData = queryClient.getQueryData('todoList')
+      onSuccess: () => {
         queryClient.setQueryData<TodoItemType[]>('todoList', (prev) =>
           prev.concat({
             subjectId: new Date().getTime(),
@@ -22,13 +28,11 @@ function useCreateSubjectMutation({ colorHex, name }: { colorHex: string; name: 
             time: 0,
           })
         )
-        return { prevData }
-      },
-      onSuccess: () => {
         console.log('success add')
+        onSuccess()
       },
       onError: (err, variables, context) => {
-        console.error(err)
+        console.error('에러', err)
       },
       onSettled: () => queryClient.invalidateQueries('todoList'),
     }
