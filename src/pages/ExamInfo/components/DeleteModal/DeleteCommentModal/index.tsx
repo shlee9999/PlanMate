@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { CenterTypo, CenterTypoWrapper, Root, UpperTypo } from '../styled'
 import { ModalFooter, GreenButton, WhiteButton, ModalExitButton, ModalWrapperVar, ModalWrapper } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
@@ -13,15 +13,22 @@ type DeleteCommentModalProps = {
 
 export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({ closeModal, isOpen, id, postId, currentPage }) => {
   const mutateDeleteComment = useDeleteCommentMutation()
-  const onClickDeleteButton = closeModal
+  const [isConfirmed, setIsConfirmed] = useState(false)
+  const onClickDeleteButton = () => {
+    setIsConfirmed(true)
+    closeModal()
+  }
   const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
-  const onExitComplete = () =>
+  const onExitComplete = () => {
+    if (!isConfirmed) return
     mutateDeleteComment({
       commentId: id,
       postId,
       currentPage,
       callBack: closeModal,
     })
+    setIsConfirmed(false)
+  }
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
