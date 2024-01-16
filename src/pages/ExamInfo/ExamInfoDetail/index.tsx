@@ -89,8 +89,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const { commentDtoList, totalCount, totalPages } = isCommentLoading
     ? { commentDtoList: [], totalCount: 0, totalPages: 0 }
     : { ...commentData }
-
-  const [currentContent, setCurrentContent] = useState<string>(detailData?.content)
+  const [currentContent, setCurrentContent] = useState<string>(detailData?.content || 'Loading...')
   const [commentInput, setCommentInput] = useState<string>('')
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
@@ -190,7 +189,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     }, 1000)
     return () => observer.disconnect()
   }, [currentPage])
-
+  useEffect(() => {
+    if (!isDetailLoading) setCurrentContent(detailData.content)
+  }, [isDetailLoading])
   return (
     <Root>
       <UpperTypoWrapper>
