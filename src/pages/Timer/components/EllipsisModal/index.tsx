@@ -2,11 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import { ButtonWrapper, CloseButton, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { TodoItemType } from 'types'
-import EditModal from '../SubjectModal/EditModal'
+
 import { DeleteModal } from './DeleteModal'
 import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
+import ActionModal from '../ActionModal'
 
 const EllipsisModal = ({
   closeModal,
@@ -44,10 +45,10 @@ const EllipsisModal = ({
             <ModalExitButton onClick={closeModal} />
           </Root>
           {isEditModalOpen && (
-            <EditModal
-              isModalOpen={isEditModalOpen}
+            <ActionModal
+              isOpen={isEditModalOpen}
               closeModal={closeEditModal}
-              title="과목수정"
+              type="EDIT"
               todo={todo}
               closeEllipsisModal={closeModal}
             />

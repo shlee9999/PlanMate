@@ -36,7 +36,7 @@ import {
 import { RootState } from 'modules'
 import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
 import TodoItem from 'pages/Timer/components/TodoItem'
-import AddModal from 'pages/Timer/components/SubjectModal/AddModal'
+import ActionModal from 'pages/Timer/components/ActionModal'
 import { GraphContainer } from 'pages/Stats/components/InfoContainer/component/GraphContainer'
 import { initializeTimer } from 'modules/timer'
 import { NoContentDescription } from 'components/NoContentDescription'
@@ -242,7 +242,7 @@ export const TimerPage: FC = () => {
         </AddButton>
       </LowerContainer>
 
-      <AddModal closeModal={closeModal} title="과목 추가" isOpen={isModalOpen} />
+      <ActionModal closeModal={closeModal} type="ADD" isOpen={isModalOpen} />
 
       {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
     </Root>

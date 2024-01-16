@@ -11,22 +11,21 @@ export const Root = styled(motion.div)`
   top: calc((100vh - 266px) / 2);
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   align-items: center;
+  padding: 60px 0 0 0;
   background-color: ${(props) => props.theme.background.white};
   border-radius: 10px;
   overflow: hidden;
 `
 
-export const InputWrapper = styled.div`
-  margin-top: 10px;
+export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  row-gap: 5px;
+  height: 140px;
 `
 export const NameInput = styled.input`
-  width: 198px;
+  flex-grow: 1;
   height: 40px;
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.border.default};
@@ -36,7 +35,7 @@ export const NameInput = styled.input`
 export const ModalTitle = styled.div`
   position: absolute;
   left: 50%;
-  top: 36px;
+  top: 25px;
   transform: translate(-50%);
   font-size: 16px;
   font-weight: 500;
@@ -47,7 +46,7 @@ export const ModalTitle = styled.div`
 export const UpperWrapper = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 16px;
+  column-gap: 24px;
   font-size: 14px;
   font-weight: 500;
   line-height: 100%;
@@ -56,7 +55,7 @@ export const UpperWrapper = styled.div`
 
 export const LowerWrapper = styled.div`
   display: flex;
-  column-gap: 5px;
+  column-gap: 15px;
 `
 
 export const LowerTypo = styled.p`
