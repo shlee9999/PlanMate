@@ -1,9 +1,4 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponseTimeProps } from 'api/common/commonType'
-import { TodoItemType } from 'types'
-
-// export type StudyTimeRequestProps = {
-// }
 
 export type StudyTimeResponseProps = {
   colorHex: string

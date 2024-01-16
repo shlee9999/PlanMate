@@ -11,7 +11,7 @@ function useCreateSubjectMutation() {
         name,
       }),
     {
-      onMutate: ({ colorHex, name }) => {
+      onMutate: ({ colorHex, name, callBack }) => {
         const prevData = queryClient.getQueryData('todoList')
         queryClient.setQueryData<TodoItemType[]>('todoList', (prev) =>
           prev.concat({
@@ -21,11 +21,11 @@ function useCreateSubjectMutation() {
             time: 0,
           })
         )
+        callBack()
         return { prevData }
       },
-      onSuccess: (data, { callBack }) => {
+      onSuccess: () => {
         console.log('success add')
-        callBack()
       },
       onError: (err, variables, context) => {
         queryClient.setQueryData('todoList', context.prevData)

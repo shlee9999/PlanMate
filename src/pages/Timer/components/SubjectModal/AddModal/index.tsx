@@ -1,12 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { defaultColor } from 'constants/color'
 import { Root, InputWrapper, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from '../styled'
-import { TodoItemType } from 'types'
-import { addTodo } from 'modules/todos'
-
 import ColorPickerModal from 'components/ColorPickerModal'
-import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSubject'
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
@@ -17,14 +12,10 @@ const AddModal = ({ isOpen, closeModal, title }: { isOpen: boolean; closeModal: 
   const [subjectColor, setSubjectColor] = useState<string>(defaultColor)
   const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>()
-  const dispatch = useDispatch()
   const mutateCreateSubject = useCreateSubjectMutation()
   const closeColorPickerModal = () => {
     setIsColorPickerModalOpen(false)
     inputRef.current?.focus()
-  }
-  const onClickColorButton = () => {
-    setIsColorPickerModalOpen(true)
   }
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
