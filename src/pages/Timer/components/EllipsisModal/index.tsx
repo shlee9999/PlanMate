@@ -10,6 +10,7 @@ import { removeSubject } from 'api/subject/removeSubject'
 import { DeleteModal } from './DeleteModal'
 import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
+import useDeleteSubjectMutation from './hooks/useDeleteSubjectMutation'
 
 const EllipsisModal = ({
   closeModal,
@@ -22,40 +23,16 @@ const EllipsisModal = ({
   isTodoTimerRunning: boolean
   isOpen: boolean
 }) => {
-  const [mode, setMode] = useState<string>('edit') // 'edit' | 'delete'
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const dispatch = useDispatch()
-
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false)
-  }
-  const onClickDeleteButton = () => {
-    setIsDeleteModalOpen(true)
-  }
-  const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-  }
-
-  const onClickEditButton = () => {
-    setIsEditModalOpen(true)
-  }
-
-  const closeEditModal = () => {
-    setIsEditModalOpen(false)
-  }
-  const deleteSubject = () => {
-    if (isTodoTimerRunning) return //타이머 가고 있을 때 삭제 불가
-    removeSubject({
-      subjectId: todo.subjectId,
-    }).then((res) => {
-      if (res) {
-        dispatch(removeTodo(todo.subjectId))
-        closeModal()
-      }
-    })
-    closeModal()
-  }
+  // const dispatch = useDispatch()
+  const mutateDeleteSubject = useDeleteSubjectMutation({ onSuccess: closeModal })
+  const closeDeleteModal = () => setIsDeleteModalOpen(false)
+  const onClickDeleteButton = () => setIsDeleteModalOpen(true)
+  const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
+  const onClickEditButton = () => setIsEditModalOpen(true)
+  const closeEditModal = () => setIsEditModalOpen(false)
+  const deleteSubject = () => !isTodoTimerRunning && mutateDeleteSubject({ subjectId: todo.subjectId })
 
   return (
     <AnimatePresence>
