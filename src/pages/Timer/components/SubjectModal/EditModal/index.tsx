@@ -1,11 +1,7 @@
 import React from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { Root, InputWrapper, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from '../styled'
 import { TodoItemType } from 'types'
-import { updateTodo } from 'modules/todos'
-
-import { editSubject } from 'api/subject/editSubject'
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton } from 'commonStyled'
 import useEditSubjectMutation from '../../../hooks/mutations/useEditSubjectMutation'

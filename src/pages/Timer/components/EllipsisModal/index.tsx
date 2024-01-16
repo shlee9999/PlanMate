@@ -1,12 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import { ButtonWrapper, CloseButton, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
-import { useDispatch } from 'react-redux'
 import { TodoItemType } from 'types'
-import { removeTodo } from 'modules/todos'
-
 import EditModal from '../SubjectModal/EditModal'
-import { removeSubject } from 'api/subject/removeSubject'
 import { DeleteModal } from './DeleteModal'
 import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
