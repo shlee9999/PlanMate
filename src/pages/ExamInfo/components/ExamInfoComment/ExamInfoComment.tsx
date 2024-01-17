@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
-import useLikeCommentMutation from 'pages/ExamInfo/hooks/useLikeCommentMutation'
-import useModifyComment from 'pages/ExamInfo/hooks/useModifyComment'
+import useLikeCommentMutation from 'pages/ExamInfo/hooks/mutations/useLikeCommentMutation'
+import useModifyComment from 'pages/ExamInfo/hooks/mutations/useModifyComment'
 import { ExamInfoReply, DeleteCommentModal } from 'pages/ExamInfo/components'
 
 type ExamInfoCommentProps = {

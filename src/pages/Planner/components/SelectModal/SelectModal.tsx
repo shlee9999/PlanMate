@@ -10,8 +10,8 @@ import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import * as cs from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useAddAppointMutation from '../../hooks/useAddAppointMutation'
-import useEditAppointMutation from '../../hooks/useEditAppointMutation'
+import useAddAppointMutation from '../../hooks/mutations/useAddAppointMutation'
+import useEditAppointMutation from '../../hooks/mutations/useEditAppointMutation'
 
 export const SelectModal = ({
   closeModal,

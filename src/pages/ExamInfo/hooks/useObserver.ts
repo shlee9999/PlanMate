@@ -1,4 +1,4 @@
-import { useRef, useEffect, RefObject } from 'react'
+import { useEffect, RefObject } from 'react'
 
 type UseObserverProps = {
   callback: IntersectionObserverCallback
