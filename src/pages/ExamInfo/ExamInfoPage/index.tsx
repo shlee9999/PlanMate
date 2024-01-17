@@ -6,6 +6,7 @@ import {
   LowerTagButtonWrapper,
   NoContent,
   PaginationWrapper,
+  PostSpinner,
   Root,
   Tag,
   TagButton,
@@ -22,6 +23,7 @@ import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useQuery } from 'react-query'
+import { Spinner } from 'components/Spinner'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -52,11 +54,7 @@ export const ExamInfoPage = () => {
     if (currentPage < totalPage) setCurrentPage((prev) => prev + 1)
   }
   const navigate = useNavigate()
-
-  const onClickBulletinButton = (): void => {
-    navigate('/examinfo/post')
-  }
-
+  const onClickBulletinButton = (): void => navigate('/examinfo/post')
   const onClickTagButton = (tag: string) => () => {
     if (selectedTag === tag) setSelectedTag('')
     else setSelectedTag(tag)
@@ -100,9 +98,10 @@ export const ExamInfoPage = () => {
           )
         )}
       </LowerTagButtonWrapper>
+      {/* Spinner 때문에 임시 변환 */}
       <ExamInfoWrapper>
         {isLoading ? (
-          'Loading...'
+          <PostSpinner>Loading...</PostSpinner>
         ) : examInfoList?.length !== 0 ? (
           examInfoList?.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (

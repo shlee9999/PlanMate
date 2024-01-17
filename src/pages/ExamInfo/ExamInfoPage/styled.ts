@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { NoContentDescription } from 'components/NoContentDescription'
+import { Spinner } from 'components/Spinner'
 export const Root = styled(PageRoot)`
   padding: 45px 160px 40px;
 `
@@ -82,4 +83,8 @@ export const NoContent = styled(NoContentDescription)`
 export const PaginationWrapper = styled.div`
   position: relative;
   width: 100%;
+`
+
+export const PostSpinner = styled(Spinner)`
+  margin: 80px 0;
 `
