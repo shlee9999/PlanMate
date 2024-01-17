@@ -141,11 +141,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
           <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
           {currentLikeCount}
         </LikeButton>
-        <DeleteCommentModal
-          closeModal={closeDeleteCommentModal}
-          deleteComment={deleteComment}
-          isOpen={isDeleteCommentModalOpen}
-        />
+        {/* <DeleteCommentModal closeModal={closeDeleteCommentModal} isOpen={isDeleteCommentModalOpen} /> */}
       </Root>
     </>
   )

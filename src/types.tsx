@@ -1,11 +1,9 @@
 export type TodoItemType = {
-  subjectId: number
-  name: string
   colorHex: string
+  name: string
+  subjectId: number
   time: number
-  startAt?: string
-  endAt?: string
-} //time은 파싱
+}
 
 export type PageInfo = {
   title: string
@@ -13,9 +11,10 @@ export type PageInfo = {
 }
 
 export interface IAppointment {
-  text: string
-  startDate: Date
-  endDate: Date
-  bgColor: string
-  id: number
+  scheduleName: string
+  startAt: string
+  endAt: string
+  colorHex: string
+  plannerId: number
+  day: string
 }

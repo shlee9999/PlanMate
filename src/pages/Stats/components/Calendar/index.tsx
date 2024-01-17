@@ -1,8 +1,7 @@
-import { FC, useState } from 'react'
+import { FC, MouseEvent, useState } from 'react'
 import {
   Body,
   Circle,
-  DateCell,
   DateContainer,
   DayCell,
   DayRow,
@@ -20,11 +19,14 @@ import { weekDays } from 'constants/week'
 import { getDateInfo, getWeekDates, weekCount } from 'utils/helper'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'pages/Stats'
+import { DateCell } from './DateCell'
+import { ResponseStats } from 'api/common/commonType'
 
 type CalendarProps = {
   className?: string
   selectedDate: DateProps
   setSelectedDate: (date: DateProps) => void
+  dataSource?: ResponseStats
 }
 const momentum = 100
 const MonthVar: Variants = {
@@ -32,7 +34,7 @@ const MonthVar: Variants = {
   visible: { opacity: 1, x: 0 },
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
-export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, selectedDate }) => {
+export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, selectedDate, dataSource }) => {
   const onClickNext = () => {
     setSelectedDate(getDateInfo(new Date(selectedDate.year, selectedDate.month + 1, 1)))
     setBack(false)
@@ -83,21 +85,15 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
                 {getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
                   <DateCell
                     key={date.getTime()}
-                    $currentMonth={date.getMonth() === selectedDate.month}
                     onClick={() => setSelectedDate(getDateInfo(date))}
-                    $isSelected={
-                      getDateInfo(date).date == selectedDate.date && getDateInfo(date).month === selectedDate.month
-                    }
-                  >
-                    {/* 달력 이전달, 이번달만 표시하고, 이후는 표시 안하는 로직 */}
-                    {date.getMonth() <= selectedDate.month
-                      ? selectedDate.month === 11 && date.getMonth() === 0
-                        ? null
-                        : date.getDate()
-                      : selectedDate.month === 0 && date.getMonth() === 11
-                      ? date.getDate()
-                      : null}
-                  </DateCell>
+                    cellDate={{
+                      year: date.getFullYear(),
+                      month: date.getMonth(),
+                      date: date.getDate(),
+                    }}
+                    studyTimeHours={dataSource?.totalStudyTimeHours}
+                    selectedDate={selectedDate}
+                  />
                 ))}
               </WeekRow>
             ))}

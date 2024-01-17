@@ -1,5 +1,6 @@
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
+import { getYYYYMMDD } from 'utils/helper'
 
 const UPDATE_INFO = 'selectedInfo/UPDATE_INFO' as const
 const UPDATE_PROP = 'selectedInfo/UPDATE_PROP' as const
@@ -20,11 +21,12 @@ export const updateProp = (propName: keyof ISelectedInfo, value: any) => ({
 type InfoAction = ReturnType<typeof updateInfo> | ReturnType<typeof updateProp>
 
 const IntialInfoState: ISelectedInfo = {
-  startDate: new Date(),
-  endDate: new Date(),
-  text: '',
-  bgColor: defaultColor,
-  id: -1,
+  startAt: '00',
+  endAt: '00',
+  scheduleName: '',
+  colorHex: defaultColor,
+  plannerId: new Date().getTime(),
+  day: getYYYYMMDD(new Date()),
 }
 
 function selectedInfo(state: ISelectedInfo = IntialInfoState, action: InfoAction) {

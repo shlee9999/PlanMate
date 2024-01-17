@@ -13,28 +13,6 @@ interface InfoContainerProps {
   dataSource: ResponseStats
 }
 
-const TotalFocusData: TimeProps = {
-  hour: 4,
-  minute: 32,
-  second: 7,
-}
-
-const MaxFocusData: TimeProps = {
-  hour: 2,
-  minute: 32,
-  second: 7,
-}
-
-const StartTimerData: TimeProps = {
-  hour: 10,
-  minute: 22,
-}
-
-const EndTimerData: TimeProps = {
-  hour: 22,
-  minute: 32,
-}
-
 export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data }) => {
   const { year, month, date } = selectedDate
   const {
@@ -52,7 +30,7 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
     totalStudyTimeHours,
     totalStudyTimeMinutes,
     totalStudyTimeSeconds,
-  } = data
+  } = data || {}
   const totalStudyTime: TimeProps = {
     hour: totalStudyTimeHours,
     minute: totalStudyTimeMinutes,
@@ -78,7 +56,7 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
   }
 
   return (
-    <Root right={true}>
+    <Root>
       <Header>
         {year}년 {month + 1}월 {date}일
       </Header>

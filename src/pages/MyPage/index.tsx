@@ -137,7 +137,9 @@ export const MyPage: FC = () => {
       case myPageTabList[0]: // "작성한 글"
         return myPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
       case myPageTabList[1]: // "작성한 댓글"
-        return myCommentList?.map((comment) => <ExamInfoComment {...comment} key={comment.commentId} />)
+        return myCommentList?.map((comment) => (
+          <ExamInfoComment {...comment} key={comment.commentId} currentPage={currentPage} />
+        ))
       case myPageTabList[2]: // "스크랩한 글"
         return scrappedPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
       default:

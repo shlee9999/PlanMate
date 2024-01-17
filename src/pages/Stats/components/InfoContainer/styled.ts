@@ -1,11 +1,8 @@
-import { InfoBox } from 'components/InfoBox'
 import styled from 'styled-components'
 
-export const Root = styled(InfoBox)`
-  flex-grow: 1;
+export const Root = styled.div`
   height: 400px;
   padding: 22px 24px;
-  max-width: 800px;
   overflow: visible;
 `
 

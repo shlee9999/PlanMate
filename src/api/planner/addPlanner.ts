@@ -6,7 +6,6 @@ export type AddPlannerRequestProps = {
   endAt: string
   scheduleName: string
   startAt: string
-  type: string
 }
 //수정 : endAt, startAt -> hour, minute 분리, NUMBER 타입
 //삭제 : type
@@ -17,7 +16,6 @@ export type AddPlannerResponseProps = {
   endAt: string
   scheduleName: string
   startAt: string
-  type: string
   //   plannerId: number
 }
 

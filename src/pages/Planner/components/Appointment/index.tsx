@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react'
-import { CloseButton, Root, Title } from './styled'
-import { AnimatePresence, Variants } from 'framer-motion'
+import { FC } from 'react'
+import { CloseButton, Root, Title, Wrapper } from './styled'
+import { Variants } from 'framer-motion'
 
 type AppointmentProps = {
   bgColor: string
@@ -19,7 +19,6 @@ export const Appointment: FC<AppointmentProps> = ({
   onMouseDown,
   title,
   onClickClose,
-
   id,
 }) => {
   const AppVar: Variants = {
@@ -38,9 +37,8 @@ export const Appointment: FC<AppointmentProps> = ({
       scaleY: 0,
     },
   }
-
   return (
-    <Root
+    <Wrapper
       $bgColor={bgColor}
       $height={height}
       onClick={onClick}
@@ -51,8 +49,10 @@ export const Appointment: FC<AppointmentProps> = ({
       exit="exit"
       key={id}
     >
-      <Title>{title}</Title>
-      <CloseButton onClick={onClickClose} />
-    </Root>
+      <Root $bgColor={bgColor}>
+        <Title>{title}</Title>
+        <CloseButton onClick={onClickClose} />
+      </Root>
+    </Wrapper>
   )
 }

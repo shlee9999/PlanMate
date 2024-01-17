@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState, ChangeEvent } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 import {
   Root,
   ModalExitButton,
@@ -14,19 +13,17 @@ import {
   Title,
   ColorSelectTypo,
 } from './styled'
-
 import { TimeSelect } from './TimeSelect'
-import { DaySelect } from './DaySelect'
-
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { addAppoint, updateAppoint } from 'modules/appointments'
-
 import { RootState } from 'modules'
 import { useFormattedDate } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
+import useAddAppointMutation from '../../hooks/useAddAppointMutation'
+import useEditAppointMutation from '../../hooks/useEditAppointMutation'
 
 export const SelectModal = ({
   closeModal,
@@ -40,16 +37,22 @@ export const SelectModal = ({
   onExitComplete: () => void
 }) => {
   //입력값과 색상 상태 관리
-  const { startDate, endDate, text, bgColor, id } = useSelector((state: RootState) => state.selectedInfo)
-  const year = startDate.getFullYear()
-  const month = startDate.getMonth()
-  const date = startDate.getDate()
-  const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? text : '')
-
-  const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? bgColor : defaultColor)
+  const { startAt, endAt, scheduleName, colorHex, plannerId, day } = useSelector(
+    (state: RootState) => state.selectedInfo
+  )
+  const [inputValue, setInputValue] = useState<string>(title.slice(-2) === '수정' ? scheduleName : '')
+  const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? colorHex : defaultColor)
   const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
-
+  const mutateAddAppoint = useAddAppointMutation({ colorHex, startAt, day, endAt, scheduleName: inputValue })
+  const mutateEditAppoint = useEditAppointMutation({
+    colorHex,
+    day,
+    startAt,
+    endAt,
+    scheduleName: inputValue,
+    plannerId,
+  })
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
@@ -61,31 +64,38 @@ export const SelectModal = ({
   const onClickConfirm = () => {
     if (inputValue === '') return
     setInputValue('')
-    if (title.slice(-2) === '추가')
+    if (title.slice(-2) === '추가') {
       dispatch(
         addAppoint({
-          text: inputValue,
-          startDate: new Date(year, month, date, startDate.getHours()),
-          endDate: new Date(year, month, date, endDate.getHours()),
-          bgColor: subjectColor,
-          id: new Date().getTime(),
+          scheduleName: inputValue,
+          startAt,
+          endAt,
+          colorHex,
+          plannerId: new Date().getTime(),
+          day,
         })
       )
-    else {
+      mutateAddAppoint()
+    } else {
+      // 수정
       dispatch(
         updateAppoint({
-          text: inputValue,
-          startDate,
-          endDate,
-          bgColor,
-          id,
+          scheduleName: inputValue,
+          startAt: startAt,
+          endAt: endAt,
+          colorHex: colorHex,
+          plannerId: plannerId,
+          day,
         })
       )
+      mutateEditAppoint(plannerId)
     }
     closeModal()
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') onClickConfirm()
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      onClickConfirm()
+    }
   }
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
@@ -97,19 +107,19 @@ export const SelectModal = ({
   }, [isOpen])
 
   useEffect(() => {
-    dispatch(updateProp('bgColor', subjectColor))
+    dispatch(updateProp('colorHex', subjectColor))
   }, [subjectColor])
 
   useEffect(() => {
-    setInputValue(text)
-  }, [text])
+    setInputValue(scheduleName)
+  }, [scheduleName])
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
         <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
           <Root onClick={handleModalClick}>
             <ModalTitle>{title}</ModalTitle>
-            <Title>{useFormattedDate(new Date(year, month, date))}</Title>
+            <Title>{useFormattedDate(day)}</Title>
             <ModalExitButton onClick={closeModal} />
             <InputWrapper>
               <ButtonTypoWrapper>
@@ -135,7 +145,6 @@ export const SelectModal = ({
                 <TimeSelectWrapper>
                   <TimeSelect set={'부터'} />
                   <TimeSelect set={'까지'} />
-                  {/* <TimeSelect assignFromHour={assignFromHour} assignFromMinute={assignFromMinute} set={'까지'} /> */}
                 </TimeSelectWrapper>
               </ButtonTypoWrapper>
             </InputWrapper>

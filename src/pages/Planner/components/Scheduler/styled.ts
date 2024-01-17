@@ -128,9 +128,6 @@ export const ButtonWrapper = styled.div`
     right: 0;
     margin: 0 auto;
   }
-  position: absolute;
-  top: 0px;
-  left: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

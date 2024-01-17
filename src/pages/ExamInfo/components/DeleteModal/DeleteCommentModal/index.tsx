@@ -1,22 +1,36 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { CenterTypo, CenterTypoWrapper, Root, UpperTypo } from '../styled'
 import { ModalFooter, GreenButton, WhiteButton, ModalExitButton, ModalWrapperVar, ModalWrapper } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
+import useDeleteCommentMutation from 'pages/ExamInfo/hooks/useDeleteCommentMutation'
 type DeleteCommentModalProps = {
   closeModal: () => void
-  deleteComment: () => void
   isOpen: boolean
+  id: number
+  postId: number
+  currentPage: number
 }
 
-export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({ closeModal, deleteComment, isOpen }) => {
+export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({ closeModal, isOpen, id, postId, currentPage }) => {
+  const mutateDeleteComment = useDeleteCommentMutation()
+  const [isConfirmed, setIsConfirmed] = useState(false)
   const onClickDeleteButton = () => {
-    deleteComment()
+    setIsConfirmed(true)
+    closeModal()
   }
-  const onClickModal = (e: React.MouseEvent) => {
-    e.stopPropagation()
+  const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
+  const onExitComplete = () => {
+    if (!isConfirmed) return
+    mutateDeleteComment({
+      commentId: id,
+      postId,
+      currentPage,
+      callBack: closeModal,
+    })
+    setIsConfirmed(false)
   }
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
         <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
           <Root onClick={onClickModal}>
@@ -30,7 +44,7 @@ export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({ closeModal, de
               <WhiteButton onClick={closeModal}>취소</WhiteButton>
             </ModalFooter>
             <ModalExitButton onClick={closeModal} />
-          </Root>{' '}
+          </Root>
         </ModalWrapper>
       )}
     </AnimatePresence>
