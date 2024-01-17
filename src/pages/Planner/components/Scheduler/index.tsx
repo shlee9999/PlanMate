@@ -13,7 +13,7 @@ import {
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
+import { compareTime, createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
@@ -86,8 +86,11 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   }
   const onMouseUp = () => {
     if (selectedCells.length === 0) return
-    const startHour = useFormattedTime(+selectedCells[0].split('T')[1] * 60 * 60)
-    const endHour = useFormattedTime((+selectedCells[selectedCells.length - 1].split('T')[1] + 1) * 60 * 60)
+    const startTime = +selectedCells[0].split('T')[1] * 60 * 60
+    const endTime = (+selectedCells[selectedCells.length - 1].split('T')[1] + 1) * 60 * 60
+    const { smaller, larger } = compareTime(startTime, endTime)
+    const startHour = useFormattedTime(smaller)
+    const endHour = useFormattedTime(larger)
     const year = +selectedCells[0].slice(0, 4)
     const month = +selectedCells[0].slice(5, 7)
     const date = +selectedCells[0].slice(8, 10)

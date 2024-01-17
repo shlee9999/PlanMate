@@ -154,3 +154,8 @@ export const getYYYYMMDD = (currentDate: DateProps | Date) => {
 export function isEqualDate(a: DateProps, b: DateProps) {
   return a.year === b.year && a.month === b.month && a.date === b.date
 }
+
+export function compareTime(time1: number, time2: number) {
+  if (time1 > time2) return { smaller: time2, larger: time1 }
+  return { smaller: time1, larger: time2 }
+}
