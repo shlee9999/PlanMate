@@ -34,23 +34,21 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({ studyTimeL
     },
     {
       name: '휴식',
-      totalTime: timeToSecond(restTime),
+      totalTime: timeToSecond(restTime) || 1,
       colorHex: '#D9D9D9',
     },
   ]
-  const studyData: PieChartData[] = studyTimeList
-    .slice(0, 5)
-    .map((studyTime, index) => ({
+  const studyData: PieChartData[] =
+    studyTimeList.slice(0, 5).map((studyTime, index) => ({
       name: studyTime.name,
       totalTime:
         timeToSecond({
           hour: studyTime.studyTimeHours,
           minute: studyTime.studyTimeMinutes,
           second: studyTime.studyTimeSeconds,
-        }) || 1,
+        }) || 0.01,
       colorHex: colorList[index],
-    }))
-    .concat({ name: '', totalTime: 0, colorHex: 'transparent' })
+    })) || [].concat({ name: '', totalTime: 0.01, colorHex: 'transparent' })
 
   return (
     <Root>
