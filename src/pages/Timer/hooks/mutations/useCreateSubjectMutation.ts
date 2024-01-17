@@ -5,13 +5,13 @@ import { TodoItemType } from 'types'
 function useCreateSubjectMutation() {
   const queryClient = useQueryClient()
   const { mutate: mutateCreateSubject } = useMutation(
-    ({ colorHex, name }: { colorHex: string; name: string; callBack: () => void }) =>
+    ({ colorHex, name }: { colorHex: string; name: string }) =>
       createSubject({
         colorHex,
         name,
       }),
     {
-      onMutate: ({ colorHex, name, callBack }) => {
+      onMutate: ({ colorHex, name }) => {
         const prevData = queryClient.getQueryData('todoList')
         queryClient.setQueryData<TodoItemType[]>('todoList', (prev) =>
           prev.concat({
@@ -21,11 +21,11 @@ function useCreateSubjectMutation() {
             time: 0,
           })
         )
-        callBack()
         return { prevData }
       },
       onSuccess: () => {
         console.log('success add')
+        queryClient.invalidateQueries('todoList')
       },
       onError: (err, variables, context) => {
         queryClient.setQueryData('todoList', context.prevData)

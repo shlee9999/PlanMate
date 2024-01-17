@@ -7,6 +7,7 @@ import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'com
 import { AnimatePresence } from 'framer-motion'
 import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
 import ActionModal from '../ActionModal'
+import useEditSubjectMutation from 'pages/Timer/hooks/mutations/useEditSubjectMutation'
 
 type EllipsisModalProps = {
   closeModal: () => void
@@ -22,16 +23,18 @@ const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
   const onClickEditButton = () => setIsEditModalOpen(true)
   const closeEditModal = () => setIsEditModalOpen(false)
-  const [isConfirmed, setIsConfirmed] = useState(false)
-  const confirm = () => {
-    setIsConfirmed(true)
+  const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false)
+
+  const deleteConfirm = () => {
+    setIsDeleteConfirmed(true)
     closeModal()
   }
+
   const onExitComplete = () => {
-    if (isConfirmed) {
+    if (isDeleteConfirmed) {
       // confirm버튼 눌렀을 때만 작동하도록
       mutateDeleteSubject({ subjectId: todo.subjectId })
-      setIsConfirmed(false)
+      setIsDeleteConfirmed(false)
     }
   }
   return (
@@ -57,7 +60,9 @@ const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
               closeEllipsisModal={closeModal}
             />
           )}
-          {isDeleteModalOpen && <DeleteModal closeModal={closeDeleteModal} confirm={confirm} title={todo.name} />}
+          {isDeleteModalOpen && (
+            <DeleteModal closeModal={closeDeleteModal} deleteConfirm={deleteConfirm} title={todo.name} />
+          )}
         </ModalWrapper>
       )}
     </AnimatePresence>
