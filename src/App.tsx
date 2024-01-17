@@ -1,12 +1,13 @@
 import { lightTheme } from 'theme'
-import { FooterSection } from 'pages/CommonSections/FooterSection'
-import { HeaderSection } from 'pages/CommonSections/HeaderSection'
+
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from 'globalStyle'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import Footer from 'components/Footer'
+import { Header } from 'components/Header'
 
 const client = new QueryClient()
 export default function App() {
@@ -14,9 +15,9 @@ export default function App() {
     <QueryClientProvider client={client}>
       <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
-        <HeaderSection />
+        <Header />
         <Outlet />
-        <FooterSection />
+        <Footer />
       </ThemeProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>

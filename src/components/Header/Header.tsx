@@ -26,7 +26,7 @@ import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { CheckUserInfoResponseProps, checkUserInfo } from 'api/member/checkUserInfo'
 
-export const HeaderSection: FC = () => {
+export const Header: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const location = useLocation()
   const [currentPath, setCurrentPath] = useState(location.pathname)

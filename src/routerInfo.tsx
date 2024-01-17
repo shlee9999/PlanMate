@@ -1,4 +1,4 @@
-import { HeaderSection } from 'pages/CommonSections/HeaderSection'
+import { Header } from 'components/Header'
 import { ExamInfoPage } from 'pages/ExamInfo/ExamInfoPage'
 import { BulletinPage } from 'pages/ExamInfo/BulletinPage'
 import { TimerPage } from 'pages/Timer'
@@ -69,7 +69,7 @@ export const routerInfo = [
         path: 'login',
         element: (
           <>
-            <HeaderSection />
+            <Header />
             <LoginPage />
           </>
         ),

@@ -8,7 +8,7 @@ const footerNavigate = [
   { typo: '이용관련건의', url: 'suggest' },
   { typo: 'Contact Us', url: 'contact_us' },
 ]
-export const FooterSection: FC = () => {
+export const Footer: FC = () => {
   const navigate = useNavigate()
   const onClickNavigateTypo = (url: string) => () => {
     navigate(url)
