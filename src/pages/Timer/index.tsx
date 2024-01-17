@@ -24,17 +24,9 @@ import {
   BannerContentWrapper,
   SizedBox,
   DateTypo,
-  StatsSpinner,
   TodoSpinner,
 } from './styled'
-import {
-  daysUntil,
-  getDateInfo,
-  timeToSecond,
-  useFormattedDate,
-  useFormattedTime,
-  useFormattedTimeKorean,
-} from 'utils/helper'
+import { daysUntil, getDateInfo, timeToSecond, useFormattedDate, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
 import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
 import TodoItem from 'pages/Timer/components/TodoItem'
@@ -55,6 +47,7 @@ import { useQuery } from 'react-query'
 import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
+import { CenterSpinner } from 'commonStyled'
 
 export const TimerPage: FC = () => {
   const now = getDateInfo(new Date())
@@ -179,7 +172,7 @@ export const TimerPage: FC = () => {
             <Title>오늘의 통계 📊</Title>
             <StatsContainer right>
               {isStatsLoading ? (
-                <StatsSpinner>Loading...</StatsSpinner>
+                <CenterSpinner>Loading...</CenterSpinner>
               ) : (
                 <>
                   <StudyContainer>

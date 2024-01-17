@@ -154,12 +154,5 @@ export const GreenTypo = styled.span`
 export const Test = styled.span`
   font-weight: 700;
 `
-export const StatsSpinner = styled(Spinner)`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-`
+
 export const TodoSpinner = styled(Spinner)``

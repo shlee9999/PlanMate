@@ -20,6 +20,7 @@ import { useQuery } from 'react-query'
 import { checkStats } from 'api/stats/checkStats'
 import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
+import { CenterSpinner } from 'commonStyled'
 
 export type DateProps = {
   year: number
@@ -56,12 +57,18 @@ export const StatsPage = () => {
         <Title>공부량 한 눈에 보기</Title>
         <StatsContainer>
           <LeftInfoBox left>
-            {!todayLoading && (
+            {todayLoading ? (
+              <CenterSpinner>Loading...</CenterSpinner>
+            ) : (
               <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={data} />
             )}
           </LeftInfoBox>
           <RightInfoBox right>
-            {!isLoading && <InfoContainer selectedDate={selectedDate} dataSource={data} />}
+            {isLoading ? (
+              <CenterSpinner>Loading...</CenterSpinner>
+            ) : (
+              <InfoContainer selectedDate={selectedDate} dataSource={data} />
+            )}
           </RightInfoBox>
         </StatsContainer>
       </Container>

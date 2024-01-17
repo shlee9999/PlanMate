@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
+import { Spinner } from 'components/Spinner'
 
 export const PageRoot = styled.div`
   position: relative;
@@ -103,3 +104,12 @@ export const UpArrow = styled(RightArrow)`
 // export const StyledScrapIcon = styled(ScrapIcon)`
 //   cursor: pointer;
 // `
+
+export const CenterSpinner = styled(Spinner)`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+`
