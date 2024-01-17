@@ -6,8 +6,7 @@ import { DeleteModal } from './DeleteModal'
 import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
-import ActionModal from '../ActionModal'
-import useEditSubjectMutation from 'pages/Timer/hooks/mutations/useEditSubjectMutation'
+import { ActionModal } from '..'
 
 type EllipsisModalProps = {
   closeModal: () => void

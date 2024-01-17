@@ -21,7 +21,7 @@ import EllipsisModal from '../EllipsisModal'
 import moment from 'moment'
 import useUpdateSubjectMutation from '../../hooks/mutations/useUpdateSubjectMutation'
 
-const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
+export const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
   const dispatch = useDispatch()
@@ -84,5 +84,3 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
     </Root>
   )
 }
-
-export default TodoItem

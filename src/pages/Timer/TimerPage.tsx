@@ -28,14 +28,11 @@ import {
 } from './styled'
 import { daysUntil, getDateInfo, timeToSecond, useFormattedDate, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
-import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
-import TodoItem from 'pages/Timer/components/TodoItem'
-import ActionModal from 'pages/Timer/components/ActionModal'
 import { initializeTimer } from 'modules/timer'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'pages/Timer/hooks/useTimer'
-import { SuggestModal } from 'pages/Timer/components/SuggestModal'
+import { SuggestModal } from 'pages/Timer/components/'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
 import { PlusIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
@@ -46,6 +43,7 @@ import { CenterSpinner } from 'commonStyled'
 import { NoContentDescription } from 'components'
 import { TimerContainer, PieChartContainer, GraphContainer } from 'pages/Stats/components/'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
+import { ActionModal, TimerWidget, TodoItem } from './components'
 
 export const TimerPage: FC = () => {
   const now = getDateInfo(new Date())
@@ -152,7 +150,7 @@ export const TimerPage: FC = () => {
             </LeftTopDescriptionWrapper>
             <ResultContainer left>
               <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
-              <StudyTimerWidget totalTime={totalTime} />
+              <TimerWidget totalTime={totalTime} />
               <LowerDescriptionTypo>
                 오늘은 휴식 시간을 <YellowTypo>{useFormattedTimeKorean(breakTime)}</YellowTypo> 가졌네요!
               </LowerDescriptionTypo>
@@ -224,9 +222,7 @@ export const TimerPage: FC = () => {
           과목
         </AddButton>
       </LowerContainer>
-
       <ActionModal closeModal={closeModal} type="ADD" isOpen={isModalOpen} />
-
       {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
     </Root>
   )

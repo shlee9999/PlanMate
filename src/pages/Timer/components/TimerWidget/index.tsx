@@ -1,6 +1,6 @@
 import { Mode, Root, Timer } from './styled'
 import { useFormattedTime } from 'utils/helper'
-export const StudyTimerWidget = ({ totalTime }: { totalTime: number }) => {
+export const TimerWidget = ({ totalTime }: { totalTime: number }) => {
   const formattedTime: string = useFormattedTime(totalTime)
   return (
     <Root>

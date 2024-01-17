@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { defaultColor } from 'constants/color'
 import { Root, InfoContainer, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from './styled'
-import { ColorPicker } from 'components/ColorPicker/ColorPicker'
+import { ColorPicker } from 'components/'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useCreateSubjectMutation from 'pages/Timer/hooks/mutations/useCreateSubjectMutation'
@@ -15,7 +15,7 @@ type ActionModalProps = {
   closeEllipsisModal?: () => void
   type: 'ADD' | 'EDIT'
 }
-const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: ActionModalProps) => {
+export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: ActionModalProps) => {
   const [inputValue, setInputValue] = useState<string>(todo?.name || '')
   const [subjectColor, setSubjectColor] = useState<string>(todo?.colorHex || defaultColor)
   const [isConfirmed, setIsConfirmed] = useState(false)
@@ -112,5 +112,3 @@ const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: Act
     </Root>
   )
 }
-
-export default ActionModal
