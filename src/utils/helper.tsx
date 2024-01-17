@@ -1,6 +1,6 @@
 import { weekDays } from 'constants/week'
-import { DateProps } from 'pages/Stats'
-import { TimeProps } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
+import { DateProps } from 'pages/Stats/StatsPage'
+import { TimeProps } from 'types'
 
 export const generateId = (): string => {
   const timestamp = Date.now().toString() // 현재 시간을 밀리초 단위로 가져옴

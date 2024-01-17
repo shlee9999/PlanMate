@@ -2,8 +2,7 @@ import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import { ActionButton } from 'components/ActionButton/ActionButton'
-import { NoContentDescription } from 'components/NoContentDescription'
-import { Spinner } from 'components/Spinner'
+import { NoContentDescription, Spinner } from 'components/'
 export const Root = styled(PageRoot)`
   padding: 45px 160px 40px;
 `

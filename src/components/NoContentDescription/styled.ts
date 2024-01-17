@@ -7,12 +7,6 @@ export const Root = styled.div`
   align-items: center;
 `
 
-export const Icon = styled.img`
-  width: 32px;
-  height: 32px;
-  margin-bottom: 8px;
-`
-
 export const DescriptionTypoContainer = styled.div`
   font-size: 16px;
   font-weight: 700;

@@ -1,5 +1,5 @@
 import { PageRoot } from 'commonStyled'
-import { InfoBox } from 'components/InfoBox'
+import { InfoBox } from 'components'
 import { FOOTER_HEIGHT, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
 import styled from 'styled-components'
 

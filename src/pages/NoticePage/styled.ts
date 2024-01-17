@@ -2,8 +2,9 @@ import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 
 import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
-import { NoContentDescription } from 'components/NoContentDescription'
+
 import { ActionButton } from 'components/ActionButton/ActionButton'
+import { NoContentDescription } from 'components'
 export const Root = styled(PageRoot)`
   padding: 45px 160px 40px;
   -webkit-user-select: auto;
@@ -67,12 +68,6 @@ export const ExamInfoWrapper = styled.div`
   border-top: 2px solid ${(props) => props.theme.text.gray1};
   display: flex;
   flex-direction: column;
-`
-export const NoPostTypo = styled.div`
-  width: 1088px;
-  text-align: center;
-  border-bottom: 2px solid ${(props) => props.theme.text.gray1};
-  margin-bottom: 30px;
 `
 
 export const NoContent = styled(NoContentDescription)`

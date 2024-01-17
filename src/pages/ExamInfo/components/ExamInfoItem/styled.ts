@@ -1,4 +1,4 @@
-import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
+import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -46,8 +46,4 @@ export const IconCountWrapper = styled.div`
   font-size: 10px;
   font-weight: 400;
   line-height: 13px;
-`
-export const Icon = styled.img`
-  width: 12px;
-  height: 12px;
 `

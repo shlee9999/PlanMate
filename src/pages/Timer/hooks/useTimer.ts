@@ -4,7 +4,7 @@ type useTimerProps = {
   defaultTime: number
 }
 
-export const useTimer = ({ defaultTime }: useTimerProps) => {
+export function useTimer({ defaultTime }: useTimerProps) {
   const [time, setTime] = useState<number>(defaultTime)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const startTimer = (): void => {
@@ -31,3 +31,5 @@ export const useTimer = ({ defaultTime }: useTimerProps) => {
 
   return { startTimer, stopTimer, initializeTimer, setDefaultTime, time }
 }
+
+export default useTimer
