@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-
+import React from 'react'
 import { Root, Wrapper, PiechartTitle } from './styled'
 import { PieChart } from './PieChart'
 import { StudyTimeEntry } from 'api/common/commonType'
-import { TimeProps } from '../TimerContainer/TimerContainer'
-import { getDateInfo, timeToSecond } from 'utils/helper'
+import { timeToSecond } from 'utils/helper'
+import { TimeProps } from 'types'
 
 export interface PieChartData {
   name: string

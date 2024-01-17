@@ -14,13 +14,12 @@ import {
   LeftInfoBox,
   RightInfoBox,
 } from './styled'
-import { InfoContainer } from 'pages/Stats/components/InfoContainer'
-import { Calendar } from './components/Calendar'
 import { useQuery } from 'react-query'
 import { checkStats } from 'api/stats/checkStats'
 import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
+import { Calendar, InfoContainer } from './components'
 
 export type DateProps = {
   year: number

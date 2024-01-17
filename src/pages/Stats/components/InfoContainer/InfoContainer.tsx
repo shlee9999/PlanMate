@@ -1,12 +1,9 @@
 import React from 'react'
 import { Root, ChartDividingLine, Header, StudyContainer } from './styled'
-import { GraphContainer } from './component/GraphContainer'
-
-import { PieChartContainer } from './component/PieChartContainer/PieChartContainer'
-import { TimeProps, TimerContainer } from './component/TimerContainer/TimerContainer'
-import { ShareContainer } from './component/ShareContainer'
+import { GraphContainer, PieChartContainer, ShareContainer, TimerContainer } from './components'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { ResponseStats } from 'api/common/commonType'
+import { TimeProps } from 'types'
 
 interface InfoContainerProps {
   selectedDate: DateProps

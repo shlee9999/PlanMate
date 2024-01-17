@@ -1,6 +1,6 @@
 //타이머 탭
 import { useDispatch, useSelector } from 'react-redux'
-import { TodoItemType } from 'types'
+import { TimeProps, TodoItemType } from 'types'
 import { useState, FC, useEffect } from 'react'
 import {
   Banner,
@@ -31,17 +31,12 @@ import { RootState } from 'modules'
 import { StudyTimerWidget } from 'pages/Timer/components/TimerWidget'
 import TodoItem from 'pages/Timer/components/TodoItem'
 import ActionModal from 'pages/Timer/components/ActionModal'
-import { GraphContainer } from 'pages/Stats/components/InfoContainer/component/GraphContainer'
 import { initializeTimer } from 'modules/timer'
-
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'pages/Timer/hooks/useTimer'
 import { SuggestModal } from 'pages/Timer/components/SuggestModal'
 import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
-import { PieChartContainer } from 'pages/Stats/components/InfoContainer/component/PieChartContainer/PieChartContainer'
-import { TimeProps, TimerContainer } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
-import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { PlusIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
 import { ResponseStats } from 'api/common/commonType'
@@ -49,6 +44,8 @@ import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { CenterSpinner } from 'commonStyled'
 import { NoContentDescription } from 'components'
+import { TimerContainer, PieChartContainer, GraphContainer } from 'pages/Stats/components/'
+import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 
 export const TimerPage: FC = () => {
   const now = getDateInfo(new Date())

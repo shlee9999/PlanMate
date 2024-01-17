@@ -1,14 +1,10 @@
-import React, { useState } from 'react'
-import { useFormattedTime, useFormattedTimeKorean } from 'utils/helper'
+import React from 'react'
+import { useFormattedTime } from 'utils/helper'
 import { Timer } from './Timer'
 import { Root } from './styled'
+import { TimeProps } from 'types'
 
 //총 공부시간, 최대 집중 시간
-export interface TimeProps {
-  hour: number
-  minute: number
-  second?: number
-}
 
 type TimerContainerProps = {
   type?: 'timer'

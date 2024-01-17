@@ -18,3 +18,9 @@ export interface IAppointment {
   plannerId: number
   day: string
 }
+
+export interface TimeProps {
+  hour: number
+  minute: number
+  second?: number
+}

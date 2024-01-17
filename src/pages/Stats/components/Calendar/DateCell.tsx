@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Root } from './styled'
+import { DateCellRoot } from './styled'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { isEqualDate } from 'utils/helper'
 
@@ -32,8 +32,8 @@ export const DateCell: FC<DateCellProps> = ({ onClick, cellDate, selectedDate, s
   const opacity = getIndex(studyTimeHours)
 
   return (
-    <Root className={className} $isSelected={isSelected} onClick={onClick} $index={opacity}>
+    <DateCellRoot className={className} $isSelected={isSelected} onClick={onClick} $index={opacity}>
       {cellDate.date}
-    </Root>
+    </DateCellRoot>
   )
 }
