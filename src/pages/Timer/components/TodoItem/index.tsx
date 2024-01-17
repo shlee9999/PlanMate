@@ -39,16 +39,16 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
       startTotalTimer()
     }
   }
-  const mutateUpdateSubject = useUpdateSubjectMutation({
-    endAt: moment().format('HH:mm:ss'),
-    startAt: startTime,
-    subjectId: todo.subjectId,
-    onSuccess: () => {
-      setIsTodoTimerRunning(false)
-      stopTotalTimer()
-    },
-  })
-  const onClickPauseButton = () => mutateUpdateSubject()
+  const mutateUpdateSubject = useUpdateSubjectMutation()
+  const onClickPauseButton = () => {
+    setIsTodoTimerRunning(false)
+    stopTotalTimer()
+    mutateUpdateSubject({
+      endAt: moment().format('HH:mm:ss'),
+      startAt: startTime,
+      subjectId: todo.subjectId,
+    })
+  }
   const OnClickEllipsisButton = () => !isTotalTimerRunning && setIsEllipsisOpen(true)
   const closeEllipsisModal = () => setIsEllipsisOpen(false)
 

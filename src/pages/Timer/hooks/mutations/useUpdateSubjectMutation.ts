@@ -1,14 +1,9 @@
 import { UpdateSubjectRequestProps, updateSubject } from 'api/subject/updateSubject'
 import { useMutation } from 'react-query'
 
-function useUpdateSubjectMutation({
-  endAt,
-  startAt,
-  subjectId,
-  onSuccess: cb,
-}: UpdateSubjectRequestProps & { onSuccess: () => void }) {
+function useUpdateSubjectMutation() {
   const { mutate: mutateUpdateSubject } = useMutation(
-    () =>
+    ({ endAt, startAt, subjectId }: UpdateSubjectRequestProps) =>
       updateSubject({
         endAt,
         startAt,
@@ -17,7 +12,6 @@ function useUpdateSubjectMutation({
     {
       onSuccess: () => {
         console.log('update success')
-        cb()
       },
     }
   )
