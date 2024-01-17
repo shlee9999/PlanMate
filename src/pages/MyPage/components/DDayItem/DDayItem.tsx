@@ -1,7 +1,6 @@
 import { FC, useContext } from 'react'
 import { Date as TargetDate, Root, Title, DDay, LeftContainer, StyledPinIcon } from './styled'
 import { daysUntil } from 'utils/helper'
-import { PinIcon } from 'assets/SvgComponents'
 import { ThemeContext } from 'styled-components'
 
 type DDayItemProps = {

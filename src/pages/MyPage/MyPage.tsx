@@ -28,7 +28,7 @@ import {
   Root,
   SelectedLine,
 } from './styled'
-import { DDayItem } from 'pages/MyPage/components/DDayItem'
+import { DDayItem, ResignModal } from './components'
 
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
@@ -38,8 +38,7 @@ import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
-import { ProfileEditModal } from 'pages/MyPage/components/ProfileEditModal'
-import { ResignModal } from 'pages/MyPage/components/ResignModal'
+import { ProfileEditModal } from 'pages/MyPage/components/'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { fixSchedule } from 'api/schedule/fixSchedule'

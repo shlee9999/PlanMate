@@ -1,7 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react'
-
 import { Container, NicknameInput, NicknameTypo, Root, Title } from './styled'
-import { changeName } from 'api/member/changeName'
 import { ModalWrapper, ModalFooter, WhiteButton, GreenButton, ModalExitButton } from 'commonStyled'
 
 type ProfileEditModalProps = {
