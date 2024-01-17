@@ -1,24 +1,8 @@
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
-import {
-  AuthorIcon,
-  Comment,
-  CommentOwnerNickname,
-  Date,
-  EditInput,
-  EllipsisButton,
-  EllipsisDeleteButton,
-  EllipsisEditButton,
-  EllipsisModal,
-  LeftContainer,
-  LikeButton,
-  ReplyMark,
-  Root,
-  UpperTypoWrapper,
-} from './styled'
+import * as s from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
 import { modifyComment } from 'api/comment/modifyComment'
-import { createChildComment } from 'api/comment/createChildComment'
 import { useNavigate } from 'react-router-dom'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
@@ -113,35 +97,35 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
 
   return (
     <>
-      <Root onClick={closeEllipsisModal}>
-        <ReplyMark />
-        {deleteComment && <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>}
+      <s.Root onClick={closeEllipsisModal}>
+        <s.ReplyMark />
+        {deleteComment && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
-          <EllipsisModal onClick={onClickModal}>
-            <EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</EllipsisEditButton>
-            <EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</EllipsisDeleteButton>
-          </EllipsisModal>
+          <s.EllipsisModal onClick={onClickModal}>
+            <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
+            <s.EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</s.EllipsisDeleteButton>
+          </s.EllipsisModal>
         )}
-        <LeftContainer>
-          <UpperTypoWrapper>
-            <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
-            {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
-            <Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</Date>
-          </UpperTypoWrapper>
+        <s.LeftContainer>
+          <s.UpperTypoWrapper>
+            <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>
+            {isAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
+            <s.Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</s.Date>
+          </s.UpperTypoWrapper>
           {isEditing ? (
-            <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
+            <s.EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
-            <Comment onClick={onClickComment} className={deleteComment ? '' : 'mypage_comment'}>
+            <s.Comment onClick={onClickComment} className={deleteComment ? '' : 'mypage_comment'}>
               {currentContent}
-            </Comment>
+            </s.Comment>
           )}
-        </LeftContainer>
-        <LikeButton onClick={onClickLikeButton}>
+        </s.LeftContainer>
+        <s.LikeButton onClick={onClickLikeButton}>
           <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
           {currentLikeCount}
-        </LikeButton>
+        </s.LikeButton>
         {/* <DeleteCommentModal closeModal={closeDeleteCommentModal} isOpen={isDeleteCommentModalOpen} /> */}
-      </Root>
+      </s.Root>
     </>
   )
 }

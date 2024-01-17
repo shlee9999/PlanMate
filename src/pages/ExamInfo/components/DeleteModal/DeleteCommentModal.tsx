@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
-import { CenterTypo, CenterTypoWrapper, Root, UpperTypo } from './styled'
-import { ModalFooter, GreenButton, WhiteButton, ModalExitButton, ModalWrapperVar, ModalWrapper } from 'commonStyled'
+import * as s from './styled'
+import * as cs from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useDeleteCommentMutation from 'pages/ExamInfo/hooks/useDeleteCommentMutation'
 type DeleteCommentModalProps = {
@@ -32,20 +32,26 @@ export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({ closeModal, is
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
-        <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
-          <Root onClick={onClickModal}>
-            <UpperTypo>댓글 삭제</UpperTypo>
-            <CenterTypoWrapper>
-              <CenterTypo>해당 댓글을</CenterTypo>
-              <CenterTypo>삭제하시겠어요?</CenterTypo>
-            </CenterTypoWrapper>
-            <ModalFooter>
-              <GreenButton onClick={onClickDeleteButton}>삭제</GreenButton>
-              <WhiteButton onClick={closeModal}>취소</WhiteButton>
-            </ModalFooter>
-            <ModalExitButton onClick={closeModal} />
-          </Root>
-        </ModalWrapper>
+        <cs.ModalWrapper
+          onClick={closeModal}
+          variants={cs.ModalWrapperVar}
+          initial="initial"
+          animate="visible"
+          exit="exit"
+        >
+          <s.Root onClick={onClickModal}>
+            <s.UpperTypo>댓글 삭제</s.UpperTypo>
+            <s.CenterTypoWrapper>
+              <s.CenterTypo>해당 댓글을</s.CenterTypo>
+              <s.CenterTypo>삭제하시겠어요?</s.CenterTypo>
+            </s.CenterTypoWrapper>
+            <cs.ModalFooter>
+              <cs.GreenButton onClick={onClickDeleteButton}>삭제</cs.GreenButton>
+              <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+            </cs.ModalFooter>
+            <cs.ModalExitButton onClick={closeModal} />
+          </s.Root>
+        </cs.ModalWrapper>
       )}
     </AnimatePresence>
   )

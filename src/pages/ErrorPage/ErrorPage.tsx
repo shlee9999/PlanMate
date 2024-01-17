@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ErrorImg, LowerTypo, RetryButton, Root, UpperTypo } from './styled'
+import * as s from './styled'
 import { ThemeProvider } from 'styled-components'
 import { lightTheme } from 'theme'
 import { GlobalStyle } from 'globalStyle'
@@ -10,18 +10,18 @@ export const ErrorPage: FC = () => {
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
       <Header />
-      <Root>
-        <ErrorImg />
-        <UpperTypo>이런! 일시적인 오류에요.</UpperTypo>
-        <LowerTypo>잠시 후 다시 시도해주세요.</LowerTypo>
-        <RetryButton
+      <s.Root>
+        <s.ErrorImg />
+        <s.UpperTypo>이런! 일시적인 오류에요.</s.UpperTypo>
+        <s.LowerTypo>잠시 후 다시 시도해주세요.</s.LowerTypo>
+        <s.RetryButton
           onClick={() => {
             window.location.reload()
           }}
         >
           다시 시도
-        </RetryButton>
-      </Root>
+        </s.RetryButton>
+      </s.Root>
       <Footer />
     </ThemeProvider>
   )

@@ -1,22 +1,5 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
-import {
-  ButtonWrapper,
-  CancelButton,
-  GreenTypo,
-  RegisterButton,
-  Root,
-  SuggestInput,
-  SuggestTypo,
-  TagListArrow,
-  TagOption,
-  TagOptionWrapper,
-  TagSelector,
-  TagSelectorWrapper,
-  TagTypo,
-  TitleInput,
-  UpperWrapper,
-  WriteTypo,
-} from './styled'
+import * as s from './styled'
 import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
 import { EditorState } from 'draft-js'
@@ -104,43 +87,43 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   }, [])
 
   return (
-    <Root onClick={onClickRoot}>
-      <WriteTypo>
+    <s.Root onClick={onClickRoot}>
+      <s.WriteTypo>
         {mode === 'suggest' ? (
           <>
             건의사항 🚀
-            <SuggestTypo>
-              <GreenTypo>플랜메이트</GreenTypo>에게 하시고 싶으신 말씀이 있으시다면 언제든지 의견을 보내주세요!
-            </SuggestTypo>
+            <s.SuggestTypo>
+              <s.GreenTypo>플랜메이트</s.GreenTypo>에게 하시고 싶으신 말씀이 있으시다면 언제든지 의견을 보내주세요!
+            </s.SuggestTypo>
           </>
         ) : (
           '글쓰기 ✏️'
         )}
-      </WriteTypo>
+      </s.WriteTypo>
 
-      <UpperWrapper>
-        <TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
+      <s.UpperWrapper>
+        <s.TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
         {mode !== 'notice' && (
-          <TagSelectorWrapper>
-            <TagTypo>태그</TagTypo>
-            <TagSelector onClick={onClickTagSelector}>
+          <s.TagSelectorWrapper>
+            <s.TagTypo>태그</s.TagTypo>
+            <s.TagSelector onClick={onClickTagSelector}>
               {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
-              <TagListArrow fill="currentColor" />
+              <s.TagListArrow fill="currentColor" />
               {isSelecting && (
-                <TagOptionWrapper>
+                <s.TagOptionWrapper>
                   {tagList().map((tag, index) => (
-                    <TagOption key={index} onClick={onClickTagOption(index)}>
+                    <s.TagOption key={index} onClick={onClickTagOption(index)}>
                       {tag}
-                    </TagOption>
+                    </s.TagOption>
                   ))}
-                </TagOptionWrapper>
+                </s.TagOptionWrapper>
               )}
-            </TagSelector>
-          </TagSelectorWrapper>
+            </s.TagSelector>
+          </s.TagSelectorWrapper>
         )}
-      </UpperWrapper>
+      </s.UpperWrapper>
       {mode === 'suggest' ? (
-        <SuggestInput placeholder="내용을 작성해주세요." onChange={onSuggestInputChange} value={suggestInput} />
+        <s.SuggestInput placeholder="내용을 작성해주세요." onChange={onSuggestInputChange} value={suggestInput} />
       ) : (
         <Editor
           wrapperClassName="wrapper-class"
@@ -160,14 +143,14 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
           onEditorStateChange={onEditorStateChange}
         />
       )}
-      <ButtonWrapper>
-        <CancelButton onClick={onClickCancelButton} icon="close">
+      <s.ButtonWrapper>
+        <s.CancelButton onClick={onClickCancelButton} icon="close">
           취소
-        </CancelButton>
-        <RegisterButton onClick={onClickRegisterButton} icon="register">
+        </s.CancelButton>
+        <s.RegisterButton onClick={onClickRegisterButton} icon="register">
           등록
-        </RegisterButton>
-      </ButtonWrapper>
-    </Root>
+        </s.RegisterButton>
+      </s.ButtonWrapper>
+    </s.Root>
   )
 }

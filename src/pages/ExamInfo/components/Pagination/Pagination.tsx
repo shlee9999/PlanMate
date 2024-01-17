@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { CurrentPageNumberTypo, LeftArrow, PageNumberTypo, Root } from './styled'
+import * as s from './styled'
 import { generateArray } from 'utils/helper'
 import { RightArrow } from 'assets/SvgComponents'
 
@@ -19,25 +19,25 @@ export const Pagination: FC<PaginationProps> = ({
   onClickPageNumber,
 }) => {
   return (
-    <Root>
-      <LeftArrow onClick={onClickLeftArrow} />
+    <s.Root>
+      <s.LeftArrow onClick={onClickLeftArrow} />
       {totalPage === 0 && currentPage === 1 ? (
-        <CurrentPageNumberTypo>1</CurrentPageNumberTypo>
+        <s.CurrentPageNumberTypo>1</s.CurrentPageNumberTypo>
       ) : (
         generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
           if (index >= totalPage) return null
           if (num === currentPage) {
-            return <CurrentPageNumberTypo key={index}>{num}</CurrentPageNumberTypo>
+            return <s.CurrentPageNumberTypo key={index}>{num}</s.CurrentPageNumberTypo>
           } else {
             return (
-              <PageNumberTypo key={index} onClick={onClickPageNumber(num)}>
+              <s.PageNumberTypo key={index} onClick={onClickPageNumber(num)}>
                 {num}
-              </PageNumberTypo>
+              </s.PageNumberTypo>
             )
           }
         })
       )}
       <RightArrow onClick={onClickRightArrow} />
-    </Root>
+    </s.Root>
   )
 }

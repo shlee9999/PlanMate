@@ -1,31 +1,7 @@
 import React, { ChangeEvent, ForwardRefRenderFunction, forwardRef, useEffect, useRef, useState } from 'react'
-import {
-  AuthorIcon,
-  Comment,
-  CommentOwnerNickname,
-  Date,
-  EditInput,
-  EllipsisButton,
-  EllipsisDeleteButton,
-  EllipsisEditButton,
-  EllipsisModal,
-  LeftContainer,
-  LikeButton,
-  ReplyButton,
-  ReplyCount,
-  ReplyInput,
-  ReplyInputWrapper,
-  ReplyMark,
-  ReplyRegisterButton,
-  ReplyRightWrapper,
-  Root,
-  UpperTypoWrapper,
-  UserNickname,
-} from './styled'
+import * as s from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
-
-import { modifyComment } from 'api/comment/modifyComment'
-import { CreateChildCommentResponseProps, createChildComment } from 'api/comment/createChildComment'
+import { createChildComment } from 'api/comment/createChildComment'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { removeComment } from 'api/comment/removeComment'
 import { useNavigate } from 'react-router-dom'
@@ -145,37 +121,37 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
 
   return (
     <>
-      <Root onClick={closeEllipsisModal} ref={ref}>
-        {isMine && <EllipsisButton onClick={toggleEllipsisModal}></EllipsisButton>}
+      <s.Root onClick={closeEllipsisModal} ref={ref}>
+        {isMine && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
-          <EllipsisModal onClick={onClickModal}>
-            <EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</EllipsisEditButton>
-            <EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</EllipsisDeleteButton>
-          </EllipsisModal>
+          <s.EllipsisModal onClick={onClickModal}>
+            <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
+            <s.EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</s.EllipsisDeleteButton>
+          </s.EllipsisModal>
         )}
-        <LeftContainer>
-          <UpperTypoWrapper>
-            <CommentOwnerNickname>{memberName}</CommentOwnerNickname>
-            {isAuthor && <AuthorIcon>글쓴이</AuthorIcon>}
-            <Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</Date>
-          </UpperTypoWrapper>
+        <s.LeftContainer>
+          <s.UpperTypoWrapper>
+            <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>
+            {isAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
+            <s.Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</s.Date>
+          </s.UpperTypoWrapper>
           {isEditing ? (
-            <EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
+            <s.EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
-            <Comment onClick={onClickComment} className={isMine ? 'mypage_comment' : ''}>
+            <s.Comment onClick={onClickComment} className={isMine ? 'mypage_comment' : ''}>
               {content}
-            </Comment>
+            </s.Comment>
           )}
           {isMine && (
-            <ReplyButton onClick={onClickReplyButton}>
-              답글 <ReplyCount>{currentReplyList.length}</ReplyCount>
-            </ReplyButton>
+            <s.ReplyButton onClick={onClickReplyButton}>
+              답글 <s.ReplyCount>{currentReplyList.length}</s.ReplyCount>
+            </s.ReplyButton>
           )}
-        </LeftContainer>
-        <LikeButton onClick={onClickLikeButton}>
+        </s.LeftContainer>
+        <s.LikeButton onClick={onClickLikeButton}>
           <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
           {likeCount}
-        </LikeButton>
+        </s.LikeButton>
         <DeleteCommentModal
           closeModal={closeDeleteCommentModal}
           isOpen={isDeleteCommentModalOpen}
@@ -183,22 +159,22 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
           postId={postId}
           currentPage={currentPage}
         />
-      </Root>
+      </s.Root>
       {isReplying && (
         <>
           {currentReplyList?.map((reply) => (
             <ExamInfoReply deleteComment={deleteReply(reply.commentId)} key={reply.commentId} {...reply} />
           ))}
-          <ReplyInputWrapper>
-            <ReplyMark />
-            <ReplyRightWrapper>
-              <UserNickname>{userAuthInfo.name}</UserNickname>
-              <ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
-              <ReplyRegisterButton onClick={onClickReplyRegisterButton} icon="register">
+          <s.ReplyInputWrapper>
+            <s.ReplyMark />
+            <s.ReplyRightWrapper>
+              <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
+              <s.ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
+              <s.ReplyRegisterButton onClick={onClickReplyRegisterButton} icon="register">
                 댓글등록
-              </ReplyRegisterButton>
-            </ReplyRightWrapper>
-          </ReplyInputWrapper>
+              </s.ReplyRegisterButton>
+            </s.ReplyRightWrapper>
+          </s.ReplyInputWrapper>
         </>
       )}
     </>

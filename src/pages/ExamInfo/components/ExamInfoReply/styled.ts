@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.svg'
-import { ActionButton } from 'components/ActionButton/ActionButton'
+import { ActionButton } from 'components/'
 
 export const EllipsisButton = styled.img`
   position: relative;

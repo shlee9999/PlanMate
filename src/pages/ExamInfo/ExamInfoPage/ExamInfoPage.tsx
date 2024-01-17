@@ -1,19 +1,4 @@
-import {
-  BulletinButton,
-  ExamInfoWrapper,
-  LowerDescriptionTypo,
-  LowerTagButtonWrapper,
-  NoContent,
-  PaginationWrapper,
-  PostSpinner,
-  Root,
-  Tag,
-  TagButton,
-  TitleTypo,
-  TypoWrapper,
-  UpperDescriptionTypo,
-  UpperTagButtonWrapper,
-} from './styled'
+import * as s from './styled'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
@@ -64,56 +49,56 @@ export const ExamInfoPage = () => {
   }, [data])
 
   return (
-    <Root>
-      <TypoWrapper>
-        <UpperDescriptionTypo>유용한 정보를 찾아볼까요? </UpperDescriptionTypo>
-        <TitleTypo>수험정보 👀</TitleTypo>
-        <LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</LowerDescriptionTypo>
-      </TypoWrapper>
-      <UpperTagButtonWrapper>
+    <s.Root>
+      <s.TypoWrapper>
+        <s.UpperDescriptionTypo>유용한 정보를 찾아볼까요? </s.UpperDescriptionTypo>
+        <s.TitleTypo>수험정보 👀</s.TitleTypo>
+        <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
+      </s.TypoWrapper>
+      <s.UpperTagButtonWrapper>
         {examinfoTagList.map((tag, index) =>
           index > 5 ? null : (
-            <TagButton
+            <s.TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
               onClick={onClickTagButton(examinfoTagList[index])}
             >
-              <Tag>{tag}</Tag>
-            </TagButton>
+              <s.Tag>{tag}</s.Tag>
+            </s.TagButton>
           )
         )}
-      </UpperTagButtonWrapper>
-      <LowerTagButtonWrapper>
+      </s.UpperTagButtonWrapper>
+      <s.LowerTagButtonWrapper>
         {examinfoTagList.map((tag, index) =>
           index <= 5 ? null : (
-            <TagButton
+            <s.TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
               onClick={onClickTagButton(examinfoTagList[index])}
             >
-              <Tag>{tag}</Tag>
-            </TagButton>
+              <s.Tag>{tag}</s.Tag>
+            </s.TagButton>
           )
         )}
-      </LowerTagButtonWrapper>
+      </s.LowerTagButtonWrapper>
       {/* Spinner 때문에 임시 변환 */}
-      <ExamInfoWrapper>
+      <s.ExamInfoWrapper>
         {isLoading ? (
-          <PostSpinner>Loading...</PostSpinner>
+          <s.PostSpinner>Loading...</s.PostSpinner>
         ) : examInfoList?.length !== 0 ? (
           examInfoList?.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
         ) : (
-          <NoContent icon="pencil">
+          <s.NoContent icon="pencil">
             <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
             <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
-          </NoContent>
+          </s.NoContent>
         )}
 
-        <BulletinButton onClick={onClickBulletinButton} icon="register">
+        <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
-        </BulletinButton>
-      </ExamInfoWrapper>
-      <PaginationWrapper>
+        </s.BulletinButton>
+      </s.ExamInfoWrapper>
+      <s.PaginationWrapper>
         {!isLoading && (
           <Pagination
             currentPage={currentPage}
@@ -123,7 +108,7 @@ export const ExamInfoPage = () => {
             onClickPageNumber={handleCurrentPage}
           />
         )}
-      </PaginationWrapper>
-    </Root>
+      </s.PaginationWrapper>
+    </s.Root>
   )
 }

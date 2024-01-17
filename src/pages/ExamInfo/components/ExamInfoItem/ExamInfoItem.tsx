@@ -1,15 +1,5 @@
 import { FC } from 'react'
-import {
-  IconContainer,
-  IconCountWrapper,
-  InfoTypo,
-  NickName,
-  Root,
-  TitleTypo,
-  TypoWrapper,
-  UpdatedDate,
-} from './styled'
-
+import * as s from './styled'
 import { ResponsePostType } from 'api/common/commonType'
 import { useNavigate } from 'react-router-dom'
 import { CommentIcon, HeartIcon, ScrapIcon } from 'assets/SvgComponents'
@@ -38,28 +28,28 @@ export const ExamInfoItem: FC<ExamInfoItemProps> = (props) => {
   }
 
   return (
-    <Root>
-      <TypoWrapper>
-        <TitleTypo onClick={onClickTitle}>{props.title}</TitleTypo>
-        <InfoTypo>
-          <NickName>{props.nickname}</NickName>
-          <UpdatedDate>{props.createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -9)}</UpdatedDate>
-        </InfoTypo>
-      </TypoWrapper>
-      <IconContainer>
-        <IconCountWrapper>
+    <s.Root>
+      <s.TypoWrapper>
+        <s.TitleTypo onClick={onClickTitle}>{props.title}</s.TitleTypo>
+        <s.InfoTypo>
+          <s.NickName>{props.nickname}</s.NickName>
+          <s.UpdatedDate>{props.createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -9)}</s.UpdatedDate>
+        </s.InfoTypo>
+      </s.TypoWrapper>
+      <s.IconContainer>
+        <s.IconCountWrapper>
           <CommentIcon />
           {props.commentCount}
-        </IconCountWrapper>
-        <IconCountWrapper>
+        </s.IconCountWrapper>
+        <s.IconCountWrapper>
           <HeartIcon fill={props.isMyHearted ? `${HEART_COLOR}` : 'none'} />
           {props.likeCount}
-        </IconCountWrapper>
-        <IconCountWrapper>
+        </s.IconCountWrapper>
+        <s.IconCountWrapper>
           <ScrapIcon fill={props.isMyScraped ? `${SCRAP_COLOR}` : 'none'} />
           {props.scrapCount}
-        </IconCountWrapper>
-      </IconContainer>
-    </Root>
+        </s.IconCountWrapper>
+      </s.IconContainer>
+    </s.Root>
   )
 }

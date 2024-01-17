@@ -1,16 +1,5 @@
 import { FC } from 'react'
-import {
-  Container,
-  GoogleButton,
-  GoogleButtonTypo,
-  UpperContainer,
-  Root,
-  UpperDescriptionTypo,
-  LowerDescriptionTypo,
-  LoginTypo,
-  Footer,
-  FooterItem,
-} from './styled'
+import * as s from './styled'
 import { CredentialResponse, GoogleLogin, useGoogleLogin } from '@react-oauth/google'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GoogleLogo, HandIcon } from 'assets/SvgComponents'
@@ -35,25 +24,25 @@ const LoginContent: FC = () => {
   })
 
   return (
-    <Root>
-      <Container>
-        <UpperContainer>
+    <s.Root>
+      <s.Container>
+        <s.UpperContainer>
           <HandIcon />
           {/* <Logo /> */}
-        </UpperContainer>
-        <UpperDescriptionTypo>Planmate에 오신것을 환영합니다.</UpperDescriptionTypo>
-        <LowerDescriptionTypo>플랜메이트는 여러분들의 성장을 돕는 플랫폼 입니다.</LowerDescriptionTypo>
-        <LoginTypo>SNS 간편로그인</LoginTypo>
-        <GoogleButton onClick={() => googleSocialLogin()}>
+        </s.UpperContainer>
+        <s.UpperDescriptionTypo>Planmate에 오신것을 환영합니다.</s.UpperDescriptionTypo>
+        <s.LowerDescriptionTypo>플랜메이트는 여러분들의 성장을 돕는 플랫폼 입니다.</s.LowerDescriptionTypo>
+        <s.LoginTypo>SNS 간편로그인</s.LoginTypo>
+        <s.GoogleButton onClick={() => googleSocialLogin()}>
           <GoogleLogo />
-          <GoogleButtonTypo>Google 계정으로 로그인</GoogleButtonTypo>
-        </GoogleButton>
-        <Footer>
-          <FooterItem>이용약관</FooterItem>
-          <FooterItem>개인정보처리방침</FooterItem>
-          <FooterItem>이용관련건의</FooterItem>
-        </Footer>
-      </Container>
-    </Root>
+          <s.GoogleButtonTypo>Google 계정으로 로그인</s.GoogleButtonTypo>
+        </s.GoogleButton>
+        <s.Footer>
+          <s.FooterItem>이용약관</s.FooterItem>
+          <s.FooterItem>개인정보처리방침</s.FooterItem>
+          <s.FooterItem>이용관련건의</s.FooterItem>
+        </s.Footer>
+      </s.Container>
+    </s.Root>
   )
 }
