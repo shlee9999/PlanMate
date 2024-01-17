@@ -71,20 +71,3 @@ export type ResponseStats = {
   totalStudyTimeMinutes: number
   totalStudyTimeSeconds: number
 }
-
-export const defaultStats = {
-  endAtHours: 0,
-  endAtMinutes: 0,
-  maxStudyTimeHours: 0,
-  maxStudyTimeMinutes: 0,
-  maxStudyTimeSeconds: 0,
-  restTimeHours: 0,
-  restTimeMinutes: 0,
-  restTimeSeconds: 0,
-  startAtHours: 0,
-  startAtMinutes: 0,
-  studyTimeList: [],
-  totalStudyTimeHours: 0,
-  totalStudyTimeMinutes: 0,
-  totalStudyTimeSeconds: 0,
-}

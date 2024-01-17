@@ -1,4 +1,5 @@
 import { PageRoot } from 'commonStyled'
+import { InfoBox } from 'components/InfoBox'
 import { FOOTER_HEIGHT, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
 import styled from 'styled-components'
 
@@ -58,9 +59,18 @@ export const Title = styled.div`
 
 export const StatsContainer = styled.div`
   display: flex;
+  height: 400px;
   width: 100%;
   justify-content: space-between;
-  height: fit-content;
   flex-wrap: wrap;
   gap: 20px;
+`
+
+export const LeftInfoBox = styled(InfoBox)`
+  flex-grow: 1;
+  max-width: 420px;
+`
+export const RightInfoBox = styled(InfoBox)`
+  flex-grow: 1;
+  max-width: 800px;
 `
