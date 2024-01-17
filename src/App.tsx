@@ -6,8 +6,7 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from 'globalStyle'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import Footer from 'components/Footer'
-import { Header } from 'components/Header'
+import { Footer, Header } from 'components/'
 
 const client = new QueryClient()
 export default function App() {

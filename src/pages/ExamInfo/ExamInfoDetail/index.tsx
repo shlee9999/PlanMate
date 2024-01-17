@@ -44,7 +44,7 @@ import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertFromRaw } from 'draft-js'
 import { editPost } from 'api/post/editPost'
-import { NoContentDescription } from 'components/NoContentDescription'
+
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -59,6 +59,7 @@ import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
 import useScrapPostMutation from '../hooks/useScrapPostMutation'
 import useDeleteCommentMutation from '../hooks/useDeleteCommentMutation'
 import useObserver from '../hooks/useObserver'
+import { NoContentDescription } from 'components'
 /**
  * @title
  * @like

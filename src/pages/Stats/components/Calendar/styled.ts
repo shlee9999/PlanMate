@@ -1,6 +1,5 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { LeftArrow } from 'commonStyled'
-import { InfoBox } from 'components/InfoBox'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 

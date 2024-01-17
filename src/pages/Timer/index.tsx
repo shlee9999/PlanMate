@@ -33,7 +33,7 @@ import TodoItem from 'pages/Timer/components/TodoItem'
 import ActionModal from 'pages/Timer/components/ActionModal'
 import { GraphContainer } from 'pages/Stats/components/InfoContainer/component/GraphContainer'
 import { initializeTimer } from 'modules/timer'
-import { NoContentDescription } from 'components/NoContentDescription'
+
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'pages/Timer/hooks/useTimer'
@@ -48,6 +48,7 @@ import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { CenterSpinner } from 'commonStyled'
+import { NoContentDescription } from 'components'
 
 export const TimerPage: FC = () => {
   const now = getDateInfo(new Date())

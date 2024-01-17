@@ -14,7 +14,7 @@ import {
   ColorSelectTypo,
 } from './styled'
 import { TimeSelect } from './TimeSelect'
-import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
+import { ColorPicker } from 'components/ColorPicker/ColorPicker'
 import { addAppoint, updateAppoint } from 'modules/appointments'
 import { RootState } from 'modules'
 import { useFormattedDate } from 'utils/helper'

@@ -23,7 +23,7 @@ import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useQuery } from 'react-query'
-import { Spinner } from 'components/Spinner'
+import { Spinner } from 'components/'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)

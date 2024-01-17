@@ -1,7 +1,7 @@
 import React from 'react'
-import { Root } from './styled'
+import { ColorButtonRoot } from './styled'
 
-const ColorButton = ({
+export const ColorButton = ({
   color,
   closeModal,
   assignSubjectColor,
@@ -19,6 +19,5 @@ const ColorButton = ({
     setSelectedColor()
     if (closeModal) closeModal()
   }
-  return <Root color={color} onClick={onClickButton} className={isSelected ? 'isSelected' : ''} />
+  return <ColorButtonRoot color={color} onClick={onClickButton} className={isSelected ? 'isSelected' : ''} />
 }
-export default ColorButton

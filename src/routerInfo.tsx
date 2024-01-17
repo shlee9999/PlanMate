@@ -1,4 +1,4 @@
-import { Header } from 'components/Header'
+import { Header } from 'components/'
 import { ExamInfoPage } from 'pages/ExamInfo/ExamInfoPage'
 import { BulletinPage } from 'pages/ExamInfo/BulletinPage'
 import { TimerPage } from 'pages/Timer'

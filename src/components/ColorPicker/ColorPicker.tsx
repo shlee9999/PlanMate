@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
-import { ColorButtonWrapper, RowWrapper } from '../styled'
+import { ColorButtonWrapper, RowWrapper } from './styled'
 import { colorList } from 'constants/color'
-import ColorButton from '../ColorButton'
+import { ColorButton } from '.'
 
 type ColorPickerProps = {
   closeModal?: () => void

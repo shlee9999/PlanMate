@@ -1,11 +1,10 @@
 import { FC } from 'react'
 import { ErrorImg, LowerTypo, RetryButton, Root, UpperTypo } from './styled'
-
 import { ThemeProvider } from 'styled-components'
 import { lightTheme } from 'theme'
 import { GlobalStyle } from 'globalStyle'
-import Footer from 'components/Footer'
-import { Header } from 'components/Header'
+import { Footer, Header } from 'components/'
+
 export const ErrorPage: FC = () => {
   return (
     <ThemeProvider theme={lightTheme}>

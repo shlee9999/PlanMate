@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { defaultColor } from 'constants/color'
 import { Root, InfoContainer, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from './styled'
-import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
+import { ColorPicker } from 'components/ColorPicker/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useCreateSubjectMutation from 'pages/Timer/hooks/mutations/useCreateSubjectMutation'

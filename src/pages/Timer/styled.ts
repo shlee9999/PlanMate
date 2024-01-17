@@ -2,8 +2,7 @@ import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
 import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
 import { PageRoot } from 'commonStyled'
-import { InfoBox } from 'components/InfoBox'
-import { Spinner } from 'components/Spinner'
+import { InfoBox, Spinner } from 'components/'
 
 export const Banner = styled.div`
   padding: 30px ${SIDE_MARGIN}px;

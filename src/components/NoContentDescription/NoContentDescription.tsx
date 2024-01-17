@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { DescriptionTypoContainer, Icon, Root } from './styled'
+import { DescriptionTypoContainer, Root } from './styled'
 import { BookCheckIcon, CircleChatIcon, PencilIcon } from 'assets/SvgComponents'
 
 type NoContentDescriptionProps = {

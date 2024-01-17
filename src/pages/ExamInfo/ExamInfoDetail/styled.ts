@@ -2,7 +2,7 @@ import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
 import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { ActionButton } from 'components/ActionButton/ActionButton'
-import { Spinner } from 'components/Spinner'
+import { Spinner } from 'components/'
 
 export const Root = styled(PageRoot)`
   padding: 40px 0;
