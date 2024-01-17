@@ -2,6 +2,7 @@ import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
 import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { ActionButton } from 'components/ActionButton/ActionButton'
+import { Spinner } from 'components/Spinner'
 
 export const Root = styled(PageRoot)`
   padding: 40px 0;
@@ -186,3 +187,8 @@ export const EditCompleteButton = styled(ActionButton)`
 `
 
 export const Content = styled.div``
+
+export const DetailSpinner = styled(Spinner)`
+  padding-top: 150px;
+  border-top: 2px solid ${(props) => props.theme.text.black2};
+`

@@ -27,6 +27,7 @@ import {
   EditorWrapper,
   Content,
   Count,
+  DetailSpinner,
 } from './styled'
 
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -57,6 +58,7 @@ import useLikePostMutation from '../hooks/useLikePostMutation'
 import useCreateCommentMutation from '../hooks/useCreateCommentMutation'
 import useScrapPostMutation from '../hooks/useScrapPostMutation'
 import useDeleteCommentMutation from '../hooks/useDeleteCommentMutation'
+import useObserver from '../hooks/useObserver'
 /**
  * @title
  * @like
@@ -71,9 +73,9 @@ type ExamInfoDetailPageProps = {
   mode: string
 }
 type LocationState = ResponsePostType
+
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const target = useRef(null)
   const location = useLocation()
   const { postTagList, nickname, postId, title, createdAt } = location.state as LocationState
   const { data: detailData, isLoading: isDetailLoading } = useQuery<CheckPostResponseProps>(
@@ -86,29 +88,19 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     ['commentData', postId, currentPage + ''],
     () => findAllComments({ pages: currentPage - 1, postId })
   )
+  const [allComments, setAllComments] = useState([])
   const mutateLikePost = useLikePostMutation()
   const mutateScrapPost = useScrapPostMutation()
   const { commentDtoList, totalCount, totalPages } = isCommentLoading
     ? { commentDtoList: [], totalCount: 0, totalPages: 0 }
     : { ...commentData }
-  const [currentContent, setCurrentContent] = useState<string>(detailData?.content || 'Loading...')
-  const [commentInput, setCommentInput] = useState<string>('')
+  const [currentContent, setCurrentContent] = useState(detailData?.content || '')
+  const [commentInput, setCommentInput] = useState('')
   const navigate = useNavigate()
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const mutateCreateComment = useCreateCommentMutation()
-
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
-  const mutateRemoveComment = useDeleteCommentMutation()
-  const deleteComment = (id: number) => (): void => {
-    mutateRemoveComment({
-      postId,
-      commentId: id,
-      currentPage: 0,
-    })
-    //댓글 total 개수 하나 줄여야 함
-  }
-
   const deletePost = (): void => {
     if (mode === 'examinfo')
       removePost({
@@ -124,18 +116,18 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       })
   }
   const loadNextPage = (): void => setCurrentPage((prev) => prev + 1)
-  const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1,
-  }
+
   const callback = (entries, observer) => {
     const entry = entries[0]
     if (entry.isIntersecting && entry.intersectionRatio === 1) {
       observer.unobserve(target.current)
-      if (currentPage < totalPages) loadNextPage()
+      setTimeout(() => {
+        currentPage < totalPages && loadNextPage()
+      }, 900)
     }
   }
+  const target = useRef()
+  useObserver({ callback, target })
   const onClickEditTypo = () => {
     if (isEditing) onClickEditCompleteButton()
     setIsEditing((prev) => !prev)
@@ -177,17 +169,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const onClickDeleteTypo = () => setIsDeletePostModalOpen(true)
 
   useEffect(() => {
-    if (!target.current) return
-    const observer = new IntersectionObserver(callback, options)
-    setTimeout(() => {
-      try {
-        observer.observe(target.current)
-      } catch (err) {
-        return
-      }
-    }, 1000)
-    return () => observer.disconnect()
-  }, [currentPage])
+    // 새 페이지의 댓글 데이터가 로드되면 기존 데이터에 추가합니다.
+    if (commentData && commentData.commentDtoList)
+      setAllComments((prevComments) => [...prevComments, ...commentData.commentDtoList])
+  }, [commentData])
 
   useEffect(() => {
     if (!isDetailLoading) setCurrentContent(detailData.content)
@@ -215,10 +200,14 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         </RightTypoWrapper>
       </UpperTypoWrapper>
 
-      <ContentWrapper>
-        {isEditing ? (
-          <EditorWrapper>
-            {/* <Editor
+      {isDetailLoading || (isCommentLoading && currentPage === 0) ? (
+        <DetailSpinner>Loading...</DetailSpinner>
+      ) : (
+        <>
+          <ContentWrapper>
+            {isEditing ? (
+              <EditorWrapper>
+                {/* <Editor
               wrapperClassName="wrapper-class"
               editorClassName="editor"
               toolbarClassName="toolbar-class"
@@ -235,70 +224,72 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
               editorState={editorState}
               onEditorStateChange={onEditorStateChange}
             /> */}
-            <EditCompleteButton onClick={onClickEditCompleteButton} icon="register">
-              수정완료
-            </EditCompleteButton>
-          </EditorWrapper>
-        ) : (
-          <Content dangerouslySetInnerHTML={{ __html: deserializeContent(currentContent) }} />
-        )}
+                <EditCompleteButton onClick={onClickEditCompleteButton} icon="register">
+                  수정완료
+                </EditCompleteButton>
+              </EditorWrapper>
+            ) : (
+              <Content dangerouslySetInnerHTML={{ __html: deserializeContent(currentContent) }} />
+            )}
 
-        <IconContainer>
-          <HeartIcon fill={detailData?.isMyHearted ? `${HEART_COLOR}` : 'none'} onClick={onClickLikeButton} />
-          <Count onClick={onClickLikeButton}>{detailData?.likeCount}</Count>
-          <ScrapIcon fill={detailData?.isMyScraped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
-          <Count onClick={onClickScrapButton}>{detailData?.scrapCount}</Count>
-        </IconContainer>
-      </ContentWrapper>
+            <IconContainer>
+              <HeartIcon fill={detailData?.isMyHearted ? `${HEART_COLOR}` : 'none'} onClick={onClickLikeButton} />
+              <Count onClick={onClickLikeButton}>{detailData?.likeCount}</Count>
+              <ScrapIcon fill={detailData?.isMyScraped ? `${SCRAP_COLOR}` : 'none'} onClick={onClickScrapButton} />
+              <Count onClick={onClickScrapButton}>{detailData?.scrapCount}</Count>
+            </IconContainer>
+          </ContentWrapper>
 
-      {commentDtoList.length !== 0 && (
-        <CommentInputWrapper>
-          <UserNickname>{userAuthInfo.name}</UserNickname>
-          <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-          <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
-            댓글등록
-          </CommentRegisterButton>
-        </CommentInputWrapper>
-      )}
-      <CommentWrapper>
-        <CommentTitle>
-          댓글 <CommentCount>{totalCount}</CommentCount>개
-        </CommentTitle>
-        <CommentContainer className={commentDtoList?.length !== 0 ? '' : 'no_content'}>
-          {commentDtoList?.length !== 0 ? (
-            commentDtoList?.map((comment, index) => (
-              <ExamInfoComment
-                key={comment.commentId}
-                commentId={comment.commentId}
-                isAuthor={comment.isAuthor}
-                likeCount={comment.likeCount}
-                memberName={comment.memberName}
-                updatedAt={comment.updatedAt}
-                content={comment.content}
-                isMyHearted={comment.isMyHearted}
-                postId={+postId}
-                ref={index === commentDtoList.length - 1 ? target : null}
-                currentPage={currentPage}
-                //isMine 추가 예정
-              />
-            ))
-          ) : (
-            <>
-              <NoContentDescription icon="chat">
-                <NoContentTypo>아직 댓글이 없어요</NoContentTypo>
-                <NoContentTypo>첫 댓글을 남겨볼까요?</NoContentTypo>
-              </NoContentDescription>
-              <CommentInputWrapper className="no_content">
-                <UserNickname>{userAuthInfo.name}</UserNickname>
-                <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-                <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
-                  댓글등록
-                </CommentRegisterButton>
-              </CommentInputWrapper>
-            </>
+          {commentDtoList.length !== 0 && (
+            <CommentInputWrapper>
+              <UserNickname>{userAuthInfo.name}</UserNickname>
+              <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
+              <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
+                댓글등록
+              </CommentRegisterButton>
+            </CommentInputWrapper>
           )}
-        </CommentContainer>
-      </CommentWrapper>
+          <CommentWrapper>
+            <CommentTitle>
+              댓글 <CommentCount>{totalCount}</CommentCount>개
+            </CommentTitle>
+            <CommentContainer className={commentDtoList?.length !== 0 ? '' : 'no_content'}>
+              {allComments?.length !== 0
+                ? allComments?.map((comment, index) => (
+                    <ExamInfoComment
+                      key={comment.commentId}
+                      commentId={comment.commentId}
+                      isAuthor={comment.isAuthor}
+                      likeCount={comment.likeCount}
+                      memberName={comment.memberName}
+                      updatedAt={comment.updatedAt}
+                      content={comment.content}
+                      isMyHearted={comment.isMyHearted}
+                      postId={+postId}
+                      ref={index === allComments.length - 1 ? target : null}
+                      currentPage={currentPage}
+                      //isMine 추가 예정
+                    />
+                  ))
+                : !isCommentLoading && (
+                    <>
+                      <NoContentDescription icon="chat">
+                        <NoContentTypo>아직 댓글이 없어요</NoContentTypo>
+                        <NoContentTypo>첫 댓글을 남겨볼까요?</NoContentTypo>
+                      </NoContentDescription>
+                      <CommentInputWrapper className="no_content">
+                        <UserNickname>{userAuthInfo.name}</UserNickname>
+                        <CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
+                        <CommentRegisterButton onClick={onClickRegisterButton} icon="register">
+                          댓글등록
+                        </CommentRegisterButton>
+                      </CommentInputWrapper>
+                    </>
+                  )}
+            </CommentContainer>
+          </CommentWrapper>
+        </>
+      )}
       {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} deletePost={deletePost} />}
     </Root>
   )
