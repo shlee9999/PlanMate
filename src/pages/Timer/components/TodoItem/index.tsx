@@ -19,8 +19,6 @@ import { RootState } from 'modules'
 import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
 import EllipsisModal from '../EllipsisModal'
 import moment from 'moment'
-import { AnimatePresence } from 'framer-motion'
-import { ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import useUpdateSubjectMutation from '../../hooks/mutations/useUpdateSubjectMutation'
 
 const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
@@ -97,18 +95,8 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
 
         <EllipsisButton onClick={OnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
-      <AnimatePresence>
-        {isEllipsisOpen && (
-          <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
-            <EllipsisModal
-              closeModal={closeEllipsisModal}
-              todo={todo}
-              isTodoTimerRunning={isTodoTimerRunning}
-              isOpen={isEllipsisOpen}
-            />
-          </ModalWrapper>
-        )}
-      </AnimatePresence>
+
+      <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isOpen={isEllipsisOpen} />
     </Root>
   )
 }

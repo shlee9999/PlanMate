@@ -1,15 +1,14 @@
 import { FC } from 'react'
 import { LowerDescriptionTypo, Root, TitleTypo, UpperDescriptionTypo } from './styled'
-import { ModalWrapper, ModalFooter, GreenButton, WhiteButton, ModalExitButton } from 'commonStyled'
-import { duration } from 'moment'
+import { ModalFooter, GreenButton, WhiteButton, ModalExitButton } from 'commonStyled'
 
 type DeleteModalProps = {
   title: string
   closeModal: () => void
-  deleteSubject: () => void
+  confirm: () => void
 }
 
-export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteSubject }) => {
+export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, confirm }) => {
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }
@@ -28,7 +27,7 @@ export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteSub
         일정은 함께 사라져요!
       </LowerDescriptionTypo>
       <ModalFooter>
-        <GreenButton onClick={deleteSubject}>삭제</GreenButton>
+        <GreenButton onClick={confirm}>삭제</GreenButton>
         <WhiteButton onClick={closeModal}>취소</WhiteButton>
       </ModalFooter>
       <ModalExitButton onClick={closeModal} />

@@ -1,28 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
 import { ButtonWrapper, CloseButton, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
-import { useDispatch } from 'react-redux'
 import { TodoItemType } from 'types'
-import { removeTodo } from 'modules/todos'
-
-import EditModal from '../SubjectModal/EditModal'
-import { removeSubject } from 'api/subject/removeSubject'
 import { DeleteModal } from './DeleteModal'
 import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
+import ActionModal from '../ActionModal'
 
-const EllipsisModal = ({
-  closeModal,
-  todo,
-  isTodoTimerRunning,
-  isOpen,
-}: {
+type EllipsisModalProps = {
   closeModal: () => void
   todo: TodoItemType
-  isTodoTimerRunning: boolean
   isOpen: boolean
-}) => {
+}
+const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const mutateDeleteSubject = useDeleteSubjectMutation()
@@ -31,10 +22,20 @@ const EllipsisModal = ({
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
   const onClickEditButton = () => setIsEditModalOpen(true)
   const closeEditModal = () => setIsEditModalOpen(false)
-  const deleteSubject = () => !isTodoTimerRunning && mutateDeleteSubject({ subjectId: todo.subjectId, closeModal })
-
+  const [isConfirmed, setIsConfirmed] = useState(false)
+  const confirm = () => {
+    setIsConfirmed(true)
+    closeModal()
+  }
+  const onExitComplete = () => {
+    if (isConfirmed) {
+      // confirm버튼 눌렀을 때만 작동하도록
+      mutateDeleteSubject({ subjectId: todo.subjectId })
+      setIsConfirmed(false)
+    }
+  }
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
         <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
           <Root onClick={onClickModal} layoutId="ellipsis">
@@ -48,17 +49,15 @@ const EllipsisModal = ({
             <ModalExitButton onClick={closeModal} />
           </Root>
           {isEditModalOpen && (
-            <EditModal
-              isModalOpen={isEditModalOpen}
+            <ActionModal
+              isOpen={isEditModalOpen}
               closeModal={closeEditModal}
-              title="과목수정"
+              type="EDIT"
               todo={todo}
               closeEllipsisModal={closeModal}
             />
           )}
-          {isDeleteModalOpen && (
-            <DeleteModal closeModal={closeDeleteModal} deleteSubject={deleteSubject} title={todo.name} />
-          )}
+          {isDeleteModalOpen && <DeleteModal closeModal={closeDeleteModal} confirm={confirm} title={todo.name} />}
         </ModalWrapper>
       )}
     </AnimatePresence>
