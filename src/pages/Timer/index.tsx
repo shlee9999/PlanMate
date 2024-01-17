@@ -24,6 +24,8 @@ import {
   BannerContentWrapper,
   SizedBox,
   DateTypo,
+  StatsSpinner,
+  TodoSpinner,
 } from './styled'
 import {
   daysUntil,
@@ -59,8 +61,8 @@ export const TimerPage: FC = () => {
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
   const [fixedDDay, setFixedDDay] = useState<FindFixedScheduleResponseProps>()
-  const { data, isLoading } = useQuery<StudyTimeResponseProps>(['todoList'], () => studyTime())
-  const todoList: TodoItemType[] = isLoading
+  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>(['todoList'], () => studyTime())
+  const todoList: TodoItemType[] = isTodoLoading
     ? []
     : data.map((todo) => ({
         colorHex: todo.colorHex,
@@ -68,11 +70,9 @@ export const TimerPage: FC = () => {
         subjectId: todo.subjectId,
         time: timeToSecond({ hour: todo.studyTimeHours, minute: todo.studyTimeMinutes, second: todo.studyTimeSeconds }),
       }))
-  const {
-    data: statsData,
-    isLoading: isStatsLoading,
-    isFetching,
-  } = useQuery<ResponseStats>(['timeInfo', now], () => checkTodayStats())
+  const { data: statsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
+    checkTodayStats()
+  )
   const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -125,14 +125,14 @@ export const TimerPage: FC = () => {
     minute: endAtMinutes,
   }
   useEffect(() => {
-    if (!isLoading) {
+    if (!isTodoLoading) {
       let sum = 0
       todoList.forEach((todo) => {
         sum += todo.time
       })
       dispatch(initializeTimer(sum))
     }
-  }, [isLoading])
+  }, [isTodoLoading])
 
   useEffect(() => {
     findFixedSchedule().then((res) => {
@@ -178,24 +178,26 @@ export const TimerPage: FC = () => {
           <RightContainer>
             <Title>오늘의 통계 📊</Title>
             <StatsContainer right>
-              {isStatsLoading || !statsData || isFetching ? (
-                'Loading...'
+              {isStatsLoading ? (
+                <StatsSpinner>Loading...</StatsSpinner>
               ) : (
-                <StudyContainer>
-                  <TimerContainer
-                    totalFocusTime={totalStudyTime}
-                    maxFocusTime={maxFocusTime}
-                    startAt={startAt}
-                    endAt={endAt}
-                  />
-                  <PieChartContainer
-                    studyTimeList={studyTimeList}
-                    restTime={restTime}
-                    totalStudyTime={totalStudyTime}
-                  />
-                </StudyContainer>
+                <>
+                  <StudyContainer>
+                    <TimerContainer
+                      totalFocusTime={totalStudyTime}
+                      maxFocusTime={maxFocusTime}
+                      startAt={startAt}
+                      endAt={endAt}
+                    />
+                    <PieChartContainer
+                      studyTimeList={studyTimeList}
+                      restTime={restTime}
+                      totalStudyTime={totalStudyTime}
+                    />
+                  </StudyContainer>
+                  <GraphContainer />
+                </>
               )}
-              <GraphContainer />
             </StatsContainer>
           </RightContainer>
         </BannerContentWrapper>
@@ -228,6 +230,8 @@ export const TimerPage: FC = () => {
             todoList.map((todo: TodoItemType) => {
               return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
             })
+          ) : isTodoLoading ? (
+            <TodoSpinner>Loading..</TodoSpinner>
           ) : (
             <NoContentDescription icon="book_check">
               <NoContentTypo>아직 공부할 과목이 없어요!</NoContentTypo>{' '}
