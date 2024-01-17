@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
-export const Root = styled.div`
+type RootProps = {
+  $type?: 'timer'
+}
+export const Root = styled.div<RootProps>`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;

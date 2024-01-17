@@ -11,16 +11,23 @@ export interface TimeProps {
 }
 
 type TimerContainerProps = {
-  totalFocusTime: TimeProps
-  maxFocusTime: TimeProps
+  type?: 'timer'
+  totalFocusTime?: TimeProps
+  maxFocusTime?: TimeProps
   startAt: TimeProps
   endAt: TimeProps
 }
-export const TimerContainer: React.FC<TimerContainerProps> = ({ totalFocusTime, maxFocusTime, startAt, endAt }) => {
+export const TimerContainer: React.FC<TimerContainerProps> = ({
+  type,
+  totalFocusTime,
+  maxFocusTime,
+  startAt,
+  endAt,
+}) => {
   return (
-    <Root>
-      <Timer title="총 공부시간" text={useFormattedTime(totalFocusTime)} />
-      <Timer title="최대 집중 시간" text={useFormattedTime(maxFocusTime)} />
+    <Root $type={type}>
+      {totalFocusTime && <Timer title="총 공부시간" text={useFormattedTime(totalFocusTime)} />}
+      {maxFocusTime && <Timer title="최대 집중 시간" text={useFormattedTime(maxFocusTime)} />}
       <Timer
         title="시작시간"
         text={startAt.hour.toString().padStart(2, '0') + '시 ' + startAt.minute.toString().padStart(2, '0') + '분'}

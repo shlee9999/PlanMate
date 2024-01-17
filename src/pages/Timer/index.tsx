@@ -81,9 +81,6 @@ export const TimerPage: FC = () => {
   const {
     endAtHours,
     endAtMinutes,
-    maxStudyTimeHours,
-    maxStudyTimeMinutes,
-    maxStudyTimeSeconds,
     restTimeHours,
     restTimeMinutes,
     restTimeSeconds,
@@ -104,11 +101,7 @@ export const TimerPage: FC = () => {
     minute: restTimeMinutes,
     second: restTimeSeconds,
   }
-  const maxFocusTime: TimeProps = {
-    hour: maxStudyTimeHours,
-    minute: maxStudyTimeMinutes,
-    second: maxStudyTimeSeconds,
-  }
+
   const startAt: TimeProps = {
     hour: startAtHours,
     minute: startAtMinutes,
@@ -176,12 +169,7 @@ export const TimerPage: FC = () => {
               ) : (
                 <>
                   <StudyContainer>
-                    <TimerContainer
-                      totalFocusTime={totalStudyTime}
-                      maxFocusTime={maxFocusTime}
-                      startAt={startAt}
-                      endAt={endAt}
-                    />
+                    <TimerContainer startAt={startAt} endAt={endAt} type="timer" />
                     <PieChartContainer
                       studyTimeList={studyTimeList}
                       restTime={restTime}
