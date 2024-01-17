@@ -7,6 +7,7 @@ import useCreateSubjectMutation from 'pages/Timer/hooks/mutations/useCreateSubje
 import useEditSubjectMutation from 'pages/Timer/hooks/mutations/useEditSubjectMutation'
 import * as cs from 'commonStyled'
 import * as s from './styled'
+
 type ActionModalProps = {
   isOpen: boolean
   closeModal: () => void
@@ -14,6 +15,7 @@ type ActionModalProps = {
   closeEllipsisModal?: () => void
   type: 'ADD' | 'EDIT'
 }
+
 export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: ActionModalProps) => {
   const [inputValue, setInputValue] = useState<string>(todo?.name || '')
   const [subjectColor, setSubjectColor] = useState<string>(todo?.colorHex || defaultColor)

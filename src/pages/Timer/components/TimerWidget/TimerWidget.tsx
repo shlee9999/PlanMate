@@ -1,5 +1,6 @@
 import { useFormattedTime } from 'utils/helper'
 import * as s from './styled'
+
 export const TimerWidget = ({ totalTime }: { totalTime: number }) => {
   const formattedTime: string = useFormattedTime(totalTime)
   return (

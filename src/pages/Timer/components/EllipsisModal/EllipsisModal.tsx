@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { TodoItemType } from 'types'
-import { DeleteModal } from './DeleteModal'
+import { DeleteModal } from './DeleteModal/DeleteModal'
 import { AnimatePresence } from 'framer-motion'
 import { ActionModal } from '..'
 import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
