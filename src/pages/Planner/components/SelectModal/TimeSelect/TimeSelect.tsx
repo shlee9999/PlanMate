@@ -1,9 +1,9 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent } from 'react'
 import { StyledSelect, SelectOption, SelectWrapper } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { updateInfo } from 'modules/selectedInfo'
-import { getYYYYMMDD, useFormattedTime } from 'utils/helper'
+import { useFormattedTime } from 'utils/helper'
 
 type TimeSelectModeProps = {
   set: string

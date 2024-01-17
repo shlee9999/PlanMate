@@ -22,9 +22,9 @@ import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { useQuery } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
-import { Appointment } from '../Appointment'
+import { Appointment } from '../Appointment/Appointment'
 import useRemoveAppointMutation from '../../hooks/useRemoveAppointMutation'
-import { SelectModal } from '../SelectModal'
+import { SelectModal } from '../SelectModal/SelectModal'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string

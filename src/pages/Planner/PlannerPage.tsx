@@ -1,7 +1,7 @@
 //플래너 탭
 import { FC } from 'react'
 import { Root, HeaderContainer, HeaderMessage, HeaderTitleLogo } from './styled'
-import { Scheduler } from 'pages/Planner/components/Scheduler'
+import { Scheduler } from 'pages/Planner/components/'
 
 export const PlannerPage: FC = () => {
   return (
