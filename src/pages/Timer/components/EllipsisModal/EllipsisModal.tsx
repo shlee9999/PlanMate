@@ -4,7 +4,7 @@ import { TodoItemType } from 'types'
 import { DeleteModal } from './DeleteModal/DeleteModal'
 import { AnimatePresence } from 'framer-motion'
 import { ActionModal } from '..'
-import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
+import { useDeleteSubjectMutation } from '../../hooks/mutations'
 import * as cs from 'commonStyled'
 import * as s from './styled'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { weekDays } from 'constants/week'
-import * as s from './styled'
 import { DayButton } from './DayButton'
+import * as s from './styled'
 
 type DaySelectProps = {
   assignSubjectDay: (day: string) => void

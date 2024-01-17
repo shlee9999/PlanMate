@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ModalFooter, GreenButton, WhiteButton, ModalExitButton } from 'commonStyled'
+import * as cs from 'commonStyled'
 import * as s from './styled'
 
 type DeleteModalProps = {
@@ -24,11 +24,11 @@ export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteCon
         <br />
         일정은 함께 사라져요!
       </s.LowerDescriptionTypo>
-      <ModalFooter>
-        <GreenButton onClick={confirm}>삭제</GreenButton>
-        <WhiteButton onClick={closeModal}>취소</WhiteButton>
-      </ModalFooter>
-      <ModalExitButton onClick={closeModal} />
+      <cs.ModalFooter>
+        <cs.GreenButton onClick={confirm}>삭제</cs.GreenButton>
+        <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+      </cs.ModalFooter>
+      <cs.ModalExitButton onClick={closeModal} />
     </s.Root>
   )
 }

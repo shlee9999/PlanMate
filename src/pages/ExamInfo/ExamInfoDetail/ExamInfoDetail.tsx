@@ -1,5 +1,4 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
-import * as s from './styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ResponsePostType } from 'api/common/commonType'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
@@ -16,12 +15,11 @@ import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
-import useLikePostMutation from '../hooks/mutations/useLikePostMutation'
-import useCreateCommentMutation from '../hooks/mutations/useCreateCommentMutation'
-import useScrapPostMutation from '../hooks/mutations/useScrapPostMutation'
-import useObserver from '../hooks/useObserver'
+import { useLikePostMutation, useCreateCommentMutation, useScrapPostMutation } from '../hooks/mutations'
+import { useObserver } from '../hooks/'
 import { NoContentDescription } from 'components'
 import { DeletePostModal, ExamInfoComment } from '../components'
+import * as s from './styled'
 
 /**
  * @title

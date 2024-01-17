@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as s from './styled'
 import { TimeSelect } from '.'
 import { ColorPicker } from 'components/'
 import { addAppoint, updateAppoint } from 'modules/appointments'
@@ -8,10 +7,10 @@ import { RootState } from 'modules'
 import { useFormattedDate } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
-import * as cs from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useAddAppointMutation from '../../hooks/mutations/useAddAppointMutation'
-import useEditAppointMutation from '../../hooks/mutations/useEditAppointMutation'
+import { useAddAppointMutation, useEditAppointMutation } from '../../hooks/mutations/'
+import * as cs from 'commonStyled'
+import * as s from './styled'
 
 export const SelectModal = ({
   closeModal,
