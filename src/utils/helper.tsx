@@ -1,5 +1,5 @@
 import { weekDays } from 'constants/week'
-import { DateProps } from 'pages/Stats'
+import { DateProps } from 'pages/Stats/StatsPage'
 import { TimeProps } from 'pages/Stats/components/InfoContainer/component/TimerContainer/TimerContainer'
 
 export const generateId = (): string => {

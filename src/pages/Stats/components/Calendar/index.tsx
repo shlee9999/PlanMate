@@ -18,7 +18,7 @@ import {
 import { weekDays } from 'constants/week'
 import { getDateInfo, getWeekDates, weekCount } from 'utils/helper'
 import { AnimatePresence, Variants } from 'framer-motion'
-import { DateProps } from 'pages/Stats'
+import { DateProps } from 'pages/Stats/StatsPage'
 import { DateCell } from './DateCell'
 import { ResponseStats } from 'api/common/commonType'
 

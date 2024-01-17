@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Root } from './styled'
-import { DateProps } from 'pages/Stats'
+import { DateProps } from 'pages/Stats/StatsPage'
 import { isEqualDate } from 'utils/helper'
 
 type DateCellProps = {

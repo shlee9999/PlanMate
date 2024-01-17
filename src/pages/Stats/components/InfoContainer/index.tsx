@@ -5,7 +5,7 @@ import { GraphContainer } from './component/GraphContainer'
 import { PieChartContainer } from './component/PieChartContainer/PieChartContainer'
 import { TimeProps, TimerContainer } from './component/TimerContainer/TimerContainer'
 import { ShareContainer } from './component/ShareContainer'
-import { DateProps } from 'pages/Stats'
+import { DateProps } from 'pages/Stats/StatsPage'
 import { ResponseStats } from 'api/common/commonType'
 
 interface InfoContainerProps {

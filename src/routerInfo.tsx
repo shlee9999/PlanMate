@@ -1,16 +1,18 @@
 import { Header } from 'components/'
-import { ExamInfoPage } from 'pages/ExamInfo/ExamInfoPage'
-import { BulletinPage } from 'pages/ExamInfo/BulletinPage'
-import { TimerPage } from 'pages/Timer'
-import { StatsPage } from 'pages/Stats'
-import { PlannerPage } from 'pages/Planner'
-import { LoginPage } from 'pages/Login'
-import { NoticePage } from 'pages/NoticePage'
-import { ErrorPage } from 'pages/ErrorPage'
+import {
+  ErrorPage,
+  MyPage,
+  TimerPage,
+  StatsPage,
+  PlannerPage,
+  ExamInfoPage,
+  BulletinPage,
+  ExamInfoDetailPage,
+  NoticePage,
+  LoginPage,
+} from 'pages'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
-import { ExamInfoDetailPage } from 'pages/ExamInfo/ExamInfoDetail'
 import App from 'App'
-import { MyPage } from 'pages/MyPage'
 
 export const routerInfo = [
   {
