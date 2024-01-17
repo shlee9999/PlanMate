@@ -13,7 +13,7 @@ import {
 } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
+import { compareTime, createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
@@ -86,8 +86,11 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   }
   const onMouseUp = () => {
     if (selectedCells.length === 0) return
-    const startHour = useFormattedTime(+selectedCells[0].split('T')[1] * 60 * 60)
-    const endHour = useFormattedTime((+selectedCells[selectedCells.length - 1].split('T')[1] + 1) * 60 * 60)
+    const startTime = +selectedCells[0].split('T')[1] * 60 * 60
+    const endTime = (+selectedCells[selectedCells.length - 1].split('T')[1] + 1) * 60 * 60
+    const { smaller, larger } = compareTime(startTime, endTime)
+    const startHour = useFormattedTime(smaller)
+    const endHour = useFormattedTime(larger)
     const year = +selectedCells[0].slice(0, 4)
     const month = +selectedCells[0].slice(5, 7)
     const date = +selectedCells[0].slice(8, 10)
@@ -107,6 +110,19 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     )
     openModal('일정추가')
   }
+  const onMouseEnter = (date, hour) => (e) => {
+    if (e.buttons !== 1) return
+    if (
+      (selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`) &&
+        !selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`)) ||
+      (selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`) &&
+        !selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`))
+    )
+      setSelectedCells((prev) => prev.concat(getYYYYMMDD(date) + 'T' + hour))
+    else setSelectedCells([])
+  }
+
+  const onMouseDown = (date, hour) => () => setSelectedCells([getYYYYMMDD(date) + 'T' + hour])
 
   return (
     <Root>
@@ -122,10 +138,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
             <DayCell $today={null}></DayCell>
             {getWeekDates(currentDate).map((date, index) => (
               <DayCell $today={getYYYYMMDD(now) === getYYYYMMDD(date)} key={getYYYYMMDD(date)}>
-                <>
-                  <DayTypo>{weekDays[index]}</DayTypo>
-                  <DateTypo>{getYYYYMMDD(date).slice(-2)}</DateTypo>
-                </>
+                <DayTypo>{weekDays[index]}</DayTypo>
+                <DateTypo>{getYYYYMMDD(date).slice(-2)}</DateTypo>
               </DayCell>
             ))}
           </DataCellRow>
@@ -139,19 +153,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                   key={getYYYYMMDD(date)}
                   $isSelected={selectedCells.includes(getYYYYMMDD(date) + 'T' + hour)}
                   $hour={hour}
-                  onMouseDown={() => {
-                    setSelectedCells([getYYYYMMDD(date) + 'T' + hour])
-                  }}
-                  onMouseEnter={(e) => {
-                    if (e.buttons === 1) {
-                      if (
-                        selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`) ||
-                        selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`)
-                      )
-                        setSelectedCells((prev) => prev.concat(getYYYYMMDD(date) + 'T' + hour))
-                      else setSelectedCells([])
-                    }
-                  }}
+                  onMouseDown={onMouseDown(date, hour)}
+                  onMouseEnter={onMouseEnter(date, hour)}
                   onMouseUp={onMouseUp}
                 >
                   <AnimatePresence>

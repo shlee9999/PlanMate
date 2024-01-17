@@ -20,6 +20,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
     plannerId: id,
     day,
   } = useSelector((state: RootState) => state.selectedInfo)
+  console.log(endAt)
   const value = set === '부터' ? startAt.slice(0, 2) : endAt.slice(0, 2) === '00' ? 24 : endAt.slice(0, 2)
   const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (set === '부터')
@@ -29,7 +30,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
           scheduleName: scheduleName,
           colorHex: bgColor,
           plannerId: id,
-          startAt: useFormattedTime(+e.target.value),
+          startAt: useFormattedTime(+e.target.value * 60 * 60),
           day,
         })
       )
@@ -37,7 +38,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
       dispatch(
         updateInfo({
           startAt: startAt,
-          endAt: useFormattedTime(+e.target.value),
+          endAt: useFormattedTime(+e.target.value * 60 * 60),
           scheduleName: scheduleName,
           colorHex: bgColor,
           plannerId: id,
