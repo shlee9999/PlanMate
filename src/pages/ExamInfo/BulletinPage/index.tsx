@@ -7,6 +7,7 @@ import {
   Root,
   SuggestInput,
   SuggestTypo,
+  TagListArrow,
   TagOption,
   TagOptionWrapper,
   TagSelector,
@@ -22,11 +23,9 @@ import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { serializeContent } from 'utils/wysiwyg'
-import downArrowImg from 'assets/images/right_arrow.png'
 import { examinfoTagList, suggestTagList } from 'constants/tagList'
 import { suggest } from 'api/suggest/suggest'
 import { createNotice } from 'api/notice/admin/createNotice'
-import { DownArrow } from 'commonStyled'
 
 type BulletinPageProps = {
   mode: string
@@ -126,7 +125,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
             <TagTypo>태그</TagTypo>
             <TagSelector onClick={onClickTagSelector}>
               {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
-              <DownArrow />
+              <TagListArrow fill="currentColor" />
               {isSelecting && (
                 <TagOptionWrapper>
                   {tagList().map((tag, index) => (

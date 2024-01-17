@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import { PageRoot } from 'commonStyled'
+import { DownArrow, PageRoot } from 'commonStyled'
 import { ActionButton } from 'components/ActionButton/ActionButton'
-import { RightArrow } from 'assets/SvgComponents'
 
 export const Root = styled(PageRoot)`
   display: flex;
@@ -151,3 +150,7 @@ export const SuggestInput = styled.textarea`
   color: ${(props) => props.theme.text.black2};
 `
 export const RegisterButton = styled(ActionButton)``
+export const TagListArrow = styled(DownArrow)`
+  position: absolute;
+  right: 6px;
+`
