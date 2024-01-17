@@ -107,6 +107,19 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     )
     openModal('일정추가')
   }
+  const onMouseEnter = (date, hour) => (e) => {
+    if (e.buttons !== 1) return
+    if (
+      (selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`) &&
+        !selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`)) ||
+      (selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`) &&
+        !selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`))
+    )
+      setSelectedCells((prev) => prev.concat(getYYYYMMDD(date) + 'T' + hour))
+    else setSelectedCells([])
+  }
+
+  const onMouseDown = (date, hour) => () => setSelectedCells([getYYYYMMDD(date) + 'T' + hour])
 
   return (
     <Root>
@@ -122,10 +135,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
             <DayCell $today={null}></DayCell>
             {getWeekDates(currentDate).map((date, index) => (
               <DayCell $today={getYYYYMMDD(now) === getYYYYMMDD(date)} key={getYYYYMMDD(date)}>
-                <>
-                  <DayTypo>{weekDays[index]}</DayTypo>
-                  <DateTypo>{getYYYYMMDD(date).slice(-2)}</DateTypo>
-                </>
+                <DayTypo>{weekDays[index]}</DayTypo>
+                <DateTypo>{getYYYYMMDD(date).slice(-2)}</DateTypo>
               </DayCell>
             ))}
           </DataCellRow>
@@ -139,19 +150,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                   key={getYYYYMMDD(date)}
                   $isSelected={selectedCells.includes(getYYYYMMDD(date) + 'T' + hour)}
                   $hour={hour}
-                  onMouseDown={() => {
-                    setSelectedCells([getYYYYMMDD(date) + 'T' + hour])
-                  }}
-                  onMouseEnter={(e) => {
-                    if (e.buttons === 1) {
-                      if (
-                        selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`) ||
-                        selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`)
-                      )
-                        setSelectedCells((prev) => prev.concat(getYYYYMMDD(date) + 'T' + hour))
-                      else setSelectedCells([])
-                    }
-                  }}
+                  onMouseDown={onMouseDown(date, hour)}
+                  onMouseEnter={onMouseEnter(date, hour)}
                   onMouseUp={onMouseUp}
                 >
                   <AnimatePresence>
