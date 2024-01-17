@@ -23,19 +23,19 @@ import {
   UserNickname,
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
-import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
+
 import { modifyComment } from 'api/comment/modifyComment'
 import { CreateChildCommentResponseProps, createChildComment } from 'api/comment/createChildComment'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { removeComment } from 'api/comment/removeComment'
 import { useNavigate } from 'react-router-dom'
-import { ExamInfoReply } from '../Reply'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import useLikeCommentMutation from 'pages/ExamInfo/hooks/useLikeCommentMutation'
 import useModifyComment from 'pages/ExamInfo/hooks/useModifyComment'
+import { ExamInfoReply, DeleteCommentModal } from 'pages/ExamInfo/components'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void

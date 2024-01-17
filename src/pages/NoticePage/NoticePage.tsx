@@ -1,9 +1,7 @@
-import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
 import {
   BulletinButton,
   ExamInfoWrapper,
   NoContent,
-  NoPostTypo,
   Root,
   TitleTypo,
   TypoWrapper,
@@ -12,9 +10,9 @@ import {
 import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
-import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
+import { ExamInfoItem, Pagination } from 'pages/ExamInfo/components'
 
 export const NoticePage = () => {
   const data = useLoaderData() as FindAllNoticeResponseProps

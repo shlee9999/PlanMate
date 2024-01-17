@@ -1,4 +1,3 @@
-import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
 import {
   BulletinButton,
   ExamInfoWrapper,
@@ -19,11 +18,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examinfoTagList } from 'constants/tagList'
-import { Pagination } from 'pages/ExamInfo/components/Pagination'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useQuery } from 'react-query'
-import { Spinner } from 'components/'
+import { ExamInfoItem, Pagination } from '../components'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)

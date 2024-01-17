@@ -17,7 +17,6 @@ import {
 } from './styled'
 import { ResponseCommentType } from 'api/common/commonType'
 import { likeComment } from 'api/comment/likeComment'
-import { DeleteCommentModal } from '../DeleteModal/DeleteCommentModal'
 import { modifyComment } from 'api/comment/modifyComment'
 import { createChildComment } from 'api/comment/createChildComment'
 import { useNavigate } from 'react-router-dom'

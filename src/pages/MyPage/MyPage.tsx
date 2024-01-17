@@ -29,10 +29,10 @@ import {
   SelectedLine,
 } from './styled'
 import { DDayItem } from 'pages/MyPage/components/DDayItem'
-import { ExamInfoItem } from 'pages/ExamInfo/components/ExamInfoItem'
+
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
-import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
+
 import { findScrappedPost } from 'api/post/find/findScrappedPost'
 import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { useDispatch, useSelector } from 'react-redux'
@@ -45,6 +45,7 @@ import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { fixSchedule } from 'api/schedule/fixSchedule'
 import { addSchedule } from 'api/schedule/addSchedule'
 import { GoogleCustom } from 'assets/SvgComponents'
+import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [

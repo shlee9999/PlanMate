@@ -69,12 +69,6 @@ export const ExamInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
-export const NoPostTypo = styled.div`
-  width: 1088px;
-  text-align: center;
-  border-bottom: 2px solid ${(props) => props.theme.text.gray1};
-  margin-bottom: 30px;
-`
 
 export const NoContent = styled(NoContentDescription)`
   margin-top: 84px;

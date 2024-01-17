@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import {
-  Icon,
   IconContainer,
   IconCountWrapper,
   InfoTypo,

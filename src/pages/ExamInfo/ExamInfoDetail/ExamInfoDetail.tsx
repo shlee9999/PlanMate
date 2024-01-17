@@ -35,16 +35,13 @@ import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { deserializeContent, serializeContent } from 'utils/wysiwyg'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { createComment } from 'api/comment/createComment'
-import { ExamInfoComment } from 'pages/ExamInfo/components/ExamInfoComment'
 import { removeComment } from 'api/comment/removeComment'
-
 import { scrapPost } from 'api/post/scrapPost'
-import { DeletePostModal } from 'pages/ExamInfo/components/DeleteModal/DeletePostModal'
+
 import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertFromRaw } from 'draft-js'
 import { editPost } from 'api/post/editPost'
-
 import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -60,6 +57,8 @@ import useScrapPostMutation from '../hooks/useScrapPostMutation'
 import useDeleteCommentMutation from '../hooks/useDeleteCommentMutation'
 import useObserver from '../hooks/useObserver'
 import { NoContentDescription } from 'components'
+import { DeletePostModal, ExamInfoComment } from '../components'
+
 /**
  * @title
  * @like

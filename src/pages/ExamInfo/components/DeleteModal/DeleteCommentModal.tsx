@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { CenterTypo, CenterTypoWrapper, Root, UpperTypo } from '../styled'
+import { CenterTypo, CenterTypoWrapper, Root, UpperTypo } from './styled'
 import { ModalFooter, GreenButton, WhiteButton, ModalExitButton, ModalWrapperVar, ModalWrapper } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useDeleteCommentMutation from 'pages/ExamInfo/hooks/useDeleteCommentMutation'

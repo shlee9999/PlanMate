@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { CenterTypo, CenterTypoWrapper, DescriptionTypo, Root, UpperTypo } from '../styled'
+import { CenterTypo, CenterTypoWrapper, DescriptionTypo, Root, UpperTypo } from './styled'
 import { ModalWrapper, ModalFooter, GreenButton, WhiteButton, ModalExitButton } from 'commonStyled'
 
 type DeletePostModalProps = {
