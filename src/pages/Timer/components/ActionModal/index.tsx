@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { defaultColor } from 'constants/color'
-import { Root, InfoContainer, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from './styled'
 import { ColorPicker } from 'components/'
-import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useCreateSubjectMutation from 'pages/Timer/hooks/mutations/useCreateSubjectMutation'
 import { TodoItemType } from 'types'
+import useCreateSubjectMutation from 'pages/Timer/hooks/mutations/useCreateSubjectMutation'
 import useEditSubjectMutation from 'pages/Timer/hooks/mutations/useEditSubjectMutation'
-
+import * as cs from 'commonStyled'
+import * as s from './styled'
 type ActionModalProps = {
   isOpen: boolean
   closeModal: () => void
@@ -62,53 +61,59 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
     return (
       <AnimatePresence onExitComplete={onExitComplete}>
         {isOpen && (
-          <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
-            <Root onClick={onClickModal}>
-              <ModalTitle>과목추가</ModalTitle>
-              <ModalExitButton onClick={closeModal} />
-              <InfoContainer>
-                <UpperWrapper>
+          <cs.ModalWrapper
+            onClick={closeModal}
+            variants={cs.ModalWrapperVar}
+            initial="initial"
+            animate="visible"
+            exit="exit"
+          >
+            <s.Root onClick={onClickModal}>
+              <s.ModalTitle>과목추가</s.ModalTitle>
+              <cs.ModalExitButton onClick={closeModal} />
+              <s.InfoContainer>
+                <s.UpperWrapper>
                   과목명
-                  <NameInput
+                  <s.NameInput
                     placeholder="과목명을 입력해주세요"
                     onChange={onChange}
                     onKeyDown={onKeyDown}
                     ref={inputRef}
                   />
-                </UpperWrapper>
-                <LowerWrapper>
-                  <LowerTypo>색상선택</LowerTypo>
+                </s.UpperWrapper>
+                <s.LowerWrapper>
+                  <s.LowerTypo>색상선택</s.LowerTypo>
                   <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
-                </LowerWrapper>
-              </InfoContainer>
-              <ModalFooter>
-                <WhiteButton onClick={closeModal}>취소</WhiteButton>
-                <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
-              </ModalFooter>
-            </Root>
-          </ModalWrapper>
+                </s.LowerWrapper>
+              </s.InfoContainer>
+              <cs.ModalFooter>
+                <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+                <cs.GreenButton onClick={onClickConfirmButton}>확인</cs.GreenButton>
+              </cs.ModalFooter>
+            </s.Root>
+          </cs.ModalWrapper>
         )}
       </AnimatePresence>
     )
   //EDIT
   return (
-    <Root onClick={onClickModal} layoutId="ellipsis">
-      <ModalTitle>과목수정</ModalTitle>
-      <ModalExitButton onClick={closeModal} />
-      <InfoContainer>
-        <UpperWrapper>
+    <s.Root onClick={onClickModal} layoutId="ellipsis">
+      <s.ModalTitle>과목수정</s.ModalTitle>
+      <cs.ModalExitButton onClick={closeModal} />
+      <s.InfoContainer>
+        <s.UpperWrapper>
           과목명
-          <NameInput defaultValue={todo.name} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
-        </UpperWrapper>
-        <LowerWrapper>
-          <LowerTypo>색상선택</LowerTypo>
+          <s.NameInput defaultValue={todo.name} onChange={onChange} onKeyDown={onKeyDown} ref={inputRef} />
+        </s.UpperWrapper>
+        <s.LowerWrapper>
+          <s.LowerTypo>색상선택</s.LowerTypo>
           <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
-        </LowerWrapper>
-      </InfoContainer>
-      <ModalFooter>
-        <WhiteButton onClick={closeModal}>취소</WhiteButton>
-        <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
-      </ModalFooter>
-    </Root>
+        </s.LowerWrapper>
+      </s.InfoContainer>
+      <cs.ModalFooter>
+        <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+        <cs.GreenButton onClick={onClickConfirmButton}>확인</cs.GreenButton>
+      </cs.ModalFooter>
+    </s.Root>
   )
 }

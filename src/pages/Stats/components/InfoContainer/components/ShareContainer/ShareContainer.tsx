@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Root, SNSItem, SNSItems, SNSLabel, ShareButton } from './styled'
+import * as s from './styled'
 import { ShareIcon, UrlIcon, KakaoIcon, InstagramIcon } from 'assets/SvgComponents'
 import { AnimatePresence, Variants } from 'framer-motion'
 
@@ -52,29 +52,29 @@ export const ShareContainer: FC = () => {
     },
   }
   return (
-    <Root initial="initial" animate="animate">
-      <ShareButton onClick={toggleOpen} variants={ShareButtonVar}>
+    <s.Root initial="initial" animate="animate">
+      <s.ShareButton onClick={toggleOpen} variants={ShareButtonVar}>
         <ShareIcon />
         공유하기
-      </ShareButton>
+      </s.ShareButton>
       <AnimatePresence>
         {isOpen && (
-          <SNSItems variants={SNSContainerVar} initial="initial" animate="animate" exit="exit">
-            <SNSItem variants={SNSVar}>
+          <s.SNSItems variants={SNSContainerVar} initial="initial" animate="animate" exit="exit">
+            <s.SNSItem variants={SNSVar}>
               <UrlIcon />
-              <SNSLabel>URL</SNSLabel>
-            </SNSItem>
-            <SNSItem variants={SNSVar}>
+              <s.SNSLabel>URL</s.SNSLabel>
+            </s.SNSItem>
+            <s.SNSItem variants={SNSVar}>
               <KakaoIcon />
-              <SNSLabel>카카오톡</SNSLabel>
-            </SNSItem>
-            <SNSItem variants={SNSVar}>
+              <s.SNSLabel>카카오톡</s.SNSLabel>
+            </s.SNSItem>
+            <s.SNSItem variants={SNSVar}>
               <InstagramIcon />
-              <SNSLabel>인스타</SNSLabel>
-            </SNSItem>
-          </SNSItems>
+              <s.SNSLabel>인스타</s.SNSLabel>
+            </s.SNSItem>
+          </s.SNSItems>
         )}
       </AnimatePresence>
-    </Root>
+    </s.Root>
   )
 }

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import { StyledSelect, SelectOption, SelectWrapper } from './styled'
+import * as s from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { updateInfo } from 'modules/selectedInfo'
@@ -48,15 +48,15 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
   }
 
   return (
-    <SelectWrapper>
-      <StyledSelect onChange={handleHourChange} value={value.toString().padStart(2, '0')}>
+    <s.SelectWrapper>
+      <s.StyledSelect onChange={handleHourChange} value={value.toString().padStart(2, '0')}>
         {Array.from(Array(25).keys()).map((hour) => (
-          <SelectOption key={hour} value={hour.toString().padStart(2, '0')}>
+          <s.SelectOption key={hour} value={hour.toString().padStart(2, '0')}>
             {hour.toString().padStart(2, '0')}
-          </SelectOption>
+          </s.SelectOption>
         ))}
-      </StyledSelect>
+      </s.StyledSelect>
       <span>{set}</span>
-    </SelectWrapper>
+    </s.SelectWrapper>
   )
 }

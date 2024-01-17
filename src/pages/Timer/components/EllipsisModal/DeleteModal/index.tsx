@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { LowerDescriptionTypo, Root, TitleTypo, UpperDescriptionTypo } from './styled'
 import { ModalFooter, GreenButton, WhiteButton, ModalExitButton } from 'commonStyled'
+import * as s from './styled'
 
 type DeleteModalProps = {
   title: string
@@ -14,23 +14,23 @@ export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteCon
   }
 
   return (
-    <Root onClick={onClickModal} layoutId="ellipsis">
-      <TitleTypo>일정삭제</TitleTypo>
-      <UpperDescriptionTypo>
+    <s.Root onClick={onClickModal} layoutId="ellipsis">
+      <s.TitleTypo>일정삭제</s.TitleTypo>
+      <s.UpperDescriptionTypo>
         {title}을(를)
         <br />
         삭제하시겠어요?
-      </UpperDescriptionTypo>
-      <LowerDescriptionTypo>
+      </s.UpperDescriptionTypo>
+      <s.LowerDescriptionTypo>
         기록은 삭제되지 않지만
         <br />
         일정은 함께 사라져요!
-      </LowerDescriptionTypo>
+      </s.LowerDescriptionTypo>
       <ModalFooter>
         <GreenButton onClick={confirm}>삭제</GreenButton>
         <WhiteButton onClick={closeModal}>취소</WhiteButton>
       </ModalFooter>
       <ModalExitButton onClick={closeModal} />
-    </Root>
+    </s.Root>
   )
 }

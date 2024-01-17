@@ -1,19 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
-import { ButtonWrapper, CloseButton, DeleteSubjectButton, Root, UpdateSubjectButton } from './styled'
 import { TodoItemType } from 'types'
 import { DeleteModal } from './DeleteModal'
-import { ModalFooter, ModalExitButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
 import { ActionModal } from '..'
+import useDeleteSubjectMutation from '../../hooks/mutations/useDeleteSubjectMutation'
+import * as cs from 'commonStyled'
+import * as s from './styled'
 
 type EllipsisModalProps = {
   closeModal: () => void
   todo: TodoItemType
   isOpen: boolean
 }
-const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
+export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const mutateDeleteSubject = useDeleteSubjectMutation()
@@ -39,17 +39,23 @@ const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
-        <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
-          <Root onClick={onClickModal} layoutId="ellipsis">
-            <ButtonWrapper>
-              <UpdateSubjectButton onClick={onClickEditButton}>과목수정</UpdateSubjectButton>
-              <DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</DeleteSubjectButton>
-            </ButtonWrapper>
-            <ModalFooter>
-              <CloseButton onClick={closeModal}>취소</CloseButton>
-            </ModalFooter>
-            <ModalExitButton onClick={closeModal} />
-          </Root>
+        <cs.ModalWrapper
+          onClick={closeModal}
+          variants={cs.ModalWrapperVar}
+          initial="initial"
+          animate="visible"
+          exit="exit"
+        >
+          <s.Root onClick={onClickModal} layoutId="ellipsis">
+            <s.ButtonWrapper>
+              <s.UpdateSubjectButton onClick={onClickEditButton}>과목수정</s.UpdateSubjectButton>
+              <s.DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</s.DeleteSubjectButton>
+            </s.ButtonWrapper>
+            <cs.ModalFooter>
+              <s.CloseButton onClick={closeModal}>취소</s.CloseButton>
+            </cs.ModalFooter>
+            <cs.ModalExitButton onClick={closeModal} />
+          </s.Root>
           {isEditModalOpen && (
             <ActionModal
               isOpen={isEditModalOpen}
@@ -62,9 +68,8 @@ const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
           {isDeleteModalOpen && (
             <DeleteModal closeModal={closeDeleteModal} deleteConfirm={deleteConfirm} title={todo.name} />
           )}
-        </ModalWrapper>
+        </cs.ModalWrapper>
       )}
     </AnimatePresence>
   )
 }
-export default EllipsisModal

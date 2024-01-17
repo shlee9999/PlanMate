@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { CloseButton, Root, Title, Wrapper } from './styled'
 import { Variants } from 'framer-motion'
+import * as s from './styled'
 
 type AppointmentProps = {
   bgColor: string
@@ -38,7 +38,7 @@ export const Appointment: FC<AppointmentProps> = ({
     },
   }
   return (
-    <Wrapper
+    <s.Wrapper
       $bgColor={bgColor}
       $height={height}
       onClick={onClick}
@@ -49,10 +49,10 @@ export const Appointment: FC<AppointmentProps> = ({
       exit="exit"
       key={id}
     >
-      <Root $bgColor={bgColor}>
-        <Title>{title}</Title>
-        <CloseButton onClick={onClickClose} />
-      </Root>
-    </Wrapper>
+      <s.Root $bgColor={bgColor}>
+        <s.Title>{title}</s.Title>
+        <s.CloseButton onClick={onClickClose} />
+      </s.Root>
+    </s.Wrapper>
   )
 }

@@ -1,20 +1,5 @@
-import { FC, MouseEvent, useState } from 'react'
-import {
-  Body,
-  Circle,
-  DateContainer,
-  DayCell,
-  DayRow,
-  Header,
-  Legend,
-  LegendContainer,
-  Line,
-  Month,
-  NextButton,
-  PrevButton,
-  Root,
-  WeekRow,
-} from './styled'
+import { FC, useState } from 'react'
+import * as s from './styled'
 import { weekDays } from 'constants/week'
 import { getDateInfo, getWeekDates, weekCount } from 'utils/helper'
 import { AnimatePresence, Variants } from 'framer-motion'
@@ -46,11 +31,11 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
   const [back, setBack] = useState(false)
 
   return (
-    <Root className={className}>
-      <Header>
-        <PrevButton fill="currentColor" onClick={onClickPrev} />
+    <s.Root className={className}>
+      <s.Header>
+        <s.PrevButton fill="currentColor" onClick={onClickPrev} />
         <AnimatePresence custom={back} initial={false}>
-          <Month
+          <s.Month
             key={selectedDate.month}
             variants={MonthVar}
             initial="initial"
@@ -60,19 +45,19 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
             custom={back}
           >
             {selectedDate.month + 1}월
-          </Month>
+          </s.Month>
         </AnimatePresence>
-        <NextButton fill="currentColor" onClick={onClickNext} />
-      </Header>
-      <Body>
-        <DayRow>
+        <s.NextButton fill="currentColor" onClick={onClickNext} />
+      </s.Header>
+      <s.Body>
+        <s.DayRow>
           {weekDays.map((day, index) => (
-            <DayCell key={index}>{day}</DayCell>
+            <s.DayCell key={index}>{day}</s.DayCell>
           ))}
-        </DayRow>
-        <Line />
+        </s.DayRow>
+        <s.Line />
         <AnimatePresence initial={false}>
-          <DateContainer
+          <s.DateContainer
             key={selectedDate.month}
             variants={MonthVar}
             initial="initial"
@@ -81,7 +66,7 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
             custom={back}
           >
             {Array.from(Array(weekCount(selectedDate.year, selectedDate.month + 1)).keys()).map((week) => (
-              <WeekRow key={week}>
+              <s.WeekRow key={week}>
                 {getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
                   <DateCell
                     key={date.getTime()}
@@ -95,29 +80,29 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
                     selectedDate={selectedDate}
                   />
                 ))}
-              </WeekRow>
+              </s.WeekRow>
             ))}
-          </DateContainer>
+          </s.DateContainer>
         </AnimatePresence>
-      </Body>
-      <LegendContainer>
-        <Legend>
-          <Circle />
+      </s.Body>
+      <s.LegendContainer>
+        <s.Legend>
+          <s.Circle />
           0~3시간
-        </Legend>
-        <Legend>
-          <Circle />
+        </s.Legend>
+        <s.Legend>
+          <s.Circle />
           4~7시간
-        </Legend>
-        <Legend>
-          <Circle />
+        </s.Legend>
+        <s.Legend>
+          <s.Circle />
           8~11시간
-        </Legend>
-        <Legend>
-          <Circle />
+        </s.Legend>
+        <s.Legend>
+          <s.Circle />
           12시간 이상
-        </Legend>
-      </LegendContainer>
-    </Root>
+        </s.Legend>
+      </s.LegendContainer>
+    </s.Root>
   )
 }

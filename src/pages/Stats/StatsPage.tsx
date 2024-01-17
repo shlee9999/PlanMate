@@ -1,19 +1,6 @@
 import React, { useState } from 'react'
 import { getDateInfo, getYYYYMMDD, isEqualDate } from 'utils/helper'
-import {
-  HeaderContainer,
-  HeaderContentWrapper,
-  HeaderDividingLine,
-  PageDescription,
-  PageName,
-  Container,
-  StatsContainer,
-  Title,
-  Root,
-  UserName,
-  LeftInfoBox,
-  RightInfoBox,
-} from './styled'
+import * as s from './styled'
 import { useQuery } from 'react-query'
 import { checkStats } from 'api/stats/checkStats'
 import { ResponseStats } from 'api/common/commonType'
@@ -43,34 +30,34 @@ export const StatsPage = () => {
   const isLoading = todayLoading || isSelectedLoading
 
   return (
-    <Root>
-      <HeaderContainer>
-        <HeaderContentWrapper>
-          <UserName>메이트 </UserName>
-          <PageDescription>님의 공부량을 한눈에 볼 수 있어요!</PageDescription>
-        </HeaderContentWrapper>
-        <PageName>통계 📊</PageName>
-      </HeaderContainer>
-      <HeaderDividingLine />
-      <Container>
-        <Title>공부량 한 눈에 보기</Title>
-        <StatsContainer>
-          <LeftInfoBox left>
+    <s.Root>
+      <s.HeaderContainer>
+        <s.HeaderContentWrapper>
+          <s.UserName>메이트 </s.UserName>
+          <s.PageDescription>님의 공부량을 한눈에 볼 수 있어요!</s.PageDescription>
+        </s.HeaderContentWrapper>
+        <s.PageName>통계 📊</s.PageName>
+      </s.HeaderContainer>
+      <s.HeaderDividingLine />
+      <s.Container>
+        <s.Title>공부량 한 눈에 보기</s.Title>
+        <s.StatsContainer>
+          <s.LeftInfoBox left>
             {todayLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>
             ) : (
               <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={data} />
             )}
-          </LeftInfoBox>
-          <RightInfoBox right>
+          </s.LeftInfoBox>
+          <s.RightInfoBox right>
             {isLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>
             ) : (
               <InfoContainer selectedDate={selectedDate} dataSource={data} />
             )}
-          </RightInfoBox>
-        </StatsContainer>
-      </Container>
-    </Root>
+          </s.RightInfoBox>
+        </s.StatsContainer>
+      </s.Container>
+    </s.Root>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Header, Time, Root, TimerBox } from './styled'
+import * as s from './styled'
 
 interface OwnProps {
   text: string
@@ -9,9 +9,9 @@ interface OwnProps {
 
 export const Timer: React.FC<OwnProps> = ({ title, text }) => {
   return (
-    <TimerBox>
-      <Header>{title}</Header>
-      <Time>{text}</Time>
-    </TimerBox>
+    <s.TimerBox>
+      <s.Header>{title}</s.Header>
+      <s.Time>{text}</s.Time>
+    </s.TimerBox>
   )
 }

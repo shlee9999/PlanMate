@@ -2,30 +2,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { TimeProps, TodoItemType } from 'types'
 import { useState, FC, useEffect } from 'react'
-import {
-  Banner,
-  LowerDescriptionTypo,
-  ResultContainer,
-  Root,
-  Title,
-  TodoContainer,
-  UpperDescriptionTypo,
-  LeftTopDescriptionWrapper,
-  YellowTypo,
-  LeftContainer,
-  StatsContainer,
-  RightContainer,
-  AddButton,
-  LowerContainer,
-  CheerTypo,
-  Test,
-  Dday,
-  GreenTypo,
-  BannerContentWrapper,
-  SizedBox,
-  DateTypo,
-  TodoSpinner,
-} from './styled'
 import { daysUntil, getDateInfo, timeToSecond, useFormattedDate, useFormattedTimeKorean } from 'utils/helper'
 import { RootState } from 'modules'
 import { initializeTimer } from 'modules/timer'
@@ -44,6 +20,7 @@ import { NoContentDescription } from 'components'
 import { TimerContainer, PieChartContainer, GraphContainer } from 'pages/Stats/components/'
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { ActionModal, TimerWidget, TodoItem } from './components'
+import * as s from './styled'
 
 export const TimerPage: FC = () => {
   const now = getDateInfo(new Date())
@@ -140,26 +117,26 @@ export const TimerPage: FC = () => {
   }, [location.state])
 
   return (
-    <Root>
-      <Banner>
-        <BannerContentWrapper>
-          <LeftContainer>
-            <LeftTopDescriptionWrapper>
-              <DateTypo>{formattedDate}</DateTypo>
-              <Title>오늘의 공부량 👏 </Title>
-            </LeftTopDescriptionWrapper>
-            <ResultContainer left>
-              <UpperDescriptionTypo>오늘의 공부량이에요!</UpperDescriptionTypo>
+    <s.Root>
+      <s.Banner>
+        <s.BannerContentWrapper>
+          <s.LeftContainer>
+            <s.LeftTopDescriptionWrapper>
+              <s.DateTypo>{formattedDate}</s.DateTypo>
+              <s.Title>오늘의 공부량 👏 </s.Title>
+            </s.LeftTopDescriptionWrapper>
+            <s.ResultContainer left>
+              <s.UpperDescriptionTypo>오늘의 공부량이에요!</s.UpperDescriptionTypo>
               <TimerWidget totalTime={totalTime} />
-              <LowerDescriptionTypo>
-                오늘은 휴식 시간을 <YellowTypo>{useFormattedTimeKorean(breakTime)}</YellowTypo> 가졌네요!
-              </LowerDescriptionTypo>
-            </ResultContainer>
-          </LeftContainer>
-          <SizedBox />
-          <RightContainer>
-            <Title>오늘의 통계 📊</Title>
-            <StatsContainer right>
+              <s.LowerDescriptionTypo>
+                오늘은 휴식 시간을 <s.YellowTypo>{useFormattedTimeKorean(breakTime)}</s.YellowTypo> 가졌네요!
+              </s.LowerDescriptionTypo>
+            </s.ResultContainer>
+          </s.LeftContainer>
+          <s.SizedBox />
+          <s.RightContainer>
+            <s.Title>오늘의 통계 📊</s.Title>
+            <s.StatsContainer right>
               {isStatsLoading ? (
                 <CenterSpinner>Loading...</CenterSpinner>
               ) : (
@@ -175,55 +152,55 @@ export const TimerPage: FC = () => {
                   <GraphContainer />
                 </>
               )}
-            </StatsContainer>
-          </RightContainer>
-        </BannerContentWrapper>
-      </Banner>
-      <LowerContainer>
+            </s.StatsContainer>
+          </s.RightContainer>
+        </s.BannerContentWrapper>
+      </s.Banner>
+      <s.LowerContainer>
         {fixedDDay ? (
-          <CheerTypo>
-            <Test>{fixedDDay.title} </Test>까지{' '}
-            <Dday>
-              D- <GreenTypo>{daysUntil(fixedDDay.date)}</GreenTypo>{' '}
-            </Dday>
+          <s.CheerTypo>
+            <s.Test>{fixedDDay.title} </s.Test>까지{' '}
+            <s.Dday>
+              D- <s.GreenTypo>{daysUntil(fixedDDay.date)}</s.GreenTypo>{' '}
+            </s.Dday>
             조금만 더 힘을 내볼까요? 🏃
-          </CheerTypo>
+          </s.CheerTypo>
         ) : (
-          <CheerTypo>
+          <s.CheerTypo>
             아직 디데이가 없어요!{' '}
-            <GreenTypo
+            <s.GreenTypo
               onClick={() => {
                 navigate('/mypage')
               }}
               className="no_dday"
             >
               디데이를 설정하러 가볼까요?
-            </GreenTypo>
-          </CheerTypo>
+            </s.GreenTypo>
+          </s.CheerTypo>
         )}
 
-        <TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
+        <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
           {todoList.length !== 0 ? (
             todoList.map((todo: TodoItemType) => {
               return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
             })
           ) : isTodoLoading ? (
-            <TodoSpinner>Loading..</TodoSpinner>
+            <s.TodoSpinner>Loading..</s.TodoSpinner>
           ) : (
             <NoContentDescription icon="book_check">
               <NoContentTypo>아직 공부할 과목이 없어요!</NoContentTypo>{' '}
               <NoContentTypo>일정을 설정해 과목을 추가해볼까요?</NoContentTypo>
             </NoContentDescription>
           )}
-        </TodoContainer>
+        </s.TodoContainer>
 
-        <AddButton onClick={openModal}>
+        <s.AddButton onClick={openModal}>
           <PlusIcon fill="currentColor" />
           과목
-        </AddButton>
-      </LowerContainer>
+        </s.AddButton>
+      </s.LowerContainer>
       <ActionModal closeModal={closeModal} type="ADD" isOpen={isModalOpen} />
       {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
-    </Root>
+    </s.Root>
   )
 }

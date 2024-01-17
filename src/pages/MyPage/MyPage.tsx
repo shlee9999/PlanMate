@@ -1,40 +1,7 @@
 import { FC, ReactComponentElement, useEffect, useState } from 'react'
-import {
-  AdminDDay,
-  DDayContainer,
-  EllipsisImg,
-  Email,
-  CurrentContentContainer,
-  LeftContainer,
-  MyActivity,
-  MyActivityContainer,
-  Nickname,
-  ProfileContainer,
-  ProfileTypo,
-  NextArrow,
-  RightContainer,
-  Container,
-  SeeMore,
-  TabItem,
-  TabSelector,
-  Title,
-  TitleWrapper,
-  TypoWrapper,
-  UserName,
-  EllipsisModal,
-  EllipsisEditButton,
-  EllipsisResignButton,
-  TabRow,
-  Root,
-  SelectedLine,
-} from './styled'
+import * as s from './styled'
 import { DDayItem, ResignModal } from './components'
-
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
-import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
-
-import { findScrappedPost } from 'api/post/find/findScrappedPost'
-import { ResponseCommentType, ResponsePostType } from 'api/common/commonType'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
@@ -42,9 +9,9 @@ import { ProfileEditModal } from 'pages/MyPage/components/'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { fixSchedule } from 'api/schedule/fixSchedule'
-import { addSchedule } from 'api/schedule/addSchedule'
 import { GoogleCustom } from 'assets/SvgComponents'
 import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
+import { ResponsePostType, ResponseCommentType } from 'api/common/commonType'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -186,58 +153,62 @@ export const MyPage: FC = () => {
   }, [currentTab])
 
   return (
-    <Root>
-      <Container onClick={onClickRoot}>
-        <LeftContainer>
-          <TitleWrapper>
-            <Nickname>{userAuthInfo.name}</Nickname>
-            님의 <Title>마이페이지 👋</Title>
-          </TitleWrapper>
-          <ProfileTypo>프로필</ProfileTypo>
-          <ProfileContainer>
-            <UserName>{userAuthInfo.name}</UserName>님
-            <Email>
+    <s.Root>
+      <s.Container onClick={onClickRoot}>
+        <s.LeftContainer>
+          <s.TitleWrapper>
+            <s.Nickname>{userAuthInfo.name}</s.Nickname>
+            님의 <s.Title>마이페이지 👋</s.Title>
+          </s.TitleWrapper>
+          <s.ProfileTypo>프로필</s.ProfileTypo>
+          <s.ProfileContainer>
+            <s.UserName>{userAuthInfo.name}</s.UserName>님
+            <s.Email>
               <GoogleCustom />
               {userAuthInfo.email}
-            </Email>
-            <EllipsisImg onClick={onClickEllipsisButton} />
+            </s.Email>
+            <s.EllipsisImg onClick={onClickEllipsisButton} />
             {isEllipsisModalOpen && (
-              <EllipsisModal onClick={onClickModal}>
-                <EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</EllipsisEditButton>
-                <EllipsisResignButton onClick={openResignModal}>탈퇴하기</EllipsisResignButton>
-              </EllipsisModal>
+              <s.EllipsisModal onClick={onClickModal}>
+                <s.EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</s.EllipsisEditButton>
+                <s.EllipsisResignButton onClick={openResignModal}>탈퇴하기</s.EllipsisResignButton>
+              </s.EllipsisModal>
             )}
-          </ProfileContainer>
-          <TypoWrapper>
-            <AdminDDay>D-DAY 관리</AdminDDay>
-            <SeeMore>
+          </s.ProfileContainer>
+          <s.TypoWrapper>
+            <s.AdminDDay>D-DAY 관리</s.AdminDDay>
+            <s.SeeMore>
               더보기
-              <NextArrow fill="currentColor" />
-            </SeeMore>
-          </TypoWrapper>
-          <DDayContainer>
+              <s.NextArrow fill="currentColor" />
+            </s.SeeMore>
+          </s.TypoWrapper>
+          <s.DDayContainer>
             {currentDDayList.map((dday, index) => (
               <DDayItem {...dday} key={dday.id} fixDDay={fixDDay(dday.id, index)} isFixed={index === fixedIndex} />
             ))}
-          </DDayContainer>
-        </LeftContainer>
-        <RightContainer>
-          <MyActivity>나의 활동</MyActivity>
-          <MyActivityContainer>
-            <TabSelector>
-              <TabRow>
+          </s.DDayContainer>
+        </s.LeftContainer>
+        <s.RightContainer>
+          <s.MyActivity>나의 활동</s.MyActivity>
+          <s.MyActivityContainer>
+            <s.TabSelector>
+              <s.TabRow>
                 {myPageTabList.map((tab, index) => (
-                  <TabItem $isSelected={currentTab === tab} onClick={onClickTabItem(myPageTabList[index])} key={index}>
+                  <s.TabItem
+                    $isSelected={currentTab === tab}
+                    onClick={onClickTabItem(myPageTabList[index])}
+                    key={index}
+                  >
                     {tab}
-                    {currentTab === tab && <SelectedLine layoutId="selected_line" transition={{ duration: 0.2 }} />}
-                  </TabItem>
+                    {currentTab === tab && <s.SelectedLine layoutId="selected_line" transition={{ duration: 0.2 }} />}
+                  </s.TabItem>
                 ))}
-              </TabRow>
-              <TabRow />
-            </TabSelector>
-            <CurrentContentContainer>{renderTabContent()}</CurrentContentContainer>
-          </MyActivityContainer>
-        </RightContainer>
+              </s.TabRow>
+              <s.TabRow />
+            </s.TabSelector>
+            <s.CurrentContentContainer>{renderTabContent()}</s.CurrentContentContainer>
+          </s.MyActivityContainer>
+        </s.RightContainer>
         {isProfileEditModalOpen && (
           <ProfileEditModal
             closeModal={closeProfileEditModal}
@@ -246,7 +217,7 @@ export const MyPage: FC = () => {
           />
         )}
         {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
-      </Container>
-    </Root>
+      </s.Container>
+    </s.Root>
   )
 }

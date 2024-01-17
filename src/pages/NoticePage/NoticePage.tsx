@@ -1,12 +1,4 @@
-import {
-  BulletinButton,
-  ExamInfoWrapper,
-  NoContent,
-  Root,
-  TitleTypo,
-  TypoWrapper,
-  UpperDescriptionTypo,
-} from './styled'
+import * as s from './styled'
 import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/common/commonType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
@@ -48,25 +40,25 @@ export const NoticePage = () => {
   }, [examInfoList])
 
   return (
-    <Root>
-      <TypoWrapper>
-        <UpperDescriptionTypo>플랜메이트</UpperDescriptionTypo>
-        <TitleTypo>공지사항 📢</TitleTypo>
-      </TypoWrapper>
-      <ExamInfoWrapper>
+    <s.Root>
+      <s.TypoWrapper>
+        <s.UpperDescriptionTypo>플랜메이트</s.UpperDescriptionTypo>
+        <s.TitleTypo>공지사항 📢</s.TitleTypo>
+      </s.TypoWrapper>
+      <s.ExamInfoWrapper>
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem postTagList={[]} {...examInfo} key={examInfo.noticeId} />)
         ) : (
-          <NoContent icon="pencil">
+          <s.NoContent icon="pencil">
             <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
             <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
-          </NoContent>
+          </s.NoContent>
         )}
 
-        <BulletinButton onClick={onClickBulletinButton} icon="register">
+        <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
-        </BulletinButton>
-      </ExamInfoWrapper>
+        </s.BulletinButton>
+      </s.ExamInfoWrapper>
       <Pagination
         currentPage={currentPage}
         totalPage={totalPage}
@@ -74,6 +66,6 @@ export const NoticePage = () => {
         onClickRightArrow={loadNextPage}
         onClickPageNumber={handleCurrentPage}
       />
-    </Root>
+    </s.Root>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { DayButtonRoot } from './styled'
+import * as s from './styled'
 
 type DayButtonProps = {
   day: string
@@ -8,5 +8,5 @@ type DayButtonProps = {
 
 export const DayButton: React.FC<DayButtonProps> = ({ day, assignSubjectDay }) => {
   const onClickButton: React.MouseEventHandler<HTMLButtonElement> = () => assignSubjectDay(day)
-  return <DayButtonRoot onClick={onClickButton}>{day}</DayButtonRoot>
+  return <s.DayButtonRoot onClick={onClickButton}>{day}</s.DayButtonRoot>
 }

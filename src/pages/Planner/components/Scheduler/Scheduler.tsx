@@ -1,16 +1,4 @@
 import React, { FC, useState } from 'react'
-import {
-  ButtonWrapper,
-  DataCell,
-  DataCellRow,
-  DateTypo,
-  DayCell,
-  DayTypo,
-  NextButton,
-  PrevButton,
-  Root,
-  Table,
-} from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { compareTime, createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
@@ -22,9 +10,9 @@ import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { useQuery } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
-import { Appointment } from '../Appointment/Appointment'
+import { Appointment, SelectModal } from '..'
 import useRemoveAppointMutation from '../../hooks/useRemoveAppointMutation'
-import { SelectModal } from '../SelectModal/SelectModal'
+import * as s from './styled'
 //직접 scheduler week view 구현
 type SchedulerProps = {
   className?: string
@@ -125,31 +113,31 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const onMouseDown = (date, hour) => () => setSelectedCells([getYYYYMMDD(date) + 'T' + hour])
 
   return (
-    <Root>
-      <ButtonWrapper>
-        <PrevButton onClick={() => setCurrentDate(new Date(currentDate.getTime() - 1000 * 60 * 60 * 24 * 7))} />
+    <s.Root>
+      <s.ButtonWrapper>
+        <s.PrevButton onClick={() => setCurrentDate(new Date(currentDate.getTime() - 1000 * 60 * 60 * 24 * 7))} />
         {currentDate.getMonth() + 1}월
-        <NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
-      </ButtonWrapper>
+        <s.NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
+      </s.ButtonWrapper>
       <SelectModal closeModal={closeModal} title={modalTitle} isOpen={isModalOpen} onExitComplete={onExitComplete} />
-      <Table>
+      <s.Table>
         <tbody>
-          <DataCellRow>
-            <DayCell $today={null}></DayCell>
+          <s.DataCellRow>
+            <s.DayCell $today={null}></s.DayCell>
             {getWeekDates(currentDate).map((date, index) => (
-              <DayCell $today={getYYYYMMDD(now) === getYYYYMMDD(date)} key={getYYYYMMDD(date)}>
-                <DayTypo>{weekDays[index]}</DayTypo>
-                <DateTypo>{getYYYYMMDD(date).slice(-2)}</DateTypo>
-              </DayCell>
+              <s.DayCell $today={getYYYYMMDD(now) === getYYYYMMDD(date)} key={getYYYYMMDD(date)}>
+                <s.DayTypo>{weekDays[index]}</s.DayTypo>
+                <s.DateTypo>{getYYYYMMDD(date).slice(-2)}</s.DateTypo>
+              </s.DayCell>
             ))}
-          </DataCellRow>
+          </s.DataCellRow>
           {createArray(startHour, endHour).map((hour) => (
-            <DataCellRow key={hour}>
-              <DataCell $hour={hour}>
+            <s.DataCellRow key={hour}>
+              <s.DataCell $hour={hour}>
                 <p>{hour <= 12 ? `오전 ${hour}시` : `오후 ${hour - 12}시`}</p>
-              </DataCell>
+              </s.DataCell>
               {getWeekDates(currentDate).map((date) => (
-                <DataCell
+                <s.DataCell
                   key={getYYYYMMDD(date)}
                   $isSelected={selectedCells.includes(getYYYYMMDD(date) + 'T' + hour)}
                   $hour={hour}
@@ -181,12 +169,12 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                       )
                     })}
                   </AnimatePresence>
-                </DataCell>
+                </s.DataCell>
               ))}
-            </DataCellRow>
+            </s.DataCellRow>
           ))}
         </tbody>
-      </Table>
-    </Root>
+      </s.Table>
+    </s.Root>
   )
 }

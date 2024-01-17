@@ -1,5 +1,5 @@
 import React from 'react'
-import { Root, ChartDividingLine, Header, StudyContainer } from './styled'
+import * as s from './styled'
 import { GraphContainer, PieChartContainer, ShareContainer, TimerContainer } from './components'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { ResponseStats } from 'api/common/commonType'
@@ -53,17 +53,17 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
   }
 
   return (
-    <Root>
-      <Header>
+    <s.Root>
+      <s.Header>
         {year}년 {month + 1}월 {date}일
-      </Header>
-      <StudyContainer>
+      </s.Header>
+      <s.StudyContainer>
         <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
         <PieChartContainer studyTimeList={studyTimeList} restTime={restTime} totalStudyTime={totalStudyTime} />
-      </StudyContainer>
-      <ChartDividingLine />
+      </s.StudyContainer>
+      <s.ChartDividingLine />
       <GraphContainer />
       <ShareContainer />
-    </Root>
+    </s.Root>
   )
 }

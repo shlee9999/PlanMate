@@ -2,24 +2,13 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormattedTime } from 'utils/helper'
 import { TodoItemType } from 'types'
-import {
-  Root,
-  LeftWrapper,
-  StartButton,
-  PauseButton,
-  SubjectTitle,
-  Time,
-  RightWrapper,
-  EllipsisButton,
-  RunningTime,
-} from './styled'
-
 import { useTimer } from 'pages/Timer/hooks/useTimer'
 import { RootState } from 'modules'
 import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
-import EllipsisModal from '../EllipsisModal'
+import { EllipsisModal } from '..'
 import moment from 'moment'
 import useUpdateSubjectMutation from '../../hooks/mutations/useUpdateSubjectMutation'
+import * as s from './styled'
 
 export const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
@@ -62,25 +51,24 @@ export const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: To
   }, [time])
 
   return (
-    <Root>
-      <LeftWrapper>
+    <s.Root>
+      <s.LeftWrapper>
         {isTodoTimerRunning ? (
-          <PauseButton color={buttonColor} onClick={onClickPauseButton} fill={buttonColor} />
+          <s.PauseButton color={buttonColor} onClick={onClickPauseButton} fill={buttonColor} />
         ) : (
-          <StartButton color={buttonColor} onClick={onClickStartButton} fill={buttonColor} />
+          <s.StartButton color={buttonColor} onClick={onClickStartButton} fill={buttonColor} />
         )}
-        <SubjectTitle>{title}</SubjectTitle>
-      </LeftWrapper>
-      <RightWrapper>
+        <s.SubjectTitle>{title}</s.SubjectTitle>
+      </s.LeftWrapper>
+      <s.RightWrapper>
         {isTodoTimerRunning ? (
-          <RunningTime color={buttonColor}>{formattedTime}</RunningTime>
+          <s.RunningTime color={buttonColor}>{formattedTime}</s.RunningTime>
         ) : (
-          <Time>{formattedTime}</Time>
+          <s.Time>{formattedTime}</s.Time>
         )}
-        <EllipsisButton onClick={OnClickEllipsisButton}></EllipsisButton>
-      </RightWrapper>
-
+        <s.EllipsisButton onClick={OnClickEllipsisButton}></s.EllipsisButton>
+      </s.RightWrapper>
       <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isOpen={isEllipsisOpen} />
-    </Root>
+    </s.Root>
   )
 }

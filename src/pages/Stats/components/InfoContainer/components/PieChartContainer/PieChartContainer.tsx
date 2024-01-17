@@ -1,5 +1,5 @@
 import React from 'react'
-import { Root, Wrapper, PiechartTitle } from './styled'
+import * as s from './styled'
 import { PieChart } from './PieChart'
 import { StudyTimeEntry } from 'api/common/commonType'
 import { timeToSecond } from 'utils/helper'
@@ -50,15 +50,15 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({ studyTimeL
     })) || [].concat({ name: '', totalTime: 0.01, colorHex: 'transparent' })
 
   return (
-    <Root>
-      <Wrapper>
-        <PiechartTitle>과목별 비율</PiechartTitle>
+    <s.Root>
+      <s.Wrapper>
+        <s.PiechartTitle>과목별 비율</s.PiechartTitle>
         <PieChart data={studyData.length ? studyData : dummyData} index={0} />
-      </Wrapper>
-      <Wrapper>
-        <PiechartTitle>공부/휴식 비율</PiechartTitle>
+      </s.Wrapper>
+      <s.Wrapper>
+        <s.PiechartTitle>공부/휴식 비율</s.PiechartTitle>
         <PieChart data={restData} index={1} />
-      </Wrapper>
-    </Root>
+      </s.Wrapper>
+    </s.Root>
   )
 }

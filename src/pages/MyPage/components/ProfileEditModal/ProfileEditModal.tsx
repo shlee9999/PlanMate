@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useState } from 'react'
-import { Container, NicknameInput, NicknameTypo, Root, Title } from './styled'
-import { ModalWrapper, ModalFooter, WhiteButton, GreenButton, ModalExitButton } from 'commonStyled'
+import * as s from './styled'
+import * as cs from 'commonStyled'
 
 type ProfileEditModalProps = {
   closeModal: () => void
@@ -26,19 +26,19 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickna
     }
   }
   return (
-    <ModalWrapper onClick={closeModal}>
-      <Root onClick={onClickModal}>
-        <Title>닉네임 수정</Title>
-        <Container>
-          <NicknameTypo>닉네임</NicknameTypo>
-          <NicknameInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} />
-        </Container>
-        <ModalFooter>
-          <WhiteButton onClick={closeModal}>취소</WhiteButton>
-          <GreenButton onClick={onClickEditButton}>수정</GreenButton>
-        </ModalFooter>
-        <ModalExitButton onClick={closeModal} />
-      </Root>
-    </ModalWrapper>
+    <cs.ModalWrapper onClick={closeModal}>
+      <s.Root onClick={onClickModal}>
+        <s.Title>닉네임 수정</s.Title>
+        <s.Container>
+          <s.NicknameTypo>닉네임</s.NicknameTypo>
+          <s.NicknameInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} />
+        </s.Container>
+        <cs.ModalFooter>
+          <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+          <cs.GreenButton onClick={onClickEditButton}>수정</cs.GreenButton>
+        </cs.ModalFooter>
+        <cs.ModalExitButton onClick={closeModal} />
+      </s.Root>
+    </cs.ModalWrapper>
   )
 }

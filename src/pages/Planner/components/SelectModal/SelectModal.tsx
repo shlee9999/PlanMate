@@ -1,18 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Root,
-  ModalExitButton,
-  ModalFooter,
-  InputWrapper,
-  ModalTitle,
-  Input,
-  ButtonTypoWrapper,
-  TimeSelectWrapper,
-  ColorSelectWrapper,
-  Title,
-  ColorSelectTypo,
-} from './styled'
+import * as s from './styled'
 import { TimeSelect } from '.'
 import { ColorPicker } from 'components/'
 import { addAppoint, updateAppoint } from 'modules/appointments'
@@ -20,7 +8,7 @@ import { RootState } from 'modules'
 import { useFormattedDate } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
-import { ModalWrapper, WhiteButton, GreenButton, ModalWrapperVar } from 'commonStyled'
+import * as cs from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useAddAppointMutation from '../../hooks/useAddAppointMutation'
 import useEditAppointMutation from '../../hooks/useEditAppointMutation'
@@ -116,44 +104,50 @@ export const SelectModal = ({
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
-        <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
-          <Root onClick={handleModalClick}>
-            <ModalTitle>{title}</ModalTitle>
-            <Title>{useFormattedDate(day)}</Title>
-            <ModalExitButton onClick={closeModal} />
-            <InputWrapper>
-              <ButtonTypoWrapper>
+        <cs.ModalWrapper
+          onClick={closeModal}
+          variants={cs.ModalWrapperVar}
+          initial="initial"
+          animate="visible"
+          exit="exit"
+        >
+          <s.Root onClick={handleModalClick}>
+            <s.ModalTitle>{title}</s.ModalTitle>
+            <s.Title>{useFormattedDate(day)}</s.Title>
+            <s.ModalExitButton onClick={closeModal} />
+            <s.InputWrapper>
+              <s.ButtonTypoWrapper>
                 일정명
-                <Input
+                <s.Input
                   placeholder={'일정명을 입력해주세요'}
                   onChange={onChange}
                   value={inputValue}
                   ref={inputRef}
                   onKeyDown={onKeyDown}
                 />
-              </ButtonTypoWrapper>
-              <ColorSelectWrapper>
-                <ColorSelectTypo>색상선택</ColorSelectTypo>
+              </s.ButtonTypoWrapper>
+              <s.ColorSelectWrapper>
+                <s.ColorSelectTypo>색상선택</s.ColorSelectTypo>
                 <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
-              </ColorSelectWrapper>
+              </s.ColorSelectWrapper>
               {/* <ButtonTypoWrapper>
               요일
               <DaySelect assignSubjectDay={}></DaySelect>
             </ButtonTypoWrapper> */}
-              <ButtonTypoWrapper>
+              <s.ButtonTypoWrapper>
                 시간
-                <TimeSelectWrapper>
+                <s.TimeSelectWrapper>
                   <TimeSelect set={'부터'} />
                   <TimeSelect set={'까지'} />
-                </TimeSelectWrapper>
-              </ButtonTypoWrapper>
-            </InputWrapper>
-            <ModalFooter>
-              <WhiteButton onClick={closeModal}>취소</WhiteButton>
-              <GreenButton onClick={onClickConfirm}>확인</GreenButton>
-            </ModalFooter>
-          </Root>
-        </ModalWrapper>
+                </s.TimeSelectWrapper>
+              </s.ButtonTypoWrapper>
+            </s.InputWrapper>
+            <s.ModalFooter>
+              <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+              <cs.GreenButton onClick={onClickConfirm}>확인</cs.GreenButton>
+            </s.ModalFooter>
+          </s.Root>
+        </cs.ModalWrapper>
       )}
     </AnimatePresence>
   )

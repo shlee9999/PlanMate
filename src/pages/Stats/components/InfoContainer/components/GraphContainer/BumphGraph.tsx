@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComposedChart, Line, Area, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { ComposedChart, Line, Area, XAxis, CartesianGrid, ResponsiveContainer } from 'recharts'
 // Line 그래프
 interface Data {
   hour: string
