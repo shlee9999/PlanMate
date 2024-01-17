@@ -5,10 +5,10 @@ import { ModalFooter, GreenButton, WhiteButton, ModalExitButton } from 'commonSt
 type DeleteModalProps = {
   title: string
   closeModal: () => void
-  confirm: () => void
+  deleteConfirm: () => void
 }
 
-export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, confirm }) => {
+export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteConfirm: confirm }) => {
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
   }

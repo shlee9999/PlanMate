@@ -1,31 +1,34 @@
-import { createSubject } from 'api/subject/createSubject'
+import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSubject'
+import { StudyTimeResponseProps } from 'api/subject/studyTime'
 import { useMutation, useQueryClient } from 'react-query'
 import { TodoItemType } from 'types'
 
 function useCreateSubjectMutation() {
   const queryClient = useQueryClient()
   const { mutate: mutateCreateSubject } = useMutation(
-    ({ colorHex, name }: { colorHex: string; name: string; callBack: () => void }) =>
+    ({ colorHex, name }: { colorHex: string; name: string }) =>
       createSubject({
         colorHex,
         name,
       }),
     {
-      onMutate: ({ colorHex, name, callBack }) => {
+      onMutate: ({ colorHex, name }) => {
         const prevData = queryClient.getQueryData('todoList')
-        queryClient.setQueryData<TodoItemType[]>('todoList', (prev) =>
+        queryClient.setQueryData<StudyTimeResponseProps>('todoList', (prev) =>
           prev.concat({
             subjectId: new Date().getTime(),
             name,
             colorHex,
-            time: 0,
+            studyTimeHours: 0,
+            studyTimeMinutes: 0,
+            studyTimeSeconds: 0,
           })
         )
-        callBack()
         return { prevData }
       },
       onSuccess: () => {
         console.log('success add')
+        queryClient.invalidateQueries('todoList')
       },
       onError: (err, variables, context) => {
         queryClient.setQueryData('todoList', context.prevData)

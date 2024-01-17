@@ -19,6 +19,7 @@ export const Root = styled(PageRoot)`
       right: calc((100vw - ${BODY_MAX_WIDTH}px) / 2);
     }
   }
+  padding-bottom: 30px;
 `
 
 export const SizedBox = styled.div`

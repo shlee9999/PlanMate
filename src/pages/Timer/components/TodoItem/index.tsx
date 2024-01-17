@@ -26,18 +26,11 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
   const dispatch = useDispatch()
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const closeModal = () => setIsEllipsisOpen(false)
   const { startTimer, stopTimer, time } = useTimer({ defaultTime: todo.time })
-  const formattedTime: string = useFormattedTime(time)
+  const formattedTime: string = useFormattedTime(+time)
   const [startTime, setStartTime] = useState<string>('')
-
-  const startTotalTimer = (): void => {
-    dispatch(runTimer())
-  }
-
-  const stopTotalTimer = (): void => {
-    dispatch(pauseTimer())
-  }
+  const startTotalTimer = () => dispatch(runTimer())
+  const stopTotalTimer = () => dispatch(pauseTimer())
 
   const onClickStartButton = (): void => {
     setStartTime(moment().format('HH:mm:ss')) //백엔드 리스폰스 확인할것
@@ -55,17 +48,9 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
       stopTotalTimer()
     },
   })
-  const onClickPauseButton = (): void => {
-    mutateUpdateSubject()
-  }
-
-  const OnClickEllipsisButton = () => {
-    if (isTotalTimerRunning) return
-    setIsEllipsisOpen(true)
-  }
-  const closeEllipsisModal = () => {
-    setIsEllipsisOpen(false)
-  }
+  const onClickPauseButton = () => mutateUpdateSubject()
+  const OnClickEllipsisButton = () => !isTotalTimerRunning && setIsEllipsisOpen(true)
+  const closeEllipsisModal = () => setIsEllipsisOpen(false)
 
   useEffect(() => {
     if (!isTodoTimerRunning) stopTimer()
@@ -92,7 +77,6 @@ const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemT
         ) : (
           <Time>{formattedTime}</Time>
         )}
-
         <EllipsisButton onClick={OnClickEllipsisButton}></EllipsisButton>
       </RightWrapper>
 

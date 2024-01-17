@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { defaultColor } from 'constants/color'
 import { Root, InfoContainer, ModalTitle, NameInput, UpperWrapper, LowerWrapper, LowerTypo } from './styled'
-import ColorPickerModal from 'components/ColorPickerModal'
 import { ColorPicker } from 'components/ColorPickerModal/ColorPicker'
 import { ModalExitButton, ModalFooter, WhiteButton, GreenButton, ModalWrapper, ModalWrapperVar } from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
@@ -19,14 +18,10 @@ type ActionModalProps = {
 const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: ActionModalProps) => {
   const [inputValue, setInputValue] = useState<string>(todo?.name || '')
   const [subjectColor, setSubjectColor] = useState<string>(todo?.colorHex || defaultColor)
-  const [isColorPickerModalOpen, setIsColorPickerModalOpen] = useState<boolean>(false)
+  const [isConfirmed, setIsConfirmed] = useState(false)
   const inputRef = useRef<HTMLInputElement>()
-  const mutateEditSubject = useEditSubjectMutation()
   const mutateCreateSubject = useCreateSubjectMutation()
-  const closeColorPickerModal = () => {
-    setIsColorPickerModalOpen(false)
-    inputRef.current?.focus()
-  }
+  const mutateEditSubject = useEditSubjectMutation()
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter' && !e.nativeEvent.isComposing) onClickConfirmButton()
@@ -37,33 +32,35 @@ const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: Act
 
   const onClickConfirmButton = () => {
     if (inputValue === '') return
-    if (type === 'ADD') {
-      mutateCreateSubject({
-        colorHex: subjectColor,
-        name: inputValue,
-        callBack: () => {
-          setInputValue('')
-          closeModal()
-        },
-      })
-    } else {
+    setIsConfirmed(true)
+    if (type === 'ADD') closeModal()
+    else {
       //EDIT
+      closeModalAll()
       mutateEditSubject({
         colorHex: subjectColor,
         name: inputValue,
         subjectId: todo.subjectId,
-        callBack: closeModalAll,
       })
     }
   }
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
+  const onExitComplete = () => {
+    if (!isConfirmed) return
+    if (type === 'ADD')
+      mutateCreateSubject({
+        colorHex: subjectColor,
+        name: inputValue,
+      })
+    setIsConfirmed(false)
+  }
   useEffect(() => {
     inputRef?.current?.focus()
     if (type === 'ADD') setSubjectColor(defaultColor)
   }, [isOpen])
   if (type === 'ADD')
     return (
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={onExitComplete}>
         {isOpen && (
           <ModalWrapper onClick={closeModal} variants={ModalWrapperVar} initial="initial" animate="visible" exit="exit">
             <Root onClick={onClickModal}>
@@ -88,9 +85,6 @@ const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: Act
                 <WhiteButton onClick={closeModal}>취소</WhiteButton>
                 <GreenButton onClick={onClickConfirmButton}>확인</GreenButton>
               </ModalFooter>
-              {isColorPickerModalOpen && (
-                <ColorPickerModal closeModal={closeColorPickerModal} assignSubjectColor={assignSubjectColor} />
-              )}
             </Root>
           </ModalWrapper>
         )}
