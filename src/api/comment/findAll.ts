@@ -1,17 +1,13 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponseCommentType } from 'api/common/commonType'
+import { CommentType } from 'types'
 
-export type FindAllCommentsRequestProps = {
-  pages: number
-  postId: number
-}
+export type FindAllCommentsRequestProps = Pick<CommentType, 'pages' | 'postId'>
 
-export type FindAllCommentsResponseProps = {
-  commentDtoList: ResponseCommentType[]
-  totalCount: number
-  totalPages: number
-}
+export type FindAllCommentsResponseProps = Pick<CommentType, 'commentDtoList' | 'totalCount' | 'totalPages'>
 
-export const findAllComments = (obj: FindAllCommentsRequestProps): Promise<FindAllCommentsResponseProps> => {
-  return axiosPOST('/comment/find/all', obj)
-}
+/**해당 게시물 페이지 댓글 찾기 */
+export const findAllComments = ({
+  pages,
+  postId,
+}: FindAllCommentsRequestProps): Promise<FindAllCommentsResponseProps> =>
+  axiosPOST('/comment/find/all', { pages, postId })

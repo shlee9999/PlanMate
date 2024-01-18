@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from 'react-query'
 type MutationProps = {
   postId: number
 }
+/**게시물 좋아요*/
 function useLikePostMutation() {
   const queryClient = useQueryClient()
 

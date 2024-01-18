@@ -8,6 +8,7 @@ type MutationProps = {
   currentPage: number
   callBack?: () => void
 }
+/**댓글 삭제*/
 function useDeleteCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(

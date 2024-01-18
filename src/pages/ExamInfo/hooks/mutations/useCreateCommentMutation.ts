@@ -11,6 +11,14 @@ type MutationProps = {
   isAuthor: boolean
   memberName: string
 }
+/**댓글 생성
+ * @currentPage 댓글 페이지
+ * @content 댓글 내용
+ * @postId
+ * @callBack
+ * @isAuthor 댓글 작성자가 글 작성자인지
+ * @memberName 댓글 작성자 닉네임
+ */
 function useCreateCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ content, postId }: MutationProps) => createComment({ content, postId }), {

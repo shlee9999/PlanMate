@@ -1,20 +1,13 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { CommentType } from 'types'
 
-export type ModifyCommentRequestProps = {
-  commentId: number
-  content: string
-}
+export type ModifyCommentRequestProps = Pick<CommentType, 'commentId' | 'content'>
 
-export type ModifyCommentResponseProps = {
-  commentId: number
-  content: string
-  isAuthor: boolean
-  isMyHearted: boolean
-  likeCount: number
-  memberName: string
-  updatedAt: string
-}
+export type ModifyCommentResponseProps = Pick<
+  CommentType,
+  'commentId' | 'content' | 'isAuthor' | 'isMyHearted' | 'likeCount' | 'memberName' | 'updatedAt'
+>
 
-export const modifyComment = (obj: ModifyCommentRequestProps) => {
-  return axiosPOST('/comment/modify', obj)
-}
+/**댓글 수정 */
+export const modifyComment = ({ commentId, content }: ModifyCommentRequestProps) =>
+  axiosPOST('/comment/modify', { commentId, content })

@@ -1,17 +1,10 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { CommentType } from 'types'
 
-export type CreateCommentRequestProps = {
-  content: string
-  postId: number
-}
+export type CreateCommentRequestProps = Pick<CommentType, 'content' | 'postId'>
 
-export type CreateCommentResponseProps = {
-  commentId: number
-  content: string
-  memberName: string
-  updatedAt: string
-}
+export type CreateCommentResponseProps = Pick<CommentType, 'commentId' | 'content' | 'memberName' | 'updatedAt'>
 
-export const createComment = (obj: CreateCommentRequestProps) => {
-  return axiosPOST('/comment/create', obj)
-}
+/**댓글 생성 */
+export const createComment = ({ content, postId }: CreateCommentRequestProps) =>
+  axiosPOST('/comment/create', { content, postId })

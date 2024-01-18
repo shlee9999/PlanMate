@@ -7,6 +7,29 @@ type MutationProps = ModifyCommentRequestProps & {
   currentPage: number
   callBack: () => void
 }
+/**
+ * useModifyComment - 댓글 수정을 위한 커스텀 훅
+ *
+ * @usedBy ExamInfoComment
+ * @description
+ * - 수정된 댓글 내용을 서버에 반영
+ * - 뮤테이션 후 상태 관리 및 캐시 업데이트
+ *
+
+ *
+ * @returns {Function} mutateModifyComment - 댓글 수정 뮤테이션 함수
+ *
+ * @example
+ * const mutateModifyComment = useModifyComment();
+ * mutateModifyComment({
+ *   content: '수정된 내용',
+ *   commentId: 1,
+ *   postId: 123,
+ *   currentPage: 1,
+ *   callBack: () => console.log('댓글 수정 완료')
+ * });
+ */
+
 function useModifyComment() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ content, commentId }: MutationProps) => modifyComment({ content, commentId }), {
