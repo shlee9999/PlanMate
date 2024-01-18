@@ -1,13 +1,10 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { CommentType } from 'types'
 
-export type CreateChildCommentRequestProps = {
-  content: string
-  parentCommentId: number
-  postId: number
-}
+export type CreateChildCommentRequestProps = Pick<CommentType, 'content' | 'parentCommentId' | 'postId'>
 
 export type CreateChildCommentResponseProps = boolean
 
-export const createChildComment = (req: CreateChildCommentRequestProps) => {
-  return axiosPOST('comment/child/create', req)
-}
+/**답글 생성 */
+export const createChildComment = ({ content, parentCommentId, postId }: CreateChildCommentRequestProps) =>
+  axiosPOST('comment/child/create', { content, parentCommentId, postId })

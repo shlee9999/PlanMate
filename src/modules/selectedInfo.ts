@@ -1,12 +1,12 @@
 import { defaultColor } from 'constants/color'
-import { IAppointment } from 'types'
+import { PlannerType } from 'types'
 import { dateUtils } from 'utils/helper'
 
 const UPDATE_INFO = 'selectedInfo/UPDATE_INFO' as const
 const UPDATE_PROP = 'selectedInfo/UPDATE_PROP' as const
 
 //Info
-type ISelectedInfo = IAppointment
+type ISelectedInfo = PlannerType
 
 export const updateInfo = (Info: ISelectedInfo) => ({
   type: UPDATE_INFO,

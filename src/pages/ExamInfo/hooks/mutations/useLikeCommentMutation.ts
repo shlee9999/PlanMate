@@ -7,6 +7,7 @@ type MutationProps = {
   postId: number
   currentPage: number
 }
+/**댓글 좋아요*/
 function useLikeCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ commentId }: MutationProps) => likeComment({ commentId }), {

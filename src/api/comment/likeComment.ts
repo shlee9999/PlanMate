@@ -1,11 +1,9 @@
 import { axiosGET } from 'api/common/commonAxios'
+import { CommentType } from 'types'
 
-export type LikeCommentRequestProps = {
-  commentId: number
-}
+export type LikeCommentRequestProps = Pick<CommentType, 'commentId'>
 
 export type LikeCommentResponseProps = boolean
 
-export const likeComment = (req: LikeCommentRequestProps) => {
-  return axiosGET('/comment/like', req)
-}
+/**댓글 좋아요 */
+export const likeComment = ({ commentId }: LikeCommentRequestProps) => axiosGET('/comment/like', { commentId })

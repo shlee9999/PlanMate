@@ -1,11 +1,6 @@
 import { axiosDELETE } from 'api/common/commonAxios'
+import { PlannerType } from 'types'
 
-export type RemovePlannerRequestProps = {
-  plannerId: number
-}
+export type RemovePlannerRequestProps = Pick<PlannerType, 'plannerId'>
 
-export type RemovePlannerResponseProps = boolean
-
-export const removePlanner = (req: RemovePlannerRequestProps) => {
-  return axiosDELETE('/planner/remove', req)
-}
+export const removePlanner = ({ plannerId }: RemovePlannerRequestProps) => axiosDELETE('/planner/remove', { plannerId })

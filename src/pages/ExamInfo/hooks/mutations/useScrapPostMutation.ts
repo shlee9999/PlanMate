@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from 'react-query'
 type MutationProps = {
   postId: number
 }
+/**게시물 스크랩 */
 function useScrapPostMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ postId }: MutationProps) => scrapPost({ postId }), {

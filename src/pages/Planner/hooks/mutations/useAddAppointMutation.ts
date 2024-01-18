@@ -1,8 +1,8 @@
 import { addPlanner } from 'api/planner/addPlanner'
 import { useMutation, useQueryClient } from 'react-query'
-import { IAppointment } from 'types'
+import { PlannerType } from 'types'
 
-function useAddAppointMutation({ colorHex, day, startAt, endAt, scheduleName }: Omit<IAppointment, 'plannerId'>) {
+function useAddAppointMutation({ colorHex, day, startAt, endAt, scheduleName }: Omit<PlannerType, 'plannerId'>) {
   const queryClient = useQueryClient()
   const { mutate: mutateAddAppoint } = useMutation(
     () =>
@@ -15,8 +15,8 @@ function useAddAppointMutation({ colorHex, day, startAt, endAt, scheduleName }: 
       }),
     {
       onMutate: async () => {
-        const previousAppointments = queryClient.getQueryData<IAppointment[]>(['plannerData'])
-        queryClient.setQueryData<IAppointment[]>(
+        const previousAppointments = queryClient.getQueryData<PlannerType[]>(['plannerData'])
+        queryClient.setQueryData<PlannerType[]>(
           ['plannerData'],
           (prev) => prev.concat({ colorHex, day, startAt, endAt, scheduleName, plannerId: new Date().getTime() }) // tempId
         )

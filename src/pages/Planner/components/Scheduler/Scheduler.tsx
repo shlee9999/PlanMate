@@ -5,7 +5,7 @@ import { dateUtils, numberUtils, timeUtils } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
 import { initializeAppoint, removeAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
-import { IAppointment } from 'types'
+import { PlannerType } from 'types'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { useQuery } from 'react-query'
@@ -64,7 +64,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     setSelectedCells([])
   }
 
-  const onClickAppointment = (appoint: IAppointment) => () => {
+  const onClickAppointment = (appoint: PlannerType) => () => {
     dispatch(
       updateInfo({
         ...appoint,

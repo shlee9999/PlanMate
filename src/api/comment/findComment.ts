@@ -1,15 +1,9 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponseCommentType } from 'api/common/commonType'
+import { CommentType } from 'types'
 
-export type FindCommentRequestProps = {
-  pages: number
-}
+export type FindCommentRequestProps = Pick<CommentType, 'pages'>
 
-export type FindCommentResponseProps = {
-  commentDtoList: ResponseCommentType[]
-  totalPages: number
-}
+export type FindCommentResponseProps = Pick<CommentType, 'commentDtoList' | 'totalPages'>
 
-export const findComment = (req: FindCommentRequestProps) => {
-  return axiosGET('/comment/find/', req)
-}
+/**자신이 작성한 댓글 찾기 */
+export const findComment = ({ pages }: FindCommentRequestProps) => axiosGET('/comment/find/', { pages })

@@ -1,11 +1,9 @@
 import { axiosDELETE } from 'api/common/commonAxios'
+import { CommentType } from 'types'
 
-export type RemoveCommentRequestProps = {
-  commentId: number
-}
+export type RemoveCommentRequestProps = Pick<CommentType, 'commentId'>
 
 export type RemoveCommentResponseProps = boolean
 
-export const removeComment = (req: RemoveCommentRequestProps) => {
-  return axiosDELETE('/comment/remove', req)
-}
+/**댓글 삭제 */
+export const removeComment = ({ commentId }: RemoveCommentRequestProps) => axiosDELETE('/comment/remove', { commentId })

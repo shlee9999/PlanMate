@@ -1,3 +1,5 @@
+import { CommentType } from 'types'
+
 export type ResponsePostType = {
   commentCount: number
   content: string
@@ -37,16 +39,10 @@ export type ResponseTimeProps = {
   year: string
 }
 
-export type ResponseCommentType = {
-  commentId: number
-  content: string
-  isAuthor: boolean
-  isMyHearted: boolean
-  likeCount: number
-  memberName: string
-  updatedAt: string
-  postId: number
-}
+export type ResponseCommentType = Pick<
+  CommentType,
+  'commentId' | 'content' | 'isAuthor' | 'isMyHearted' | 'likeCount' | 'memberName' | 'updatedAt' | 'postId'
+>
 
 export type StudyTimeEntry = {
   name: string
