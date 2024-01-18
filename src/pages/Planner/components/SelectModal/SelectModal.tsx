@@ -4,13 +4,14 @@ import { TimeSelect } from '.'
 import { ColorPicker } from 'components/'
 import { addAppoint, updateAppoint } from 'modules/appointments'
 import { RootState } from 'modules'
-import { useFormattedDate } from 'utils/helper'
+
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { AnimatePresence } from 'framer-motion'
 import { useAddAppointMutation, useEditAppointMutation } from '../../hooks/mutations/'
 import * as cs from 'commonStyled'
 import * as s from './styled'
+import { dateUtils } from 'utils/helper'
 
 export const SelectModal = ({
   closeModal,
@@ -112,7 +113,7 @@ export const SelectModal = ({
         >
           <s.Root onClick={handleModalClick}>
             <s.ModalTitle>{title}</s.ModalTitle>
-            <s.Title>{useFormattedDate(day)}</s.Title>
+            <s.Title>{dateUtils.getFormattedDate(day)}</s.Title>
             <s.ModalExitButton onClick={closeModal} />
             <s.InputWrapper>
               <s.ButtonTypoWrapper>

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useFormattedTime } from 'utils/helper'
 import { TodoItemType } from 'types'
 import { useTimer } from 'pages/Timer/hooks'
 import { RootState } from 'modules'
 import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
 import { EllipsisModal } from '..'
 import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
+import { timeUtils } from 'utils/helper'
 import moment from 'moment'
 import * as s from './styled'
 
@@ -16,7 +16,7 @@ export const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: To
   const dispatch = useDispatch()
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
   const { startTimer, stopTimer, time } = useTimer({ defaultTime: todo.time })
-  const formattedTime: string = useFormattedTime(+time)
+  const formattedTime: string = timeUtils.getFormattedTime(+time)
   const [startTime, setStartTime] = useState<string>('')
   const startTotalTimer = () => dispatch(runTimer())
   const stopTotalTimer = () => dispatch(pauseTimer())

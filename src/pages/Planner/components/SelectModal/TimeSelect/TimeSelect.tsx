@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { updateInfo } from 'modules/selectedInfo'
-import { useFormattedTime } from 'utils/helper'
+import { timeUtils } from 'utils/helper'
 import * as s from './styled'
 
 type TimeSelectModeProps = {
@@ -30,7 +30,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
           scheduleName: scheduleName,
           colorHex: bgColor,
           plannerId: id,
-          startAt: useFormattedTime(+e.target.value * 60 * 60),
+          startAt: timeUtils.getFormattedTime(+e.target.value * 60 * 60),
           day,
         })
       )
@@ -38,7 +38,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
       dispatch(
         updateInfo({
           startAt: startAt,
-          endAt: useFormattedTime(+e.target.value * 60 * 60),
+          endAt: timeUtils.getFormattedTime(+e.target.value * 60 * 60),
           scheduleName: scheduleName,
           colorHex: bgColor,
           plannerId: id,

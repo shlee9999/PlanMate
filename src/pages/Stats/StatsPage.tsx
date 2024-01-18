@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { getDateInfo, getYYYYMMDD, isEqualDate } from 'utils/helper'
-import * as s from './styled'
+import { dateUtils } from 'utils/helper'
 import { useQuery } from 'react-query'
-import { checkStats } from 'api/stats/checkStats'
 import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
 import { Calendar, InfoContainer } from './components'
 import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
+import * as s from './styled'
 
 export type DateProps = {
   year: number
@@ -40,18 +39,18 @@ const defaultStats = {
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DateProps>(() => {
-    const { year, month, date } = getDateInfo(new Date())
+    const { year, month, date } = dateUtils.getDateProps(new Date())
     return { year, month, date }
   })
   const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>(['todayStats'], () => checkTodayStats())
   const { data: selectedMonthStats, isLoading: isSelectedLoading } = useQuery<ResponseStats[]>(
-    ['timeInfo', selectedDate.month + 1 + '월'],
+    ['timeInfo', dateUtils.getYYYYMMDD(selectedDate)],
     () =>
       checkStatsMonthly({
-        yearMonth: getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
+        yearMonth: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
       })
   )
-  const isToday = isEqualDate(selectedDate, getDateInfo(new Date()))
+  const isToday = dateUtils.isEqual(selectedDate, dateUtils.getDateProps(new Date()))
   const isLoading = isSelectedLoading || todayLoading
   const selectedDateData: ResponseStats = isLoading
     ? defaultStats

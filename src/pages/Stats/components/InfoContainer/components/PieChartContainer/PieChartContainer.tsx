@@ -1,9 +1,9 @@
 import React from 'react'
-import * as s from './styled'
 import { PieChart } from './PieChart'
 import { StudyTimeEntry } from 'api/common/commonType'
-import { timeToSecond } from 'utils/helper'
 import { TimeProps } from 'types'
+import * as s from './styled'
+import { timeUtils } from 'utils/helper'
 
 export interface PieChartData {
   name: string
@@ -28,12 +28,12 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({ studyTimeL
   const restData: PieChartData[] = [
     {
       name: '공부',
-      totalTime: timeToSecond(totalStudyTime),
+      totalTime: timeUtils.timeToSecond(totalStudyTime),
       colorHex: colorList[2],
     },
     {
       name: '휴식',
-      totalTime: timeToSecond(restTime) || 1,
+      totalTime: timeUtils.timeToSecond(restTime) || 1,
       colorHex: '#D9D9D9',
     },
   ]
@@ -41,7 +41,7 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({ studyTimeL
     studyTimeList.slice(0, 5).map((studyTime, index) => ({
       name: studyTime.name,
       totalTime:
-        timeToSecond({
+        timeUtils.timeToSecond({
           hour: studyTime.studyTimeHours,
           minute: studyTime.studyTimeMinutes,
           second: studyTime.studyTimeSeconds,
