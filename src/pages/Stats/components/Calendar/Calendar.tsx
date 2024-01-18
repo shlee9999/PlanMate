@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import * as s from './styled'
 import { weekDays } from 'constants/week'
-import { getDateInfo, getWeekDates, weekCount } from 'utils/helper'
+import { dateUtils } from 'utils/helper'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { DateCell } from './DateCell'
@@ -21,11 +21,11 @@ const MonthVar: Variants = {
 }
 export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, selectedDate, dataSource }) => {
   const onClickNext = () => {
-    setSelectedDate(getDateInfo(new Date(selectedDate.year, selectedDate.month + 1, 1)))
+    setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year, selectedDate.month + 1, 1)))
     setBack(false)
   }
   const onClickPrev = () => {
-    setSelectedDate(getDateInfo(new Date(selectedDate.year, selectedDate.month - 1, 1)))
+    setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year, selectedDate.month - 1, 1)))
     setBack(true)
   }
   const [back, setBack] = useState(false)
@@ -65,12 +65,12 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
             transition={{ duration: 0.5 }}
             custom={back}
           >
-            {Array.from(Array(weekCount(selectedDate.year, selectedDate.month + 1)).keys()).map((week) => (
+            {Array.from(Array(dateUtils.getWeekCount(selectedDate.year, selectedDate.month + 1)).keys()).map((week) => (
               <s.WeekRow key={week}>
-                {getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
+                {dateUtils.getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
                   <DateCell
                     key={date.getTime()}
-                    onClick={() => setSelectedDate(getDateInfo(date))}
+                    onClick={() => setSelectedDate(dateUtils.getDateProps(date))}
                     cellDate={{
                       year: date.getFullYear(),
                       month: date.getMonth(),

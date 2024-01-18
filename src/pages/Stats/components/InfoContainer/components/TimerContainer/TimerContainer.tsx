@@ -1,8 +1,8 @@
 import React from 'react'
-import { useFormattedTime } from 'utils/helper'
+import { timeUtils } from 'utils/helper'
 import { Timer } from './Timer'
-import * as s from './styled'
 import { TimeProps } from 'types'
+import * as s from './styled'
 
 //총 공부시간, 최대 집중 시간
 
@@ -22,8 +22,8 @@ export const TimerContainer: React.FC<TimerContainerProps> = ({
 }) => {
   return (
     <s.Root $type={type}>
-      {totalFocusTime && <Timer title="총 공부시간" text={useFormattedTime(totalFocusTime)} />}
-      {maxFocusTime && <Timer title="최대 집중 시간" text={useFormattedTime(maxFocusTime)} />}
+      {totalFocusTime && <Timer title="총 공부시간" text={timeUtils.getFormattedTime(totalFocusTime)} />}
+      {maxFocusTime && <Timer title="최대 집중 시간" text={timeUtils.getFormattedTime(maxFocusTime)} />}
       <Timer
         title="시작시간"
         text={startAt.hour.toString().padStart(2, '0') + '시 ' + startAt.minute.toString().padStart(2, '0') + '분'}

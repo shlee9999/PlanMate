@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { TimeProps, TodoItemType } from 'types'
 import { useState, FC, useEffect } from 'react'
-import { daysUntil, getDateInfo, timeToSecond, useFormattedDate, useFormattedTimeKorean } from 'utils/helper'
+import { dateUtils, daysUntil, timeUtils } from 'utils/helper'
 import { RootState } from 'modules'
 import { initializeTimer } from 'modules/timer'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
@@ -23,7 +23,7 @@ import { CenterSpinner } from 'commonStyled'
 import * as s from './styled'
 
 export const TimerPage: FC = () => {
-  const now = getDateInfo(new Date())
+  const now = dateUtils.getDateProps(new Date())
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
   const [fixedDDay, setFixedDDay] = useState<FindFixedScheduleResponseProps>()
@@ -34,7 +34,11 @@ export const TimerPage: FC = () => {
         colorHex: todo.colorHex,
         name: todo.name,
         subjectId: todo.subjectId,
-        time: timeToSecond({ hour: todo.studyTimeHours, minute: todo.studyTimeMinutes, second: todo.studyTimeSeconds }),
+        time: timeUtils.timeToSecond({
+          hour: todo.studyTimeHours,
+          minute: todo.studyTimeMinutes,
+          second: todo.studyTimeSeconds,
+        }),
       }))
   const { data: statsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
     checkTodayStats()
@@ -42,7 +46,7 @@ export const TimerPage: FC = () => {
   const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const formattedDate: string = useFormattedDate(new Date())
+  const formattedDate: string = dateUtils.getFormattedDate(new Date())
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const openModal = (): void => {
@@ -129,7 +133,7 @@ export const TimerPage: FC = () => {
               <s.UpperDescriptionTypo>오늘의 공부량이에요!</s.UpperDescriptionTypo>
               <TimerWidget totalTime={totalTime} />
               <s.LowerDescriptionTypo>
-                오늘은 휴식 시간을 <s.YellowTypo>{useFormattedTimeKorean(breakTime)}</s.YellowTypo> 가졌네요!
+                오늘은 휴식 시간을 <s.YellowTypo>{timeUtils.getFormattedTimeKorean(breakTime)}</s.YellowTypo> 가졌네요!
               </s.LowerDescriptionTypo>
             </s.ResultContainer>
           </s.LeftContainer>

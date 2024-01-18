@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import * as s from './styled'
 import { DateProps } from 'pages/Stats/StatsPage'
-import { isEqualDate } from 'utils/helper'
+import { dateUtils } from 'utils/helper'
+import * as s from './styled'
 
 type DateCellProps = {
   onClick: (e: React.MouseEvent) => void
@@ -28,7 +28,7 @@ const getClassName = (cellDate, selectedDate) => {
 
 export const DateCell: FC<DateCellProps> = ({ onClick, cellDate, selectedDate, studyTimeHours = 0 }) => {
   const className = getClassName(cellDate, selectedDate)
-  const isSelected = isEqualDate(cellDate, selectedDate)
+  const isSelected = dateUtils.isEqual(cellDate, selectedDate)
   const opacity = getIndex(studyTimeHours)
 
   return (

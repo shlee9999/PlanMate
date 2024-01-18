@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { compareTime, createArray, getWeekDates, getYYYYMMDD, useFormattedTime } from 'utils/helper'
+import { dateUtils, numberUtils, timeUtils } from 'utils/helper'
 import { updateInfo } from 'modules/selectedInfo'
-import { initializeAppoint, removeAppoint, updateAppoint } from 'modules/appointments'
+import { initializeAppoint, removeAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { IAppointment } from 'types'
 import { AnimatePresence } from 'framer-motion'
@@ -55,7 +55,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         scheduleName: '',
         colorHex: defaultColor,
         plannerId: new Date().getTime(),
-        day: getYYYYMMDD(new Date()),
+        day: dateUtils.getYYYYMMDD(new Date()),
       })
     )
   }
@@ -76,9 +76,9 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     if (selectedCells.length === 0) return
     const startTime = +selectedCells[0].split('T')[1] * 60 * 60
     const endTime = (+selectedCells[selectedCells.length - 1].split('T')[1] + 1) * 60 * 60
-    const { smaller, larger } = compareTime(startTime, endTime)
-    const startHour = useFormattedTime(smaller)
-    const endHour = useFormattedTime(larger)
+    const { smaller, larger } = timeUtils.compareTime(startTime, endTime)
+    const startHour = timeUtils.getFormattedTime(smaller)
+    const endHour = timeUtils.getFormattedTime(larger)
     const year = +selectedCells[0].slice(0, 4)
     const month = +selectedCells[0].slice(5, 7)
     const date = +selectedCells[0].slice(8, 10)
@@ -89,7 +89,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         scheduleName: text,
         colorHex: bgColor,
         plannerId: new Date().getTime(), // tempId
-        day: getYYYYMMDD({
+        day: dateUtils.getYYYYMMDD({
           year,
           month,
           date,
@@ -101,16 +101,16 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const onMouseEnter = (date, hour) => (e) => {
     if (e.buttons !== 1) return
     if (
-      (selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`) &&
-        !selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`)) ||
-      (selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour + 1}`) &&
-        !selectedCells.includes(getYYYYMMDD(date) + 'T' + `${hour - 1}`))
+      (selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour - 1}`) &&
+        !selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour + 1}`)) ||
+      (selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour + 1}`) &&
+        !selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour - 1}`))
     )
-      setSelectedCells((prev) => prev.concat(getYYYYMMDD(date) + 'T' + hour))
+      setSelectedCells((prev) => prev.concat(dateUtils.getYYYYMMDD(date) + 'T' + hour))
     else setSelectedCells([])
   }
 
-  const onMouseDown = (date, hour) => () => setSelectedCells([getYYYYMMDD(date) + 'T' + hour])
+  const onMouseDown = (date, hour) => () => setSelectedCells([dateUtils.getYYYYMMDD(date) + 'T' + hour])
 
   return (
     <s.Root>
@@ -124,23 +124,26 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         <tbody>
           <s.DataCellRow>
             <s.DayCell $today={null}></s.DayCell>
-            {getWeekDates(currentDate).map((date, index) => (
-              <s.DayCell $today={getYYYYMMDD(now) === getYYYYMMDD(date)} key={getYYYYMMDD(date)}>
+            {dateUtils.getWeekDates(currentDate).map((date, index) => (
+              <s.DayCell
+                $today={dateUtils.getYYYYMMDD(now) === dateUtils.getYYYYMMDD(date)}
+                key={dateUtils.getYYYYMMDD(date)}
+              >
                 <s.DayTypo>{weekDays[index]}</s.DayTypo>
-                <s.DateTypo>{getYYYYMMDD(date).slice(-2)}</s.DateTypo>
+                <s.DateTypo>{dateUtils.getYYYYMMDD(date).slice(-2)}</s.DateTypo>
               </s.DayCell>
             ))}
           </s.DataCellRow>
-          {createArray(startHour, endHour).map((hour) => (
+          {numberUtils.createSequentialNumbers(startHour, endHour).map((hour) => (
             <s.DataCellRow key={hour}>
-              <s.DataCell $hour={hour}>
+              <s.DataCell $hour={hour + ''}>
                 <p>{hour <= 12 ? `오전 ${hour}시` : `오후 ${hour - 12}시`}</p>
               </s.DataCell>
-              {getWeekDates(currentDate).map((date) => (
+              {dateUtils.getWeekDates(currentDate).map((date) => (
                 <s.DataCell
-                  key={getYYYYMMDD(date)}
-                  $isSelected={selectedCells.includes(getYYYYMMDD(date) + 'T' + hour)}
-                  $hour={hour}
+                  key={dateUtils.getYYYYMMDD(date)}
+                  $isSelected={selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + hour)}
+                  $hour={hour + ''}
                   onMouseDown={onMouseDown(date, hour)}
                   onMouseEnter={onMouseEnter(date, hour)}
                   onMouseUp={onMouseUp}
@@ -148,7 +151,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                   <AnimatePresence>
                     {appointments.map((app) => {
                       return (
-                        app.day === getYYYYMMDD(date) &&
+                        app.day === dateUtils.getYYYYMMDD(date) &&
                         hour === +app.startAt.slice(0, 2) &&
                         !isLoading && (
                           <Appointment

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getDateInfo, getYYYYMMDD, isEqualDate } from 'utils/helper'
+import { dateUtils } from 'utils/helper'
 import * as s from './styled'
 import { useQuery } from 'react-query'
 import { checkStats } from 'api/stats/checkStats'
@@ -16,16 +16,16 @@ export type DateProps = {
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DateProps>(() => {
-    const { year, month, date } = getDateInfo(new Date())
+    const { year, month, date } = dateUtils.getDateProps(new Date())
     return { year, month, date }
   })
   const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>(['todayStats'], () => checkTodayStats())
   const { data: selectedDateStats, isLoading: isSelectedLoading } = useQuery<ResponseStats>(
-    ['timeInfo', getYYYYMMDD(selectedDate)],
+    ['timeInfo', dateUtils.getYYYYMMDD(selectedDate)],
     () => checkStats(selectedDate)
   )
 
-  const isToday = isEqualDate(selectedDate, getDateInfo(new Date()))
+  const isToday = dateUtils.isEqual(selectedDate, dateUtils.getDateProps(new Date()))
   const data = isToday ? todayStats : selectedDateStats
   const isLoading = todayLoading || isSelectedLoading
 

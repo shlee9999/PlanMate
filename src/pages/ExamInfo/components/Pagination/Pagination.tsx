@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import * as s from './styled'
-import { generateArray } from 'utils/helper'
+import { numberUtils } from 'utils/helper'
 import { RightArrow } from 'assets/SvgComponents'
 
 type PaginationProps = {
@@ -24,7 +24,7 @@ export const Pagination: FC<PaginationProps> = ({
       {totalPage === 0 && currentPage === 1 ? (
         <s.CurrentPageNumberTypo>1</s.CurrentPageNumberTypo>
       ) : (
-        generateArray(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
+        numberUtils.createTenSequentialNumbers(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
           if (index >= totalPage) return null
           if (num === currentPage) {
             return <s.CurrentPageNumberTypo key={index}>{num}</s.CurrentPageNumberTypo>

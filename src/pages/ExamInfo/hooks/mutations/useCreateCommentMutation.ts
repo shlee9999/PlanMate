@@ -1,7 +1,7 @@
 import { createComment } from 'api/comment/createComment'
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { useQueryClient, useMutation } from 'react-query'
-import { getKoreanISOString } from 'utils/helper'
+import { dateUtils } from 'utils/helper'
 
 type MutationProps = {
   currentPage: number
@@ -27,7 +27,7 @@ function useCreateCommentMutation() {
             isMyHearted: false,
             likeCount: 0,
             memberName,
-            updatedAt: getKoreanISOString(new Date()).slice(0, 19),
+            updatedAt: dateUtils.getKoreanISOString(new Date()).slice(0, 19),
             postId,
           },
         ].concat(prev.commentDtoList),
