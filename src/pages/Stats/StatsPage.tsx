@@ -7,11 +7,35 @@ import { ResponseStats } from 'api/common/commonType'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
 import { Calendar, InfoContainer } from './components'
+import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
 
 export type DateProps = {
   year: number
   month: number
   date: number
+}
+const defaultStats = {
+  endAtHours: 0,
+  endAtMinutes: 0,
+  maxStudyTimeHours: 0,
+  maxStudyTimeMinutes: 0,
+  maxStudyTimeSeconds: 0,
+  restTimeHours: 0,
+  restTimeMinutes: 0,
+  restTimeSeconds: 0,
+  startAtHours: 0,
+  startAtMinutes: 0,
+  studyTimeList: [
+    {
+      name: '',
+      studyTimeHours: 0,
+      studyTimeMinutes: 0,
+      studyTimeSeconds: 0,
+    },
+  ],
+  totalStudyTimeHours: 5,
+  totalStudyTimeMinutes: 0,
+  totalStudyTimeSeconds: 0,
 }
 
 export const StatsPage = () => {
@@ -20,14 +44,20 @@ export const StatsPage = () => {
     return { year, month, date }
   })
   const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>(['todayStats'], () => checkTodayStats())
-  const { data: selectedDateStats, isLoading: isSelectedLoading } = useQuery<ResponseStats>(
-    ['timeInfo', getYYYYMMDD(selectedDate)],
-    () => checkStats(selectedDate)
+  const { data: selectedMonthStats, isLoading: isSelectedLoading } = useQuery<ResponseStats[]>(
+    ['timeInfo', selectedDate.month + 1 + '월'],
+    () =>
+      checkStatsMonthly({
+        yearMonth: getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
+      })
   )
-
   const isToday = isEqualDate(selectedDate, getDateInfo(new Date()))
-  const data = isToday ? todayStats : selectedDateStats
-  const isLoading = todayLoading || isSelectedLoading
+  const isLoading = isSelectedLoading || todayLoading
+  const selectedDateData: ResponseStats = isLoading
+    ? defaultStats
+    : isToday
+    ? todayStats
+    : selectedMonthStats[selectedDate.date - 1]
 
   return (
     <s.Root>
@@ -43,17 +73,17 @@ export const StatsPage = () => {
         <s.Title>공부량 한 눈에 보기</s.Title>
         <s.StatsContainer>
           <s.LeftInfoBox left>
-            {todayLoading ? (
+            {isLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>
             ) : (
-              <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={data} />
+              <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={selectedMonthStats} />
             )}
           </s.LeftInfoBox>
           <s.RightInfoBox right>
             {isLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>
             ) : (
-              <InfoContainer selectedDate={selectedDate} dataSource={data} />
+              <InfoContainer selectedDate={selectedDate} dataSource={selectedDateData} />
             )}
           </s.RightInfoBox>
         </s.StatsContainer>

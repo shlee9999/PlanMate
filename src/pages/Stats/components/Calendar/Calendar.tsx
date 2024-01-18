@@ -11,7 +11,7 @@ type CalendarProps = {
   className?: string
   selectedDate: DateProps
   setSelectedDate: (date: DateProps) => void
-  dataSource?: ResponseStats
+  dataSource?: ResponseStats[]
 }
 const momentum = 100
 const MonthVar: Variants = {
@@ -71,12 +71,10 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
                   <DateCell
                     key={date.getTime()}
                     onClick={() => setSelectedDate(getDateInfo(date))}
-                    cellDate={{
-                      year: date.getFullYear(),
-                      month: date.getMonth(),
-                      date: date.getDate(),
-                    }}
-                    studyTimeHours={dataSource?.totalStudyTimeHours}
+                    cellDate={getDateInfo(date)}
+                    studyTimeHours={
+                      dataSource[date.getDate() - 1 < dataSource.length ? date.getDate() - 1 : 0].totalStudyTimeHours
+                    }
                     selectedDate={selectedDate}
                   />
                 ))}
