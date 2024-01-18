@@ -12,15 +12,6 @@ export type PageInfo = {
   url: string
 }
 
-export interface IAppointment {
-  scheduleName: string
-  startAt: string
-  endAt: string
-  colorHex: string
-  plannerId: number
-  day: string
-}
-
 export interface TimeProps {
   hour: number
   minute: number
@@ -28,7 +19,7 @@ export interface TimeProps {
 }
 
 //apis
-/**
+/** 댓글 Props
  * @param {string} content - 댓글 내용
  * @param {number} postId - 댓글이 속한 게시물 ID
  * @param {number} currentPage - 현재 페이지 번호
@@ -77,4 +68,27 @@ export type CommentType = {
   totalPages: number
   /**댓글  */
   commentDtoList: ResponseCommentType[]
+}
+
+/** 플래너 Props
+ * @param {string} scheduleName -일정 이름
+ * @param {number} plannerId - 일정 Id
+ * @param {string} colorHex - 일정 배경색
+ * @param {string} day - 날짜 YYYY-MM-DD
+ * @param {string} startAt - 시작 시각 HH:MM:SS
+ * @param {string} endAt - 종료 시각 HH:MM:SS
+ */
+export type PlannerType = {
+  /**일정 이름*/
+  scheduleName: string
+  /**일정 Id*/
+  plannerId: number
+  /**일정 배경색*/
+  colorHex: string
+  /**날짜 YYYY-MM-DD*/
+  day: string
+  /**시작 시각 HH:MM:SS*/
+  startAt: string
+  /**종료 시각 HH:MM:SS*/
+  endAt: string
 }

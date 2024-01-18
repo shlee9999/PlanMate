@@ -1,12 +1,12 @@
 import { colorList } from 'constants/color'
-import { IAppointment } from 'types'
+import { PlannerType } from 'types'
 
 const ADD_APPOINT = 'appointments/ADD_APPOINT' as const
 const REMOVE_APPOINT = 'appointments/REMOVE_APPOINT' as const
 const UPDATE_APPOINT = 'appointments/UPDATE_APPOINT' as const
 const INITIALIZE_APPOINT = 'appointments/INITIALIZE_APPOINT' as const
 //Appoint
-export const addAppoint = (appoint: IAppointment) => ({
+export const addAppoint = (appoint: PlannerType) => ({
   type: ADD_APPOINT,
   payload: appoint,
 })
@@ -16,11 +16,11 @@ export const removeAppoint = (id: number) => ({
   payload: id,
 })
 
-export const updateAppoint = (appointment: IAppointment) => ({
+export const updateAppoint = (appointment: PlannerType) => ({
   type: UPDATE_APPOINT,
   payload: { appointment: appointment },
 })
-export const initializeAppoint = (appointList: IAppointment[]) => ({
+export const initializeAppoint = (appointList: PlannerType[]) => ({
   type: INITIALIZE_APPOINT,
   payload: { appointList: appointList },
 })
@@ -32,9 +32,9 @@ type AppointAction =
   | ReturnType<typeof updateAppoint>
   | ReturnType<typeof initializeAppoint>
 
-const IntialAppointState: IAppointment[] = []
+const IntialAppointState: PlannerType[] = []
 
-function appointments(state: IAppointment[] = IntialAppointState, action: AppointAction) {
+function appointments(state: PlannerType[] = IntialAppointState, action: AppointAction) {
   switch (action.type) {
     case ADD_APPOINT:
       return state.concat(action.payload)

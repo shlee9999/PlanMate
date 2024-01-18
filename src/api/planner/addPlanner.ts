@@ -1,24 +1,7 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { PlannerType } from 'types'
 
-export type AddPlannerRequestProps = {
-  colorHex: string
-  day: string
-  endAt: string
-  scheduleName: string
-  startAt: string
-}
-//수정 : endAt, startAt -> hour, minute 분리, NUMBER 타입
-//삭제 : type
+export type AddPlannerRequestProps = Omit<PlannerType, 'plannerId'>
 
-export type AddPlannerResponseProps = {
-  colorHex: string
-  day: string
-  endAt: string
-  scheduleName: string
-  startAt: string
-  //   plannerId: number
-}
-
-export const addPlanner = (req: AddPlannerRequestProps) => {
-  return axiosPOST('/planner/add', req)
-}
+export const addPlanner = ({ colorHex, day, endAt, scheduleName, startAt }: AddPlannerRequestProps) =>
+  axiosPOST('/planner/add', { colorHex, day, endAt, scheduleName, startAt })

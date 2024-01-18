@@ -1,8 +1,7 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { IAppointment } from 'types'
+import { PlannerType } from 'types'
 
-export type EditPlannerRequestProps = IAppointment
+export type EditPlannerRequestProps = PlannerType
 
-export const editPlanner = (req: EditPlannerRequestProps) => {
-  return axiosPOST('/planner/edit', req)
-}
+export const editPlanner = ({ scheduleName, plannerId, colorHex, day, startAt, endAt }: EditPlannerRequestProps) =>
+  axiosPOST('/planner/edit', { scheduleName, plannerId, colorHex, day, startAt, endAt })
