@@ -1,5 +1,5 @@
 import { axiosDELETE } from 'api/common/commonAxios'
-import { PostType } from 'api/types/PostType'
+import { PostType } from 'api/types'
 
 export type RemovePostRequestProps = Pick<PostType, 'postId'>
 

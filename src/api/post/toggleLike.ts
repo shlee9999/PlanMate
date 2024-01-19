@@ -1,5 +1,5 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { PostType } from 'api/types/PostType'
+import { PostType } from 'api/types'
 
 export type ToggleLikeRequestProps = Pick<PostType, 'postId'>
 

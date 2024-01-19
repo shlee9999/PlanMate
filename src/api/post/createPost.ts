@@ -1,6 +1,6 @@
 import { axiosPOST } from 'api/common/commonAxios'
 import { ResponsePostType } from 'api/types'
-import { PostType } from 'api/types/PostType'
+import { PostType } from 'api/types'
 
 export type CreatePostRequestProps = Pick<PostType, 'content' | 'tagList' | 'title'>
 

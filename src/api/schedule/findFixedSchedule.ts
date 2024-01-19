@@ -1,12 +1,7 @@
 import { axiosGET } from 'api/common/commonAxios'
+import { ScheduleType } from 'api/types'
 
-export type FindFixedScheduleResponseProps = {
-  date: string
-  dday: number
-  id: number
-  title: string
-} | null
+export type FindFixedScheduleResponseProps = Pick<ScheduleType, 'targetDate' | 'remainingDays' | 'scheduleId' | 'title'>
 
-export const findFixedSchedule = () => {
-  return axiosGET('/schedule/fix')
-}
+/**고정된 D-Day 조회. 타이머 페이지에 필요*/
+export const findFixedSchedule = () => axiosGET('/schedule/fix')

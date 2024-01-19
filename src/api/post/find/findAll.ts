@@ -1,5 +1,5 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { PostType } from 'api/types/PostType'
+import { PostType } from 'api/types'
 
 export type FindAllPostRequestProps = Pick<PostType, 'pages'>
 

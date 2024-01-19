@@ -165,7 +165,7 @@ export const TimerPage: FC = () => {
           <s.CheerTypo>
             <s.Test>{fixedDDay.title} </s.Test>까지{' '}
             <s.Dday>
-              D- <s.GreenTypo>{daysUntil(fixedDDay.date)}</s.GreenTypo>{' '}
+              D- <s.GreenTypo>{daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
             </s.Dday>
             조금만 더 힘을 내볼까요? 🏃
           </s.CheerTypo>

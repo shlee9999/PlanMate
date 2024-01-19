@@ -1,18 +1,10 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { ScheduleType } from 'api/types'
 
-export type EditScheduleRequestProps = {
-  date: string
-  id: number
-  title: string
-}
+export type EditScheduleRequestProps = Pick<ScheduleType, 'targetDate' | 'scheduleId' | 'title'>
 
-export type EditScheduleResponseProps = {
-  date: string
-  dday: number
-  id: number
-  title: string
-}
+export type EditScheduleResponseProps = Pick<ScheduleType, 'targetDate' | 'remainingDays' | 'scheduleId' | 'title'> // date: string
 
-export const editSchedule = (req: EditScheduleRequestProps) => {
-  return axiosPOST('/schedule/modify', req)
-}
+/**D-Day 수정 */
+export const editSchedule = ({ targetDate, scheduleId, title }: EditScheduleRequestProps) =>
+  axiosPOST('/schedule/modify', { targetDate, scheduleId, title })

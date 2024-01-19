@@ -15,12 +15,12 @@ import { ResponseCommentType, ResponsePostType } from 'api/types'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
-  { id: 0, memberId: 3, title: '테스트2', targetDate: '2024-08-20', isFixed: true },
-  { id: 1, memberId: 3, title: '테스트3', targetDate: '2024-08-30', isFixed: true },
-  { id: 2, memberId: 3, title: '테스트4', targetDate: '2024-09-20', isFixed: false },
-  { id: 3, memberId: 3, title: '테스트5', targetDate: '2024-10-25', isFixed: false },
-  { id: 4, memberId: 3, title: '테스트6', targetDate: '2024-11-30', isFixed: false },
-  { id: 5, memberId: 3, title: '테스트7', targetDate: '2024-12-31', isFixed: false },
+  { scheduleId: 0, memberId: 3, title: '테스트2', targetDate: '2024-08-20', isFixed: true },
+  { scheduleId: 1, memberId: 3, title: '테스트3', targetDate: '2024-08-30', isFixed: true },
+  { scheduleId: 2, memberId: 3, title: '테스트4', targetDate: '2024-09-20', isFixed: false },
+  { scheduleId: 3, memberId: 3, title: '테스트5', targetDate: '2024-10-25', isFixed: false },
+  { scheduleId: 4, memberId: 3, title: '테스트6', targetDate: '2024-11-30', isFixed: false },
+  { scheduleId: 5, memberId: 3, title: '테스트7', targetDate: '2024-12-31', isFixed: false },
 ]
 
 export const MyPage: FC = () => {
@@ -126,7 +126,7 @@ export const MyPage: FC = () => {
   }
   const fixDDay = (id: number, index: number) => () => {
     fixSchedule({
-      id: id,
+      scheduleId: id,
     }).then((res) => {
       setFixedIndex(index)
     })
@@ -184,7 +184,14 @@ export const MyPage: FC = () => {
           </s.TypoWrapper>
           <s.DDayContainer>
             {currentDDayList.map((dday, index) => (
-              <DDayItem {...dday} key={dday.id} fixDDay={fixDDay(dday.id, index)} isFixed={index === fixedIndex} />
+              <DDayItem
+                key={dday.scheduleId}
+                id={dday.scheduleId}
+                title={dday.title}
+                targetDate={dday.targetDate}
+                fixDDay={fixDDay(dday.scheduleId, index)}
+                isFixed={index === fixedIndex}
+              />
             ))}
           </s.DDayContainer>
         </s.LeftContainer>

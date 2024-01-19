@@ -1,11 +1,8 @@
 import { axiosDELETE } from 'api/common/commonAxios'
+import { ScheduleType } from 'api/types'
 
-export type DeleteScheduleRequestProps = {
-  id: number
-}
+export type DeleteScheduleRequestProps = Pick<ScheduleType, 'scheduleId'>
 
-export type DeleteScheduleResponseProps = boolean
-
-export const deleteSchedule = (req: DeleteScheduleRequestProps) => {
-  return axiosDELETE('/schedule/remove', req)
-}
+/**D-Day 삭제 */
+export const deleteSchedule = ({ scheduleId }: DeleteScheduleRequestProps) =>
+  axiosDELETE('/schedule/remove', { scheduleId })
