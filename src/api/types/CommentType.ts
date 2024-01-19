@@ -45,7 +45,7 @@ export type CommentType = {
   totalCount: number
   /**총 댓글 페이지 수 */
   totalPages: number
-  /**댓글  */
+  /**댓글 목록*/
   commentDtoList: ResponseCommentType[]
 }
 

@@ -5,7 +5,7 @@ import { dateUtils } from 'utils/helper'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { DateCell } from './DateCell'
-import { ResponseStats } from 'api/common/types'
+import { ResponseStats } from 'api/types'
 
 type CalendarProps = {
   className?: string

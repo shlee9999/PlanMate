@@ -1,6 +1,6 @@
 import React from 'react'
 import { PieChart } from './PieChart'
-import { StudyTimeEntry } from 'api/common/types'
+import { StudyTimeEntry } from 'api/types'
 import { TimeProps } from 'types'
 import * as s from './styled'
 import { timeUtils } from 'utils/helper'

@@ -1,17 +1,12 @@
-import { ResponseStats } from 'api/common/types'
 import { axiosPOST } from 'api/common/commonAxios'
+import { ResponseStats, StatsType } from 'api/types'
 import { dateUtils } from 'utils/helper'
 
-export type CheckStatsRequestProps = {
-  year: number
-  month: number
-  date: number
-}
+export type CheckStatsRequestProps = Pick<StatsType, 'year' | 'month' | 'date'>
 
 export type CheckStatsResponseProps = ResponseStats
 
-export const checkStats = ({ year, month, date }: CheckStatsRequestProps): Promise<ResponseStats> => {
-  return axiosPOST('/statistic/day', {
+export const checkStats = ({ year, month, date }: CheckStatsRequestProps): Promise<ResponseStats> =>
+  axiosPOST('/statistic/day', {
     studyDate: dateUtils.getYYYYMMDD({ year, month: month + 1, date }),
   })
-}

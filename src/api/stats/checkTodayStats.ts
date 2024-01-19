@@ -1,8 +1,6 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponseStats } from 'api/common/types'
+import { ResponseStats } from 'api/types'
 
 export type CheckTodayStatsResponseProps = ResponseStats
 
-export const checkTodayStats = (): Promise<ResponseStats> => {
-  return axiosGET('/statistic')
-}
+export const checkTodayStats = (): Promise<ResponseStats> => axiosGET('/statistic')
