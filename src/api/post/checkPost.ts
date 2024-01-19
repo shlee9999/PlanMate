@@ -1,12 +1,10 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponsePostType } from 'api/common/types'
+import { ResponsePostType } from 'api/types'
+import { PostType } from 'api/types/PostType'
 
-export type CheckPostRequestProps = {
-  postId: number
-}
-
+export type CheckPostRequestProps = Pick<PostType, 'postId'>
 export type CheckPostResponseProps = ResponsePostType
 
-export const checkPost = (req: CheckPostRequestProps): Promise<CheckPostResponseProps> => {
-  return axiosGET('/post/check', req)
-}
+/**해당 postId를 가진 게시물 내용 조회 */
+export const checkPost = ({ postId }: CheckPostRequestProps): Promise<CheckPostResponseProps> =>
+  axiosGET('/post/check', { postId })

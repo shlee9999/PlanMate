@@ -1,4 +1,3 @@
-import { ResponseCommentType } from 'api/common/types'
 /** 댓글 Props
  * @param {string} content - 댓글 내용
  * @param {number} postId - 댓글이 속한 게시물 ID
@@ -49,3 +48,8 @@ export type CommentType = {
   /**댓글  */
   commentDtoList: ResponseCommentType[]
 }
+
+export type ResponseCommentType = Pick<
+  CommentType,
+  'commentId' | 'content' | 'isAuthor' | 'isMyHearted' | 'likeCount' | 'memberName' | 'updatedAt' | 'postId'
+>

@@ -1,5 +1,5 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponseCommentType } from 'api/common/types'
+import { ResponseCommentType } from 'api/types'
 import { CommentType } from 'api/types'
 
 export type FindAllChildRequestProps = Pick<CommentType, 'parentCommentId' | 'postId'>

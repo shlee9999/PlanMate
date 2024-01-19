@@ -1,15 +1,10 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponsePostType } from 'api/common/types'
+import { PostType } from 'api/types/PostType'
 
-export type FindAllPostRequestProps = {
-  pages: number
-}
+export type FindAllPostRequestProps = Pick<PostType, 'pages'>
 
-export type FindAllPostResponseProps = {
-  postDtoList: ResponsePostType[]
-  totalPages: number
-}
+export type FindAllPostResponseProps = Pick<PostType, 'postDtoList' | 'totalPages'>
 
-export const findAll = (req: FindAllPostRequestProps): Promise<FindAllPostResponseProps> => {
-  return axiosGET('post/find/all', req)
-}
+/**게시물 조회 */
+export const findAll = ({ pages }: FindAllPostRequestProps): Promise<FindAllPostResponseProps> =>
+  axiosGET('post/find/all', { pages })

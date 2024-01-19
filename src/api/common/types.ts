@@ -1,20 +1,3 @@
-import { CommentType } from 'api/types/CommentType'
-
-export type ResponsePostType = {
-  commentCount: number
-  content: string
-  isMyHearted: boolean
-  isMyScraped: boolean
-  likeCount: number
-  nickname: string
-  postTagList: string[]
-  scrapCount: number
-  title: string
-  createdAt: string
-  postId?: number
-  noticeId?: number
-}
-
 export type ResponseNoticeType = {
   commentCount: number
   content: string
@@ -38,11 +21,6 @@ export type ResponseTimeProps = {
   timezoneOffset: string
   year: string
 }
-
-export type ResponseCommentType = Pick<
-  CommentType,
-  'commentId' | 'content' | 'isAuthor' | 'isMyHearted' | 'likeCount' | 'memberName' | 'updatedAt' | 'postId'
->
 
 export type StudyTimeEntry = {
   name: string

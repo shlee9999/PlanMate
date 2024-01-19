@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import * as s from './styled'
-import { ResponsePostType } from 'api/common/types'
+import { ResponsePostType } from 'api/types'
 import { useNavigate } from 'react-router-dom'
 import { CommentIcon, HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'

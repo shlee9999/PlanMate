@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ForwardRefRenderFunction, forwardRef, useEffect, useRef, useState } from 'react'
 import * as s from './styled'
-import { ResponseCommentType } from 'api/common/types'
+import { ResponseCommentType } from 'api/types'
 import { createChildComment } from 'api/comment/createChildComment'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { removeComment } from 'api/comment/removeComment'

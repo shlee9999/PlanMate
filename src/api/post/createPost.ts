@@ -1,16 +1,11 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponsePostType } from '../common/types'
-import { RawDraftContentState } from 'draft-js'
+import { ResponsePostType } from 'api/types'
+import { PostType } from 'api/types/PostType'
 
-export type CreatePostRequestProps = {
-  content: string
-  id?: number
-  tagList: string[]
-  title: string
-}
+export type CreatePostRequestProps = Pick<PostType, 'content' | 'tagList' | 'title'>
 
 export type CreatePostResponseProps = ResponsePostType
 
-export const createPost = (req: CreatePostRequestProps) => {
-  return axiosPOST('/post/create', req)
-}
+/**게시물 생성 */
+export const createPost = ({ content, tagList, title }: CreatePostRequestProps) =>
+  axiosPOST('/post/create', { content, tagList, title })

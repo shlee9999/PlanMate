@@ -1,15 +1,11 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponsePostType } from '../common/types'
+import { ResponsePostType } from 'api/types'
+import { PostType } from 'api/types/PostType'
 
-export type EditPostRequestProps = {
-  content: string
-  id: number
-  tagList: string[]
-  title: string
-}
+export type EditPostRequestProps = Pick<PostType, 'content' | 'postId' | 'tagList' | 'title'>
 
 export type EditPostResponseProps = ResponsePostType
 
-export const editPost = (req: EditPostRequestProps) => {
-  return axiosPOST('/post/edit', req)
-}
+/**게시물 수정 */
+export const editPost = ({ content, postId, tagList, title }: EditPostRequestProps) =>
+  axiosPOST('/post/edit', { content, postId, tagList, title })

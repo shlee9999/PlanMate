@@ -1,16 +1,7 @@
 import { axiosDELETE } from 'api/common/commonAxios'
+import { PostType } from 'api/types/PostType'
 
-export type RemovePostRequestProps = {
-  postId: number
-}
+export type RemovePostRequestProps = Pick<PostType, 'postId'>
 
-export type RemovePostResponseProps = any
-// {
-//   body: object
-//   statusCode: 'ACCPETED'
-//   statusCodeValue: 0
-// }
-
-export const removePost = (req: RemovePostRequestProps) => {
-  return axiosDELETE('/post/remove', req)
-}
+/**게시물 삭제 */
+export const removePost = ({ postId }: RemovePostRequestProps) => axiosDELETE('/post/remove', { postId })

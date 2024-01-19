@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import * as s from './styled'
-import { ResponseCommentType } from 'api/common/types'
+import { ResponseCommentType } from 'api/types'
 import { likeComment } from 'api/comment/likeComment'
 import { modifyComment } from 'api/comment/modifyComment'
 import { useNavigate } from 'react-router-dom'

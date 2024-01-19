@@ -1,11 +1,7 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { PostType } from 'api/types/PostType'
 
-export type ScrapPostRequestProps = {
-  postId: number
-}
+export type ScrapPostRequestProps = Pick<PostType, 'postId'>
 
-export type ScrapPostResponseProps = boolean
-
-export const scrapPost = (obj: ScrapPostRequestProps) => {
-  return axiosPOST('/post/scrap', obj)
-}
+/**게시물 스크랩 */
+export const scrapPost = ({ postId }: ScrapPostRequestProps) => axiosPOST('/post/scrap', { postId })

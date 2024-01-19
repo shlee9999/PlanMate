@@ -1,11 +1,7 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { PostType } from 'api/types/PostType'
 
-export type ToggleLikeRequestProps = {
-  postId: number
-}
+export type ToggleLikeRequestProps = Pick<PostType, 'postId'>
 
-export type ToggleLikeResponseProps = boolean
-
-export const toggleLike = ({}: ToggleLikeRequestProps) => {
-  return axiosPOST('/post/like', {})
-}
+/**게시물 좋아요 */
+export const toggleLike = ({ postId }: ToggleLikeRequestProps) => axiosPOST('/post/like', { postId })
