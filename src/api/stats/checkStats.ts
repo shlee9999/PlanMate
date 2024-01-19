@@ -1,4 +1,4 @@
-import { ResponseStats } from 'api/common/commonType'
+import { ResponseStats } from 'api/common/types'
 import { axiosPOST } from 'api/common/commonAxios'
 import { dateUtils } from 'utils/helper'
 

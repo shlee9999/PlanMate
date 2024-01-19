@@ -1,5 +1,5 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponsePostType } from 'api/common/commonType'
+import { ResponsePostType } from 'api/common/types'
 
 export type FindAllNoticeRequestProps = {
   pages: number

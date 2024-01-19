@@ -1,5 +1,5 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { PlannerType } from 'types'
+import { PlannerType } from 'api/types'
 
 export type FindPlannerResponseProps = PlannerType[]
 

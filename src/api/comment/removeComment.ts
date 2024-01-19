@@ -1,5 +1,5 @@
 import { axiosDELETE } from 'api/common/commonAxios'
-import { CommentType } from 'types'
+import { CommentType } from 'api/types'
 
 export type RemoveCommentRequestProps = Pick<CommentType, 'commentId'>
 

@@ -1,5 +1,5 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponseStats } from 'api/common/commonType'
+import { ResponseStats } from 'api/common/types'
 
 export type CheckTodayStatsResponseProps = ResponseStats
 

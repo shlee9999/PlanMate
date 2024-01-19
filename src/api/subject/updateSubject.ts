@@ -1,5 +1,5 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponseTimeProps } from 'api/common/commonType'
+import { ResponseTimeProps } from 'api/common/types'
 
 export type UpdateSubjectRequestProps = {
   endAt: string

@@ -1,5 +1,5 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponsePostType } from '../common/commonType'
+import { ResponsePostType } from '../common/types'
 import { RawDraftContentState } from 'draft-js'
 
 export type CreatePostRequestProps = {

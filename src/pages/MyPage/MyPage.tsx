@@ -11,7 +11,7 @@ import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { fixSchedule } from 'api/schedule/fixSchedule'
 import { GoogleCustom } from 'assets/SvgComponents'
 import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
-import { ResponsePostType, ResponseCommentType } from 'api/common/commonType'
+import { ResponsePostType, ResponseCommentType } from 'api/common/types'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [

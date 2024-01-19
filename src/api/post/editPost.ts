@@ -1,5 +1,5 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponsePostType } from '../common/commonType'
+import { ResponsePostType } from '../common/types'
 
 export type EditPostRequestProps = {
   content: string

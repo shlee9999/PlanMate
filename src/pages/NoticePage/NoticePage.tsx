@@ -1,6 +1,6 @@
 import * as s from './styled'
 import { useEffect, useState } from 'react'
-import { ResponseNoticeType } from 'api/common/commonType'
+import { ResponseNoticeType } from 'api/common/types'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 import { NoContentTypo } from 'components/NoContentDescription/styled'

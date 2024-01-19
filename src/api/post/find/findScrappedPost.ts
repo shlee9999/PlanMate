@@ -1,7 +1,7 @@
 //스크랩한 게시물 조회
 
 import { axiosGET } from 'api/common/commonAxios'
-import { ResponsePostType } from '../../common/commonType'
+import { ResponsePostType } from '../../common/types'
 
 export type FindScrappedPostRequestProps = {
   pages: number

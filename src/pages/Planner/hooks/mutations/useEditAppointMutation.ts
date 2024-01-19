@@ -1,6 +1,6 @@
 import { editPlanner } from 'api/planner/editPlanner'
 import { useMutation, useQueryClient } from 'react-query'
-import { PlannerType } from 'types'
+import { PlannerType } from 'api/types'
 
 function useEditAppointMutation({ colorHex, day, startAt, endAt, scheduleName, plannerId }: PlannerType) {
   const queryClient = useQueryClient()

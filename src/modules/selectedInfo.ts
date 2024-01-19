@@ -1,5 +1,5 @@
 import { defaultColor } from 'constants/color'
-import { PlannerType } from 'types'
+import { PlannerType } from 'api/types'
 import { dateUtils } from 'utils/helper'
 
 const UPDATE_INFO = 'selectedInfo/UPDATE_INFO' as const

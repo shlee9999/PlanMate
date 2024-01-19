@@ -1,5 +1,5 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { CommentType } from 'types'
+import { CommentType } from 'api/types'
 
 export type CreateCommentRequestProps = Pick<CommentType, 'content' | 'postId'>
 

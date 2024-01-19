@@ -1,4 +1,4 @@
-import { CommentType } from 'types'
+import { CommentType } from 'api/types/CommentType'
 
 export type ResponsePostType = {
   commentCount: number

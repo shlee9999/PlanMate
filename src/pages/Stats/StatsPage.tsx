@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { dateUtils } from 'utils/helper'
 import { useQuery } from 'react-query'
-import { ResponseStats } from 'api/common/commonType'
+import { ResponseStats } from 'api/common/types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
 import { Calendar, InfoContainer } from './components'

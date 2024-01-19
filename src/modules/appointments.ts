@@ -1,5 +1,4 @@
-import { colorList } from 'constants/color'
-import { PlannerType } from 'types'
+import { PlannerType } from 'api/types'
 
 const ADD_APPOINT = 'appointments/ADD_APPOINT' as const
 const REMOVE_APPOINT = 'appointments/REMOVE_APPOINT' as const

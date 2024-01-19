@@ -1,5 +1,5 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { CommentType } from 'types'
+import { CommentType } from 'api/types'
 
 export type LikeCommentRequestProps = Pick<CommentType, 'commentId'>
 
