@@ -21,15 +21,22 @@ const MonthVar: Variants = {
 }
 export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, selectedDate, dataSource }) => {
   const onClickNext = () => {
-    setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year, selectedDate.month + 1, 1)))
-    setBack(false)
+    const newDate = new Date(selectedDate.year, selectedDate.month + 1, 1)
+    const newDateProps = dateUtils.getDateProps(newDate)
+    if (!dateUtils.isFuture(newDate)) {
+      setSelectedDate(newDateProps)
+      setBack(false)
+    }
   }
   const onClickPrev = () => {
     setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year, selectedDate.month - 1, 1)))
     setBack(true)
   }
   const [back, setBack] = useState(false)
-
+  const onClickDateCell = (date: Date) => () => {
+    const clickedDate = dateUtils.getDateProps(date)
+    !dateUtils.isFuture(date) && setSelectedDate(clickedDate)
+  }
   return (
     <s.Root className={className}>
       <s.Header>
@@ -70,7 +77,7 @@ export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, select
                 {dateUtils.getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1)).map((date) => (
                   <DateCell
                     key={date.getTime()}
-                    onClick={() => setSelectedDate(dateUtils.getDateProps(date))}
+                    onClick={onClickDateCell(date)}
                     cellDate={dateUtils.getDateProps(date)}
                     studyTimeHours={
                       dataSource[date.getDate() - 1 < dataSource.length ? date.getDate() - 1 : 0].totalStudyTimeHours
