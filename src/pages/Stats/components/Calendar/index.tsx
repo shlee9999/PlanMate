@@ -1,3 +1,4 @@
 import { Calendar } from './Calendar'
 import { DateCell } from './DateCell'
-export { DateCell, Calendar }
+import { Tooltip } from './Tooltip'
+export { DateCell, Calendar, Tooltip }

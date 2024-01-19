@@ -78,6 +78,7 @@ export const StatsPage = () => {
               <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={selectedMonthStats} />
             )}
           </s.LeftInfoBox>
+          <div id="portal">portal</div>
           <s.RightInfoBox right>
             {isLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>

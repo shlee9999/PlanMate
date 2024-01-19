@@ -67,10 +67,13 @@ export const StatsContainer = styled.div`
 `
 
 export const LeftInfoBox = styled(InfoBox)`
+  position: relative;
   flex-grow: 1;
   max-width: 420px;
+  overflow: hidden;
 `
 export const RightInfoBox = styled(InfoBox)`
   flex-grow: 1;
   max-width: 800px;
+  overflow: visible;
 `
