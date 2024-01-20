@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { dateUtils } from 'utils'
+import { AnimatePresence } from 'framer-motion'
 import * as s from './styled'
 type DateCellProps = {
   cellDate: Date

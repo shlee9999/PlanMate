@@ -1,17 +1,21 @@
 import { weekDays } from 'constants/week'
 import { DateProps } from 'pages/Stats/StatsPage'
 
-/**날짜 관련 함수 모음 */
 export const dateUtils = {
+  /**미래 시간인지 반환 */
+  isFuture: (targetDate: Date): boolean => {
+    const currentDate = new Date()
+    return targetDate > currentDate
+  },
   /**같은 날짜인지 반환  */
   isEqual: (a: DateProps, b: DateProps) => a.year === b.year && a.month === b.month && a.date === b.date,
-  /**Date -> {year, month, date}*/
+  /**Date -> {year, month, date} month+1 하지 않는다.*/
   getDateProps: (currentDate: Date): DateProps => ({
     year: currentDate.getFullYear(),
     month: currentDate.getMonth(),
     date: currentDate.getDate(),
   }),
-  /**YYYY-MM-DD*/
+  /**YYYY-MM-DD month+1로 반환한다*/
   getYYYYMMDD: (currentDate: DateProps | Date) => {
     let year: number, month: number, date: number
     if (currentDate instanceof Date) {
