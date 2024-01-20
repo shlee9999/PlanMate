@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ResponsePostType } from 'api/types'
-import { deserializeContent, serializeContent } from 'utils/wysiwyg'
+import { deserializeContent, serializeContent } from 'utils'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
