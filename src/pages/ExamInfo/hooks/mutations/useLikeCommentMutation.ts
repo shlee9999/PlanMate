@@ -1,12 +1,10 @@
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { likeComment } from 'api/comment/likeComment'
+import { CommentType } from 'api/types'
 import { useMutation, useQueryClient } from 'react-query'
 
-type MutationProps = {
-  commentId: number
-  postId: number
-  currentPage: number
-}
+type MutationProps = Pick<CommentType, 'commentId' | 'postId' | 'currentPage'>
+
 /**댓글 좋아요*/
 function useLikeCommentMutation() {
   const queryClient = useQueryClient()

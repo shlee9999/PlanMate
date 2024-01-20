@@ -1,11 +1,9 @@
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { removeComment } from 'api/comment/removeComment'
+import { CommentType } from 'api/types'
 import { useQueryClient, useMutation } from 'react-query'
 
-type MutationProps = {
-  commentId: number
-  postId: number
-  currentPage: number
+type MutationProps = Pick<CommentType, 'commentId' | 'postId' | 'currentPage'> & {
   callBack?: () => void
 }
 /**댓글 삭제*/

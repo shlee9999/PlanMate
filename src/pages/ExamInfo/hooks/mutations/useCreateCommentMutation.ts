@@ -1,24 +1,15 @@
-import { createComment } from 'api/comment/createComment'
+import { CreateCommentRequestProps, createComment } from 'api/comment/createComment'
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
+import { CommentType } from 'api/types'
 import { useQueryClient, useMutation } from 'react-query'
 import { dateUtils } from 'utils/helper'
 
-type MutationProps = {
-  currentPage: number
-  content: string
-  postId: number
-  callBack: () => void
-  isAuthor: boolean
-  memberName: string
-}
-/**댓글 생성
- * @currentPage 댓글 페이지
- * @content 댓글 내용
- * @postId
- * @callBack
- * @isAuthor 댓글 작성자가 글 작성자인지
- * @memberName 댓글 작성자 닉네임
- */
+type MutationProps = CreateCommentRequestProps &
+  Pick<CommentType, 'currentPage' | 'isAuthor' | 'memberName'> & {
+    callBack: () => void
+  }
+
+/**댓글 생성 */
 function useCreateCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ content, postId }: MutationProps) => createComment({ content, postId }), {
