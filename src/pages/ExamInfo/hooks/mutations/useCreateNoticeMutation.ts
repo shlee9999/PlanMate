@@ -8,13 +8,13 @@ type UseCreateNoticeMutationProps = CreateNoticeRequestProps & {
 /**공지사항 생성 */
 function useCreateNoticeMutation() {
   const { mutate } = useMutation(
-    ({ content, title, callBack }: UseCreateNoticeMutationProps) => createNotice({ content, title }),
+    ({ content, title }: UseCreateNoticeMutationProps) => createNotice({ content, title }),
     {
-      onSuccess: (data, { content, title, callBack }) => {
+      onSuccess: (data, { callBack }) => {
         callBack()
       },
-      onError: (err, { content, title }, context) => {
-        console.error('관리자 권한이 없습니다.')
+      onError: (err) => {
+        console.error(err, '관리자 권한이 없습니다.')
       },
     }
   )

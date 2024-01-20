@@ -10,12 +10,12 @@ function useCreatePostMutation() {
   const { mutate } = useMutation(
     ({ content, tagList, title }: UseCreatePostMutationProps) => createPost({ content, tagList, title }),
     {
-      onSuccess: (data, { content, tagList, title, callBack }) => {
+      onSuccess: (data, { callBack }) => {
         console.log('success')
         callBack()
       },
-      onError: (err, { content, tagList, title }, context) => {
-        console.error('err')
+      onError: (err) => {
+        console.error(err)
       },
     }
   )

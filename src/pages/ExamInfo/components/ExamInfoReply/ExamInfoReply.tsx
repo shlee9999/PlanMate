@@ -1,11 +1,11 @@
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
-import * as s from './styled'
 import { ResponseCommentType } from 'api/types'
 import { likeComment } from 'api/comment/likeComment'
 import { editComment } from 'api/comment/editComment'
 import { useNavigate } from 'react-router-dom'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
+import * as s from './styled'
 
 type ExamInfoReplyProps = {
   deleteComment?: () => void
@@ -25,9 +25,8 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(isMyHearted)
-  const closeEllipsisModal = (): void => {
-    if (isEllipsisOpen) setIsEllipsisOpen(false)
-  }
+  const closeEllipsisModal = (): void => isEllipsisOpen && setIsEllipsisOpen(false)
+  // eslint-disable-next-line
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
   const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -41,12 +40,9 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
     e.stopPropagation()
   }
   const inputRef = useRef(null)
-  const onClickModal = (e: React.MouseEvent): void => {
-    e.stopPropagation()
-  }
-  const onClickEllipsisDeleteButton = (): void => {
-    setIsDeleteCommentModalOpen(true)
-  }
+  const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
+  const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
+
   const onClickLikeButton = (): void => {
     likeComment({ commentId: commentId }) //like api
     if (isLiked) {
@@ -57,15 +53,9 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
       setCurrentLikeCount((prev) => prev + 1)
     }
   }
-
-  const closeDeleteCommentModal = () => {
-    setIsDeleteCommentModalOpen(false)
-  }
-
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.target.value)
-  }
-
+  // eslint-disable-next-line
+  const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value)
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) return
