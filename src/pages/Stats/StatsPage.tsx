@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { dateUtils } from 'utils/helper'
+import { dateUtils } from 'utils'
 import { useQuery } from 'react-query'
 import { ResponseStats } from 'api//types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'

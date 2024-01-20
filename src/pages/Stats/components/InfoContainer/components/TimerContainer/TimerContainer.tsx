@@ -1,7 +1,7 @@
 import React from 'react'
-import { timeUtils } from 'utils/helper'
 import { Timer } from './Timer'
 import { TimeProps } from 'types'
+import { timeUtils } from 'utils'
 import * as s from './styled'
 
 //총 공부시간, 최대 집중 시간

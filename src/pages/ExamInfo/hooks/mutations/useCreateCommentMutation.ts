@@ -2,7 +2,7 @@ import { CreateCommentRequestProps, createComment } from 'api/comment/createComm
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { CommentType } from 'api/types'
 import { useQueryClient, useMutation } from 'react-query'
-import { dateUtils } from 'utils/helper'
+import { dateUtils } from 'utils'
 
 type MutationProps = CreateCommentRequestProps &
   Pick<CommentType, 'currentPage' | 'isAuthor' | 'memberName'> & {

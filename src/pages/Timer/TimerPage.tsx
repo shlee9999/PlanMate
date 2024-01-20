@@ -2,7 +2,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { TimeProps, TodoItemType } from 'types'
 import { useState, FC, useEffect } from 'react'
-import { dateUtils, daysUntil, timeUtils } from 'utils/helper'
 import { RootState } from 'modules'
 import { initializeTimer } from 'modules/timer'
 import { NoContentTypo } from 'components/NoContentDescription/styled'
@@ -20,6 +19,7 @@ import { TimerContainer, PieChartContainer, GraphContainer } from 'pages/Stats/c
 import { StudyContainer } from 'pages/Stats/components/InfoContainer/styled'
 import { ActionModal, TimerWidget, TodoItem } from './components'
 import { CenterSpinner } from 'commonStyled'
+import { dateUtils, timeUtils } from 'utils'
 import * as s from './styled'
 
 export const TimerPage: FC = () => {
@@ -165,7 +165,7 @@ export const TimerPage: FC = () => {
           <s.CheerTypo>
             <s.Test>{fixedDDay.title} </s.Test>까지{' '}
             <s.Dday>
-              D- <s.GreenTypo>{daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
+              D- <s.GreenTypo>{dateUtils.daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
             </s.Dday>
             조금만 더 힘을 내볼까요? 🏃
           </s.CheerTypo>

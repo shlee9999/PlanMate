@@ -1,11 +1,11 @@
 import { FC, useState } from 'react'
-import * as s from './styled'
 import { weekDays } from 'constants/week'
-import { dateUtils } from 'utils/helper'
+import { dateUtils } from 'utils'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { DateCell } from './DateCell'
 import { ResponseStats } from 'api/types'
+import * as s from './styled'
 
 type CalendarProps = {
   className?: string

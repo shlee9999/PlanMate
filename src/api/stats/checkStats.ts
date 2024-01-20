@@ -1,6 +1,6 @@
 import { axiosPOST } from 'api/common/commonAxios'
 import { ResponseStats, StatsType } from 'api/types'
-import { dateUtils } from 'utils/helper'
+import { dateUtils } from 'utils'
 
 export type CheckStatsRequestProps = Pick<StatsType, 'year' | 'month' | 'date'>
 

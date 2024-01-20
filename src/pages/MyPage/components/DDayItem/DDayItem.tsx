@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react'
 import * as s from './styled'
-import { daysUntil } from 'utils/helper'
+import { dateUtils } from 'utils'
 import { ThemeContext } from 'styled-components'
 
 type DDayItemProps = {
@@ -14,7 +14,7 @@ type DDayItemProps = {
 export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDay }) => {
   const theme = useContext(ThemeContext)
 
-  const dDay = daysUntil(targetDate)
+  const dDay = dateUtils.daysUntil(targetDate)
   const getWeekDay = () => {
     const days = ['일', '월', '화', '수', '목', '금', '토']
     const split = targetDate.split('-')

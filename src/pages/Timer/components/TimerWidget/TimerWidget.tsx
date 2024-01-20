@@ -1,4 +1,4 @@
-import { timeUtils } from 'utils/helper'
+import { timeUtils } from 'utils'
 import * as s from './styled'
 
 export const TimerWidget = ({ totalTime }: { totalTime: number }) => {

@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { updateInfo } from 'modules/selectedInfo'
-import { timeUtils } from 'utils/helper'
+import { timeUtils } from 'utils'
 import * as s from './styled'
 
 type TimeSelectModeProps = {

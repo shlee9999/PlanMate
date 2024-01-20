@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import * as s from './styled'
-import { numberUtils } from 'utils/helper'
+import { numberUtils } from 'utils'
 import { RightArrow } from 'assets/SvgComponents'
+import * as s from './styled'
 
 type PaginationProps = {
   currentPage: number

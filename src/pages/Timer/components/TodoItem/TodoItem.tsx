@@ -6,7 +6,7 @@ import { RootState } from 'modules'
 import { increaseTimer, pauseTimer, runTimer } from 'modules/timer'
 import { EllipsisModal } from '..'
 import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
-import { timeUtils } from 'utils/helper'
+import { timeUtils } from 'utils'
 import moment from 'moment'
 import * as s from './styled'
 

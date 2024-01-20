@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { DateProps } from 'pages/Stats/StatsPage'
-import { dateUtils } from 'utils/helper'
+import { dateUtils } from 'utils'
 import * as s from './styled'
 
 type DateCellProps = {

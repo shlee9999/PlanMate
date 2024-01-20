@@ -2,8 +2,8 @@ import React from 'react'
 import { PieChart } from './PieChart'
 import { StudyTimeEntry } from 'api/types'
 import { TimeProps } from 'types'
+import { timeUtils } from 'utils'
 import * as s from './styled'
-import { timeUtils } from 'utils/helper'
 
 export interface PieChartData {
   name: string
