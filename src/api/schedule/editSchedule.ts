@@ -7,4 +7,4 @@ export type EditScheduleResponseProps = Pick<ScheduleType, 'targetDate' | 'remai
 
 /**D-Day 수정 */
 export const editSchedule = ({ targetDate, scheduleId, title }: EditScheduleRequestProps) =>
-  axiosPOST('/schedule/modify', { targetDate, scheduleId, title })
+  axiosPOST('/schedule/edit', { targetDate, scheduleId, title })

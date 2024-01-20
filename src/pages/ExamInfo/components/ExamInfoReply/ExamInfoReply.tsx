@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import * as s from './styled'
 import { ResponseCommentType } from 'api/types'
 import { likeComment } from 'api/comment/likeComment'
-import { modifyComment } from 'api/comment/modifyComment'
+import { editComment } from 'api/comment/editComment'
 import { useNavigate } from 'react-router-dom'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
@@ -70,7 +70,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
     if (e.key === 'Enter') {
       if (e.shiftKey) return
       e.preventDefault()
-      modifyComment({
+      editComment({
         commentId: commentId,
         content: inputValue,
       }).then((res) => {

@@ -1,9 +1,9 @@
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
-import { ModifyCommentRequestProps, modifyComment } from 'api/comment/modifyComment'
+import { EditCommentRequestProps, editComment } from 'api/comment/editComment'
 import { CommentType } from 'api/types'
 import { useQueryClient, useMutation } from 'react-query'
 
-type MutationProps = ModifyCommentRequestProps &
+type MutationProps = EditCommentRequestProps &
   Pick<CommentType, 'postId' | 'currentPage'> & {
     callBack: () => void
   }
@@ -11,7 +11,7 @@ type MutationProps = ModifyCommentRequestProps &
 /**댓글 수정 */
 function useModifyComment() {
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(({ content, commentId }: MutationProps) => modifyComment({ content, commentId }), {
+  const { mutate } = useMutation(({ content, commentId }: MutationProps) => editComment({ content, commentId }), {
     onMutate: ({ postId, currentPage, callBack, commentId, content }) => {
       const prevData = queryClient.getQueryData(['commentData', postId, currentPage + ''])
       queryClient.setQueryData<FindAllCommentsResponseProps>(['commentData', postId, currentPage + ''], (prev) => ({
