@@ -1,17 +1,19 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
-import * as s from './styled'
-import { createPost } from 'api/post/createPost'
 import { useNavigate } from 'react-router-dom'
 import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { serializeContent } from 'utils'
 import { examinfoTagList, suggestTagList } from 'constants/tagList'
-import { suggest } from 'api/suggest/suggest'
+import { createSuggest } from 'api/suggest/suggest'
 import { createNotice } from 'api/notice/admin/createNotice'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import * as s from './styled'
+import useCreatePostMutation from '../hooks/mutations/useCreatePostMutation'
+import useCreateSuggestMutation from '../hooks/mutations/useCreateSuggestMutation'
+import useCreateNoticeMutation from '../hooks/mutations/useCreateNoticeMutation'
 
 type BulletinPageProps = {
-  mode: string
+  mode: 'examinfo' | 'suggest' | 'notice'
 }
 export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const tagList = (): string[] => {
@@ -20,53 +22,43 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
     else return []
   }
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  const [isSelecting, setIsSelecting] = useState<boolean>(false)
-  const [selectedTag, setSelectedTag] = useState<string>('선택해주세요')
-  const onEditorStateChange = (editorState: EditorState) => {
-    setEditorState(editorState)
-  }
+  const [isSelecting, setIsSelecting] = useState(false)
+  const [selectedTag, setSelectedTag] = useState('선택해주세요')
+  const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const [inputValue, setInputValue] = useState<string>('')
   const [suggestInput, setSuggestInput] = useState<string>('')
-  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value)
-  }
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => setInputValue(e.target.value)
   const navigate = useNavigate()
+  const mutateCreatePost = useCreatePostMutation()
+  const mutateCreateNotice = useCreateNoticeMutation()
+  const mutateCreateSuggest = useCreateSuggestMutation()
   const onClickRegisterButton = async () => {
     if (inputValue === '' || (mode === 'examinfo' && selectedTag === '선택해주세요')) return
-    if (mode === 'examinfo') {
-      await createPost({
+    if (mode === 'examinfo')
+      mutateCreatePost({
         content: serializeContent(editorState),
         tagList: [selectedTag],
         title: inputValue,
-      }).then((res) => {
-        navigate(-1)
+        callBack: () => navigate(-1),
       })
-      return
-    }
-    if (mode === 'notice') {
-      createNotice({
+
+    if (mode === 'notice')
+      mutateCreateNotice({
         content: serializeContent(editorState),
         title: inputValue,
-      }).then((res) => {
-        if (res) navigate(-1)
+        callBack: () => navigate(-1),
       })
-      return
-    }
-    if (mode === 'suggest') {
-      suggest({
+    if (mode === 'suggest')
+      mutateCreateSuggest({
         body: suggestInput,
         tag: selectedTag,
         title: inputValue,
-      }).then((res) => {
-        navigate('/timer', { state: true })
+        callBack: () => navigate('/timer', { state: true }),
       })
-    }
     //등록하시겠습니까? 확인
   }
 
-  const onClickCancelButton = () => {
-    navigate(-1)
-  }
+  const onClickCancelButton = () => navigate(-1)
   const onClickTagSelector = (e: React.MouseEvent) => {
     setIsSelecting((prev) => !prev)
     e.stopPropagation()
@@ -76,12 +68,9 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
     e.stopPropagation()
     setIsSelecting(false)
   }
-  const onClickRoot = () => {
-    setIsSelecting(false)
-  }
-  const onSuggestInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setSuggestInput(e.target.value)
-  }
+  const onClickRoot = () => setIsSelecting(false)
+  const onSuggestInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setSuggestInput(e.target.value)
+
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])

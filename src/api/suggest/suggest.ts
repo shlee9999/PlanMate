@@ -8,6 +8,6 @@ export type SuggestRequestProps = {
 
 export type SuggestResponseProps = { body: string; statusCode: string; statusCodeValue: number }
 
-export const suggest = (req: SuggestRequestProps) => {
-  return axiosPOST('/tendinous/alert', req)
+export const createSuggest = ({ body, tag, title }: SuggestRequestProps) => {
+  return axiosPOST('/tendinous/alert', { body, tag, title })
 }

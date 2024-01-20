@@ -123,5 +123,32 @@
       "  return axiosDELETE('', req)",
       "}"
     ]
+  },
+  "react-query-mutation": {
+    "scope": "typescript",
+    "prefix": "mutation",
+    "body": [
+      "import { useQueryClient, useMutation } from 'react-query'",
+      "",
+      "type ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}Props = ${1:RequestProps}",
+      "",
+      "/**$4 */",
+      "function ${TM_FILENAME_BASE}() {",
+      " const queryClient = useQueryClient()",
+      " const { mutate } = useMutation(({$2}: ${TM_FILENAME_BASE/^(.)(.*)$/${1:/upcase}${2}/}Props) => ${3:api}({$2}), {",
+      "   onMutate: ({$2}) => {",
+      "   //",
+      "   },",
+      "   onSuccess: (data, {$2}) => {",
+      "     console.log('success')",
+      "   },",
+      "   onError: (err, {$2}, context) => {",
+      "     console.error('err')",
+      "   }",
+      "  })",
+      "  return mutate",
+      "}",
+      "export default ${TM_FILENAME_BASE}"
+    ]
   }
 }
