@@ -143,7 +143,7 @@
       "     console.log('success')",
       "   },",
       "   onError: (err, {$2}, context) => {",
-      "     console.error('err')",
+      "     console.error(err)",
       "   }",
       "  })",
       "  return mutate",

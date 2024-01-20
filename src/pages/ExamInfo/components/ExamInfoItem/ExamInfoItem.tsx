@@ -1,19 +1,12 @@
 import { FC } from 'react'
-import * as s from './styled'
 import { ResponsePostType } from 'api/types'
 import { useNavigate } from 'react-router-dom'
 import { CommentIcon, HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
+import * as s from './styled'
 
 type ExamInfoItemProps = ResponsePostType
-/**
- * @title
- * @like
- * @scrap 스크랩 개수
- * @comment_count 댓글 개수
- * @nickname owner_id?
- * @updated_at (업데이트 시간)x
- */
+
 export const ExamInfoItem: FC<ExamInfoItemProps> = (props) => {
   const navigate = useNavigate()
   const onClickTitle = (): void => {

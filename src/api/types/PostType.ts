@@ -84,3 +84,4 @@ export type ResponsePostType = Pick<
   | 'postId'
   | 'noticeId'
 >
+export type ResponseNoticeType = Omit<ResponsePostType, 'postTagList'> & Pick<PostType, 'noticeId'>

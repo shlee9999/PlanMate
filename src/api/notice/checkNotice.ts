@@ -1,22 +1,8 @@
 import { axiosGET } from 'api/common/commonAxios'
+import { PostType, ResponsePostType } from 'api/types'
 
-export type CheckNoticeRequestProps = {
-  noticeId: number
-}
+export type CheckNoticeRequestProps = Pick<PostType, 'noticeId'>
 
-export type CheckNoticeResponseProps = {
-  commentCount: number
-  content: string
-  createdAt: string
-  isMyHearted: boolean
-  isMyScraped: boolean
-  likeCount: number
-  nickname: string
-  noticeId: number
-  scrapCount: number
-  title: string
-}
+export type CheckNoticeResponseProps = Omit<ResponsePostType, 'postTagList'>
 
-export const checkNotice = (req: CheckNoticeRequestProps) => {
-  return axiosGET('', req)
-}
+export const checkNotice = ({ noticeId }: CheckNoticeRequestProps) => axiosGET('', { noticeId })

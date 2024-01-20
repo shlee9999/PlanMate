@@ -7,6 +7,10 @@ import useScrapPostMutation from './useScrapPostMutation'
 import useCreatePostMutation from './useCreatePostMutation'
 import useCreateNoticeMutation from './useCreateNoticeMutation'
 import useCreateSuggestMutation from './useCreateSuggestMutation'
+import useDeletePostMutation from './useDeletePostMutation'
+import useDeleteNoticeMutation from './useDeleteNoticeMutation'
+import useEditPostMutation from './useEditPostMutation'
+import useEditNoticeMutation from './useEditNoticeMutation'
 export {
   useCreateCommentMutation,
   useDeleteCommentMutation,
@@ -17,4 +21,8 @@ export {
   useCreateNoticeMutation,
   useCreatePostMutation,
   useCreateSuggestMutation,
+  useDeletePostMutation,
+  useDeleteNoticeMutation,
+  useEditNoticeMutation,
+  useEditPostMutation,
 }

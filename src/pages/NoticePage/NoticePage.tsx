@@ -1,9 +1,8 @@
 import * as s from './styled'
 import { useEffect, useState } from 'react'
-import { ResponseNoticeType } from 'api/common/types'
+import { ResponseNoticeType } from 'api/types/PostType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
-import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { ExamInfoItem, Pagination } from 'pages/ExamInfo/components'
 
 export const NoticePage = () => {

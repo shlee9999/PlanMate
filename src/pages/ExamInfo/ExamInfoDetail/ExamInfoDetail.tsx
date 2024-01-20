@@ -3,36 +3,30 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { ResponsePostType } from 'api/types'
 import { deserializeContent, serializeContent } from 'utils'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
-import { removePost } from 'api/post/remove/removePost'
 import { Editor } from 'react-draft-wysiwyg'
 import { EditorState, convertFromRaw } from 'draft-js'
-import { editPost } from 'api/post/editPost'
-import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { deleteNotice } from 'api/notice/admin/deleteNotice'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
-import { useLikePostMutation, useCreateCommentMutation, useScrapPostMutation } from '../hooks/mutations'
+import {
+  useLikePostMutation,
+  useCreateCommentMutation,
+  useScrapPostMutation,
+  useDeletePostMutation,
+  useDeleteNoticeMutation,
+  useEditNoticeMutation,
+  useEditPostMutation,
+} from '../hooks/mutations'
 import { useObserver } from '../hooks/'
 import { NoContentDescription } from 'components'
 import { DeletePostModal, ExamInfoComment } from '../components'
 import * as s from './styled'
 
-/**
- * @title
- * @like
- * @scrap 스크랩 개수
- * @commentDtoList 댓글 내용
- * @nickname owner_id?
- * @updated_at 업데이트 시간
- * @content 게시물 내용
- * @tagList 태그 리스트
- */
 type ExamInfoDetailPageProps = {
-  mode: string
+  mode: 'examinfo' | 'notice'
 }
 type LocationState = ResponsePostType
 
@@ -41,7 +35,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const location = useLocation()
   const { postTagList, nickname, postId, title, createdAt } = location.state as LocationState
   const { data: detailData, isLoading: isDetailLoading } = useQuery<CheckPostResponseProps>(
-    ['detailData', postId],
+    ['detailData', mode, postId],
     () => checkPost({ postId })
   )
   if (!postId) return <s.Root>Error!</s.Root>
@@ -53,6 +47,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const [allComments, setAllComments] = useState([])
   const mutateLikePost = useLikePostMutation()
   const mutateScrapPost = useScrapPostMutation()
+  const mutateDeletePost = useDeletePostMutation()
+  const mutateDeleteNotice = useDeleteNoticeMutation()
+  const mutateEditPost = useEditPostMutation()
+  const mutateEditNotice = useEditNoticeMutation()
   const { commentDtoList, totalCount, totalPages } = isCommentLoading
     ? { commentDtoList: [], totalCount: 0, totalPages: 0 }
     : { ...commentData }
@@ -63,18 +61,18 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const mutateCreateComment = useCreateCommentMutation()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
+  const [editorState, setEditorState] = useState(() => {
+    const rawContentFromServer = JSON.parse(detailData.content)
+    const contentState = convertFromRaw(rawContentFromServer)
+    return EditorState.createWithContent(contentState)
+  })
+  const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const deletePost = (): void => {
-    if (mode === 'examinfo')
-      removePost({
-        postId: postId,
-      }).then((res) => {
-        navigate(-1)
-      })
+    if (mode === 'examinfo') mutateDeletePost({ postId, callBack: () => navigate(-1) })
     else
-      deleteNotice({
+      mutateDeleteNotice({
         noticeId: postId,
-      }).then((res) => {
-        navigate(-1)
+        callBack: () => navigate(-1),
       })
   }
   const loadNextPage = (): void => setCurrentPage((prev) => prev + 1)
@@ -95,24 +93,29 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     setIsEditing((prev) => !prev)
   }
   const onClickEditCompleteButton = () => {
-    // if (mode === 'examinfo')
-    //   editPost({
-    //     content: serializeContent(editorState),
-    //     id: +postId,
-    //     tagList: examInfoDetail.postTagList,
-    //     title: examInfoDetail.title,
-    //   }).then((res) => {
-    //     if (res) {
-    //       setIsEditing(false)
-    //       setCurrentContent(serializeContent(editorState))
-    //     }
-    //   })
-    // else
-    //   editNotice({
-    //     content: serializeContent(editorState),
-    //     noticeId: +postId,
-    //     title: examInfoDetail.title,
-    //   })
+    mode === 'examinfo' &&
+      mutateEditPost({
+        content: serializeContent(editorState),
+        postId,
+        tagList: detailData.postTagList,
+        title: detailData.title,
+        callBack: () => {
+          setIsEditing(false)
+          setCurrentContent(serializeContent(editorState))
+        },
+        mode,
+      })
+    mode === 'notice' &&
+      mutateEditNotice({
+        content: serializeContent(editorState),
+        noticeId: +postId,
+        title: detailData.title,
+        callBack: () => {
+          setIsEditing(false)
+          setCurrentContent(serializeContent(editorState))
+        },
+        mode,
+      })
   }
   const onClickRegisterButton = (): void => {
     mutateCreateComment({
@@ -169,23 +172,23 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
           <s.ContentWrapper>
             {isEditing ? (
               <s.EditorWrapper>
-                {/* <Editor
-              wrapperClassName="wrapper-class"
-              editorClassName="editor"
-              toolbarClassName="toolbar-class"
-              toolbar={{
-                list: { inDropdown: true },
-                textAlign: { inDropdown: true },
-                link: { inDropdown: true },
-                history: { inDropdown: false },
-              }}
-              placeholder="내용을 작성해주세요"
-              localization={{
-                locale: 'ko',
-              }}
-              editorState={editorState}
-              onEditorStateChange={onEditorStateChange}
-            /> */}
+                <Editor
+                  wrapperClassName="wrapper-class"
+                  editorClassName="editor"
+                  toolbarClassName="toolbar-class"
+                  toolbar={{
+                    list: { inDropdown: true },
+                    textAlign: { inDropdown: true },
+                    link: { inDropdown: true },
+                    history: { inDropdown: false },
+                  }}
+                  placeholder="내용을 작성해주세요"
+                  localization={{
+                    locale: 'ko',
+                  }}
+                  editorState={editorState}
+                  onEditorStateChange={onEditorStateChange}
+                />
                 <s.EditCompleteButton onClick={onClickEditCompleteButton} icon="register">
                   수정완료
                 </s.EditCompleteButton>
