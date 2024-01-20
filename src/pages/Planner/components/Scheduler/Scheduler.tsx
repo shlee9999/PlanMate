@@ -39,7 +39,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const onClickClose = (id: number) => (e: React.MouseEvent) => {
     e.stopPropagation()
     dispatch(removeAppoint(id))
-    mutateRemoveAppoint(id)
+    mutateRemoveAppoint({ plannerId: id })
   }
   const openModal = (title: '일정추가' | '일정수정') => {
     setModalTitle(title)

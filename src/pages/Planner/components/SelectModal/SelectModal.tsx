@@ -4,14 +4,13 @@ import { TimeSelect } from '.'
 import { ColorPicker } from 'components/'
 import { addAppoint, updateAppoint } from 'modules/appointments'
 import { RootState } from 'modules'
-
+import { dateUtils } from 'utils/helper'
 import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { AnimatePresence } from 'framer-motion'
 import { useAddAppointMutation, useEditAppointMutation } from '../../hooks/mutations/'
 import * as cs from 'commonStyled'
 import * as s from './styled'
-import { dateUtils } from 'utils/helper'
 
 export const SelectModal = ({
   closeModal,
@@ -32,23 +31,10 @@ export const SelectModal = ({
   const [subjectColor, setSubjectColor] = useState<string>(title.slice(-2) === '수정' ? colorHex : defaultColor)
   const inputRef = useRef<HTMLInputElement>()
   const dispatch = useDispatch()
-  const mutateAddAppoint = useAddAppointMutation({ colorHex, startAt, day, endAt, scheduleName: inputValue })
-  const mutateEditAppoint = useEditAppointMutation({
-    colorHex,
-    day,
-    startAt,
-    endAt,
-    scheduleName: inputValue,
-    plannerId,
-  })
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
-
-  const assignSubjectColor = (color: string) => {
-    setSubjectColor(color)
-  }
-
+  const mutateAddAppoint = useAddAppointMutation()
+  const mutateEditAppoint = useEditAppointMutation()
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
+  const assignSubjectColor = (color: string) => setSubjectColor(color)
   const onClickConfirm = () => {
     if (inputValue === '') return
     setInputValue('')
@@ -63,31 +49,32 @@ export const SelectModal = ({
           day,
         })
       )
-      mutateAddAppoint()
+      mutateAddAppoint({ colorHex, startAt, day, endAt, scheduleName: inputValue })
     } else {
       // 수정
       dispatch(
         updateAppoint({
           scheduleName: inputValue,
-          startAt: startAt,
-          endAt: endAt,
-          colorHex: colorHex,
-          plannerId: plannerId,
+          startAt,
+          endAt,
+          colorHex,
+          plannerId,
           day,
         })
       )
-      mutateEditAppoint(plannerId)
+      mutateEditAppoint({
+        colorHex,
+        startAt,
+        day,
+        endAt,
+        scheduleName: inputValue,
+        plannerId,
+      })
     }
     closeModal()
   }
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
-      onClickConfirm()
-    }
-  }
-  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation()
-  }
+  const onKeyDown = (e: React.KeyboardEvent) => e.key === 'Enter' && !e.nativeEvent.isComposing && onClickConfirm()
+  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
 
   useEffect(() => {
     inputRef?.current?.focus()
