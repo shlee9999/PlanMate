@@ -1,13 +1,7 @@
 import { axiosPOST } from 'api/common/commonAxios'
+import { SubjectType } from 'api/types'
 
-export type EditSubjectRequestProps = {
-  colorHex: string
-  name: string
-  subjectId: number
-}
+export type EditSubjectRequestProps = Pick<SubjectType, 'colorHex' | 'name' | 'subjectId'>
 
-export type EditSubjectResponseProps = boolean
-
-export const editSubject = (req: EditSubjectRequestProps) => {
-  return axiosPOST('/subject/edit', req)
-}
+export const editSubject = ({ colorHex, name, subjectId }: EditSubjectRequestProps) =>
+  axiosPOST('/subject/edit', { colorHex, name, subjectId })

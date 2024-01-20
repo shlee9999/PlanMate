@@ -7,6 +7,7 @@ import { PostType } from './PostType'
 import { StatsType } from './StatsType'
 import { ResponseStats } from './StatsType'
 import { StudyTimeEntry } from './StatsType'
+import { SubjectType } from './SubjectType'
 export type {
   CommentType,
   PlannerType,
@@ -17,4 +18,5 @@ export type {
   StatsType,
   ResponseStats,
   StudyTimeEntry,
+  SubjectType,
 }

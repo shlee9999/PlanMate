@@ -1,14 +1,9 @@
 import { axiosGET } from 'api/common/commonAxios'
+import { SubjectType } from 'api/types'
 
-export type StudyTimeResponseProps = {
-  colorHex: string
-  name: string
-  studyTimeHours: number
-  studyTimeMinutes: number
-  studyTimeSeconds: number
-  subjectId: number
-}[]
+export type StudyTimeResponseProps = Pick<
+  SubjectType,
+  'colorHex' | 'name' | 'studyTimeHours' | 'studyTimeMinutes' | 'studyTimeSeconds' | 'subjectId'
+>[]
 
-export const studyTime = (): Promise<StudyTimeResponseProps> => {
-  return axiosGET('/subject/studytime')
-}
+export const studyTime = (): Promise<StudyTimeResponseProps> => axiosGET('/subject/studytime')

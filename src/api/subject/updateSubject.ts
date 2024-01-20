@@ -1,20 +1,7 @@
 import { axiosPOST } from 'api/common/commonAxios'
-import { ResponseTimeProps } from 'api/common/types'
+import { SubjectType } from 'api/types'
 
-export type UpdateSubjectRequestProps = {
-  endAt: string
-  startAt: string
-  subjectId: number
-}
+export type UpdateSubjectRequestProps = Pick<SubjectType, 'endAt' | 'startAt' | 'subjectId'>
 
-export type UpdateSubjectResponseProps = {
-  maxStudyTime: ResponseTimeProps
-  name: string
-  restTime: ResponseTimeProps
-  studyTime: ResponseTimeProps
-  subjectId: number
-}
-
-export const updateSubject = (req: UpdateSubjectRequestProps) => {
-  return axiosPOST('/subject/time', req)
-}
+export const updateSubject = ({ endAt, startAt, subjectId }: UpdateSubjectRequestProps) =>
+  axiosPOST('/subject/time', { endAt, startAt, subjectId })

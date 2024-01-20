@@ -1,11 +1,6 @@
 import { axiosDELETE } from 'api/common/commonAxios'
+import { SubjectType } from 'api/types'
 
-export type RemoveSubjectRequestProps = {
-  subjectId: number
-}
+export type RemoveSubjectRequestProps = Pick<SubjectType, 'subjectId'>
 
-export type RemoveSubjectResponseProps = boolean
-
-export const removeSubject = (req: RemoveSubjectRequestProps) => {
-  return axiosDELETE('/subject/remove', req)
-}
+export const removeSubject = ({ subjectId }: RemoveSubjectRequestProps) => axiosDELETE('/subject/remove', { subjectId })
