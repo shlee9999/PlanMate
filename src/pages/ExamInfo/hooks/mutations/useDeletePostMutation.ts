@@ -1,7 +1,7 @@
-import { RemovePostRequestProps, removePost } from 'api/post/remove/removePost'
+import { DeletePostRequestProps, removePost } from 'api/post/deletePost'
 import { useMutation } from 'react-query'
 
-type UseDeletePostMutationProps = RemovePostRequestProps & {
+type UseDeletePostMutationProps = DeletePostRequestProps & {
   callBack: () => void
 }
 

@@ -3,7 +3,7 @@ import * as s from './styled'
 import { ResponseCommentType } from 'api/types'
 import { createChildComment } from 'api/comment/createChildComment'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
-import { removeComment } from 'api/comment/removeComment'
+import { deleteComment } from 'api/comment/deleteComment'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -36,7 +36,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const [currentReplyList, setCurrentReplyList] = useState<ResponseCommentType[]>([])
   const navigate = useNavigate()
   const deleteReply = (commentId: number) => () => {
-    removeComment({
+    deleteComment({
       commentId: commentId,
     }).then((res) => {
       console.log(res)

@@ -1,5 +1,5 @@
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
-import { removeComment } from 'api/comment/removeComment'
+import { deleteComment } from 'api/comment/deleteComment'
 import { CommentType } from 'api/types'
 import { useQueryClient, useMutation } from 'react-query'
 
@@ -11,7 +11,7 @@ function useDeleteCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(
     ({ commentId }: MutationProps) =>
-      removeComment({
+      deleteComment({
         commentId,
       }),
     {

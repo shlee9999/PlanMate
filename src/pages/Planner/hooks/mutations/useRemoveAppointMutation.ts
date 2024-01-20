@@ -1,14 +1,14 @@
 import { FindPlannerResponseProps } from 'api/planner/findPlanner'
-import { RemovePlannerRequestProps, removePlanner } from 'api/planner/removePlanner'
+import { DeletePlannerRequestProps, deletePlanner } from 'api/planner/deletePlanner'
 import { useMutation, useQueryClient } from 'react-query'
 
-type RemoveAppointMutationProps = RemovePlannerRequestProps
+type RemoveAppointMutationProps = DeletePlannerRequestProps
 
 /**플래너 일정 삭제 */
 function useRemoveAppointMutation() {
   const queryClient = useQueryClient()
   const { mutate: mutateRemoveAppoint } = useMutation(
-    ({ plannerId }: RemoveAppointMutationProps) => removePlanner({ plannerId }),
+    ({ plannerId }: RemoveAppointMutationProps) => deletePlanner({ plannerId }),
     {
       onMutate: ({ plannerId }) => {
         const previousAppointments = queryClient.getQueryData<FindPlannerResponseProps>(['plannerData'])
