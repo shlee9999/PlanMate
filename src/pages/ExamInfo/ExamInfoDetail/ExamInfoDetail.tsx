@@ -235,10 +235,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                   ))
                 : !isCommentLoading && (
                     <>
-                      <NoContentDescription icon="chat">
-                        <NoContentTypo>아직 댓글이 없어요</NoContentTypo>
-                        <NoContentTypo>첫 댓글을 남겨볼까요?</NoContentTypo>
-                      </NoContentDescription>
+                      <NoContentDescription
+                        icon="pencil"
+                        descriptions={['아직 댓글이 없어요', '첫 댓글을 남겨볼까요?']}
+                      />
                       <s.CommentInputWrapper className="no_content">
                         <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
                         <s.CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />

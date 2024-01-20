@@ -49,12 +49,8 @@ export const NoticePage = () => {
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem postTagList={[]} {...examInfo} key={examInfo.noticeId} />)
         ) : (
-          <s.NoContent icon="pencil">
-            <NoContentTypo>아직 게시글이 없어요</NoContentTypo>
-            <NoContentTypo>첫 게시글을 올려볼까요?</NoContentTypo>
-          </s.NoContent>
+          <s.NoContent icon="pencil" descriptions={['아직 게시글이 없어요', '첫 게시글을 올려볼까요?']} />
         )}
-
         <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </s.BulletinButton>

@@ -191,10 +191,10 @@ export const TimerPage: FC = () => {
           ) : isTodoLoading ? (
             <s.TodoSpinner>Loading..</s.TodoSpinner>
           ) : (
-            <NoContentDescription icon="book_check">
-              <NoContentTypo>아직 공부할 과목이 없어요!</NoContentTypo>{' '}
-              <NoContentTypo>일정을 설정해 과목을 추가해볼까요?</NoContentTypo>
-            </NoContentDescription>
+            <NoContentDescription
+              descriptions={['아직 공부할 과목이 없어요!', '일정을 설정해 과목을 추가해볼까요?']}
+              icon="book_check"
+            />
           )}
         </s.TodoContainer>
 

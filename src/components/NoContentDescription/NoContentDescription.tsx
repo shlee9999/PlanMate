@@ -1,14 +1,14 @@
-import { FC, ReactNode } from 'react'
-import { DescriptionTypoContainer, Root } from './styled'
+import { FC } from 'react'
+import { DescriptionTypoContainer, NoContentTypo, Root } from './styled'
 import { BookCheckIcon, CircleChatIcon, PencilIcon } from 'assets/SvgComponents'
 
 type NoContentDescriptionProps = {
   icon: 'chat' | 'book_check' | 'pencil'
-  children: ReactNode
   className?: string
+  descriptions: string[]
 }
 
-export const NoContentDescription: FC<NoContentDescriptionProps> = ({ className, icon, children }) => {
+export const NoContentDescription: FC<NoContentDescriptionProps> = ({ className, icon, descriptions }) => {
   const icons = {
     chat: <CircleChatIcon fill="currentColor" />,
     book_check: <BookCheckIcon fill="currentColor" />,
@@ -17,7 +17,11 @@ export const NoContentDescription: FC<NoContentDescriptionProps> = ({ className,
   return (
     <Root className={className}>
       {icons[icon]}
-      <DescriptionTypoContainer>{children}</DescriptionTypoContainer>
+      <DescriptionTypoContainer>
+        {descriptions?.map((description, index) => (
+          <NoContentTypo key={index}>{description}</NoContentTypo>
+        ))}
+      </DescriptionTypoContainer>
     </Root>
   )
 }
