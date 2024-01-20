@@ -2,10 +2,10 @@ import { RightArrow } from 'assets/SvgComponents'
 import { LeftArrow } from 'commonStyled'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
+import { Tooltip } from './Tooltip'
 
 export const Root = styled.div`
   width: 100%;
-  overflow: hidden;
   position: relative;
   padding: 24px 25px;
   height: 400px;
@@ -163,4 +163,38 @@ export const DateCellRoot = styled(Cell)<DateCellProps>`
     opacity: 0;
     pointer-events: none;
   }
+`
+export const DateCellWrapper = styled.div`
+  position: relative;
+`
+
+//Tooltip
+export const TooltipRoot = styled(motion.div)`
+  position: absolute;
+  background-color: rgb(255, 249, 219);
+  border: 1px solid rgba(205, 133, 63, 0.3);
+  color: rgba(205, 133, 63, 0.7);
+  font-size: 12px;
+  border-radius: 8px;
+  width: 150px;
+  padding: 15px 10px;
+  &::after {
+    position: absolute;
+    content: '';
+    background-color: rgb(255, 249, 219);
+    width: 10px;
+    height: 10px;
+    bottom: -6px;
+    left: 10px;
+    transform: rotate(45deg);
+    border-bottom: 1px solid rgba(205, 133, 63, 0.3);
+    border-right: 1px solid rgba(205, 133, 63, 0.3);
+    border-top: 0;
+    border-left: 0;
+  }
+`
+
+export const StyledTooltip = styled(Tooltip)`
+  top: -51px;
+  left: 0px;
 `

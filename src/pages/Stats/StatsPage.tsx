@@ -44,7 +44,7 @@ export const StatsPage = () => {
   })
   const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>(['todayStats'], () => checkTodayStats())
   const { data: selectedMonthStats, isLoading: isSelectedLoading } = useQuery<ResponseStats[]>(
-    ['timeInfo', dateUtils.getYYYYMMDD(selectedDate)],
+    ['timeInfo', selectedDate.month],
     () =>
       checkStatsMonthly({
         yearMonth: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
@@ -78,6 +78,7 @@ export const StatsPage = () => {
               <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={selectedMonthStats} />
             )}
           </s.LeftInfoBox>
+          <div id="portal">portal</div>
           <s.RightInfoBox right>
             {isLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>
