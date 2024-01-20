@@ -1,16 +1,14 @@
-import { editSubject } from 'api/subject/editSubject'
+import { EditSubjectRequestProps, editSubject } from 'api/subject/editSubject'
 import { useMutation, useQueryClient } from 'react-query'
 import { TodoItemType } from 'types'
 
-type MutateProps = {
-  colorHex: string
-  name: string
-  subjectId: number
-}
+type EditSubjectMutationProps = EditSubjectRequestProps
+
+/**타이머 과목 수정 */
 function useEditSubjectMutation() {
   const queryClient = useQueryClient()
   const { mutate: mutateEditSubjectMutation } = useMutation(
-    ({ colorHex, name, subjectId }: MutateProps) =>
+    ({ colorHex, name, subjectId }: EditSubjectMutationProps) =>
       editSubject({
         colorHex,
         name,

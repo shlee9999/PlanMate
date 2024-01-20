@@ -1,12 +1,14 @@
-import { CreateSubjectResponseProps, createSubject } from 'api/subject/createSubject'
+import { CreateSubjectRequestProps, createSubject } from 'api/subject/createSubject'
 import { StudyTimeResponseProps } from 'api/subject/studyTime'
 import { useMutation, useQueryClient } from 'react-query'
-import { TodoItemType } from 'types'
 
+type CreateSubjectMutationProps = CreateSubjectRequestProps
+
+/**타이머 과목 생성 */
 function useCreateSubjectMutation() {
   const queryClient = useQueryClient()
   const { mutate: mutateCreateSubject } = useMutation(
-    ({ colorHex, name }: { colorHex: string; name: string }) =>
+    ({ colorHex, name }: CreateSubjectMutationProps) =>
       createSubject({
         colorHex,
         name,

@@ -1,17 +1,19 @@
-import { removeSubject } from 'api/subject/removeSubject'
+import { RemoveSubjectRequestProps, removeSubject } from 'api/subject/removeSubject'
 import { useMutation, useQueryClient } from 'react-query'
 import { TodoItemType } from 'types'
 
-type MutationProps = { subjectId: number }
+type DeleteSubjectMutationProps = RemoveSubjectRequestProps
+
+/**타이머 과목 삭제 */
 function useDeleteSubjectMutation() {
   const queryClient = useQueryClient()
   const { mutate: mutateDeleteSubject } = useMutation(
-    ({ subjectId }: MutationProps) =>
+    ({ subjectId }: DeleteSubjectMutationProps) =>
       removeSubject({
         subjectId,
       }),
     {
-      onMutate: async ({ subjectId }) => {
+      onMutate: ({ subjectId }) => {
         const prevData = queryClient.getQueryData('todoList')
         queryClient.setQueryData<TodoItemType[]>('todoList', (prev) =>
           prev.filter((todo) => subjectId !== todo.subjectId)
