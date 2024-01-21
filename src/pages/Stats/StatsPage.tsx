@@ -13,7 +13,7 @@ export type DateProps = {
   month: number
   date: number
 }
-const defaultStats = {
+export const defaultStats = {
   endAtHours: 0,
   endAtMinutes: 0,
   maxStudyTimeHours: 0,
@@ -32,7 +32,7 @@ const defaultStats = {
       studyTimeSeconds: 0,
     },
   ],
-  totalStudyTimeHours: 5,
+  totalStudyTimeHours: 0,
   totalStudyTimeMinutes: 0,
   totalStudyTimeSeconds: 0,
 }
@@ -72,13 +72,8 @@ export const StatsPage = () => {
         <s.Title>공부량 한 눈에 보기</s.Title>
         <s.StatsContainer>
           <s.LeftInfoBox left>
-            {isLoading ? (
-              <CenterSpinner>Loading...</CenterSpinner>
-            ) : (
-              <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={selectedMonthStats} />
-            )}
+            <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={selectedMonthStats} />
           </s.LeftInfoBox>
-          <div id="portal">portal</div>
           <s.RightInfoBox right>
             {isLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>

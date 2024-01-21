@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
 import { weekDays } from 'constants/week'
-import { dateUtils } from 'utils'
+import { dateUtils, numberUtils } from 'utils'
 import { AnimatePresence, Variants } from 'framer-motion'
-import { DateProps } from 'pages/Stats/StatsPage'
+import { DateProps, defaultStats } from 'pages/Stats/StatsPage'
 import { DateCell } from './DateCell'
 import { ResponseStats } from 'api/types'
 import * as s from './styled'
@@ -19,7 +19,12 @@ const MonthVar: Variants = {
   visible: { opacity: 1, x: 0 },
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
-export const Calendar: FC<CalendarProps> = ({ className, setSelectedDate, selectedDate, dataSource }) => {
+export const Calendar: FC<CalendarProps> = ({
+  className,
+  setSelectedDate,
+  selectedDate,
+  dataSource = numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats),
+}) => {
   const [back, setBack] = useState(false)
   const [isToolTipOpen, setIsToolTipOpen] = useState(false)
   const triggerTooltip = () => setIsToolTipOpen(true)
