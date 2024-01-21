@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import * as s from './styled'
 import * as cs from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
-import useDeleteCommentMutation from 'pages/ExamInfo/hooks/mutations/useDeleteCommentMutation'
+import useDeleteCommentMutation from 'pages/ExamInfo/hooks/mutations/comment/useDeleteCommentMutation'
 type DeleteCommentModalProps = {
   closeModal: () => void
   isOpen: boolean
