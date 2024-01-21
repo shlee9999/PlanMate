@@ -1,6 +1,6 @@
 import { FC, ReactComponentElement, useEffect, useState } from 'react'
 import * as s from './styled'
-import { DDayItem, ResignModal } from './components'
+import { DDayItem, ResignModal } from '../components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -12,6 +12,7 @@ import { fixSchedule } from 'api/schedule/fixSchedule'
 import { GoogleCustom } from 'assets/SvgComponents'
 import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
 import { ResponseCommentType, ResponsePostType } from 'api/types'
+import { useNavigate } from 'react-router-dom'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
 const sampleDDayList = [
@@ -36,6 +37,7 @@ export const MyPage: FC = () => {
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
   const [fixedIndex, setFixedIndex] = useState<number>(0)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const openProfileEditModal = () => {
     setIsProfileEditModalOpen(true)
     setIsEllipsisModalOpen(false)
@@ -177,7 +179,7 @@ export const MyPage: FC = () => {
           </s.ProfileContainer>
           <s.TypoWrapper>
             <s.AdminDDay>D-DAY 관리</s.AdminDDay>
-            <s.SeeMore>
+            <s.SeeMore onClick={() => navigate('/mypage/events')}>
               더보기
               <s.NextArrow fill="currentColor" />
             </s.SeeMore>

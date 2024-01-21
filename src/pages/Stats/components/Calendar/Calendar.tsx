@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 import { weekDays } from 'constants/week'
 import { dateUtils, numberUtils } from 'utils'
 import { AnimatePresence, Variants } from 'framer-motion'
@@ -12,6 +12,8 @@ type CalendarProps = {
   selectedDate: DateProps
   setSelectedDate: (date: DateProps) => void
   dataSource?: ResponseStats[]
+  blockFuture?: boolean
+  legend?: boolean
 }
 const momentum = 100
 const MonthVar: Variants = {
@@ -24,12 +26,19 @@ export const Calendar: FC<CalendarProps> = ({
   setSelectedDate,
   selectedDate,
   dataSource = numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats),
+  blockFuture = false,
+  legend,
 }) => {
   const [back, setBack] = useState(false)
   const onClickNext = () => {
     const newDate = new Date(selectedDate.year, selectedDate.month + 1, 1)
     const newDateProps = dateUtils.getDateProps(newDate)
-    if (!dateUtils.isFuture(newDate)) {
+    if (blockFuture) {
+      if (!dateUtils.isFuture(newDate)) {
+        setSelectedDate(newDateProps)
+        setBack(false)
+      }
+    } else {
       setSelectedDate(newDateProps)
       setBack(false)
     }
@@ -63,8 +72,9 @@ export const Calendar: FC<CalendarProps> = ({
           {weekDays.map((day, index) => (
             <s.DayCell key={index}>{day}</s.DayCell>
           ))}
+          <s.Line />
         </s.DayRow>
-        <s.Line />
+
         <AnimatePresence initial={false}>
           <s.DateContainer
             key={selectedDate.month}
@@ -85,31 +95,34 @@ export const Calendar: FC<CalendarProps> = ({
                       dataSource[date.getDate() - 1 < dataSource.length ? date.getDate() - 1 : 0].totalStudyTimeHours
                     }
                     selectedDate={selectedDate}
+                    blockFuture={blockFuture}
                   />
                 ))}
               </s.WeekRow>
             ))}
+            {legend && (
+              <s.LegendContainer>
+                <s.Legend>
+                  <s.Circle />
+                  0~3시간
+                </s.Legend>
+                <s.Legend>
+                  <s.Circle />
+                  4~7시간
+                </s.Legend>
+                <s.Legend>
+                  <s.Circle />
+                  8~11시간
+                </s.Legend>
+                <s.Legend>
+                  <s.Circle />
+                  12시간 이상
+                </s.Legend>
+              </s.LegendContainer>
+            )}
           </s.DateContainer>
         </AnimatePresence>
       </s.Body>
-      <s.LegendContainer>
-        <s.Legend>
-          <s.Circle />
-          0~3시간
-        </s.Legend>
-        <s.Legend>
-          <s.Circle />
-          4~7시간
-        </s.Legend>
-        <s.Legend>
-          <s.Circle />
-          8~11시간
-        </s.Legend>
-        <s.Legend>
-          <s.Circle />
-          12시간 이상
-        </s.Legend>
-      </s.LegendContainer>
     </s.Root>
   )
 }

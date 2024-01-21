@@ -10,6 +10,7 @@ import {
   ExamInfoDetailPage,
   NoticePage,
   LoginPage,
+  EventCalendarPage,
 } from 'pages'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 import App from 'App'
@@ -21,6 +22,7 @@ export const routerInfo = [
     element: <App />,
     children: [
       { path: 'mypage', element: <MyPage /> },
+      { path: 'mypage/events', element: <EventCalendarPage /> },
       {
         path: 'timer',
         element: <TimerPage />,

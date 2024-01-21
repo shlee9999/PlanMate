@@ -8,6 +8,7 @@
  * @param {string} startAt 공부 시작 시간 HH:MM:SS
  * @param {string} endAt 공부 마친 시간 HH:MM:SS
  */
+
 export type SubjectType = {
   /**과목 색상 */
   colorHex: string

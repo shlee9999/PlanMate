@@ -113,3 +113,9 @@ export const CenterSpinner = styled(Spinner)`
   right: 0;
   margin: 0 auto;
 `
+
+export const FlexRow = styled.div<{ $gap?: number }>`
+  display: flex;
+  align-items: center;
+  gap: ${(props) => props.$gap || 5}px;
+`

@@ -2,6 +2,7 @@ import { PageRoot } from 'commonStyled'
 import { InfoBox } from 'components'
 import { FOOTER_HEIGHT, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
 import styled from 'styled-components'
+import { Calendar } from './components'
 
 export const Root = styled(PageRoot)`
   display: flex;
@@ -72,9 +73,11 @@ export const LeftInfoBox = styled(InfoBox)`
   flex-grow: 1;
   max-width: 420px;
   overflow: hidden;
+  padding: 24px 25px;
 `
 export const RightInfoBox = styled(InfoBox)`
   flex-grow: 1;
   max-width: 800px;
   overflow: visible;
 `
+export const StatsCalendar = styled(Calendar)``

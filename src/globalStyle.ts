@@ -63,6 +63,17 @@ input {
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   outline: none;
   border: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  &::placeholder{
+    color:${(props) => props.theme.text.gray2}
+  }
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid ${(props) => props.theme.border.default};
+  padding:0 8px;
+
 }
 textarea {
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';

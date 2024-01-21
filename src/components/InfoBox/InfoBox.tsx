@@ -1,22 +1,28 @@
 import { FC, ReactNode } from 'react'
-import { InfoBoxVar, Root } from './styled'
+import * as s from './styled'
 
 type InfoBoxProps = {
   className?: string
   children?: ReactNode | string
+  title?: string
+  desciption?: string
   left?: boolean
   right?: boolean
 }
 
-export const InfoBox: FC<InfoBoxProps> = ({ className, children, left, right }) => {
+export const InfoBox: FC<InfoBoxProps> = ({ className, children, left, right, title, desciption }) => {
   return (
-    <Root
+    <s.Root
       className={className}
-      variants={InfoBoxVar}
+      variants={s.InfoBoxVar}
       initial={left ? 'initial_left' : right ? 'initial_right' : 'initial'}
       animate="animate"
     >
+      <s.Header>
+        <s.BoxTitle>{title}</s.BoxTitle>
+        <s.BoxDescription>{desciption}</s.BoxDescription>
+      </s.Header>
       {children}
-    </Root>
+    </s.Root>
   )
 }

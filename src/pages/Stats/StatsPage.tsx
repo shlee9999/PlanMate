@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { ResponseStats } from 'api//types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
-import { Calendar, InfoContainer } from './components'
+import { InfoContainer } from './components'
 import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
 import * as s from './styled'
 
@@ -72,7 +72,13 @@ export const StatsPage = () => {
         <s.Title>공부량 한 눈에 보기</s.Title>
         <s.StatsContainer>
           <s.LeftInfoBox left>
-            <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} dataSource={selectedMonthStats} />
+            <s.StatsCalendar
+              legend
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              dataSource={selectedMonthStats}
+              blockFuture
+            />
           </s.LeftInfoBox>
           <s.RightInfoBox right>
             {isLoading ? (

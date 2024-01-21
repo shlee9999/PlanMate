@@ -1,13 +1,13 @@
 import { FC, useRef, useState } from 'react'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { dateUtils } from 'utils'
-import { AnimatePresence } from 'framer-motion'
 import * as s from './styled'
 type DateCellProps = {
   cellDate: Date
   selectedDate: DateProps
   studyTimeHours?: number
   setSelectedDate: () => void
+  blockFuture: boolean
 }
 
 function getIndex(hour: number) {
@@ -26,7 +26,13 @@ const getClassName = (cellDate: DateProps, selectedDate: DateProps) => {
   return 'current'
 }
 
-export const DateCell: FC<DateCellProps> = ({ setSelectedDate, cellDate, selectedDate, studyTimeHours = 0 }) => {
+export const DateCell: FC<DateCellProps> = ({
+  setSelectedDate,
+  cellDate,
+  selectedDate,
+  studyTimeHours = 0,
+  blockFuture,
+}) => {
   const cellDateProps = dateUtils.getDateProps(cellDate)
   const [isToolTipOpen, setIsToolTipOpen] = useState(false)
   const triggerTooltip = () => setIsToolTipOpen(true)
@@ -34,7 +40,14 @@ export const DateCell: FC<DateCellProps> = ({ setSelectedDate, cellDate, selecte
   const className = getClassName(cellDateProps, selectedDate)
   const isSelected = dateUtils.isEqual(cellDateProps, selectedDate)
   const opacity = getIndex(studyTimeHours)
-  const onClick = () => (dateUtils.isFuture(cellDate) ? triggerTooltip() : setSelectedDate())
+  const onClick = () => {
+    if (blockFuture) {
+      if (dateUtils.isFuture(cellDate)) triggerTooltip()
+      else setSelectedDate()
+    } else {
+      setSelectedDate()
+    }
+  }
   const ref = useRef()
   return (
     <s.DateCellWrapper>

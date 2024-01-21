@@ -7,7 +7,6 @@ import { Tooltip } from './Tooltip'
 export const Root = styled.div`
   width: 100%;
   position: relative;
-  padding: 24px 25px;
   height: 400px;
   min-width: 300px;
   max-width: 420px;
@@ -51,7 +50,9 @@ const Row = styled.div`
   justify-content: space-between;
   align-items: center;
 `
-export const DayRow = styled(Row)``
+export const DayRow = styled(Row)`
+  position: relative;
+`
 export const Cell = styled.div`
   padding: 0 8px;
   font-size: 12px;
@@ -67,22 +68,19 @@ export const DayCell = styled(Cell)`
 `
 export const Line = styled.hr`
   position: absolute;
-  top: 0;
+  bottom: -12px;
   left: 0;
   right: 0;
   margin: 0 auto;
   background-color: ${(props) => props.theme.background.gray3};
-  width: 360px;
-  top: 84px;
+  width: 100%;
   height: 1px;
 `
 export const WeekRow = styled(Row)``
 
 export const LegendContainer = styled.ul`
-  position: absolute;
-  right: 18px;
-  bottom: 15px;
   display: flex;
+  align-self: flex-end;
 `
 export const Legend = styled.legend`
   display: flex;
@@ -115,15 +113,15 @@ export const Circle = styled.div`
 `
 export const DateContainer = styled(motion.div)`
   position: absolute;
-  top: 96px;
+  top: 80px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: calc(100% - 46px);
+  width: calc(100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 250px;
+  height: calc(100% - 80px);
 `
 
 //DateCell

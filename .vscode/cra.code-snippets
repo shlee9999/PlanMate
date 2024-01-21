@@ -4,14 +4,14 @@
     "prefix": "rfc",
     "body": [
       "import { FC } from 'react'",
-      "import { Root } from './styled'",
+      "import * as s from './styled'",
       "",
       "type ${TM_FILENAME_BASE}$1Props = {",
       " className?: string",
       "}",
       "",
       "export const ${TM_FILENAME_BASE}$1: FC<${TM_FILENAME_BASE}$1Props> = ({ className }) => {",
-      " return <Root className={className}>${TM_FILENAME_BASE}$1</Root>",
+      " return <s.Root className={className}>${TM_FILENAME_BASE}$1</s.Root>",
       "}",
       ""
     ]
