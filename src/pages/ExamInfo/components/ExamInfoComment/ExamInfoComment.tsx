@@ -1,5 +1,4 @@
 import React, { ChangeEvent, ForwardRefRenderFunction, forwardRef, useEffect, useRef, useState } from 'react'
-import * as s from './styled'
 import { ResponseCommentType } from 'api/types'
 import { createChildComment } from 'api/comment/createChildComment'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
@@ -9,8 +8,9 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
-import { useLikeCommentMutation, useModifyComment } from 'pages/ExamInfo/hooks/mutations'
+import { useLikeCommentMutation, useEditComment } from 'pages/ExamInfo/hooks/mutations'
 import { ExamInfoReply, DeleteCommentModal } from 'pages/ExamInfo/components'
+import * as s from './styled'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
@@ -20,6 +20,7 @@ type ExamInfoCommentProps = {
   postId: number
 } & ResponseCommentType
 
+//  key : ['commentData', postId, currentPage + '']
 const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
   { commentId, isAuthor, isMyHearted, likeCount, memberName, updatedAt, content, isMine = true, postId, currentPage },
   ref
@@ -51,7 +52,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
   const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
   const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
   const mutateLikeComment = useLikeCommentMutation()
-  const mutateModifyComment = useModifyComment()
+  const mutateEditComment = useEditComment()
   const onClickLikeButton = (): void => {
     mutateLikeComment({
       commentId,
@@ -69,7 +70,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       if (e.shiftKey) return
       e.preventDefault()
-      mutateModifyComment({
+      mutateEditComment({
         commentId,
         content: inputValue,
         postId,

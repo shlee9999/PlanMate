@@ -2,7 +2,7 @@ import useCreateCommentMutation from './useCreateCommentMutation'
 import useDeleteCommentMutation from './useDeleteCommentMutation'
 import useLikeCommentMutation from './useLikeCommentMutation'
 import useLikePostMutation from './useLikePostMutation'
-import useModifyComment from './useModifyComment'
+import useEditComment from './useEditComment'
 import useScrapPostMutation from './useScrapPostMutation'
 import useCreatePostMutation from './useCreatePostMutation'
 import useCreateNoticeMutation from './useCreateNoticeMutation'
@@ -16,7 +16,7 @@ export {
   useDeleteCommentMutation,
   useLikeCommentMutation,
   useLikePostMutation,
-  useModifyComment,
+  useEditComment,
   useScrapPostMutation,
   useCreateNoticeMutation,
   useCreatePostMutation,
