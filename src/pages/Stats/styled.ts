@@ -58,6 +58,7 @@ export const Title = styled.div`
 `
 
 export const StatsContainer = styled.div`
+  position: relative;
   display: flex;
   height: 400px;
   width: 100%;

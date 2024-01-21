@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { weekDays } from 'constants/week'
 import { dateUtils, numberUtils } from 'utils'
 import { AnimatePresence, Variants } from 'framer-motion'
@@ -26,16 +26,13 @@ export const Calendar: FC<CalendarProps> = ({
   dataSource = numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats),
 }) => {
   const [back, setBack] = useState(false)
-  const [isToolTipOpen, setIsToolTipOpen] = useState(false)
-  const triggerTooltip = () => setIsToolTipOpen(true)
-  const closeTooltip = () => setIsToolTipOpen(false)
   const onClickNext = () => {
     const newDate = new Date(selectedDate.year, selectedDate.month + 1, 1)
     const newDateProps = dateUtils.getDateProps(newDate)
     if (!dateUtils.isFuture(newDate)) {
       setSelectedDate(newDateProps)
       setBack(false)
-    } else triggerTooltip()
+    }
   }
   const onClickPrev = () => {
     setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year, selectedDate.month - 1, 1)))
@@ -59,9 +56,7 @@ export const Calendar: FC<CalendarProps> = ({
             {selectedDate.month + 1}월
           </s.Month>
         </AnimatePresence>
-        <s.NextButton fill="currentColor" onClick={onClickNext}>
-          <s.StyledTooltip closeTooltip={closeTooltip} isTriggered={isToolTipOpen} />
-        </s.NextButton>
+        <s.NextButton fill="currentColor" onClick={onClickNext} />
       </s.Header>
       <s.Body>
         <s.DayRow>

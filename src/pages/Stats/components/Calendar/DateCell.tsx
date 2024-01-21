@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { dateUtils } from 'utils'
 import { AnimatePresence } from 'framer-motion'
@@ -35,15 +35,13 @@ export const DateCell: FC<DateCellProps> = ({ setSelectedDate, cellDate, selecte
   const isSelected = dateUtils.isEqual(cellDateProps, selectedDate)
   const opacity = getIndex(studyTimeHours)
   const onClick = () => (dateUtils.isFuture(cellDate) ? triggerTooltip() : setSelectedDate())
-
+  const ref = useRef()
   return (
     <s.DateCellWrapper>
-      <s.DateCellRoot className={className} $isSelected={isSelected} onClick={onClick} $index={opacity}>
+      <s.DateCellRoot className={className} $isSelected={isSelected} onClick={onClick} $index={opacity} ref={ref}>
         {cellDateProps.date}
       </s.DateCellRoot>
-      <AnimatePresence>
-        {isToolTipOpen && <s.StyledTooltip isTriggered={isToolTipOpen} closeTooltip={closeTooltip} />}
-      </AnimatePresence>
+      {isToolTipOpen && <s.StyledTooltip closeTooltip={closeTooltip} targetRef={ref} />}
     </s.DateCellWrapper>
   )
 }

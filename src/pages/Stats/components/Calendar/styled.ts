@@ -195,6 +195,6 @@ export const TooltipRoot = styled(motion.div)`
 `
 
 export const StyledTooltip = styled(Tooltip)`
-  top: -51px;
-  left: 0px;
+  top: -10px;
+  left: 0;
 `
