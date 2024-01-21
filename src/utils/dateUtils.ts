@@ -72,4 +72,18 @@ export const dateUtils = {
     const differenceInDays = differenceInTime / (1000 * 3600 * 24)
     return differenceInDays
   },
+  /**년/월/일 더하기 */
+  getFutureDateProps: (currentDateProps: DateProps, type: 'year' | 'month' | 'date', amount = 1): DateProps => {
+    const currentDate = new Date(currentDateProps.year, currentDateProps.month, currentDateProps.date)
+    if (type === 'year') {
+      currentDate.setFullYear(currentDateProps.year + amount)
+    }
+    if (type === 'month') {
+      currentDate.setMonth(currentDateProps.month + amount)
+    }
+    if (type === 'date') {
+      currentDate.setDate(currentDateProps.date + amount)
+    }
+    return dateUtils.getDateProps(currentDate)
+  },
 }

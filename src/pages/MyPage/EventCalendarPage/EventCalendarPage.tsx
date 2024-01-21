@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
-import * as s from './styled'
 import { DDayItem } from '../components'
 import { dateUtils, formatTwoDigits } from 'utils'
-import { FlexRow } from 'commonStyled'
+import { ActionButton } from 'components'
+import * as s from './styled'
 
 type EventCalendarProps = {
   className?: string
@@ -17,11 +17,13 @@ const sampleDDayList = [
 ]
 export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
+  const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
+  const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
 
   return (
     <s.Root className={className}>
       <s.BoxContainer>
-        <s.EventBox title="D-DAY 관리" desciption="원하는 디데이를 고정해보세요!">
+        <s.EventBox title="D-DAY 관리" desciption="원하는 디데이를 고정해보세요!" left>
           <s.DDayContainer>
             {sampleDDayList.map((dday, index) => (
               <DDayItem
@@ -35,12 +37,12 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
             ))}
           </s.DDayContainer>
         </s.EventBox>
-        <s.AddEventBox title="D-DAY 추가">
-          <FlexRow $gap={16}>
+        <s.AddEventBox title="D-DAY 추가" right>
+          <s.EventNameRow>
             <s.EventName>제목</s.EventName>
             <s.EventNameInput placeholder="디데이 제목을 입력해주세요." />
-          </FlexRow>
-          <FlexRow $gap={16}>
+          </s.EventNameRow>
+          <s.EventDateRow $gap={16}>
             <s.EventDateHeader>날짜</s.EventDateHeader>
             <s.EventDate>
               {selectedDate.year +
@@ -49,10 +51,23 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                 '.' +
                 formatTwoDigits(selectedDate.date)}
             </s.EventDate>
-          </FlexRow>
+          </s.EventDateRow>
           <s.CalendarBox>
-            <s.EventCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            <s.CalendarHeader>
+              <s.PrevYearButton fill="currentColor" onClick={onClickPrevYear} />
+              <s.EventYear>{selectedDate.year}</s.EventYear>
+              <s.NextYearButton fill="currentColor" onClick={onClickNextYear} />
+            </s.CalendarHeader>
+            <s.EventCalendar
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              headerButtonLayout="center"
+            />
           </s.CalendarBox>
+          <s.ActionButtonContainer>
+            <ActionButton icon={'close'}>취소</ActionButton>
+            <ActionButton icon={'check'}>등록</ActionButton>
+          </s.ActionButtonContainer>
         </s.AddEventBox>
       </s.BoxContainer>
     </s.Root>

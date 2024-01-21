@@ -11,10 +11,11 @@ export const Root = styled.div`
   min-width: 300px;
   max-width: 420px;
 `
-export const Header = styled.div`
+export const Header = styled.div<{ $layout: 'space-between' | 'center' }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) => props.$layout};
   align-items: center;
+  gap: 60px;
   margin-bottom: 18px;
 `
 export const PrevButton = styled(LeftArrow)`
@@ -22,10 +23,11 @@ export const PrevButton = styled(LeftArrow)`
   cursor: pointer;
   z-index: 2;
 `
-export const Month = styled(motion.p)`
+export const Month = styled(motion.p)<{ $layout: 'space-between' | 'center' }>`
   position: absolute;
   left: 0;
   right: 0;
+  top: ${(props) => (props.$layout === 'space-between' ? '-2px' : '-4px')};
   margin: 0 auto;
   text-align: center;
   font-size: 20px;
@@ -52,6 +54,7 @@ const Row = styled.div`
 `
 export const DayRow = styled(Row)`
   position: relative;
+  padding: 0 10px;
 `
 export const Cell = styled.div`
   padding: 0 8px;
@@ -113,6 +116,7 @@ export const Circle = styled.div`
 `
 export const DateContainer = styled(motion.div)`
   position: absolute;
+  padding: 0 10px 15px 10px;
   top: 80px;
   left: 0;
   right: 0;
@@ -121,7 +125,7 @@ export const DateContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100% - 80px);
+  height: calc(100% - 70px);
 `
 
 //DateCell
@@ -139,7 +143,7 @@ export const DateCellRoot = styled(Cell)<DateCellProps>`
 
   &.current {
     background-color: ${(props) => bgColor[props.$index]};
-    color: ${(props) => textColor[props.$index]};
+    color: ${(props) => (props.$isSelected ? props.theme.text.white : textColor[props.$index])};
     scale: ${(props) => (props.$isSelected ? 1.2 : 1)};
     &:hover {
       scale: 1.2;
@@ -147,10 +151,9 @@ export const DateCellRoot = styled(Cell)<DateCellProps>`
     /* border: 1px solid ${(props) => (props.$isSelected ? props.theme.primary.dark : 'none')}; */
     transition: scale 0.1s ease-out;
     border-radius: 100%;
-    background-color: ${(props) => (props.$isSelected ? props.theme.primary.dark : '')};
+    background-color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
 
     opacity: ${(props) => bgColor[props.$index]};
-    color: ${(props) => textColor[props.$index]};
   }
 
   &.prev {

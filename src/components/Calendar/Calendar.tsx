@@ -14,9 +14,10 @@ type CalendarProps = {
   dataSource?: ResponseStats[]
   blockFuture?: boolean
   legend?: boolean
+  headerButtonLayout?: 'space-between' | 'center'
 }
 const momentum = 100
-const MonthVar: Variants = {
+const DateContainerVar: Variants = {
   initial: (back: boolean) => ({ opacity: 0, x: back ? -momentum : momentum }),
   visible: { opacity: 1, x: 0 },
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
@@ -28,6 +29,7 @@ export const Calendar: FC<CalendarProps> = ({
   dataSource = numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats),
   blockFuture = false,
   legend,
+  headerButtonLayout = 'space-between',
 }) => {
   const [back, setBack] = useState(false)
   const onClickNext = () => {
@@ -50,21 +52,11 @@ export const Calendar: FC<CalendarProps> = ({
 
   return (
     <s.Root className={className}>
-      <s.Header>
+      <s.Header $layout={headerButtonLayout}>
         <s.PrevButton fill="currentColor" onClick={onClickPrev} />
-        <AnimatePresence custom={back} initial={false}>
-          <s.Month
-            key={selectedDate.month}
-            variants={MonthVar}
-            initial="initial"
-            animate="visible"
-            exit="exit"
-            transition={{ duration: 0.5 }}
-            custom={back}
-          >
-            {selectedDate.month + 1}월
-          </s.Month>
-        </AnimatePresence>
+        <s.Month $layout={headerButtonLayout} key={selectedDate.month}>
+          {selectedDate.month + 1}월
+        </s.Month>
         <s.NextButton fill="currentColor" onClick={onClickNext} />
       </s.Header>
       <s.Body>
@@ -77,8 +69,8 @@ export const Calendar: FC<CalendarProps> = ({
 
         <AnimatePresence initial={false}>
           <s.DateContainer
-            key={selectedDate.month}
-            variants={MonthVar}
+            key={selectedDate.year + '' + selectedDate.month}
+            variants={DateContainerVar}
             initial="initial"
             animate="visible"
             transition={{ duration: 0.5 }}

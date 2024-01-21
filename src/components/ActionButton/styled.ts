@@ -20,7 +20,6 @@ export const Root = styled.button`
   font-size: 14px;
   font-weight: 600;
   line-height: 18px;
-  box-shadow: 0px 4px 6px 0px #0000001f;
 `
 export const CloseButton = styled(Root)`
   border: 1px solid ${(props) => props.theme.border.default};

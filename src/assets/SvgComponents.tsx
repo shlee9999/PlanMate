@@ -9,7 +9,6 @@ import { ReactComponent as PencilIcon } from 'assets/images/pencil.svg'
 import { ReactComponent as CommentIcon } from 'assets/images/comment.svg'
 import { ReactComponent as HeartIcon } from 'assets/images/heart.svg'
 import { ReactComponent as ScrapIcon } from 'assets/images/scrap.svg'
-
 import { ReactComponent as Ellipsis } from 'assets/images/ellipsis.svg'
 import { ReactComponent as GoogleLogo } from 'assets/images/g-logo.svg'
 import { ReactComponent as GoogleCustom } from 'assets/images/google_custom.svg'
