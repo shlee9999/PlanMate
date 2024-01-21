@@ -11,6 +11,7 @@ import useDeletePostMutation from './useDeletePostMutation'
 import useDeleteNoticeMutation from './useDeleteNoticeMutation'
 import useEditPostMutation from './useEditPostMutation'
 import useEditNoticeMutation from './useEditNoticeMutation'
+import useCreateReplyMutation from './useCreateReplyMutation'
 export {
   useCreateCommentMutation,
   useDeleteCommentMutation,
@@ -25,4 +26,5 @@ export {
   useDeleteNoticeMutation,
   useEditNoticeMutation,
   useEditPostMutation,
+  useCreateReplyMutation,
 }
