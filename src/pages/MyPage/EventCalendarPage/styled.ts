@@ -1,7 +1,6 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { FlexRow, LeftArrow, PageRoot } from 'commonStyled'
 import { ActionButton, InfoBox } from 'components'
-import { FOOTER_HEIGHT, HEADER_HEIGHT } from 'constants/layout'
 import { Calendar } from 'pages/Stats/components'
 import styled from 'styled-components'
 
@@ -10,7 +9,6 @@ export const Root = styled(PageRoot)`
   flex-direction: column;
   justify-content: center;
   padding: 0 5%;
-  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
 `
 
 export const BoxContainer = styled(FlexRow)`

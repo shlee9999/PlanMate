@@ -1,21 +1,20 @@
 import { PageRoot } from 'commonStyled'
 import { InfoBox } from 'components'
-import { FOOTER_HEIGHT, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
+import { FOOTER_HEIGHT, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 import { Calendar } from './components'
 
 export const Root = styled(PageRoot)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 0 5%;
-  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
 `
 
 export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-top: 25px;
 `
 
 export const HeaderContentWrapper = styled.div``
