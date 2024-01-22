@@ -9,12 +9,23 @@ export const dateUtils = {
   },
   /**같은 날짜인지 반환  */
   isEqual: (a: DateProps, b: DateProps) => a.year === b.year && a.month === b.month && a.date === b.date,
-  /**Date -> {year, month, date} month+1 하지 않는다.*/
-  getDateProps: (currentDate: Date): DateProps => ({
-    year: currentDate.getFullYear(),
-    month: currentDate.getMonth(),
-    date: currentDate.getDate(),
-  }),
+  /**Date 또는 string(YYYY-MM-DD) -> {year, month, date} month+1 하지 않는다. 1월을 0월로 반환*/
+  getDateProps: (currentDate: Date | string): DateProps => {
+    if (currentDate instanceof Date) {
+      return {
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth(),
+        date: currentDate.getDate(),
+      }
+    } else if (typeof currentDate === 'string') {
+      // YYYY-MM-DD
+      return {
+        year: +currentDate.slice(0, 4),
+        month: +currentDate.slice(5, 7) - 1,
+        date: +currentDate.slice(8, 10),
+      }
+    }
+  },
   /**YYYY-MM-DD month+1로 반환한다. 백엔드 전송 시 month + 1해줘야 한다.*/
   getYYYYMMDD: (currentDate: DateProps | Date) => {
     let year: number, month: number, date: number

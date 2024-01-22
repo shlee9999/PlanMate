@@ -1,7 +1,8 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { PinIcon } from 'assets/SvgComponents'
-export const Root = styled.div`
-  min-width: 150px;
+import { DDAYITEM_MIN_WIDTH } from 'constants/layout'
+export const Root = styled.div<{ $isSelected: boolean }>`
+  min-width: ${DDAYITEM_MIN_WIDTH};
   position: relative;
   height: 48px;
   box-sizing: border-box;
@@ -11,10 +12,19 @@ export const Root = styled.div`
   background-color: ${(props) => props.theme.background.gray2};
   border-radius: 8px;
   white-space: nowrap;
+  cursor: pointer;
   &.isFixed {
     background-color: ${(props) => props.theme.primary.light};
     order: -1;
   }
+  &:hover {
+    outline: 2px solid ${(props) => props.theme.primary.default};
+  }
+  ${(props) =>
+    props.$isSelected &&
+    css`
+      outline: 2px solid ${(props) => props.theme.primary.default};
+    `}
 `
 export const LeftContainer = styled.div`
   display: flex;

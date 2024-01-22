@@ -27,7 +27,7 @@ export const Month = styled(motion.p)<{ $layout: 'space-between' | 'center' }>`
   position: absolute;
   left: 0;
   right: 0;
-  top: ${(props) => (props.$layout === 'space-between' ? '-2px' : '-4px')};
+  top: ${(props) => (props.$layout === 'space-between' ? '-2px' : '-3px')};
   margin: 0 auto;
   text-align: center;
   font-size: 20px;

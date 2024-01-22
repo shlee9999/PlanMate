@@ -4,7 +4,7 @@ import { useQueryClient, useMutation } from 'react-query'
 type AddScheduleMutationProps = AddScheduleRequestProps
 
 /** */
-function addScheduleMutation() {
+function useAddScheduleMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(
     ({ targetDate, title }: AddScheduleMutationProps) => addSchedule({ targetDate, title }),
@@ -22,4 +22,4 @@ function addScheduleMutation() {
   )
   return mutate
 }
-export default addScheduleMutation
+export default useAddScheduleMutation

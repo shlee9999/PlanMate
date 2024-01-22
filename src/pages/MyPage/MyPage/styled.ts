@@ -114,6 +114,7 @@ export const DDayContainer = styled(InfoBox)`
 `
 
 export const DDayList = styled.div`
+  padding: 2px;
   height: 100%;
   overflow-y: scroll;
   display: flex;

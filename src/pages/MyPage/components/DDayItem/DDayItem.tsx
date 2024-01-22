@@ -8,12 +8,17 @@ type DDayItemProps = {
   title: string
   targetDate: string
   isFixed: boolean
+  isSelected: boolean
   fixDDay: () => void
+  onClick: (e: React.MouseEvent) => void
 }
 
-export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDay }) => {
+export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDay, isSelected, onClick }) => {
   const theme = useContext(ThemeContext)
-
+  const onClickPin = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    fixDDay()
+  }
   const dDay = dateUtils.daysUntil(targetDate)
   const getWeekDay = () => {
     const days = ['일', '월', '화', '수', '목', '금', '토']
@@ -23,9 +28,9 @@ export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDa
   }
   if (dDay < 0) return null
   return (
-    <s.Root className={isFixed ? 'isFixed' : ''}>
+    <s.Root onClick={onClick} className={isFixed ? 'isFixed' : ''} $isSelected={isSelected}>
       <s.LeftContainer>
-        <s.StyledPinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={fixDDay} />
+        <s.StyledPinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={onClickPin} />
         <s.Title>{title}</s.Title>
         <s.Date>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</s.Date>
       </s.LeftContainer>

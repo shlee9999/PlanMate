@@ -9,7 +9,7 @@
  */
 
 export type ScheduleType = {
-  /** D-Day */
+  /** D-Day YYYY-MM-DD */
   targetDate: string
   /** 일정 제목 */
   title: string

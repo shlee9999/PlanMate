@@ -3,9 +3,9 @@ import { DDayItem } from '../components'
 import { dateUtils, formatTwoDigits } from 'utils'
 import { ActionButton } from 'components'
 import { useNavigate } from 'react-router-dom'
-import addScheduleMutation from '../hooks/addScheduleMutation'
 import { useQuery } from 'react-query'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
+import useAddScheduleMutation from '../hooks/useAddScheduleMutation'
 import * as s from './styled'
 
 type EventCalendarProps = {
@@ -13,28 +13,46 @@ type EventCalendarProps = {
 }
 
 export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
+  const [isEditing, setIsEditing] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const [eventName, setEventName] = useState('')
-  const { data: dDayList, isLoading } = useQuery<FindAllScheduleResponseProps>(['dDayList'], () => findAllSchedule())
+  const { data: dDayList } = useQuery<FindAllScheduleResponseProps>(['dDayList'], () => findAllSchedule())
   const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
   const navigate = useNavigate()
-  const mutateAddSchedule = addScheduleMutation()
+  const mutateAddSchedule = useAddScheduleMutation()
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (eventName === '') return
-    mutateAddSchedule({
-      targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
-      title: eventName,
-    })
-    setEventName('')
+    if (!isEditing) {
+      mutateAddSchedule({
+        targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
+        title: eventName,
+      })
+      setEventName('')
+    } else {
+      // todo mutateEditSchedule
+    }
   }
+  const onClickDDayItem = (index: number, targetDate: string, eventName: string) => (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setSelectedIndex(index)
+    setSelectedDate(dateUtils.getDateProps(targetDate))
+    setEventName(eventName)
+    setIsEditing(true)
+  }
+  const onClickRoot = () => {
+    setSelectedIndex(-1)
+    setIsEditing(false)
+  }
+
   return (
-    <s.Root className={className}>
+    <s.Root className={className} onClick={onClickRoot}>
       <s.MainContainer>
-        <s.BackButton onClick={() => navigate(-1)} />
         <s.BoxContainer>
           <s.EventBox title="D-DAY 관리" desciption="원하는 디데이를 고정해보세요!">
+            <s.BackButton onClick={() => navigate(-1)} />
             <s.DDayContainer>
               {dDayList?.map((dday, index) => (
                 <DDayItem
@@ -44,12 +62,14 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                   targetDate={dday.targetDate}
                   fixDDay={() => console.log('fix')}
                   isFixed={index === 0}
+                  isSelected={selectedIndex === index}
+                  onClick={onClickDDayItem(index, dday.targetDate, dday.title)}
                 />
               ))}
             </s.DDayContainer>
           </s.EventBox>
 
-          <s.AddEventBox title="D-DAY 추가" right>
+          <s.AddEventBox title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
             <s.Form onSubmit={onSubmit}>
               <s.EventNameRow>
                 <s.EventName>제목</s.EventName>
@@ -57,6 +77,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                   placeholder="디데이 제목을 입력해주세요."
                   value={eventName}
                   onChange={(e) => setEventName(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
                 />
               </s.EventNameRow>
               <s.EventDateRow $gap={16}>
@@ -83,7 +104,11 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
               </s.CalendarBox>
               <s.ActionButtonContainer>
                 <ActionButton icon={'close'}>취소</ActionButton>
-                <ActionButton icon={'check'}>등록</ActionButton>
+                {isEditing ? (
+                  <ActionButton icon={'register'}>수정</ActionButton>
+                ) : (
+                  <ActionButton icon={'check'}>등록</ActionButton>
+                )}
               </s.ActionButtonContainer>
             </s.Form>
           </s.AddEventBox>
