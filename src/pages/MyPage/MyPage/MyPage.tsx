@@ -130,53 +130,51 @@ export const MyPage: FC = () => {
   return (
     <s.Root>
       <s.Container onClick={onClickRoot}>
-        <s.LeftContainer>
-          <s.TitleWrapper>
-            <s.Nickname>{userAuthInfo.name}</s.Nickname>
-            님의 <s.Title>마이페이지 👋</s.Title>
-          </s.TitleWrapper>
-          <s.ProfileTypo>프로필</s.ProfileTypo>
-          <s.ProfileContainer>
-            <s.UserName>{userAuthInfo.name}</s.UserName>님
-            <s.Email>
-              <GoogleCustom />
-              {userAuthInfo.email}
-            </s.Email>
-            <s.EllipsisImg onClick={onClickEllipsisButton} />
-            {isEllipsisModalOpen && (
-              <s.EllipsisModal onClick={onClickModal}>
-                <s.EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</s.EllipsisEditButton>
-                <s.EllipsisResignButton onClick={openResignModal}>탈퇴하기</s.EllipsisResignButton>
-              </s.EllipsisModal>
-            )}
-          </s.ProfileContainer>
-          <s.TypoWrapper>
-            <s.AdminDDay>D-DAY 관리</s.AdminDDay>
-            <s.SeeMore onClick={() => navigate('/mypage/events')}>
-              더보기
-              <s.NextArrow />
-            </s.SeeMore>
-          </s.TypoWrapper>
-          <s.DDayContainer>
-            {isLoading ? (
-              <CenterSpinner />
-            ) : (
-              dDayList.map((dday, index) => (
-                <DDayItem
-                  key={dday.scheduleId}
-                  id={dday.scheduleId}
-                  title={dday.title}
-                  targetDate={dday.targetDate}
-                  fixDDay={fixDDay(dday.scheduleId, index)}
-                  isFixed={index === fixedIndex}
-                />
-              ))
-            )}
-          </s.DDayContainer>
-        </s.LeftContainer>
-        <s.RightContainer>
-          <s.MyActivity>나의 활동</s.MyActivity>
-          <s.MyActivityContainer>
+        <s.TitleWrapper>
+          <s.Nickname>{userAuthInfo.name}</s.Nickname>
+          님의 <s.Title>마이페이지 👋</s.Title>
+        </s.TitleWrapper>
+        <s.MainContainer>
+          <s.LeftContainer>
+            <s.ProfileContainer title="프로필">
+              <s.UserName>{userAuthInfo.name}</s.UserName>님
+              <s.Email>
+                <GoogleCustom />
+                {userAuthInfo.email}
+              </s.Email>
+              <s.EllipsisImg onClick={onClickEllipsisButton} />
+              {isEllipsisModalOpen && (
+                <s.EllipsisModal onClick={onClickModal}>
+                  <s.EllipsisEditButton onClick={openProfileEditModal}>프로필 수정</s.EllipsisEditButton>
+                  <s.EllipsisResignButton onClick={openResignModal}>탈퇴하기</s.EllipsisResignButton>
+                </s.EllipsisModal>
+              )}
+            </s.ProfileContainer>
+
+            <s.DDayContainer title="D-DAY 관리">
+              <s.SeeMore onClick={() => navigate('/mypage/events')}>
+                더보기
+                <s.NextArrow />
+              </s.SeeMore>
+              <s.DDayList>
+                {isLoading ? (
+                  <CenterSpinner />
+                ) : (
+                  dDayList.map((dday, index) => (
+                    <DDayItem
+                      key={dday.scheduleId}
+                      id={dday.scheduleId}
+                      title={dday.title}
+                      targetDate={dday.targetDate}
+                      fixDDay={fixDDay(dday.scheduleId, index)}
+                      isFixed={index === fixedIndex}
+                    />
+                  ))
+                )}
+              </s.DDayList>
+            </s.DDayContainer>
+          </s.LeftContainer>
+          <s.RightContainer title="나의 활동">
             <s.TabSelector>
               <s.TabRow>
                 {myPageTabList.map((tab, index) => (
@@ -192,9 +190,9 @@ export const MyPage: FC = () => {
               </s.TabRow>
               <s.TabRow />
             </s.TabSelector>
-            <s.CurrentContentContainer>{renderTabContent()}</s.CurrentContentContainer>
-          </s.MyActivityContainer>
-        </s.RightContainer>
+            <s.MyActivityList>{renderTabContent()}</s.MyActivityList>
+          </s.RightContainer>
+        </s.MainContainer>
         {isProfileEditModalOpen && (
           <ProfileEditModal
             closeModal={closeProfileEditModal}

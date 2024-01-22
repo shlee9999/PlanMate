@@ -5,16 +5,15 @@ import { Calendar } from 'pages/Stats/components'
 import styled from 'styled-components'
 
 export const Root = styled(PageRoot)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   padding: 0 5%;
 `
 
 export const BoxContainer = styled(FlexRow)`
+  position: relative;
   gap: 16px;
-  height: 538px;
+  height: 580px;
   padding: 30px 50px;
+  justify-content: space-between;
 `
 export const DDayContainer = styled.div`
   display: flex;
@@ -104,4 +103,12 @@ export const ActionButtonContainer = styled(FlexRow)`
   bottom: 10px; */
   gap: 8px;
   align-self: flex-end;
+`
+export const BackButton = styled(LeftArrow)`
+  width: 48px;
+  height: 48px;
+  color: ${(props) => props.theme.text.black2};
+`
+export const MainContainer = styled.div`
+  padding-top: 20px;
 `

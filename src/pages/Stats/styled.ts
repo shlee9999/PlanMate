@@ -1,6 +1,5 @@
 import { PageRoot } from 'commonStyled'
 import { InfoBox } from 'components'
-import { FOOTER_HEIGHT, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
 import { Calendar } from './components'
 

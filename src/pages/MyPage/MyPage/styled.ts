@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import ellipsisImg from 'assets/images/ellipsis.svg'
-import { PageRoot } from 'commonStyled'
+import { FlexRow, PageRoot } from 'commonStyled'
 import { RightArrow } from 'assets/SvgComponents'
 import { HEADER_HEIGHT, FOOTER_HEIGHT } from 'constants/layout'
 import { motion } from 'framer-motion'
-import { NoContentDescription } from 'components'
+import { InfoBox, NoContentDescription } from 'components'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -25,6 +25,12 @@ export const Container = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   column-gap: 16px;
+  padding: 30px 0;
+`
+export const MainContainer = styled(FlexRow)`
+  height: 560px;
+  width: 100%;
+  justify-content: space-between;
 `
 export const TitleWrapper = styled.div`
   font-size: 12px;
@@ -44,21 +50,17 @@ export const Title = styled.p`
 `
 
 export const LeftContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   max-width: 410px;
   flex-basis: 100px;
   flex-grow: 1;
 `
 
-export const ProfileTypo = styled.p`
-  margin-bottom: 8px;
-`
-export const ProfileContainer = styled.div`
+export const ProfileContainer = styled(InfoBox)`
   position: relative;
-  box-sizing: border-box;
   padding: 24px;
-  border: 1px solid ${(props) => props.theme.border.default};
-  border-radius: 8px;
-  font-weight: 400;
   color: ${(props) => props.theme.text.black1};
   margin-bottom: 24px;
   &:hover {
@@ -69,7 +71,6 @@ export const ProfileContainer = styled.div`
     }
   }
 `
-
 export const UserName = styled.span`
   font-size: 21px;
   font-weight: 700;
@@ -85,19 +86,16 @@ export const Email = styled.div`
   color: ${(props) => props.theme.text.gray1};
 `
 
-export const TypoWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-bottom: 2px;
-`
 export const AdminDDay = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
   margin-bottom: 8px;
 `
-export const SeeMore = styled.p`
+export const SeeMore = styled.div`
+  position: absolute;
+  top: -23px;
+  right: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -108,61 +106,52 @@ export const SeeMore = styled.p`
 `
 export const NextArrow = styled(RightArrow)``
 
-export const DDayContainer = styled.div`
-  position: relative;
+export const DDayContainer = styled(InfoBox)`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  box-sizing: border-box;
-  height: 384px;
-  border: 1px solid ${(props) => props.theme.border.default};
   border-radius: 8px;
   padding: 24px;
+`
+
+export const DDayList = styled.div`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
 `
 
-export const RightContainer = styled.div`
+export const RightContainer = styled(InfoBox)`
   flex-basis: 100px;
-  margin-top: 67px;
   flex-grow: 1;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 25px);
 `
 
-export const MyActivityContainer = styled.div`
-  position: relative;
-  border: 1px solid ${(props) => props.theme.border.default};
-  border-radius: 8px;
-  box-sizing: border-box;
-  padding: 0 32px;
-  height: 536px;
+export const MyActivityList = styled.div`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
+  height: 100%;
 `
 export const MyActivity = styled.p`
-  margin-bottom: 8px;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
   color: ${(props) => props.theme.text.black2};
 `
-export const CurrentContentContainer = styled.div`
-  min-height: 450px;
-  position: relative;
-`
+
 export const TabSelector = styled.div`
   width: 100%;
   position: sticky;
-  display: table;
-  border-collapse: collapse;
   background-color: ${(props) => props.theme.background.white};
   z-index: 1;
   top: 0;
   height: 62px;
-  box-sizing: border-box;
 `
 export const TabRow = styled.div`
   width: 100%;
@@ -172,13 +161,12 @@ export const TabRow = styled.div`
     border-top: 1px solid ${(props) => props.theme.border.default};
     z-index: -1;
   }
-  display: table-row;
 `
 
 export const TabItem = styled.div<{ $isSelected: boolean }>`
   text-align: center;
   padding: 0 8px;
-  display: table-cell;
+  display: inline-block;
   padding-bottom: 10px;
   font-size: 14px;
   font-weight: ${(props) => (props.$isSelected ? 500 : 400)};
@@ -196,12 +184,6 @@ export const SelectedLine = styled(motion.hr)`
   margin: 0 auto;
   bottom: 0;
   background-color: ${(props) => props.theme.primary.default};
-`
-export const ArrowWrapper = styled.div`
-  margin-top: 8px;
-  display: flex;
-  justify-content: flex-end;
-  column-gap: 10px;
 `
 
 export const EllipsisModal = styled.div`
@@ -241,7 +223,8 @@ export const EllipsisEditButton = styled(EllipsisButtonRoot)``
 export const EllipsisResignButton = styled(EllipsisButtonRoot)``
 export const NoScrapDescription = styled(NoContentDescription)`
   position: absolute;
-  top: 150px;
+  top: 50%;
+  transform: translate(0, -50%);
   left: 0;
   right: 0;
   margin: 0 auto;
