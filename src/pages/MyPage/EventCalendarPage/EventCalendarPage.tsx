@@ -7,6 +7,7 @@ import { useQuery } from 'react-query'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
 import useAddScheduleMutation from '../hooks/useAddScheduleMutation'
 import * as s from './styled'
+import useEditScheduleMutation from '../hooks/useEditScheduleMutation'
 
 type EventCalendarProps = {
   className?: string
@@ -14,7 +15,7 @@ type EventCalendarProps = {
 
 export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [selectedDDayInfo, setSelectedDDayInfo] = useState({ index: -1, scheduleId: -1 })
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const [eventName, setEventName] = useState('')
   const { data: dDayList } = useQuery<FindAllScheduleResponseProps>(['dDayList'], () => findAllSchedule())
@@ -22,6 +23,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
   const navigate = useNavigate()
   const mutateAddSchedule = useAddScheduleMutation()
+  const mutateEditSchedule = useEditScheduleMutation()
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (eventName === '') return
@@ -32,18 +34,25 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       })
       setEventName('')
     } else {
-      // todo mutateEditSchedule
+      // 수정
+      mutateEditSchedule({
+        targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
+        title: eventName,
+        scheduleId: selectedDDayInfo.scheduleId,
+      })
+      setEventName('')
     }
   }
-  const onClickDDayItem = (index: number, targetDate: string, eventName: string) => (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setSelectedIndex(index)
-    setSelectedDate(dateUtils.getDateProps(targetDate))
-    setEventName(eventName)
-    setIsEditing(true)
-  }
+  const onClickDDayItem =
+    (index: number, targetDate: string, eventName: string, scheduleId: number) => (e: React.MouseEvent) => {
+      e.stopPropagation()
+      setSelectedDDayInfo({ index, scheduleId })
+      setSelectedDate(dateUtils.getDateProps(targetDate))
+      setEventName(eventName)
+      setIsEditing(true)
+    }
   const onClickRoot = () => {
-    setSelectedIndex(-1)
+    setSelectedDDayInfo({ index: -1, scheduleId: -1 })
     setIsEditing(false)
   }
 
@@ -62,8 +71,8 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                   targetDate={dday.targetDate}
                   fixDDay={() => console.log('fix')}
                   isFixed={index === 0}
-                  isSelected={selectedIndex === index}
-                  onClick={onClickDDayItem(index, dday.targetDate, dday.title)}
+                  isSelected={selectedDDayInfo.index === index}
+                  onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.scheduleId)}
                 />
               ))}
             </s.DDayContainer>
@@ -78,6 +87,9 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                   value={eventName}
                   onChange={(e) => setEventName(e.target.value)}
                   onClick={(e) => e.stopPropagation()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') e.preventDefault()
+                  }}
                 />
               </s.EventNameRow>
               <s.EventDateRow $gap={16}>
@@ -105,7 +117,9 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
               <s.ActionButtonContainer>
                 <ActionButton icon={'close'}>취소</ActionButton>
                 {isEditing ? (
-                  <ActionButton icon={'register'}>수정</ActionButton>
+                  <ActionButton onClick={(e) => e.stopPropagation()} icon={'register'}>
+                    수정
+                  </ActionButton>
                 ) : (
                   <ActionButton icon={'check'}>등록</ActionButton>
                 )}
