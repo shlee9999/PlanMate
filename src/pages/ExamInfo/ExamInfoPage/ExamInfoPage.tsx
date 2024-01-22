@@ -1,4 +1,3 @@
-import * as s from './styled'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
@@ -6,46 +5,41 @@ import { examinfoTagList } from 'constants/tagList'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { useQuery } from 'react-query'
 import { ExamInfoItem, Pagination } from '../components'
+import * as s from './styled'
 
 export const ExamInfoPage = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [selectedTag, setSelectedTag] = useState<string>('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedTag, setSelectedTag] = useState('')
   const { data, isLoading } = useQuery<
     Promise<FindAllPostResponseProps | FindPostWithTagResponseProps>,
     Error,
     FindAllPostResponseProps,
     string[]
-  >(['findAllResponse', currentPage + '', selectedTag], () =>
-    selectedTag === ''
-      ? findAll({ pages: currentPage - 1 })
-      : findPostWithTag({ pages: currentPage - 1, tagName: selectedTag })
+  >(
+    ['findAllResponse', currentPage + '', selectedTag],
+    () =>
+      selectedTag === ''
+        ? findAll({ pages: currentPage - 1 })
+        : findPostWithTag({ pages: currentPage - 1, tagName: selectedTag }),
+    { keepPreviousData: true }
   )
-
   const examInfoList = data?.postDtoList || []
   const totalPage = data?.totalPages || 0
-
-  const handleCurrentPage = (page: number) => (): void => {
-    setCurrentPage(page)
-  }
-
-  const loadPrevPage = (): void => {
+  const handleCurrentPage = (page: number) => () => setCurrentPage(page)
+  const loadPrevPage = () => {
     if (totalPage === 0) return
     if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
   }
-  const loadNextPage = (): void => {
-    if (currentPage < totalPage) setCurrentPage((prev) => prev + 1)
-  }
+  const loadNextPage = () => currentPage < totalPage && setCurrentPage((prev) => prev + 1)
   const navigate = useNavigate()
-  const onClickBulletinButton = (): void => navigate('/examinfo/post')
+  const onClickBulletinButton = () => navigate('/examinfo/post')
   const onClickTagButton = (tag: string) => () => {
     if (selectedTag === tag) setSelectedTag('')
     else setSelectedTag(tag)
     setCurrentPage(1)
   }
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [data])
+  useEffect(() => window.scrollTo({ top: 0, behavior: 'smooth' }), [data])
 
   return (
     <s.Root>
