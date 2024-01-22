@@ -20,6 +20,7 @@ export const DDayContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 8px;
+  height: 100%;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;

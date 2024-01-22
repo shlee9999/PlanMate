@@ -150,7 +150,6 @@ export const MyPage: FC = () => {
                 </s.EllipsisModal>
               )}
             </s.ProfileContainer>
-
             <s.DDayContainer title="D-DAY 관리">
               <s.SeeMore onClick={() => navigate('/mypage/events')}>
                 더보기

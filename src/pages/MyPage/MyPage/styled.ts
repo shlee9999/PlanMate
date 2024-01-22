@@ -108,15 +108,17 @@ export const NextArrow = styled(RightArrow)``
 
 export const DDayContainer = styled(InfoBox)`
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
   border-radius: 8px;
   padding: 24px;
+  height: 0; /* 안주면 Scroll 안되고 커져버림 */
 `
 
 export const DDayList = styled.div`
+  height: 100%;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
   &::-webkit-scrollbar {
     display: none;
   }

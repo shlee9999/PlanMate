@@ -27,6 +27,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
       title: eventName,
     })
+    setEventName('')
   }
   return (
     <s.Root className={className}>
