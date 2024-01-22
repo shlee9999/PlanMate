@@ -16,6 +16,7 @@ export const Root = styled(PageRoot)`
 export const BoxContainer = styled(FlexRow)`
   gap: 16px;
   height: 538px;
+  padding: 30px 50px;
 `
 export const DDayContainer = styled.div`
   display: flex;
