@@ -17,6 +17,7 @@ export const InfoBox: FC<InfoBoxProps> = ({ className, children, left, right, ti
       variants={s.InfoBoxVar}
       initial={left ? 'initial_left' : right ? 'initial_right' : 'initial'}
       animate="animate"
+      style={{ marginTop: title ? 25 : 0 }}
     >
       <s.Header>
         <s.BoxTitle>{title}</s.BoxTitle>
