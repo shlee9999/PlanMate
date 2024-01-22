@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { PinIcon } from 'assets/SvgComponents'
 export const Root = styled.div`
-  min-width: fit-content;
+  min-width: 150px;
   position: relative;
   height: 48px;
   box-sizing: border-box;

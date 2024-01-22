@@ -33,9 +33,7 @@ export const EventBox = styled(InfoBox)`
   height: 100%;
 `
 export const AddEventBox = styled(InfoBox)`
-  flex-grow: 4;
-  display: flex;
-  flex-direction: column;
+  flex-grow: 1;
   padding: 25px 32px 10px 32px;
   height: 100%;
 `
@@ -72,10 +70,10 @@ export const CalendarBox = styled(InfoBox)`
   margin-bottom: 10px;
 `
 export const EventCalendar = styled(Calendar)`
-  max-width: none;
   height: 100%;
   width: 100%;
   overflow: hidden;
+  max-width: none;
 `
 export const CalendarHeader = styled(FlexRow)`
   position: absolute;
@@ -111,4 +109,10 @@ export const BackButton = styled(LeftArrow)`
 `
 export const MainContainer = styled.div`
   padding-top: 20px;
+`
+export const Form = styled.form`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `

@@ -15,7 +15,7 @@ export const dateUtils = {
     month: currentDate.getMonth(),
     date: currentDate.getDate(),
   }),
-  /**YYYY-MM-DD month+1로 반환한다*/
+  /**YYYY-MM-DD month+1로 반환한다. 백엔드 전송 시 month + 1해줘야 한다.*/
   getYYYYMMDD: (currentDate: DateProps | Date) => {
     let year: number, month: number, date: number
     if (currentDate instanceof Date) {
