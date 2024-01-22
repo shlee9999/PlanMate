@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examinfoTagList } from 'constants/tagList'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
-import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useQuery } from 'react-query'
 import { ExamInfoItem, Pagination } from '../components'
 
@@ -99,7 +98,7 @@ export const ExamInfoPage = () => {
         {!isLoading && (
           <Pagination
             currentPage={currentPage}
-            totalPage={totalPage}
+            totalPages={totalPage}
             onClickLeftArrow={loadPrevPage}
             onClickRightArrow={loadNextPage}
             onClickPageNumber={handleCurrentPage}

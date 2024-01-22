@@ -54,9 +54,9 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
           </s.EventDateRow>
           <s.CalendarBox>
             <s.CalendarHeader>
-              <s.PrevYearButton fill="currentColor" onClick={onClickPrevYear} />
+              <s.PrevYearButton onClick={onClickPrevYear} />
               <s.EventYear>{selectedDate.year}</s.EventYear>
-              <s.NextYearButton fill="currentColor" onClick={onClickNextYear} />
+              <s.NextYearButton onClick={onClickNextYear} />
             </s.CalendarHeader>
             <s.EventCalendar
               selectedDate={selectedDate}

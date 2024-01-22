@@ -53,11 +53,11 @@ export const Calendar: FC<CalendarProps> = ({
   return (
     <s.Root className={className}>
       <s.Header $layout={headerButtonLayout}>
-        <s.PrevButton fill="currentColor" onClick={onClickPrev} />
+        <s.PrevButton onClick={onClickPrev} />
         <s.Month $layout={headerButtonLayout} key={selectedDate.month}>
           {selectedDate.month + 1}월
         </s.Month>
-        <s.NextButton fill="currentColor" onClick={onClickNext} />
+        <s.NextButton onClick={onClickNext} />
       </s.Header>
       <s.Body>
         <s.DayRow>

@@ -5,7 +5,7 @@ import * as s from './styled'
 
 type PaginationProps = {
   currentPage: number
-  totalPage: number
+  totalPages: number
   onClickLeftArrow: () => void
   onClickRightArrow: () => void
   onClickPageNumber: (page: number) => () => void
@@ -13,19 +13,19 @@ type PaginationProps = {
 
 export const Pagination: FC<PaginationProps> = ({
   currentPage,
-  totalPage,
+  totalPages,
   onClickLeftArrow,
   onClickRightArrow,
   onClickPageNumber,
 }) => {
   return (
     <s.Root>
-      <s.LeftArrow onClick={onClickLeftArrow} />
-      {totalPage === 0 && currentPage === 1 ? (
+      <s.PrevButton onClick={onClickLeftArrow} />
+      {totalPages === 0 && currentPage === 1 ? (
         <s.CurrentPageNumberTypo>1</s.CurrentPageNumberTypo>
       ) : (
         numberUtils.createTenSequentialNumbers(Math.floor(currentPage / 10 + 1) * 10 - 9).map((num, index) => {
-          if (index >= totalPage) return null
+          if (index >= totalPages) return null
           if (num === currentPage) {
             return <s.CurrentPageNumberTypo key={index}>{num}</s.CurrentPageNumberTypo>
           } else {
@@ -37,7 +37,7 @@ export const Pagination: FC<PaginationProps> = ({
           }
         })
       )}
-      <RightArrow onClick={onClickRightArrow} />
+      <s.NextButton onClick={onClickRightArrow} />
     </s.Root>
   )
 }

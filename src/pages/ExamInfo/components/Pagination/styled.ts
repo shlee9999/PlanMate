@@ -1,4 +1,5 @@
 import { RightArrow } from 'assets/SvgComponents'
+import { LeftArrow } from 'commonStyled'
 import styled from 'styled-components'
 export const Root = styled.div`
   margin: 0 auto;
@@ -8,12 +9,6 @@ export const Root = styled.div`
   justify-content: center;
   align-items: center;
   column-gap: 16px;
-`
-const ArrowImg = styled.img`
-  cursor: pointer;
-`
-export const LeftArrow = styled(RightArrow)`
-  transform: rotate(180deg);
 `
 
 export const PageNumberTypo = styled.p`
@@ -26,4 +21,11 @@ export const PageNumberTypo = styled.p`
 `
 export const CurrentPageNumberTypo = styled(PageNumberTypo)`
   color: ${(props) => props.theme.text.black2};
+`
+
+export const PrevButton = styled(LeftArrow)`
+  color: ${(props) => props.theme.text.gray1};
+`
+export const NextButton = styled(RightArrow)`
+  color: ${(props) => props.theme.text.gray1};
 `

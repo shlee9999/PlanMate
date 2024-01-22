@@ -17,11 +17,17 @@ import { ReactComponent as InstagramIcon } from 'assets/images/instagram.svg'
 import { ReactComponent as KakaoIcon } from 'assets/images/kakao.svg'
 import { ReactComponent as NoConnectionIcon } from 'assets/images/no_connection.svg'
 import { ReactComponent as Resign } from 'assets/images/resign.svg'
-import { ReactComponent as RightArrow } from 'assets/images/right_arrow.svg'
+import { ReactComponent as RightArrowSvg } from 'assets/images/right_arrow.svg'
 import { ReactComponent as ShareIcon } from 'assets/images/share.svg'
 import { ReactComponent as TimerPause } from 'assets/images/timer_pause.svg'
 import { ReactComponent as TimerStart } from 'assets/images/timer_start.svg'
 import { ReactComponent as UrlIcon } from 'assets/images/url.svg'
+import { styled } from 'styled-components'
+
+const renderRightArrow = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
+  <RightArrowSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
+)
+const RightArrow = styled(renderRightArrow)``
 
 export {
   RegisterIcon,

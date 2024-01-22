@@ -154,7 +154,7 @@ export const MyPage: FC = () => {
             <s.AdminDDay>D-DAY 관리</s.AdminDDay>
             <s.SeeMore onClick={() => navigate('/mypage/events')}>
               더보기
-              <s.NextArrow fill="currentColor" />
+              <s.NextArrow />
             </s.SeeMore>
           </s.TypoWrapper>
           <s.DDayContainer>

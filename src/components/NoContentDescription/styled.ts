@@ -8,6 +8,7 @@ export const Root = styled.div`
 `
 
 export const DescriptionTypoContainer = styled.div`
+  margin-top: 8px;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;

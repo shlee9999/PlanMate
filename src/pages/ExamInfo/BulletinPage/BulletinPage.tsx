@@ -93,7 +93,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
             <s.TagTypo>태그</s.TagTypo>
             <s.TagSelector onClick={onClickTagSelector}>
               {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
-              <s.TagListArrow fill="currentColor" />
+              <s.TagListArrow />
               {isSelecting && (
                 <s.TagOptionWrapper>
                   {tagList().map((tag, index) => (

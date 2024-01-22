@@ -56,7 +56,7 @@ export const NoticePage = () => {
       </s.ExamInfoWrapper>
       <Pagination
         currentPage={currentPage}
-        totalPage={totalPage}
+        totalPages={totalPage}
         onClickLeftArrow={loadPrevPage}
         onClickRightArrow={loadNextPage}
         onClickPageNumber={handleCurrentPage}
