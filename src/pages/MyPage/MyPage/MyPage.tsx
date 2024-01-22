@@ -1,5 +1,4 @@
-import { FC, ReactComponentElement, useEffect, useState } from 'react'
-import * as s from './styled'
+import { FC, useEffect, useState } from 'react'
 import { DDayItem, ResignModal } from '../components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,31 +10,50 @@ import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { fixSchedule } from 'api/schedule/fixSchedule'
 import { GoogleCustom } from 'assets/SvgComponents'
 import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
-import { ResponseCommentType, ResponsePostType } from 'api/types'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { CenterSpinner } from 'commonStyled'
+import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/findScrappedPost'
+import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
+import * as s from './styled'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
-const sampleDDayList = [
-  { scheduleId: 0, memberId: 3, title: '테스트2', targetDate: '2024-08-20', isFixed: true },
-  { scheduleId: 1, memberId: 3, title: '테스트3', targetDate: '2024-08-30', isFixed: true },
-  { scheduleId: 2, memberId: 3, title: '테스트4', targetDate: '2024-09-20', isFixed: false },
-  { scheduleId: 3, memberId: 3, title: '테스트5', targetDate: '2024-10-25', isFixed: false },
-  { scheduleId: 4, memberId: 3, title: '테스트6', targetDate: '2024-11-30', isFixed: false },
-  { scheduleId: 5, memberId: 3, title: '테스트7', targetDate: '2024-12-31', isFixed: false },
-]
+// const sampleDDayList = [
+//   { scheduleId: 0, memberId: 3, title: '테스트2', targetDate: '2024-08-20', isFixed: true },
+//   { scheduleId: 1, memberId: 3, title: '테스트3', targetDate: '2024-08-30', isFixed: true },
+//   { scheduleId: 2, memberId: 3, title: '테스트4', targetDate: '2024-09-20', isFixed: false },
+//   { scheduleId: 3, memberId: 3, title: '테스트5', targetDate: '2024-10-25', isFixed: false },
+//   { scheduleId: 4, memberId: 3, title: '테스트6', targetDate: '2024-11-30', isFixed: false },
+//   { scheduleId: 5, memberId: 3, title: '테스트7', targetDate: '2024-12-31', isFixed: false },
+// ]
 
 export const MyPage: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const [currentDDayList, setCurrentDDayList] = useState<FindAllScheduleResponseProps>(sampleDDayList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
-  const [myPostList, setMyPostList] = useState<ResponsePostType[]>()
-  const [myCommentList, setMyCommentList] = useState<ResponseCommentType[]>()
-  const [scrappedPostList, setScrappedPostList] = useState<ResponsePostType[]>()
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
   const [fixedIndex, setFixedIndex] = useState<number>(0)
+  const { data: dDayList, isLoading } = useQuery<FindAllScheduleResponseProps>(['dDayList'], () => findAllSchedule())
+  const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
+    ['myPostInfo', currentPage],
+    () => findPost({ pages: currentPage - 1 })
+  )
+  const { data: myScrapInfo, isLoading: isScrapLoading } = useQuery<FindScrappedPostResponseProps>(
+    ['myScrapInfo', currentPage],
+    () => findScrappedPost({ pages: currentPage - 1 })
+  )
+  const { data: myCommentInfo, isLoading: isCommentLoading } = useQuery<FindCommentResponseProps>(
+    ['myCommentInfo', currentPage],
+    () => findComment({ pages: currentPage - 1 })
+  )
+  const myPostList = myPostInfo?.postDtoList || []
+  const postTotalPages = myPostInfo?.totalPages || 0
+  const myCommentList = myCommentInfo?.commentDtoList || []
+  const commentTotalPages = myCommentInfo?.totalPages || 0
+  const myScrapList = myScrapInfo?.postDtoList || []
+  const scrapTotalPages = myScrapInfo?.totalPages || 0
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const openProfileEditModal = () => {
@@ -47,70 +65,41 @@ export const MyPage: FC = () => {
     setIsEllipsisModalOpen(false)
   }
   const closeProfileEditModal = () => setIsProfileEditModalOpen(false)
-
   const closeResignModal = () => setIsResignModalOpen(false)
+  const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
 
   const onClickEllipsisButton = (e: React.MouseEvent): void => {
     setIsEllipsisModalOpen((prev) => !prev)
     e.stopPropagation()
   }
-  const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
-
   const onClickTabItem = (tab: string) => () => {
-    switch (tab) {
-      case myPageTabList[0]:
-        if (!myPostList) {
-          // findPost({ pages: currentPage - 1 }).then((res) => {
-          //   if (res) {
-          //     const response = res as FindPostResponseProps
-          //     setMyPostList(response.postDtoList)
-          //     setCurrentPage(1)
-          //     setCurrentTab(tab)
-          //   }
-          // })
-          setCurrentPage(1)
-          setCurrentTab(tab)
-        } else setCurrentTab(tab)
-        return
-      case myPageTabList[1]:
-        if (!myCommentList) {
-          // findComment({
-          //   pages: currentPage - 1,
-          // }).then((res) => {
-          //   const response = res as FindCommentResponseProps
-          //   setMyCommentList(response.commentDtoList)
-          //   setCurrentTab(tab)
-          // })
-          setCurrentTab(tab)
-        } else setCurrentTab(tab)
-        return
-      case myPageTabList[2]:
-        if (!scrappedPostList) {
-          // findScrappedPost({ pages: currentPage - 1 }).then((res) => {
-          //   if (res) {
-          //     const response = res as FindPostResponseProps
-          //     setScrappedPostList(response.postDtoList)
-          //     setCurrentPage(1)
-          //     setCurrentTab(tab)
-          //   }
-          // })
-          setCurrentPage(1)
-          setCurrentTab(tab)
-        } else setCurrentTab(tab)
-        return
-    }
+    setCurrentPage(1)
     setCurrentTab(tab)
   }
   const renderTabContent = () => {
     switch (currentTab) {
       case myPageTabList[0]: // "작성한 글"
-        return myPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
+        return isPostLoading ? (
+          <CenterSpinner />
+        ) : (
+          myPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
+        )
       case myPageTabList[1]: // "작성한 댓글"
-        return myCommentList?.map((comment) => (
-          <ExamInfoComment {...comment} key={comment.commentId} currentPage={currentPage} />
-        ))
+        return isCommentLoading ? (
+          <CenterSpinner />
+        ) : (
+          myCommentList?.map((comment) => (
+            <ExamInfoComment {...comment} key={comment.commentId} currentPage={currentPage} />
+          ))
+        )
       case myPageTabList[2]: // "스크랩한 글"
-        return scrappedPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
+        return isScrapLoading ? (
+          <CenterSpinner />
+        ) : myScrapList?.length === 0 ? (
+          <s.NoScrapDescription icon="pencil" descriptions={['스크랩한 게시물이 없어요!']} />
+        ) : (
+          myScrapList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
+        )
       default:
         return null
     }
@@ -133,22 +122,6 @@ export const MyPage: FC = () => {
       setFixedIndex(index)
     })
   }
-  useEffect(() => {
-    findPost({ pages: currentPage - 1 }).then((res) => {
-      if (res) {
-        const response = res as FindPostResponseProps
-        setMyPostList(response.postDtoList)
-        setCurrentPage(1)
-      }
-    })
-    findAllSchedule().then((res) => {
-      const response = res as FindAllScheduleResponseProps
-      setCurrentDDayList(response)
-      for (let i = 0; i < response.length; i++) {
-        if (response[i].isFixed) setFixedIndex(i)
-      }
-    })
-  }, [])
 
   useEffect(() => {
     setCurrentPage(1)
@@ -185,16 +158,20 @@ export const MyPage: FC = () => {
             </s.SeeMore>
           </s.TypoWrapper>
           <s.DDayContainer>
-            {currentDDayList.map((dday, index) => (
-              <DDayItem
-                key={dday.scheduleId}
-                id={dday.scheduleId}
-                title={dday.title}
-                targetDate={dday.targetDate}
-                fixDDay={fixDDay(dday.scheduleId, index)}
-                isFixed={index === fixedIndex}
-              />
-            ))}
+            {isLoading ? (
+              <CenterSpinner />
+            ) : (
+              dDayList.map((dday, index) => (
+                <DDayItem
+                  key={dday.scheduleId}
+                  id={dday.scheduleId}
+                  title={dday.title}
+                  targetDate={dday.targetDate}
+                  fixDDay={fixDDay(dday.scheduleId, index)}
+                  isFixed={index === fixedIndex}
+                />
+              ))
+            )}
           </s.DDayContainer>
         </s.LeftContainer>
         <s.RightContainer>

@@ -12,4 +12,4 @@ export type FindAllScheduleResponseProps = Pick<
 // isFixed: boolean
 
 /**D-Day 전체 조회 */
-export const findAllSchedule = () => axiosGET('/schedule/all')
+export const findAllSchedule = (): Promise<FindAllScheduleResponseProps> => axiosGET('/schedule/all')

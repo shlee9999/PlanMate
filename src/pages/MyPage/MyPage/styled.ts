@@ -4,6 +4,7 @@ import { PageRoot } from 'commonStyled'
 import { RightArrow } from 'assets/SvgComponents'
 import { HEADER_HEIGHT, FOOTER_HEIGHT } from 'constants/layout'
 import { motion } from 'framer-motion'
+import { NoContentDescription } from 'components'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -108,6 +109,7 @@ export const SeeMore = styled.p`
 export const NextArrow = styled(RightArrow)``
 
 export const DDayContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
@@ -147,7 +149,10 @@ export const MyActivity = styled.p`
   line-height: 20px;
   color: ${(props) => props.theme.text.black2};
 `
-export const CurrentContentContainer = styled.div``
+export const CurrentContentContainer = styled.div`
+  min-height: 450px;
+  position: relative;
+`
 export const TabSelector = styled.div`
   width: 100%;
   position: sticky;
@@ -234,3 +239,10 @@ const EllipsisButtonRoot = styled.button`
 `
 export const EllipsisEditButton = styled(EllipsisButtonRoot)``
 export const EllipsisResignButton = styled(EllipsisButtonRoot)``
+export const NoScrapDescription = styled(NoContentDescription)`
+  position: absolute;
+  top: 150px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+`
