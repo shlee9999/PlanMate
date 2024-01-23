@@ -1,7 +1,7 @@
 import { axiosDELETE } from 'api/common/commonAxios'
 import { DDayType } from 'api/types'
 
-export type DeleteDdayRequestProps = Pick<DDayType, 'dDayId'>
+export type DeleteDdayRequestProps = Pick<DDayType, 'ddayId'>
 
 /**D-Day 삭제 */
-export const deleteSchedule = ({ dDayId }: DeleteDdayRequestProps) => axiosDELETE('/dday', { dDayId })
+export const deleteSchedule = ({ ddayId }: DeleteDdayRequestProps) => axiosDELETE('/dday', { ddayId })

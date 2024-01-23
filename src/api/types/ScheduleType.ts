@@ -16,9 +16,9 @@ export type DDayType = {
   /** D-Day까지 남은 일자 */
   remainingDays: number
   /** D-Day id */
-  dDayId: number
+  ddayId: number
   /** 고정됐는지 여부 */
   isFixed: boolean
 }
 
-export type DDayEntityType = Pick<DDayType, 'dDayId' | 'targetDate' | 'title' | 'isFixed'>
+export type DDayEntityType = Pick<DDayType, 'ddayId' | 'targetDate' | 'title' | 'isFixed'>

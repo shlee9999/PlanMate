@@ -9,8 +9,8 @@ type UseEditScheduleMutationProps = EditDdayRequestProps & {
 function useEditScheduleMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(
-    ({ targetDate, title, dDayId: scheduleId }: UseEditScheduleMutationProps) =>
-      editSchedule({ targetDate, title, dDayId: scheduleId }),
+    ({ targetDate, title, ddayId: scheduleId }: UseEditScheduleMutationProps) =>
+      editSchedule({ targetDate, title, ddayId: scheduleId }),
     {
       onSuccess: (data, { callBack }) => {
         callBack()

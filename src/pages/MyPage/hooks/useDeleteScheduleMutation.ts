@@ -8,12 +8,12 @@ type UseDeleteScheduleMutationProps = DeleteDdayRequestProps
 function useDeleteScheduleMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(
-    ({ dDayId: scheduleId }: UseDeleteScheduleMutationProps) => deleteSchedule({ dDayId: scheduleId }),
+    ({ ddayId: scheduleId }: UseDeleteScheduleMutationProps) => deleteSchedule({ ddayId: scheduleId }),
     {
-      onMutate: ({ dDayId: scheduleId }) => {
+      onMutate: ({ ddayId: scheduleId }) => {
         const prevData = queryClient.getQueryData(['dDayList'])
         queryClient.setQueryData<DDayEntityType[]>('dDayList', (prev) =>
-          prev.filter((dday) => dday.dDayId !== scheduleId)
+          prev.filter((dday) => dday.ddayId !== scheduleId)
         )
         return { prevData }
       },

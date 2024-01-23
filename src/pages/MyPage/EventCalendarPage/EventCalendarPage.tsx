@@ -25,7 +25,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const mutateDeleteSchedule = useDeleteScheduleMutation()
   const onClickDelete = (e: React.MouseEvent) => {
     e.preventDefault() // * submit 방지
-    mutateDeleteSchedule({ dDayId: selectedDDayId })
+    mutateDeleteSchedule({ ddayId: selectedDDayId })
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -42,7 +42,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       mutateEditSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: eventName,
-        dDayId: selectedDDayId,
+        ddayId: selectedDDayId,
         callBack: () => setEventName(''),
       })
     }
