@@ -1,5 +1,5 @@
 import { axiosGET } from 'api/common/commonAxios'
-import { PostType, ResponsePostType } from 'api/types'
+import { PostType } from 'api/types'
 import { ResponseNoticeType } from 'api/types/PostType'
 
 export type FindAllNoticeRequestProps = Pick<PostType, 'pages'>

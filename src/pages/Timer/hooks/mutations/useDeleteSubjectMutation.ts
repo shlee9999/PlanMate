@@ -1,4 +1,4 @@
-import { RemoveSubjectRequestProps, removeSubject } from 'api/subject/removeSubject'
+import { RemoveSubjectRequestProps, deleteSubject } from 'api/subject/deleteSubject'
 import { useMutation, useQueryClient } from 'react-query'
 import { TodoItemType } from 'types'
 
@@ -9,7 +9,7 @@ function useDeleteSubjectMutation() {
   const queryClient = useQueryClient()
   const { mutate: mutateDeleteSubject } = useMutation(
     ({ subjectId }: DeleteSubjectMutationProps) =>
-      removeSubject({
+      deleteSubject({
         subjectId,
       }),
     {

@@ -3,4 +3,4 @@ import { SubjectType } from 'api/types'
 
 export type RemoveSubjectRequestProps = Pick<SubjectType, 'subjectId'>
 
-export const removeSubject = ({ subjectId }: RemoveSubjectRequestProps) => axiosDELETE('/subject/remove', { subjectId })
+export const deleteSubject = ({ subjectId }: RemoveSubjectRequestProps) => axiosDELETE('/subject', { subjectId })
