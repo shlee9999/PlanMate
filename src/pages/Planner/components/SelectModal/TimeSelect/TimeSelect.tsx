@@ -12,15 +12,9 @@ type TimeSelectModeProps = {
 //옵션 시간 추가 필요요
 export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
   const dispatch = useDispatch()
-  const {
-    startAt,
-    endAt,
-    scheduleName,
-    colorHex: bgColor,
-    plannerId: id,
-    day,
-  } = useSelector((state: RootState) => state.selectedInfo)
-  console.log(endAt)
+  const { startAt, endAt, scheduleName, colorHex, plannerId, day } = useSelector(
+    (state: RootState) => state.selectedInfo
+  )
   const value = set === '부터' ? startAt.slice(0, 2) : endAt.slice(0, 2) === '00' ? 24 : endAt.slice(0, 2)
   const handleHourChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (set === '부터')
@@ -28,8 +22,8 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
         updateInfo({
           endAt: endAt,
           scheduleName: scheduleName,
-          colorHex: bgColor,
-          plannerId: id,
+          colorHex,
+          plannerId,
           startAt: timeUtils.getFormattedTime(+e.target.value * 60 * 60),
           day,
         })
@@ -40,8 +34,8 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
           startAt: startAt,
           endAt: timeUtils.getFormattedTime(+e.target.value * 60 * 60),
           scheduleName: scheduleName,
-          colorHex: bgColor,
-          plannerId: id,
+          colorHex,
+          plannerId,
           day,
         })
       )

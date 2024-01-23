@@ -1,10 +1,11 @@
 import { CloseIcon } from 'assets/SvgComponents'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
+import { changeColorOpacity } from 'utils/helper'
 
 interface RootProps {
   $bgColor: string
-  $height: number
+  $height: string
 }
 export const Wrapper = styled(motion.div)<RootProps>`
   position: absolute;
@@ -12,8 +13,10 @@ export const Wrapper = styled(motion.div)<RootProps>`
   left: 0;
   background-color: ${(props) => props.theme.background.white};
   width: 100%;
-  height: 100%;
+  height: ${(props) => props.$height};
   z-index: 1;
+  overflow: hidden;
+  border-radius: 7px;
 `
 export const CloseButton = styled(CloseIcon)`
   position: absolute;
@@ -26,15 +29,16 @@ export const CloseButton = styled(CloseIcon)`
 `
 
 export const Root = styled.div<{ $bgColor: string }>`
+  position: relative;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   text-transform: uppercase;
-  color: ${(props) => props.theme.background.white};
+  color: ${(props) => props.$bgColor};
   text-align: center;
   font-weight: 600;
-  opacity: 0.5;
-  background-color: ${(props) => props.$bgColor};
+  background-color: ${(props) => changeColorOpacity(props.$bgColor, 0.2)};
+
   border-radius: 5px;
   &:hover {
     opacity: 0.6;
@@ -49,5 +53,12 @@ export const Root = styled.div<{ $bgColor: string }>`
   padding-top: 10px;
   transform-origin: center top;
 `
-
+export const LeftBar = styled.div<{ $bgColor: string }>`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: ${(props) => props.$bgColor};
+`
 export const Title = styled.p``

@@ -157,7 +157,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                         !isLoading && (
                           <Appointment
                             key={app.plannerId}
-                            id={app.plannerId}
                             title={app.scheduleName}
                             bgColor={app.colorHex}
                             height={
