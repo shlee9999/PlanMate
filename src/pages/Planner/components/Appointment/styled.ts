@@ -1,4 +1,4 @@
-import { CloseIcon } from 'assets/SvgComponents'
+import { CloseIcon, TrashIcon } from 'assets/SvgComponents'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 import { changeColorOpacity } from 'utils/helper'
@@ -21,11 +21,10 @@ export const Wrapper = styled(motion.div)<RootProps>`
 export const CloseButton = styled(CloseIcon)`
   position: absolute;
   opacity: 0;
-  top: 5px;
+  top: 7px;
   right: 5px;
   width: 15px;
   cursor: pointer;
-  fill: ${(props) => props.theme.text.gray1};
 `
 
 export const Root = styled.div<{ $bgColor: string }>`
@@ -41,7 +40,7 @@ export const Root = styled.div<{ $bgColor: string }>`
 
   border-radius: 5px;
   &:hover {
-    opacity: 0.6;
+    opacity: 0.8;
     ${CloseButton} {
       opacity: 1;
     }

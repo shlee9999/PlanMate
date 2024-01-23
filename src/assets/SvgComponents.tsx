@@ -1,6 +1,6 @@
 import { ReactComponent as RegisterIcon } from 'assets/images/register.svg'
 import { ReactComponent as CheckIcon } from 'assets/images/check.svg'
-import { ReactComponent as CloseIcon } from 'assets/images/close.svg'
+import { ReactComponent as CloseIconSvg } from 'assets/images/close.svg'
 import { ReactComponent as PlusIcon } from 'assets/images/plus.svg'
 import { ReactComponent as PinIcon } from 'assets/images/pin.svg'
 import { ReactComponent as BookCheckIcon } from 'assets/images/book_check.svg'
@@ -24,17 +24,17 @@ import { ReactComponent as TimerStart } from 'assets/images/timer_start.svg'
 import { ReactComponent as UrlIcon } from 'assets/images/url.svg'
 import { ReactComponent as TrashIconSvg } from 'assets/images/trash.svg'
 
-import { styled } from 'styled-components'
-
-const renderRightArrow = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
+const RightArrow = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
   <RightArrowSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
 )
-const RightArrow = styled(renderRightArrow)``
 
-const renderTrashIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
+const TrashIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
   <TrashIconSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
 )
-const TrashIcon = styled(renderTrashIcon)``
+
+const CloseIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
+  <CloseIconSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
+)
 export {
   RegisterIcon,
   CheckIcon,

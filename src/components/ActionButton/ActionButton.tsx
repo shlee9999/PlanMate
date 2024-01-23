@@ -17,7 +17,7 @@ export const ActionButton: FC<ActionButtonProps> = ({ className, onClick, childr
   const Icons = {
     register: <RegisterIcon fill="currentColor" />,
     check: <CheckIcon fill="currentColor" />,
-    close: <CloseIcon fill="currentColor" />,
+    close: <CloseIcon />,
     plus: <PlusIcon fill="currentColor" />,
     trash: <TrashIcon />,
     none: null,
