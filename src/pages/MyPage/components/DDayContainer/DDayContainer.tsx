@@ -1,10 +1,10 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 import { DDayItem } from '..'
 import { DDayType } from 'api/types/ScheduleType'
 import { DateProps } from 'pages/Stats/StatsPage'
 import { dateUtils } from 'utils'
-import * as s from './styled'
 import { CenterSpinner } from 'commonStyled'
+import * as s from './styled'
 
 type DDayContainerProps = {
   className?: string
@@ -44,9 +44,9 @@ export const DDayContainer: FC<DDayContainerProps> = ({
       setSelectedDDayId && setSelectedDDayId(scheduleId)
       setSelectedDate && setSelectedDate(dateUtils.getDateProps(targetDate))
       setEventName && setEventName(eventName)
-      setIsEditing && setIsEditing(true)
-      setSelectedIndex(index)
+      setSelectedIndex((prev) => (prev === index ? -1 : index))
     }
+  useEffect(() => setIsEditing(selectedIndex === -1 ? false : true), [selectedIndex])
   return (
     <s.Root className={className} title={title} description={description}>
       {viewMore && (

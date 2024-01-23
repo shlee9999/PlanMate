@@ -1,5 +1,4 @@
 import { FC, useState } from 'react'
-import { DDayItem } from '../components'
 import { dateUtils, formatTwoDigits } from 'utils'
 import { ActionButton } from 'components'
 import { useNavigate } from 'react-router-dom'
@@ -44,13 +43,8 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
     }
   }
 
-  const onClickRoot = () => {
-    setSelectedDDayId(-1)
-    setIsEditing(false)
-  }
-
   return (
-    <s.Root className={className} onClick={onClickRoot}>
+    <s.Root className={className}>
       <s.MainContainer>
         <s.BoxContainer>
           <s.StyledDDayContainer
@@ -58,6 +52,10 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
             title="D-DAY 관리"
             description="원하는 디데이를 고정해보세요!"
             selectable
+            setSelectedDate={setSelectedDate}
+            setEventName={setEventName}
+            setIsEditing={setIsEditing}
+            setSelectedDDayId={setSelectedDDayId}
           >
             <s.BackButton onClick={() => navigate(-1)} />
           </s.StyledDDayContainer>
