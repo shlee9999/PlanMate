@@ -1,7 +1,7 @@
 import { PageRoot } from 'commonStyled'
+import { Calendar } from 'components'
 import { InfoBox } from 'components'
 import styled from 'styled-components'
-import { Calendar } from './components'
 
 export const Root = styled(PageRoot)`
   display: flex;

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
-import { Spinner } from 'components/'
+import { Spinner } from 'components'
 
 export const PageRoot = styled.div`
   position: relative;

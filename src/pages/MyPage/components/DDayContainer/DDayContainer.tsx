@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { DDayItem } from '..'
 import { DDayType } from 'api/types/ScheduleType'
-import { DateProps } from 'pages/Stats/StatsPage'
+import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import { CenterSpinner } from 'commonStyled'
 import * as s from './styled'

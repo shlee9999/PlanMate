@@ -1,5 +1,5 @@
 import { FC, useRef, useState } from 'react'
-import { DateProps } from 'pages/Stats/StatsPage'
+import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import * as s from './styled'
 type DateCellProps = {

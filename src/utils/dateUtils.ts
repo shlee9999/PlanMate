@@ -1,5 +1,5 @@
 import { weekDays } from 'constants/week'
-import { DateProps } from 'pages/Stats/StatsPage'
+import { DateProps } from 'types'
 
 export const dateUtils = {
   /**미래 시간인지 반환 */

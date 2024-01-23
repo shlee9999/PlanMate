@@ -1,7 +1,7 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { FlexRow, LeftArrow, PageRoot } from 'commonStyled'
 import { ActionButton, InfoBox } from 'components'
-import { Calendar } from 'pages/Stats/components'
+import { Calendar } from 'components'
 import { DDayContainer } from '../components'
 import styled, { css } from 'styled-components'
 

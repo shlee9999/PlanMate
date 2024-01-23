@@ -1,7 +1,7 @@
 import React from 'react'
 import * as s from './styled'
 import { GraphContainer, PieChartContainer, ShareContainer, TimerContainer } from './components'
-import { DateProps } from 'pages/Stats/StatsPage'
+import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
 import { TimeProps } from 'types'
 

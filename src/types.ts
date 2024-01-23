@@ -15,3 +15,8 @@ export interface TimeProps {
   minute: number
   second?: number
 }
+export type DateProps = {
+  year: number
+  month: number
+  date: number
+}
