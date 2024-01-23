@@ -1,6 +1,6 @@
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { DDayItem } from '..'
-import { DDayType } from 'api/types/ScheduleType'
+import { DDayEntityType } from 'api/types/ScheduleType'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import { CenterSpinner } from 'commonStyled'
@@ -8,7 +8,7 @@ import * as s from './styled'
 
 type DDayContainerProps = {
   className?: string
-  dDayList: DDayType[]
+  dDayList: DDayEntityType[]
   setSelectedDate?: (date: DateProps) => void
   setEventName?: (name: string) => void
   setIsEditing?: (state: boolean) => void
@@ -64,13 +64,13 @@ export const DDayContainer: FC<DDayContainerProps> = ({
         <s.DDayList>
           {dDayList?.map((dday, index) => (
             <DDayItem
-              key={dday.scheduleId}
-              scheduleId={dday.scheduleId}
+              key={dday.dDayId}
+              scheduleId={dday.dDayId}
               title={dday.title}
               targetDate={dday.targetDate}
               isFixed={dday.isFixed}
               isSelected={selectedIndex === index}
-              onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.scheduleId)}
+              onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.dDayId)}
               selectable={selectable}
             />
           ))}

@@ -8,7 +8,7 @@
  * @param {number} memberId 사용자 id
  */
 
-export type ScheduleType = {
+export type DDayType = {
   /** D-Day YYYY-MM-DD */
   targetDate: string
   /** 일정 제목 */
@@ -16,9 +16,9 @@ export type ScheduleType = {
   /** D-Day까지 남은 일자 */
   remainingDays: number
   /** D-Day id */
-  scheduleId: number
+  dDayId: number
   /** 고정됐는지 여부 */
   isFixed: boolean
 }
 
-export type DDayType = Pick<ScheduleType, 'scheduleId' | 'targetDate' | 'title' | 'isFixed'>
+export type DDayEntityType = Pick<DDayType, 'dDayId' | 'targetDate' | 'title' | 'isFixed'>

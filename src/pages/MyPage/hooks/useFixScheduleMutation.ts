@@ -1,17 +1,17 @@
-import { FindAllScheduleResponseProps } from 'api/schedule/findAllSchedule'
-import { FixScheduleRequestProps, fixSchedule } from 'api/schedule/fixSchedule'
+import { FindAllDdayResponseProps } from 'api/dday/findAllDday'
+import { FixDdayRequestProps, fixSchedule } from 'api/dday/fixDday'
 import { useQueryClient, useMutation } from 'react-query'
 
-type UseFixScheduleMutationProps = FixScheduleRequestProps
+type UseFixScheduleMutationProps = FixDdayRequestProps
 
 /**D-Day 고정하기 */
 function useFixScheduleMutation() {
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(({ scheduleId }: UseFixScheduleMutationProps) => fixSchedule({ scheduleId }), {
-    onMutate: ({ scheduleId }) => {
+  const { mutate } = useMutation(({ dDayId }: UseFixScheduleMutationProps) => fixSchedule({ dDayId }), {
+    onMutate: ({ dDayId }) => {
       const prevData = queryClient.getQueryData(['dDayList'])
-      queryClient.setQueryData<FindAllScheduleResponseProps>(['dDayList'], (prev) =>
-        prev.filter((dDay) => (dDay.scheduleId === scheduleId ? { ...dDay, isFixed: !dDay.isFixed } : dDay))
+      queryClient.setQueryData<FindAllDdayResponseProps>(['dDayList'], (prev) =>
+        prev.filter((dDay) => (dDay.dDayId === dDayId ? { ...dDay, isFixed: !dDay.isFixed } : dDay))
       )
       return { prevData }
     },

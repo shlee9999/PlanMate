@@ -2,7 +2,7 @@ import { CommentType } from './CommentType'
 import { PlannerType } from './PlannerType'
 import { ResponseCommentType } from './CommentType'
 import { ResponsePostType } from './PostType'
-import { ScheduleType } from './ScheduleType'
+import { DDayType } from './ScheduleType'
 import { PostType } from './PostType'
 import { StatsType } from './StatsType'
 import { ResponseStats } from './StatsType'
@@ -13,7 +13,7 @@ export type {
   PlannerType,
   ResponseCommentType,
   ResponsePostType,
-  ScheduleType,
+  DDayType,
   PostType,
   StatsType,
   ResponseStats,

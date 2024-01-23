@@ -3,11 +3,11 @@ import { DDayItem, ResignModal } from '../components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
+import { FindAllDdayResponseProps, findAllSchedule } from 'api/dday/findAllDday'
 import { ProfileEditModal } from 'pages/MyPage/components/'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
-import { fixSchedule } from 'api/schedule/fixSchedule'
+import { fixSchedule } from 'api/dday/fixDday'
 import { GoogleCustom } from 'assets/SvgComponents'
 import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
 import { useNavigate } from 'react-router-dom'
@@ -27,8 +27,7 @@ export const MyPage: FC = () => {
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
-  const [fixedIndex, setFixedIndex] = useState<number>(0)
-  const { data: dDayList, isLoading } = useQuery<FindAllScheduleResponseProps>(['dDayList'], () => findAllSchedule())
+  const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllSchedule())
   const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
     ['myPostInfo', currentPage],
     () => findPost({ pages: currentPage - 1 })
@@ -107,13 +106,6 @@ export const MyPage: FC = () => {
       dispatch(changeuserAuthInfo(newUserAuth))
       localStorage.setItem('userAuthInfo', JSON.stringify(newUserAuth))
       closeProfileEditModal()
-    })
-  }
-  const fixDDay = (id: number, index: number) => () => {
-    fixSchedule({
-      scheduleId: id,
-    }).then((res) => {
-      setFixedIndex(index)
     })
   }
 

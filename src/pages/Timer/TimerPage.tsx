@@ -4,11 +4,10 @@ import { TimeProps, TodoItemType } from 'types'
 import { useState, FC, useEffect } from 'react'
 import { RootState } from 'modules'
 import { initializeTimer } from 'modules/timer'
-import { NoContentTypo } from 'components/NoContentDescription/styled'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'pages/Timer/hooks'
 import { SuggestModal } from 'pages/Timer/components/'
-import { FindFixedScheduleResponseProps, findFixedSchedule } from 'api/schedule/findFixedSchedule'
+import { FindFixedDdayResponseProps, findFixedSchedule } from 'api/dday/findFixedDday'
 import { PlusIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
 import { ResponseStats } from 'api/types'
@@ -42,7 +41,7 @@ export const TimerPage: FC = () => {
   const { data: statsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
     checkTodayStats()
   )
-  const { data: fixedDDay } = useQuery<FindFixedScheduleResponseProps>(['fixedDDay'], () => findFixedSchedule())
+  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>(['fixedDDay'], () => findFixedSchedule())
   const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)

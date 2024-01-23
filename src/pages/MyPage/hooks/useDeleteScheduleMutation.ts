@@ -1,26 +1,31 @@
-import { DeleteScheduleRequestProps, deleteSchedule } from 'api/schedule/deleteSchedule'
-import { DDayType } from 'api/types/ScheduleType'
+import { DeleteDdayRequestProps, deleteSchedule } from 'api/dday/deleteDday'
+import { DDayEntityType } from 'api/types/ScheduleType'
 import { useQueryClient, useMutation } from 'react-query'
 
-type UseDeleteScheduleMutationProps = DeleteScheduleRequestProps
+type UseDeleteScheduleMutationProps = DeleteDdayRequestProps
 
 /**일정 삭제 */
 function useDeleteScheduleMutation() {
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(({ scheduleId }: UseDeleteScheduleMutationProps) => deleteSchedule({ scheduleId }), {
-    onMutate: ({ scheduleId }) => {
-      const prevData = queryClient.getQueryData(['dDayList'])
-      queryClient.setQueryData<DDayType[]>('dDayList', (prev) => prev.filter((dday) => dday.scheduleId !== scheduleId))
-      return { prevData }
-    },
-    onSuccess: () => {
-      console.log('success')
-    },
-    onError: (err, data, context) => {
-      console.error(err)
-      queryClient.setQueryData(['dDayList'], context.prevData)
-    },
-  })
+  const { mutate } = useMutation(
+    ({ dDayId: scheduleId }: UseDeleteScheduleMutationProps) => deleteSchedule({ dDayId: scheduleId }),
+    {
+      onMutate: ({ dDayId: scheduleId }) => {
+        const prevData = queryClient.getQueryData(['dDayList'])
+        queryClient.setQueryData<DDayEntityType[]>('dDayList', (prev) =>
+          prev.filter((dday) => dday.dDayId !== scheduleId)
+        )
+        return { prevData }
+      },
+      onSuccess: () => {
+        console.log('success')
+      },
+      onError: (err, data, context) => {
+        console.error(err)
+        queryClient.setQueryData(['dDayList'], context.prevData)
+      },
+    }
+  )
   return mutate
 }
 export default useDeleteScheduleMutation

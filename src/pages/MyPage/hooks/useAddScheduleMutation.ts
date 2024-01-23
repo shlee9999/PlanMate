@@ -1,7 +1,7 @@
-import { AddScheduleRequestProps, addSchedule } from 'api/schedule/addSchedule'
+import { AddDdayRequestProps, addSchedule } from 'api/dday/addDday'
 import { useQueryClient, useMutation } from 'react-query'
 
-type AddScheduleMutationProps = AddScheduleRequestProps & {
+type AddScheduleMutationProps = AddDdayRequestProps & {
   callBack: () => void
 }
 

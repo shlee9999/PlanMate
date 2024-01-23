@@ -3,7 +3,7 @@ import { dateUtils, formatTwoDigits } from 'utils'
 import { ActionButton } from 'components'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
+import { FindAllDdayResponseProps, findAllSchedule } from 'api/dday/findAllDday'
 import { useAddScheduleMutation, useEditScheduleMutation, useDeleteScheduleMutation } from '../hooks'
 import * as s from './styled'
 
@@ -16,7 +16,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const [eventName, setEventName] = useState('')
-  const { data: dDayList } = useQuery<FindAllScheduleResponseProps>(['dDayList'], () => findAllSchedule())
+  const { data: dDayList } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllSchedule())
   const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const mutateDeleteSchedule = useDeleteScheduleMutation()
   const onClickDelete = (e: React.MouseEvent) => {
     e.preventDefault() // * submit 방지
-    mutateDeleteSchedule({ scheduleId: selectedDDayId })
+    mutateDeleteSchedule({ dDayId: selectedDDayId })
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -42,7 +42,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       mutateEditSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: eventName,
-        scheduleId: selectedDDayId,
+        dDayId: selectedDDayId,
         callBack: () => setEventName(''),
       })
     }
