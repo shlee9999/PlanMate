@@ -3,7 +3,7 @@ import { FlexRow, LeftArrow, PageRoot } from 'commonStyled'
 import { ActionButton, InfoBox } from 'components'
 import { Calendar } from 'pages/Stats/components'
 import { DDayContainer } from '../components'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Root = styled(PageRoot)`
   padding: 0 5%;
@@ -25,10 +25,18 @@ export const StyledDDayContainer = styled(DDayContainer)`
   height: 100%;
 `
 
-export const AddEventBox = styled(InfoBox)`
+export const AddEventBox = styled(InfoBox)<{ $isEditing: boolean }>`
   flex-grow: 2;
   padding: 25px 32px 10px 32px;
   height: 100%;
+  ${(props) =>
+    props.$isEditing &&
+    css`
+      border: 2px solid ${props.theme.primary.default};
+      &:hover {
+        border: 2px solid ${props.theme.primary.default};
+      }
+    `}
 `
 export const EventNameRow = styled(FlexRow)`
   margin-bottom: 20px;

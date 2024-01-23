@@ -23,7 +23,7 @@ export const Tooltip: FC<TooltipProps> = ({ className, closeTooltip, targetRef }
     if (targetRef.current) {
       const rect = targetRef.current.getBoundingClientRect()
       setPosition({
-        top: rect.top - 38,
+        top: rect.top - 45,
         left: rect.left + 3,
       })
     }

@@ -22,6 +22,8 @@ import { ReactComponent as ShareIcon } from 'assets/images/share.svg'
 import { ReactComponent as TimerPause } from 'assets/images/timer_pause.svg'
 import { ReactComponent as TimerStart } from 'assets/images/timer_start.svg'
 import { ReactComponent as UrlIcon } from 'assets/images/url.svg'
+import { ReactComponent as TrashIconSvg } from 'assets/images/trash.svg'
+
 import { styled } from 'styled-components'
 
 const renderRightArrow = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
@@ -29,6 +31,10 @@ const renderRightArrow = ({ onClick, className }: { onClick?: (e: React.MouseEve
 )
 const RightArrow = styled(renderRightArrow)``
 
+const renderTrashIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
+  <TrashIconSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
+)
+const TrashIcon = styled(renderTrashIcon)``
 export {
   RegisterIcon,
   CheckIcon,
@@ -54,4 +60,5 @@ export {
   TimerPause,
   TimerStart,
   UrlIcon,
+  TrashIcon,
 }

@@ -4,5 +4,4 @@ import { ScheduleType } from 'api/types'
 export type DeleteScheduleRequestProps = Pick<ScheduleType, 'scheduleId'>
 
 /**D-Day 삭제 */
-export const deleteSchedule = ({ scheduleId }: DeleteScheduleRequestProps) =>
-  axiosDELETE('/schedule/remove', { scheduleId })
+export const deleteSchedule = ({ scheduleId }: DeleteScheduleRequestProps) => axiosDELETE('/schedule', { scheduleId })

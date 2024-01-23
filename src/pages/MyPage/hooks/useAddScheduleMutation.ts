@@ -1,7 +1,9 @@
 import { AddScheduleRequestProps, addSchedule } from 'api/schedule/addSchedule'
 import { useQueryClient, useMutation } from 'react-query'
 
-type AddScheduleMutationProps = AddScheduleRequestProps
+type AddScheduleMutationProps = AddScheduleRequestProps & {
+  callBack: () => void
+}
 
 /** */
 function useAddScheduleMutation() {
@@ -9,11 +11,12 @@ function useAddScheduleMutation() {
   const { mutate } = useMutation(
     ({ targetDate, title }: AddScheduleMutationProps) => addSchedule({ targetDate, title }),
     {
-      onSuccess: (data, { targetDate, title }) => {
+      onSuccess: () => {
         console.log('success')
       },
-      onError: (err, { targetDate, title }, context) => {
+      onError: (err, { callBack }) => {
         console.error(err)
+        callBack()
       },
       onSettled: () => {
         queryClient.invalidateQueries(['dDayList'])

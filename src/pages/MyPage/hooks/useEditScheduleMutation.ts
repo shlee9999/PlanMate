@@ -1,7 +1,9 @@
 import { EditScheduleRequestProps, editSchedule } from 'api/schedule/editSchedule'
 import { useQueryClient, useMutation } from 'react-query'
 
-type UseEditScheduleMutationProps = EditScheduleRequestProps
+type UseEditScheduleMutationProps = EditScheduleRequestProps & {
+  callBack: () => void
+}
 
 /**D-Day 수정 */
 function useEditScheduleMutation() {
@@ -10,7 +12,8 @@ function useEditScheduleMutation() {
     ({ targetDate, title, scheduleId }: UseEditScheduleMutationProps) =>
       editSchedule({ targetDate, title, scheduleId }),
     {
-      onSuccess: () => {
+      onSuccess: (data, { callBack }) => {
+        callBack()
         console.log('success')
       },
       onError: (err) => {

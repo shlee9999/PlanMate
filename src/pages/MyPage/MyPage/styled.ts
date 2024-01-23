@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import ellipsisImg from 'assets/images/ellipsis.svg'
 import { FlexRow, PageRoot } from 'commonStyled'
-import { HEADER_HEIGHT, FOOTER_HEIGHT } from 'constants/layout'
 import { motion } from 'framer-motion'
 import { InfoBox, NoContentDescription } from 'components'
 import { DDayContainer } from '../components'
@@ -15,10 +14,6 @@ export const EllipsisImg = styled.img`
 `
 export const Root = styled(PageRoot)`
   padding: 0 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
 `
 export const Container = styled.div`
   display: flex;

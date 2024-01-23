@@ -1,11 +1,10 @@
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { dateUtils, formatTwoDigits } from 'utils'
 import { ActionButton } from 'components'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
-import useAddScheduleMutation from '../hooks/useAddScheduleMutation'
-import useEditScheduleMutation from '../hooks/useEditScheduleMutation'
+import { useAddScheduleMutation, useEditScheduleMutation, useDeleteScheduleMutation } from '../hooks'
 import * as s from './styled'
 
 type EventCalendarProps = {
@@ -23,6 +22,11 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const navigate = useNavigate()
   const mutateAddSchedule = useAddScheduleMutation()
   const mutateEditSchedule = useEditScheduleMutation()
+  const mutateDeleteSchedule = useDeleteScheduleMutation()
+  const onClickDelete = (e: React.MouseEvent) => {
+    e.preventDefault() // * submit 방지
+    mutateDeleteSchedule({ scheduleId: selectedDDayId })
+  }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (eventName === '') return
@@ -30,6 +34,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       mutateAddSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: eventName,
+        callBack: () => setEventName(''),
       })
       setEventName('')
     } else {
@@ -38,8 +43,8 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: eventName,
         scheduleId: selectedDDayId,
+        callBack: () => setEventName(''),
       })
-      setEventName('')
     }
   }
 
@@ -59,7 +64,7 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
           >
             <s.BackButton onClick={() => navigate(-1)} />
           </s.StyledDDayContainer>
-          <s.AddEventBox title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
+          <s.AddEventBox $isEditing={isEditing} title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
             <s.Form onSubmit={onSubmit}>
               <s.EventNameRow>
                 <s.EventName>제목</s.EventName>
@@ -68,9 +73,6 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                   value={eventName}
                   onChange={(e) => setEventName(e.target.value)}
                   onClick={(e) => e.stopPropagation()}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') e.preventDefault()
-                  }}
                 />
               </s.EventNameRow>
               <s.EventDateRow $gap={16}>
@@ -96,7 +98,11 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                 />
               </s.CalendarBox>
               <s.ActionButtonContainer>
-                <ActionButton icon={'close'}>취소</ActionButton>
+                {isEditing && (
+                  <ActionButton icon={'trash'} color="red" onClick={onClickDelete}>
+                    삭제
+                  </ActionButton>
+                )}
                 {isEditing ? (
                   <ActionButton onClick={(e) => e.stopPropagation()} icon={'register'}>
                     수정

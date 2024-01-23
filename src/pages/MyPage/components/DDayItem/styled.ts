@@ -1,11 +1,10 @@
 import styled, { css } from 'styled-components'
-import { PinIcon } from 'assets/SvgComponents'
+import { CloseIcon, PinIcon } from 'assets/SvgComponents'
 import { DDAYITEM_MIN_WIDTH } from 'constants/layout'
 export const Root = styled.div<{ $isSelected: boolean; $selectable: boolean }>`
   min-width: ${DDAYITEM_MIN_WIDTH};
   position: relative;
   height: 48px;
-  box-sizing: border-box;
   padding: 15px 16px 15px 8px;
   display: flex;
   align-items: center;
@@ -35,7 +34,7 @@ export const LeftContainer = styled.div`
   align-items: center;
 `
 export const Title = styled.p`
-  max-width: 180px;
+  max-width: 150px;
   margin-right: 2px;
   font-size: 14px;
   font-weight: 500;

@@ -26,7 +26,21 @@ export const dateUtils = {
       }
     }
   },
-  /**YYYY-MM-DD month+1로 반환한다. 백엔드 전송 시 month + 1해줘야 한다.*/
+  /**YYYY-MM-DD
+   * 2024년 1월 23일 기준
+   * @example
+   * dateUtils.getYYYYMMDD(new Date(2024, 0, 23))
+   * 반환값 : "2024-01-23"
+   * @example
+   * dateUtils.getYYYYMMDD({
+   *    year: 2024,
+   *    month: 0 + 1, //1월이면 1을 넣어준다. DateProps는 month-1로 저장돼 있으므로, 애초에 1을 더해서 줘야 반환값이 제대로 나온다.
+   *    date: 23
+   * })
+   * 반환값 : "2024-01-23"
+   * DateProps로 넣어줄 경우 month가 -1된 상태이므로 month+1 넣어줘야 함
+   *
+   */
   getYYYYMMDD: (currentDate: DateProps | Date) => {
     let year: number, month: number, date: number
     if (currentDate instanceof Date) {

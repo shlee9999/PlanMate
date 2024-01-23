@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react'
-import * as s from './styled'
 import { dateUtils } from 'utils'
 import { ThemeContext } from 'styled-components'
+import * as s from './styled'
 
 type DDayItemProps = {
   scheduleId: number

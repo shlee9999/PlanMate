@@ -46,7 +46,10 @@ export const DDayContainer: FC<DDayContainerProps> = ({
       setEventName && setEventName(eventName)
       setSelectedIndex((prev) => (prev === index ? -1 : index))
     }
-  useEffect(() => setIsEditing(selectedIndex === -1 ? false : true), [selectedIndex])
+  useEffect(() => {
+    setIsEditing && setIsEditing(selectedIndex === -1 ? false : true)
+    selectedIndex === -1 && setEventName && setEventName('')
+  }, [selectedIndex])
   return (
     <s.Root className={className} title={title} description={description}>
       {viewMore && (
