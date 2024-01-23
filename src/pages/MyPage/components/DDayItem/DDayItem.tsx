@@ -28,7 +28,7 @@ export const DDayItem: FC<DDayItemProps> = ({
   const mutateFixSchedule = useFixScheduleMutation()
   const onClickPin = (e: React.MouseEvent) => {
     e.stopPropagation()
-    mutateFixSchedule({ ddayId: scheduleId })
+    mutateFixSchedule({ dDayId: scheduleId })
   }
   const dDay = dateUtils.daysUntil(targetDate)
   const getWeekDay = () => {

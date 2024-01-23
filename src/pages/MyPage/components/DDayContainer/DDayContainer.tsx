@@ -64,13 +64,13 @@ export const DDayContainer: FC<DDayContainerProps> = ({
         <s.DDayList>
           {dDayList?.map((dday, index) => (
             <DDayItem
-              key={dday.ddayId}
-              scheduleId={dday.ddayId}
+              key={dday.dDayId}
+              scheduleId={dday.dDayId}
               title={dday.title}
               targetDate={dday.targetDate}
               isFixed={dday.isFixed}
               isSelected={selectedIndex === index}
-              onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.ddayId)}
+              onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.dDayId)}
               selectable={selectable}
             />
           ))}

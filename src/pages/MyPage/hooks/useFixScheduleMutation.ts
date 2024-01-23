@@ -7,11 +7,11 @@ type UseFixScheduleMutationProps = FixDdayRequestProps
 /**D-Day 고정하기 */
 function useFixScheduleMutation() {
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(({ ddayId: dDayId }: UseFixScheduleMutationProps) => fixSchedule({ ddayId: dDayId }), {
-    onMutate: ({ ddayId: dDayId }) => {
+  const { mutate } = useMutation(({ dDayId: dDayId }: UseFixScheduleMutationProps) => fixSchedule({ dDayId: dDayId }), {
+    onMutate: ({ dDayId: dDayId }) => {
       const prevData = queryClient.getQueryData(['dDayList'])
       queryClient.setQueryData<FindAllDdayResponseProps>(['dDayList'], (prev) =>
-        prev.filter((dDay) => (dDay.ddayId === dDayId ? { ...dDay, isFixed: !dDay.isFixed } : dDay))
+        prev.filter((dDay) => (dDay.dDayId === dDayId ? { ...dDay, isFixed: !dDay.isFixed } : dDay))
       )
       return { prevData }
     },
