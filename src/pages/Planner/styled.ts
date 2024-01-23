@@ -1,14 +1,13 @@
 import { PageRoot } from 'commonStyled'
-import { FOOTER_HEIGHT, HEADER_HEIGHT } from 'constants/layout'
 import styled from 'styled-components'
+import { Scheduler } from './components'
 
 export const Root = styled(PageRoot)`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px 160px;
-  min-height: initial;
-  height: calc(100vh - ${HEADER_HEIGHT}px);
+  height: 100%;
 `
 
 export const HeaderContainer = styled.div`
@@ -34,4 +33,8 @@ export const HeaderTitleLogo = styled.p`
   letter-spacing: 0em;
   text-align: left;
   margin-top: 2px;
+`
+
+export const StyledScheduler = styled(Scheduler)`
+  flex-grow: 1;
 `

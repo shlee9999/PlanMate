@@ -5,14 +5,18 @@ export const Root = styled.div`
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   position: relative;
+  min-height: 800px;
 `
 export const Table = styled.table`
+  flex-grow: 1;
   width: 100%;
   height: 100%;
+
   tbody {
     height: 100%;
     display: flex;

@@ -1,18 +1,17 @@
 //플래너 탭
 import { FC } from 'react'
-import { Root, HeaderContainer, HeaderMessage, HeaderTitleLogo } from './styled'
-import { Scheduler } from 'pages/Planner/components/'
+import * as s from './styled'
 
 export const PlannerPage: FC = () => {
   return (
-    <Root>
-      <HeaderContainer>
-        <HeaderMessage>
+    <s.Root>
+      <s.HeaderContainer>
+        <s.HeaderMessage>
           안녕하세요! <span>메이트</span> 님!
-        </HeaderMessage>
-        <HeaderTitleLogo>플래너 🗓</HeaderTitleLogo>
-      </HeaderContainer>
-      <Scheduler />
-    </Root>
+        </s.HeaderMessage>
+        <s.HeaderTitleLogo>플래너 🗓</s.HeaderTitleLogo>
+      </s.HeaderContainer>
+      <s.StyledScheduler />
+    </s.Root>
   )
 }

@@ -114,7 +114,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const onMouseDown = (date, hour) => () => setSelectedCells([dateUtils.getYYYYMMDD(date) + 'T' + hour])
 
   return (
-    <s.Root>
+    <s.Root className={className}>
       <s.ButtonWrapper>
         <s.PrevButton onClick={() => setCurrentDate(new Date(currentDate.getTime() - 1000 * 60 * 60 * 24 * 7))} />
         {currentDate.getMonth() + 1}월
