@@ -5,12 +5,12 @@ type InfoBoxProps = {
   className?: string
   children?: ReactNode | string
   title?: string
-  desciption?: string
+  description?: string
   left?: boolean
   right?: boolean
 }
 
-export const InfoBox: FC<InfoBoxProps> = ({ className, children, left, right, title, desciption }) => {
+export const InfoBox: FC<InfoBoxProps> = ({ className, children, left, right, title, description: desciption }) => {
   return (
     <s.Root
       className={className}

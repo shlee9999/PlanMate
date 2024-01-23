@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { FindAllScheduleResponseProps, findAllSchedule } from 'api/schedule/findAllSchedule'
 import useAddScheduleMutation from '../hooks/useAddScheduleMutation'
-import * as s from './styled'
 import useEditScheduleMutation from '../hooks/useEditScheduleMutation'
+import * as s from './styled'
 
 type EventCalendarProps = {
   className?: string
@@ -15,7 +15,7 @@ type EventCalendarProps = {
 
 export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [selectedDDayInfo, setSelectedDDayInfo] = useState({ index: -1, scheduleId: -1 })
+  const [selectedDDayId, setSelectedDDayId] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const [eventName, setEventName] = useState('')
   const { data: dDayList } = useQuery<FindAllScheduleResponseProps>(['dDayList'], () => findAllSchedule())
@@ -38,21 +38,14 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       mutateEditSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: eventName,
-        scheduleId: selectedDDayInfo.scheduleId,
+        scheduleId: selectedDDayId,
       })
       setEventName('')
     }
   }
-  const onClickDDayItem =
-    (index: number, targetDate: string, eventName: string, scheduleId: number) => (e: React.MouseEvent) => {
-      e.stopPropagation()
-      setSelectedDDayInfo({ index, scheduleId })
-      setSelectedDate(dateUtils.getDateProps(targetDate))
-      setEventName(eventName)
-      setIsEditing(true)
-    }
+
   const onClickRoot = () => {
-    setSelectedDDayInfo({ index: -1, scheduleId: -1 })
+    setSelectedDDayId(-1)
     setIsEditing(false)
   }
 
@@ -60,24 +53,9 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
     <s.Root className={className} onClick={onClickRoot}>
       <s.MainContainer>
         <s.BoxContainer>
-          <s.EventBox title="D-DAY 관리" desciption="원하는 디데이를 고정해보세요!">
+          <s.StyledDDayContainer dDayList={dDayList} title="D-DAY 관리" description="원하는 디데이를 고정해보세요!">
             <s.BackButton onClick={() => navigate(-1)} />
-            <s.DDayContainer>
-              {dDayList?.map((dday, index) => (
-                <DDayItem
-                  key={dday.scheduleId}
-                  id={dday.scheduleId}
-                  title={dday.title}
-                  targetDate={dday.targetDate}
-                  fixDDay={() => console.log('fix')}
-                  isFixed={index === 0}
-                  isSelected={selectedDDayInfo.index === index}
-                  onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.scheduleId)}
-                />
-              ))}
-            </s.DDayContainer>
-          </s.EventBox>
-
+          </s.StyledDDayContainer>
           <s.AddEventBox title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
             <s.Form onSubmit={onSubmit}>
               <s.EventNameRow>

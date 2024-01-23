@@ -1,8 +1,8 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { FlexRow, LeftArrow, PageRoot } from 'commonStyled'
 import { ActionButton, InfoBox } from 'components'
-import { DDAYITEM_MIN_WIDTH } from 'constants/layout'
 import { Calendar } from 'pages/Stats/components'
+import { DDayContainer } from '../components'
 import styled from 'styled-components'
 
 export const Root = styled(PageRoot)`
@@ -13,30 +13,18 @@ export const BoxContainer = styled(FlexRow)`
   margin-top: 20px;
   position: relative;
   gap: 16px;
-  height: 580px;
+  height: 80vh;
   padding: 30px 50px;
   justify-content: space-between;
 `
-export const DDayContainer = styled.div`
-  padding: 2px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: ${DDAYITEM_MIN_WIDTH}px;
-  gap: 8px;
-  height: 100%;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-`
-export const EventBox = styled(InfoBox)`
-  padding: 24px;
-  flex-grow: 1;
+export const DDayContainerWrapper = styled.div`
+  position: relative;
   height: 100%;
 `
+export const StyledDDayContainer = styled(DDayContainer)`
+  height: 100%;
+`
+
 export const AddEventBox = styled(InfoBox)`
   flex-grow: 2;
   padding: 25px 32px 10px 32px;

@@ -22,3 +22,5 @@ export type ScheduleType = {
   /** 사용자 id */
   memberId: number
 }
+
+export type DDayType = Pick<ScheduleType, 'scheduleId' | 'memberId' | 'targetDate' | 'title' | 'isFixed'>

@@ -18,14 +18,6 @@ import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import * as s from './styled'
 
 const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
-// const sampleDDayList = [
-//   { scheduleId: 0, memberId: 3, title: '테스트2', targetDate: '2024-08-20', isFixed: true },
-//   { scheduleId: 1, memberId: 3, title: '테스트3', targetDate: '2024-08-30', isFixed: true },
-//   { scheduleId: 2, memberId: 3, title: '테스트4', targetDate: '2024-09-20', isFixed: false },
-//   { scheduleId: 3, memberId: 3, title: '테스트5', targetDate: '2024-10-25', isFixed: false },
-//   { scheduleId: 4, memberId: 3, title: '테스트6', targetDate: '2024-11-30', isFixed: false },
-//   { scheduleId: 5, memberId: 3, title: '테스트7', targetDate: '2024-12-31', isFixed: false },
-// ]
 
 export const MyPage: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
@@ -152,30 +144,12 @@ export const MyPage: FC = () => {
                 </s.EllipsisModal>
               )}
             </s.ProfileContainer>
-            <s.DDayContainer title="D-DAY 관리">
-              <s.SeeMore onClick={() => navigate('/mypage/events')}>
-                더보기
-                <s.NextArrow />
-              </s.SeeMore>
-              <s.DDayList>
-                {isLoading ? (
-                  <CenterSpinner />
-                ) : (
-                  dDayList.map((dday, index) => (
-                    <DDayItem
-                      key={dday.scheduleId}
-                      id={dday.scheduleId}
-                      title={dday.title}
-                      targetDate={dday.targetDate}
-                      fixDDay={fixDDay(dday.scheduleId, index)}
-                      isFixed={index === fixedIndex}
-                      isSelected={selectedIndex === index}
-                      onClick={() => setSelectedIndex(index)}
-                    />
-                  ))
-                )}
-              </s.DDayList>
-            </s.DDayContainer>
+            <s.StyledDDayContainer
+              viewMore
+              title="D-DAY 관리"
+              onClickViewMore={() => navigate('/mypage/events')}
+              dDayList={dDayList}
+            />
           </s.LeftContainer>
           <s.RightContainer title="나의 활동">
             <s.TabSelector>

@@ -4,7 +4,7 @@ import { dateUtils } from 'utils'
 import { ThemeContext } from 'styled-components'
 
 type DDayItemProps = {
-  id: number
+  scheduleId: number
   title: string
   targetDate: string
   isFixed: boolean

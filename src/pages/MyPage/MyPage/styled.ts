@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import ellipsisImg from 'assets/images/ellipsis.svg'
 import { FlexRow, PageRoot } from 'commonStyled'
-import { RightArrow } from 'assets/SvgComponents'
 import { HEADER_HEIGHT, FOOTER_HEIGHT } from 'constants/layout'
 import { motion } from 'framer-motion'
 import { InfoBox, NoContentDescription } from 'components'
+import { DDayContainer } from '../components'
 
 export const EllipsisImg = styled.img`
   position: absolute;
@@ -92,37 +92,10 @@ export const AdminDDay = styled.p`
   line-height: 20px;
   margin-bottom: 8px;
 `
-export const SeeMore = styled.div`
-  position: absolute;
-  top: -23px;
-  right: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  color: ${(props) => props.theme.text.gray1};
-`
-export const NextArrow = styled(RightArrow)``
 
-export const DDayContainer = styled(InfoBox)`
+export const StyledDDayContainer = styled(DDayContainer)`
   flex-grow: 1;
-  border-radius: 8px;
-  padding: 24px;
-  height: 0; /* 안주면 Scroll 안되고 커져버림 */
-`
-
-export const DDayList = styled.div`
-  padding: 2px;
-  height: 100%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  height: 0;
 `
 
 export const RightContainer = styled(InfoBox)`
