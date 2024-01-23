@@ -11,9 +11,18 @@ type DDayItemProps = {
   isSelected: boolean
   fixDDay: () => void
   onClick: (e: React.MouseEvent) => void
+  selectable: boolean
 }
 
-export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDay, isSelected, onClick }) => {
+export const DDayItem: FC<DDayItemProps> = ({
+  title,
+  targetDate,
+  isFixed,
+  fixDDay,
+  isSelected,
+  onClick,
+  selectable,
+}) => {
   const theme = useContext(ThemeContext)
   const onClickPin = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -28,7 +37,7 @@ export const DDayItem: FC<DDayItemProps> = ({ title, targetDate, isFixed, fixDDa
   }
   if (dDay < 0) return null
   return (
-    <s.Root onClick={onClick} className={isFixed ? 'isFixed' : ''} $isSelected={isSelected}>
+    <s.Root onClick={onClick} className={isFixed ? 'isFixed' : ''} $isSelected={isSelected} $selectable={selectable}>
       <s.LeftContainer>
         <s.StyledPinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={onClickPin} />
         <s.Title>{title}</s.Title>

@@ -19,6 +19,7 @@ type DDayContainerProps = {
   title?: string
   description?: string
   children?: ReactNode
+  selectable?: boolean
 }
 
 export const DDayContainer: FC<DDayContainerProps> = ({
@@ -34,6 +35,7 @@ export const DDayContainer: FC<DDayContainerProps> = ({
   title,
   description,
   children,
+  selectable = false,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const onClickDDayItem =
@@ -67,6 +69,7 @@ export const DDayContainer: FC<DDayContainerProps> = ({
               isFixed={index === 0}
               isSelected={selectedIndex === index}
               onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.scheduleId)}
+              selectable={selectable}
             />
           ))}
         </s.DDayList>

@@ -53,7 +53,12 @@ export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
     <s.Root className={className} onClick={onClickRoot}>
       <s.MainContainer>
         <s.BoxContainer>
-          <s.StyledDDayContainer dDayList={dDayList} title="D-DAY 관리" description="원하는 디데이를 고정해보세요!">
+          <s.StyledDDayContainer
+            dDayList={dDayList}
+            title="D-DAY 관리"
+            description="원하는 디데이를 고정해보세요!"
+            selectable
+          >
             <s.BackButton onClick={() => navigate(-1)} />
           </s.StyledDDayContainer>
           <s.AddEventBox title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
