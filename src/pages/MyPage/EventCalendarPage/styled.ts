@@ -4,31 +4,40 @@ import { ActionButton, InfoBox } from 'components'
 import { Calendar } from 'components'
 import { DDayContainer } from '../components'
 import styled, { css } from 'styled-components'
+import { TABLET_SIZE } from 'constants/layout'
 
 export const Root = styled(PageRoot)`
   padding: 0 5%;
 `
 
 export const BoxContainer = styled(FlexRow)`
+  @media (min-width: ${TABLET_SIZE}px) {
+    flex-wrap: nowrap;
+  }
   margin-top: 20px;
   position: relative;
   gap: 16px;
-  height: 80vh;
   padding: 30px 50px;
   justify-content: space-between;
+  flex-wrap: wrap;
 `
-export const DDayContainerWrapper = styled.div`
-  position: relative;
-  height: 100%;
-`
+
 export const StyledDDayContainer = styled(DDayContainer)`
-  height: 100%;
+  @media (min-width: ${TABLET_SIZE}px) {
+    flex: 0 0 auto;
+    flex-basis: 300px;
+  }
+  height: 70vh;
+  flex-basis: 100%;
 `
 
 export const AddEventBox = styled(InfoBox)<{ $isEditing: boolean }>`
-  flex-grow: 2;
+  flex-basis: 100%;
+  @media (min-width: ${TABLET_SIZE}px) {
+    flex: 1 1 auto;
+  }
+  height: 70vh;
   padding: 25px 32px 10px 32px;
-  height: 100%;
   ${(props) =>
     props.$isEditing &&
     css`
