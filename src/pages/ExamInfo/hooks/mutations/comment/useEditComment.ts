@@ -9,7 +9,7 @@ type MutationProps = EditCommentRequestProps &
   }
 
 /**댓글 수정 */
-function useModifyComment() {
+function useEditComment() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ content, commentId }: MutationProps) => editComment({ content, commentId }), {
     onMutate: ({ postId, currentPage, callBack, commentId, content }) => {
@@ -36,4 +36,4 @@ function useModifyComment() {
   return mutate
 }
 
-export default useModifyComment
+export default useEditComment

@@ -9,5 +9,8 @@ export type FindAllChildResponseProps = ResponseCommentType[]
 
 
 /**해당 댓글의 답글 모두 찾기 */
-export const findAllChild = ({ parentCommentId, postId }: FindAllChildRequestProps) =>
+export const findAllChild = ({
+  parentCommentId,
+  postId,
+}: FindAllChildRequestProps): Promise<FindAllChildResponseProps> =>
   axiosPOST('/comment/child/recent', { parentCommentId, postId })
