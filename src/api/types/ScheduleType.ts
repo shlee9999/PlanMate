@@ -19,8 +19,6 @@ export type ScheduleType = {
   scheduleId: number
   /** 고정됐는지 여부 */
   isFixed: boolean
-  /** 사용자 id */
-  memberId: number
 }
 
-export type DDayType = Pick<ScheduleType, 'scheduleId' | 'memberId' | 'targetDate' | 'title' | 'isFixed'>
+export type DDayType = Pick<ScheduleType, 'scheduleId' | 'targetDate' | 'title' | 'isFixed'>

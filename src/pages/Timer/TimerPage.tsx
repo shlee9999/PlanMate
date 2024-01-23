@@ -26,7 +26,6 @@ export const TimerPage: FC = () => {
   const now = dateUtils.getDateProps(new Date())
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
-  const [fixedDDay, setFixedDDay] = useState<FindFixedScheduleResponseProps>()
   const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>(['todoList'], () => studyTime())
   const todoList: TodoItemType[] = isTodoLoading
     ? []
@@ -43,6 +42,7 @@ export const TimerPage: FC = () => {
   const { data: statsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
     checkTodayStats()
   )
+  const { data: fixedDDay } = useQuery<FindFixedScheduleResponseProps>(['fixedDDay'], () => findFixedSchedule())
   const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -96,13 +96,6 @@ export const TimerPage: FC = () => {
       dispatch(initializeTimer(sum))
     }
   }, [isTodoLoading])
-
-  useEffect(() => {
-    findFixedSchedule().then((res) => {
-      const response = res as FindFixedScheduleResponseProps
-      if (response !== null) setFixedDDay(response)
-    })
-  }, [])
 
   useEffect(() => {
     const now = new Date()

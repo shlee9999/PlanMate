@@ -2,6 +2,7 @@ import { FC, useContext } from 'react'
 import { dateUtils } from 'utils'
 import { ThemeContext } from 'styled-components'
 import * as s from './styled'
+import useFixScheduleMutation from 'pages/MyPage/hooks/useFixScheduleMutation'
 
 type DDayItemProps = {
   scheduleId: number
@@ -9,7 +10,6 @@ type DDayItemProps = {
   targetDate: string
   isFixed: boolean
   isSelected: boolean
-  fixDDay: () => void
   onClick: (e: React.MouseEvent) => void
   selectable: boolean
 }
@@ -18,15 +18,17 @@ export const DDayItem: FC<DDayItemProps> = ({
   title,
   targetDate,
   isFixed,
-  fixDDay,
+  scheduleId,
   isSelected,
   onClick,
   selectable,
 }) => {
   const theme = useContext(ThemeContext)
+
+  const mutateFixSchedule = useFixScheduleMutation()
   const onClickPin = (e: React.MouseEvent) => {
     e.stopPropagation()
-    fixDDay()
+    mutateFixSchedule({ scheduleId })
   }
   const dDay = dateUtils.daysUntil(targetDate)
   const getWeekDay = () => {

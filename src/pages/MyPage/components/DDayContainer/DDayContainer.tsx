@@ -68,8 +68,7 @@ export const DDayContainer: FC<DDayContainerProps> = ({
               scheduleId={dday.scheduleId}
               title={dday.title}
               targetDate={dday.targetDate}
-              fixDDay={() => console.log('fix')}
-              isFixed={index === 0}
+              isFixed={dday.isFixed}
               isSelected={selectedIndex === index}
               onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.scheduleId)}
               selectable={selectable}
