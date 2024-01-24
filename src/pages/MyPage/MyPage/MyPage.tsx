@@ -139,7 +139,7 @@ export const MyPage: FC = () => {
             <s.StyledDDayContainer
               viewMore
               title="D-DAY 관리"
-              onClickViewMore={() => navigate('/mypage/events')}
+              onClickViewMore={() => navigate('/mypage/dday')}
               dDayList={dDayList}
             />
           </s.LeftContainer>

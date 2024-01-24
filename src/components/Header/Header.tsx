@@ -35,14 +35,13 @@ export const Header: FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
-    if (isRunning) return
-    setCurrentTab(index)
-    if (userAuthInfo.name) navigate(pageList[index].url)
+    !isRunning && setCurrentTab(index)
+    userAuthInfo.name && navigate(pageList[index].url)
   }
 
   const onClickNickname = () => !isRunning && navigate('/mypage')
-
   const onClickLogin = () => !isRunning && navigate('/login')
+  const onClickNotice = () => !isRunning && navigate('/notice')
   const onClickLogout = () =>
     !isRunning &&
     logout().then((res) => {
@@ -51,8 +50,9 @@ export const Header: FC = () => {
       window.location.reload()
     })
 
-  const onClickNotice = () => !isRunning && navigate('/notice')
-  useEffect(() => location.pathname === '/' && navigate('/timer'), [currentTab])
+  useEffect(() => {
+    if (location.pathname === '/') navigate('/timer')
+  }, [currentTab])
 
   useEffect(() => {
     // const currentUrl = window.location.href
