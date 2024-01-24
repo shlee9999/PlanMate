@@ -1,10 +1,9 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { ResponsePostType } from 'api/types'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { deserializeContent, serializeContent } from 'utils'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { Editor } from 'react-draft-wysiwyg'
-import { EditorState, convertFromRaw } from 'draft-js'
+import { EditorState } from 'draft-js'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
@@ -114,7 +113,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     })
   }
   const closeDeletePostModal = () => setIsDeletePostModalOpen(false)
-  const onClickLikeButton = () => mutateLikePost({ postId })
+  const onClickLikeButton = () => mutateLikePost({ postId, mode })
   const onClickScrapButton = () => mutateScrapPost({ postId: postId })
   const onClickDeleteTypo = () => setIsDeletePostModalOpen(true)
 
@@ -203,7 +202,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
             </s.CommentTitle>
             <s.CommentContainer className={commentDtoList?.length !== 0 ? '' : 'no_content'}>
               {commentData?.commentDtoList?.length !== 0
-                ? commentData?.commentDtoList?.map((comment, index) => (
+                ? commentData?.commentDtoList?.map((comment) => (
                     <ExamInfoComment
                       key={comment.commentId}
                       commentId={comment.commentId}
@@ -216,7 +215,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                       postId={+postId}
                       currentPage={currentPage}
                       isAuthor={comment.isAuthor}
-                      //isMine 추가 예정
                     />
                   ))
                 : !isCommentLoading && (
