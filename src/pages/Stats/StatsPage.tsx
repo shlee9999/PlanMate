@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { dateUtils } from 'utils'
+import { dateUtils, numberUtils } from 'utils'
 import { useQuery } from 'react-query'
 import { ResponseStats } from 'api//types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
@@ -7,8 +7,8 @@ import { CenterSpinner } from 'commonStyled'
 import { InfoContainer } from './components'
 import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
 import { DateProps } from 'types'
-import * as s from './styled'
 import { defaultStats } from 'constants/defaultStats'
+import * as s from './styled'
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DateProps>(() => {
@@ -21,7 +21,8 @@ export const StatsPage = () => {
     () =>
       checkStatsMonthly({
         yearMonth: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
-      })
+      }),
+    { initialData: numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats) }
   )
   const isToday = dateUtils.isEqual(selectedDate, dateUtils.getDateProps(new Date()))
   const isLoading = isSelectedLoading || todayLoading
@@ -29,7 +30,7 @@ export const StatsPage = () => {
     ? defaultStats
     : isToday
     ? todayStats
-    : selectedMonthStats[selectedDate.date - 1]
+    : selectedMonthStats[selectedDate.date - 1] || defaultStats
 
   return (
     <s.Root>

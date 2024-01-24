@@ -2,7 +2,6 @@ import { FC, useState } from 'react'
 import { weekDays } from 'constants/week'
 import { dateUtils, numberUtils } from 'utils'
 import { AnimatePresence, Variants } from 'framer-motion'
-import { defaultStats } from 'constants/defaultStats'
 import { DateProps } from 'types'
 import { DateCell } from './DateCell'
 import { ResponseStats } from 'api/types'
@@ -27,7 +26,7 @@ export const Calendar: FC<CalendarProps> = ({
   className,
   setSelectedDate,
   selectedDate,
-  dataSource = numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats),
+  dataSource,
   blockFuture = false,
   legend,
   headerButtonLayout = 'space-between',
@@ -85,7 +84,7 @@ export const Calendar: FC<CalendarProps> = ({
                     setSelectedDate={() => setSelectedDate(dateUtils.getDateProps(date))}
                     cellDate={date}
                     studyTimeHours={
-                      dataSource[date.getDate() - 1 < dataSource.length ? date.getDate() - 1 : 0].totalStudyTimeHours
+                      date.getDate() - 1 < dataSource.length ? dataSource[date.getDate() - 1].totalStudyTimeHours : 0
                     }
                     selectedDate={selectedDate}
                     blockFuture={blockFuture}

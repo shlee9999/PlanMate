@@ -10,7 +10,7 @@ interface InfoContainerProps {
   dataSource: ResponseStats
 }
 
-export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource: data }) => {
+export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource }) => {
   const { year, month, date } = selectedDate
   const {
     endAtHours,
@@ -27,7 +27,7 @@ export const InfoContainer: React.FC<InfoContainerProps> = ({ selectedDate, data
     totalStudyTimeHours,
     totalStudyTimeMinutes,
     totalStudyTimeSeconds,
-  } = data || {}
+  } = dataSource || {}
   const totalStudyTime: TimeProps = {
     hour: totalStudyTimeHours,
     minute: totalStudyTimeMinutes,
