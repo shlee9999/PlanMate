@@ -55,6 +55,8 @@ export type PostType = {
   tagName: string
   /** 태그 리스트 */
   tagList: string[]
+  /**내가 쓴 게시글인지 */
+  isMyPost: boolean
 }
 
 /** 공통 게시물, 공지사항 Response
@@ -85,5 +87,6 @@ export type ResponsePostType = Pick<
   | 'createdAt'
   | 'postId'
   | 'noticeId'
+  | 'isMyPost'
 >
 export type ResponseNoticeType = Omit<ResponsePostType, 'postTagList'> & Pick<PostType, 'noticeId'>

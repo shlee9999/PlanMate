@@ -35,7 +35,14 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     ['detailData', mode, postId],
     () => checkPost({ postId })
   )
-  const { postTagList = [], nickname = '', title = '', createdAt = '', content = '' } = detailData || {}
+  const {
+    postTagList = [],
+    nickname = '',
+    title = '',
+    createdAt = '',
+    content = '',
+    isMyPost = false,
+  } = detailData || {}
   if (!postId) return <s.Root>Error!</s.Root>
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
@@ -50,13 +57,11 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const mutateDeleteNotice = useDeleteNoticeMutation()
   const mutateEditPost = useEditPostMutation()
   const mutateEditNotice = useEditNoticeMutation()
-  const { commentDtoList, totalCount, totalPages } = isCommentLoading
-    ? { commentDtoList: [], totalCount: 0, totalPages: 0 }
-    : { ...commentData }
+  const { commentDtoList = [], totalCount = 0, totalPages = 0 } = commentData || {}
   const [currentContent, setCurrentContent] = useState(content)
   const [commentInput, setCommentInput] = useState('')
   const navigate = useNavigate()
-  const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
+  const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const mutateCreateComment = useCreateCommentMutation()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
@@ -107,7 +112,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       content: commentInput,
       postId,
       callBack: () => setCommentInput(''),
-      isPostAuthor: userAuthInfo.name === detailData.nickname,
+      isPostAuthor: isMyPost,
       // id 비교로 변경해야함
       memberName: userAuthInfo.name,
     })
@@ -141,9 +146,13 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         </s.LeftTypoWrapper>
         <s.RightTypoWrapper>
           <s.PostOwnerNickname>{nickname}</s.PostOwnerNickname>
-          <s.EditTypo onClick={onClickEditTypo}>수정</s.EditTypo>
-          <s.DistributionLine />
-          <s.DeleteTypo onClick={onClickDeleteTypo}>삭제</s.DeleteTypo>
+          {isMyPost && (
+            <>
+              <s.EditTypo onClick={onClickEditTypo}>수정</s.EditTypo>
+              <s.DistributionLine />
+              <s.DeleteTypo onClick={onClickDeleteTypo}>삭제</s.DeleteTypo>
+            </>
+          )}
         </s.RightTypoWrapper>
       </s.UpperTypoWrapper>
 
