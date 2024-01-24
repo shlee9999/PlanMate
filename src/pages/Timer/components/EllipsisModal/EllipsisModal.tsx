@@ -30,6 +30,8 @@ export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) 
   }
 
   const onExitComplete = () => {
+    closeEditModal()
+    closeDeleteModal()
     if (isDeleteConfirmed) {
       // confirm버튼 눌렀을 때만 작동하도록
       mutateDeleteSubject({ subjectId: todo.subjectId })
@@ -57,6 +59,7 @@ export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) 
             <cs.ModalExitButton onClick={closeModal} />
           </s.Root>
           {isEditModalOpen && (
+            // * EditModal
             <ActionModal
               isOpen={isEditModalOpen}
               closeModal={closeEditModal}
