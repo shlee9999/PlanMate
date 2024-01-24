@@ -2,6 +2,11 @@ import { weekDays } from 'constants/week'
 import { DateProps } from 'types'
 
 export const dateUtils = {
+  isToday: (targetDate: Date) => {
+    const targetDateProps = dateUtils.getDateProps(targetDate)
+    const todayDateProps = dateUtils.getDateProps(new Date())
+    return dateUtils.isEqual(targetDateProps, todayDateProps)
+  },
   /**같은 날짜인지 반환  */
   isEqual: (a: DateProps, b: DateProps) => a.year === b.year && a.month === b.month && a.date === b.date,
   /**Date 또는 string(YYYY-MM-DD) -> {year, month, date} month+1 하지 않는다. 1월을 0월로 반환*/

@@ -15,6 +15,7 @@ type CalendarProps = {
   blockFuture?: boolean
   legend?: boolean
   headerButtonLayout?: 'space-between' | 'center'
+  todayButton?: boolean
 }
 const momentum = 100
 const DateContainerVar: Variants = {
@@ -30,6 +31,7 @@ export const Calendar: FC<CalendarProps> = ({
   blockFuture = false,
   legend,
   headerButtonLayout = 'space-between',
+  todayButton = true,
 }) => {
   const [back, setBack] = useState(false)
   const onClickNext = () => {
@@ -49,7 +51,7 @@ export const Calendar: FC<CalendarProps> = ({
     setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year, selectedDate.month - 1, 1)))
     setBack(true)
   }
-
+  const onClickToday = () => setSelectedDate(dateUtils.getDateProps(new Date()))
   return (
     <s.Root className={className}>
       <s.Header $layout={headerButtonLayout}>
@@ -58,6 +60,7 @@ export const Calendar: FC<CalendarProps> = ({
           {selectedDate.month + 1}월
         </s.Month>
         <s.NextButton onClick={onClickNext} />
+        <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>
       </s.Header>
       <s.Body>
         <s.DayRow>

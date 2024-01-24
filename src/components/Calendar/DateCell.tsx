@@ -48,10 +48,17 @@ export const DateCell: FC<DateCellProps> = ({
       setSelectedDate()
     }
   }
+  const isToday = dateUtils.isToday(cellDate)
   const ref = useRef()
   return (
     <s.DateCellWrapper>
-      <s.DateCellRoot className={className} $isSelected={isSelected} onClick={onClick} $index={opacity} ref={ref}>
+      <s.DateCellRoot
+        className={className + ' ' + (isToday ? 'today' : '')}
+        $isSelected={isSelected}
+        onClick={onClick}
+        $index={opacity}
+        ref={ref}
+      >
         {cellDateProps.date}
       </s.DateCellRoot>
       {isToolTipOpen && <s.StyledTooltip closeTooltip={closeTooltip} targetRef={ref} />}

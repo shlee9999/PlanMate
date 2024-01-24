@@ -165,6 +165,31 @@ export const DateCellRoot = styled(Cell)<DateCellProps>`
     opacity: 0;
     pointer-events: none;
   }
+  &.today {
+    background-color: #0088fe;
+    color: ${(props) => props.theme.text.white};
+    scale: 1.3;
+    &:hover {
+      scale: 1.3;
+    }
+  }
+`
+export const TodayButton = styled.button`
+  position: absolute;
+  top: -2.5px;
+  right: 60px;
+  font-weight: 600;
+  font-size: 15px;
+  color: ${(props) => props.theme.text.gray1};
+  &:hover {
+    filter: brightness(0.9);
+  }
+  &:active {
+    filter: brightness(1);
+  }
+  border: 2px solid ${(props) => props.theme.border.dark};
+  border-radius: 8px;
+  padding: 3px 5px;
 `
 export const DateCellWrapper = styled.div`
   position: relative;
