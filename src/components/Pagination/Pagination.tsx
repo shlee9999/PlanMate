@@ -1,23 +1,17 @@
-import { FC } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { numberUtils } from 'utils'
-import { RightArrow } from 'assets/SvgComponents'
 import * as s from './styled'
 
 type PaginationProps = {
   currentPage: number
   totalPages: number
-  onClickLeftArrow: () => void
-  onClickRightArrow: () => void
-  onClickPageNumber: (page: number) => () => void
+  setCurrentPage: Dispatch<SetStateAction<number>>
 }
 
-export const Pagination: FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  onClickLeftArrow,
-  onClickRightArrow,
-  onClickPageNumber,
-}) => {
+export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, setCurrentPage }) => {
+  const onClickLeftArrow = () => setCurrentPage((prev) => (prev - 1 > 0 ? prev - 1 : prev))
+  const onClickRightArrow = () => setCurrentPage((prev) => (prev + 1 <= totalPages ? prev + 1 : prev))
+  const onClickPageNumber = (page) => () => setCurrentPage(page)
   return (
     <s.Root>
       <s.PrevButton onClick={onClickLeftArrow} />

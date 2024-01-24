@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/types/PostType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
-import { ExamInfoItem, Pagination } from 'pages/ExamInfo/components'
+import { ExamInfoItem } from 'pages/ExamInfo/components'
+import { Pagination } from 'components'
 
 export const NoticePage = () => {
   const data = useLoaderData() as FindAllNoticeResponseProps
@@ -54,13 +55,7 @@ export const NoticePage = () => {
           글쓰기
         </s.BulletinButton>
       </s.ExamInfoWrapper>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPage}
-        onClickLeftArrow={loadPrevPage}
-        onClickRightArrow={loadNextPage}
-        onClickPageNumber={handleCurrentPage}
-      />
+      <Pagination currentPage={currentPage} totalPages={totalPage} setCurrentPage={setCurrentPage} />
     </s.Root>
   )
 }

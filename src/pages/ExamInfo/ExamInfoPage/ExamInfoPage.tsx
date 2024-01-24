@@ -4,8 +4,9 @@ import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examInfoTagList } from 'constants/tagList'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { useQuery } from 'react-query'
-import { ExamInfoItem, Pagination } from '../components'
+import { ExamInfoItem } from '../components'
 import * as s from './styled'
+import { Pagination } from 'components'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -89,15 +90,7 @@ export const ExamInfoPage = () => {
         </s.BulletinButton>
       </s.ExamInfoWrapper>
       <s.PaginationWrapper>
-        {!isLoading && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPage}
-            onClickLeftArrow={loadPrevPage}
-            onClickRightArrow={loadNextPage}
-            onClickPageNumber={handleCurrentPage}
-          />
-        )}
+        {!isLoading && <Pagination currentPage={currentPage} totalPages={totalPage} setCurrentPage={setCurrentPage} />}
       </s.PaginationWrapper>
     </s.Root>
   )

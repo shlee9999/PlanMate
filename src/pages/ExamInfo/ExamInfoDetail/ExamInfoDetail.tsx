@@ -19,8 +19,8 @@ import {
   useEditNoticeMutation,
   useEditPostMutation,
 } from '../hooks/mutations'
-import { NoContentDescription } from 'components'
-import { DeletePostModal, ExamInfoComment, Pagination } from '../components'
+import { NoContentDescription, Pagination } from 'components'
+import { DeletePostModal, ExamInfoComment } from '../components'
 import * as s from './styled'
 
 type ExamInfoDetailPageProps = {
@@ -247,13 +247,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       )}
       {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} deletePost={deletePost} />}
       {!isCommentLoading && !isDetailLoading && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={commentData.totalPages}
-          onClickLeftArrow={() => setCurrentPage((prev) => (prev - 1 > 0 ? prev - 1 : prev))}
-          onClickRightArrow={() => setCurrentPage((prev) => (prev + 1 <= totalPages ? prev + 1 : prev))}
-          onClickPageNumber={(page) => () => setCurrentPage(page)}
-        />
+        <Pagination currentPage={currentPage} totalPages={commentData.totalPages} setCurrentPage={setCurrentPage} />
       )}
     </s.Root>
   )

@@ -6,5 +6,16 @@ import { ColorPicker, ColorButton } from './ColorPicker'
 import { Header } from './Header/Header'
 import { Footer } from './Footer/Footer'
 import { Calendar } from './Calendar/Calendar'
-
-export { Spinner, NoContentDescription, InfoBox, ColorPicker, ColorButton, ActionButton, Header, Footer, Calendar }
+import { Pagination } from './Pagination/Pagination'
+export {
+  Spinner,
+  NoContentDescription,
+  InfoBox,
+  ColorPicker,
+  ColorButton,
+  ActionButton,
+  Header,
+  Footer,
+  Calendar,
+  Pagination,
+}
