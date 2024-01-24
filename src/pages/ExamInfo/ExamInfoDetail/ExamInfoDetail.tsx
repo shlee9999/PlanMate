@@ -20,7 +20,6 @@ import {
   useEditNoticeMutation,
   useEditPostMutation,
 } from '../hooks/mutations'
-import { useObserver } from '../hooks/'
 import { NoContentDescription } from 'components'
 import { DeletePostModal, ExamInfoComment, Pagination } from '../components'
 import * as s from './styled'
@@ -69,20 +68,19 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   })
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const deletePost = (): void => {
-    if (mode === 'examinfo') mutateDeletePost({ postId, callBack: () => navigate(-1) })
-    else
+    mode === 'examinfo' && mutateDeletePost({ postId, callBack: () => navigate(-1) })
+    mode === 'notice' &&
       mutateDeleteNotice({
         noticeId: postId,
         callBack: () => navigate(-1),
       })
   }
 
-  const target = useRef()
-
   const onClickEditTypo = () => {
     if (isEditing) onClickEditCompleteButton()
     setIsEditing((prev) => !prev)
   }
+
   const onClickEditCompleteButton = () => {
     mode === 'examinfo' &&
       mutateEditPost({
@@ -127,9 +125,11 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   useEffect(() => {
     if (!isDetailLoading) setCurrentContent(detailData.content)
   }, [isDetailLoading])
+
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
+
   return (
     <s.Root>
       <s.UpperTypoWrapper>
@@ -218,7 +218,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                       content={comment.content}
                       isMyHearted={comment.isMyHearted}
                       postId={+postId}
-                      ref={index === commentData?.commentDtoList.length - 1 ? target : null}
                       currentPage={currentPage}
                       //isMine 추가 예정
                     />

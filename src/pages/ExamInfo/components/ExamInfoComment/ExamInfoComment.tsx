@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ForwardRefRenderFunction, forwardRef, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { ResponseCommentType } from 'api/types'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { useNavigate } from 'react-router-dom'
@@ -25,10 +25,19 @@ type ExamInfoCommentProps = {
 } & ResponseCommentType
 
 //  key : ['commentData', postId, currentPage + '']
-const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
-  { commentId, isAuthor, isMyHearted, likeCount, memberName, updatedAt, content, isMine = true, postId, currentPage },
-  ref
-) => {
+// const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
+export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
+  commentId,
+  isAuthor,
+  isMyHearted,
+  likeCount,
+  memberName,
+  updatedAt,
+  content,
+  isMine = true,
+  postId,
+  currentPage,
+}) => {
   //대댓글 로직
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [isEllipsisOpen, setIsEllipsisOpen] = useState(false)
@@ -117,7 +126,7 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
 
   return (
     <>
-      <s.Root onClick={closeEllipsisModal} ref={ref}>
+      <s.Root onClick={closeEllipsisModal}>
         {isMine && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
           <s.EllipsisModal onClick={onClickModal}>
@@ -176,4 +185,4 @@ const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInf
     </>
   )
 }
-export const ExamInfoComment = forwardRef(ExamInfoCommentComponent)
+// export const ExamInfoComment = forwardRef(ExamInfoCommentComponent)
