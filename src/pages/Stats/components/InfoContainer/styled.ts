@@ -6,14 +6,6 @@ export const Root = styled.div`
   overflow: visible;
 `
 
-export const CompareTitle = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  text-align: center;
-  color: ${(props) => props.theme.text.gray1};
-`
-
 export const CompareTimer = styled.div`
   font-size: 12px;
   font-weight: 500;

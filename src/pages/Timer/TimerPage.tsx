@@ -145,7 +145,7 @@ export const TimerPage: FC = () => {
                       totalStudyTime={totalStudyTime}
                     />
                   </StudyContainer>
-                  <GraphContainer />
+                  <GraphContainer type="timer" />
                 </>
               )}
             </s.StatsContainer>

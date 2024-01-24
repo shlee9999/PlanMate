@@ -45,12 +45,16 @@ const renderCustomizedLabel = ({
 }
 
 const renderColorfulLegendText = (value: string, entry: any) => {
-  return <span style={{ color: '#666666', fontWeight: 400, fontSize: '10px' }}>{value}</span>
+  return (
+    <span style={{ color: '#666666', fontWeight: 400, fontSize: '10px' }}>
+      {value.length > 4 ? value.substring(0, 4) : value}
+    </span>
+  )
 }
 
 export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
   return (
-    <MyPieChart width={200} height={200} margin={{ top: 0, left: 45 }}>
+    <MyPieChart width={200} height={200} margin={{ top: 0, left: index === 0 ? 30 : 50 }}>
       <Legend
         iconType="circle"
         layout="vertical"
