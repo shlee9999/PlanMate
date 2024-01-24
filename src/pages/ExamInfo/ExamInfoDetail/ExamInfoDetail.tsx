@@ -119,7 +119,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   }
   const closeDeletePostModal = () => setIsDeletePostModalOpen(false)
   const onClickLikeButton = () => mutateLikePost({ postId, mode })
-  const onClickScrapButton = () => mutateScrapPost({ postId: postId })
+  const onClickScrapButton = () => mutateScrapPost({ postId, mode })
   const onClickDeleteTypo = () => setIsDeletePostModalOpen(true)
 
   useEffect(() => {

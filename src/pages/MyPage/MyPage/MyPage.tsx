@@ -23,7 +23,6 @@ export const MyPage: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
-  const [selectedIndex, setSelectedIndex] = useState(-1)
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)

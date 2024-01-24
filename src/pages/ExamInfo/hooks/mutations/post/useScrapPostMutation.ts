@@ -3,24 +3,26 @@ import { scrapPost } from 'api/post/scrapPost'
 import { CommentType } from 'api/types'
 import { useMutation, useQueryClient } from 'react-query'
 
-type MutationProps = Pick<CommentType, 'postId'>
+type MutationProps = Pick<CommentType, 'postId'> & {
+  mode: 'examinfo' | 'notice'
+}
 
 /**게시물 스크랩 */
 function useScrapPostMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ postId }: MutationProps) => scrapPost({ postId }), {
-    onMutate: ({ postId }) => {
-      const previousData = queryClient.getQueryData(['detailData', postId])
-      queryClient.setQueryData(['detailData', postId], (prev: CheckPostResponseProps) => ({
+    onMutate: ({ postId, mode }) => {
+      const previousData = queryClient.getQueryData(['detailData', mode, postId])
+      queryClient.setQueryData(['detailData', mode, postId], (prev: CheckPostResponseProps) => ({
         ...prev,
         isMyScraped: !prev.isMyScraped,
         scrapCount: prev.isMyScraped ? prev.scrapCount - 1 : prev.scrapCount + 1,
       }))
       return { previousData }
     },
-    onError: (err, { postId }, context) => {
+    onError: (err, { postId, mode }, context) => {
       console.error(err)
-      queryClient.setQueryData(['detailData', postId], context.previousData)
+      queryClient.setQueryData(['detailData', mode, postId], context.previousData)
     },
   })
 
