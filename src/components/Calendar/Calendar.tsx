@@ -26,7 +26,7 @@ export const Calendar: FC<CalendarProps> = ({
   className,
   setSelectedDate,
   selectedDate,
-  dataSource,
+  dataSource = [],
   blockFuture = false,
   legend,
   headerButtonLayout = 'space-between',
