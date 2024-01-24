@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, ReactNode, SetStateAction, useEffect, useState } from 'react'
 import { DDayItem, ResignModal } from '../components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,7 +7,6 @@ import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
 import { ProfileEditModal } from 'pages/MyPage/components/'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
-import { fixDday } from 'api/dday/fixDday'
 import { GoogleCustom } from 'assets/SvgComponents'
 import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
 import { useNavigate } from 'react-router-dom'
@@ -15,17 +14,25 @@ import { useQuery } from 'react-query'
 import { CenterSpinner } from 'commonStyled'
 import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/findScrappedPost'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
+import { Pagination } from 'components'
 import * as s from './styled'
+import { ResponseCommentType, ResponsePostType } from 'api/types'
 
-const myPageTabList = ['작성한 글', '작성한 댓글', '스크랩한 글']
-
+type TabInfoListProps = {
+  title: string
+  Component: FC
+  list: ResponsePostType[] | ResponseCommentType[]
+  isLoading: boolean
+  icon: string
+  totalPages: number
+}
 export const MyPage: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [currentTab, setCurrentTab] = useState<string>(myPageTabList[0])
-  const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
-  const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
-  const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [currentTabIndex, setCurrentTabIndex] = useState(0)
+  const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState(false)
+  const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState(false)
+  const [isResignModalOpen, setIsResignModalOpen] = useState(false)
   const { data: dDayList, isLoading: isDdayLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () =>
     findAllDday()
   )
@@ -47,6 +54,32 @@ export const MyPage: FC = () => {
   const commentTotalPages = myCommentInfo?.totalPages || 0
   const myScrapList = myScrapInfo?.postDtoList || []
   const scrapTotalPages = myScrapInfo?.totalPages || 0
+  const tabInfoList: TabInfoListProps[] = [
+    {
+      title: '작성한 글',
+      Component: ExamInfoItem,
+      list: myPostList,
+      isLoading: isPostLoading,
+      icon: 'pencil',
+      totalPages: postTotalPages,
+    },
+    {
+      title: '작성한 댓글',
+      Component: ExamInfoComment,
+      list: myCommentList,
+      isLoading: isCommentLoading,
+      icon: 'chat',
+      totalPages: commentTotalPages,
+    },
+    {
+      title: '스크랩한 글',
+      Component: ExamInfoItem,
+      list: myScrapList,
+      isLoading: isScrapLoading,
+      icon: 'pencil',
+      totalPages: scrapTotalPages,
+    },
+  ]
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -66,41 +99,23 @@ export const MyPage: FC = () => {
     setIsEllipsisModalOpen((prev) => !prev)
     e.stopPropagation()
   }
-  const onClickTabItem = (tab: string) => () => {
+  const onClickTabItem = (tabIndex: number) => () => {
     setCurrentPage(1)
-    setCurrentTab(tab)
+    setCurrentTabIndex(tabIndex)
   }
+  const { title, Component, list, isLoading, totalPages } = tabInfoList[currentTabIndex]
+
   const renderTabContent = () => {
-    switch (currentTab) {
-      case myPageTabList[0]: // "작성한 글"
-        return isPostLoading ? (
-          <CenterSpinner />
-        ) : (
-          myPostList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
-        )
-      case myPageTabList[1]: // "작성한 댓글"
-        return isCommentLoading ? (
-          <CenterSpinner />
-        ) : (
-          myCommentList?.map((comment) => (
-            <ExamInfoComment {...comment} key={comment.commentId} currentPage={currentPage} />
-          ))
-        )
-      case myPageTabList[2]: // "스크랩한 글"
-        return isScrapLoading ? (
-          <CenterSpinner />
-        ) : myScrapList?.length === 0 ? (
-          <s.NoScrapDescription icon="pencil" descriptions={['스크랩한 게시물이 없어요!']} />
-        ) : (
-          myScrapList?.map((post) => <ExamInfoItem {...post} key={post.postId} />)
-        )
-      default:
-        return null
-    }
+    if (isLoading) return <CenterSpinner>Loading...</CenterSpinner>
+    if (list.length === 0) return <s.StyledNoContentDescription icon={'pencil'} descriptions={[`${title}이 없어요!`]} />
+    if (currentTabIndex === 0 || currentTabIndex === 2)
+      return list.map((item) => <Component {...item} key={item.postId} />)
+
+    // * Comment
+    return list.map((item) => <Component key={item.commentId} {...item} currentPage={currentPage} />)
   }
-  const onClickRoot = () => {
-    setIsEllipsisModalOpen(false)
-  }
+  const onClickRoot = () => setIsEllipsisModalOpen(false)
+
   const changeNickname = (newNickname: string) => {
     changeName({ name: newNickname }).then((res) => {
       const newUserAuth = { ...userAuthInfo, name: newNickname }
@@ -112,7 +127,7 @@ export const MyPage: FC = () => {
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [currentTab])
+  }, [currentTabIndex])
 
   return (
     <s.Root>
@@ -148,20 +163,21 @@ export const MyPage: FC = () => {
           <s.RightContainer title="나의 활동">
             <s.TabSelector>
               <s.TabRow>
-                {myPageTabList.map((tab, index) => (
-                  <s.TabItem
-                    $isSelected={currentTab === tab}
-                    onClick={onClickTabItem(myPageTabList[index])}
-                    key={index}
-                  >
-                    {tab}
-                    {currentTab === tab && <s.SelectedLine layoutId="selected_line" transition={{ duration: 0.2 }} />}
+                {tabInfoList.map((tabInfo, index) => (
+                  <s.TabItem $isSelected={currentTabIndex === index} onClick={onClickTabItem(index)} key={index}>
+                    {tabInfo.title}
+                    {currentTabIndex === index && (
+                      <s.SelectedLine layoutId="selected_line" transition={{ duration: 0.2 }} />
+                    )}
                   </s.TabItem>
                 ))}
               </s.TabRow>
               <s.TabRow />
             </s.TabSelector>
-            <s.MyActivityList>{renderTabContent()}</s.MyActivityList>
+            <s.MyActivityList>
+              {renderTabContent()}
+              <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+            </s.MyActivityList>
           </s.RightContainer>
         </s.MainContainer>
         {isProfileEditModalOpen && (

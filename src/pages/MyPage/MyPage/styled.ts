@@ -192,7 +192,7 @@ const EllipsisButtonRoot = styled.button`
 `
 export const EllipsisEditButton = styled(EllipsisButtonRoot)``
 export const EllipsisResignButton = styled(EllipsisButtonRoot)``
-export const NoScrapDescription = styled(NoContentDescription)`
+export const StyledNoContentDescription = styled(NoContentDescription)`
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
