@@ -46,9 +46,10 @@ export const PauseButton = styled(TimerPause)`
 `
 
 export const SubjectTitle = styled.p`
-  max-width: 20rem;
+  max-width: 380px; //* 10글자 들어감
   font-size: 36px;
   font-weight: 700;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `
