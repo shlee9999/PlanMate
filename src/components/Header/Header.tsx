@@ -40,29 +40,19 @@ export const Header: FC = () => {
     if (userAuthInfo.name) navigate(pageList[index].url)
   }
 
-  const onClickNickname = () => {
-    if (isRunning) return
-    navigate('/mypage')
-  }
-  const onClickLogin = () => {
-    if (isRunning) return
-    navigate('/login')
-  }
-  const onClickLogout = () => {
-    if (isRunning) return
+  const onClickNickname = () => !isRunning && navigate('/mypage')
+
+  const onClickLogin = () => !isRunning && navigate('/login')
+  const onClickLogout = () =>
+    !isRunning &&
     logout().then((res) => {
       navigate('/timer')
       localStorage.removeItem('userAuthInfo')
       window.location.reload()
     })
-  }
-  const onClickNotice = () => {
-    if (isRunning) return
-    navigate('/notice')
-  }
-  useEffect(() => {
-    if (location.pathname === '/') navigate('/timer')
-  }, [currentTab])
+
+  const onClickNotice = () => !isRunning && navigate('/notice')
+  useEffect(() => location.pathname === '/' && navigate('/timer'), [currentTab])
 
   useEffect(() => {
     // const currentUrl = window.location.href
@@ -151,7 +141,7 @@ export const Header: FC = () => {
               안녕하세요,{' '}
               <Username onClick={onClickNickname}>
                 {userAuthInfo.name}
-                {currentPath === '/mypage' && <YellowCircle layoutId="yellow_circle" />}
+                {currentPath.includes('/mypage') && <YellowCircle layoutId="yellow_circle" />}
               </Username>
               님!
             </GreetTypo>
