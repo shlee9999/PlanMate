@@ -27,6 +27,9 @@ function useEditSubjectMutation() {
         console.error(err)
         queryClient.setQueryData('todoList', context.prevData)
       },
+      onSettled: () => {
+        queryClient.invalidateQueries(['timeInfo'])
+      },
     }
   )
   return mutateEditSubjectMutation

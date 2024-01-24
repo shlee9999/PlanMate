@@ -30,11 +30,13 @@ function useCreateSubjectMutation() {
       },
       onSuccess: () => {
         console.log('success add')
-        queryClient.invalidateQueries('todoList')
       },
-      onError: (err, variables, context) => {
-        queryClient.setQueryData('todoList', context.prevData)
+      onError: (err) => {
         console.error(err)
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(['todoList'])
+        queryClient.invalidateQueries(['timeInfo'])
       },
     }
   )
