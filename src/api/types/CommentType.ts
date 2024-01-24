@@ -27,7 +27,9 @@ export type CommentType = {
   callBack: () => void
   /**수정할 댓글 ID*/
   commentId: number
-  /**댓글 작성자가 게시물 작성자인지*/
+  /**글쓴이인지 = 댓글 작성자가 게시물 작성자인지 */
+  isPostAuthor: boolean
+  /**본인이 작성한 댓글인지*/
   isAuthor: boolean
   /**댓글 좋아요를 눌렀는지*/
   isMyHearted: boolean
@@ -51,5 +53,13 @@ export type CommentType = {
 
 export type ResponseCommentType = Pick<
   CommentType,
-  'commentId' | 'content' | 'isAuthor' | 'isMyHearted' | 'likeCount' | 'memberName' | 'updatedAt' | 'postId'
+  | 'commentId'
+  | 'content'
+  | 'isAuthor'
+  | 'isMyHearted'
+  | 'likeCount'
+  | 'memberName'
+  | 'updatedAt'
+  | 'postId'
+  | 'isPostAuthor'
 >

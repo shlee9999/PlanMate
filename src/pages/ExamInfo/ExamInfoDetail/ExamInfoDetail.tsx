@@ -108,7 +108,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       content: commentInput,
       postId,
       callBack: () => setCommentInput(''),
-      isAuthor: userAuthInfo.name === detailData.nickname,
+      isPostAuthor: userAuthInfo.name === detailData.nickname,
       // id 비교로 변경해야함
       memberName: userAuthInfo.name,
     })
@@ -207,7 +207,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                     <ExamInfoComment
                       key={comment.commentId}
                       commentId={comment.commentId}
-                      isAuthor={comment.isAuthor}
+                      isPostAuthor={comment.isPostAuthor}
                       likeCount={comment.likeCount}
                       memberName={comment.memberName}
                       updatedAt={comment.updatedAt}
@@ -215,6 +215,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                       isMyHearted={comment.isMyHearted}
                       postId={+postId}
                       currentPage={currentPage}
+                      isAuthor={comment.isAuthor}
                       //isMine 추가 예정
                     />
                   ))

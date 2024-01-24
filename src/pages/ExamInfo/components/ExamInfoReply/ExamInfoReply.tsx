@@ -13,7 +13,7 @@ type ExamInfoReplyProps = {
 
 export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   commentId,
-  isAuthor,
+  isPostAuthor: isAuthor,
   isMyHearted,
   likeCount: initialLikeCount,
   memberName,

@@ -5,7 +5,7 @@ import { useQueryClient, useMutation } from 'react-query'
 import { dateUtils } from 'utils'
 
 type MutationProps = CreateCommentRequestProps &
-  Pick<CommentType, 'currentPage' | 'isAuthor' | 'memberName'> & {
+  Pick<CommentType, 'currentPage' | 'isPostAuthor' | 'memberName'> & {
     callBack: () => void
   }
 
@@ -13,7 +13,7 @@ type MutationProps = CreateCommentRequestProps &
 function useCreateCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ content, postId }: MutationProps) => createComment({ content, postId }), {
-    onMutate: ({ isAuthor, currentPage, content, postId, callBack, memberName }) => {
+    onMutate: ({ isPostAuthor, currentPage, content, postId, callBack, memberName }) => {
       const previousComments = queryClient.getQueryData(['commentData', postId, currentPage + ''])
       queryClient.setQueryData<FindAllCommentsResponseProps>(['commentData', postId, currentPage + ''], (prev) => ({
         ...prev,
@@ -22,12 +22,13 @@ function useCreateCommentMutation() {
           {
             commentId: new Date().getTime(), //tempId
             content,
-            isAuthor,
+            isAuthor: true,
             isMyHearted: false,
             likeCount: 0,
             memberName,
             updatedAt: dateUtils.getKoreanISOString(new Date()).slice(0, 19),
             postId,
+            isPostAuthor,
           },
         ].concat(prev.commentDtoList),
       }))

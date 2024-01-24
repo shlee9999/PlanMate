@@ -20,7 +20,7 @@ type ExamInfoCommentProps = {
   deleteComment?: () => void
   currentPage: number
   reply?: boolean
-  isMine?: boolean
+  isAuthor?: boolean
   postId: number
 } & ResponseCommentType
 
@@ -28,13 +28,13 @@ type ExamInfoCommentProps = {
 // const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
 export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   commentId,
-  isAuthor,
+  isPostAuthor,
   isMyHearted,
   likeCount,
   memberName,
   updatedAt,
   content,
-  isMine = true,
+  isAuthor,
   postId,
   currentPage,
 }) => {
@@ -111,7 +111,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       callBack: () => setReplyInput(''),
     })
   }
-  const onClickComment = () => isMine && navigate(`/examinfo/detail/${postId}`)
+  const onClickComment = () => isAuthor && navigate(`/examinfo/detail/${postId}`)
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -127,7 +127,8 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   return (
     <>
       <s.Root onClick={closeEllipsisModal}>
-        {isMine && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
+        {/* 내가 작성한 댓글만 수정, 삭제 가능함 */}
+        {isAuthor && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
           <s.EllipsisModal onClick={onClickModal}>
             <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
@@ -137,21 +138,19 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
         <s.LeftContainer>
           <s.UpperTypoWrapper>
             <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>
-            {isAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
+            {isPostAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
             <s.Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</s.Date>
           </s.UpperTypoWrapper>
           {isEditing ? (
             <s.EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
-            <s.Comment onClick={onClickComment} className={isMine ? 'mypage_comment' : ''}>
+            <s.Comment onClick={onClickComment} className={isAuthor ? 'mypage_comment' : ''}>
               {content}
             </s.Comment>
           )}
-          {isMine && (
-            <s.ReplyButton onClick={onClickReplyButton}>
-              답글 <s.ReplyCount>{replyList.length}</s.ReplyCount>
-            </s.ReplyButton>
-          )}
+          <s.ReplyButton onClick={onClickReplyButton}>
+            답글 <s.ReplyCount>{replyList.length}</s.ReplyCount>
+          </s.ReplyButton>
         </s.LeftContainer>
         <s.LikeButton onClick={onClickLikeButton}>
           <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
