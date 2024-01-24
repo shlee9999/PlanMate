@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import ellipsisImg from 'assets/images/ellipsis.svg'
 import { FlexRow, PageRoot } from 'commonStyled'
 import { motion } from 'framer-motion'
-import { InfoBox, NoContentDescription } from 'components'
+import { InfoBox, NoContentDescription, Pagination } from 'components'
 import { DDayContainer } from '../components'
 
 export const EllipsisImg = styled.img`
@@ -199,4 +199,7 @@ export const StyledNoContentDescription = styled(NoContentDescription)`
   left: 0;
   right: 0;
   margin: 0 auto;
+`
+export const StyledPagination = styled(Pagination)`
+  padding: 40px 0;
 `

@@ -14,7 +14,6 @@ import { useQuery } from 'react-query'
 import { CenterSpinner } from 'commonStyled'
 import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/findScrappedPost'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
-import { Pagination } from 'components'
 import * as s from './styled'
 import { ResponseCommentType, ResponsePostType } from 'api/types'
 
@@ -83,6 +82,10 @@ export const MyPage: FC = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const closeProfileEditModal = () => setIsProfileEditModalOpen(false)
+  const closeResignModal = () => setIsResignModalOpen(false)
+  const onClickRoot = () => setIsEllipsisModalOpen(false)
+  const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
   const openProfileEditModal = () => {
     setIsProfileEditModalOpen(true)
     setIsEllipsisModalOpen(false)
@@ -91,10 +94,6 @@ export const MyPage: FC = () => {
     setIsResignModalOpen(true)
     setIsEllipsisModalOpen(false)
   }
-  const closeProfileEditModal = () => setIsProfileEditModalOpen(false)
-  const closeResignModal = () => setIsResignModalOpen(false)
-  const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
-
   const onClickEllipsisButton = (e: React.MouseEvent): void => {
     setIsEllipsisModalOpen((prev) => !prev)
     e.stopPropagation()
@@ -103,18 +102,33 @@ export const MyPage: FC = () => {
     setCurrentPage(1)
     setCurrentTabIndex(tabIndex)
   }
+
   const { title, Component, list, isLoading, totalPages } = tabInfoList[currentTabIndex]
 
   const renderTabContent = () => {
     if (isLoading) return <CenterSpinner>Loading...</CenterSpinner>
     if (list.length === 0) return <s.StyledNoContentDescription icon={'pencil'} descriptions={[`${title}이 없어요!`]} />
     if (currentTabIndex === 0 || currentTabIndex === 2)
-      return list.map((item) => <Component {...item} key={item.postId} />)
+      // * 내가 작성한 글, 내가 스크랩한 글
+      return (
+        <>
+          {list.map((item) => (
+            <Component {...item} key={item.postId} />
+          ))}
+          <s.StyledPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+        </>
+      )
 
-    // * Comment
-    return list.map((item) => <Component key={item.commentId} {...item} currentPage={currentPage} />)
+    // * 내가 작성한 댓글
+    return (
+      <>
+        {list.map((item) => (
+          <Component key={item.commentId} {...item} currentPage={currentPage} />
+        ))}
+        <s.StyledPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+      </>
+    )
   }
-  const onClickRoot = () => setIsEllipsisModalOpen(false)
 
   const changeNickname = (newNickname: string) => {
     changeName({ name: newNickname }).then((res) => {
@@ -174,10 +188,7 @@ export const MyPage: FC = () => {
               </s.TabRow>
               <s.TabRow />
             </s.TabSelector>
-            <s.MyActivityList>
-              {renderTabContent()}
-              <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
-            </s.MyActivityList>
+            <s.MyActivityList>{renderTabContent()}</s.MyActivityList>
           </s.RightContainer>
         </s.MainContainer>
         {isProfileEditModalOpen && (

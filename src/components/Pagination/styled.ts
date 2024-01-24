@@ -11,16 +11,13 @@ export const Root = styled.div`
   column-gap: 16px;
 `
 
-export const PageNumberTypo = styled.p`
-  cursor: pointer;
+export const PageNumberTypo = styled.p<{ $isCurrent: boolean }>`
+  cursor: ${(props) => (props.$isCurrent ? 'text' : 'pointer')};
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
   text-align: center;
-  color: ${(props) => props.theme.text.gray1};
-`
-export const CurrentPageNumberTypo = styled(PageNumberTypo)`
-  color: ${(props) => props.theme.text.black2};
+  color: ${(props) => (props.$isCurrent ? props.theme.text.black2 : props.theme.text.gray1)};
 `
 
 export const PrevButton = styled(LeftArrow)`
