@@ -12,9 +12,11 @@ type DDayItemProps = {
   isSelected: boolean
   onClick: (e: React.MouseEvent) => void
   selectable: boolean
+  className?: string
 }
 
 export const DDayItem: FC<DDayItemProps> = ({
+  className,
   title,
   targetDate,
   isFixed,
@@ -39,12 +41,17 @@ export const DDayItem: FC<DDayItemProps> = ({
   }
   if (dDay < 0) return null
   return (
-    <s.Root onClick={onClick} className={isFixed ? 'isFixed' : ''} $isSelected={isSelected} $selectable={selectable}>
-      <s.LeftContainer>
+    <s.Root
+      onClick={onClick}
+      className={className + ' ' + (isFixed ? 'isFixed' : '')}
+      $isSelected={isSelected}
+      $selectable={selectable}
+    >
+      <s.Container>
         <s.StyledPinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={onClickPin} />
         <s.Title>{title}</s.Title>
         <s.Date>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</s.Date>
-      </s.LeftContainer>
+      </s.Container>
       <s.DDay>{dDay}</s.DDay>
     </s.Root>
   )

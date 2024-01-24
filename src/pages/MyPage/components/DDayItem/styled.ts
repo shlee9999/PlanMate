@@ -1,16 +1,12 @@
 import styled, { css } from 'styled-components'
-import { CloseIcon, PinIcon } from 'assets/SvgComponents'
-import { DDAYITEM_MIN_WIDTH } from 'constants/layout'
+import { PinIcon } from 'assets/SvgComponents'
+import { FlexRow } from 'commonStyled'
 export const Root = styled.div<{ $isSelected: boolean; $selectable: boolean }>`
-  min-width: ${DDAYITEM_MIN_WIDTH};
   position: relative;
   height: 48px;
-  padding: 15px 16px 15px 8px;
-  display: flex;
-  align-items: center;
+  padding: 15px 63px 15px 30px;
   background-color: ${(props) => props.theme.background.gray2};
   border-radius: 8px;
-  white-space: nowrap;
   &.isFixed {
     background-color: ${(props) => props.theme.primary.light};
     order: -1;
@@ -27,14 +23,12 @@ export const Root = styled.div<{ $isSelected: boolean; $selectable: boolean }>`
         outline: 2px solid ${(props) => props.theme.primary.default};
       `}
     `}
+  white-space: nowrap;
 `
-export const LeftContainer = styled.div`
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
+export const Container = styled(FlexRow)`
+  max-width: 600px;
 `
 export const Title = styled.p`
-  max-width: 150px;
   margin-right: 2px;
   font-size: 14px;
   font-weight: 500;
@@ -47,11 +41,15 @@ export const Date = styled.p`
   color: ${(props) => props.theme.text.gray1};
   font-size: 10px;
   font-weight: 400;
+  width: 75px;
 `
 export const DDay = styled.p`
+  position: absolute;
   &::before {
     content: 'D - ';
   }
+  top: 50%;
+  transform: translateY(-50%);
   right: 16px;
   font-size: 21px;
   font-weight: 700;
@@ -59,5 +57,7 @@ export const DDay = styled.p`
   color: ${(props) => props.theme.text.black2};
 `
 export const StyledPinIcon = styled(PinIcon)`
+  position: absolute;
   cursor: pointer;
+  left: 8px;
 `

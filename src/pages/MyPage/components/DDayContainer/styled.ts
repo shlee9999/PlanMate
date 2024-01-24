@@ -1,7 +1,7 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { InfoBox } from 'components'
-import { DDAYITEM_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
+import { DDayItem } from '..'
 
 export const Root = styled(InfoBox)`
   position: relative;
@@ -10,7 +10,6 @@ export const Root = styled(InfoBox)`
 `
 
 export const DDayList = styled.div`
-  min-width: ${DDAYITEM_MIN_WIDTH}px;
   padding: 2px;
   height: 100%;
   overflow-y: scroll;
@@ -23,6 +22,7 @@ export const DDayList = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
 `
+export const StyledDDayItem = styled(DDayItem)``
 
 export const ViewMore = styled.div`
   position: absolute;

@@ -1,5 +1,4 @@
 import { FC, ReactNode, useEffect, useState } from 'react'
-import { DDayItem } from '..'
 import { DDayEntityType } from 'api/types/ScheduleType'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
@@ -63,7 +62,7 @@ export const DDayContainer: FC<DDayContainerProps> = ({
       ) : (
         <s.DDayList>
           {dDayList?.map((dday, index) => (
-            <DDayItem
+            <s.StyledDDayItem
               key={dday.dDayId}
               scheduleId={dday.dDayId}
               title={dday.title}

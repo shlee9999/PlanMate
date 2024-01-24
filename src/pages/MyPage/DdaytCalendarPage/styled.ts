@@ -25,16 +25,15 @@ export const BoxContainer = styled(FlexRow)`
 export const StyledDDayContainer = styled(DDayContainer)`
   @media (min-width: ${TABLET_SIZE}px) {
     flex: 0 0 auto;
-    flex-basis: 300px;
+    width: 350px;
   }
   height: 70vh;
   flex-basis: 100%;
 `
-
 export const AddEventBox = styled(InfoBox)<{ $isEditing: boolean }>`
   flex-basis: 100%;
   @media (min-width: ${TABLET_SIZE}px) {
-    flex: 1 1 auto;
+    flex: 1 1 600px;
   }
   height: 70vh;
   padding: 25px 32px 10px 32px;
