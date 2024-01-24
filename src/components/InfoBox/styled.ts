@@ -43,7 +43,7 @@ export const InfoBoxVar: Variants = {
     opacity: 1,
     right: 0,
     transition: {
-      duration: 0.9,
+      duration: 0.7,
       type: 'tween',
     },
   },
