@@ -19,11 +19,12 @@ type DDayContainerProps = {
   description?: string
   children?: ReactNode
   selectable?: boolean
+  isEditing?: boolean
 }
 
 export const DDayContainer: FC<DDayContainerProps> = ({
   className,
-  dDayList,
+  dDayList = [],
   setEventName,
   setSelectedDate,
   setIsEditing,
@@ -35,6 +36,7 @@ export const DDayContainer: FC<DDayContainerProps> = ({
   description,
   children,
   selectable = false,
+  isEditing,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const onClickDDayItem =
@@ -45,10 +47,16 @@ export const DDayContainer: FC<DDayContainerProps> = ({
       setEventName && setEventName(eventName)
       setSelectedIndex((prev) => (prev === index ? -1 : index))
     }
+  const filteredDdayList = dDayList.filter((dDay) => dateUtils.isFuture(dDay.targetDate, true))
+
   useEffect(() => {
     setIsEditing && setIsEditing(selectedIndex === -1 ? false : true)
     selectedIndex === -1 && setEventName && setEventName('')
   }, [selectedIndex])
+
+  useEffect(() => {
+    !isEditing && setSelectedIndex(-1)
+  }, [isEditing])
   return (
     <s.Root className={className} title={title} description={description}>
       {viewMore && (
@@ -58,10 +66,12 @@ export const DDayContainer: FC<DDayContainerProps> = ({
         </s.ViewMore>
       )}
       {isDDayLoading ? (
-        <CenterSpinner />
+        <CenterSpinner>Loading...</CenterSpinner>
+      ) : filteredDdayList.length === 0 ? (
+        <s.NoDdayDescription icon={'book_check'} descriptions={['등록된 D-DAY가 없어요.']} />
       ) : (
-        <s.DDayList>
-          {dDayList?.map((dday, index) => (
+        <s.DdayList>
+          {filteredDdayList?.map((dday, index) => (
             <s.StyledDDayItem
               key={dday.dDayId}
               scheduleId={dday.dDayId}
@@ -73,7 +83,7 @@ export const DDayContainer: FC<DDayContainerProps> = ({
               selectable={selectable}
             />
           ))}
-        </s.DDayList>
+        </s.DdayList>
       )}
       {children}
     </s.Root>

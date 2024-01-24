@@ -2,11 +2,6 @@ import { weekDays } from 'constants/week'
 import { DateProps } from 'types'
 
 export const dateUtils = {
-  /**미래 시간인지 반환 */
-  isFuture: (targetDate: Date): boolean => {
-    const currentDate = new Date()
-    return targetDate > currentDate
-  },
   /**같은 날짜인지 반환  */
   isEqual: (a: DateProps, b: DateProps) => a.year === b.year && a.month === b.month && a.date === b.date,
   /**Date 또는 string(YYYY-MM-DD) -> {year, month, date} month+1 하지 않는다. 1월을 0월로 반환*/
@@ -24,6 +19,26 @@ export const dateUtils = {
         month: +currentDate.slice(5, 7) - 1,
         date: +currentDate.slice(8, 10),
       }
+    }
+  },
+  /**미래 시간인지 반환 */
+  isFuture: (targetDate: Date | string, isTodayFuture = false): boolean => {
+    // 현재 날짜를 계산합니다.
+    const currentDate = new Date()
+    if (isTodayFuture) {
+      currentDate.setDate(currentDate.getDate() - 1)
+    }
+
+    // targetDate가 Date 객체인 경우 바로 비교합니다.
+    if (targetDate instanceof Date) {
+      return targetDate > currentDate
+    }
+
+    // targetDate가 문자열인 경우 날짜 객체로 변환합니다.
+    if (typeof targetDate === 'string') {
+      const { year, month, date } = dateUtils.getDateProps(targetDate)
+      const newDate = new Date(year, month, date) // 월은 0부터 시작합니다.
+      return newDate > currentDate
     }
   },
   /**YYYY-MM-DD

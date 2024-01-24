@@ -1,5 +1,5 @@
 import { RightArrow } from 'assets/SvgComponents'
-import { InfoBox } from 'components'
+import { InfoBox, NoContentDescription } from 'components'
 import styled from 'styled-components'
 import { DDayItem } from '..'
 
@@ -9,7 +9,7 @@ export const Root = styled(InfoBox)`
   padding: 24px;
 `
 
-export const DDayList = styled.div`
+export const DdayList = styled.div`
   padding: 2px;
   height: 100%;
   overflow-y: scroll;
@@ -37,3 +37,9 @@ export const ViewMore = styled.div`
   color: ${(props) => props.theme.text.gray1};
 `
 export const NextArrow = styled(RightArrow)``
+export const NoDdayDescription = styled(NoContentDescription)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`

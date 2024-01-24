@@ -27,7 +27,9 @@ export const MyPage: FC = () => {
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
-  const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllDday())
+  const { data: dDayList, isLoading: isDdayLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () =>
+    findAllDday()
+  )
   const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
     ['myPostInfo', currentPage],
     () => findPost({ pages: currentPage - 1 })
@@ -141,6 +143,7 @@ export const MyPage: FC = () => {
               title="D-DAY 관리"
               onClickViewMore={() => navigate('/mypage/dday')}
               dDayList={dDayList}
+              isDDayLoading={isDdayLoading}
             />
           </s.LeftContainer>
           <s.RightContainer title="나의 활동">

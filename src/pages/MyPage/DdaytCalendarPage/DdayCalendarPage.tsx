@@ -15,7 +15,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const [eventName, setEventName] = useState('')
-  const { data: dDayList } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllDday())
+  const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllDday())
   const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const mutateDeleteSchedule = useDeleteDdayMutation()
   const onClickDelete = (e: React.MouseEvent) => {
     e.preventDefault() // * submit 방지
-    mutateDeleteSchedule({ dDayId: selectedDDayId })
+    mutateDeleteSchedule({ dDayId: selectedDDayId, callBack: () => setIsEditing(false) })
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -60,6 +60,8 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
             setEventName={setEventName}
             setIsEditing={setIsEditing}
             setSelectedDDayId={setSelectedDDayId}
+            isDDayLoading={isLoading}
+            isEditing={isEditing}
           >
             <s.BackButton onClick={() => navigate(-1)} />
           </s.StyledDDayContainer>
