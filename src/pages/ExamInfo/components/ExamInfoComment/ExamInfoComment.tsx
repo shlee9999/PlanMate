@@ -47,7 +47,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   const [isReplying, setIsReplying] = useState(false)
   const [replyInput, setReplyInput] = useState('')
   const [inputValue, setInputValue] = useState(content)
-  const { data: replyList, isLoading } = useQuery<FindAllChildResponseProps>(
+  const { data: replyList } = useQuery<FindAllChildResponseProps>(
     ['replyList', commentId],
     () => findAllChild({ parentCommentId: commentId, postId }),
     { initialData: [] }

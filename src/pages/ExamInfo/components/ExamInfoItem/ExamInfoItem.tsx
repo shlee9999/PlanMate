@@ -7,40 +7,45 @@ import * as s from './styled'
 
 type ExamInfoItemProps = ResponsePostType
 
-export const ExamInfoItem: FC<ExamInfoItemProps> = (props) => {
+export const ExamInfoItem: FC<ExamInfoItemProps> = ({
+  commentCount,
+  isMyHearted,
+  isMyScraped,
+  likeCount,
+  nickname,
+  scrapCount,
+  title,
+  createdAt,
+  postId,
+  noticeId,
+}) => {
   const navigate = useNavigate()
   const onClickTitle = (): void => {
-    if (props.postId)
-      navigate(`/examinfo/detail/${props.postId}`, {
-        state: { ...props },
-      })
-    else
-      navigate(`/examinfo/detail/${props.noticeId}`, {
-        state: { ...props },
-      })
+    if (postId) navigate(`/examinfo/detail/${postId}`)
+    else navigate(`/examinfo/detail/${noticeId}`)
   }
 
   return (
     <s.Root>
       <s.TypoWrapper>
-        <s.TitleTypo onClick={onClickTitle}>{props.title}</s.TitleTypo>
+        <s.TitleTypo onClick={onClickTitle}>{title}</s.TitleTypo>
         <s.InfoTypo>
-          <s.NickName>{props.nickname}</s.NickName>
-          <s.UpdatedDate>{props.createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -9)}</s.UpdatedDate>
+          <s.NickName>{nickname}</s.NickName>
+          <s.UpdatedDate>{createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -9)}</s.UpdatedDate>
         </s.InfoTypo>
       </s.TypoWrapper>
       <s.IconContainer>
         <s.IconCountWrapper>
           <CommentIcon />
-          {props.commentCount}
+          {commentCount}
         </s.IconCountWrapper>
         <s.IconCountWrapper>
-          <HeartIcon fill={props.isMyHearted ? `${HEART_COLOR}` : 'none'} />
-          {props.likeCount}
+          <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
+          {likeCount}
         </s.IconCountWrapper>
         <s.IconCountWrapper>
-          <ScrapIcon fill={props.isMyScraped ? `${SCRAP_COLOR}` : 'none'} />
-          {props.scrapCount}
+          <ScrapIcon fill={isMyScraped ? `${SCRAP_COLOR}` : 'none'} />
+          {scrapCount}
         </s.IconCountWrapper>
       </s.IconContainer>
     </s.Root>

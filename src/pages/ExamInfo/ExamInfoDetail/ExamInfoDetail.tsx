@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ResponsePostType } from 'api/types'
 import { deserializeContent, serializeContent } from 'utils'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
@@ -27,16 +27,16 @@ import * as s from './styled'
 type ExamInfoDetailPageProps = {
   mode: 'examinfo' | 'notice'
 }
-type LocationState = ResponsePostType
 
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
+  const params = useParams()
+  const postId = +params.postId
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const location = useLocation()
-  const { postTagList, nickname, postId, title, createdAt, content } = location.state as LocationState
   const { data: detailData, isLoading: isDetailLoading } = useQuery<CheckPostResponseProps>(
     ['detailData', mode, postId],
     () => checkPost({ postId })
   )
+  const { postTagList = [], nickname = '', title = '', createdAt = '', content = '' } = detailData || {}
   if (!postId) return <s.Root>Error!</s.Root>
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
@@ -61,11 +61,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const mutateCreateComment = useCreateCommentMutation()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
-  const [editorState, setEditorState] = useState(() => {
-    const rawContentFromServer = JSON.parse(content)
-    const contentState = convertFromRaw(rawContentFromServer)
-    return EditorState.createWithContent(contentState)
-  })
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const deletePost = (): void => {
     mode === 'examinfo' && mutateDeletePost({ postId, callBack: () => navigate(-1) })
