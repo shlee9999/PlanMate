@@ -26,6 +26,10 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
     e.preventDefault() // * submit 방지
     mutateDeleteSchedule({ dDayId: selectedDDayId, callBack: () => setIsEditing(false) })
   }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length > 15) return
+    setEventName(e.target.value)
+  }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (eventName === '') return
@@ -70,9 +74,9 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
               <s.EventNameRow>
                 <s.EventName>제목</s.EventName>
                 <s.EventNameInput
-                  placeholder="디데이 제목을 입력해주세요."
+                  placeholder="디데이 제목을 입력해주세요. (최대 15자)"
                   value={eventName}
-                  onChange={(e) => setEventName(e.target.value)}
+                  onChange={onChange}
                   onClick={(e) => e.stopPropagation()}
                 />
               </s.EventNameRow>

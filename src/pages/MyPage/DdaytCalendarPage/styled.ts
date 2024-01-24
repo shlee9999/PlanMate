@@ -25,7 +25,7 @@ export const BoxContainer = styled(FlexRow)`
 export const StyledDDayContainer = styled(DDayContainer)`
   @media (min-width: ${TABLET_SIZE}px) {
     flex: 0 0 auto;
-    width: 350px;
+    width: 380px;
   }
   height: 70vh;
   flex-basis: 100%;
