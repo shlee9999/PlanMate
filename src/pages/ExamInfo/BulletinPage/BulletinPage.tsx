@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { serializeContent } from 'utils'
-import { examinfoTagList, suggestTagList } from 'constants/tagList'
+import { examInfoTagList, suggestTagList } from 'constants/tagList'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { useCreatePostMutation, useCreateNoticeMutation, useCreateSuggestMutation } from '../hooks/mutations'
 import * as s from './styled'
@@ -13,7 +13,7 @@ type BulletinPageProps = {
 }
 export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const tagList = (): string[] => {
-    if (mode === 'examinfo') return examinfoTagList
+    if (mode === 'examinfo') return examInfoTagList
     if (mode === 'suggest') return suggestTagList
     else return []
   }

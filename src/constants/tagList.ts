@@ -1,4 +1,4 @@
-export const examinfoTagList = [
+export const examInfoTagList = [
   '감정평가사',
   '회계사',
   '변호사',

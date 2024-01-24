@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
-import { examinfoTagList } from 'constants/tagList'
+import { examInfoTagList } from 'constants/tagList'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { useQuery } from 'react-query'
 import { ExamInfoItem, Pagination } from '../components'
@@ -49,12 +49,12 @@ export const ExamInfoPage = () => {
         <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
       </s.TypoWrapper>
       <s.UpperTagButtonWrapper>
-        {examinfoTagList.map((tag, index) =>
+        {examInfoTagList.map((tag, index) =>
           index > 5 ? null : (
             <s.TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(examinfoTagList[index])}
+              onClick={onClickTagButton(examInfoTagList[index])}
             >
               <s.Tag>{tag}</s.Tag>
             </s.TagButton>
@@ -62,12 +62,12 @@ export const ExamInfoPage = () => {
         )}
       </s.UpperTagButtonWrapper>
       <s.LowerTagButtonWrapper>
-        {examinfoTagList.map((tag, index) =>
+        {examInfoTagList.map((tag, index) =>
           index <= 5 ? null : (
             <s.TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(examinfoTagList[index])}
+              onClick={onClickTagButton(examInfoTagList[index])}
             >
               <s.Tag>{tag}</s.Tag>
             </s.TagButton>

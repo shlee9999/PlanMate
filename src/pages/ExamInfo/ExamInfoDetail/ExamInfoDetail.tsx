@@ -243,7 +243,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         </>
       )}
       {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} deletePost={deletePost} />}
-      {!isCommentLoading && (
+      {!isCommentLoading && !isDetailLoading && (
         <Pagination
           currentPage={currentPage}
           totalPages={commentData.totalPages}
