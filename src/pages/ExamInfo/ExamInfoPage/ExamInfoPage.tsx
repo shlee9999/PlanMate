@@ -32,7 +32,7 @@ export const ExamInfoPage = () => {
   }
   const loadNextPage = () => currentPage < totalPage && setCurrentPage((prev) => prev + 1)
   const navigate = useNavigate()
-  const onClickBulletinButton = () => navigate('/examinfo/post')
+  const onClickBulletinButton = () => navigate('/examinfo/post', { state: { initialTag: selectedTag } })
   const onClickTagButton = (tag: string) => () => {
     if (selectedTag === tag) setSelectedTag('')
     else setSelectedTag(tag)

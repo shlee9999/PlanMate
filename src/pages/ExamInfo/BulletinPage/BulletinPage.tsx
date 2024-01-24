@@ -1,17 +1,20 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { serializeContent } from 'utils'
 import { examInfoTagList, suggestTagList } from 'constants/tagList'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { useCreatePostMutation, useCreateNoticeMutation, useCreateSuggestMutation } from '../hooks/mutations'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import * as s from './styled'
 
 type BulletinPageProps = {
   mode: 'examinfo' | 'suggest' | 'notice'
 }
 export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
+  const location = useLocation()
+  const initialTag = location.state.initialTag || '선택해주세요'
+
   const tagList = (): string[] => {
     if (mode === 'examinfo') return examInfoTagList
     if (mode === 'suggest') return suggestTagList
@@ -19,7 +22,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   }
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [isSelecting, setIsSelecting] = useState(false)
-  const [selectedTag, setSelectedTag] = useState('선택해주세요')
+  const [selectedTag, setSelectedTag] = useState(initialTag)
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const [inputValue, setInputValue] = useState<string>('')
   const [suggestInput, setSuggestInput] = useState<string>('')
