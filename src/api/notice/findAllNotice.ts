@@ -1,14 +1,8 @@
 import { axiosGET } from 'api/common/commonAxios'
 import { PostType } from 'api/types'
-import { ResponseNoticeType } from 'api/types/PostType'
 
 export type FindAllNoticeRequestProps = Pick<PostType, 'pages'>
 
-export type FindAllNoticeResponseProps = {
-  noticeDtoList: ResponseNoticeType[]
-  totalPages: number
-}
+export type FindAllNoticeResponseProps = Pick<PostType, 'noticeDtoList' | 'totalPages'>
 
-export const findAllNotice = (req: FindAllNoticeRequestProps) => {
-  return axiosGET('/notice', req)
-}
+export const findAllNotice = ({ pages }: FindAllNoticeRequestProps) => axiosGET('/notice', { pages })

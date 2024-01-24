@@ -1,5 +1,6 @@
-/**게시물 Props
+/**게시물, 공지사항 Props
  * @param {ResponsePostType[]} postDtoList 해당 페이지 게시물 리스트
+ * @param {ResponseNoticeType[]} noticeDtoList 해당 페이지 게시물 리스트
  * @param {number} pages 해당 게시물이 속한 페이지
  * @param {number} totalPages 게시물 총 페이지 수 (10 posts per page)
  * @param {number} commentCount 댓글 개수
@@ -17,10 +18,11 @@
  * @param {string} tagName 태그 이름
  * @param {string[]} tagList 태그 리스트
  */
-
 export type PostType = {
   /** 해당 페이지 게시물 리스트 */
   postDtoList: ResponsePostType[]
+  /** 해당 페이지 공지사항 리스트 */
+  noticeDtoList: ResponsePostType[]
   /** 해당 게시물이 속한 페이지 */
   pages: number
   /** 게시물 총 페이지 수 (10 posts per page) */
@@ -55,7 +57,7 @@ export type PostType = {
   tagList: string[]
 }
 
-/** 공통 게시물 Response
+/** 공통 게시물, 공지사항 Response
  * @param {number} commentCount 댓글 개수
  * @param {string} content 게시물 내용
  * @param {boolean} isMyHearted 게시물 좋아요 여부

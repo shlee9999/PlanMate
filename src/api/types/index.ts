@@ -2,6 +2,7 @@ import { CommentType } from './CommentType'
 import { PlannerType } from './PlannerType'
 import { ResponseCommentType } from './CommentType'
 import { ResponsePostType } from './PostType'
+import { ResponseNoticeType } from './PostType'
 import { DDayType } from './ScheduleType'
 import { PostType } from './PostType'
 import { StatsType } from './StatsType'
@@ -19,4 +20,5 @@ export type {
   ResponseStats,
   StudyTimeEntry,
   SubjectType,
+  ResponseNoticeType,
 }
