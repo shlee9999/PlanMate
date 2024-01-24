@@ -10,14 +10,8 @@ type ExamInfoItemProps = ResponsePostType
 export const ExamInfoItem: FC<ExamInfoItemProps> = (props) => {
   const navigate = useNavigate()
   const onClickTitle = (): void => {
-    if (props.postId)
-      navigate(`/examinfo/detail/${props.postId}`, {
-        state: { ...props },
-      })
-    else
-      navigate(`/examinfo/detail/${props.noticeId}`, {
-        state: { ...props },
-      })
+    if (props.postId) navigate(`/examinfo/detail/${props.postId}`)
+    else navigate(`/examinfo/detail/${props.noticeId}`)
   }
 
   return (

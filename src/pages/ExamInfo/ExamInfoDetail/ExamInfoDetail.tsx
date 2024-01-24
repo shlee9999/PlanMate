@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { ResponsePostType } from 'api/types'
+import { useNavigate, useParams } from 'react-router-dom'
 import { deserializeContent, serializeContent } from 'utils'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { Editor } from 'react-draft-wysiwyg'
@@ -20,7 +19,6 @@ import {
   useEditNoticeMutation,
   useEditPostMutation,
 } from '../hooks/mutations'
-import { useObserver } from '../hooks/'
 import { NoContentDescription } from 'components'
 import { DeletePostModal, ExamInfoComment, Pagination } from '../components'
 import * as s from './styled'
@@ -28,23 +26,32 @@ import * as s from './styled'
 type ExamInfoDetailPageProps = {
   mode: 'examinfo' | 'notice'
 }
-type LocationState = ResponsePostType
 
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
-  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const location = useLocation()
-  const { postTagList, nickname, postId, title, createdAt, content } = location.state as LocationState
+  const params = useParams()
+  const postId = +params.postId
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const { data: detailData, isLoading: isDetailLoading } = useQuery<CheckPostResponseProps>(
     ['detailData', mode, postId],
     () => checkPost({ postId })
   )
-  if (!postId) return <s.Root>Error!</s.Root>
-  const [currentPage, setCurrentPage] = useState<number>(1)
   const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
     ['commentData', postId, currentPage + ''],
     () => findAllComments({ pages: currentPage - 1, postId }),
     { keepPreviousData: true }
   )
+  const { postTagList, nickname, title, createdAt, content } = detailData
+  const [currentContent, setCurrentContent] = useState(content)
+  const [commentInput, setCommentInput] = useState('')
+  const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+  const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
+
+  if (!postId) return <s.Root>Error!</s.Root>
+
+  const { commentDtoList = [], totalCount = 0, totalPages = 0 } = commentData || {}
 
   const mutateLikePost = useLikePostMutation()
   const mutateScrapPost = useScrapPostMutation()
@@ -52,22 +59,12 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const mutateDeleteNotice = useDeleteNoticeMutation()
   const mutateEditPost = useEditPostMutation()
   const mutateEditNotice = useEditNoticeMutation()
-  const { commentDtoList, totalCount, totalPages } = isCommentLoading
-    ? { commentDtoList: [], totalCount: 0, totalPages: 0 }
-    : { ...commentData }
-  const [currentContent, setCurrentContent] = useState(content)
-  const [commentInput, setCommentInput] = useState('')
+
   const navigate = useNavigate()
-  const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState<boolean>(false)
-  const [isEditing, setIsEditing] = useState<boolean>(false)
+
   const mutateCreateComment = useCreateCommentMutation()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
-  const [editorState, setEditorState] = useState(() => {
-    const rawContentFromServer = JSON.parse(content)
-    const contentState = convertFromRaw(rawContentFromServer)
-    return EditorState.createWithContent(contentState)
-  })
-  const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
+
   const deletePost = (): void => {
     if (mode === 'examinfo') mutateDeletePost({ postId, callBack: () => navigate(-1) })
     else
@@ -126,6 +123,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
 
   useEffect(() => {
     if (!isDetailLoading) setCurrentContent(detailData.content)
+    // const rawContentFromServer = JSON.parse(content)
+    // const contentState = convertFromRaw(rawContentFromServer)
+    // return EditorState.createWithContent(contentState)
   }, [isDetailLoading])
   useEffect(() => {
     window.scrollTo({ top: 0 })
