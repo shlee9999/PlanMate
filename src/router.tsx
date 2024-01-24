@@ -22,7 +22,7 @@ export const routerInfo = [
     element: <App />,
     children: [
       { path: 'mypage', element: <MyPage /> },
-      { path: 'mypage/events', element: <EventCalendarPage /> },
+      { path: 'mypage/dday', element: <EventCalendarPage /> },
       {
         path: 'timer',
         element: <TimerPage />,

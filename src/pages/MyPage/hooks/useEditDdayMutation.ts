@@ -1,4 +1,4 @@
-import { EditDdayRequestProps, editSchedule } from 'api/dday/editDday'
+import { EditDdayRequestProps, editDday } from 'api/dday/editDday'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseEditScheduleMutationProps = EditDdayRequestProps & {
@@ -6,10 +6,10 @@ type UseEditScheduleMutationProps = EditDdayRequestProps & {
 }
 
 /**D-Day 수정 */
-function useEditScheduleMutation() {
+function useEditDdayMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(
-    ({ targetDate, title, dDayId }: UseEditScheduleMutationProps) => editSchedule({ targetDate, title, dDayId }),
+    ({ targetDate, title, dDayId }: UseEditScheduleMutationProps) => editDday({ targetDate, title, dDayId }),
     {
       onSuccess: (data, { callBack }) => {
         callBack()
@@ -25,4 +25,4 @@ function useEditScheduleMutation() {
   )
   return mutate
 }
-export default useEditScheduleMutation
+export default useEditDdayMutation

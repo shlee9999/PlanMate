@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react'
 import { dateUtils } from 'utils'
 import { ThemeContext } from 'styled-components'
+import { useFixDdayMutation } from 'pages/MyPage/hooks'
 import * as s from './styled'
-import useFixScheduleMutation from 'pages/MyPage/hooks/useFixScheduleMutation'
 
 type DDayItemProps = {
   scheduleId: number
@@ -25,7 +25,7 @@ export const DDayItem: FC<DDayItemProps> = ({
 }) => {
   const theme = useContext(ThemeContext)
 
-  const mutateFixSchedule = useFixScheduleMutation()
+  const mutateFixSchedule = useFixDdayMutation()
   const onClickPin = (e: React.MouseEvent) => {
     e.stopPropagation()
     mutateFixSchedule({ dDayId: scheduleId })

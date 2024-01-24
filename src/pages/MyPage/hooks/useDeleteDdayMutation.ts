@@ -1,14 +1,14 @@
-import { DeleteDdayRequestProps, deleteSchedule } from 'api/dday/deleteDday'
+import { DeleteDdayRequestProps, deleteDday } from 'api/dday/deleteDday'
 import { DDayEntityType } from 'api/types/ScheduleType'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseDeleteScheduleMutationProps = DeleteDdayRequestProps
 
 /**일정 삭제 */
-function useDeleteScheduleMutation() {
+function useDeleteDdayMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(
-    ({ dDayId: scheduleId }: UseDeleteScheduleMutationProps) => deleteSchedule({ dDayId: scheduleId }),
+    ({ dDayId: scheduleId }: UseDeleteScheduleMutationProps) => deleteDday({ dDayId: scheduleId }),
     {
       onMutate: ({ dDayId: scheduleId }) => {
         const prevData = queryClient.getQueryData(['dDayList'])
@@ -28,4 +28,4 @@ function useDeleteScheduleMutation() {
   )
   return mutate
 }
-export default useDeleteScheduleMutation
+export default useDeleteDdayMutation

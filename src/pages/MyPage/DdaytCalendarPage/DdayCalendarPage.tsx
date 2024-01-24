@@ -3,26 +3,26 @@ import { dateUtils, formatTwoDigits } from 'utils'
 import { ActionButton } from 'components'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { FindAllDdayResponseProps, findAllSchedule } from 'api/dday/findAllDday'
-import { useAddScheduleMutation, useEditScheduleMutation, useDeleteScheduleMutation } from '../hooks'
+import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
+import { useAddDdayMutation, useEditDdayMutation, useDeleteDdayMutation } from '../hooks'
 import * as s from './styled'
 
 type EventCalendarProps = {
   className?: string
 }
 
-export const EventCalendarPage: FC<EventCalendarProps> = ({ className }) => {
+export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const [eventName, setEventName] = useState('')
-  const { data: dDayList } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllSchedule())
+  const { data: dDayList } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllDday())
   const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
   const navigate = useNavigate()
-  const mutateAddSchedule = useAddScheduleMutation()
-  const mutateEditSchedule = useEditScheduleMutation()
-  const mutateDeleteSchedule = useDeleteScheduleMutation()
+  const mutateAddSchedule = useAddDdayMutation()
+  const mutateEditSchedule = useEditDdayMutation()
+  const mutateDeleteSchedule = useDeleteDdayMutation()
   const onClickDelete = (e: React.MouseEvent) => {
     e.preventDefault() // * submit 방지
     mutateDeleteSchedule({ dDayId: selectedDDayId })

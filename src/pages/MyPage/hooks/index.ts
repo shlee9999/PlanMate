@@ -1,4 +1,5 @@
-import useAddScheduleMutation from './useAddScheduleMutation'
-import useEditScheduleMutation from './useEditScheduleMutation'
-import useDeleteScheduleMutation from './useDeleteScheduleMutation'
-export { useAddScheduleMutation, useDeleteScheduleMutation, useEditScheduleMutation }
+import useAddDdayMutation from './useAddDdayMutation'
+import useEditDdayMutation from './useEditDdayMutation'
+import useDeleteDdayMutation from './useDeleteDdayMutation'
+import useFixDdayMutation from './useFixDdayMutation'
+export { useAddDdayMutation, useDeleteDdayMutation, useEditDdayMutation, useFixDdayMutation }

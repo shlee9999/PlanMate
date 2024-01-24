@@ -3,11 +3,11 @@ import { DDayItem, ResignModal } from '../components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { FindAllDdayResponseProps, findAllSchedule } from 'api/dday/findAllDday'
+import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
 import { ProfileEditModal } from 'pages/MyPage/components/'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
-import { fixSchedule } from 'api/dday/fixDday'
+import { fixDday } from 'api/dday/fixDday'
 import { GoogleCustom } from 'assets/SvgComponents'
 import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
 import { useNavigate } from 'react-router-dom'
@@ -27,7 +27,7 @@ export const MyPage: FC = () => {
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState<boolean>(false)
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState<boolean>(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState<boolean>(false)
-  const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllSchedule())
+  const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllDday())
   const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
     ['myPostInfo', currentPage],
     () => findPost({ pages: currentPage - 1 })

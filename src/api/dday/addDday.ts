@@ -6,4 +6,4 @@ export type AddDdayRequestProps = Pick<DDayType, 'targetDate' | 'title'>
 export type AddDdayResponseProps = Pick<DDayType, 'targetDate' | 'remainingDays' | 'dDayId' | 'title'>
 
 /**D-Day 추가 */
-export const addSchedule = ({ targetDate, title }: AddDdayRequestProps) => axiosPOST('/dday/add', { targetDate, title })
+export const addDday = ({ targetDate, title }: AddDdayRequestProps) => axiosPOST('/dday/add', { targetDate, title })

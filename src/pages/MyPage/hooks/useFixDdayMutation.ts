@@ -1,13 +1,13 @@
 import { FindAllDdayResponseProps } from 'api/dday/findAllDday'
-import { FixDdayRequestProps, fixSchedule } from 'api/dday/fixDday'
+import { FixDdayRequestProps, fixDday } from 'api/dday/fixDday'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseFixScheduleMutationProps = FixDdayRequestProps
 
 /**D-Day 고정하기 */
-function useFixScheduleMutation() {
+function useFixDdayMutation() {
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(({ dDayId: dDayId }: UseFixScheduleMutationProps) => fixSchedule({ dDayId: dDayId }), {
+  const { mutate } = useMutation(({ dDayId: dDayId }: UseFixScheduleMutationProps) => fixDday({ dDayId: dDayId }), {
     onMutate: ({ dDayId: dDayId }) => {
       const prevData = queryClient.getQueryData(['dDayList'])
       queryClient.setQueryData<FindAllDdayResponseProps>(['dDayList'], (prev) =>
@@ -25,4 +25,4 @@ function useFixScheduleMutation() {
   })
   return mutate
 }
-export default useFixScheduleMutation
+export default useFixDdayMutation
