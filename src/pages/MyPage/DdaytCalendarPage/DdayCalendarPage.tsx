@@ -98,17 +98,17 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                 />
               </s.CalendarBox>
               <s.ActionButtonContainer>
-                {isEditing && (
-                  <ActionButton icon={'trash'} color="red" onClick={onClickDelete}>
-                    삭제
-                  </ActionButton>
-                )}
                 {isEditing ? (
-                  <ActionButton onClick={(e) => e.stopPropagation()} icon={'register'}>
+                  <s.EditButton onClick={(e) => e.stopPropagation()} icon={'register'}>
                     수정
-                  </ActionButton>
+                  </s.EditButton>
                 ) : (
-                  <ActionButton icon={'check'}>등록</ActionButton>
+                  <s.AddButton icon={'check'}>등록</s.AddButton>
+                )}
+                {isEditing && (
+                  <s.DeleteButton icon={'trash'} color="red" onClick={onClickDelete}>
+                    삭제
+                  </s.DeleteButton>
                 )}
               </s.ActionButtonContainer>
             </s.Form>

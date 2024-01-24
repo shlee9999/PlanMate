@@ -129,3 +129,8 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
 `
+
+export const DeleteButton = styled(ActionButton)`
+  order: -1;
+`
+export const EditButton = styled(ActionButton)``
