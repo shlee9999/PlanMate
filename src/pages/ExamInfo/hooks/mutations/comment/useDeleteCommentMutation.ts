@@ -18,7 +18,6 @@ function useDeleteCommentMutation() {
       onMutate: ({ currentPage, callBack }: MutationProps) => {
         const previousComments = queryClient.getQueryData(['commentData', currentPage + ''])
         callBack && callBack()
-        // replyList 없애야?
         return { previousComments }
       },
       onSuccess: (data, { postId, currentPage, commentId }) => {

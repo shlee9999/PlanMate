@@ -24,8 +24,6 @@ type ExamInfoCommentProps = {
   postId: number
 } & ResponseCommentType
 
-//  key : ['commentData', postId, currentPage + '']
-// const ExamInfoCommentComponent: ForwardRefRenderFunction<HTMLDivElement, ExamInfoCommentProps> = (
 export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   commentId,
   isPostAuthor,
@@ -159,9 +157,10 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
         <DeleteCommentModal
           closeModal={closeDeleteCommentModal}
           isOpen={isDeleteCommentModalOpen}
-          id={commentId}
+          commentId={commentId}
           postId={postId}
           currentPage={currentPage}
+          type="comment"
         />
       </s.Root>
       {isReplying && (
@@ -189,4 +188,3 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     </>
   )
 }
-// export const ExamInfoComment = forwardRef(ExamInfoCommentComponent)

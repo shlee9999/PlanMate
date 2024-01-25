@@ -6,6 +6,7 @@ import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import * as s from './styled'
 import useLikeReplyMutation from 'pages/ExamInfo/hooks/mutations/comment/useLikeReplyMutation'
+import { DeleteCommentModal } from '..'
 
 type ExamInfoReplyProps = {
   deleteComment?: () => void
@@ -69,11 +70,9 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
     closeEllipsisModal()
   }
 
-  const onClickComment = () => {
-    if (isAuthor) return
-    //mypage에서
-    navigate(`/examinfo/detail/${postId}`)
-  }
+  //* 마이페이지에서 봤을 때 본인이 쓴 댓글이면 해당 포스트로 이동한다.
+  const onClickComment = () => isAuthor && navigate(`/examinfo/detail/${postId}`)
+
   useEffect(() => {
     inputRef.current?.focus()
   }, [isEditing])
@@ -107,7 +106,14 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
           <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
           {likeCount}
         </s.LikeButton>
-        {/* <DeleteCommentModal closeModal={closeDeleteCommentModal} isOpen={isDeleteCommentModalOpen} /> */}
+        <DeleteCommentModal
+          closeModal={closeDeleteCommentModal}
+          isOpen={isDeleteCommentModalOpen}
+          commentId={commentId}
+          postId={postId}
+          type="reply"
+          parentCommentId={parentCommentId}
+        />
       </s.Root>
     </>
   )

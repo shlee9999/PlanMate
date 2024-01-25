@@ -3,30 +3,53 @@ import * as s from './styled'
 import * as cs from 'commonStyled'
 import { AnimatePresence } from 'framer-motion'
 import useDeleteCommentMutation from 'pages/ExamInfo/hooks/mutations/comment/useDeleteCommentMutation'
+import useDeleteReplyMutation from 'pages/ExamInfo/hooks/mutations/comment/useDeleteReplyMutation'
 type DeleteCommentModalProps = {
   closeModal: () => void
   isOpen: boolean
-  id: number
+  commentId: number
   postId: number
-  currentPage: number
+  type: 'comment' | 'reply'
+  currentPage?: number
+  parentCommentId?: number
 }
-
-export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({ closeModal, isOpen, id, postId, currentPage }) => {
+/**댓글 삭제
+ * @param {void} closeModal
+ * @param {boolean} isOpen
+ * @param {number} id
+ * @param {number} postId
+ * @param {number} currentPage 댓글 삭제 시 필요 (답글은 아직 미정)
+ * @param {number} parentCommentId 답글 삭제면 부모 댓글 id 필요
+ * @param {'comment' | 'reply'} type 댓글 삭제인지, 답글 삭제인지 구분
+ */
+export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({
+  closeModal,
+  isOpen,
+  commentId,
+  postId,
+  currentPage,
+  parentCommentId,
+  type,
+}) => {
   const mutateDeleteComment = useDeleteCommentMutation()
+  const mutateDeleteReply = useDeleteReplyMutation()
   const [isConfirmed, setIsConfirmed] = useState(false)
   const onClickDeleteButton = () => {
     setIsConfirmed(true)
     closeModal()
   }
+
   const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
   const onExitComplete = () => {
     if (!isConfirmed) return
-    mutateDeleteComment({
-      commentId: id,
-      postId,
-      currentPage,
-      callBack: closeModal,
-    })
+    type === 'comment' &&
+      mutateDeleteComment({
+        commentId,
+        postId,
+        currentPage,
+        callBack: closeModal,
+      })
+    type === 'reply' && mutateDeleteReply({ commentId, parentCommentId, callBack: closeModal })
     setIsConfirmed(false)
   }
   return (
