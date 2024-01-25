@@ -10,6 +10,7 @@ import { useLikeCommentMutation, useEditComment, useCreateReplyMutation } from '
 import { ExamInfoReply, DeleteCommentModal } from 'pages/ExamInfo/components'
 import { useQuery } from 'react-query'
 import * as s from './styled'
+import { MAX_COMMENT_CHARACTER_COUNT, MAX_REPLY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 type ExamInfoCommentProps = {
   deleteComment?: () => void
@@ -70,11 +71,11 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
   const onClickReplyButton = () => setIsReplying((prev) => !prev)
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > 400) return //* 댓글 수정 300글자 제한
+    if (e.target.value.length > MAX_COMMENT_CHARACTER_COUNT) return //* 댓글 수정 300글자 제한
     setInputValue(e.target.value)
   }
   const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > 130) return //* 답글 달기 130글자 제한
+    if (e.target.value.length > MAX_REPLY_CHARACTER_COUNT) return //* 답글 달기 130글자 제한
     setReplyInput(e.target.value)
   }
 

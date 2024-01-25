@@ -6,8 +6,9 @@ import { serializeContent } from 'utils'
 import { examInfoTagList, suggestTagList } from 'constants/tagList'
 import { useCreatePostMutation, useCreateNoticeMutation, useCreateSuggestMutation } from '../hooks/mutations'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import * as s from './styled'
 import { TagSelector } from '../components'
+import * as s from './styled'
+import { MAX_SUGGEST_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 const tagList = {
   examinfo: examInfoTagList,
@@ -17,49 +18,53 @@ const tagList = {
 type BulletinPageProps = {
   mode: 'examinfo' | 'suggest' | 'notice'
 }
+const MAX_TITLE_CHARACTER_COUNT = 20
 export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const location = useLocation()
   const initialTag = location.state.initialTag || '선택해주세요'
-
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [selectedTag, setSelectedTag] = useState(initialTag)
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
-  const [inputValue, setInputValue] = useState<string>('')
+  const [titleInput, setTitle] = useState<string>('')
   const [suggestInput, setSuggestInput] = useState<string>('')
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => setInputValue(e.target.value)
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.value.length > MAX_TITLE_CHARACTER_COUNT) return //* 게시물 제목 20글자 제한 -> min-width때도 wrap되지 않음
+    setTitle(e.target.value)
+  }
   const navigate = useNavigate()
   const mutateCreatePost = useCreatePostMutation()
   const mutateCreateNotice = useCreateNoticeMutation()
   const mutateCreateSuggest = useCreateSuggestMutation()
   const onClickRegisterButton = async () => {
-    if (inputValue === '' || (mode === 'examinfo' && selectedTag === '선택해주세요')) return
+    if (titleInput === '' || (mode === 'examinfo' && selectedTag === '선택해주세요')) return
     if (mode === 'examinfo')
       mutateCreatePost({
         content: serializeContent(editorState),
         tagList: [selectedTag],
-        title: inputValue,
+        title: titleInput,
         callBack: () => navigate(-1),
       })
 
     if (mode === 'notice')
       mutateCreateNotice({
         content: serializeContent(editorState),
-        title: inputValue,
+        title: titleInput,
         callBack: () => navigate(-1),
       })
     if (mode === 'suggest')
       mutateCreateSuggest({
         body: suggestInput,
         tag: selectedTag,
-        title: inputValue,
+        title: titleInput,
         callBack: () => navigate('/timer', { state: true }),
       })
     //등록하시겠습니까? 확인
   }
-
   const onClickCancelButton = () => navigate(-1)
-
-  const onSuggestInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setSuggestInput(e.target.value)
+  const onSuggestInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > MAX_SUGGEST_CHARACTER_COUNT) return //* 건의사항 500글자 제한
+    setSuggestInput(e.target.value)
+  }
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
@@ -81,7 +86,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
       </s.WriteTypo>
 
       <s.UpperWrapper>
-        <s.TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
+        <s.TitleInput name="title" value={titleInput} onChange={onChange} placeholder="제목을 입력해주세요" />
         {mode !== 'notice' && (
           <TagSelector tagList={tagList[mode]} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
         )}

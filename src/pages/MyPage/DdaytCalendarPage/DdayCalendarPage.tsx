@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
 import { useAddDdayMutation, useEditDdayMutation, useDeleteDdayMutation } from '../hooks'
 import * as s from './styled'
+import { MAX_DDAY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 type EventCalendarProps = {
   className?: string
@@ -27,7 +28,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
     mutateDeleteSchedule({ dDayId: selectedDDayId, callBack: () => setIsEditing(false) })
   }
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 15) return
+    if (e.target.value.length > MAX_DDAY_CHARACTER_COUNT) return
     setEventName(e.target.value)
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

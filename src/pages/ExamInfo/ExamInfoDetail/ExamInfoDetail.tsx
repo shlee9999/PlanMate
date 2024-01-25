@@ -22,6 +22,7 @@ import {
 import { NoContentDescription, Pagination } from 'components'
 import { DeletePostModal, ExamInfoComment } from '../components'
 import * as s from './styled'
+import { MAX_COMMENT_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 type ExamInfoDetailPageProps = {
   mode: 'examinfo' | 'notice'
@@ -67,7 +68,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
 
   const navigate = useNavigate()
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > 400) return //* 댓글 작성 300글자 제한
+    if (e.target.value.length > MAX_COMMENT_CHARACTER_COUNT) return //* 댓글 작성 300글자 제한
     setCommentInput(e.target.value)
   }
   const deletePost = (): void => {

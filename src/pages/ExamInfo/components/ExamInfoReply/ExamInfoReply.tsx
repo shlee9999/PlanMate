@@ -7,6 +7,7 @@ import { HEART_COLOR } from 'constants/color'
 import * as s from './styled'
 import useLikeReplyMutation from 'pages/ExamInfo/hooks/mutations/comment/useLikeReplyMutation'
 import { DeleteCommentModal } from '..'
+import { MAX_REPLY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 type ExamInfoReplyProps = {
   // currentPage: number
@@ -45,8 +46,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const onClickLikeButton = () => mutateLikeReply({ commentId, parentCommentId }) //like api
   const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value)
-    if (e.target.value.length > 130) return
+    if (e.target.value.length > MAX_REPLY_CHARACTER_COUNT) return
     setInputValue(e.target.value)
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
