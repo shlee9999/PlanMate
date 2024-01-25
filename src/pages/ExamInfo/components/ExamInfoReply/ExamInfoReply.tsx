@@ -1,40 +1,41 @@
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { ResponseCommentType } from 'api/types'
-import { likeComment } from 'api/comment/likeComment'
 import { editComment } from 'api/comment/editComment'
 import { useNavigate } from 'react-router-dom'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import * as s from './styled'
+import useLikeReplyMutation from 'pages/ExamInfo/hooks/mutations/comment/useLikeReplyMutation'
 
 type ExamInfoReplyProps = {
   deleteComment?: () => void
+  // currentPage: number
+  parentCommentId: number
 } & ResponseCommentType
 
 export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   commentId,
-  isPostAuthor: isAuthor,
+  isPostAuthor,
   isMyHearted,
-  likeCount: initialLikeCount,
+  likeCount,
   memberName,
   updatedAt,
   content,
   deleteComment,
   postId,
+  isAuthor,
+  parentCommentId,
+  // currentPage,
 }) => {
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
-  const [isLiked, setIsLiked] = useState<boolean>(isMyHearted)
   const closeEllipsisModal = (): void => isEllipsisOpen && setIsEllipsisOpen(false)
   // eslint-disable-next-line
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
-  const [currentLikeCount, setCurrentLikeCount] = useState<number>(initialLikeCount)
   const [isEditing, setIsEditing] = useState<boolean>(false)
-
   const [inputValue, setInputValue] = useState<string>(content)
   const [currentContent, setCurrentContent] = useState<string>(content)
   const navigate = useNavigate()
-
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
@@ -42,17 +43,9 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const inputRef = useRef(null)
   const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
   const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
+  const mutateLikeReply = useLikeReplyMutation()
+  const onClickLikeButton = () => mutateLikeReply({ commentId, parentCommentId }) //like api
 
-  const onClickLikeButton = (): void => {
-    likeComment({ commentId: commentId }) //like api
-    if (isLiked) {
-      setIsLiked(false)
-      setCurrentLikeCount((prev) => prev - 1)
-    } else {
-      setIsLiked(true)
-      setCurrentLikeCount((prev) => prev + 1)
-    }
-  }
   // eslint-disable-next-line
   const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value)
@@ -77,7 +70,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   }
 
   const onClickComment = () => {
-    if (deleteComment) return
+    if (isAuthor) return
     //mypage에서
     navigate(`/examinfo/detail/${postId}`)
   }
@@ -89,7 +82,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
     <>
       <s.Root onClick={closeEllipsisModal}>
         <s.ReplyMark />
-        {deleteComment && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
+        {isAuthor && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
           <s.EllipsisModal onClick={onClickModal}>
             <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
@@ -99,20 +92,20 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
         <s.LeftContainer>
           <s.UpperTypoWrapper>
             <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>
-            {isAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
+            {isPostAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
             <s.Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</s.Date>
           </s.UpperTypoWrapper>
           {isEditing ? (
             <s.EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
           ) : (
-            <s.Comment onClick={onClickComment} className={deleteComment ? '' : 'mypage_comment'}>
+            <s.Comment onClick={onClickComment} className={isAuthor ? '' : 'mypage_comment'}>
               {currentContent}
             </s.Comment>
           )}
         </s.LeftContainer>
         <s.LikeButton onClick={onClickLikeButton}>
-          <HeartIcon fill={isLiked ? `${HEART_COLOR}` : 'none'} />
-          {currentLikeCount}
+          <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
+          {likeCount}
         </s.LikeButton>
         {/* <DeleteCommentModal closeModal={closeDeleteCommentModal} isOpen={isDeleteCommentModalOpen} /> */}
       </s.Root>

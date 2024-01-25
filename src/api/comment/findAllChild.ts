@@ -6,8 +6,6 @@ export type FindAllChildRequestProps = Pick<CommentType, 'parentCommentId' | 'po
 
 export type FindAllChildResponseProps = ResponseCommentType[]
 
-
-
 /**해당 댓글의 답글 모두 찾기 */
 export const findAllChild = ({
   parentCommentId,

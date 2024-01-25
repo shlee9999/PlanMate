@@ -47,6 +47,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   const [isReplying, setIsReplying] = useState(false)
   const [replyInput, setReplyInput] = useState('')
   const [inputValue, setInputValue] = useState(content)
+  // const [currentReplyPage, setCurrentReplyPage] = useState(1) // todo: Request에 페이지 생기면 넣기
   const { data: replyList } = useQuery<FindAllChildResponseProps>(
     ['replyList', commentId],
     () => findAllChild({ parentCommentId: commentId, postId }),
@@ -116,7 +117,6 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   useEffect(() => {
     inputRef.current?.focus()
   }, [isEditing])
-
   useEffect(() => {
     findAllChild({
       parentCommentId: commentId,
@@ -167,7 +167,12 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       {isReplying && (
         <>
           {replyList?.map((reply) => (
-            <ExamInfoReply deleteComment={deleteReply(reply.commentId)} key={reply.commentId} {...reply} />
+            <ExamInfoReply
+              deleteComment={deleteReply(reply.commentId)}
+              key={reply.commentId}
+              {...reply}
+              parentCommentId={commentId}
+            />
           ))}
           <s.ReplyInputWrapper>
             <s.ReplyMark />

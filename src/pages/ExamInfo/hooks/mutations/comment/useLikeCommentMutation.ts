@@ -5,6 +5,11 @@ import { useMutation, useQueryClient } from 'react-query'
 
 type MutationProps = Pick<CommentType, 'commentId' | 'postId' | 'currentPage'>
 
+/**
+ * @param {number} commentId 댓글 id
+ * @param {number} postId 게시물 id
+ * @param {number} currentPage 댓글 또는 답글 페이지
+ */
 /**댓글 좋아요*/
 function useLikeCommentMutation() {
   const queryClient = useQueryClient()
