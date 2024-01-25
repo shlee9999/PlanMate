@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.svg'
 import { ActionButton } from 'components/ActionButton/ActionButton'
+import { hideScrollbar } from 'constants/hideScrollbar'
 
 export const EllipsisButton = styled.img`
   position: relative;
@@ -29,6 +30,7 @@ export const UpperTypoWrapper = styled.div`
   column-gap: 4px;
 `
 export const LeftContainer = styled.div`
+  width: 100%;
   padding: 16px 0 14px 0;
   display: flex;
   flex-direction: column;
@@ -45,6 +47,8 @@ export const Date = styled.p`
   margin-bottom: 1px;
 `
 export const Comment = styled.p`
+  ${hideScrollbar}
+  width: 100%;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -53,12 +57,19 @@ export const Comment = styled.p`
   &.mypage_comment {
     cursor: pointer;
   }
+  word-break: keep-all;
+  word-wrap: break-word;
+  min-height: 30px;
+  max-height: 150px;
+  overflow-y: scroll;
 `
 export const EditInput = styled.textarea`
   font-size: 14px;
   line-height: 18px;
   color: ${(props) => props.theme.text.black1};
   resize: none;
+
+  height: 100px;
 `
 export const ReplyButton = styled.button`
   width: fit-content;

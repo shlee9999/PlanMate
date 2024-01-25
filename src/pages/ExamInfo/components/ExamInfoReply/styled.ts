@@ -56,6 +56,8 @@ export const Comment = styled.p`
   }
   min-height: 30px;
   max-height: 60px;
+  word-break: keep-all;
+  word-wrap: break-word;
 `
 export const EditInput = styled.textarea`
   width: 100%;

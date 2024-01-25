@@ -56,11 +56,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
-
-  if (!postId) return <s.Root>Error!</s.Root>
-
   const { commentDtoList = [], totalCount = 0, totalPages = 0 } = commentData || {}
-
   const mutateLikePost = useLikePostMutation()
   const mutateScrapPost = useScrapPostMutation()
   const mutateDeletePost = useDeletePostMutation()
@@ -70,7 +66,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const mutateCreateComment = useCreateCommentMutation()
 
   const navigate = useNavigate()
-  const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > 400) return //* 댓글 작성 300글자 제한
+    setCommentInput(e.target.value)
+  }
   const deletePost = (): void => {
     mode === 'examinfo' && mutateDeletePost({ postId, callBack: () => navigate(-1) })
     mode === 'notice' &&

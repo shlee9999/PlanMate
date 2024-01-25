@@ -69,8 +69,14 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
 
   const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
   const onClickReplyButton = () => setIsReplying((prev) => !prev)
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value)
-  const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => setReplyInput(e.target.value)
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > 400) return //* 댓글 수정 300글자 제한
+    setInputValue(e.target.value)
+  }
+  const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > 130) return //* 답글 달기 130글자 제한
+    setReplyInput(e.target.value)
+  }
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
