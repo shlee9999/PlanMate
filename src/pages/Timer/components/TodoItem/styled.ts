@@ -1,8 +1,4 @@
 import styled from 'styled-components'
-import ellipsisButton from 'assets/images/ellipsis.svg'
-import timerStartButton from 'assets/images/timer_start.svg'
-import timerPauseButton from 'assets/images/timer_pause.svg'
-import { TODOITEM_MAX_WIDTH, TODOITEM_MIN_WIDTH } from 'constants/layout'
 import { Ellipsis, TimerPause, TimerStart } from 'assets/SvgComponents'
 
 export const Root = styled.div`
@@ -10,8 +6,6 @@ export const Root = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 29px;
-  max-width: ${TODOITEM_MAX_WIDTH}px;
-  min-width: ${TODOITEM_MIN_WIDTH}px;
 `
 
 export const LeftWrapper = styled.div`

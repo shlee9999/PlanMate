@@ -4,6 +4,14 @@ import { BODY_MAX_WIDTH, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
 import { PageRoot } from 'commonStyled'
 import { InfoBox, Spinner } from 'components/'
 
+export const Root = styled(PageRoot)`
+  padding-bottom: 30px;
+`
+
+export const SizedBox = styled.div`
+  flex-basis: 0;
+  flex-grow: 1;
+`
 export const Banner = styled.div`
   position: absolute;
   top: ${HEADER_HEIGHT}px;
@@ -12,15 +20,6 @@ export const Banner = styled.div`
   background-size: cover;
   width: 100vw;
   height: 400px;
-`
-
-export const Root = styled(PageRoot)`
-  padding-bottom: 30px;
-`
-
-export const SizedBox = styled.div`
-  flex-basis: 0;
-  flex-grow: 1;
 `
 export const BannerContentContainer = styled.div`
   max-width: ${BODY_MAX_WIDTH - SIDE_MARGIN * 2}px;
