@@ -35,7 +35,7 @@ export const timeUtils = {
   },
 
   /**총 몇 초인지 반환 */
-  timeToSecond: ({ hour, minute, second }: TimeProps): number => +hour * 3600 + +minute * 60 + +second,
+  timeToSecond: ({ hour = 0, minute = 0, second = 0 }: TimeProps): number => +hour * 3600 + +minute * 60 + +second,
   /**time 대소 비교 */
   compareTime: (time1: number, time2: number) =>
     time1 > time2 ? { smaller: time2, larger: time1 } : { smaller: time1, larger: time2 },
