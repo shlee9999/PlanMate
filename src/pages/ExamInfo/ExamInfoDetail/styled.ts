@@ -5,7 +5,6 @@ import { ActionButton } from 'components/ActionButton/ActionButton'
 import { Spinner } from 'components/'
 
 export const Root = styled(PageRoot)`
-  padding: 40px 0;
   width: 100%;
   max-width: ${EXAMINFODETAIL_MAX_WIDTH}px;
   .editor {

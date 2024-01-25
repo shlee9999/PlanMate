@@ -1,23 +1,20 @@
 import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
-import { BODY_MAX_WIDTH, SIDE_MARGIN } from 'constants/layout'
+import { BODY_MAX_WIDTH, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
 import { PageRoot } from 'commonStyled'
 import { InfoBox, Spinner } from 'components/'
 
 export const Banner = styled.div`
-  padding: 30px ${SIDE_MARGIN}px;
+  position: absolute;
+  top: ${HEADER_HEIGHT}px;
+  left: 0;
   background: url(${bannerImg}) no-repeat 0 0;
   background-size: cover;
   width: 100vw;
+  height: 400px;
 `
 
 export const Root = styled(PageRoot)`
-  @media (min-width: ${BODY_MAX_WIDTH}px) {
-    ${Banner} {
-      position: relative;
-      right: calc((100vw - ${BODY_MAX_WIDTH}px) / 2);
-    }
-  }
   padding-bottom: 30px;
 `
 
@@ -25,12 +22,12 @@ export const SizedBox = styled.div`
   flex-basis: 0;
   flex-grow: 1;
 `
-export const BannerContentWrapper = styled.div`
-  margin: 0 auto;
+export const BannerContentContainer = styled.div`
   max-width: ${BODY_MAX_WIDTH - SIDE_MARGIN * 2}px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: 64px;
 `
 export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`
@@ -98,7 +95,7 @@ export const TodoContainer = styled.div`
 
 export const RightContainer = styled.div`
   flex-grow: 1;
-  flex-basis: 689px;
+  flex-basis: 500px;
   padding-top: 17px;
   display: flex;
   flex-direction: column;
@@ -124,17 +121,14 @@ export const AddButton = styled.button`
 
 export const LowerContainer = styled.div`
   position: relative;
-  padding: 112px 160px 0;
 `
 
 export const CheerTypo = styled.div`
-  position: absolute;
-  top: 23px;
-  left: 162px;
   font-size: 14px;
   font-weight: 500;
   color: ${(props) => props.theme.text.black2};
   line-height: 18px;
+  margin-bottom: 50px;
 `
 export const Dday = styled.span`
   font-size: 32px;

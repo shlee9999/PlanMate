@@ -12,14 +12,25 @@ type TagSelectorProps = {
   optionContainerHeight?: number
 }
 
+/**
+ *
+ * @param {string} tagList
+ * @param {string} selectedTag
+ * @param {string} setSelectedTag
+ * @param {string} selectorHeight 셀렉터 높이
+ * @param {string} selectorWidth 셀렉터 폭 (제목을 포함한)
+ * @param {string} optionContainerHeight 목록 높이
+ * @param {string} title 왼쪽에 붙는 제목
+ * @returns
+ */
 export const TagSelector: FC<TagSelectorProps> = ({
-  selectorHeight = 48,
-  selectorWidth = 209,
-  optionContainerHeight = 102,
   className,
   tagList,
   selectedTag,
   setSelectedTag,
+  selectorHeight = 48,
+  selectorWidth = 209,
+  optionContainerHeight = 102,
   title = '태그',
 }) => {
   const [isSelecting, setIsSelecting] = useState(false)

@@ -111,9 +111,11 @@ export const TimerPage: FC = () => {
   }, [location.state])
 
   return (
-    <s.Root>
-      <s.Banner>
-        <s.BannerContentWrapper>
+    <>
+      <s.Banner />
+
+      <s.Root>
+        <s.BannerContentContainer>
           <s.LeftContainer>
             <s.LeftTopDescriptionWrapper>
               <s.DateTypo>{formattedDate}</s.DateTypo>
@@ -148,53 +150,53 @@ export const TimerPage: FC = () => {
               )}
             </s.StatsContainer>
           </s.RightContainer>
-        </s.BannerContentWrapper>
-      </s.Banner>
-      <s.LowerContainer>
-        {fixedDDay ? (
-          <s.CheerTypo>
-            <s.Test>{fixedDDay.title} </s.Test>까지{' '}
-            <s.Dday>
-              D- <s.GreenTypo>{dateUtils.daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
-            </s.Dday>
-            조금만 더 힘을 내볼까요? 🏃
-          </s.CheerTypo>
-        ) : (
-          <s.CheerTypo>
-            아직 디데이가 없어요!{' '}
-            <s.GreenTypo
-              onClick={() => {
-                navigate('/mypage')
-              }}
-              className="no_dday"
-            >
-              디데이를 설정하러 가볼까요?
-            </s.GreenTypo>
-          </s.CheerTypo>
-        )}
-
-        <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
-          {todoList.length !== 0 ? (
-            todoList.map((todo: TodoItemType) => {
-              return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
-            })
-          ) : isTodoLoading ? (
-            <s.TodoSpinner>Loading..</s.TodoSpinner>
+        </s.BannerContentContainer>
+        <s.LowerContainer>
+          {fixedDDay ? (
+            <s.CheerTypo>
+              <s.Test>{fixedDDay.title} </s.Test>까지{' '}
+              <s.Dday>
+                D- <s.GreenTypo>{dateUtils.daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
+              </s.Dday>
+              조금만 더 힘을 내볼까요? 🏃
+            </s.CheerTypo>
           ) : (
-            <NoContentDescription
-              descriptions={['아직 공부할 과목이 없어요!', '일정을 설정해 과목을 추가해볼까요?']}
-              icon="book_check"
-            />
+            <s.CheerTypo>
+              아직 디데이가 없어요!{' '}
+              <s.GreenTypo
+                onClick={() => {
+                  navigate('/mypage')
+                }}
+                className="no_dday"
+              >
+                디데이를 설정하러 가볼까요?
+              </s.GreenTypo>
+            </s.CheerTypo>
           )}
-        </s.TodoContainer>
 
-        <s.AddButton onClick={openModal}>
-          <PlusIcon fill="currentColor" />
-          과목
-        </s.AddButton>
-      </s.LowerContainer>
-      <ActionModal closeModal={closeModal} type="ADD" isOpen={isModalOpen} />
-      {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
-    </s.Root>
+          <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
+            {todoList.length !== 0 ? (
+              todoList.map((todo: TodoItemType) => {
+                return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
+              })
+            ) : isTodoLoading ? (
+              <s.TodoSpinner>Loading..</s.TodoSpinner>
+            ) : (
+              <NoContentDescription
+                descriptions={['아직 공부할 과목이 없어요!', '일정을 설정해 과목을 추가해볼까요?']}
+                icon="book_check"
+              />
+            )}
+          </s.TodoContainer>
+
+          <s.AddButton onClick={openModal}>
+            <PlusIcon fill="currentColor" />
+            과목
+          </s.AddButton>
+        </s.LowerContainer>
+        <ActionModal closeModal={closeModal} type="ADD" isOpen={isModalOpen} />
+        {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
+      </s.Root>
+    </>
   )
 }

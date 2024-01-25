@@ -1,4 +1,4 @@
-import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, FOOTER_HEIGHT, HEADER_HEIGHT } from 'constants/layout'
+import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, FOOTER_HEIGHT, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
 import styled from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
@@ -9,7 +9,7 @@ export const PageRoot = styled.div`
   position: relative;
   margin: 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
-  min-width: ${BODY_MIN_WIDTH}px;
+  padding: 40px ${SIDE_MARGIN}px;
   margin-top: ${HEADER_HEIGHT}px;
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
   -webkit-user-select: none; /* Safari */

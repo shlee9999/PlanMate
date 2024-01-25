@@ -6,9 +6,7 @@ import { DDayContainer } from '../components'
 import styled, { css } from 'styled-components'
 import { TABLET_SIZE } from 'constants/layout'
 
-export const Root = styled(PageRoot)`
-  padding: 0 5%;
-`
+export const Root = styled(PageRoot)``
 
 export const BoxContainer = styled(FlexRow)`
   @media (min-width: ${TABLET_SIZE}px) {
@@ -17,7 +15,6 @@ export const BoxContainer = styled(FlexRow)`
   margin-top: 20px;
   position: relative;
   gap: 16px;
-  padding: 30px 50px;
   justify-content: space-between;
   flex-wrap: wrap;
 `

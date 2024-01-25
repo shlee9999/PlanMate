@@ -1,10 +1,11 @@
 import { PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
-import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
+import { EXAMINFOITEM_MIN_WIDTH, MOBILE_SIZE } from 'constants/layout'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { NoContentDescription, Spinner } from 'components/'
+import { TagSelector } from '../components'
 export const Root = styled(PageRoot)`
-  padding: 45px 160px 40px;
+  min-width: auto;
 `
 const DescriptionTypo = styled.p`
   font-size: 12px;
@@ -22,12 +23,11 @@ export const TitleTypo = styled.p`
   font-weight: 700;
   line-height: 26px;
   color: ${(props) => props.theme.text.black2};
+  margin-bottom: 24px;
 `
 
 export const UpperDescriptionTypo = styled(DescriptionTypo)``
-export const LowerDescriptionTypo = styled(DescriptionTypo)`
-  margin-top: 24px;
-`
+export const LowerDescriptionTypo = styled(DescriptionTypo)``
 
 export const BulletinButton = styled(ActionButton)`
   align-self: flex-end;
@@ -56,4 +56,10 @@ export const PaginationWrapper = styled.div`
 
 export const PostSpinner = styled(Spinner)`
   margin: 80px 0;
+`
+
+export const StyledTagSelector = styled(TagSelector)`
+  position: absolute;
+  top: -40px;
+  right: 0;
 `

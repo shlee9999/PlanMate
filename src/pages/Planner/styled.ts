@@ -6,7 +6,6 @@ export const Root = styled(PageRoot)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 160px;
   height: 100%;
 `
 
@@ -25,7 +24,6 @@ export const HeaderMessage = styled.span`
   text-align: center;
   color: ${(props) => props.theme.text.black2};
 `
-
 export const HeaderTitleLogo = styled.p`
   font-size: 21px;
   font-weight: 700;

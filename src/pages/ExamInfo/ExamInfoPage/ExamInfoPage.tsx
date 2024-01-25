@@ -7,7 +7,8 @@ import { useQuery } from 'react-query'
 import { ExamInfoItem } from '../components'
 import { Pagination } from 'components'
 import * as s from './styled'
-import { DTagContainer, TTagContainer, MTagContainer } from './TagContainer'
+import { Display } from 'components/Display/Display'
+import { TagContainer } from './TagContainer/TagContainer'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -41,10 +42,14 @@ export const ExamInfoPage = () => {
       <s.TypoWrapper>
         <s.UpperDescriptionTypo>유용한 정보를 찾아볼까요? </s.UpperDescriptionTypo>
         <s.TitleTypo>수험정보 👀</s.TitleTypo>
-        <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
+        <Display on="DESKTOP">
+          <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
+        </Display>
+        <Display on="TABLET">
+          <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
+        </Display>
       </s.TypoWrapper>
-      <DTagContainer tagList={examInfoTagList} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />
-      <TTagContainer tagList={examInfoTagList} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />
+      <TagContainer tagList={examInfoTagList} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
       {/* Spinner 때문에 임시 변환 */}
       <s.ExamInfoWrapper>
         {isLoading ? (
@@ -57,7 +62,16 @@ export const ExamInfoPage = () => {
         <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </s.BulletinButton>
-        <MTagContainer tagList={examInfoTagList} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
+        <Display on="MOBILE">
+          <s.StyledTagSelector
+            selectedTag={selectedTag}
+            setSelectedTag={setSelectedTag}
+            tagList={examInfoTagList}
+            selectorHeight={30}
+            selectorWidth={150}
+            title=""
+          />
+        </Display>
       </s.ExamInfoWrapper>
       <s.PaginationWrapper>
         {!isLoading && <Pagination currentPage={currentPage} totalPages={totalPage} setCurrentPage={setCurrentPage} />}

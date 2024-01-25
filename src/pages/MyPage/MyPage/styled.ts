@@ -12,15 +12,12 @@ export const EllipsisImg = styled.img`
   cursor: pointer;
   transform: rotate(90deg);
 `
-export const Root = styled(PageRoot)`
-  padding: 0 5%;
-`
+export const Root = styled(PageRoot)``
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   column-gap: 16px;
-  padding: 30px 0;
 `
 export const MainContainer = styled(FlexRow)`
   height: 560px;

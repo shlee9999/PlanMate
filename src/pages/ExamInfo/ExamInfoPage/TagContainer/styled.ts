@@ -34,13 +34,3 @@ export const TagButtonContainer = styled.div`
     margin-bottom: 32px;
   }
 `
-
-export const DTagContainer = styled(Display)`
-  width: 100%;
-`
-export const TTagContainer = styled(Display)``
-export const MTagContainer = styled(Display)`
-  position: absolute;
-  top: -40px;
-  right: 0;
-`
