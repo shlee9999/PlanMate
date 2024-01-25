@@ -5,8 +5,8 @@ import { examInfoTagList } from 'constants/tagList'
 import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
 import { useQuery } from 'react-query'
 import { ExamInfoItem } from '../components'
-import * as s from './styled'
 import { Pagination } from 'components'
+import * as s from './styled'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -26,12 +26,7 @@ export const ExamInfoPage = () => {
   )
   const examInfoList = data?.postDtoList || []
   const totalPage = data?.totalPages || 0
-  const handleCurrentPage = (page: number) => () => setCurrentPage(page)
-  const loadPrevPage = () => {
-    if (totalPage === 0) return
-    if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
-  }
-  const loadNextPage = () => currentPage < totalPage && setCurrentPage((prev) => prev + 1)
+
   const navigate = useNavigate()
   const onClickBulletinButton = () => navigate('/examinfo/post', { state: { initialTag: selectedTag } })
   const onClickTagButton = (tag: string) => () => {
