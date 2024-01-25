@@ -1,22 +1,23 @@
 import { DownArrow } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const Root = styled.div<{ $selectorHeight: number }>`
   display: flex;
   align-items: center;
   column-gap: 8px;
   cursor: pointer;
   z-index: 100;
   margin-left: 24px;
+  height: ${(props) => props.$selectorHeight}px;
 `
 
-export const TagSelector = styled.div`
+export const TagSelector = styled.div<{ $selectorWidth: number }>`
   position: relative;
   display: flex;
   align-items: center;
   padding-left: 9px;
-  width: 209px;
-  height: 48px;
+  width: ${(props) => props.$selectorWidth}px;
+  height: 100%;
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.border.dark};
   font-size: 14px;
@@ -29,13 +30,13 @@ export const TagListArrow = styled(DownArrow)`
   right: 6px;
 `
 
-export const TagOptionContainer = styled.div`
+export const TagOptionContainer = styled.div<{ $optionContainerHeight: number; $selectorWidth: number }>`
   position: absolute;
-  top: 52px;
+  bottom: -${(props) => props.$optionContainerHeight + 5}px;
   left: 0;
   padding: 6px 12px 6px 6px;
-  width: 209px;
-  height: 102px;
+  width: ${(props) => props.$selectorWidth}px;
+  height: ${(props) => props.$optionContainerHeight}px;
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.border.default};
   overflow-y: scroll;

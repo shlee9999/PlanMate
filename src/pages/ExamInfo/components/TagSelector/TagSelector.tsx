@@ -7,9 +7,15 @@ type TagSelectorProps = {
   selectedTag: string
   setSelectedTag: (tag: string) => void
   title?: string
+  selectorHeight?: number
+  selectorWidth?: number
+  optionContainerHeight?: number
 }
 
 export const TagSelector: FC<TagSelectorProps> = ({
+  selectorHeight = 48,
+  selectorWidth = 209,
+  optionContainerHeight = 102,
   className,
   tagList,
   selectedTag,
@@ -41,13 +47,13 @@ export const TagSelector: FC<TagSelectorProps> = ({
     }
   }, [isSelecting])
   return (
-    <s.Root className={className} ref={tagSelectorRef}>
+    <s.Root ref={tagSelectorRef} className={className} $selectorHeight={selectorHeight}>
       {title && <s.TagTypo>{title}</s.TagTypo>}
-      <s.TagSelector onClick={onClickTagSelector}>
+      <s.TagSelector onClick={onClickTagSelector} $selectorWidth={selectorWidth}>
         {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
         <s.TagListArrow />
         {isSelecting && (
-          <s.TagOptionContainer>
+          <s.TagOptionContainer $optionContainerHeight={optionContainerHeight} $selectorWidth={selectorWidth}>
             {tagList.map((tag, index) => (
               <s.TagOption key={index} onClick={onClickTag(index)}>
                 {tag}

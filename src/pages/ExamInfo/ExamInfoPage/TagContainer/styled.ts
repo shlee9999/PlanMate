@@ -1,5 +1,6 @@
 import { TagRoot } from 'commonStyled'
 import { Display } from 'components/Display/Display'
+import { TagSelector } from 'pages/ExamInfo/components'
 import styled from 'styled-components'
 
 export const Tag = styled(TagRoot)``
@@ -38,4 +39,8 @@ export const DTagContainer = styled(Display)`
   width: 100%;
 `
 export const TTagContainer = styled(Display)``
-export const MTagContainer = styled(Display)``
+export const MTagContainer = styled(Display)`
+  position: absolute;
+  top: -40px;
+  right: 0;
+`

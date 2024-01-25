@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examInfoTagList } from 'constants/tagList'
@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import { ExamInfoItem } from '../components'
 import { Pagination } from 'components'
 import * as s from './styled'
-import { TagContainer } from './TagContainer/TagContainer'
+import { DTagContainer, TTagContainer, MTagContainer } from './TagContainer'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -30,13 +30,11 @@ export const ExamInfoPage = () => {
 
   const navigate = useNavigate()
   const onClickBulletinButton = () => navigate('/examinfo/post', { state: { initialTag: selectedTag } })
-  const onClickTagButton = (tag: string) => () => {
-    if (selectedTag === tag) setSelectedTag('')
-    else setSelectedTag(tag)
-    setCurrentPage(1)
-  }
 
   useEffect(() => window.scrollTo({ top: 0, behavior: 'smooth' }), [data])
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedTag])
 
   return (
     <s.Root>
@@ -45,7 +43,8 @@ export const ExamInfoPage = () => {
         <s.TitleTypo>수험정보 👀</s.TitleTypo>
         <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
       </s.TypoWrapper>
-      <TagContainer selectedTag={selectedTag} onClickTag={onClickTagButton} />
+      <DTagContainer tagList={examInfoTagList} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />
+      <TTagContainer tagList={examInfoTagList} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />
       {/* Spinner 때문에 임시 변환 */}
       <s.ExamInfoWrapper>
         {isLoading ? (
@@ -55,10 +54,10 @@ export const ExamInfoPage = () => {
         ) : (
           <s.NoContent icon="pencil" descriptions={['아직 게시글이 없어요', '첫 게시글을 올려볼까요?']} />
         )}
-
         <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </s.BulletinButton>
+        <MTagContainer tagList={examInfoTagList} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
       </s.ExamInfoWrapper>
       <s.PaginationWrapper>
         {!isLoading && <Pagination currentPage={currentPage} totalPages={totalPage} setCurrentPage={setCurrentPage} />}
