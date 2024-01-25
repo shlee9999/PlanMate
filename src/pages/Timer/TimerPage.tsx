@@ -97,11 +97,9 @@ export const TimerPage: FC = () => {
   }, [isTodoLoading])
 
   useEffect(() => {
-    const now = new Date()
-    const newTime = new Date(now.getTime() - 5 * 60 * 60 * 1000 - totalTime * 1000).toString().split(' ')[4]
-    const split = newTime.toString().split(':')
-    setDefaultBreakTime(+split[0] * 60 * 60 + +split[1] * 60 + +split[2])
-  }, [totalTime])
+    const newTime = timeUtils.timeToSecond(restTime)
+    setDefaultBreakTime(newTime)
+  }, [totalTime, isStatsLoading])
 
   useEffect(() => {
     if (isRunning) stopTimer()
