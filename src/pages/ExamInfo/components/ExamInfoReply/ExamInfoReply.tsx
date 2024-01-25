@@ -29,7 +29,6 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   //대댓글 로직
   const [isEllipsisOpen, setIsEllipsisOpen] = useState<boolean>(false)
   const closeEllipsisModal = (): void => isEllipsisOpen && setIsEllipsisOpen(false)
-  // eslint-disable-next-line
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState<boolean>(false)
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState<string>(content)
@@ -44,10 +43,12 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
   const mutateLikeReply = useLikeReplyMutation()
   const onClickLikeButton = () => mutateLikeReply({ commentId, parentCommentId }) //like api
-
-  // eslint-disable-next-line
   const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => setInputValue(e.target.value)
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(e.target.value)
+    if (e.target.value.length > 130) return
+    setInputValue(e.target.value)
+  }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) return
@@ -86,7 +87,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
             <s.EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</s.EllipsisDeleteButton>
           </s.EllipsisModal>
         )}
-        <s.LeftContainer>
+        <s.ContentContainer>
           <s.UpperTypoWrapper>
             <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>
             {isPostAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
@@ -99,7 +100,7 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
               {currentContent}
             </s.Comment>
           )}
-        </s.LeftContainer>
+        </s.ContentContainer>
         <s.LikeButton onClick={onClickLikeButton}>
           <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
           {likeCount}

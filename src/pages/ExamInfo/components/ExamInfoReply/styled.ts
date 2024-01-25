@@ -28,11 +28,12 @@ export const UpperTypoWrapper = styled.div`
   align-items: end;
   column-gap: 4px;
 `
-export const LeftContainer = styled.div`
+export const ContentContainer = styled.div`
   padding: 16px 0 14px 0;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+  width: 100%;
 `
 
 export const CommentOwnerNickname = styled.p``
@@ -53,13 +54,17 @@ export const Comment = styled.p`
   &.mypage_comment {
     cursor: pointer;
   }
+  min-height: 30px;
+  max-height: 60px;
 `
 export const EditInput = styled.textarea`
+  width: 100%;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   color: ${(props) => props.theme.text.black1};
   resize: none;
+  height: 80px;
 `
 export const ReplyButton = styled.button`
   width: 48px;
