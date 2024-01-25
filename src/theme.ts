@@ -1,3 +1,4 @@
+import { MOBILE_SIZE, TABLET_SIZE } from 'constants/layout'
 import { DefaultTheme } from 'styled-components'
 
 export const lightTheme: DefaultTheme = {
@@ -28,5 +29,8 @@ export const lightTheme: DefaultTheme = {
   },
   warning: '#FF3636',
   yellow: '#ffc955',
+  mobile: `max-width: ${MOBILE_SIZE}px`,
+  tablet: `max-width: ${TABLET_SIZE}px`,
+  desktop: `min-width: ${TABLET_SIZE + 1}px`,
 }
 // export const darkTheme: DefaultTheme = {}
