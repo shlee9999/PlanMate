@@ -28,36 +28,6 @@ export const UpperDescriptionTypo = styled(DescriptionTypo)``
 export const LowerDescriptionTypo = styled(DescriptionTypo)`
   margin-top: 24px;
 `
-export const Tag = styled(TagRoot)``
-export const TagButton = styled.button`
-  flex-basis: 100px;
-  height: 40px;
-  border-radius: 100px;
-  border: 1px solid ${(props) => props.theme.border.default};
-  color: ${(props) => props.theme.text.gray1};
-
-  &.isSelected {
-    border: 1px solid ${(props) => props.theme.primary.default};
-    color: ${(props) => props.theme.primary.default};
-    background-color: ${(props) => props.theme.primary.light};
-  }
-`
-
-const TagButtonWrapper = styled.div`
-  min-width: 230px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-`
-export const UpperTagButtonWrapper = styled(TagButtonWrapper)`
-  margin: 12px 0;
-`
-export const LowerTagButtonWrapper = styled(TagButtonWrapper)`
-  margin-bottom: 32px;
-`
 
 export const BulletinButton = styled(ActionButton)`
   align-self: flex-end;

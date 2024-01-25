@@ -7,6 +7,7 @@ import { useQuery } from 'react-query'
 import { ExamInfoItem } from '../components'
 import { Pagination } from 'components'
 import * as s from './styled'
+import { TagContainer } from './TagContainer/TagContainer'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -44,32 +45,7 @@ export const ExamInfoPage = () => {
         <s.TitleTypo>수험정보 👀</s.TitleTypo>
         <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
       </s.TypoWrapper>
-      <s.UpperTagButtonWrapper>
-        {examInfoTagList.map((tag, index) =>
-          index > 5 ? null : (
-            <s.TagButton
-              key={index}
-              className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(examInfoTagList[index])}
-            >
-              <s.Tag>{tag}</s.Tag>
-            </s.TagButton>
-          )
-        )}
-      </s.UpperTagButtonWrapper>
-      <s.LowerTagButtonWrapper>
-        {examInfoTagList.map((tag, index) =>
-          index <= 5 ? null : (
-            <s.TagButton
-              key={index}
-              className={tag === selectedTag ? 'isSelected' : ''}
-              onClick={onClickTagButton(examInfoTagList[index])}
-            >
-              <s.Tag>{tag}</s.Tag>
-            </s.TagButton>
-          )
-        )}
-      </s.LowerTagButtonWrapper>
+      <TagContainer selectedTag={selectedTag} onClickTag={onClickTagButton} />
       {/* Spinner 때문에 임시 변환 */}
       <s.ExamInfoWrapper>
         {isLoading ? (
