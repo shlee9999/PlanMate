@@ -5,14 +5,19 @@ type RootProps = {
   $on: 'MOBILE' | 'TABLET' | 'DESKTOP'
 }
 export const Root = styled.div<RootProps>`
-  //* DeskTop
-  ${(props) => (props.$on === 'MOBILE' || 'TABLET') && 'display:none'}
-  @media screen and (max-width: ${MOBILE_SIZE}) {
-    ${(props) => (props.$on === 'TABLET' || 'DESKTOP') && 'display:none'} //* Mobile
-    ${(props) => props.$on === 'MOBILE' && 'display:unset'}
+  @media screen and (min-width: ${TABLET_SIZE}px) {
+    //* DeskTop
+    ${(props) => (props.$on === 'MOBILE' || props.$on === 'TABLET') && 'display:none'}
   }
-  @media screen and (max-width: ${TABLET_SIZE}) {
-    ${(props) => (props.$on === 'MOBILE' || 'DESKTOP') && 'display:none'} //* Tablet
+
+  @media screen and (min-width: ${MOBILE_SIZE}px) and (max-width: ${TABLET_SIZE}px) {
+    //* Tablet
+    ${(props) => (props.$on === 'MOBILE' || props.$on === 'DESKTOP') && 'display:none'}
     ${(props) => props.$on === 'TABLET' && 'display:unset'}
+  }
+  @media screen and (max-width: ${MOBILE_SIZE}px) {
+    //* Mobile
+    ${(props) => (props.$on === 'TABLET' || props.$on === 'DESKTOP') && 'display:none'}
+    ${(props) => props.$on === 'MOBILE' && 'display:unset'}
   }
 `
