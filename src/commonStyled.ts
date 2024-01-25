@@ -1,4 +1,11 @@
-import { BODY_MAX_WIDTH, BODY_MIN_WIDTH, FOOTER_HEIGHT, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
+import {
+  BODY_MAX_WIDTH,
+  FOOTER_HEIGHT,
+  HEADER_HEIGHT,
+  DESKTOP_SIDE_MARGIN,
+  TABLET_SIDE_MARGIN,
+  MOBILE_SIDE_MARGIN,
+} from 'constants/layout'
 import styled from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
@@ -6,15 +13,31 @@ import { Variants, motion } from 'framer-motion'
 import { Spinner } from 'components'
 
 export const PageRoot = styled.div`
+  //* DEFAULT
   position: relative;
   margin: 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
-  padding: 40px ${SIDE_MARGIN}px;
   margin-top: ${HEADER_HEIGHT}px;
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+
+  @media screen and (${(props) => props.theme.desktop}) {
+    //* DESKTOP
+    padding: 40px ${DESKTOP_SIDE_MARGIN}px;
+    /* background-color: teal; */
+  }
+  @media screen and (${(props) => props.theme.tablet}) {
+    //* TABLET PAGE
+    padding: 40px ${TABLET_SIDE_MARGIN}px;
+    /* background-color: tomato; */
+  }
+  @media screen and (${(props) => props.theme.mobile}) {
+    //* MOBILE PAGE
+    padding: 40px ${MOBILE_SIDE_MARGIN}px;
+    /* background-color: yellow; */
+  }
 `
 
 export const TagRoot = styled.span`
