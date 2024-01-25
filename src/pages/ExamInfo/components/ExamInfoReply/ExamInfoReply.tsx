@@ -9,7 +9,6 @@ import useLikeReplyMutation from 'pages/ExamInfo/hooks/mutations/comment/useLike
 import { DeleteCommentModal } from '..'
 
 type ExamInfoReplyProps = {
-  deleteComment?: () => void
   // currentPage: number
   parentCommentId: number
 } & ResponseCommentType
@@ -22,7 +21,6 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   memberName,
   updatedAt,
   content,
-  deleteComment,
   postId,
   isAuthor,
   parentCommentId,

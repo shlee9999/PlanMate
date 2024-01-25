@@ -6,12 +6,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
-import {
-  useLikeCommentMutation,
-  useEditComment,
-  useDeleteCommentMutation,
-  useCreateReplyMutation,
-} from 'pages/ExamInfo/hooks/mutations'
+import { useLikeCommentMutation, useEditComment, useCreateReplyMutation } from 'pages/ExamInfo/hooks/mutations'
 import { ExamInfoReply, DeleteCommentModal } from 'pages/ExamInfo/components'
 import { useQuery } from 'react-query'
 import * as s from './styled'
@@ -54,15 +49,8 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
   const navigate = useNavigate()
   const mutateLikeComment = useLikeCommentMutation()
   const mutateEditComment = useEditComment()
-  const mutateDeleteComment = useDeleteCommentMutation()
   const mutateCreateReply = useCreateReplyMutation()
-  const deleteReply = (commentId: number) => () => {
-    mutateDeleteComment({
-      commentId,
-      postId,
-      currentPage,
-    })
-  }
+
   const toggleEllipsisModal = (e: React.MouseEvent): void => {
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
@@ -106,8 +94,10 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
     mutateCreateReply({
       content: replyInput,
       parentCommentId: commentId,
-      postId: postId,
+      postId,
       callBack: () => setReplyInput(''),
+      memberName,
+      isPostAuthor,
     })
   }
   const onClickComment = () => isAuthor && navigate(`/examinfo/detail/${postId}`)
@@ -166,12 +156,7 @@ export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
       {isReplying && (
         <>
           {replyList?.map((reply) => (
-            <ExamInfoReply
-              deleteComment={deleteReply(reply.commentId)}
-              key={reply.commentId}
-              {...reply}
-              parentCommentId={commentId}
-            />
+            <ExamInfoReply key={reply.commentId} {...reply} parentCommentId={commentId} />
           ))}
           <s.ReplyInputWrapper>
             <s.ReplyMark />
