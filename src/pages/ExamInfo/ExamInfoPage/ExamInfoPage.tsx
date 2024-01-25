@@ -66,7 +66,7 @@ export const ExamInfoPage = () => {
           <s.StyledTagSelector
             selectedTag={selectedTag}
             setSelectedTag={setSelectedTag}
-            tagList={examInfoTagList}
+            tagList={[''].concat(examInfoTagList)}
             selectorHeight={30}
             selectorWidth={150}
             title=""

@@ -14,11 +14,11 @@ export const TagContainer: FC<DTagContainerProps> = ({ className, tagList, selec
     if (selectedTag === tag) setSelectedTag('')
     else setSelectedTag(tag)
   }
-  const renderContent = () => (
+  const renderContent = (tagDivisionIndex: number) => (
     <>
       <s.TagButtonContainer>
         {tagList.map((tag, index) =>
-          index > 5 ? null : (
+          index > tagDivisionIndex ? null : (
             <s.TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
@@ -31,7 +31,7 @@ export const TagContainer: FC<DTagContainerProps> = ({ className, tagList, selec
       </s.TagButtonContainer>
       <s.TagButtonContainer>
         {tagList.map((tag, index) =>
-          index <= 5 ? null : (
+          index <= tagDivisionIndex ? null : (
             <s.TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
@@ -46,8 +46,8 @@ export const TagContainer: FC<DTagContainerProps> = ({ className, tagList, selec
   )
   return (
     <>
-      <Display on="DESKTOP">{renderContent()}</Display>
-      <Display on="TABLET">{renderContent()}</Display>
+      <Display on="DESKTOP">{renderContent(5)}</Display>
+      <Display on="TABLET">{renderContent(7)}</Display>
     </>
   )
 }
