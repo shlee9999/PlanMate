@@ -1,4 +1,9 @@
-import { InfoContainer } from './InfoContainer/InfoContainer'
-import { GraphContainer, PieChartContainer, ShareContainer, TimerContainer } from './InfoContainer/components'
+import { StatsContainer } from '../../../components/StatsContainer/StatsContainer'
+import {
+  GraphContainer,
+  PieChartContainer,
+  ShareContainer,
+  TimerContainer,
+} from '../../../components/StatsContainer/components'
 
-export { InfoContainer, GraphContainer, PieChartContainer, ShareContainer, TimerContainer }
+export { StatsContainer as InfoContainer, GraphContainer, PieChartContainer, ShareContainer, TimerContainer }
