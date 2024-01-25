@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { deserializeContent, serializeContent } from 'utils'
 import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
 import { Editor } from 'react-draft-wysiwyg'
-import { EditorState } from 'draft-js'
+import { EditorState, convertFromRaw } from 'draft-js'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
@@ -67,9 +67,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const mutateDeleteNotice = useDeleteNoticeMutation()
   const mutateEditPost = useEditPostMutation()
   const mutateEditNotice = useEditNoticeMutation()
-  const navigate = useNavigate()
-
   const mutateCreateComment = useCreateCommentMutation()
+
+  const navigate = useNavigate()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
   const deletePost = (): void => {
     mode === 'examinfo' && mutateDeletePost({ postId, callBack: () => navigate(-1) })
@@ -121,16 +121,19 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       memberName: userAuthInfo.name,
     })
   }
+
   const closeDeletePostModal = () => setIsDeletePostModalOpen(false)
   const onClickLikeButton = () => mutateLikePost({ postId, mode })
   const onClickScrapButton = () => mutateScrapPost({ postId, mode })
   const onClickDeleteTypo = () => setIsDeletePostModalOpen(true)
 
   useEffect(() => {
-    if (!isDetailLoading) setCurrentContent(detailData.content)
-    // const rawContentFromServer = JSON.parse(content)
-    // const contentState = convertFromRaw(rawContentFromServer)
-    // return EditorState.createWithContent(contentState)
+    if (isDetailLoading) return
+    setCurrentContent(detailData.content)
+
+    const rawContentFromServer = JSON.parse(detailData.content)
+    const contentState = convertFromRaw(rawContentFromServer)
+    setEditorState(EditorState.createWithContent(contentState))
   }, [isDetailLoading])
 
   useEffect(() => {
@@ -254,7 +257,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       )}
       {isDeletePostModalOpen && <DeletePostModal closeModal={closeDeletePostModal} deletePost={deletePost} />}
       {!isCommentLoading && !isDetailLoading && (
-        <Pagination currentPage={currentPage} totalPages={commentData.totalPages} setCurrentPage={setCurrentPage} />
+        <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
       )}
     </s.Root>
   )
