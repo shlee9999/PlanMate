@@ -121,15 +121,14 @@ export const TimerPage: FC = () => {
               <s.DateTypo>{formattedDate}</s.DateTypo>
               <s.Title>오늘의 공부량 👏 </s.Title>
             </s.LeftTopDescriptionWrapper>
-            <s.ResultContainer left>
-              <s.UpperDescriptionTypo>오늘의 공부량이에요!</s.UpperDescriptionTypo>
+            <s.StudyTimeContainer left>
+              <s.Description>오늘의 공부량이에요!</s.Description>
               <TimerWidget totalTime={totalTime} />
-              <s.LowerDescriptionTypo>
+              <s.BreakTime>
                 오늘은 휴식 시간을 <s.YellowTypo>{timeUtils.getFormattedTimeKorean(breakTime)}</s.YellowTypo> 가졌네요!
-              </s.LowerDescriptionTypo>
-            </s.ResultContainer>
+              </s.BreakTime>
+            </s.StudyTimeContainer>
           </s.LeftContainer>
-          <s.SizedBox />
           <s.RightContainer>
             <s.Title>오늘의 통계 📊</s.Title>
             <s.StatsContainer right>

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Root = styled.div`
-  height: 400px;
+  height: 100%;
   padding: 22px 24px;
   overflow: visible;
 `

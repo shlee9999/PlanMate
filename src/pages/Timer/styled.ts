@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
-import { BODY_MAX_WIDTH, HEADER_HEIGHT, SIDE_MARGIN } from 'constants/layout'
+import { BODY_MAX_WIDTH, DESKTOP_SIDE_MARGIN, HEADER_HEIGHT } from 'constants/layout'
 import { PageRoot } from 'commonStyled'
 import { InfoBox, Spinner } from 'components/'
 
@@ -8,10 +8,6 @@ export const Root = styled(PageRoot)`
   padding-bottom: 30px;
 `
 
-export const SizedBox = styled.div`
-  flex-basis: 0;
-  flex-grow: 1;
-`
 export const Banner = styled.div`
   position: absolute;
   top: ${HEADER_HEIGHT}px;
@@ -22,15 +18,14 @@ export const Banner = styled.div`
   height: 400px;
 `
 export const BannerContentContainer = styled.div`
-  max-width: ${BODY_MAX_WIDTH - SIDE_MARGIN * 2}px;
+  max-width: ${BODY_MAX_WIDTH - DESKTOP_SIDE_MARGIN * 2}px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 64px;
+  gap: 20px;
 `
 export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`
-  flex-basis: 400px;
   display: flex;
   flex-direction: column;
 `
@@ -47,19 +42,19 @@ export const Title = styled.p`
   line-height: 26px;
   margin-bottom: 8px;
 `
-export const ResultContainer = styled(InfoBox)`
+export const StudyTimeContainer = styled(InfoBox)`
   position: relative;
   padding: 32px;
   width: fit-content;
   height: 270px;
 `
-export const UpperDescriptionTypo = styled.p`
+export const Description = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
 `
 
-export const LowerDescriptionTypo = styled.p`
+export const BreakTime = styled.p`
   position: absolute;
   left: 0;
   bottom: 0;
