@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { RightArrow } from 'assets/SvgComponents'
+import { TABLET_SIZE } from 'constants/layout'
 
 export const Root = styled.div`
   -webkit-user-select: none; /* Safari */
@@ -94,7 +95,7 @@ export const DataCell = styled(Cell)<DataCellProps>`
       line-height: 0;
     }
   }
-  @media (max-width: 1200px) {
+  @media (max-width: ${TABLET_SIZE}px) {
     &:first-child {
       opacity: 0;
       border-right: 0;
@@ -126,7 +127,7 @@ export const DataCellRow = styled.tr`
 `
 
 export const ButtonWrapper = styled.div`
-  @media (max-width: 1200px) {
+  @media (max-width: ${TABLET_SIZE}px) {
     top: -40px;
     left: 0;
     right: 0;

@@ -50,6 +50,16 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     () => findAllComments({ pages: currentPage - 1, postId }),
     { keepPreviousData: true }
   )
+  const [currentContent, setCurrentContent] = useState(content)
+  const [commentInput, setCommentInput] = useState('')
+  const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+  const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
+
+  if (!postId) return <s.Root>Error!</s.Root>
+
+  const { commentDtoList = [], totalCount = 0, totalPages = 0 } = commentData || {}
 
   const mutateLikePost = useLikePostMutation()
   const mutateScrapPost = useScrapPostMutation()
@@ -57,16 +67,10 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const mutateDeleteNotice = useDeleteNoticeMutation()
   const mutateEditPost = useEditPostMutation()
   const mutateEditNotice = useEditNoticeMutation()
-  const { commentDtoList = [], totalCount = 0, totalPages = 0 } = commentData || {}
-  const [currentContent, setCurrentContent] = useState(content)
-  const [commentInput, setCommentInput] = useState('')
   const navigate = useNavigate()
-  const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false)
-  const [isEditing, setIsEditing] = useState<boolean>(false)
+
   const mutateCreateComment = useCreateCommentMutation()
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => setCommentInput(event.target.value)
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
-  const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const deletePost = (): void => {
     mode === 'examinfo' && mutateDeletePost({ postId, callBack: () => navigate(-1) })
     mode === 'notice' &&
@@ -124,6 +128,9 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
 
   useEffect(() => {
     if (!isDetailLoading) setCurrentContent(detailData.content)
+    // const rawContentFromServer = JSON.parse(content)
+    // const contentState = convertFromRaw(rawContentFromServer)
+    // return EditorState.createWithContent(contentState)
   }, [isDetailLoading])
 
   useEffect(() => {

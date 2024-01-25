@@ -13,4 +13,7 @@ export const TODOITEM_MAX_WIDTH = 1088
 export const TODOITEM_MIN_WIDTH = 500
 export const EXAMINFODETAIL_MAX_WIDTH = 1200
 export const DDAYITEM_MIN_WIDTH = 120
+
+//* 반응형 레이아웃
 export const TABLET_SIZE = 1024
+export const MOBILE_SIZE = 768
