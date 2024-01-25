@@ -7,7 +7,13 @@ import { examInfoTagList, suggestTagList } from 'constants/tagList'
 import { useCreatePostMutation, useCreateNoticeMutation, useCreateSuggestMutation } from '../hooks/mutations'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import * as s from './styled'
+import { TagSelector } from '../components'
 
+const tagList = {
+  examinfo: examInfoTagList,
+  suggest: suggestTagList,
+  notice: [],
+}
 type BulletinPageProps = {
   mode: 'examinfo' | 'suggest' | 'notice'
 }
@@ -15,13 +21,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const location = useLocation()
   const initialTag = location.state.initialTag || '선택해주세요'
 
-  const tagList = (): string[] => {
-    if (mode === 'examinfo') return examInfoTagList
-    if (mode === 'suggest') return suggestTagList
-    else return []
-  }
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  const [isSelecting, setIsSelecting] = useState(false)
   const [selectedTag, setSelectedTag] = useState(initialTag)
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const [inputValue, setInputValue] = useState<string>('')
@@ -58,16 +58,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   }
 
   const onClickCancelButton = () => navigate(-1)
-  const onClickTagSelector = (e: React.MouseEvent) => {
-    setIsSelecting((prev) => !prev)
-    e.stopPropagation()
-  }
-  const onClickTagOption = (id: number) => (e: React.MouseEvent) => {
-    setSelectedTag(tagList()[id])
-    e.stopPropagation()
-    setIsSelecting(false)
-  }
-  const onClickRoot = () => setIsSelecting(false)
+
   const onSuggestInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setSuggestInput(e.target.value)
 
   useEffect(() => {
@@ -75,7 +66,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   }, [])
 
   return (
-    <s.Root onClick={onClickRoot}>
+    <s.Root>
       <s.WriteTypo>
         {mode === 'suggest' ? (
           <>
@@ -92,22 +83,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
       <s.UpperWrapper>
         <s.TitleInput name="title" value={inputValue} onChange={onChange} placeholder="제목을 입력해주세요" />
         {mode !== 'notice' && (
-          <s.TagSelectorWrapper>
-            <s.TagTypo>태그</s.TagTypo>
-            <s.TagSelector onClick={onClickTagSelector}>
-              {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
-              <s.TagListArrow />
-              {isSelecting && (
-                <s.TagOptionWrapper>
-                  {tagList().map((tag, index) => (
-                    <s.TagOption key={index} onClick={onClickTagOption(index)}>
-                      {tag}
-                    </s.TagOption>
-                  ))}
-                </s.TagOptionWrapper>
-              )}
-            </s.TagSelector>
-          </s.TagSelectorWrapper>
+          <TagSelector tagList={tagList[mode]} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
         )}
       </s.UpperWrapper>
       {mode === 'suggest' ? (
