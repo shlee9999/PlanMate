@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { DownArrow, PageRoot } from 'commonStyled'
+import { H21_700, P12, P14, PageRoot } from 'commonStyled'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const Root = styled(PageRoot)`
@@ -18,19 +18,15 @@ export const Root = styled(PageRoot)`
   }
 `
 export const WriteTypo = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
   margin-bottom: 4px;
 `
 export const SuggestTypo = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  ${P12}
 `
 export const GreenTypo = styled.span`
+  ${P12}
   color: ${(props) => props.theme.primary.default};
-  font-size: 12px;
 `
 export const ButtonWrapper = styled.div`
   display: flex;
@@ -46,22 +42,18 @@ export const UpperWrapper = styled.div`
 export const CancelButton = styled(ActionButton)``
 
 export const TitleInput = styled.input`
-  box-sizing: border-box;
+  ${H21_700}
   padding: 11px 16px;
   border: 1px solid ${(props) => props.theme.border.dark};
   border-radius: 8px;
   width: 100%;
   height: 48px;
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
   &::placeholder {
     color: ${(props) => props.theme.text.gray3};
   }
 `
 export const ContentInput = styled.textarea`
   outline: none;
-  box-sizing: border-box;
   padding: 18px 16px;
   border: 1px solid ${(props) => props.theme.text.gray3};
   border-radius: 8px;
@@ -70,8 +62,8 @@ export const ContentInput = styled.textarea`
 `
 
 export const SuggestInput = styled.textarea`
+  ${P14}
   outline: none;
-  box-sizing: border-box;
   padding: 14px;
   border: 1px solid ${(props) => props.theme.text.gray3};
   border-radius: 8px;
@@ -82,9 +74,6 @@ export const SuggestInput = styled.textarea`
   &::placeholder {
     color: ${(props) => props.theme.text.gray3};
   }
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
   color: ${(props) => props.theme.text.black2};
 `
 export const RegisterButton = styled(ActionButton)``

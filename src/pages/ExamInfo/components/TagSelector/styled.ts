@@ -1,4 +1,4 @@
-import { DownArrow } from 'commonStyled'
+import { DownArrow, H16_500, P14 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled.div<{ $selectorHeight: number }>`
@@ -12,6 +12,7 @@ export const Root = styled.div<{ $selectorHeight: number }>`
 `
 
 export const TagSelector = styled.div<{ $selectorWidth: number }>`
+  ${P14}
   position: relative;
   display: flex;
   align-items: center;
@@ -20,9 +21,6 @@ export const TagSelector = styled.div<{ $selectorWidth: number }>`
   height: 100%;
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.border.dark};
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
   color: ${(props) => props.theme.text.gray2};
 `
 export const TagListArrow = styled(DownArrow)`
@@ -46,12 +44,10 @@ export const TagOptionContainer = styled.div<{ $optionContainerHeight: number; $
 `
 
 export const TagOption = styled.button`
+  ${P14}
   width: 191px;
   height: 30px;
   text-align: left;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 30px;
   color: ${(props) => props.theme.text.gray2};
 
   &:hover {
@@ -66,8 +62,6 @@ export const TagOption = styled.button`
 `
 
 export const TagTypo = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 48px;
+  ${H16_500}
   white-space: nowrap;
 `

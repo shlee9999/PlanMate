@@ -1,3 +1,4 @@
+import { H16_500, H21_700, P14 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -20,9 +21,7 @@ export const Root = styled.div`
 export const UpperTypo = styled.p`
   position: absolute;
   top: 36px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  ${H16_500}
   color: ${(props) => props.theme.text.black2};
 `
 export const CenterTypoWrapper = styled.div`
@@ -34,15 +33,10 @@ export const CenterTypoWrapper = styled.div`
   align-items: center;
 `
 export const CenterTypo = styled.p`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
 `
 export const DescriptionTypo = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0em;
+  ${P14}
   color: ${(props) => props.theme.text.gray1};
   margin-top: 4px;
 `

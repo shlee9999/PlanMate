@@ -1,3 +1,4 @@
+import { P10, P16 } from 'commonStyled'
 import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 
@@ -16,15 +17,12 @@ export const TypoWrapper = styled.div`
   row-gap: 8px;
 `
 export const TitleTypo = styled.div`
-  font-size: 16px;
-  line-height: 20px;
+  ${P16}
   color: ${(props) => props.theme.text.black1};
   cursor: pointer;
 `
 export const InfoTypo = styled.div`
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 12.5px;
+  ${P10}
   color: ${(props) => props.theme.text.gray2};
 `
 
@@ -35,15 +33,11 @@ export const IconContainer = styled.div`
   right: 8px;
   bottom: 10px;
   display: flex;
-  column-gap: 8px;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 12.5px;
+  column-gap: 5px;
+  ${P10}
 `
 export const IconCountWrapper = styled.div`
   display: flex;
   align-items: center;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 13px;
+  width: 30px;
 `

@@ -1,4 +1,4 @@
-import { PageRoot, TagRoot } from 'commonStyled'
+import { H21_700, P12, PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { EXAMINFOITEM_MIN_WIDTH, MOBILE_SIZE } from 'constants/layout'
 import { ActionButton } from 'components/ActionButton/ActionButton'
@@ -8,9 +8,7 @@ export const Root = styled(PageRoot)`
   min-width: auto;
 `
 const DescriptionTypo = styled.p`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  ${P12}
   color: ${(props) => props.theme.text.black2};
 `
 
@@ -19,9 +17,7 @@ export const TypoWrapper = styled.div`
   flex-direction: column;
 `
 export const TitleTypo = styled.p`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
   color: ${(props) => props.theme.text.black2};
   margin-bottom: 24px;
 `

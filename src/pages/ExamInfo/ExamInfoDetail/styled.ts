@@ -1,5 +1,5 @@
 import { EXAMINFODETAIL_MAX_WIDTH } from 'constants/layout'
-import { PageRoot, TagRoot } from 'commonStyled'
+import { H12_500, H14_500, H14_700, H16_500, H21_700, P10, P12, P14, PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { Spinner } from 'components/'
@@ -22,15 +22,11 @@ export const TagWrapper = styled.div`
   margin-bottom: 3px;
 `
 export const Tag = styled(TagRoot)`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  ${P12}
   color: ${(props) => props.theme.text.gray2};
 `
 export const UserNickname = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  ${H16_500}
   color: ${(props) => props.theme.text.black1};
 `
 export const UpperTypoWrapper = styled.div`
@@ -57,17 +53,12 @@ export const RightTypoWrapper = styled.div`
 `
 
 export const PostOwnerNickname = styled.span`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  text-align: center;
+  ${H12_500}
   color: ${(props) => props.theme.text.gray1};
   margin-right: 12px;
 `
 const ButtonTypo = styled.span`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
+  ${H12_500}
   cursor: pointer;
   &:hover {
     text-decoration: underline;
@@ -86,27 +77,22 @@ export const DistributionLine = styled.hr`
 `
 export const DeleteTypo = styled(ButtonTypo)``
 export const TitleTypo = styled.p`
-  font-size: 21px;
-  font-weight: 700;
+  ${H21_700}
 `
 export const UpdatedDate = styled.p`
-  font-size: 12px;
-  font-weight: 400;
+  ${P12}
   color: ${(props) => props.theme.text.gray2};
   margin-bottom: 2px; //없으면 줄이 안맞음
 `
 export const Nickname = styled.p`
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 18px;
+  ${H14_700}
 `
 
 export const ContentWrapper = styled.div`
+  ${P14}
   position: relative;
   box-sizing: border-box;
   padding: 32px 8px;
-  font-size: 14px;
-  font-weight: 400;
   border-top: 2px solid ${(props) => props.theme.text.black2};
   border-bottom: 1px solid ${(props) => props.theme.border.dark};
   margin-bottom: 32px;
@@ -115,27 +101,23 @@ export const ContentWrapper = styled.div`
 `
 
 export const IconContainer = styled.div`
+  ${P10}
   cursor: pointer;
   position: absolute;
   right: 8px;
   bottom: 10px;
   display: flex;
   align-items: center;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 12.5px;
 `
 export const Count = styled.p`
+  ${P12}
   margin-right: 5px;
-  font-size: 12px;
 `
 export const CommentWrapper = styled.div`
   margin-bottom: 24px;
 `
 export const CommentTitle = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
   margin-bottom: 24px;
 `
 export const CommentCount = styled.span`
@@ -158,11 +140,8 @@ export const CommentInputWrapper = styled.div`
   }
 `
 export const CommentInput = styled.textarea`
-  box-sizing: border-box;
+  ${H14_500}
   padding: 9px 8px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
   height: 80px;
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.border.dark};

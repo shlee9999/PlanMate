@@ -1,6 +1,4 @@
 import { TagRoot } from 'commonStyled'
-import { Display } from 'components/Display/Display'
-import { TagSelector } from 'pages/ExamInfo/components'
 import styled from 'styled-components'
 
 export const Tag = styled(TagRoot)``
