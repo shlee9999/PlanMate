@@ -1,10 +1,11 @@
+import { BLOCK_SELECT } from 'constants/blockSelect'
 import styled from 'styled-components'
 
 export const Root = styled.button<{ $color: string }>`
-  -webkit-user-select: none;
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-
+  //! H14_500 불러오면 에러가 남.
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
   width: 96px;
   height: 32px;
   border-radius: 100px;
@@ -17,14 +18,12 @@ export const Root = styled.button<{ $color: string }>`
     color: ${(props) => props.theme.background.white};
     background-color: ${(props) => props.$color};
   }
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 18px;
 `
 export const CloseButton = styled.button`
-  -webkit-user-select: none;
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  ${BLOCK_SELECT}
   width: 96px;
   height: 32px;
   border-radius: 100px;
@@ -35,9 +34,6 @@ export const CloseButton = styled.button`
     color: ${(props) => props.theme.background.white};
     background-color: ${(props) => props.theme.primary.dark};
   }
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 18px;
   border: 1px solid ${(props) => props.theme.border.default};
   color: ${(props) => props.theme.text.black2};
 `

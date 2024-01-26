@@ -7,7 +7,7 @@ interface OwnProps {
   title: string
 }
 
-export const Timer: React.FC<OwnProps> = ({ title, text }) => {
+export const StudyTime: React.FC<OwnProps> = ({ title, text }) => {
   return (
     <s.TimerBox>
       <s.Header>{title}</s.Header>

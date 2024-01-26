@@ -1,3 +1,4 @@
+import { P8 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
@@ -21,6 +22,7 @@ export const ShareButton = styled(motion.button)`
 `
 
 export const SNSItems = styled(motion.ul)`
+  ${P8}
   background-color: ${(props) => props.theme.background.white};
   position: absolute;
   bottom: -55px;
@@ -32,7 +34,6 @@ export const SNSItems = styled(motion.ul)`
   height: 53px;
   border-radius: 8px;
   border: 1px solid #dddede;
-  font-size: 8px;
   transform-origin: left top;
 `
 
@@ -42,15 +43,10 @@ export const SNSItem = styled(motion.li)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 8px;
-  font-weight: 400;
-  line-height: 10px;
 `
 
 export const SNSLabel = styled.p`
-  font-size: 8px;
-  font-weight: 400;
-  line-height: 10px;
+  ${P8}
   text-align: center;
   color: ${(props) => props.theme.text.gray2};
   margin-top: 3px;

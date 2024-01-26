@@ -1,5 +1,5 @@
 import { RightArrow } from 'assets/SvgComponents'
-import { LeftArrow } from 'commonStyled'
+import { H14_500, H21_700, LeftArrow, P10, P12, P14 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 import { Tooltip } from './Tooltip'
@@ -25,15 +25,13 @@ export const PrevButton = styled(LeftArrow)`
   z-index: 2;
 `
 export const Month = styled(motion.p)<{ $layout: 'space-between' | 'center' }>`
+  ${H21_700}
   position: absolute;
   left: 0;
   right: 0;
   top: ${(props) => (props.$layout === 'space-between' ? '-2px' : '-3px')};
   margin: 0 auto;
   text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 25px;
   color: ${(props) => props.theme.text.black2};
 `
 export const NextButton = styled(RightArrow)`
@@ -58,17 +56,14 @@ export const DayRow = styled(Row)`
   padding: 0 10px;
 `
 export const Cell = styled.div`
+  ${P12}
   padding: 0 8px;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 export const DayCell = styled(Cell)`
-  font-size: 14px;
-  font-weight: 500;
+  ${P14}
 `
 export const Line = styled.hr`
   position: absolute;
@@ -90,8 +85,7 @@ export const Legend = styled.legend`
   display: flex;
   align-items: center;
   gap: 2px;
-  font-size: 10px;
-  font-weight: 400;
+  ${P10}
   margin-right: 8px;
   &:first-child > div {
     border: 1px solid ${(props) => props.theme.background.gray3};
@@ -178,8 +172,7 @@ export const TodayButton = styled.button`
   position: absolute;
   top: -2.5px;
   right: 60px;
-  font-weight: 600;
-  font-size: 15px;
+  ${H14_500}
   color: ${(props) => props.theme.text.gray1};
   &:hover {
     filter: brightness(0.9);
@@ -197,11 +190,11 @@ export const DateCellWrapper = styled.div`
 
 //Tooltip
 export const TooltipRoot = styled(motion.div)`
+  ${P12}
   position: absolute;
   background-color: rgb(255, 249, 219);
   border: 1px solid rgba(205, 133, 63, 0.3);
   color: rgba(205, 133, 63, 0.7);
-  font-size: 12px;
   border-radius: 8px;
   width: 150px;
   padding: 15px 10px;

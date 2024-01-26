@@ -1,3 +1,4 @@
+import { H21_500, P12 } from 'commonStyled'
 import styled from 'styled-components'
 
 type RootProps = {
@@ -12,22 +13,18 @@ export const Root = styled.div<RootProps>`
 export const TimerBox = styled.div``
 
 export const Header = styled.div`
+  ${P12}
   width: 100%;
   height: 18px;
   display: flex;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
   letter-spacing: 0em;
   text-align: center;
   color: ${(props) => props.theme.text.gray1};
 `
 export const Time = styled.div`
+  ${H21_500}
   width: 100%;
   height: 50px;
   display: flex;
-  font-size: 21px;
-  font-weight: 500;
-  line-height: 26px;
   color: ${(props) => props.theme.text.black1};
 `
