@@ -1,5 +1,6 @@
 import { styled } from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
+import { H14_500, H16_500, H21_500 } from 'commonStyled'
 
 export const Root = styled.div`
   width: 320px;
@@ -19,9 +20,7 @@ export const Root = styled.div`
 `
 export const Title = styled.h1`
   text-align: center;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 20px;
+  ${H21_500}
   color: ${(props) => props.theme.text.black2};
   margin-bottom: 20px;
 `
@@ -38,15 +37,13 @@ export const ModalExitButton = styled.button`
 `
 
 export const ModalFooter = styled.div`
+  ${H16_500}
   position: absolute;
   bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
   text-align: center;
 `
 
@@ -65,24 +62,20 @@ export const Input = styled.input`
   padding: 12px 8px 10px;
 `
 export const ModalTitle = styled.div`
+  ${H16_500}
   position: absolute;
   left: 50%;
   top: 36px;
   transform: translate(-50%);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
   color: ${(props) => props.theme.text.black2};
 `
 
 export const ButtonTypoWrapper = styled.div`
+  ${H14_500}
   display: flex;
   align-items: center;
   justify-content: space-between;
   column-gap: 15px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 100%;
   color: ${(props) => props.theme.text.gray1};
   &:last-child {
     position: relative;
@@ -90,10 +83,9 @@ export const ButtonTypoWrapper = styled.div`
   }
 `
 export const ColorSelectWrapper = styled.div`
+  ${H14_500}
   display: flex;
   column-gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
   color: ${(props) => props.theme.text.gray1};
 `
 export const ColorSelectTypo = styled.p`

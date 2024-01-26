@@ -1,3 +1,4 @@
+import { P16 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const SelectWrapper = styled.div`
@@ -27,7 +28,7 @@ export const StyledCategorySelect = styled.select`
 `
 
 export const StyledSelect = styled.select`
-  font-size: 16px;
+  ${P16}
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 64px;

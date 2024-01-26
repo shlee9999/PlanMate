@@ -1,4 +1,4 @@
-import { PageRoot } from 'commonStyled'
+import { H21_700, P12, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { Scheduler } from './components'
 
@@ -17,19 +17,11 @@ export const HeaderMessage = styled.span`
   span {
     color: ${(props) => props.theme.primary.default};
   }
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  letter-spacing: 0em;
-  text-align: center;
+  ${P12}
   color: ${(props) => props.theme.text.black2};
 `
 export const HeaderTitleLogo = styled.p`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
-  letter-spacing: 0em;
-  text-align: left;
+  ${H21_700}
   margin-top: 2px;
 `
 

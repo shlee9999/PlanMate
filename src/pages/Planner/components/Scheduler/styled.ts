@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { RightArrow } from 'assets/SvgComponents'
 import { TABLET_SIZE } from 'constants/layout'
+import { P12, P14 } from 'commonStyled'
 
 export const Root = styled.div`
   -webkit-user-select: none; /* Safari */
@@ -27,6 +28,7 @@ export const Table = styled.table`
   }
 `
 const Cell = styled.td`
+  ${P12}
   &:first-child {
     border-bottom: none;
   }
@@ -40,10 +42,6 @@ const Cell = styled.td`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
-  letter-spacing: 0em;
   color: ${(props) => props.theme.text.gray1};
 `
 export const DayCellRow = styled.tr`
@@ -52,9 +50,7 @@ export const DayCellRow = styled.tr`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  ${P12}
   letter-spacing: 0em;
   color: ${(props) => props.theme.text.gray1};
 `
@@ -107,7 +103,7 @@ export const DataCell = styled(Cell)<DataCellProps>`
         content: '${(props) => props.$hour}';
         position: absolute;
         right: calc(100% + 10px);
-        font-size: 15px;
+        ${P14}
         top: -8px;
       }
     }
@@ -137,7 +133,8 @@ export const ButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100px;
-  font-size: 15px;
+  ${P14}
+
   color: ${(props) => props.theme.text.gray1};
 `
 

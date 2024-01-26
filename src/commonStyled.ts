@@ -220,6 +220,12 @@ export const H12_500 = css`
 `
 
 //* Paragraph는 font-weight 400 이하
+/** 16px*/
+export const P16 = css`
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+`
 /** 14px*/
 export const P14 = css`
   font-size: 14px;
