@@ -37,15 +37,18 @@ export const MyPage: FC = () => {
   )
   const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
     ['myPostInfo', currentPage],
-    () => findPost({ pages: currentPage - 1 })
+    () => findPost({ pages: currentPage - 1 }),
+    { keepPreviousData: true }
   )
   const { data: myScrapInfo, isLoading: isScrapLoading } = useQuery<FindScrappedPostResponseProps>(
     ['myScrapInfo', currentPage],
-    () => findScrappedPost({ pages: currentPage - 1 })
+    () => findScrappedPost({ pages: currentPage - 1 }),
+    { keepPreviousData: true }
   )
   const { data: myCommentInfo, isLoading: isCommentLoading } = useQuery<FindCommentResponseProps>(
     ['myCommentInfo', currentPage],
-    () => findComment({ pages: currentPage - 1 })
+    () => findComment({ pages: currentPage - 1 }),
+    { keepPreviousData: true }
   )
   const myPostList = myPostInfo?.postDtoList || []
   const postTotalPages = myPostInfo?.totalPages || 0
@@ -115,7 +118,6 @@ export const MyPage: FC = () => {
           {list.map((item) => (
             <Component {...item} key={item.postId} />
           ))}
-          <s.StyledPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
         </>
       )
 
@@ -125,7 +127,6 @@ export const MyPage: FC = () => {
         {list.map((item) => (
           <Component key={item.commentId} {...item} currentPage={currentPage} />
         ))}
-        <s.StyledPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
       </>
     )
   }
@@ -188,7 +189,8 @@ export const MyPage: FC = () => {
               </s.TabRow>
               <s.TabRow />
             </s.TabSelector>
-            <s.MyActivityList>{renderTabContent()}</s.MyActivityList>
+            <s.TabContentContainer>{renderTabContent()}</s.TabContentContainer>
+            <s.StyledPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
           </s.RightContainer>
         </s.MainContainer>
         {isProfileEditModalOpen && (

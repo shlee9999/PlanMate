@@ -46,26 +46,25 @@ export const Title = styled.div`
   margin-bottom: 20px;
 `
 
-export const StatsContainer = styled.div`
+export const MainContainer = styled.div`
   position: relative;
   display: flex;
-  height: 400px;
   width: 100%;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 20px;
 `
 
 export const LeftInfoBox = styled(InfoBox)`
   position: relative;
-  flex-grow: 1;
+  flex: 1 0 400px;
+  min-width: 300px;
   max-width: 420px;
   overflow: hidden;
   padding: 24px 25px;
 `
 export const RightInfoBox = styled(InfoBox)`
+  min-width: 0;
   flex-grow: 1;
-  max-width: 800px;
   overflow: visible;
 `
 export const StatsCalendar = styled(Calendar)``

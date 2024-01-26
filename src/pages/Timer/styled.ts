@@ -28,6 +28,7 @@ export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 0;
 `
 export const DateTypo = styled.p`
   ${P12}
@@ -41,7 +42,7 @@ export const Title = styled.p`
 export const StudyTimeContainer = styled(InfoBox)`
   position: relative;
   padding: 32px;
-  width: fit-content;
+
   height: 270px;
 `
 export const Description = styled.p`
@@ -84,7 +85,7 @@ export const RightContainer = styled.div`
   padding-top: 17px;
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 0px;
 `
 
 export const AddButton = styled.button`

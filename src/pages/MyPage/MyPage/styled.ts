@@ -81,6 +81,7 @@ export const StyledDDayContainer = styled(DDayContainer)`
 `
 
 export const RightContainer = styled(InfoBox)`
+  min-width: 0; /*flexbox item 부모 요소 너비 초과 방지 */
   flex-basis: 100px;
   flex-grow: 1;
   padding: 0 32px;
@@ -89,7 +90,7 @@ export const RightContainer = styled(InfoBox)`
   height: calc(100% - 25px);
 `
 
-export const MyActivityList = styled.div`
+export const TabContentContainer = styled.div`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;

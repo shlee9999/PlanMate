@@ -113,7 +113,6 @@ export const TimerPage: FC = () => {
   return (
     <>
       <s.Banner />
-
       <s.Root>
         <s.BannerContentContainer>
           <s.LeftContainer>
@@ -154,9 +153,9 @@ export const TimerPage: FC = () => {
         <s.LowerContainer>
           {fixedDDay ? (
             <s.CheerTypo>
-              <s.Test as="span">{/* {fixedDDay.title} */}가나다</s.Test>까지{' '}
-              <s.Dday as="span">
-                D- <s.GreenTypo>{/* {dateUtils.daysUntil(fixedDDay.targetDate)} */}30</s.GreenTypo>{' '}
+              <s.Test>{fixedDDay.title}</s.Test>까지{' '}
+              <s.Dday>
+                D- <s.GreenTypo> {dateUtils.daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
               </s.Dday>
               조금만 더 힘을 내볼까요? 🏃
             </s.CheerTypo>

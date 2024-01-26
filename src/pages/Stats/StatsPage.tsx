@@ -44,7 +44,7 @@ export const StatsPage = () => {
       <s.HeaderDividingLine />
       <s.Container>
         <s.Title>공부량 한 눈에 보기</s.Title>
-        <s.StatsContainer>
+        <s.MainContainer>
           <s.LeftInfoBox left>
             <s.StatsCalendar
               legend
@@ -61,7 +61,7 @@ export const StatsPage = () => {
               <InfoContainer selectedDate={selectedDate} dataSource={selectedDateData} />
             )}
           </s.RightInfoBox>
-        </s.StatsContainer>
+        </s.MainContainer>
       </s.Container>
     </s.Root>
   )
