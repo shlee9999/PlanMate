@@ -1,5 +1,5 @@
 import { RightArrow } from 'assets/SvgComponents'
-import { FlexRow, LeftArrow, PageRoot } from 'commonStyled'
+import { FlexRow, H14_500, H21_500, LeftArrow, PageRoot } from 'commonStyled'
 import { ActionButton, InfoBox } from 'components'
 import { Calendar } from 'components'
 import { DDayContainer } from '../components'
@@ -48,8 +48,7 @@ export const EventNameRow = styled(FlexRow)`
   gap: 16px;
 `
 export const EventName = styled.p`
-  font-size: 14px;
-  font-weight: 500;
+  ${H14_500}
   color: ${(props) => props.theme.text.gray1};
 `
 export const EventNameInput = styled.input`
@@ -65,8 +64,7 @@ export const EventDateHeader = styled.p`
   color: ${(props) => props.theme.text.gray1};
 `
 export const EventDate = styled.p`
-  font-size: 14px;
-  font-weight: 500;
+  ${H14_500}
   color: ${(props) => props.theme.text.black2};
 `
 export const CalendarBox = styled(InfoBox)`
@@ -90,8 +88,7 @@ export const CalendarHeader = styled(FlexRow)`
   align-items: end;
 `
 export const EventYear = styled.p`
-  font-size: 21px;
-  font-weight: 500;
+  ${H21_500}
 `
 export const NextYearButton = styled(RightArrow)`
   cursor: pointer;

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import { PinIcon } from 'assets/SvgComponents'
-import { FlexRow } from 'commonStyled'
+import { FlexRow, H14_500, H21_700, P10 } from 'commonStyled'
 export const Root = styled.div<{ $isSelected: boolean; $selectable: boolean }>`
   position: relative;
   height: 48px;
@@ -29,21 +29,19 @@ export const Container = styled(FlexRow)`
   max-width: 600px;
 `
 export const Title = styled.p`
+  ${H14_500}
   margin-right: 2px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
   color: ${(props) => props.theme.text.black2};
   overflow: hidden;
   text-overflow: ellipsis;
 `
 export const Date = styled.p`
+  ${P10}
   color: ${(props) => props.theme.text.gray1};
-  font-size: 10px;
-  font-weight: 400;
   width: 75px;
 `
 export const DDay = styled.p`
+  ${H21_700}
   position: absolute;
   &::before {
     content: 'D - ';
@@ -51,9 +49,6 @@ export const DDay = styled.p`
   top: 50%;
   transform: translateY(-50%);
   right: 16px;
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
   color: ${(props) => props.theme.text.black2};
 `
 export const StyledPinIcon = styled(PinIcon)`

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import resignImg from 'assets/images/resign.svg'
+import { H14_500, H16_500 } from 'commonStyled'
 export const Root = styled.div`
   position: fixed;
   top: 50%;
@@ -21,16 +22,12 @@ export const Root = styled.div`
 `
 
 export const Title = styled.p`
+  ${H16_500}
   margin-top: 40px;
   margin-bottom: 24px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
   color: ${(props) => props.theme.text.black2};
 `
 export const DescriptionTypo = styled.p`
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
+  ${H14_500}
   color: ${(props) => props.theme.warning};
 `

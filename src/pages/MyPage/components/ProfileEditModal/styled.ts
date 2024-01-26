@@ -1,3 +1,4 @@
+import { H14_500, H16_500 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -17,9 +18,7 @@ export const Root = styled.div`
 `
 export const Title = styled.div`
   margin-top: 40px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  ${H16_500}
   color: ${(props) => props.theme.text.black2};
 `
 export const Container = styled.div`
@@ -29,9 +28,7 @@ export const Container = styled.div`
 `
 export const NicknameTypo = styled.p`
   margin-right: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
+  ${H14_500}
   text-align: center;
   color: ${(props) => props.theme.text.gray1};
 `

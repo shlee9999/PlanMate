@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import ellipsisImg from 'assets/images/ellipsis.svg'
-import { FlexRow, PageRoot } from 'commonStyled'
+import { FlexRow, H16_500, H21_700, P12, P14, PageRoot } from 'commonStyled'
 import { motion } from 'framer-motion'
 import { InfoBox, NoContentDescription, Pagination } from 'components'
 import { DDayContainer } from '../components'
@@ -25,9 +25,7 @@ export const MainContainer = styled(FlexRow)`
   justify-content: space-between;
 `
 export const TitleWrapper = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  ${P12}
   margin-bottom: 24px;
 `
 export const UpperTypo = styled.p``
@@ -36,9 +34,7 @@ export const Nickname = styled.span`
   color: ${(props) => props.theme.primary.default};
 `
 export const Title = styled.p`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
 `
 
 export const LeftContainer = styled.div`
@@ -64,24 +60,18 @@ export const ProfileContainer = styled(InfoBox)`
   }
 `
 export const UserName = styled.span`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
 `
 export const Email = styled.div`
+  ${P14}
   margin-top: 4px;
   display: flex;
   align-items: center;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
 `
 
 export const AdminDDay = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  ${H16_500}
   margin-bottom: 8px;
 `
 
@@ -107,9 +97,7 @@ export const MyActivityList = styled.div`
   height: 100%;
 `
 export const MyActivity = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  ${H16_500}
   color: ${(props) => props.theme.text.black2};
 `
 
@@ -136,9 +124,8 @@ export const TabItem = styled.div<{ $isSelected: boolean }>`
   padding: 0 8px;
   display: inline-block;
   padding-bottom: 10px;
-  font-size: 14px;
-  font-weight: ${(props) => (props.$isSelected ? 500 : 400)};
-  line-height: 18px;
+  ${P14}
+  ${(props) => props.$isSelected && 'font-weight: 500'};
   cursor: pointer;
   color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
   position: relative;
@@ -182,9 +169,7 @@ const EllipsisButtonRoot = styled.button`
   text-align: left;
   box-sizing: border-box;
   padding-left: 6px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
+  ${P14}
   color: ${(props) => props.theme.text.gray2};
 `
 export const EllipsisEditButton = styled(EllipsisButtonRoot)``
