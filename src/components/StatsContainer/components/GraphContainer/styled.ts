@@ -6,7 +6,7 @@ import { StatsContainerType } from 'enums'
 
 export const Root = styled.div`
   //! Display on = "DESKTOP"으로 반응형 만들 시 그래프가 보이지 않는 문제
-  @media screen and (${(props) => props.theme.tablet}) {
+  @media screen and (${(props) => props.theme.mobile}) {
     display: none;
   }
   flex-grow: 1;
@@ -15,6 +15,16 @@ export const Root = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
+  margin-top: 20px;
+  &::before {
+    position: absolute;
+    top: 0;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: ${(props) => props.theme.background.gray1};
+    margin: 0 0 30px 0;
+  }
 `
 export const StatsGraphWrapper = styled.div<{ $type: StatsContainerType }>`
   bottom: ${(props) => (props.$type === StatsContainerType.timer ? '45px' : '-10px')};

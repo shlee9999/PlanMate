@@ -53,6 +53,7 @@ export const MainContainer = styled.div`
   justify-content: space-between;
   gap: 20px;
   min-height: fit-content;
+  flex-wrap: wrap;
 `
 
 export const LeftInfoBox = styled(InfoBox)`
@@ -62,11 +63,22 @@ export const LeftInfoBox = styled(InfoBox)`
   max-width: 420px;
   overflow: hidden;
   padding: 24px 25px;
-  height: 100%;
+  height: 450px;
+  @media screen and (${(props) => props.theme.tablet}) {
+    width: 100%;
+    max-width: none;
+  }
 `
 export const RightInfoBox = styled(InfoBox)`
+  flex-basis: 402px;
   min-width: 0;
   flex-grow: 1;
+
+  @media screen and (${(props) => props.theme.tablet}) {
+    width: 100%;
+    flex-grow: 1;
+    height: 550px;
+  }
   overflow: visible;
 `
 export const StatsCalendar = styled(Calendar)``

@@ -58,26 +58,26 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({
     })) || [].concat({ name: '', totalTime: 0.01, colorHex: 'transparent' })
   const CommonContent = (
     <>
-      <s.Wrapper>
+      <s.PieChartWrapper>
         <s.PiechartTitle>과목별 비율</s.PiechartTitle>
         <PieChart data={studyData.length ? studyData : dummyData} index={0} />
-      </s.Wrapper>
-      <s.Wrapper>
+      </s.PieChartWrapper>
+      <s.PieChartWrapper>
         <s.PiechartTitle>공부/휴식 비율</s.PiechartTitle>
         <PieChart data={restData} index={1} />
-      </s.Wrapper>
+      </s.PieChartWrapper>
     </>
   )
   return (
     <>
       <Display on="DESKTOP">
-        <s.StatsRoot>{CommonContent}</s.StatsRoot>
+        <s.StatsPieChartContainer>{CommonContent}</s.StatsPieChartContainer>
       </Display>
       <Display on="TABLET">
-        <s.TStatsRoot>{CommonContent}</s.TStatsRoot>
+        <s.TStatsPieChartContainer>{CommonContent}</s.TStatsPieChartContainer>
       </Display>
       <Display on="MOBILE">
-        <s.MStatsRoot>{CommonContent}</s.MStatsRoot>
+        <s.MStatsPieChartContainer>{CommonContent}</s.MStatsPieChartContainer>
       </Display>
     </>
   )

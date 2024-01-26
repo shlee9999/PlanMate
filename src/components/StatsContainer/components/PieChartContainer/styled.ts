@@ -1,29 +1,31 @@
 import { P12 } from 'commonStyled'
 import { styled } from 'styled-components'
 
-export const StatsRoot = styled.div`
+export const StatsPieChartContainer = styled.div`
   display: flex;
   height: fit-content;
   justify-content: end;
 `
-export const TStatsRoot = styled.div`
+export const TStatsPieChartContainer = styled.div`
+  //* PieChartWrapper Wrap
   display: flex;
-  height: fit-content;
-  flex-wrap: wrap;
-  justify-content: start;
+  flex-wrap: nowrap;
   row-gap: 10px;
-  margin-bottom: 10px;
 `
-export const MStatsRoot = styled.div`
+export const MStatsPieChartContainer = styled.div`
   display: flex;
   height: fit-content;
   flex-wrap: wrap;
   justify-content: start;
   row-gap: 20px;
 `
-export const Wrapper = styled.div`
+export const PieChartWrapper = styled.div`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  @media screen and (${(props) => props.theme.tablet}) {
+  }
 `
 export const PiechartTitle = styled.p`
   ${P12}

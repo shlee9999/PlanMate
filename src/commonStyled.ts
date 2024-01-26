@@ -11,6 +11,7 @@ import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 import { Spinner } from 'components'
+import { BLOCK_SELECT } from 'constants/blockSelect'
 
 export const PageRoot = styled.div`
   //* DEFAULT
@@ -19,9 +20,7 @@ export const PageRoot = styled.div`
   max-width: ${BODY_MAX_WIDTH}px;
   margin-top: ${HEADER_HEIGHT}px;
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  ${BLOCK_SELECT}
 
   @media screen and (${(props) => props.theme.desktop}) {
     //* DESKTOP

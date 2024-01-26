@@ -9,7 +9,6 @@ export const Root = styled.div`
   position: relative;
   height: 400px;
   min-width: 300px;
-  max-width: 420px;
   min-height: 250px;
 `
 export const Header = styled.div<{ $layout: 'space-between' | 'center' }>`

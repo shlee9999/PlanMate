@@ -17,12 +17,6 @@ export const CompareTimer = styled.div`
   margin-bottom: 16px;
 `
 
-export const ChartDividingLine = styled.hr`
-  width: 98%;
-  height: 2px;
-  background-color: ${(props) => props.theme.background.gray1};
-  margin: 20px 0;
-`
 export const Header = styled.p`
   ${P16}
   align-self: flex-start;
@@ -30,7 +24,7 @@ export const Header = styled.p`
 `
 
 export const StudyContainer = styled.div`
-  margin: 0 auto;
+  position: relative;
   margin-top: 10px;
   width: 100%;
   display: flex;
@@ -38,4 +32,18 @@ export const StudyContainer = styled.div`
   column-gap: 30px;
   row-gap: 20px;
   flex-wrap: wrap;
+  @media screen and (${(props) => props.theme.tablet}) {
+    //* Display로 설정 시 한 번 더 감싸져서 부모 height을 못받는 문제 발생
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 20px;
+  }
+  margin-bottom: 20px;
+`
+
+export const TStudyContainer = styled(StudyContainer)`
+  height: 100%;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
 `
