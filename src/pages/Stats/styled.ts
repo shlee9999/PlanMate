@@ -52,15 +52,17 @@ export const MainContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   gap: 20px;
+  min-height: fit-content;
 `
 
 export const LeftInfoBox = styled(InfoBox)`
   position: relative;
+  min-width: 0px;
   flex: 1 0 400px;
-  min-width: 300px;
   max-width: 420px;
   overflow: hidden;
   padding: 24px 25px;
+  height: 100%;
 `
 export const RightInfoBox = styled(InfoBox)`
   min-width: 0;

@@ -6,6 +6,7 @@ import { BumpGraph } from './BumphGraph'
 import { CompareTimer } from '../../styled'
 import { CompareTitle } from './styled'
 import { StatsContainerType } from 'enums'
+
 type GraphContainerProps = {
   type: StatsContainerType
 }

@@ -5,6 +5,7 @@ import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
 import * as s from './styled'
 import { StatsContainerType } from 'enums'
+import { Display } from 'components/Display/Display'
 
 export interface PieChartData {
   name: string
@@ -55,9 +56,8 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({
         }) || 0.01,
       colorHex: colorList[index],
     })) || [].concat({ name: '', totalTime: 0.01, colorHex: 'transparent' })
-
-  return (
-    <s.StatsRoot>
+  const CommonContent = (
+    <>
       <s.Wrapper>
         <s.PiechartTitle>과목별 비율</s.PiechartTitle>
         <PieChart data={studyData.length ? studyData : dummyData} index={0} />
@@ -66,6 +66,19 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({
         <s.PiechartTitle>공부/휴식 비율</s.PiechartTitle>
         <PieChart data={restData} index={1} />
       </s.Wrapper>
-    </s.StatsRoot>
+    </>
+  )
+  return (
+    <>
+      <Display on="DESKTOP">
+        <s.StatsRoot>{CommonContent}</s.StatsRoot>
+      </Display>
+      <Display on="TABLET">
+        <s.TStatsRoot>{CommonContent}</s.TStatsRoot>
+      </Display>
+      <Display on="MOBILE">
+        <s.MStatsRoot>{CommonContent}</s.MStatsRoot>
+      </Display>
+    </>
   )
 }

@@ -2,6 +2,7 @@ import { H12_500, P16 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const StatsRoot = styled.div`
+  position: relative;
   height: 100%;
   padding: 22px 24px 0 24px; /*BumpGraph 자체 바텀 마진이 있음 */
   display: flex;

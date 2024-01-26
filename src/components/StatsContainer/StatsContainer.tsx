@@ -5,6 +5,7 @@ import { ResponseStats } from 'api/types'
 import * as s from './styled'
 import { dateUtils } from 'utils'
 import { StatsContainerType } from 'enums'
+import { Display } from 'components/Display/Display'
 
 interface InfoContainerProps {
   selectedDate?: DateProps
@@ -53,7 +54,9 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dat
         {year}년 {month + 1}월 {date}일
       </s.Header>
       <s.StudyContainer>{CommonContent}</s.StudyContainer>
-      <s.ChartDividingLine />
+      <Display on="DESKTOP">
+        <s.ChartDividingLine />
+      </Display>
       <GraphContainer type={type} />
       <ShareContainer />
     </s.StatsRoot>

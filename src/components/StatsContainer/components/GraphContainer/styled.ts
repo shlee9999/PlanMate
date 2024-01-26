@@ -1,11 +1,14 @@
-import { FlexRow, P10, P12, P14 } from 'commonStyled'
+import { FlexRow, P12, P14 } from 'commonStyled'
 import styled from 'styled-components'
-import { BumpGraph } from './BumphGraph'
 import { StatsContainerType } from 'enums'
 
 //LegendWrapper 이미지 적용 후, 사이즈 조정 필요
 
 export const Root = styled.div`
+  //! Display on = "DESKTOP"으로 반응형 만들 시 그래프가 보이지 않는 문제
+  @media screen and (${(props) => props.theme.tablet}) {
+    display: none;
+  }
   flex-grow: 1;
   width: 100%;
   position: relative;
@@ -15,7 +18,7 @@ export const Root = styled.div`
 `
 export const StatsGraphWrapper = styled.div<{ $type: StatsContainerType }>`
   bottom: ${(props) => (props.$type === StatsContainerType.timer ? '45px' : '-10px')};
-  height: 100%;
+  min-height: 180px;
   margin-left: 20px; //todo 그래프 하단에 배치중
   width: calc(100% - 30px);
 `
@@ -54,9 +57,4 @@ export const IconTodayDot = styled.img`
 
 export const IconYesterdayDot = styled.img`
   width: 9px;
-`
-
-export const StyledBumpGraph = styled(BumpGraph)`
-  background-color: tomato;
-  height: 300px;
 `
