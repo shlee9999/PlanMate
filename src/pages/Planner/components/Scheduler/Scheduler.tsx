@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { dateUtils, timeUtils } from 'utils'
@@ -14,7 +14,7 @@ import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 import { Appointment, SelectModal } from '..'
 import { useRemoveAppointMutation } from '../../hooks/mutations'
 import * as s from './styled'
-//직접 scheduler week view 구현
+
 type SchedulerProps = {
   className?: string
   startHour?: number
@@ -22,7 +22,7 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const { data, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner(), {
+  const { data: plannerData, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner(), {
     initialData: [],
     keepPreviousData: true,
   })
@@ -36,7 +36,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
   const mutateRemoveAppoint = useRemoveAppointMutation()
-  dispatch(initializeAppoint(data))
+
   const onClickClose = (id: number) => (e: React.MouseEvent) => {
     e.stopPropagation()
     dispatch(removeAppoint(id))
@@ -112,7 +112,9 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   }
 
   const onMouseDown = (date, hour) => () => setSelectedCells([dateUtils.getYYYYMMDD(date) + 'T' + hour])
-
+  useEffect(() => {
+    dispatch(initializeAppoint(plannerData))
+  }, [plannerData])
   return (
     <s.Root className={className}>
       <s.ButtonWrapper>
@@ -120,7 +122,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         {currentDate.getMonth() + 1}월
         <s.NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
       </s.ButtonWrapper>
-      <SelectModal closeModal={closeModal} title={modalTitle} isOpen={isModalOpen} onExitComplete={onExitComplete} />
       <s.Table>
         <tbody>
           <s.DataCellRow>
@@ -178,6 +179,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
           ))}
         </tbody>
       </s.Table>
+      <SelectModal closeModal={closeModal} title={modalTitle} isOpen={isModalOpen} onExitComplete={onExitComplete} />
     </s.Root>
   )
 }
