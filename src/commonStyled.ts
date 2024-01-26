@@ -11,6 +11,7 @@ import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 import { Spinner } from 'components'
+import { StyledLogo } from 'components/Header/styled'
 
 export const PageRoot = styled.div`
   //* DEFAULT
@@ -141,4 +142,93 @@ export const FlexRow = styled.div<{ $gap?: number }>`
   display: flex;
   align-items: center;
   gap: ${(props) => props.$gap || 5}px;
+`
+
+//* 폰트 사이즈 설정 - font-size, font-weight 순서로 정렬.
+//* Heading은 font-size 500 이상
+/** 46px 700*/
+export const H0 = styled.h1`
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 58px;
+`
+/** 36px 700*/
+export const H1 = styled.h1`
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 45px;
+`
+/** 36px 500*/
+export const H2 = styled.h2`
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 45px;
+`
+/** 21px 700*/
+export const H3 = styled.h3`
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 26px;
+`
+/** 21px 500*/
+export const H4 = styled.h3`
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 26px;
+`
+/** 16px 700*/
+export const H5 = styled.h4`
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+`
+/** 16px 500*/
+export const H6 = styled.h4`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+`
+/** 14px 700*/
+export const H7 = styled.h5`
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+`
+/** 14px 500*/
+export const H8 = styled.h6`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+`
+/**12px 500 */
+export const H9 = styled.h6`
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+`
+
+//* Paragraph는 font-weight 400 이하
+/** 14px*/
+export const P2 = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+`
+/** 12px*/
+export const P3 = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+`
+/** 10px*/
+export const P4 = styled.p`
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 13px;
+`
+/** 8px*/
+export const P5 = styled.p`
+  font-size: 8px;
+  font-weight: 400;
+  line-height: 10px;
 `
