@@ -43,13 +43,7 @@ const data: Data[] = [
 export const BumpGraph = () => {
   return (
     <ResponsiveContainer>
-      <ComposedChart
-        data={data}
-        margin={{
-          right: 20,
-          left: 80,
-        }}
-      >
+      <ComposedChart data={data}>
         <defs>
           <linearGradient id="colorUv" x1="0.5" y1="1" x2="0.5" y2="0">
             <stop offset="5%" stopColor="#E6F3EB" stopOpacity={0.5} />

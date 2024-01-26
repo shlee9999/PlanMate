@@ -3,7 +3,9 @@ import styled from 'styled-components'
 
 export const StatsRoot = styled.div`
   height: 100%;
-  padding: 22px 24px;
+  padding: 22px 24px 0 24px; /*BumpGraph 자체 바텀 마진이 있음 */
+  display: flex;
+  flex-direction: column;
 `
 export const TimerRoot = styled.div`
   padding: 8px 15px;
@@ -11,6 +13,7 @@ export const TimerRoot = styled.div`
 export const CompareTimer = styled.div`
   ${H12_500}
   color: ${(props) => props.theme.text.black2};
+  margin-bottom: 16px;
 `
 
 export const ChartDividingLine = styled.hr`

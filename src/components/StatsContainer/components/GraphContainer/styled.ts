@@ -1,4 +1,4 @@
-import { FlexRow, P10, P12 } from 'commonStyled'
+import { FlexRow, P10, P12, P14 } from 'commonStyled'
 import styled from 'styled-components'
 import { BumpGraph } from './BumphGraph'
 import { StatsContainerType } from 'enums'
@@ -6,37 +6,41 @@ import { StatsContainerType } from 'enums'
 //LegendWrapper 이미지 적용 후, 사이즈 조정 필요
 
 export const Root = styled.div`
+  flex-grow: 1;
   width: 100%;
   position: relative;
-  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 `
-export const GraphWrapper = styled.div<{ $type: StatsContainerType }>`
-  position: relative;
+export const StatsGraphWrapper = styled.div<{ $type: StatsContainerType }>`
   bottom: ${(props) => (props.$type === StatsContainerType.timer ? '45px' : '-10px')};
-  width: 105%;
-  height: ${(props) => (props.$type === StatsContainerType.timer ? '80px' : '110px')};
-  right: 50px;
+  height: 100%;
+  margin-left: 20px; //todo 그래프 하단에 배치중
+  width: calc(100% - 30px);
 `
 
-export const CompareTitle = styled.div<{ $type: StatsContainerType }>`
-  ${P12}
+export const CompareTitle = styled.div`
+  ${P14}
   position: relative;
-  bottom: ${(props) => (props.$type === StatsContainerType.timer ? '15px' : '0px')};
-  text-align: center;
   color: ${(props) => props.theme.text.gray1};
+  margin-bottom: 4px;
 `
 
+export const TypoContainer = styled.div`
+  position: absolute;
+  top: 33px;
+  left: 0;
+`
 export const LegendContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 60px;
   height: 30px;
-  /* border: 1px solid black; */
 `
 
 export const LegendTitle = styled.p`
-  ${P10}
+  ${P12}
   color: ${(props) => props.theme.text.gray1};
 `
 
@@ -44,12 +48,12 @@ export const Container = styled(FlexRow)`
   gap: 4px;
 `
 
-export const IconTodayDot = styled.img``
+export const IconTodayDot = styled.img`
+  width: 35px;
+`
 
 export const IconYesterdayDot = styled.img`
-  margin: 4px 20px 0px 0px;
   width: 9px;
-  height: 9px;
 `
 
 export const StyledBumpGraph = styled(BumpGraph)`

@@ -12,21 +12,23 @@ type GraphContainerProps = {
 export const GraphContainer = ({ type }: GraphContainerProps) => {
   return (
     <s.Root>
-      <CompareTitle $type={type}>오후 7시까지의 비교</CompareTitle>
-      <CompareTimer>+ 00:30:13</CompareTimer>
-      <s.LegendContainer>
-        <s.Container>
-          <s.LegendTitle>오늘 </s.LegendTitle>
-          <s.IconTodayDot alt="today_dot" src={todayDotImg} />
-        </s.Container>
-        <s.Container>
-          <s.LegendTitle>어제</s.LegendTitle>
-          <s.IconYesterdayDot alt="yesterday_dot" src={yesterdayDotImg} />
-        </s.Container>
-      </s.LegendContainer>
-      <s.GraphWrapper $type={type}>
+      <s.TypoContainer>
+        <CompareTitle>오후 7시까지의 비교</CompareTitle>
+        <CompareTimer>+ 00:30:13</CompareTimer>
+        <s.LegendContainer>
+          <s.Container>
+            <s.LegendTitle>오늘 </s.LegendTitle>
+            <s.IconTodayDot alt="today_dot" src={todayDotImg} />
+          </s.Container>
+          <s.Container>
+            <s.LegendTitle>어제</s.LegendTitle>
+            <s.IconYesterdayDot alt="yesterday_dot" src={yesterdayDotImg} />
+          </s.Container>
+        </s.LegendContainer>
+      </s.TypoContainer>
+      <s.StatsGraphWrapper $type={type}>
         <BumpGraph />
-      </s.GraphWrapper>
+      </s.StatsGraphWrapper>
     </s.Root>
   )
 }
