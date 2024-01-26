@@ -169,6 +169,11 @@ export const H32_700 = css`
   font-weight: 700;
   line-height: 40px;
 `
+export const H24_700 = css`
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+`
 
 /** 21px 700*/
 export const H21_700 = css`

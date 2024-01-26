@@ -1,4 +1,4 @@
-import { PageRoot } from 'commonStyled'
+import { H14_500, H24_700, P14, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled(PageRoot)``
@@ -24,23 +24,17 @@ export const UpperContainer = styled.div`
 `
 
 export const UpperDescriptionTypo = styled.p`
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 30px;
+  ${H24_700}
   margin-bottom: 8px;
   white-space: nowrap;
 `
 export const LowerDescriptionTypo = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
+  ${P14}
   margin-bottom: 40px;
   color: #666666;
 `
 export const LoginTypo = styled.p`
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
+  ${H14_500}
   margin-bottom: 15px;
   color: #222222;
 `
@@ -67,8 +61,7 @@ export const GoogleButton = styled.button`
 export const GoogleButtonTypo = styled.span`
   display: inline-block;
   vertical-align: middle;
-  font-size: 14px;
-  font-weight: bold;
+  ${H14_500}
   /* Use the Roboto font that is loaded in the <head> */
   font-family: 'Roboto', sans-serif !important;
   color: black;
@@ -87,9 +80,7 @@ export const Footer = styled.div`
 `
 
 export const FooterItem = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
+  ${P14}
   white-space: nowrap;
   &:hover {
     text-decoration: underline;
