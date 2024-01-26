@@ -59,6 +59,7 @@ export const EventNameInput = styled.input`
 `
 export const EventDateRow = styled(FlexRow)`
   margin-bottom: 15px;
+  gap: 16px;
 `
 export const EventDateHeader = styled.p`
   color: ${(props) => props.theme.text.gray1};

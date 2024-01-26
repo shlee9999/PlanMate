@@ -137,10 +137,10 @@ export const CenterSpinner = styled(Spinner)`
   margin: 0 auto;
 `
 
-export const FlexRow = styled.div<{ $gap?: number }>`
+export const FlexRow = styled.div`
   display: flex;
   align-items: center;
-  gap: ${(props) => props.$gap || 5}px;
+  gap: 5px;
 `
 
 //* 폰트 사이즈 설정 - font-size, font-weight 순서로 정렬.

@@ -81,7 +81,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                   onClick={(e) => e.stopPropagation()}
                 />
               </s.EventNameRow>
-              <s.EventDateRow $gap={16}>
+              <s.EventDateRow>
                 <s.EventDateHeader>날짜</s.EventDateHeader>
                 <s.EventDate>
                   {selectedDate.year +
