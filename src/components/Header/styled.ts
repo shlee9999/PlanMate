@@ -2,10 +2,10 @@ import { HEADER_HEIGHT, HEADER_MAX_WIDTH, HEADER_MIN_WIDTH } from 'constants/lay
 import styled from 'styled-components'
 import { Variants, motion } from 'framer-motion'
 import { Logo } from 'assets/Logo'
+import { BLOCK_SELECT } from 'constants/blockSelect'
+import { H14_500, P14 } from 'commonStyled'
 export const Root = styled.nav`
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  ${BLOCK_SELECT}
   position: fixed;
   left: 50%;
   top: 0;
@@ -32,12 +32,10 @@ export const NavItemContainer = styled.div`
 `
 
 export const RightContainer = styled.div`
+  ${H14_500}
   display: flex;
   column-gap: 18px;
   align-items: center;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17.5px;
 `
 export const GreetTypo = styled.p`
   cursor: pointer;
@@ -66,10 +64,8 @@ type PageItemProps = {
 }
 
 export const NavItem = styled(motion.li)<PageItemProps>`
+  ${P14}
   position: relative;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
   letter-spacing: 0;
   color: ${(props) => (props.$isSelected ? props.theme.primary.default : '')};
   transition: color 0.2s;

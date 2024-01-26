@@ -1,4 +1,4 @@
-import { FlexRow } from 'commonStyled'
+import { FlexRow, P10, P12 } from 'commonStyled'
 import styled from 'styled-components'
 import { BumpGraph } from './BumphGraph'
 
@@ -19,11 +19,9 @@ export const GraphWrapper = styled.div<{ $type: 'timer' | 'stats' }>`
 `
 
 export const CompareTitle = styled.div<{ $type: 'timer' | 'stats' }>`
+  ${P12}
   position: relative;
   bottom: ${(props) => (props.$type === 'timer' ? '15px' : '0px')};
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
   text-align: center;
   color: ${(props) => props.theme.text.gray1};
 `
@@ -38,9 +36,7 @@ export const LegendContainer = styled.div`
 `
 
 export const LegendTitle = styled.p`
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 13px;
+  ${P10}
   color: ${(props) => props.theme.text.gray1};
 `
 

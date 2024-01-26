@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import ellipsisButton from 'assets/images/ellipsis.svg'
 import { ActionButton } from 'components/ActionButton/ActionButton'
-import { hideScrollbar } from 'constants/hideScrollbar'
+import { HIDE_SCROLLBAR } from 'constants/hideScrollbar'
 import { H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
 
 export const EllipsisButton = styled.img`
@@ -46,7 +46,7 @@ export const Date = styled.p`
   margin-bottom: 1px;
 `
 export const Comment = styled.p`
-  ${hideScrollbar}
+  ${HIDE_SCROLLBAR}
   ${P14}
   width: 100%;
   color: ${(props) => props.theme.text.black1};

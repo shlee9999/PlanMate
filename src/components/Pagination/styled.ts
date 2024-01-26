@@ -1,5 +1,5 @@
 import { RightArrow } from 'assets/SvgComponents'
-import { LeftArrow } from 'commonStyled'
+import { H12_500, LeftArrow } from 'commonStyled'
 import styled from 'styled-components'
 export const Root = styled.div`
   margin: 0 auto;
@@ -12,10 +12,8 @@ export const Root = styled.div`
 `
 
 export const PageNumberTypo = styled.p<{ $isCurrent: boolean }>`
+  ${H12_500}
   cursor: ${(props) => (props.$isCurrent ? 'text' : 'pointer')};
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
   text-align: center;
   color: ${(props) => (props.$isCurrent ? props.theme.text.black2 : props.theme.text.gray1)};
 `

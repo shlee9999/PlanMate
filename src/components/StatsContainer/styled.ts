@@ -1,3 +1,4 @@
+import { H12_500, P16 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -7,9 +8,7 @@ export const Root = styled.div`
 `
 
 export const CompareTimer = styled.div`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
+  ${H12_500}
   color: ${(props) => props.theme.text.black2};
 `
 
@@ -20,9 +19,8 @@ export const ChartDividingLine = styled.hr`
   margin: 20px 0;
 `
 export const Header = styled.p`
+  ${P16}
   align-self: flex-start;
-  font-size: 16px;
-  font-weight: 700;
   padding-bottom: 10px;
 `
 

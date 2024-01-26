@@ -1,3 +1,4 @@
+import { P12 } from 'commonStyled'
 import { styled } from 'styled-components'
 
 export const Root = styled.div`
@@ -8,9 +9,7 @@ export const Wrapper = styled.div`
   flex-grow: 1;
 `
 export const PiechartTitle = styled.p`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  ${P12}
   color: ${(props) => props.theme.text.gray1};
   margin-bottom: 15px;
 `

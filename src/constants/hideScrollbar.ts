@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-export const hideScrollbar = css`
+export const HIDE_SCROLLBAR = css`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;

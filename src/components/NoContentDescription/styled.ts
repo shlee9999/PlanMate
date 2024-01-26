@@ -1,3 +1,4 @@
+import { H16_700 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -8,10 +9,8 @@ export const Root = styled.div`
 `
 
 export const DescriptionTypoContainer = styled.div`
+  ${H16_700}
   margin-top: 8px;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
   color: ${(props) => props.theme.text.gray3};
   text-align: center;
 `

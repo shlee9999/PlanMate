@@ -1,3 +1,4 @@
+import { H12_500 } from 'commonStyled'
 import { FOOTER_HEIGHT, FOOTER_MAX_WIDTH, FOOTER_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 
@@ -26,8 +27,7 @@ export const RightContainer = styled.div`
   column-gap: 16px;
 `
 export const NavigateTypo = styled.p`
-  font-size: 12px;
-  font-weight: 500;
+  ${H12_500}
   line-height: 15px;
   color: ${(props) => props.theme.text.gray2};
   &:hover {

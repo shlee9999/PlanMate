@@ -1,4 +1,4 @@
-import { FlexRow } from 'commonStyled'
+import { FlexRow, H16_500, P12 } from 'commonStyled'
 import { Variants, motion } from 'framer-motion'
 import styled from 'styled-components'
 
@@ -17,13 +17,11 @@ export const Header = styled(FlexRow)`
   left: 0;
 `
 export const BoxTitle = styled.p`
-  font-size: 16px;
-  font-weight: 500;
+  ${H16_500}
   color: ${(props) => props.theme.text.black2};
 `
 export const BoxDescription = styled.p`
-  font-size: 12px;
-  font-weight: 400;
+  ${P12}
   color: ${(props) => props.theme.text.gray1};
 `
 
