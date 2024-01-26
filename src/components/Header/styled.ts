@@ -37,7 +37,7 @@ export const RightContainer = styled.div`
   column-gap: 18px;
   align-items: center;
 `
-export const GreetTypo = styled.p`
+export const GreetTypoContainer = styled.div`
   cursor: pointer;
 `
 export const Username = styled.span`

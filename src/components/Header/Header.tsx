@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import {
   ContentWrapper,
   Username,
-  GreetTypo,
+  GreetTypoContainer,
   NavItemContainer,
   Notice,
   RightContainer,
@@ -137,14 +137,14 @@ export const Header: FC = () => {
         </NavItemContainer>
         <RightContainer>
           {userAuthInfo.name && (
-            <GreetTypo>
+            <GreetTypoContainer>
               안녕하세요,{' '}
               <Username onClick={onClickNickname}>
                 {userAuthInfo.name}
                 {currentPath.includes('/mypage') && <YellowCircle layoutId="yellow_circle" />}
               </Username>
               님!
-            </GreetTypo>
+            </GreetTypoContainer>
           )}
           {userAuthInfo.name && <LogoutTypo onClick={onClickLogout}>로그아웃</LogoutTypo>}
           {userAuthInfo.name && <Notice onClick={onClickNotice}>공지사항</Notice>}
