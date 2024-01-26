@@ -1,4 +1,4 @@
-import { PageRoot } from 'commonStyled'
+import { H12_500, H21_700, P12, PageRoot } from 'commonStyled'
 import { Calendar } from 'components'
 import { InfoBox } from 'components'
 import styled from 'styled-components'
@@ -17,24 +17,18 @@ export const HeaderContainer = styled.div`
 export const HeaderContentWrapper = styled.div``
 
 export const UserName = styled.span`
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
+  ${H12_500}
   color: #01cb45;
 `
 
 export const PageDescription = styled.span`
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+  ${P12}
   letter-spacing: 0em;
   color: #444444;
 `
 
 export const PageName = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
 `
 
 export const HeaderDividingLine = styled.hr`
@@ -48,9 +42,7 @@ export const Container = styled.div`
   width: 100%;
 `
 export const Title = styled.div`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
   margin-bottom: 20px;
 `
 
