@@ -1,5 +1,5 @@
 import { NoConnectionIcon } from 'assets/SvgComponents'
-import { PageRoot } from 'commonStyled'
+import { H16_500, H21_700, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled(PageRoot)`
@@ -15,15 +15,11 @@ export const ErrorImg = styled(NoConnectionIcon)`
   height: 80px;
 `
 export const UpperTypo = styled.p`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
   color: ${(props) => props.theme.text.black2};
 `
 export const LowerTypo = styled.p`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  ${H16_500}
   color: ${(props) => props.theme.text.gray3};
 `
 export const RetryButton = styled.button`
