@@ -3,11 +3,12 @@ import { StudyTime } from './StudyTime'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
 import * as s from './styled'
+import { StatsContainerType } from 'enums'
 
 //총 공부시간, 최대 집중 시간
 
 type StudyTimeContainerProps = {
-  type?: 'timer'
+  type: StatsContainerType
   totalFocusTime?: TimeProps
   maxFocusTime?: TimeProps
   startAt: TimeProps

@@ -4,6 +4,7 @@ import { StudyTimeEntry } from 'api/types'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
 import * as s from './styled'
+import { StatsContainerType } from 'enums'
 
 export interface PieChartData {
   name: string
@@ -16,6 +17,7 @@ type PieChartContainerProps = {
   studyTimeList: StudyTimeEntry[]
   restTime: TimeProps
   totalStudyTime: TimeProps
+  type: StatsContainerType
 }
 const dummyData = [
   {
@@ -24,7 +26,12 @@ const dummyData = [
     colorHex: '#D9D9D9',
   },
 ]
-export const PieChartContainer: React.FC<PieChartContainerProps> = ({ studyTimeList, restTime, totalStudyTime }) => {
+export const PieChartContainer: React.FC<PieChartContainerProps> = ({
+  studyTimeList,
+  restTime,
+  totalStudyTime,
+  type,
+}) => {
   const restData: PieChartData[] = [
     {
       name: '공부',

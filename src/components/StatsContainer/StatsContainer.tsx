@@ -1,17 +1,23 @@
 import React from 'react'
-import * as s from './styled'
 import { GraphContainer, PieChartContainer, ShareContainer, TimerContainer } from './components'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
 import { TimeProps } from 'types'
+import * as s from './styled'
+import { dateUtils } from 'utils'
+import { StatsContainerType } from 'enums'
 
 interface InfoContainerProps {
-  selectedDate: DateProps
+  selectedDate?: DateProps
   dataSource: ResponseStats
+  type: StatsContainerType
 }
 
-export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource }) => {
-  const { year, month, date } = selectedDate
+export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource, type }) => {
+  const isStats = type === StatsContainerType.stats
+  if (isStats && !selectedDate) return null //* stats의 경우에는 selectedDate가 필수
+  const todayDateProps = dateUtils.getDateProps(new Date())
+  const { year, month, date } = selectedDate || todayDateProps
   const {
     endAtHours,
     endAtMinutes,
@@ -51,19 +57,31 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dat
     hour: endAtHours,
     minute: endAtMinutes,
   }
-
   return (
     <s.Root>
-      <s.Header>
-        {year}년 {month + 1}월 {date}일
-      </s.Header>
+      {isStats && (
+        <s.Header>
+          {year}년 {month + 1}월 {date}일
+        </s.Header>
+      )}
       <s.StudyContainer>
-        <TimerContainer totalFocusTime={totalStudyTime} maxFocusTime={maxFocusTime} startAt={startAt} endAt={endAt} />
-        <PieChartContainer studyTimeList={studyTimeList} restTime={restTime} totalStudyTime={totalStudyTime} />
+        <TimerContainer
+          totalFocusTime={totalStudyTime}
+          maxFocusTime={maxFocusTime}
+          startAt={startAt}
+          endAt={endAt}
+          type={type}
+        />
+        <PieChartContainer
+          studyTimeList={studyTimeList}
+          restTime={restTime}
+          totalStudyTime={totalStudyTime}
+          type={type}
+        />
       </s.StudyContainer>
-      <s.ChartDividingLine />
-      <GraphContainer />
-      <ShareContainer />
+      {isStats && <s.ChartDividingLine />}
+      <GraphContainer type={type} />
+      {isStats && <ShareContainer />}
     </s.Root>
   )
 }

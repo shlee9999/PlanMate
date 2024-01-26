@@ -13,13 +13,13 @@ import { useQuery } from 'react-query'
 import { ResponseStats } from 'api/types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
-import { NoContentDescription } from 'components'
-import { TimerContainer, PieChartContainer, GraphContainer } from 'pages/Stats/components/'
+import { NoContentDescription, StatsContainer } from 'components'
 import { StudyContainer } from 'components/StatsContainer/styled'
 import { ActionModal, TimerWidget, TodoItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
 import * as s from './styled'
+import { StatsContainerType } from 'enums'
 
 export const TimerPage: FC = () => {
   const now = dateUtils.getDateProps(new Date())
@@ -135,17 +135,7 @@ export const TimerPage: FC = () => {
               {isStatsLoading ? (
                 <CenterSpinner>Loading...</CenterSpinner>
               ) : (
-                <>
-                  <StudyContainer>
-                    <TimerContainer startAt={startAt} endAt={endAt} type="timer" />
-                    <PieChartContainer
-                      studyTimeList={studyTimeList}
-                      restTime={restTime}
-                      totalStudyTime={totalStudyTime}
-                    />
-                  </StudyContainer>
-                  <GraphContainer type="timer" />
-                </>
+                <StatsContainer type={StatsContainerType.timer} dataSource={statsData} />
               )}
             </s.StatsContainer>
           </s.RightContainer>

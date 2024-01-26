@@ -4,11 +4,12 @@ import { useQuery } from 'react-query'
 import { ResponseStats } from 'api//types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
-import { InfoContainer } from './components'
 import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
 import { DateProps } from 'types'
 import { defaultStats } from 'constants/defaultStats'
 import * as s from './styled'
+import { StatsContainer } from 'components'
+import { StatsContainerType } from 'enums'
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DateProps>(() => {
@@ -58,7 +59,11 @@ export const StatsPage = () => {
             {isLoading ? (
               <CenterSpinner>Loading...</CenterSpinner>
             ) : (
-              <InfoContainer selectedDate={selectedDate} dataSource={selectedDateData} />
+              <StatsContainer
+                selectedDate={selectedDate}
+                dataSource={selectedDateData}
+                type={StatsContainerType.stats}
+              />
             )}
           </s.RightInfoBox>
         </s.MainContainer>

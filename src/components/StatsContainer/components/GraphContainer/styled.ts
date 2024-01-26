@@ -1,6 +1,7 @@
 import { FlexRow, P10, P12 } from 'commonStyled'
 import styled from 'styled-components'
 import { BumpGraph } from './BumphGraph'
+import { StatsContainerType } from 'enums'
 
 //LegendWrapper 이미지 적용 후, 사이즈 조정 필요
 
@@ -10,18 +11,18 @@ export const Root = styled.div`
   position: relative;
   padding-top: 10px;
 `
-export const GraphWrapper = styled.div<{ $type: 'timer' | 'stats' }>`
+export const GraphWrapper = styled.div<{ $type: StatsContainerType }>`
   position: relative;
-  bottom: ${(props) => (props.$type === 'timer' ? '45px' : '-10px')};
+  bottom: ${(props) => (props.$type === StatsContainerType.timer ? '45px' : '-10px')};
   width: 105%;
-  height: ${(props) => (props.$type === 'timer' ? '80px' : '110px')};
+  height: ${(props) => (props.$type === StatsContainerType.timer ? '80px' : '110px')};
   right: 50px;
 `
 
-export const CompareTitle = styled.div<{ $type: 'timer' | 'stats' }>`
+export const CompareTitle = styled.div<{ $type: StatsContainerType }>`
   ${P12}
   position: relative;
-  bottom: ${(props) => (props.$type === 'timer' ? '15px' : '0px')};
+  bottom: ${(props) => (props.$type === StatsContainerType.timer ? '15px' : '0px')};
   text-align: center;
   color: ${(props) => props.theme.text.gray1};
 `

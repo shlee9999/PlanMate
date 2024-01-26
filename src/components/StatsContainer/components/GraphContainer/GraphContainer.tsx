@@ -5,10 +5,11 @@ import yesterdayDotImg from 'assets/images/yesterday_dot.png'
 import { BumpGraph } from './BumphGraph'
 import { CompareTimer } from '../../styled'
 import { CompareTitle } from './styled'
+import { StatsContainerType } from 'enums'
 type GraphContainerProps = {
-  type?: 'timer' | 'stats'
+  type: StatsContainerType
 }
-export const GraphContainer = ({ type = 'stats' }: GraphContainerProps) => {
+export const GraphContainer = ({ type }: GraphContainerProps) => {
   return (
     <s.Root>
       <CompareTitle $type={type}>오후 7시까지의 비교</CompareTitle>

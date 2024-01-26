@@ -1,8 +1,9 @@
 import { H21_500, P12 } from 'commonStyled'
+import { StatsContainerType } from 'enums'
 import styled from 'styled-components'
 
 type RootProps = {
-  $type?: 'timer'
+  $type: StatsContainerType
 }
 export const Root = styled.div<RootProps>`
   display: grid;
