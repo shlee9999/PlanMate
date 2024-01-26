@@ -57,7 +57,7 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({
     })) || [].concat({ name: '', totalTime: 0.01, colorHex: 'transparent' })
 
   return (
-    <s.Root>
+    <s.StatsRoot>
       <s.Wrapper>
         <s.PiechartTitle>과목별 비율</s.PiechartTitle>
         <PieChart data={studyData.length ? studyData : dummyData} index={0} />
@@ -66,6 +66,6 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({
         <s.PiechartTitle>공부/휴식 비율</s.PiechartTitle>
         <PieChart data={restData} index={1} />
       </s.Wrapper>
-    </s.Root>
+    </s.StatsRoot>
   )
 }

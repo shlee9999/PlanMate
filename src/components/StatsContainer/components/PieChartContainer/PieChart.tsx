@@ -44,33 +44,36 @@ const renderCustomizedLabel = ({
   )
 }
 
-const renderColorfulLegendText = (value: string, entry: any) => {
-  return (
-    <span style={{ color: '#666666', fontWeight: 400, fontSize: '10px' }}>
+export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
+  const renderColorfulLegendText = (value: string, entry: any) => (
+    <span
+      style={{
+        color: '#666666',
+        fontWeight: 400,
+        fontSize: '10px',
+        paddingRight: index === 1 && 18,
+      }}
+    >
       {value.length > 4 ? value.substring(0, 4) : value}
     </span>
   )
-}
-
-export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
   return (
-    <MyPieChart width={200} height={200} margin={{ top: 0, left: index === 0 ? 30 : 50 }}>
+    <MyPieChart width={200} height={100}>
       <Legend
         iconType="circle"
-        layout="vertical"
+        layout="radial"
         align="right"
-        verticalAlign="top"
+        verticalAlign="middle"
         iconSize={8}
         formatter={renderColorfulLegendText}
       />
       <Pie
         data={data}
-        cx={50}
-        cy={50}
+        cx={70}
+        cy={45}
         innerRadius={25}
         outerRadius={50}
         fill="#8884d8"
-        paddingAngle={0}
         dataKey="totalTime"
         label={renderCustomizedLabel}
         labelLine={false}

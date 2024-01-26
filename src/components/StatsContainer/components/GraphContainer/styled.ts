@@ -7,7 +7,6 @@ import { StatsContainerType } from 'enums'
 
 export const Root = styled.div`
   width: 100%;
-  height: 90px;
   position: relative;
   padding-top: 10px;
 `

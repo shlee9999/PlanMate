@@ -1,12 +1,15 @@
 import { P12 } from 'commonStyled'
 import { styled } from 'styled-components'
 
-export const Root = styled.div`
+export const StatsRoot = styled.div`
   display: flex;
+  height: fit-content;
   justify-content: end;
+  row-gap: 20px;
 `
 export const Wrapper = styled.div`
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 `
 export const PiechartTitle = styled.p`
   ${P12}

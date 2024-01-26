@@ -4,7 +4,6 @@ import styled from 'styled-components'
 export const StatsRoot = styled.div`
   height: 100%;
   padding: 22px 24px;
-  overflow: visible;
 `
 export const TimerRoot = styled.div`
   padding: 8px 15px;
@@ -29,8 +28,10 @@ export const Header = styled.p`
 export const StudyContainer = styled.div`
   margin: 0 auto;
   margin-top: 10px;
-  height: 150px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  column-gap: 30px;
+  row-gap: 20px;
+  flex-wrap: wrap;
 `
