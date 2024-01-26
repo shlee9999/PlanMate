@@ -69,8 +69,6 @@ export const YellowTypo = styled.span`
 
 export const StatsContainer = styled(InfoBox)`
   height: 270px;
-  border-radius: 10px;
-  padding: 10px 15px 0px 15px;
 `
 
 export const TodoContainer = styled.div`

@@ -1,12 +1,14 @@
 import { H12_500, P16 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const StatsRoot = styled.div`
   height: 100%;
   padding: 22px 24px;
   overflow: visible;
 `
-
+export const TimerRoot = styled.div`
+  padding: 8px 15px;
+`
 export const CompareTimer = styled.div`
   ${H12_500}
   color: ${(props) => props.theme.text.black2};
