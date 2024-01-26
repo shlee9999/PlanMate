@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Ellipsis, TimerPause, TimerStart } from 'assets/SvgComponents'
+import { H36_500, H36_700 } from 'commonStyled'
 
 export const Root = styled.div`
   display: flex;
@@ -40,17 +41,15 @@ export const PauseButton = styled(TimerPause)`
 `
 
 export const SubjectTitle = styled.p`
+  ${H36_700}
   max-width: 380px; //* 10글자 들어감
-  font-size: 36px;
-  font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `
 
 export const Time = styled.p`
-  font-size: 36px;
-  font-weight: 500;
+  ${H36_500}
 `
 
 export const RunningTime = styled(Time)`

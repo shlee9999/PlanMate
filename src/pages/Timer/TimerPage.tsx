@@ -125,7 +125,8 @@ export const TimerPage: FC = () => {
               <s.Description>오늘의 공부량이에요!</s.Description>
               <TimerWidget totalTime={totalTime} />
               <s.BreakTime>
-                오늘은 휴식 시간을 <s.YellowTypo>{timeUtils.getFormattedTimeKorean(breakTime)}</s.YellowTypo> 가졌네요!
+                오늘은 휴식 시간을 <s.YellowTypo as="span">{timeUtils.getFormattedTimeKorean(breakTime)}</s.YellowTypo>{' '}
+                가졌네요!
               </s.BreakTime>
             </s.StudyTimeContainer>
           </s.LeftContainer>
@@ -153,9 +154,9 @@ export const TimerPage: FC = () => {
         <s.LowerContainer>
           {fixedDDay ? (
             <s.CheerTypo>
-              <s.Test>{fixedDDay.title} </s.Test>까지{' '}
-              <s.Dday>
-                D- <s.GreenTypo>{dateUtils.daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
+              <s.Test as="span">{/* {fixedDDay.title} */}가나다</s.Test>까지{' '}
+              <s.Dday as="span">
+                D- <s.GreenTypo>{/* {dateUtils.daysUntil(fixedDDay.targetDate)} */}30</s.GreenTypo>{' '}
               </s.Dday>
               조금만 더 힘을 내볼까요? 🏃
             </s.CheerTypo>

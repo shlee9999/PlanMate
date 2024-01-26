@@ -1,3 +1,4 @@
+import { H14_500, H16_500 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import { styled } from 'styled-components'
 
@@ -33,23 +34,19 @@ export const NameInput = styled.input`
   padding: 12px 8px 10px;
 `
 export const ModalTitle = styled.div`
+  ${H16_500}
   position: absolute;
   left: 50%;
   top: 25px;
   transform: translate(-50%);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
   color: ${(props) => props.theme.text.black2};
 `
 
 export const UpperWrapper = styled.div`
+  ${H14_500}
   display: flex;
   align-items: center;
   column-gap: 24px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 100%;
   color: ${(props) => props.theme.text.gray1};
 `
 
@@ -59,8 +56,7 @@ export const LowerWrapper = styled.div`
 `
 
 export const LowerTypo = styled.p`
+  ${H14_500}
   margin-top: 8px;
-  font-size: 14px;
-  font-weight: 500;
   color: ${(props) => props.theme.text.gray1};
 `

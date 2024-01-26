@@ -1,3 +1,4 @@
+import { H16_500, H21_700, P14 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
@@ -19,23 +20,17 @@ export const Root = styled(motion.div)`
 `
 
 export const TitleTypo = styled.p`
+  ${H16_500}
   margin-top: 36px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
   color: ${(props) => props.theme.text.black2};
 `
 export const UpperDescriptionTypo = styled.p`
+  ${H21_700}
   margin-top: 24px;
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
   text-align: center;
 `
 export const LowerDescriptionTypo = styled.p`
+  ${P14}
   margin-top: 4px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
 `

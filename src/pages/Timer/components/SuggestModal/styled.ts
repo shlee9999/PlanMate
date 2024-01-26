@@ -1,4 +1,4 @@
-import { GreenButton } from 'commonStyled'
+import { GreenButton, H21_700, P14 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -23,15 +23,11 @@ export const LongGreenButton = styled(GreenButton)`
 `
 
 export const UpperTypo = styled.p`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
   margin-bottom: 4px;
 `
 export const LowerTypo = styled.p`
+  ${P14}
   text-align: center;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
   color: ${(props) => props.theme.text.gray1};
 `

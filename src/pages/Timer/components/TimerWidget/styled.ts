@@ -1,3 +1,4 @@
+import { H36_500, H46_700 } from 'commonStyled'
 import { styled } from 'styled-components'
 
 export const Root = styled.div`
@@ -9,11 +10,9 @@ export const Root = styled.div`
 `
 
 export const Mode = styled.p`
-  font-size: 46px;
-  font-weight: 700;
+  ${H46_700}
 `
 export const Timer = styled.p`
-  font-size: 36px;
-  font-weight: 500;
+  ${H36_500}
   color: ${(props) => props.theme.primary.default};
 `

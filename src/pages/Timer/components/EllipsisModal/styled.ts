@@ -1,3 +1,4 @@
+import { H16_500 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
@@ -52,11 +53,10 @@ export const DeleteSubjectButton = styled(CenterButton)`
 `
 
 export const CloseButton = styled.button`
+  ${H16_500}
   width: 100%;
   height: 40px;
   color: ${(props) => props.theme.text.gray1};
   border-top: 1px solid ${(props) => props.theme.border.default};
-  font-size: 16px;
-  font-weight: 500;
   text-align: center;
 `

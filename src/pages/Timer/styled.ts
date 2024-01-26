@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
 import { BODY_MAX_WIDTH, DESKTOP_SIDE_MARGIN, HEADER_HEIGHT } from 'constants/layout'
-import { PageRoot } from 'commonStyled'
+import { H14_500, H14_700, H21_700, H32_700, P12, P14, PageRoot } from 'commonStyled'
 import { InfoBox, Spinner } from 'components/'
 
 export const Root = styled(PageRoot)`
@@ -30,16 +30,12 @@ export const LeftContainer = styled.div`
   flex-direction: column;
 `
 export const DateTypo = styled.p`
+  ${P12}
   margin-bottom: 3px;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
   color: ${(props) => props.theme.text.black2};
 `
 export const Title = styled.p`
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 26px;
+  ${H21_700}
   margin-bottom: 8px;
 `
 export const StudyTimeContainer = styled(InfoBox)`
@@ -49,18 +45,14 @@ export const StudyTimeContainer = styled(InfoBox)`
   height: 270px;
 `
 export const Description = styled.p`
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
+  ${P14}
 `
 
 export const BreakTime = styled.p`
   position: absolute;
   left: 0;
   bottom: 0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
+  ${H14_500}
   letter-spacing: 0em;
   text-align: center;
   color: ${(props) => props.theme.text.gray1};
@@ -68,8 +60,7 @@ export const BreakTime = styled.p`
   left: 32px;
 `
 export const YellowTypo = styled.span`
-  font-weight: 400;
-  letter-spacing: 0em;
+  ${P14}
   text-align: center;
   color: ${(props) => props.theme.yellow};
   word-wrap: break-word;
@@ -97,6 +88,7 @@ export const RightContainer = styled.div`
 `
 
 export const AddButton = styled.button`
+  ${P14}
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,9 +96,6 @@ export const AddButton = styled.button`
   margin-top: 5px;
   width: 64px;
   height: 32px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 32px;
   color: ${(props) => props.theme.text.gray1};
   text-align: center;
   cursor: pointer;
@@ -118,15 +107,13 @@ export const LowerContainer = styled.div`
 `
 
 export const CheerTypo = styled.div`
-  font-size: 14px;
-  font-weight: 500;
+  ${H14_500}
   color: ${(props) => props.theme.text.black2};
   line-height: 18px;
   margin-bottom: 50px;
 `
 export const Dday = styled.span`
-  font-size: 32px;
-  font-weight: 700;
+  ${H32_700}
   line-height: 40px;
   color: ${(props) => props.theme.text.black2};
 `
@@ -140,7 +127,7 @@ export const GreenTypo = styled.span`
   }
 `
 export const Test = styled.span`
-  font-weight: 700;
+  ${H14_700}
 `
 
 export const TodoSpinner = styled(Spinner)``

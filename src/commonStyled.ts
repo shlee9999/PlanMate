@@ -6,12 +6,11 @@ import {
   TABLET_SIDE_MARGIN,
   MOBILE_SIDE_MARGIN,
 } from 'constants/layout'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
 import { RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 import { Spinner } from 'components'
-import { StyledLogo } from 'components/Header/styled'
 
 export const PageRoot = styled.div`
   //* DEFAULT
@@ -147,61 +146,74 @@ export const FlexRow = styled.div<{ $gap?: number }>`
 //* 폰트 사이즈 설정 - font-size, font-weight 순서로 정렬.
 //* Heading은 font-size 500 이상
 /** 46px 700*/
-export const H0 = styled.h1`
+export const H46_700 = css`
   font-size: 46px;
   font-weight: 700;
   line-height: 58px;
 `
 /** 36px 700*/
-export const H1 = styled.h1`
+export const H36_700 = css`
   font-size: 36px;
   font-weight: 700;
   line-height: 45px;
 `
 /** 36px 500*/
-export const H2 = styled.h2`
+export const H36_500 = css`
   font-size: 36px;
   font-weight: 500;
   line-height: 45px;
 `
+/** 32px 700*/
+export const H32_700 = css`
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+`
+
 /** 21px 700*/
-export const H3 = styled.h3`
+export const H21_700 = css`
   font-size: 21px;
   font-weight: 700;
   line-height: 26px;
 `
 /** 21px 500*/
-export const H4 = styled.h3`
+export const H21_500 = css`
   font-size: 21px;
   font-weight: 500;
   line-height: 26px;
 `
 /** 16px 700*/
-export const H5 = styled.h4`
+export const H16_700 = css`
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
 `
 /** 16px 500*/
-export const H6 = styled.h4`
+export const H16_500 = css`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
 `
 /** 14px 700*/
-export const H7 = styled.h5`
+export const H14_700 = css`
   font-size: 14px;
   font-weight: 700;
   line-height: 18px;
 `
 /** 14px 500*/
-export const H8 = styled.h6`
+export const H14_500 = css`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
 `
+/**12px 700 */
+export const H12_700 = css`
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+`
 /**12px 500 */
-export const H9 = styled.h6`
+export const H12_500 = css`
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
@@ -209,25 +221,25 @@ export const H9 = styled.h6`
 
 //* Paragraph는 font-weight 400 이하
 /** 14px*/
-export const P2 = styled.p`
+export const P14 = css`
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
 `
 /** 12px*/
-export const P3 = styled.p`
+export const P12 = css`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
 `
 /** 10px*/
-export const P4 = styled.p`
+export const P10 = css`
   font-size: 10px;
   font-weight: 400;
   line-height: 13px;
 `
 /** 8px*/
-export const P5 = styled.p`
+export const P8 = css`
   font-size: 8px;
   font-weight: 400;
   line-height: 10px;
