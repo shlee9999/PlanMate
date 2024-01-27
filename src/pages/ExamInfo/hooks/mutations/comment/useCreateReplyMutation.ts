@@ -17,7 +17,7 @@ function useCreateReplyMutation() {
       createReply({ content, parentCommentId, postId }),
     {
       onMutate: ({ parentCommentId, content, memberName, postId, isPostAuthor }) => {
-        const prevData = queryClient.getQueryData(['replyList', parentCommentId])
+        const prevData = queryClient.getQueryData<FindAllChildResponseProps>(['replyList', parentCommentId])
         queryClient.setQueryData<FindAllChildResponseProps>(['replyList', parentCommentId], (prev) =>
           [
             {
@@ -35,10 +35,16 @@ function useCreateReplyMutation() {
         )
         return { prevData }
       },
-      onSuccess: () => {
+      onSuccess: (data, { parentCommentId }, context) => {
+        queryClient.setQueryData<FindAllChildResponseProps>(['replyList', parentCommentId], (prev) => {
+          const createdReply = prev[0]
+          createdReply.commentId = data.commentId
+          return [createdReply, ...context.prevData]
+        })
         console.log('success')
       },
-      onError: (err) => {
+      onError: (err, { parentCommentId }, context) => {
+        queryClient.setQueryData<FindAllChildResponseProps>(['replyList', parentCommentId], context.prevData)
         console.error(err)
       },
       onSettled: (data, err, { parentCommentId, callBack }) => {
