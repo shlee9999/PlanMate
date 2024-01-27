@@ -1,5 +1,5 @@
 import { H12_500 } from 'commonStyled'
-import { FOOTER_HEIGHT, FOOTER_MAX_WIDTH, FOOTER_MIN_WIDTH } from 'constants/layout'
+import { FOOTER_HEIGHT, FOOTER_MAX_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 
 export const Root = styled.div`
@@ -15,7 +15,6 @@ export const Root = styled.div`
 
 export const ContentWrapper = styled.div`
   max-width: ${FOOTER_MAX_WIDTH}px;
-  min-width: ${FOOTER_MIN_WIDTH}px;
   display: flex;
   justify-content: end;
   align-items: center;
