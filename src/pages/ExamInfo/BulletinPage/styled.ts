@@ -5,15 +5,12 @@ import { ActionButton } from 'components/ActionButton/ActionButton'
 export const Root = styled(PageRoot)`
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
   row-gap: 24px;
   .editor {
     outline: none;
-    box-sizing: border-box;
     padding: 0 14px;
     border: 1px solid ${(props) => props.theme.border.dark};
     border-radius: 8px;
-    max-width: 1120px;
     min-height: 200px;
   }
 `
