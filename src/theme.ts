@@ -31,6 +31,6 @@ export const lightTheme: DefaultTheme = {
   yellow: '#ffc955',
   mobile: `max-width: ${MOBILE_SIZE}px`,
   tablet: `max-width: ${TABLET_SIZE}px`,
-  desktop: `min-width: ${TABLET_SIZE + 1}px`,
+  desktop: `min-width: ${TABLET_SIZE}px`,
 }
 // export const darkTheme: DefaultTheme = {}
