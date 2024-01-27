@@ -1,4 +1,5 @@
-import { P12 } from 'commonStyled'
+import { P10, P12 } from 'commonStyled'
+import { Cell } from 'recharts'
 import { styled } from 'styled-components'
 
 export const StatsPieChartContainer = styled.div`
@@ -17,4 +18,7 @@ export const PiechartTitle = styled.p`
   ${P12}
   color: ${(props) => props.theme.text.gray1};
   margin-bottom: 15px;
+`
+export const LegendText = styled.span`
+  ${P10}
 `
