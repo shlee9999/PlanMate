@@ -5,11 +5,11 @@ import { StatsContainerType } from 'enums'
 //LegendWrapper 이미지 적용 후, 사이즈 조정 필요
 
 export const Root = styled.div`
-  /* @media screen and (${(props) => props.theme.mobile}) {
-     //! Display on = "DESKTOP"으로 반응형 만들 시 그래프가 보이지 않는 문제
-      //* 모바일에서 보이게? 안보이게?
+  //! Display on = "DESKTOP"으로 반응형 만들 시 그래프가 보이지 않는 문제
+  //* 모바일에서 보이게? 안보이게?
+  @media screen and (${(props) => props.theme.mobile}) {
     display: none;
-  } */
+  }
 
   flex-grow: 1;
   width: 100%;
@@ -25,10 +25,9 @@ export const Root = styled.div`
     width: 100%;
     height: 2px;
     background-color: ${(props) => props.theme.background.gray1};
-    /* @media screen and (${(props) => props.theme.mobile}) {
-    //* 모바일에서 보이게? 안보이게?
+    @media screen and (${(props) => props.theme.mobile}) {
       display: none;
-    } */
+    }
   }
 `
 export const StatsGraphWrapper = styled.div<{ $type: StatsContainerType }>`
