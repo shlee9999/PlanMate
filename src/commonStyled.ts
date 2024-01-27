@@ -2,9 +2,9 @@ import {
   BODY_MAX_WIDTH,
   FOOTER_HEIGHT,
   HEADER_HEIGHT,
-  DESKTOP_SIDE_MARGIN,
-  TABLET_SIDE_MARGIN,
-  MOBILE_SIDE_MARGIN,
+  XLARGE_SIDE_MARGIN,
+  LARGE_SIDE_MARGIN,
+  MEDIUM_SIDE_MARGIN,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
@@ -22,19 +22,19 @@ export const PageRoot = styled.div`
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
   ${BLOCK_SELECT}
 
-  @media screen and (${(props) => props.theme.desktop}) {
+  @media screen and (${(props) => props.theme.xlarge}) {
     //* DESKTOP
-    padding: 40px ${DESKTOP_SIDE_MARGIN}px;
+    padding: 40px ${XLARGE_SIDE_MARGIN}px;
     /* background-color: teal; */
   }
-  @media screen and (${(props) => props.theme.tablet}) {
+  @media screen and (${(props) => props.theme.large}) {
     //* TABLET PAGE
-    padding: 40px ${TABLET_SIDE_MARGIN}px;
+    padding: 40px ${LARGE_SIDE_MARGIN}px;
     /* background-color: tomato; */
   }
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     //* MOBILE PAGE
-    padding: 40px ${MOBILE_SIDE_MARGIN}px;
+    padding: 40px ${MEDIUM_SIDE_MARGIN}px;
     /* background-color: yellow; */
   }
 `

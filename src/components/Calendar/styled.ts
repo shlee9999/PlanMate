@@ -52,7 +52,7 @@ const Row = styled.div`
 export const DayRow = styled(Row)`
   position: relative;
   padding: 0 10px;
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     padding: 0;
   }
 `
@@ -81,7 +81,7 @@ export const WeekRow = styled(Row)``
 export const LegendContainer = styled.ul`
   display: flex;
   align-self: flex-end;
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     display: none;
   }
 `
@@ -125,7 +125,7 @@ export const DateContainer = styled(motion.div)`
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 70px);
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     height: calc(100% - 120px);
     padding: 0;
   }
@@ -145,15 +145,15 @@ export const DateCellRoot = styled(Cell)<DateCellProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media screen and (${(props) => props.theme.desktop}) {
+  @media screen and (${(props) => props.theme.xlarge}) {
     width: ${DESKTOP_DATE_CELL_SIZE}px;
     height: ${DESKTOP_DATE_CELL_SIZE}px;
   }
-  @media screen and (${(props) => props.theme.tablet}) {
+  @media screen and (${(props) => props.theme.large}) {
     width: ${TABLET_DATE_CELL_SIZE}px;
     height: ${TABLET_DATE_CELL_SIZE}px;
   }
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     width: ${MOBILE_DATE_CELL_SIZE}px;
     height: ${MOBILE_DATE_CELL_SIZE}px;
   }

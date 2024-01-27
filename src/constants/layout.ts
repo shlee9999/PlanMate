@@ -15,9 +15,11 @@ export const EXAMINFODETAIL_MAX_WIDTH = 1200
 export const DDAYITEM_MIN_WIDTH = 120
 
 //* 반응형 레이아웃
-export const TABLET_SIZE = 1024
-export const MOBILE_SIZE = 768
+export const LARGE_SIZE = 1024
+export const MEDIUM_SIZE = 768
+export const SMALL_SIZE = 480
 
-export const DESKTOP_SIDE_MARGIN = 100
-export const TABLET_SIDE_MARGIN = 24
-export const MOBILE_SIDE_MARGIN = 16
+export const XLARGE_SIDE_MARGIN = 100
+export const LARGE_SIDE_MARGIN = 24
+export const MEDIUM_SIDE_MARGIN = 16
+export const SMALL_SIDE_MARGIN = 0

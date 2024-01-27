@@ -27,7 +27,7 @@ export const UpperContainer = styled.div`
   row-gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     flex-direction: column;
   }
 `

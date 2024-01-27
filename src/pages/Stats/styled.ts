@@ -53,7 +53,7 @@ export const MainContainer = styled.div`
   justify-content: space-between;
   gap: 20px;
   /* min-height: fit-content; */
-  @media screen and (${(props) => props.theme.tablet}) {
+  @media screen and (${(props) => props.theme.large}) {
     flex-direction: column;
   }
 `
@@ -66,11 +66,11 @@ export const LeftInfoBox = styled(InfoBox)`
   overflow: hidden;
   padding: 24px 25px;
   height: 450px;
-  @media screen and (${(props) => props.theme.tablet}) {
+  @media screen and (${(props) => props.theme.large}) {
     width: 100%;
     max-width: none;
   }
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     height: 100px !important;
   }
 `
@@ -79,12 +79,12 @@ export const RightInfoBox = styled(InfoBox)`
   flex-grow: 1;
   flex-shrink: 4;
 
-  @media screen and (${(props) => props.theme.tablet}) {
+  @media screen and (${(props) => props.theme.large}) {
     width: 100%;
     flex-grow: 1;
     height: 450px;
   }
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     height: fit-content;
   }
   overflow: visible;

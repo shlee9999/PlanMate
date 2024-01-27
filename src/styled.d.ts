@@ -29,8 +29,9 @@ declare module 'styled-components' {
     }
     warning: string
     yellow: string
-    mobile: string
-    tablet: string
-    desktop: string
+    small: string
+    medium: string
+    large: string
+    xlarge: string
   }
 }
