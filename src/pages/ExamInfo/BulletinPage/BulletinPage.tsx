@@ -21,7 +21,7 @@ type BulletinPageProps = {
 const MAX_TITLE_CHARACTER_COUNT = 20
 export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const location = useLocation()
-  const initialTag = location.state.initialTag || '선택해주세요'
+  const initialTag = location?.state?.initialTag || '선택해주세요'
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [selectedTag, setSelectedTag] = useState(initialTag)
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
