@@ -1,3 +1,13 @@
 {
-    "words": ["dday", "examinfo", "mypage", "piechart"]
+    "words": 
+    [
+        "dday",
+        "examinfo",
+        "mypage",
+        "piechart",
+        "examinfoitem",
+        "todoitem",
+        "ddayitem",
+        "examinfodetail"
+    ]
 }
