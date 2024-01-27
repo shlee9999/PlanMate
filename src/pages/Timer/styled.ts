@@ -67,7 +67,7 @@ export const YellowTypo = styled.span`
   word-wrap: break-word;
 `
 
-export const StatsContainer = styled(InfoBox)`
+export const StatsBox = styled(InfoBox)`
   height: 270px;
 `
 
