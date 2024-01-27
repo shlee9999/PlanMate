@@ -21,4 +21,4 @@ export type DDayType = {
   isFixed: boolean
 }
 
-export type DDayEntityType = Pick<DDayType, 'dDayId' | 'targetDate' | 'title' | 'isFixed'>
+export type DDayEntityType = Pick<DDayType, 'dDayId' | 'targetDate' | 'title' | 'isFixed' | 'remainingDays'>

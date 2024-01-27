@@ -88,11 +88,7 @@ export const TimerPage: FC = () => {
   }
   useEffect(() => {
     if (!isTodoLoading) {
-      let sum = 0
-      todoList.forEach((todo) => {
-        sum += todo.time
-      })
-      dispatch(initializeTimer(sum))
+      dispatch(initializeTimer(timeUtils.timeToSecond(totalStudyTime)))
     }
   }, [isTodoLoading])
 
@@ -141,11 +137,11 @@ export const TimerPage: FC = () => {
           </s.RightContainer>
         </s.BannerContentContainer>
         <s.LowerContainer>
-          {fixedDDay ? (
+          {fixedDDay && fixedDDay.remainingDays >= 0 ? (
             <s.CheerTypo>
               <s.Test>{fixedDDay.title}</s.Test>까지{' '}
               <s.Dday>
-                D- <s.GreenTypo> {dateUtils.daysUntil(fixedDDay.targetDate)}</s.GreenTypo>{' '}
+                D- <s.GreenTypo> {fixedDDay.remainingDays}</s.GreenTypo>{' '}
               </s.Dday>
               조금만 더 힘을 내볼까요? 🏃
             </s.CheerTypo>
