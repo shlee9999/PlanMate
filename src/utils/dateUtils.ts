@@ -108,7 +108,7 @@ export const dateUtils = {
     return weekDates
   },
   /**targetDate까지 며칠 남았는지 */
-  daysUntil: (targetDate) => {
+  daysUntil: (targetDate: string) => {
     const specificDate = new Date(targetDate)
     const today = new Date()
     specificDate.setHours(0, 0, 0, 0)
