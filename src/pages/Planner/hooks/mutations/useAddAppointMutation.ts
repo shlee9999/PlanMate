@@ -25,11 +25,17 @@ function useAddAppointMutation() {
         )
         return { previousAppointments }
       },
-      onSuccess: () => {
+      onSuccess: (data, vars, context) => {
         console.log('success add')
+        queryClient.setQueryData<PlannerType[]>(['plannerData'], (prev) => {
+          const updatedAppoint = prev[prev.length - 1]
+          updatedAppoint.plannerId = data.plannerId
+          return [updatedAppoint, ...context.previousAppointments]
+        })
       },
-      onError: (err) => {
+      onError: (err, vars, context) => {
         console.error('error:', err)
+        queryClient.setQueryData<PlannerType[]>(['plannerData'], context.previousAppointments)
       },
       onSettled: () => {
         queryClient.invalidateQueries(['plannerData'])
