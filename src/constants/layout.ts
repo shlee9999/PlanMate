@@ -19,5 +19,5 @@ export const TABLET_SIZE = 1024
 export const MOBILE_SIZE = 768
 
 export const DESKTOP_SIDE_MARGIN = 100
-export const TABLET_SIDE_MARGIN = 50
-export const MOBILE_SIDE_MARGIN = 20
+export const TABLET_SIDE_MARGIN = 24
+export const MOBILE_SIDE_MARGIN = 16
