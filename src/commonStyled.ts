@@ -5,6 +5,7 @@ import {
   XLARGE_SIDE_MARGIN,
   LARGE_SIDE_MARGIN,
   MEDIUM_SIDE_MARGIN,
+  SMALL_SIDE_MARGIN,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
@@ -23,19 +24,23 @@ export const PageRoot = styled.div`
   ${BLOCK_SELECT}
 
   @media screen and (${(props) => props.theme.xlarge}) {
-    //* DESKTOP
+    //* XLARGE
     padding: 40px ${XLARGE_SIDE_MARGIN}px;
     /* background-color: teal; */
   }
   @media screen and (${(props) => props.theme.large}) {
-    //* TABLET PAGE
-    padding: 40px ${LARGE_SIDE_MARGIN}px;
+    //* LARGE
+    padding: 30px ${LARGE_SIDE_MARGIN}px;
     /* background-color: tomato; */
   }
   @media screen and (${(props) => props.theme.medium}) {
-    //* MOBILE PAGE
-    padding: 40px ${MEDIUM_SIDE_MARGIN}px;
+    //* MEDIUM
+    padding: 20px ${MEDIUM_SIDE_MARGIN}px;
     /* background-color: yellow; */
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    //* SMALL
+    padding: 10px ${SMALL_SIDE_MARGIN}px;
   }
 `
 
