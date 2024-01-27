@@ -17,40 +17,36 @@ function useCreatePostMutation() {
     ({ content, tagList, title }: UseCreatePostMutationProps) => createPost({ content, tagList, title }),
     {
       onMutate: ({ content, tagList, title }) => {
-        const prevData = queryClient.getQueryData(['findAllResponse', 1, ''])
-        console.log(prevData)
+        const prevData = queryClient.getQueryData<FindAllPostResponseProps>(['findAllResponse', 1, ''])
+        const newPost = {
+          content,
+          isMyHearted: false,
+          isMyScraped: false,
+          likeCount: 0,
+          nickname,
+          postTagList: tagList,
+          scrapCount: 0,
+          title,
+          createdAt: dateUtils.getKoreanISOString(new Date()),
+          postId: new Date().getTime(),
+          isMyPost: true,
+          commentCount: 0,
+        }
         queryClient.setQueryData<FindAllPostResponseProps>(['findAllResponse', 1, ''], (prev) => ({
           ...prev,
-          postDtoList: [
-            ...prev.postDtoList,
-            {
-              content,
-              isMyHearted: false,
-              isMyScraped: false,
-              likeCount: 0,
-              nickname,
-              postTagList: tagList,
-              scrapCount: 0,
-              title,
-              createdAt: dateUtils.getKoreanISOString(new Date()),
-              postId: new Date().getTime(),
-              isMyPost: true,
-              commentCount: 0,
-            },
-          ],
+          postDtoList: [newPost, ...prev.postDtoList.slice(0, 9)],
         }))
         return { prevData }
       },
-      onSuccess: (data, { callBack }) => {
+      onSuccess: (data, { callBack }, context) => {
         console.log('success')
         //* 만드는데 성공하면 id값을 백엔드에 맞게 바꿔준다.
-
         queryClient.setQueryData<FindAllPostResponseProps>(['findAllResponse', 1, ''], (prev) => {
-          const createdPost = { ...prev.postDtoList[prev.postDtoList.length - 1] }
+          const createdPost = { ...prev.postDtoList[0] }
           createdPost.postId = data.postId
           return {
             ...prev,
-            postDtoList: [...prev.postDtoList.slice(0, -1), createdPost],
+            postDtoList: [createdPost, ...context.prevData.postDtoList],
           }
         })
         callBack()
