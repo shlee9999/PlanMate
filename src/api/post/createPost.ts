@@ -7,5 +7,5 @@ export type CreatePostRequestProps = Pick<PostType, 'content' | 'tagList' | 'tit
 export type CreatePostResponseProps = ResponsePostType
 
 /**게시물 생성 */
-export const createPost = ({ content, tagList, title }: CreatePostRequestProps) =>
+export const createPost = ({ content, tagList, title }: CreatePostRequestProps): Promise<CreatePostResponseProps> =>
   axiosPOST('/post/create', { content, tagList, title })

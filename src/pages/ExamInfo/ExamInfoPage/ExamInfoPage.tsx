@@ -13,13 +13,8 @@ import { TagContainer } from './TagContainer/TagContainer'
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedTag, setSelectedTag] = useState('')
-  const { data, isLoading } = useQuery<
-    Promise<FindAllPostResponseProps | FindPostWithTagResponseProps>,
-    Error,
-    FindAllPostResponseProps,
-    string[]
-  >(
-    ['findAllResponse', currentPage + '', selectedTag],
+  const { data, isLoading } = useQuery<FindAllPostResponseProps>(
+    ['findAllResponse', currentPage, selectedTag],
     () =>
       selectedTag === ''
         ? findAll({ pages: currentPage - 1 })
