@@ -14,7 +14,6 @@ import { ResponseStats } from 'api/types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { NoContentDescription, StatsContainer } from 'components'
-import { StudyContainer } from 'components/StatsContainer/styled'
 import { ActionModal, TimerWidget, TodoItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
@@ -43,16 +42,19 @@ export const TimerPage: FC = () => {
   )
   const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>(['fixedDDay'], () => findFixedDday())
   const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
-  const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
+  const {
+    startTimer: startBreakTimer,
+    stopTimer: stopBreakTimer,
+    time: breakTime,
+    setDefaultTime: setDefaultBreakTime,
+  } = useTimer({ defaultTime: 0 })
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const formattedDate: string = dateUtils.getFormattedDate(new Date())
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const openModal = (): void => {
-    if (!isRunning) setIsModalOpen(true)
-  }
-  const closeModal = (): void => setIsModalOpen(false)
-  const closeSuggestModal = (): void => setIsSuggestModalOpen(false)
+  const openModal = () => !isRunning && setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+  const closeSuggestModal = () => setIsSuggestModalOpen(false)
 
   const {
     endAtHours,
@@ -88,6 +90,8 @@ export const TimerPage: FC = () => {
   }
   useEffect(() => {
     if (!isTodoLoading) {
+      // * Todo 로딩 완료
+      if (timeUtils.isEqualTime(totalStudyTime, { hour: 0, minute: 0, second: 0 })) stopBreakTimer()
       dispatch(initializeTimer(timeUtils.timeToSecond(totalStudyTime)))
     }
   }, [isTodoLoading])
@@ -98,8 +102,11 @@ export const TimerPage: FC = () => {
   }, [totalTime, isStatsLoading])
 
   useEffect(() => {
-    if (isRunning) stopTimer()
-    else startTimer()
+    if (isRunning) stopBreakTimer()
+    else {
+      //총 공부 시간이 0이면
+      startBreakTimer()
+    }
   }, [isRunning])
 
   useEffect(() => {

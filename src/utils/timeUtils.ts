@@ -3,6 +3,9 @@ import { formatTwoDigits } from '.'
 
 /**시간 관련 함수 모음 */
 export const timeUtils = {
+  isEqualTime: (a: TimeProps, b: TimeProps): boolean => {
+    return a.hour === b.hour && a.minute === b.minute && a.second === b.second
+  },
   /**HH:MM:SS*/
   getFormattedTime: (time: number | TimeProps): string => {
     const { hour, minute, second } = calculateTimeParts(time)
