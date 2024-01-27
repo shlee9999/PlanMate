@@ -15,8 +15,8 @@ function useCreateSubjectMutation() {
       }),
     {
       onMutate: ({ colorHex, name }) => {
-        const prevData = queryClient.getQueryData('todoList')
-        queryClient.setQueryData<StudyTimeResponseProps>('todoList', (prev) =>
+        const prevData = queryClient.getQueryData(['todoList'])
+        queryClient.setQueryData<StudyTimeResponseProps>(['todoList'], (prev) =>
           prev.concat({
             subjectId: new Date().getTime(),
             name,
@@ -28,14 +28,24 @@ function useCreateSubjectMutation() {
         )
         return { prevData }
       },
-      onSuccess: () => {
-        console.log('success add')
+      onSuccess: (data, vars, context) => {
+        console.log(data)
+        const prevData = context.prevData as StudyTimeResponseProps
+        queryClient.setQueryData(
+          ['todoList'],
+          prevData.concat({
+            ...data,
+            studyTimeHours: 0,
+            studyTimeMinutes: 0,
+            studyTimeSeconds: 0,
+          })
+        )
       },
-      onError: (err) => {
+      onError: (err, data, context) => {
+        queryClient.setQueryData(['todoList'], context.prevData)
         console.error(err)
       },
       onSettled: () => {
-        queryClient.invalidateQueries(['todoList'])
         queryClient.invalidateQueries(['timeInfo'])
       },
     }
