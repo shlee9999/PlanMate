@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { PieChart as MyPieChart, Pie, Legend, Cell } from 'recharts'
 import { PieChartData } from './PieChartContainer'
 import { LegendText } from './styled'
-import { MEDIUM_SIZE } from 'constants/layout'
+import { SMALL_SIZE } from 'constants/layout'
 
 const RADIAN = Math.PI / 180
 
@@ -47,8 +47,7 @@ const renderCustomizedLabel = ({
 }
 
 export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
-  const OFFSET = 300
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= MEDIUM_SIZE - OFFSET)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= SMALL_SIZE)
   const renderColorfulLegendText = (value: string, entry: any) =>
     !isMobile && (
       <LegendText
@@ -62,7 +61,7 @@ export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
     )
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= MEDIUM_SIZE - OFFSET)
+    const handleResize = () => setIsMobile(window.innerWidth <= SMALL_SIZE)
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
