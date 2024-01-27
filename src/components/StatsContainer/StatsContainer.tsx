@@ -1,8 +1,8 @@
 import React from 'react'
+import * as s from './styled'
 import { GraphContainer, PieChartContainer, ShareContainer, StudyTimeContainer } from './components'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
-import * as s from './styled'
 import { dateUtils } from 'utils'
 import { StatsContainerType } from 'enums'
 
@@ -18,20 +18,20 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dat
   const dateProps = selectedDate || dateUtils.getDateProps(new Date())
   const { year, month, date } = dateProps
   const {
-    endAtHours,
-    endAtMinutes,
-    maxStudyTimeHours,
-    maxStudyTimeMinutes,
-    maxStudyTimeSeconds,
-    restTimeHours,
-    restTimeMinutes,
-    restTimeSeconds,
-    startAtHours,
-    startAtMinutes,
-    studyTimeList,
-    totalStudyTimeHours,
-    totalStudyTimeMinutes,
-    totalStudyTimeSeconds,
+    endAtHours = 0,
+    endAtMinutes = 0,
+    maxStudyTimeHours = 0,
+    maxStudyTimeMinutes = 0,
+    maxStudyTimeSeconds = 0,
+    restTimeHours = 0,
+    restTimeMinutes = 0,
+    restTimeSeconds = 0,
+    startAtHours = 0,
+    startAtMinutes = 0,
+    studyTimeList = [],
+    totalStudyTimeHours = 0,
+    totalStudyTimeMinutes = 0,
+    totalStudyTimeSeconds = 0,
   } = dataSource || {}
 
   const totalStudyTime = { hour: totalStudyTimeHours, minute: totalStudyTimeMinutes, second: totalStudyTimeSeconds }

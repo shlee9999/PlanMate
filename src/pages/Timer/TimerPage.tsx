@@ -1,7 +1,7 @@
-//타이머 탭
+import * as s from './styled'
+import { useState, FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TimeProps, TodoItemType } from 'types'
-import { useState, FC, useEffect } from 'react'
 import { RootState } from 'modules'
 import { initializeTimer } from 'modules/timer'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -14,11 +14,9 @@ import { ResponseStats } from 'api/types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { NoContentDescription, StatsContainer } from 'components'
-import { StudyContainer } from 'components/StatsContainer/styled'
 import { ActionModal, TimerWidget, TodoItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
-import * as s from './styled'
 import { StatsContainerType } from 'enums'
 
 export const TimerPage: FC = () => {
@@ -28,7 +26,7 @@ export const TimerPage: FC = () => {
   const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>(['todoList'], () => studyTime())
   const todoList: TodoItemType[] = isTodoLoading
     ? []
-    : data.map((todo) => ({
+    : data?.map((todo) => ({
         colorHex: todo.colorHex,
         name: todo.name,
         subjectId: todo.subjectId,
@@ -37,36 +35,29 @@ export const TimerPage: FC = () => {
           minute: todo.studyTimeMinutes,
           second: todo.studyTimeSeconds,
         }),
-      }))
-  const { data: statsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
+      })) || []
+  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
     checkTodayStats()
   )
   const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>(['fixedDDay'], () => findFixedDday())
   const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
   const { startTimer, stopTimer, time: breakTime, setDefaultTime: setDefaultBreakTime } = useTimer({ defaultTime: 0 })
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const formattedDate: string = dateUtils.getFormattedDate(new Date())
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const formattedDate = dateUtils.getFormattedDate(new Date())
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const openModal = (): void => {
-    if (!isRunning) setIsModalOpen(true)
-  }
-  const closeModal = (): void => setIsModalOpen(false)
-  const closeSuggestModal = (): void => setIsSuggestModalOpen(false)
+  const openModal = () => !isRunning && setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+  const closeSuggestModal = () => setIsSuggestModalOpen(false)
 
   const {
-    endAtHours,
-    endAtMinutes,
     restTimeHours,
     restTimeMinutes,
     restTimeSeconds,
-    startAtHours,
-    startAtMinutes,
-    studyTimeList,
     totalStudyTimeHours,
     totalStudyTimeMinutes,
     totalStudyTimeSeconds,
-  } = statsData || {}
+  } = todayStatsData || {}
   const totalStudyTime: TimeProps = {
     hour: totalStudyTimeHours,
     minute: totalStudyTimeMinutes,
@@ -78,14 +69,6 @@ export const TimerPage: FC = () => {
     second: restTimeSeconds,
   }
 
-  const startAt: TimeProps = {
-    hour: startAtHours,
-    minute: startAtMinutes,
-  }
-  const endAt: TimeProps = {
-    hour: endAtHours,
-    minute: endAtMinutes,
-  }
   useEffect(() => {
     if (!isTodoLoading) {
       dispatch(initializeTimer(timeUtils.timeToSecond(totalStudyTime)))
@@ -127,13 +110,13 @@ export const TimerPage: FC = () => {
           </s.LeftContainer>
           <s.RightContainer>
             <s.Title>오늘의 통계 📊</s.Title>
-            <s.StatsContainer right>
+            <s.StatsBox right>
               {isStatsLoading ? (
                 <CenterSpinner>Loading...</CenterSpinner>
               ) : (
-                <StatsContainer type={StatsContainerType.timer} dataSource={statsData} />
+                <StatsContainer type={StatsContainerType.timer} dataSource={todayStatsData} />
               )}
-            </s.StatsContainer>
+            </s.StatsBox>
           </s.RightContainer>
         </s.BannerContentContainer>
         <s.LowerContainer>
