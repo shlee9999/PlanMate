@@ -53,6 +53,7 @@ export const StatsPage = () => {
               setSelectedDate={setSelectedDate}
               dataSource={selectedMonthStats}
               blockFuture
+              todayButton
             />
           </s.LeftInfoBox>
           <s.RightInfoBox right>

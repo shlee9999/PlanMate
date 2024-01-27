@@ -31,7 +31,7 @@ export const Calendar: FC<CalendarProps> = ({
   blockFuture = false,
   legend,
   headerButtonLayout = 'space-between',
-  todayButton = true,
+  todayButton = false,
 }) => {
   const [back, setBack] = useState(false)
   const onClickNext = () => {
@@ -60,7 +60,7 @@ export const Calendar: FC<CalendarProps> = ({
           {selectedDate.month + 1}월
         </s.Month>
         <s.NextButton onClick={onClickNext} />
-        <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>
+        {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
       </s.Header>
       <s.Body>
         <s.DayRow>
