@@ -52,7 +52,7 @@ export const MainContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   gap: 20px;
-  min-height: fit-content;
+  /* min-height: fit-content; */
   @media screen and (${(props) => props.theme.tablet}) {
     flex-direction: column;
   }
@@ -69,6 +69,9 @@ export const LeftInfoBox = styled(InfoBox)`
   @media screen and (${(props) => props.theme.tablet}) {
     width: 100%;
     max-width: none;
+  }
+  @media screen and (${(props) => props.theme.mobile}) {
+    height: 100px !important;
   }
 `
 export const RightInfoBox = styled(InfoBox)`

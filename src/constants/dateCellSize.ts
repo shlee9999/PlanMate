@@ -1,0 +1,3 @@
+export const DESKTOP_DATE_CELL_SIZE = 33
+export const TABLET_DATE_CELL_SIZE = 35
+export const MOBILE_DATE_CELL_SIZE = 25
