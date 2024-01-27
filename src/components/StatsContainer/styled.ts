@@ -11,11 +11,6 @@ export const StatsRoot = styled.div`
 export const TimerRoot = styled.div`
   padding: 8px 15px;
 `
-export const CompareTimer = styled.div`
-  ${H12_500}
-  color: ${(props) => props.theme.text.black2};
-  margin-bottom: 16px;
-`
 
 export const Header = styled.p`
   ${P16}

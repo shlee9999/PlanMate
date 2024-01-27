@@ -3,7 +3,6 @@ import * as s from './styled'
 import todayDotImg from 'assets/images/today_dot.png'
 import yesterdayDotImg from 'assets/images/yesterday_dot.png'
 import { BumpGraph } from './BumphGraph'
-import { CompareTimer } from '../../styled'
 import { CompareTitle } from './styled'
 import { StatsContainerType } from 'enums'
 
@@ -15,7 +14,7 @@ export const GraphContainer = ({ type }: GraphContainerProps) => {
     <s.Root>
       <s.TypoContainer>
         <CompareTitle>오후 7시까지의 비교</CompareTitle>
-        <CompareTimer>+ 00:30:13</CompareTimer>
+        <s.CompareTimer>+ 00:30:13</s.CompareTimer>
         <s.LegendContainer>
           <s.Container>
             <s.LegendTitle>오늘 </s.LegendTitle>

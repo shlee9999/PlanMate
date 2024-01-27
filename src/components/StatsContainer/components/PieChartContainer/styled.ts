@@ -1,5 +1,4 @@
 import { P10, P12 } from 'commonStyled'
-import { Cell } from 'recharts'
 import { styled } from 'styled-components'
 
 export const StatsPieChartContainer = styled.div`

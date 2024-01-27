@@ -1,4 +1,4 @@
-import { FlexRow, P12, P14 } from 'commonStyled'
+import { FlexRow, H12_500, P12, P14 } from 'commonStyled'
 import styled from 'styled-components'
 import { StatsContainerType } from 'enums'
 
@@ -6,11 +6,10 @@ import { StatsContainerType } from 'enums'
 
 export const Root = styled.div`
   //! Display on = "DESKTOP"으로 반응형 만들 시 그래프가 보이지 않는 문제
-  //* 모바일에서 보이게? 안보이게?
   @media screen and (${(props) => props.theme.mobile}) {
-    display: none;
+    min-height: 0;
+    height: 100px;
   }
-
   flex-grow: 1;
   width: 100%;
   position: relative;
@@ -35,19 +34,41 @@ export const StatsGraphWrapper = styled.div<{ $type: StatsContainerType }>`
   min-height: 180px;
   margin-left: 20px;
   width: calc(100% - 30px);
-`
-
-export const CompareTitle = styled.div`
-  ${P14}
   position: relative;
-  color: ${(props) => props.theme.text.gray1};
-  margin-bottom: 4px;
+  top: 15px; //* 이렇게 해야 그래프만 보고 조절 가능
+  /* background-color: tomato; */
+  @media screen and (${(props) => props.theme.mobile}) {
+    min-height: 120px;
+    margin-left: 0;
+    width: 100%;
+  }
 `
 
 export const TypoContainer = styled.div`
   position: absolute;
   top: 33px;
   left: 0;
+  @media screen and (${(props) => props.theme.mobile}) {
+    //* 모바일에선 중앙으로 이동하고, 제목만 보여줌
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+`
+export const CompareTitle = styled.div`
+  ${P14}
+  position: relative;
+  color: ${(props) => props.theme.text.gray1};
+  margin-bottom: 4px;
+`
+export const CompareTimer = styled.div`
+  ${H12_500}
+  color: ${(props) => props.theme.text.black2};
+  margin-bottom: 16px;
+  @media screen and (${(props) => props.theme.mobile}) {
+    opacity: 0;
+  }
 `
 export const LegendContainer = styled.div`
   display: flex;
@@ -59,6 +80,9 @@ export const LegendContainer = styled.div`
 export const LegendTitle = styled.p`
   ${P12}
   color: ${(props) => props.theme.text.gray1};
+  @media screen and (${(props) => props.theme.mobile}) {
+    opacity: 0;
+  }
 `
 
 export const Container = styled(FlexRow)`
@@ -67,6 +91,9 @@ export const Container = styled(FlexRow)`
 
 export const IconTodayDot = styled.img`
   width: 35px;
+  @media screen and (${(props) => props.theme.mobile}) {
+    opacity: 0;
+  }
 `
 
 export const IconYesterdayDot = styled.img`
