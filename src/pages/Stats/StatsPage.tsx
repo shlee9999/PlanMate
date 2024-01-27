@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import * as s from './styled'
 import { dateUtils, numberUtils } from 'utils'
 import { useQuery } from 'react-query'
 import { ResponseStats } from 'api//types'
@@ -7,7 +8,6 @@ import { CenterSpinner } from 'commonStyled'
 import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
 import { DateProps } from 'types'
 import { defaultStats } from 'constants/defaultStats'
-import * as s from './styled'
 import { StatsContainer } from 'components'
 import { StatsContainerType } from 'enums'
 

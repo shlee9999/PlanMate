@@ -9,20 +9,17 @@ export const StatsStudyTimeContainer = styled.div<RootProps>`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  column-gap: 40px;
+  justify-content: space-between;
+  flex-grow: 1;
   row-gap: 20px;
-  height: fit-content;
   min-width: 0;
-  align-items: center;
-  @media screen and (${(props) => props.theme.tablet}) {
-    width: 100%;
-    row-gap: 10px;
-    column-gap: 0;
-    flex-grow: 1;
-    place-items: start start;
-  }
 `
 export const TimerBox = styled.div`
+  &:first-child,
+  &:nth-child(3) {
+    padding-right: 10px;
+  }
+
   white-space: nowrap;
 `
 export const Header = styled.div`

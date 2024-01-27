@@ -23,27 +23,16 @@ export const Header = styled.p`
   padding-bottom: 10px;
 `
 
-export const StudyContainer = styled.div`
+export const UpperContainer = styled.div`
   position: relative;
   margin-top: 10px;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  column-gap: 30px;
-  row-gap: 20px;
+  row-gap: 15px;
   flex-wrap: wrap;
-  @media screen and (${(props) => props.theme.tablet}) {
-    //* Display로 설정 시 한 번 더 감싸져서 부모 height을 못받는 문제 발생
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 20px;
-  }
   margin-bottom: 20px;
-`
-
-export const TStudyContainer = styled(StudyContainer)`
-  height: 100%;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: space-between;
+  @media screen and (${(props) => props.theme.mobile}) {
+    flex-direction: column;
+  }
 `

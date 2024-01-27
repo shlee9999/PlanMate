@@ -52,13 +52,13 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dat
       <s.Header>
         {year}년 {month + 1}월 {date}일
       </s.Header>
-      <s.StudyContainer>{CommonContent}</s.StudyContainer>
+      <s.UpperContainer>{CommonContent}</s.UpperContainer>
       <GraphContainer type={type} />
       <ShareContainer />
     </s.StatsRoot>
   ) : (
     <s.TimerRoot>
-      <s.StudyContainer>{CommonContent}</s.StudyContainer>
+      <s.UpperContainer>{CommonContent}</s.UpperContainer>
       <GraphContainer type={type} />
     </s.TimerRoot>
   )

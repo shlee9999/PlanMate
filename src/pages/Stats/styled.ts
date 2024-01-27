@@ -53,13 +53,15 @@ export const MainContainer = styled.div`
   justify-content: space-between;
   gap: 20px;
   min-height: fit-content;
-  flex-wrap: wrap;
+  @media screen and (${(props) => props.theme.tablet}) {
+    flex-direction: column;
+  }
 `
 
 export const LeftInfoBox = styled(InfoBox)`
   position: relative;
   min-width: 0px;
-  flex: 1 0 400px;
+  flex: 1 1 400px;
   max-width: 420px;
   overflow: hidden;
   padding: 24px 25px;
@@ -70,14 +72,17 @@ export const LeftInfoBox = styled(InfoBox)`
   }
 `
 export const RightInfoBox = styled(InfoBox)`
-  flex-basis: 402px;
   min-width: 0;
   flex-grow: 1;
+  flex-shrink: 4;
 
   @media screen and (${(props) => props.theme.tablet}) {
     width: 100%;
     flex-grow: 1;
-    height: 550px;
+    height: 450px;
+  }
+  @media screen and (${(props) => props.theme.mobile}) {
+    height: fit-content;
   }
   overflow: visible;
 `

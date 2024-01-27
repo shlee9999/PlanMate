@@ -1,11 +1,10 @@
 import React from 'react'
+import * as s from './styled'
 import { PieChart } from './PieChart'
 import { StudyTimeEntry } from 'api/types'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
-import * as s from './styled'
 import { StatsContainerType } from 'enums'
-import { Display } from 'components/Display/Display'
 
 export interface PieChartData {
   name: string
@@ -68,17 +67,5 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({
       </s.PieChartWrapper>
     </>
   )
-  return (
-    <>
-      <Display on="DESKTOP">
-        <s.StatsPieChartContainer>{CommonContent}</s.StatsPieChartContainer>
-      </Display>
-      <Display on="TABLET">
-        <s.TStatsPieChartContainer>{CommonContent}</s.TStatsPieChartContainer>
-      </Display>
-      <Display on="MOBILE">
-        <s.MStatsPieChartContainer>{CommonContent}</s.MStatsPieChartContainer>
-      </Display>
-    </>
-  )
+  return <s.StatsPieChartContainer>{CommonContent}</s.StatsPieChartContainer>
 }

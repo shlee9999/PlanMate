@@ -149,6 +149,34 @@
       "  return mutate",
       "}",
       "export default ${TM_FILENAME_BASE}"
-    ]
+    ],
+  },
+    "media-query-desktop": {
+      "scope": "css",
+      "prefix": "desktop",
+      "body": [
+        " @media screen and (${(props) => props.theme.desktop}) {",
+        "$1",
+        "}",
+      ]
+    },
+    "media-query-tablet": {
+      "scope": "css",
+      "prefix": "tablet",
+      "body": [
+        " @media screen and (${(props) => props.theme.tablet}) {",
+        "$1",
+        "}",
+      ]
+    },
+    "media-query-mobile": {
+      "scope": "css",
+      "prefix": "mobile",
+      "body": [
+        " @media screen and (${(props) => props.theme.mobile}) {",
+        "$1",
+        "}",
+      ]
+    },
   }
-}
+

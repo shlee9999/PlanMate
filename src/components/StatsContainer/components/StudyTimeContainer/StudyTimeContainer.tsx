@@ -1,9 +1,9 @@
 import React from 'react'
+import * as s from './styled'
 import { StudyTime } from './StudyTime'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
 import { StatsContainerType } from 'enums'
-import * as s from './styled'
 
 //총 공부시간, 최대 집중 시간
 
