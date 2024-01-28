@@ -1,5 +1,6 @@
 import { FindAllDdayResponseProps } from 'api/dday/findAllDday'
 import { FixDdayRequestProps, fixDday } from 'api/dday/fixDday'
+import { QueryKeyType } from 'enums'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseFixScheduleMutationProps = FixDdayRequestProps
@@ -9,8 +10,8 @@ function useFixDdayMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ dDayId: dDayId }: UseFixScheduleMutationProps) => fixDday({ dDayId: dDayId }), {
     onMutate: ({ dDayId: clickedDdayId }) => {
-      const prevData = queryClient.getQueryData(['dDayList'])
-      queryClient.setQueryData<FindAllDdayResponseProps>(['dDayList'], (prev) =>
+      const prevData = queryClient.getQueryData([QueryKeyType.dDayList])
+      queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeyType.dDayList], (prev) =>
         prev.map((dDay) => {
           //* isFixed가 true인 다른 dDayId의 DDay가 존재 - 일반적인 경우 (다른 DDay를 고정한 경우)
           if (dDay.dDayId !== clickedDdayId && dDay.isFixed === true) {
@@ -29,11 +30,11 @@ function useFixDdayMutation() {
     },
     onSuccess: () => {
       console.log('fix success')
-      queryClient.invalidateQueries(['dDayList'])
+      queryClient.invalidateQueries([QueryKeyType.dDayList])
     },
     onError: (err, vars, context) => {
       console.error(err)
-      queryClient.setQueryData(['dDayList'], context.prevData)
+      queryClient.setQueryData([QueryKeyType.dDayList], context.prevData)
     },
   })
   return mutate

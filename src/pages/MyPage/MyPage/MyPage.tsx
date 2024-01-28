@@ -16,6 +16,7 @@ import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/f
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ResponseCommentType, ResponsePostType } from 'api/types'
 import { PostItem, Comment } from 'components'
+import { QueryKeyType } from 'enums'
 
 type TabInfoListProps = {
   title: string
@@ -32,7 +33,7 @@ export const MyPage: FC = () => {
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState(false)
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState(false)
-  const { data: dDayList, isLoading: isDdayLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () =>
+  const { data: dDayList, isLoading: isDdayLoading } = useQuery<FindAllDdayResponseProps>([QueryKeyType.dDayList], () =>
     findAllDday()
   )
   const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
