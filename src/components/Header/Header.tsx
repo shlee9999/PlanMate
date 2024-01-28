@@ -10,6 +10,7 @@ import { TodoItemType } from 'types'
 import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { CheckUserInfoResponseProps, checkUserInfo } from 'api/member/checkUserInfo'
+import { Display } from 'components/Display/Display'
 
 export const Header: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
@@ -37,7 +38,7 @@ export const Header: FC = () => {
       localStorage.removeItem('userAuthInfo')
       window.location.reload()
     })
-  const renderNavContainer = () => (
+  const renderNavContainer = (type: 'header' | 'footer') => (
     <s.NavItemContainer>
       <s.NavItems>
         {pageList.map((item, index) => (
@@ -50,7 +51,9 @@ export const Header: FC = () => {
             whileHover="hover"
           >
             {item.title}
-            {index === currentTab && <s.YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
+            {index === currentTab && (
+              <s.YellowCircle layoutId={`${type}_yellow_circle`} transition={{ duration: 0.2 }} />
+            )}
           </s.NavItem>
         ))}
       </s.NavItems>
@@ -125,14 +128,14 @@ export const Header: FC = () => {
       <s.HeaderWrapper>
         <s.Header>
           <s.StyledLogo />
-          {renderNavContainer()}
+          {renderNavContainer('header')}
           <s.RightContainer>
             {userAuthInfo.name && (
               <s.GreetTypoContainer>
                 안녕하세요,{' '}
                 <s.Username onClick={onClickNickname}>
                   {userAuthInfo.name}
-                  {currentPath.includes('/mypage') && <s.YellowCircle layoutId="yellow_circle" />}
+                  {currentPath.includes('/mypage') && <s.YellowCircle layoutId="header_yellow_circle" />}
                 </s.Username>
                 님!
               </s.GreetTypoContainer>
@@ -142,7 +145,9 @@ export const Header: FC = () => {
           </s.RightContainer>
         </s.Header>
       </s.HeaderWrapper>
-      <s.MobileFooter>{renderNavContainer()}</s.MobileFooter>
+      <Display on="SMALL">
+        <s.MobileFooter>{renderNavContainer('footer')}</s.MobileFooter>
+      </Display>
     </>
   )
 }

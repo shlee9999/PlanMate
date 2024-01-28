@@ -23,12 +23,14 @@ export const HeaderWrapper = styled.nav`
   position: fixed;
   left: 50%;
   top: 0;
-  transform: translate(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   width: 100vw;
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT}px;
   background-color: ${(props) => props.theme.background.white};
-  z-index: ${HEADER_Z_INDEX};
+  z-index: ${HEADER_Z_INDEX}px;
   @media screen and (${(props) => props.theme.small}) {
     height: ${MOBILE_HEADER_HEIGHT}px;
   }
@@ -155,6 +157,7 @@ export const YellowCircle = styled(motion.div)`
   height: 5px;
   background-color: ${(props) => props.theme.yellow};
   border-radius: 100px;
+  z-index: 1000;
 `
 
 export const StyledLogo = styled(Logo)`
