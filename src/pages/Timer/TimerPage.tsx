@@ -1,9 +1,6 @@
 import * as s from './styled'
 import { useState, FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { TimeProps, TodoItemType } from 'types'
-import { RootState } from 'modules'
-import { initializeTimer } from 'modules/timer'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'pages/Timer/hooks'
 import { SuggestModal } from 'pages/Timer/components/'
@@ -14,7 +11,7 @@ import { ResponseStats } from 'api/types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { NoContentDescription, StatsContainer } from 'components'
-import { ActionModal, TimerWidget, TimerItem } from './components'
+import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
 import { StatsContainerType } from 'enums'
@@ -23,24 +20,29 @@ export const TimerPage: FC = () => {
   const now = dateUtils.getDateProps(new Date())
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
+  const {
+    setDefaultTime: setTotalTime,
+    startTimer: startTotalTimer,
+    stopTimer: stopTotalTimer,
+    time: totalTime,
+    isRunning: isTotalTimerRunning,
+  } = useTimer({ defaultTime: 0 })
   const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>(['todoList'], () => studyTime())
-  const todoList: TodoItemType[] = isTodoLoading
-    ? []
-    : data?.map((todo) => ({
-        colorHex: todo.colorHex,
-        name: todo.name,
-        subjectId: todo.subjectId,
-        time: timeUtils.timeToSecond({
-          hour: todo.studyTimeHours,
-          minute: todo.studyTimeMinutes,
-          second: todo.studyTimeSeconds,
-        }),
-      })) || []
+  const todoList: TodoItemType[] =
+    data?.map((todo) => ({
+      colorHex: todo.colorHex,
+      name: todo.name,
+      subjectId: todo.subjectId,
+      time: timeUtils.timeToSecond({
+        hour: todo.studyTimeHours,
+        minute: todo.studyTimeMinutes,
+        second: todo.studyTimeSeconds,
+      }),
+    })) || []
   const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
     checkTodayStats()
   )
   const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>(['fixedDDay'], () => findFixedDday())
-  const { isRunning, totalTime } = useSelector((state: RootState) => state.timer)
   const {
     startTimer: startBreakTimer,
     stopTimer: stopBreakTimer,
@@ -49,19 +51,17 @@ export const TimerPage: FC = () => {
   } = useTimer({ defaultTime: 0 })
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const formattedDate: string = dateUtils.getFormattedDate(new Date())
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const openModal = () => !isRunning && setIsModalOpen(true)
+  const openModal = () => setIsModalOpen(true) //* isRunning 차단
   const closeModal = () => setIsModalOpen(false)
   const closeSuggestModal = () => setIsSuggestModalOpen(false)
-
   const {
-    restTimeHours,
-    restTimeMinutes,
-    restTimeSeconds,
-    totalStudyTimeHours,
-    totalStudyTimeMinutes,
-    totalStudyTimeSeconds,
+    restTimeHours = 0,
+    restTimeMinutes = 0,
+    restTimeSeconds = 0,
+    totalStudyTimeHours = 0,
+    totalStudyTimeMinutes = 0,
+    totalStudyTimeSeconds = 0,
   } = todayStatsData || {}
   const totalStudyTime: TimeProps = {
     hour: totalStudyTimeHours,
@@ -73,27 +73,28 @@ export const TimerPage: FC = () => {
     minute: restTimeMinutes,
     second: restTimeSeconds,
   }
-
+  console.log(totalStudyTime)
   useEffect(() => {
     if (!isTodoLoading) {
       // * Todo 로딩 완료
       if (timeUtils.isEqualTime(totalStudyTime, { hour: 0, minute: 0, second: 0 })) stopBreakTimer()
-      dispatch(initializeTimer(timeUtils.timeToSecond(totalStudyTime)))
+      // dispatch(initializeTimer(timeUtils.timeToSecond(totalStudyTime)))
     }
   }, [isTodoLoading])
-
   useEffect(() => {
-    const newTime = timeUtils.timeToSecond(restTime)
-    setDefaultBreakTime(newTime)
-  }, [totalTime, isStatsLoading])
+    const newBreakTime = timeUtils.timeToSecond(restTime)
+    setDefaultBreakTime(newBreakTime)
+    setTotalTime(timeUtils.timeToSecond(totalStudyTime))
+  }, [todayStatsData])
 
+  //* 전체 타이머 실행 boolean 필요
   useEffect(() => {
-    if (isRunning) stopBreakTimer()
+    if (isTotalTimerRunning) stopBreakTimer()
     else {
       //총 공부 시간이 0이면
       startBreakTimer()
     }
-  }, [isRunning])
+  }, [isTotalTimerRunning])
 
   useEffect(() => {
     if (location.state) setIsSuggestModalOpen(true)
@@ -111,7 +112,10 @@ export const TimerPage: FC = () => {
             </s.LeftTopDescriptionWrapper>
             <s.StudyTimeContainer left>
               <s.Description>오늘의 공부량이에요!</s.Description>
-              <TimerWidget totalTime={totalTime} />
+              <s.TotalTimerContainer>
+                <s.Mode>공부</s.Mode>
+                <s.Timer>{timeUtils.getFormattedTime(totalTime)}</s.Timer>
+              </s.TotalTimerContainer>
               <s.BreakTime>
                 오늘은 휴식 시간을 <s.YellowTypo as="span">{timeUtils.getFormattedTimeKorean(breakTime)}</s.YellowTypo>{' '}
                 가졌네요!
@@ -155,7 +159,17 @@ export const TimerPage: FC = () => {
           <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
             {todoList.length !== 0 ? (
               todoList.map((todo: TodoItemType) => {
-                return <TimerItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
+                return (
+                  <TimerItem
+                    title={todo.name}
+                    key={todo.subjectId}
+                    todo={todo}
+                    buttonColor={todo.colorHex}
+                    startTotalTimer={startTotalTimer}
+                    stopTotalTimer={stopTotalTimer}
+                    isTotalTimerRunning={isTotalTimerRunning}
+                  />
+                )
               })
             ) : isTodoLoading ? (
               <s.TodoSpinner>Loading..</s.TodoSpinner>

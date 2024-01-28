@@ -18,6 +18,7 @@ function useUpdateSubjectMutation() {
         console.log('update success')
       },
       onSettled: () => {
+        queryClient.invalidateQueries(['todoList'])
         queryClient.invalidateQueries(['timeInfo'])
       },
     }

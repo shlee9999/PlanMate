@@ -1,4 +1,4 @@
-import { H12_500, P16 } from 'commonStyled'
+import { P16 } from 'commonStyled'
 import styled from 'styled-components'
 
 export const StatsRoot = styled.div`
@@ -10,6 +10,7 @@ export const StatsRoot = styled.div`
 `
 export const TimerRoot = styled.div`
   padding: 8px 15px;
+  height: 100%;
 `
 
 export const Header = styled.p`

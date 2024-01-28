@@ -17,18 +17,18 @@ export const Header: FC = () => {
   const [currentPath, setCurrentPath] = useState(location.pathname)
   const initialTabIndex = pageList.findIndex((page) => currentPath.includes(page.url))
   const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
-  const isRunning = useSelector((state: RootState) => state.timer.isRunning)
+  // const isRunning = useSelector((state: RootState) => state.timer.isRunning)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
-    !isRunning && setCurrentTab(index)
+    setCurrentTab(index) //* totalTimer Running 차단
     userAuthInfo.name && navigate(pageList[index].url)
   }
-  const onClickNickname = () => !isRunning && navigate('/mypage')
-  const onClickLogin = () => !isRunning && navigate('/login')
-  const onClickNotice = () => !isRunning && navigate('/notice')
+  const onClickNickname = () => navigate('/mypage') // ! totalTimerRunning 차단
+  const onClickLogin = () => navigate('/login') // ! totalTimerRunning 차단
+  const onClickNotice = () => navigate('/notice') // ! totalTimerRunning 차단
   const onClickLogout = () =>
-    !isRunning &&
+    //! !isRunning &&
     logout().then((res) => {
       navigate('/timer')
       localStorage.removeItem('userAuthInfo')

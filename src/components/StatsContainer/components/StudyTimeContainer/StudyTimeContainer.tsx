@@ -23,12 +23,8 @@ export const StudyTimeContainer: React.FC<StudyTimeContainerProps> = ({
 }) => {
   return (
     <s.StatsStudyTimeContainer $type={type}>
-      {type === StatsContainerType.stats && (
-        <StudyTime title="총 공부시간" text={timeUtils.getFormattedTime(totalFocusTime)} />
-      )}
-      {type === StatsContainerType.stats && (
-        <StudyTime title="최대 집중 시간" text={timeUtils.getFormattedTime(maxFocusTime)} />
-      )}
+      <StudyTime title="총 공부시간" text={timeUtils.getFormattedTime(totalFocusTime)} />
+      <StudyTime title="최대 집중 시간" text={timeUtils.getFormattedTime(maxFocusTime)} />
       <StudyTime
         title="시작시간"
         text={startAt.hour.toString().padStart(2, '0') + '시 ' + startAt.minute.toString().padStart(2, '0') + '분'}

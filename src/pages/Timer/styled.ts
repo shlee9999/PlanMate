@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
 import { BODY_MAX_WIDTH, XLARGE_SIDE_MARGIN, HEADER_HEIGHT } from 'constants/layout'
-import { H14_500, H14_700, H21_700, H32_700, P12, P14, PageRoot } from 'commonStyled'
+import { H14_500, H14_700, H21_700, H32_700, H36_500, H46_700, P12, P14, PageRoot } from 'commonStyled'
 import { InfoBox, Spinner } from 'components/'
 
 export const Root = styled(PageRoot)`
@@ -130,3 +130,18 @@ export const Test = styled.span`
 `
 
 export const TodoSpinner = styled(Spinner)``
+
+export const TotalTimerContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  column-gap: 74px;
+  height: 58px;
+  line-height: 58px;
+`
+export const Mode = styled.p`
+  ${H46_700}
+`
+export const Timer = styled.p`
+  ${H36_500}
+  color: ${(props) => props.theme.primary.default};
+`
