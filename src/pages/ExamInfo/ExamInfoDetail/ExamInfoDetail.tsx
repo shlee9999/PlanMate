@@ -1,3 +1,4 @@
+import * as s from './styled'
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { deserializeContent, serializeContent } from 'utils'
@@ -10,6 +11,9 @@ import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
 import { HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
 import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
+import { NoContentDescription, Pagination, Comment } from 'components'
+import { DeletePostModal } from '../components'
+import { MAX_COMMENT_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import {
   useLikePostMutation,
   useCreateCommentMutation,
@@ -19,11 +23,6 @@ import {
   useEditNoticeMutation,
   useEditPostMutation,
 } from '../hooks/mutations'
-import { NoContentDescription, Pagination } from 'components'
-import { DeletePostModal, ExamInfoComment } from '../components'
-import * as s from './styled'
-import { MAX_COMMENT_CHARACTER_COUNT } from 'constants/maxCharacterCount'
-
 type ExamInfoDetailPageProps = {
   mode: 'examinfo' | 'notice'
 }
@@ -222,7 +221,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
             <s.CommentContainer className={commentDtoList?.length !== 0 ? '' : 'no_content'}>
               {commentData?.commentDtoList?.length !== 0
                 ? commentData?.commentDtoList?.map((comment) => (
-                    <ExamInfoComment
+                    <Comment
                       key={comment.commentId}
                       commentId={comment.commentId}
                       isPostAuthor={comment.isPostAuthor}

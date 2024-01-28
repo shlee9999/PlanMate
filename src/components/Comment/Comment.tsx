@@ -1,6 +1,7 @@
+import * as s from './styled'
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
+import { useQuery } from 'react-query'
 import { ResponseCommentType } from 'api/types'
-import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -8,11 +9,10 @@ import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import { useLikeCommentMutation, useEditComment, useCreateReplyMutation } from 'pages/ExamInfo/hooks/mutations'
 import { ExamInfoReply, DeleteCommentModal } from 'pages/ExamInfo/components'
-import { useQuery } from 'react-query'
-import * as s from './styled'
 import { MAX_COMMENT_CHARACTER_COUNT, MAX_REPLY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
+import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 
-type ExamInfoCommentProps = {
+type CommentProps = {
   deleteComment?: () => void
   currentPage: number
   reply?: boolean
@@ -20,7 +20,7 @@ type ExamInfoCommentProps = {
   postId: number
 } & ResponseCommentType
 
-export const ExamInfoComment: FC<ExamInfoCommentProps> = ({
+export const Comment: FC<CommentProps> = ({
   commentId,
   isPostAuthor,
   isMyHearted,

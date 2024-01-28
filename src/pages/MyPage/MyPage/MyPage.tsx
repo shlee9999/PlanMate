@@ -1,3 +1,4 @@
+import * as s from './styled'
 import { FC, useEffect, useState } from 'react'
 import { ResignModal } from '../components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
@@ -8,15 +9,13 @@ import { ProfileEditModal } from 'pages/MyPage/components/'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { GoogleCustom } from 'assets/SvgComponents'
-import { ExamInfoComment } from 'pages/ExamInfo/components'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { CenterSpinner } from 'commonStyled'
 import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/findScrappedPost'
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
-import * as s from './styled'
 import { ResponseCommentType, ResponsePostType } from 'api/types'
-import { PostItem } from 'components'
+import { PostItem, Comment } from 'components'
 
 type TabInfoListProps = {
   title: string
@@ -68,7 +67,7 @@ export const MyPage: FC = () => {
     },
     {
       title: '작성한 댓글',
-      Component: ExamInfoComment,
+      Component: Comment,
       list: myCommentList,
       isLoading: isCommentLoading,
       icon: 'chat',

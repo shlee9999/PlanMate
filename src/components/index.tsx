@@ -10,6 +10,7 @@ import { Pagination } from './Pagination/Pagination'
 import { StatsContainer } from './StatsContainer/StatsContainer'
 import { Display } from './Display/Display'
 import { PostItem } from './PostItem/PostItem'
+import { Comment } from './Comment/Comment'
 export {
   Spinner,
   NoContentDescription,
@@ -24,4 +25,5 @@ export {
   StatsContainer,
   Display,
   PostItem,
+  Comment,
 }
