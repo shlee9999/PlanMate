@@ -46,8 +46,8 @@ export const TagContainer: FC<DTagContainerProps> = ({ className, tagList, selec
   )
   return (
     <>
-      <Display on="DESKTOP">{renderContent(5)}</Display>
-      <Display on="TABLET">{renderContent(7)}</Display>
+      <Display on="XLARGE">{renderContent(5)}</Display>
+      <Display on="LARGE">{renderContent(7)}</Display>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { MEDIUM_SIZE, LARGE_SIZE } from 'constants/layout'
+import { MEDIUM_SIZE, LARGE_SIZE, SMALL_SIZE } from 'constants/layout'
 import { DefaultTheme } from 'styled-components'
 
 export const lightTheme: DefaultTheme = {
@@ -29,7 +29,7 @@ export const lightTheme: DefaultTheme = {
   },
   warning: '#FF3636',
   yellow: '#ffc955',
-  small: `max-width: 480px`,
+  small: `max-width: ${SMALL_SIZE}px`,
   medium: `max-width: ${MEDIUM_SIZE}px`,
   large: `max-width: ${LARGE_SIZE}px`,
   xlarge: `min-width: ${LARGE_SIZE}px`,

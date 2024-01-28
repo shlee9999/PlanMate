@@ -18,9 +18,9 @@ export type DateProps = {
   month: number
   date: number
 }
-export type ViewportType<T> = {
-  XLARGE: T
-  LARGE: T
-  MEDIUM: T
-  SMALL: T
+
+export type ViewportType = 'XLARGE' | 'LARGE' | 'MEDIUM' | 'SMALL'
+
+export type ViewportProps<T> = {
+  [key in ViewportType]: T
 }

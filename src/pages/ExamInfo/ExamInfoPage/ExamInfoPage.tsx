@@ -29,16 +29,23 @@ export const ExamInfoPage = () => {
   useEffect(() => {
     setCurrentPage(1)
   }, [selectedTag])
-
+  const selectorProps = {
+    selectedTag: selectedTag,
+    setSelectedTag: setSelectedTag,
+    tagList: [''].concat(examInfoTagList),
+    selectorHeight: 30,
+    selectorWidth: 150,
+    title: '',
+  }
   return (
     <s.Root>
       <s.TypoWrapper>
         <s.UpperDescriptionTypo>유용한 정보를 찾아볼까요? </s.UpperDescriptionTypo>
         <s.TitleTypo>수험정보 👀</s.TitleTypo>
-        <Display on="DESKTOP">
+        <Display on="XLARGE">
           <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
         </Display>
-        <Display on="TABLET">
+        <Display on="LARGE">
           <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
         </Display>
       </s.TypoWrapper>
@@ -55,15 +62,11 @@ export const ExamInfoPage = () => {
         <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </s.BulletinButton>
-        <Display on="MOBILE">
-          <s.StyledTagSelector
-            selectedTag={selectedTag}
-            setSelectedTag={setSelectedTag}
-            tagList={[''].concat(examInfoTagList)}
-            selectorHeight={30}
-            selectorWidth={150}
-            title=""
-          />
+        <Display on="MEDIUM">
+          <s.StyledTagSelector {...selectorProps} />
+        </Display>
+        <Display on="SMALL">
+          <s.StyledTagSelector {...selectorProps} />
         </Display>
       </s.ExamInfoWrapper>
       <s.PaginationWrapper>
