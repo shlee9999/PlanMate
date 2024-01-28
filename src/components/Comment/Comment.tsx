@@ -1,16 +1,17 @@
 import * as s from './styled'
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
-import { ResponseCommentType } from 'api/types'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import { useLikeCommentMutation, useEditComment, useCreateReplyMutation } from 'pages/ExamInfo/hooks/mutations'
-import { ExamInfoReply, DeleteCommentModal } from 'pages/ExamInfo/components'
+import { DeleteCommentModal } from 'pages/ExamInfo/components'
 import { MAX_COMMENT_CHARACTER_COUNT, MAX_REPLY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
+import { ResponseCommentType } from 'api/types'
+import { Reply } from 'components'
 
 type CommentProps = {
   deleteComment?: () => void
@@ -163,7 +164,7 @@ export const Comment: FC<CommentProps> = ({
       {isReplying && (
         <>
           {replyList?.map((reply) => (
-            <ExamInfoReply key={reply.commentId} {...reply} parentCommentId={commentId} />
+            <Reply key={reply.commentId} {...reply} parentCommentId={commentId} />
           ))}
           <s.ReplyInputWrapper>
             <s.ReplyMark />

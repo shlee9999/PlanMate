@@ -1,20 +1,20 @@
+import * as s from './styled'
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { ResponseCommentType } from 'api/types'
 import { editComment } from 'api/comment/editComment'
 import { useNavigate } from 'react-router-dom'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
-import * as s from './styled'
-import useLikeReplyMutation from 'pages/ExamInfo/hooks/mutations/comment/useLikeReplyMutation'
-import { DeleteCommentModal } from '..'
+import { DeleteCommentModal } from '../../pages/ExamInfo/components'
 import { MAX_REPLY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
+import useLikeReplyMutation from 'pages/ExamInfo/hooks/mutations/comment/useLikeReplyMutation'
 
 type ExamInfoReplyProps = {
   // currentPage: number
   parentCommentId: number
 } & ResponseCommentType
 
-export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
+export const Reply: FC<ExamInfoReplyProps> = ({
   commentId,
   isPostAuthor,
   isMyHearted,
@@ -35,10 +35,6 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const [inputValue, setInputValue] = useState<string>(content)
   const [currentContent, setCurrentContent] = useState<string>(content)
   const navigate = useNavigate()
-  const toggleEllipsisModal = (e: React.MouseEvent): void => {
-    setIsEllipsisOpen((prev) => !prev)
-    e.stopPropagation()
-  }
   const inputRef = useRef(null)
   const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
   const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
@@ -48,6 +44,10 @@ export const ExamInfoReply: FC<ExamInfoReplyProps> = ({
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > MAX_REPLY_CHARACTER_COUNT) return
     setInputValue(e.target.value)
+  }
+  const toggleEllipsisModal = (e: React.MouseEvent): void => {
+    setIsEllipsisOpen((prev) => !prev)
+    e.stopPropagation()
   }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {

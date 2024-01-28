@@ -11,6 +11,7 @@ import { StatsContainer } from './StatsContainer/StatsContainer'
 import { Display } from './Display/Display'
 import { PostItem } from './PostItem/PostItem'
 import { Comment } from './Comment/Comment'
+import { Reply } from './Reply/Reply'
 export {
   Spinner,
   NoContentDescription,
@@ -26,4 +27,5 @@ export {
   Display,
   PostItem,
   Comment,
+  Reply,
 }
