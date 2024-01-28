@@ -1,3 +1,4 @@
+import * as s from './styled'
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -13,7 +14,7 @@ import { useQuery } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 import { Appointment, SelectModal } from '..'
 import { useRemoveAppointMutation } from '../../hooks/mutations'
-import * as s from './styled'
+import { QueryKeyType } from 'enums'
 
 type SchedulerProps = {
   className?: string
@@ -22,10 +23,14 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const { data: plannerData, isLoading } = useQuery<FindPlannerResponseProps>(['plannerData'], () => findPlanner(), {
-    initialData: [],
-    keepPreviousData: true,
-  })
+  const { data: plannerData, isLoading } = useQuery<FindPlannerResponseProps>(
+    [QueryKeyType.plannerData],
+    () => findPlanner(),
+    {
+      initialData: [],
+      keepPreviousData: true,
+    }
+  )
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { scheduleName: text, colorHex: bgColor } = useSelector((state: RootState) => state.selectedInfo)

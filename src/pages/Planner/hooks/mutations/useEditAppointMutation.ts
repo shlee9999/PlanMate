@@ -1,4 +1,5 @@
 import { EditPlannerRequestProps, editPlanner } from 'api/planner/editPlanner'
+import { QueryKeyType } from 'enums'
 import { useMutation, useQueryClient } from 'react-query'
 
 /**플래너 일정 수정 */
@@ -17,9 +18,9 @@ function useEditAppointMutation() {
       }),
     {
       onMutate: ({ colorHex, day, startAt, endAt, scheduleName, plannerId }: EditAppointMutationProps) => {
-        const previousAppointments = queryClient.getQueryData<EditAppointMutationProps[]>(['plannerData'])
+        const previousAppointments = queryClient.getQueryData<EditAppointMutationProps[]>([QueryKeyType.plannerData])
         queryClient.setQueryData<EditAppointMutationProps[]>(
-          ['plannerData'],
+          [QueryKeyType.plannerData],
           (prev) =>
             prev.map((app) =>
               app.plannerId === plannerId ? { colorHex, day, startAt, endAt, scheduleName, plannerId } : app
@@ -32,7 +33,7 @@ function useEditAppointMutation() {
       },
       onError: (err, variables, context) => {
         console.log('error:', err)
-        queryClient.setQueryData(['plannerData'], context.previousAppointments)
+        queryClient.setQueryData([QueryKeyType.plannerData], context.previousAppointments)
       },
     }
   )

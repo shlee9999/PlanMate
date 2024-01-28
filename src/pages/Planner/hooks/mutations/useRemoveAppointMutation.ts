@@ -1,6 +1,7 @@
 import { FindPlannerResponseProps } from 'api/planner/findPlanner'
 import { DeletePlannerRequestProps, deletePlanner } from 'api/planner/deletePlanner'
 import { useMutation, useQueryClient } from 'react-query'
+import { QueryKeyType } from 'enums'
 
 type RemoveAppointMutationProps = DeletePlannerRequestProps
 
@@ -11,20 +12,20 @@ function useRemoveAppointMutation() {
     ({ plannerId }: RemoveAppointMutationProps) => deletePlanner({ plannerId }),
     {
       onMutate: ({ plannerId }) => {
-        const previousAppointments = queryClient.getQueryData<FindPlannerResponseProps>(['plannerData'])
-        queryClient.setQueryData<FindPlannerResponseProps>(['plannerData'], (old) =>
+        const previousAppointments = queryClient.getQueryData<FindPlannerResponseProps>([QueryKeyType.plannerData])
+        queryClient.setQueryData<FindPlannerResponseProps>([QueryKeyType.plannerData], (old) =>
           old.filter((app) => app.plannerId !== plannerId)
         )
         return { previousAppointments }
       },
       onError: (err, variables, context) => {
-        queryClient.setQueryData(['plannerData'], context.previousAppointments)
+        queryClient.setQueryData([QueryKeyType.plannerData], context.previousAppointments)
       },
       onSuccess: () => {
         console.log('Remove planner successful')
       },
       onSettled: () => {
-        queryClient.invalidateQueries(['plannerData'])
+        queryClient.invalidateQueries([QueryKeyType.plannerData])
       },
     }
   )
