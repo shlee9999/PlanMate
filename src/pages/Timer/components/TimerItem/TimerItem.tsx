@@ -1,3 +1,4 @@
+import * as s from './styled'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TodoItemType } from 'types'
@@ -8,9 +9,8 @@ import { EllipsisModal } from '..'
 import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { timeUtils } from 'utils'
 import moment from 'moment'
-import * as s from './styled'
 
-export const TodoItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
+export const TimerItem = ({ title, todo, buttonColor }: { title: string; todo: TodoItemType; buttonColor: string }) => {
   const isTotalTimerRunning = useSelector((state: RootState) => state.timer.isRunning)
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState<boolean>(false)
   const dispatch = useDispatch()

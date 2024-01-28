@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { RightArrow } from 'assets/SvgComponents'
-import { TABLET_SIZE } from 'constants/layout'
+import { LARGE_SIZE } from 'constants/layout'
 import { P12, P14 } from 'commonStyled'
 
 export const Root = styled.div`
@@ -91,7 +91,7 @@ export const DataCell = styled(Cell)<DataCellProps>`
       line-height: 0;
     }
   }
-  @media (max-width: ${TABLET_SIZE}px) {
+  @media (max-width: ${LARGE_SIZE}px) {
     &:first-child {
       opacity: 0;
       border-right: 0;
@@ -123,7 +123,7 @@ export const DataCellRow = styled.tr`
 `
 
 export const ButtonWrapper = styled.div`
-  @media (max-width: ${TABLET_SIZE}px) {
+  @media (max-width: ${LARGE_SIZE}px) {
     top: -40px;
     left: 0;
     right: 0;

@@ -1,6 +1,6 @@
 import { H21_700, P12, PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
-import { EXAMINFOITEM_MIN_WIDTH, MOBILE_SIZE } from 'constants/layout'
+import { EXAMINFOITEM_MIN_WIDTH, MEDIUM_SIZE } from 'constants/layout'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { NoContentDescription, Spinner } from 'components/'
 import { TagSelector } from '../components'

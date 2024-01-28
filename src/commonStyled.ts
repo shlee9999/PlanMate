@@ -2,9 +2,10 @@ import {
   BODY_MAX_WIDTH,
   FOOTER_HEIGHT,
   HEADER_HEIGHT,
-  DESKTOP_SIDE_MARGIN,
-  TABLET_SIDE_MARGIN,
-  MOBILE_SIDE_MARGIN,
+  XLARGE_SIDE_MARGIN,
+  LARGE_SIDE_MARGIN,
+  MEDIUM_SIDE_MARGIN,
+  SMALL_SIDE_MARGIN,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
@@ -22,20 +23,24 @@ export const PageRoot = styled.div`
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
   ${BLOCK_SELECT}
 
-  @media screen and (${(props) => props.theme.desktop}) {
-    //* DESKTOP
-    padding: 40px ${DESKTOP_SIDE_MARGIN}px;
+  @media screen and (${(props) => props.theme.xlarge}) {
+    //* XLARGE
+    padding: 40px ${XLARGE_SIDE_MARGIN}px;
     /* background-color: teal; */
   }
-  @media screen and (${(props) => props.theme.tablet}) {
-    //* TABLET PAGE
-    padding: 40px ${TABLET_SIDE_MARGIN}px;
+  @media screen and (${(props) => props.theme.large}) {
+    //* LARGE
+    padding: 30px ${LARGE_SIDE_MARGIN}px;
     /* background-color: tomato; */
   }
-  @media screen and (${(props) => props.theme.mobile}) {
-    //* MOBILE PAGE
-    padding: 40px ${MOBILE_SIDE_MARGIN}px;
+  @media screen and (${(props) => props.theme.medium}) {
+    //* MEDIUM
+    padding: 20px ${MEDIUM_SIDE_MARGIN}px;
     /* background-color: yellow; */
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    //* SMALL
+    padding: 10px ${SMALL_SIDE_MARGIN}px;
   }
 `
 
@@ -168,9 +173,35 @@ export const H32_700 = css`
   font-weight: 700;
   line-height: 40px;
 `
+/** 32px 500*/
+export const H32_500 = css`
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+`
+/** 32px 700*/
+export const H28_700 = css`
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 35px;
+`
+/** 32px 500*/
+export const H28_500 = css`
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 35px;
+`
+
+/** 24px 700*/
 export const H24_700 = css`
   font-size: 24px;
   font-weight: 700;
+  line-height: 30px;
+`
+/** 24px 500*/
+export const H24_500 = css`
+  font-size: 24px;
+  font-weight: 500;
   line-height: 30px;
 `
 

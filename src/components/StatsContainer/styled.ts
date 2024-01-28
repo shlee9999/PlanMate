@@ -11,11 +11,6 @@ export const StatsRoot = styled.div`
 export const TimerRoot = styled.div`
   padding: 8px 15px;
 `
-export const CompareTimer = styled.div`
-  ${H12_500}
-  color: ${(props) => props.theme.text.black2};
-  margin-bottom: 16px;
-`
 
 export const Header = styled.p`
   ${P16}
@@ -32,7 +27,7 @@ export const UpperContainer = styled.div`
   row-gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 20px;
-  @media screen and (${(props) => props.theme.mobile}) {
+  @media screen and (${(props) => props.theme.medium}) {
     flex-direction: column;
   }
 `

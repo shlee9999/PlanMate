@@ -1,15 +1,14 @@
+import styled from 'styled-components'
 import { RightArrow } from 'assets/SvgComponents'
 import { H14_500, H21_700, LeftArrow, P10, P12, P14 } from 'commonStyled'
 import { motion } from 'framer-motion'
-import styled from 'styled-components'
 import { Tooltip } from './Tooltip'
+import { DESKTOP_DATE_CELL_SIZE, MOBILE_DATE_CELL_SIZE, TABLET_DATE_CELL_SIZE } from 'constants/dateCellSize'
 
 export const Root = styled.div`
   width: 100%;
+  height: 100%;
   position: relative;
-  height: 400px;
-  min-width: 300px;
-  min-height: 250px;
 `
 export const Header = styled.div<{ $layout: 'space-between' | 'center' }>`
   display: flex;
@@ -53,6 +52,9 @@ const Row = styled.div`
 export const DayRow = styled(Row)`
   position: relative;
   padding: 0 10px;
+  @media screen and (${(props) => props.theme.medium}) {
+    padding: 0;
+  }
 `
 export const Cell = styled.div`
   ${P12}
@@ -79,6 +81,9 @@ export const WeekRow = styled(Row)``
 export const LegendContainer = styled.ul`
   display: flex;
   align-self: flex-end;
+  @media screen and (${(props) => props.theme.medium}) {
+    display: none;
+  }
 `
 export const Legend = styled.legend`
   display: flex;
@@ -120,6 +125,10 @@ export const DateContainer = styled(motion.div)`
   flex-direction: column;
   justify-content: space-between;
   height: calc(100% - 70px);
+  @media screen and (${(props) => props.theme.medium}) {
+    height: calc(100% - 120px);
+    padding: 0;
+  }
 `
 
 //DateCell
@@ -130,11 +139,24 @@ type DateCellProps = {
 }
 const bgColor = ['transparent', 'rgba(1, 203, 69, 0.1)', 'rgba(1, 203, 69, 0.6)', 'rgba(1, 203, 69, 1)']
 const textColor = ['black', 'black', 'white', 'white']
+
 export const DateCellRoot = styled(Cell)<DateCellProps>`
   cursor: pointer;
-  width: 33px;
-  height: 33px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (${(props) => props.theme.xlarge}) {
+    width: ${DESKTOP_DATE_CELL_SIZE}px;
+    height: ${DESKTOP_DATE_CELL_SIZE}px;
+  }
+  @media screen and (${(props) => props.theme.large}) {
+    width: ${TABLET_DATE_CELL_SIZE}px;
+    height: ${TABLET_DATE_CELL_SIZE}px;
+  }
+  @media screen and (${(props) => props.theme.medium}) {
+    width: ${MOBILE_DATE_CELL_SIZE}px;
+    height: ${MOBILE_DATE_CELL_SIZE}px;
+  }
   &.current {
     background-color: ${(props) => bgColor[props.$index]};
     color: ${(props) => (props.$isSelected ? props.theme.text.white : textColor[props.$index])};

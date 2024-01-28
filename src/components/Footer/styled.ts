@@ -1,13 +1,29 @@
 import { H12_500 } from 'commonStyled'
-import { FOOTER_HEIGHT, FOOTER_MAX_WIDTH, FOOTER_MIN_WIDTH } from 'constants/layout'
+import { BLOCK_SELECT } from 'constants/blockSelect'
+import {
+  FOOTER_HEIGHT,
+  FOOTER_MAX_WIDTH,
+  LARGE_SIDE_MARGIN,
+  MEDIUM_SIDE_MARGIN,
+  SMALL_SIDE_MARGIN,
+  XLARGE_SIDE_MARGIN,
+} from 'constants/layout'
 import styled from 'styled-components'
 
 export const Root = styled.div`
-  -webkit-user-select: none;
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-  box-sizing: border-box;
-  padding: 32px 160px 42px;
+  ${BLOCK_SELECT}
+  @media screen and (${(props) => props.theme.xlarge}) {
+    padding: 32px ${XLARGE_SIDE_MARGIN}px 42px;
+  }
+  @media screen and (${(props) => props.theme.large}) {
+    padding: 32px ${LARGE_SIDE_MARGIN}px 42px;
+  }
+  @media screen and (${(props) => props.theme.medium}) {
+    padding: 32px ${MEDIUM_SIDE_MARGIN}px 42px;
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    opacity: 0;
+  }
   background-color: ${(props) => props.theme.background.gray2};
   width: 100vw;
   height: ${FOOTER_HEIGHT}px;
@@ -15,7 +31,6 @@ export const Root = styled.div`
 
 export const ContentWrapper = styled.div`
   max-width: ${FOOTER_MAX_WIDTH}px;
-  min-width: ${FOOTER_MIN_WIDTH}px;
   display: flex;
   justify-content: end;
   align-items: center;

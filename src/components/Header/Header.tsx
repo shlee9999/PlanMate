@@ -1,19 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import {
-  ContentWrapper,
-  Username,
-  GreetTypoContainer,
-  NavItemContainer,
-  Notice,
-  RightContainer,
-  Root,
-  NavItem,
-  NavItems,
-  LogoutTypo,
-  YellowCircle,
-  NavItemVar,
-  StyledLogo,
-} from './styled'
+import * as s from './styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
@@ -38,7 +24,6 @@ export const Header: FC = () => {
     !isRunning && setCurrentTab(index)
     userAuthInfo.name && navigate(pageList[index].url)
   }
-
   const onClickNickname = () => !isRunning && navigate('/mypage')
   const onClickLogin = () => !isRunning && navigate('/login')
   const onClickNotice = () => !isRunning && navigate('/notice')
@@ -49,8 +34,7 @@ export const Header: FC = () => {
       localStorage.removeItem('userAuthInfo')
       window.location.reload()
     })
-
-  useEffect(() => {
+  const renderNavContainer = useEffect(() => {
     if (location.pathname === '/') navigate('/timer')
   }, [currentTab])
 
@@ -115,41 +99,62 @@ export const Header: FC = () => {
     // if (!userAuthInfo.name) navigate('../login')
   }, [userAuthInfo])
   return (
-    <Root>
-      <ContentWrapper>
-        <NavItemContainer>
-          <StyledLogo />
-          <NavItems>
+    <>
+      <s.HeaderWrapper>
+        <s.Header>
+          <s.StyledLogo />
+          <s.NavItemContainer>
+            <s.NavItems>
+              {pageList.map((item, index) => (
+                <s.NavItem
+                  key={index}
+                  onClick={onClickTabItem(index)}
+                  $isSelected={index === currentTab}
+                  variants={s.NavItemVar}
+                  initial="initial"
+                  whileHover="hover"
+                >
+                  {item.title}
+                  {index === currentTab && <s.YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
+                </s.NavItem>
+              ))}
+            </s.NavItems>
+          </s.NavItemContainer>
+          <s.RightContainer>
+            {userAuthInfo.name && (
+              <s.GreetTypoContainer>
+                안녕하세요,{' '}
+                <s.Username onClick={onClickNickname}>
+                  {userAuthInfo.name}
+                  {currentPath.includes('/mypage') && <s.YellowCircle layoutId="yellow_circle" />}
+                </s.Username>
+                님!
+              </s.GreetTypoContainer>
+            )}
+            {userAuthInfo.name && <s.LogoutTypo onClick={onClickLogout}>로그아웃</s.LogoutTypo>}
+            {userAuthInfo.name && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
+          </s.RightContainer>
+        </s.Header>
+      </s.HeaderWrapper>
+      <s.MobileFooter>
+        <s.NavItemContainer>
+          <s.NavItems>
             {pageList.map((item, index) => (
-              <NavItem
+              <s.NavItem
                 key={index}
                 onClick={onClickTabItem(index)}
                 $isSelected={index === currentTab}
-                variants={NavItemVar}
+                variants={s.NavItemVar}
                 initial="initial"
                 whileHover="hover"
               >
                 {item.title}
-                {index === currentTab && <YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
-              </NavItem>
+                {index === currentTab && <s.YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
+              </s.NavItem>
             ))}
-          </NavItems>
-        </NavItemContainer>
-        <RightContainer>
-          {userAuthInfo.name && (
-            <GreetTypoContainer>
-              안녕하세요,{' '}
-              <Username onClick={onClickNickname}>
-                {userAuthInfo.name}
-                {currentPath.includes('/mypage') && <YellowCircle layoutId="yellow_circle" />}
-              </Username>
-              님!
-            </GreetTypoContainer>
-          )}
-          {userAuthInfo.name && <LogoutTypo onClick={onClickLogout}>로그아웃</LogoutTypo>}
-          {userAuthInfo.name && <Notice onClick={onClickNotice}>공지사항</Notice>}
-        </RightContainer>
-      </ContentWrapper>
-    </Root>
+          </s.NavItems>
+        </s.NavItemContainer>
+      </s.MobileFooter>
+    </>
   )
 }

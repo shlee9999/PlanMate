@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
-import { BODY_MAX_WIDTH, DESKTOP_SIDE_MARGIN, HEADER_HEIGHT } from 'constants/layout'
+import { BODY_MAX_WIDTH, XLARGE_SIDE_MARGIN, HEADER_HEIGHT } from 'constants/layout'
 import { H14_500, H14_700, H21_700, H32_700, P12, P14, PageRoot } from 'commonStyled'
 import { InfoBox, Spinner } from 'components/'
 
@@ -18,7 +18,7 @@ export const Banner = styled.div`
   height: 400px;
 `
 export const BannerContentContainer = styled.div`
-  max-width: ${BODY_MAX_WIDTH - DESKTOP_SIDE_MARGIN * 2}px;
+  max-width: ${BODY_MAX_WIDTH - XLARGE_SIDE_MARGIN * 2}px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 64px;

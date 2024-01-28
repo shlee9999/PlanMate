@@ -151,30 +151,57 @@
       "export default ${TM_FILENAME_BASE}"
     ],
   },
-    "media-query-desktop": {
+    "media-query-xlarge": {
       "scope": "css",
-      "prefix": "desktop",
+      "prefix": "xlarge",
       "body": [
-        " @media screen and (${(props) => props.theme.desktop}) {",
-        "$1",
+        "@media screen and (${(props) => props.theme.xlarge}) {",
+        "  $1",
         "}",
       ]
     },
-    "media-query-tablet": {
+    "media-query-large": {
       "scope": "css",
-      "prefix": "tablet",
+      "prefix": "large",
       "body": [
-        " @media screen and (${(props) => props.theme.tablet}) {",
-        "$1",
+        "@media screen and (${(props) => props.theme.large}) {",
+        "  $1",
         "}",
       ]
     },
-    "media-query-mobile": {
+    "media-query-medium": {
       "scope": "css",
-      "prefix": "mobile",
+      "prefix": "medium",
       "body": [
-        " @media screen and (${(props) => props.theme.mobile}) {",
-        "$1",
+        "@media screen and (${(props) => props.theme.medium}) {",
+        "  $1",
+        "}",
+      ]
+    },
+    "media-query-small": {
+      "scope": "css",
+      "prefix": "small",
+      "body": [
+        "@media screen and (${(props) => props.theme.small}) {",
+        "  $1",
+        "}",
+      ]
+    },
+    "media-query-full": {
+      "scope": "css",
+      "prefix": "full",
+      "body": [
+        "@media screen and (${(props) => props.theme.xlarge}) {",
+        "  $1",
+        "}",
+        "@media screen and (${(props) => props.theme.large}) {",
+        "  $1",
+        "}",
+        "@media screen and (${(props) => props.theme.medium}) {",
+        "  $1",
+        "}",
+        "@media screen and (${(props) => props.theme.small}) {",
+        "  $1",
         "}",
       ]
     },
