@@ -19,6 +19,7 @@ function useCreatePostMutation() {
     {
       onMutate: ({ content, tagList, title }) => {
         const prevData = queryClient.getQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''])
+        if (!prevData || !prevData.postDtoList) return { prevData: { ...prevData, postDtoList: [] } }
         const newPost = {
           content,
           isMyHearted: false,
@@ -41,15 +42,16 @@ function useCreatePostMutation() {
       },
       onSuccess: (data, { callBack }, context) => {
         console.log('success')
-        //* 만드는데 성공하면 id값을 백엔드에 맞게 바꿔준다.
-        queryClient.setQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''], (prev) => {
-          const createdPost = { ...prev.postDtoList[0] }
-          createdPost.postId = data.postId
-          return {
-            ...prev,
-            postDtoList: [createdPost, ...context.prevData.postDtoList],
-          }
-        })
+        if (context.prevData.postDtoList.length !== 0)
+          //* 만드는데 성공하면 id값을 백엔드에 맞게 바꿔줌
+          queryClient.setQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''], (prev) => {
+            const createdPost = { ...prev.postDtoList[0] }
+            createdPost.postId = data.postId
+            return {
+              ...prev,
+              postDtoList: [createdPost, ...context.prevData.postDtoList],
+            }
+          })
         callBack()
       },
       onError: (err, data, context) => {
