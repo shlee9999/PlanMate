@@ -1,5 +1,6 @@
 import { DeleteCommentRequestProps, deleteComment } from 'api/comment/deleteComment'
 import { FindAllChildResponseProps } from 'api/comment/findAllChild'
+import { QueryKeyType } from 'enums'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseDeleteReplyMutationProps = DeleteCommentRequestProps & {
@@ -15,19 +16,19 @@ function useDeleteReplyMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ commentId }: UseDeleteReplyMutationProps) => deleteComment({ commentId }), {
     onMutate: ({ parentCommentId, callBack }: UseDeleteReplyMutationProps) => {
-      const previousComments = queryClient.getQueryData(['replyList', parentCommentId])
+      const previousComments = queryClient.getQueryData([QueryKeyType.replyList, parentCommentId])
       callBack && callBack()
       return { previousComments }
     },
     onSuccess: (data, { commentId, parentCommentId }) => {
-      queryClient.setQueryData<FindAllChildResponseProps>(['replyList', parentCommentId], (prev) =>
+      queryClient.setQueryData<FindAllChildResponseProps>([QueryKeyType.replyList, parentCommentId], (prev) =>
         prev.filter((prevComment) => prevComment.commentId !== commentId)
       )
       console.log('delete success')
     },
     onError: (err, { parentCommentId }, context) => {
       // 오류 발생 시 원래 상태로 복원
-      queryClient.setQueryData([['replyList', parentCommentId]], context.previousComments)
+      queryClient.setQueryData([[QueryKeyType.replyList, parentCommentId]], context.previousComments)
     },
   })
   return mutate

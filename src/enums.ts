@@ -23,7 +23,6 @@ export enum QueryKeyType {
   findAllResponse = 'findAllResponse', //*ExamInfoPage
   detailData = 'detailData', //* Detail
   commentData = 'commentData',
-  examInfo = 'examInfo',
   replyList = 'replyList', //*Comment
 
   //*MyPage
