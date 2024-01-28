@@ -1,6 +1,7 @@
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { likeComment } from 'api/comment/likeComment'
 import { CommentType } from 'api/types'
+import { QueryKeyType } from 'enums'
 import { useMutation, useQueryClient } from 'react-query'
 
 type MutationProps = Pick<CommentType, 'commentId' | 'postId' | 'currentPage'>
@@ -15,27 +16,30 @@ function useLikeCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ commentId }: MutationProps) => likeComment({ commentId }), {
     onMutate: ({ commentId, postId, currentPage }: MutationProps) => {
-      const previousData = queryClient.getQueryData(['commentData', postId, currentPage + ''])
-      queryClient.setQueryData<FindAllCommentsResponseProps>(['commentData', postId, currentPage + ''], (prev) => ({
-        ...prev,
-        commentDtoList: prev.commentDtoList.map((prevComment) =>
-          prevComment.commentId === commentId
-            ? {
-                ...prevComment,
-                isMyHearted: !prevComment.isMyHearted,
-                likeCount: prevComment.isMyHearted ? prevComment.likeCount - 1 : prevComment.likeCount + 1,
-              }
-            : prevComment
-        ),
-      }))
+      const previousData = queryClient.getQueryData([QueryKeyType.commentData, postId, currentPage + ''])
+      queryClient.setQueryData<FindAllCommentsResponseProps>(
+        [QueryKeyType.commentData, postId, currentPage + ''],
+        (prev) => ({
+          ...prev,
+          commentDtoList: prev.commentDtoList.map((prevComment) =>
+            prevComment.commentId === commentId
+              ? {
+                  ...prevComment,
+                  isMyHearted: !prevComment.isMyHearted,
+                  likeCount: prevComment.isMyHearted ? prevComment.likeCount - 1 : prevComment.likeCount + 1,
+                }
+              : prevComment
+          ),
+        })
+      )
       return { previousData }
     },
     onError: (err, { postId, currentPage }, context) => {
       console.error(err)
-      queryClient.setQueryData(['commentData', postId, currentPage + ''], context.previousData)
+      queryClient.setQueryData([QueryKeyType.commentData, postId, currentPage + ''], context.previousData)
     },
     onSettled: (data, err, { postId, currentPage }) =>
-      queryClient.invalidateQueries(['commentData', postId, currentPage + '']),
+      queryClient.invalidateQueries([QueryKeyType.commentData, postId, currentPage + '']),
   })
 
   return mutate

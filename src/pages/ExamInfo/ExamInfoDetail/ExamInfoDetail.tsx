@@ -23,6 +23,7 @@ import {
   useEditNoticeMutation,
   useEditPostMutation,
 } from '../hooks/mutations'
+import { QueryKeyType } from 'enums'
 type ExamInfoDetailPageProps = {
   mode: 'examinfo' | 'notice'
 }
@@ -46,7 +47,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   if (!postId) return <s.Root>Error!</s.Root>
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
-    ['commentData', postId, currentPage + ''],
+    [QueryKeyType.commentData, postId, currentPage + ''],
     () => findAllComments({ pages: currentPage - 1, postId }),
     { keepPreviousData: true }
   )
