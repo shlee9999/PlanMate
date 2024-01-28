@@ -1,5 +1,5 @@
-import { FC, ReactNode, SetStateAction, useEffect, useState } from 'react'
-import { DDayItem, ResignModal } from '../components'
+import { FC, useEffect, useState } from 'react'
+import { ResignModal } from '../components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
@@ -8,7 +8,7 @@ import { ProfileEditModal } from 'pages/MyPage/components/'
 import { changeName } from 'api/member/changeName'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { GoogleCustom } from 'assets/SvgComponents'
-import { ExamInfoComment, ExamInfoItem } from 'pages/ExamInfo/components'
+import { ExamInfoComment } from 'pages/ExamInfo/components'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { CenterSpinner } from 'commonStyled'
@@ -16,6 +16,7 @@ import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/f
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import * as s from './styled'
 import { ResponseCommentType, ResponsePostType } from 'api/types'
+import { PostItem } from 'components'
 
 type TabInfoListProps = {
   title: string
@@ -59,7 +60,7 @@ export const MyPage: FC = () => {
   const tabInfoList: TabInfoListProps[] = [
     {
       title: '작성한 글',
-      Component: ExamInfoItem,
+      Component: PostItem,
       list: myPostList,
       isLoading: isPostLoading,
       icon: 'pencil',
@@ -75,7 +76,7 @@ export const MyPage: FC = () => {
     },
     {
       title: '스크랩한 글',
-      Component: ExamInfoItem,
+      Component: PostItem,
       list: myScrapList,
       isLoading: isScrapLoading,
       icon: 'pencil',

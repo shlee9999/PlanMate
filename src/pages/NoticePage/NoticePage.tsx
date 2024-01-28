@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react'
 import { ResponseNoticeType } from 'api/types/PostType'
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
-import { ExamInfoItem } from 'pages/ExamInfo/components'
-import { Pagination } from 'components'
+import { Pagination, PostItem } from 'components'
 
 export const NoticePage = () => {
   const data = useLoaderData() as FindAllNoticeResponseProps
@@ -34,7 +33,7 @@ export const NoticePage = () => {
       </s.TypoWrapper>
       <s.PostContainer>
         {examInfoList.length !== 0 ? (
-          examInfoList.map((examInfo) => <ExamInfoItem postTagList={[]} {...examInfo} key={examInfo.noticeId} />)
+          examInfoList.map((examInfo) => <PostItem postTagList={[]} {...examInfo} key={examInfo.noticeId} />)
         ) : (
           <s.NoNotice icon="book_check" descriptions={['아직 공지사항이 없어요!']} />
         )}

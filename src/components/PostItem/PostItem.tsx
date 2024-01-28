@@ -1,13 +1,13 @@
 import { FC } from 'react'
+import * as s from './styled'
 import { ResponsePostType } from 'api/types'
 import { useNavigate } from 'react-router-dom'
 import { CommentIcon, HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
-import * as s from './styled'
 
-type ExamInfoItemProps = ResponsePostType
+type PostItemProps = ResponsePostType
 
-export const ExamInfoItem: FC<ExamInfoItemProps> = ({
+export const PostItem: FC<PostItemProps> = ({
   commentCount,
   isMyHearted,
   isMyScraped,

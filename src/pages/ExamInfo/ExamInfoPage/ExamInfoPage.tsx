@@ -1,12 +1,11 @@
 import * as s from './styled'
 import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { Pagination, Display, PostItem } from 'components'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examInfoTagList } from 'constants/tagList'
 import { findPostWithTag } from 'api/post/find/findPostWithTag'
-import { useQuery } from 'react-query'
-import { ExamInfoItem } from '../components'
-import { Pagination, Display } from 'components'
 import { TagContainer } from './TagContainer/TagContainer'
 
 export const ExamInfoPage = () => {
@@ -49,7 +48,7 @@ export const ExamInfoPage = () => {
         {isLoading ? (
           <s.PostSpinner>Loading...</s.PostSpinner>
         ) : examInfoList?.length !== 0 ? (
-          examInfoList?.map((examInfo) => <ExamInfoItem {...examInfo} key={examInfo.postId} />)
+          examInfoList?.map((examInfo) => <PostItem {...examInfo} key={examInfo.postId} />)
         ) : (
           <s.NoContent icon="pencil" descriptions={['아직 게시글이 없어요', '첫 게시글을 올려볼까요?']} />
         )}

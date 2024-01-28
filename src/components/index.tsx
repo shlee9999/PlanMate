@@ -9,6 +9,7 @@ import { Calendar } from './Calendar/Calendar'
 import { Pagination } from './Pagination/Pagination'
 import { StatsContainer } from './StatsContainer/StatsContainer'
 import { Display } from './Display/Display'
+import { PostItem } from './PostItem/PostItem'
 export {
   Spinner,
   NoContentDescription,
@@ -22,4 +23,5 @@ export {
   Pagination,
   StatsContainer,
   Display,
+  PostItem,
 }
