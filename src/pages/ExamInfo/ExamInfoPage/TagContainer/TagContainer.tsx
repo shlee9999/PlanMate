@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import * as s from './styled'
-import { Display } from 'components/Display/Display'
+import { Display } from 'components'
 
 type DTagContainerProps = {
   className?: string

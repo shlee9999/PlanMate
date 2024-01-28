@@ -1,13 +1,12 @@
-import { MouseEvent, useEffect, useState } from 'react'
+import * as s from './styled'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examInfoTagList } from 'constants/tagList'
-import { FindPostWithTagResponseProps, findPostWithTag } from 'api/post/find/findPostWithTag'
+import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { useQuery } from 'react-query'
 import { ExamInfoItem } from '../components'
-import { Pagination } from 'components'
-import * as s from './styled'
-import { Display } from 'components/Display/Display'
+import { Pagination, Display } from 'components'
 import { TagContainer } from './TagContainer/TagContainer'
 
 export const ExamInfoPage = () => {

@@ -8,6 +8,7 @@ import { Footer } from './Footer/Footer'
 import { Calendar } from './Calendar/Calendar'
 import { Pagination } from './Pagination/Pagination'
 import { StatsContainer } from './StatsContainer/StatsContainer'
+import { Display } from './Display/Display'
 export {
   Spinner,
   NoContentDescription,
@@ -20,4 +21,5 @@ export {
   Calendar,
   Pagination,
   StatsContainer,
+  Display,
 }
