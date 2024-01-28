@@ -65,7 +65,7 @@ export const StartButton = styled(TimerStart)`
 export const PauseButton = styled(TimerPause)`
   cursor: pointer;
   @media screen and (${(props) => props.theme.xlarge}) {
-    width: ${TIMER_BUTTON_SIZE.XLARGE}px;
+    width: ${TIMER_BUTTON_SIZE.LARGE}px;
     margin-right: 24px;
   }
   @media screen and (${(props) => props.theme.large}) {

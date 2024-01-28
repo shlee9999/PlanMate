@@ -11,6 +11,7 @@ import { GoogleTokenResponseProps, googleToken } from 'api/login/googleToken'
 import { changeuserAuthInfo } from 'modules/userAuthInfo'
 import { CheckUserInfoResponseProps, checkUserInfo } from 'api/member/checkUserInfo'
 import { Display } from 'components/Display/Display'
+import { ViewportType } from 'enums'
 
 export const Header: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
@@ -145,7 +146,7 @@ export const Header: FC = () => {
           </s.RightContainer>
         </s.Header>
       </s.HeaderWrapper>
-      <Display on="SMALL">
+      <Display on={ViewportType.SMALL}>
         <s.MobileFooter>{renderNavContainer('footer')}</s.MobileFooter>
       </Display>
     </>

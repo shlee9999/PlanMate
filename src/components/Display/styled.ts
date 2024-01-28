@@ -1,5 +1,5 @@
+import { ViewportType } from 'enums'
 import { styled } from 'styled-components'
-import { ViewportType } from 'types'
 
 type RootProps = {
   $on: ViewportType
@@ -8,23 +8,31 @@ type RootProps = {
 export const Root = styled.div<RootProps>`
   @media screen and (${(props) => props.theme.xlarge}) {
     //* XLARGE
-    ${(props) => (props.$on === 'LARGE' || props.$on === 'MEDIUM' || props.$on === 'SMALL') && 'display:none'}
+    ${(props) =>
+      (props.$on === ViewportType.LARGE || props.$on === ViewportType.MEDIUM || props.$on === ViewportType.SMALL) &&
+      'display:none'}
   }
   @media screen and (${(props) => props.theme.large}) {
     //* LARGE
-    ${(props) => (props.$on === 'XLARGE' || props.$on === 'MEDIUM' || props.$on === 'SMALL') && 'display:none'}
-    ${(props) => props.$on === 'LARGE' && 'display:unset'}
+    ${(props) =>
+      (props.$on === ViewportType.XLARGE || props.$on === ViewportType.MEDIUM || props.$on === ViewportType.SMALL) &&
+      'display:none'}
+    ${(props) => props.$on === ViewportType.LARGE && 'display:unset'}
   }
 
   @media screen and (${(props) => props.theme.medium}) {
     //* MEDIUM
-    ${(props) => (props.$on === 'XLARGE' || props.$on === 'LARGE' || props.$on === 'SMALL') && 'display:none'}
-    ${(props) => props.$on === 'MEDIUM' && 'display:unset'}
+    ${(props) =>
+      (props.$on === ViewportType.XLARGE || props.$on === ViewportType.LARGE || props.$on === ViewportType.SMALL) &&
+      'display:none'}
+    ${(props) => props.$on === ViewportType.MEDIUM && 'display:unset'}
   }
 
   @media screen and (${(props) => props.theme.small}) {
     //* SMALL
-    ${(props) => (props.$on === 'XLARGE' || props.$on === 'LARGE' || props.$on === 'MEDIUM') && 'display:none'}
-    ${(props) => props.$on === 'SMALL' && 'display:unset'}
+    ${(props) =>
+      (props.$on === ViewportType.XLARGE || props.$on === ViewportType.LARGE || props.$on === ViewportType.MEDIUM) &&
+      'display:none'}
+    ${(props) => props.$on === ViewportType.SMALL && 'display:unset'}
   }
 `

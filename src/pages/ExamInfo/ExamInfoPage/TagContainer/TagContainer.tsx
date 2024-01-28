@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import * as s from './styled'
 import { Display } from 'components'
+import { ViewportType } from 'enums'
 
 type DTagContainerProps = {
   className?: string
@@ -46,8 +47,8 @@ export const TagContainer: FC<DTagContainerProps> = ({ className, tagList, selec
   )
   return (
     <>
-      <Display on="XLARGE">{renderContent(5)}</Display>
-      <Display on="LARGE">{renderContent(7)}</Display>
+      <Display on={ViewportType.XLARGE}>{renderContent(5)}</Display>
+      <Display on={ViewportType.LARGE}>{renderContent(7)}</Display>
     </>
   )
 }

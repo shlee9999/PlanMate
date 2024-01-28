@@ -7,6 +7,7 @@ import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examInfoTagList } from 'constants/tagList'
 import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { TagContainer } from './TagContainer/TagContainer'
+import { ViewportType } from 'enums'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -42,10 +43,10 @@ export const ExamInfoPage = () => {
       <s.TypoWrapper>
         <s.UpperDescriptionTypo>유용한 정보를 찾아볼까요? </s.UpperDescriptionTypo>
         <s.TitleTypo>수험정보 👀</s.TitleTypo>
-        <Display on="XLARGE">
+        <Display on={ViewportType.XLARGE}>
           <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
         </Display>
-        <Display on="LARGE">
+        <Display on={ViewportType.LARGE}>
           <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
         </Display>
       </s.TypoWrapper>
@@ -62,10 +63,10 @@ export const ExamInfoPage = () => {
         <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </s.BulletinButton>
-        <Display on="MEDIUM">
+        <Display on={ViewportType.MEDIUM}>
           <s.StyledTagSelector {...selectorProps} />
         </Display>
-        <Display on="SMALL">
+        <Display on={ViewportType.SMALL}>
           <s.StyledTagSelector {...selectorProps} />
         </Display>
       </s.ExamInfoWrapper>

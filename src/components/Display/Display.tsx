@@ -1,6 +1,6 @@
 import * as s from './styled'
+import { ViewportType } from 'enums'
 import { FC, ReactNode } from 'react'
-import { ViewportType } from 'types'
 export type DisplayProps = {
   on: ViewportType
   children: ReactNode
