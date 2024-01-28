@@ -180,7 +180,7 @@ export const TimerPage: FC = () => {
           </s.TodoContainer>
 
           <s.AddButton onClick={openModal}>
-            <PlusIcon fill="currentColor" />
+            <PlusIcon />
             과목
           </s.AddButton>
         </s.LowerContainer>

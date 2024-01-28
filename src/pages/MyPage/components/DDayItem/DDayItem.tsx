@@ -25,8 +25,6 @@ export const DDayItem: FC<DDayItemProps> = ({
   onClick,
   selectable,
 }) => {
-  const theme = useContext(ThemeContext)
-
   const mutateFixSchedule = useFixDdayMutation()
   const onClickPin = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -48,7 +46,7 @@ export const DDayItem: FC<DDayItemProps> = ({
       $selectable={selectable}
     >
       <s.Container>
-        <s.StyledPinIcon fill={isFixed ? theme.primary.default : 'none'} onClick={onClickPin} />
+        <s.StyledPinIcon onClick={onClickPin} $isFixed={isFixed} />
         <s.Title>{title}</s.Title>
         <s.Date>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</s.Date>
       </s.Container>

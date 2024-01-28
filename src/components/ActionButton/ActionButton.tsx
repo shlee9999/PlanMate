@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { CloseButton, Root } from './styled'
+import * as s from './styled'
 import { CheckIcon, CloseIcon, PlusIcon, RegisterIcon, TrashIcon } from 'assets/SvgComponents'
 import { useTheme } from 'styled-components'
 type IconType = 'close' | 'register' | 'check' | 'plus' | 'none' | 'trash'
@@ -15,10 +15,10 @@ type ActionButtonProps = {
 export const ActionButton: FC<ActionButtonProps> = ({ className, onClick, children, icon, color }) => {
   const theme = useTheme()
   const Icons = {
-    register: <RegisterIcon fill="currentColor" />,
-    check: <CheckIcon fill="currentColor" />,
+    register: <RegisterIcon />,
+    check: <CheckIcon />,
     close: <CloseIcon />,
-    plus: <PlusIcon fill="currentColor" />,
+    plus: <PlusIcon />,
     trash: <TrashIcon />,
     none: null,
   }
@@ -26,14 +26,14 @@ export const ActionButton: FC<ActionButtonProps> = ({ className, onClick, childr
   const IconComponent = Icons[icon]
 
   return icon === 'close' ? (
-    <CloseButton>
+    <s.CloseButton>
       {IconComponent}
       {children}
-    </CloseButton>
+    </s.CloseButton>
   ) : (
-    <Root className={className} onClick={onClick} $color={color ? buttonColor : theme.primary.default}>
+    <s.Root className={className} onClick={onClick} $color={color ? buttonColor : theme.primary.default}>
       {IconComponent}
       {children}
-    </Root>
+    </s.Root>
   )
 }
