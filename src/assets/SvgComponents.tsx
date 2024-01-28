@@ -40,7 +40,7 @@ const RegisterIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) 
   <RegisterIconSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
 )
 const PlusIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
-  <PlusIconSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
+  <PlusIconSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
 )
 const EllipsisIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
   <EllipsisSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
