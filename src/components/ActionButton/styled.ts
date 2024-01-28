@@ -31,8 +31,9 @@ export const CloseButton = styled.button`
   justify-content: center;
   align-items: center;
   &:hover {
-    color: ${(props) => props.theme.background.white};
-    background-color: ${(props) => props.theme.primary.dark};
+    /* color: ${(props) => props.theme.background.white}; */
+    background-color: ${(props) => props.theme.border.default};
+    border: 1px solid ${(props) => props.theme.border.dark};
   }
   border: 1px solid ${(props) => props.theme.border.default};
   color: ${(props) => props.theme.text.black2};
