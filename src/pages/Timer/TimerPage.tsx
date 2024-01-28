@@ -14,7 +14,7 @@ import { NoContentDescription, StatsContainer } from 'components'
 import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
-import { StatsContainerType } from 'enums'
+import { QueryKeyType, StatsContainerType } from 'enums'
 
 export const TimerPage: FC = () => {
   const now = dateUtils.getDateProps(new Date())
@@ -27,7 +27,9 @@ export const TimerPage: FC = () => {
     time: totalTime,
     isRunning: isTotalTimerRunning,
   } = useTimer({ defaultTime: 0 })
-  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>(['todoList'], () => studyTime())
+  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeyType.todoList], () =>
+    studyTime()
+  )
   const todoList: TodoItemType[] =
     data?.map((todo) => ({
       colorHex: todo.colorHex,

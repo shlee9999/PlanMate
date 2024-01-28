@@ -1,4 +1,5 @@
 import { EditSubjectRequestProps, editSubject } from 'api/subject/editSubject'
+import { QueryKeyType } from 'enums'
 import { useMutation, useQueryClient } from 'react-query'
 import { TodoItemType } from 'types'
 
@@ -16,8 +17,8 @@ function useEditSubjectMutation() {
       }),
     {
       onMutate: ({ subjectId, colorHex, name }) => {
-        const prevData = queryClient.getQueryData('todoList')
-        queryClient.setQueryData<TodoItemType[]>('todoList', (prev) =>
+        const prevData = queryClient.getQueryData([QueryKeyType.todoList])
+        queryClient.setQueryData<TodoItemType[]>([QueryKeyType.todoList], (prev) =>
           prev.map((todo) => (todo.subjectId === subjectId ? { ...todo, colorHex, name } : todo))
         )
         return { prevData }
@@ -25,7 +26,7 @@ function useEditSubjectMutation() {
       onSuccess: () => console.log('success edit'),
       onError: (err, vars, context) => {
         console.error(err)
-        queryClient.setQueryData('todoList', context.prevData)
+        queryClient.setQueryData([QueryKeyType.todoList], context.prevData)
       },
       onSettled: () => {
         queryClient.invalidateQueries(['timeInfo'])

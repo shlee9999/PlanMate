@@ -10,25 +10,25 @@ export enum ViewportType {
   SMALL = 'SMALL',
 }
 
-export enum QueryKeys {
+export enum QueryKeyType {
   //* Timer
-  todoList,
-  timeInfo,
-  fixedDDay,
+  todoList = 'todoList',
+  timeInfo = 'timeInfo',
+  fixedDDay = 'fixedDDay',
   //* Stats
-  todayStats,
+  todayStats = 'todayStats',
   //* Planner - Scheduler
-  plannerData,
+  plannerData = 'plannerData',
   //* ExamInfo
-  findAllResponse, //*ExamInfoPage
-  detailData, //* Detail
-  commentData,
-  examInfo,
-  replyList, //*Comment
+  findAllResponse = 'findAllResponse', //*ExamInfoPage
+  detailData = 'detailData', //* Detail
+  commentData = 'commentData',
+  examInfo = 'examInfo',
+  replyList = 'replyList', //*Comment
 
   //*MyPage
-  dDayList,
-  myPostInfo,
-  myScrapInfo,
-  myCommentInfo,
+  dDayList = 'dDayList',
+  myPostInfo = 'myPostInfo',
+  myScrapInfo = 'myScrapInfo',
+  myCommentInfo = 'myCommentInfo',
 }
