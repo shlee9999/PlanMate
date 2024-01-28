@@ -14,7 +14,7 @@ export enum QueryKeyType {
   //* Timer
   todoList = 'todoList',
   timeInfo = 'timeInfo',
-  fixedDDay = 'fixedDDay',
+  fixedDday = 'fixedDday',
   //* Stats
   todayStats = 'todayStats',
   //* Planner - Scheduler

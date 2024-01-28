@@ -45,7 +45,7 @@ export const TimerPage: FC = () => {
     [QueryKeyType.timeInfo, now],
     () => checkTodayStats()
   )
-  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>(['fixedDDay'], () => findFixedDday())
+  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeyType.fixedDday], () => findFixedDday())
   const {
     startTimer: startBreakTimer,
     stopTimer: stopBreakTimer,
