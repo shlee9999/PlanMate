@@ -1,14 +1,14 @@
+import * as s from './styled'
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { serializeContent } from 'utils'
 import { examInfoTagList, suggestTagList } from 'constants/tagList'
-import { useCreatePostMutation, useCreateNoticeMutation, useCreateSuggestMutation } from '../hooks/mutations'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { TagSelector } from '../components'
-import * as s from './styled'
+import { useCreatePostMutation, useCreateNoticeMutation, useCreateSuggestMutation } from '../ExamInfo/hooks/mutations'
+import { TagSelector } from '../ExamInfo/components'
 import { MAX_SUGGEST_CHARACTER_COUNT } from 'constants/maxCharacterCount'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const tagList = {
   examinfo: examInfoTagList,
