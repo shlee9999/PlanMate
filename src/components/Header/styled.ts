@@ -30,7 +30,7 @@ export const HeaderWrapper = styled.nav`
   box-shadow: 0px 4px 8px 0px #00000014;
   height: ${HEADER_HEIGHT}px;
   background-color: ${(props) => props.theme.background.white};
-  z-index: ${HEADER_Z_INDEX}px;
+  z-index: ${HEADER_Z_INDEX};
   @media screen and (${(props) => props.theme.small}) {
     height: ${MOBILE_HEADER_HEIGHT}px;
   }
