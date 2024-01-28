@@ -64,6 +64,22 @@ export const StartButton = styled(TimerStart)`
 
 export const PauseButton = styled(TimerPause)`
   cursor: pointer;
+  @media screen and (${(props) => props.theme.xlarge}) {
+    width: ${TIMER_BUTTON_SIZE.XLARGE}px;
+    margin-right: 24px;
+  }
+  @media screen and (${(props) => props.theme.large}) {
+    width: ${TIMER_BUTTON_SIZE.LARGE}px;
+    margin-right: ${LARGE_SIDE_MARGIN}px;
+  }
+  @media screen and (${(props) => props.theme.medium}) {
+    width: ${TIMER_BUTTON_SIZE.MEDIUM}px;
+    margin-right: ${MEDIUM_SIDE_MARGIN}px;
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    width: ${TIMER_BUTTON_SIZE.SMALL}px;
+    margin: 0 5px;
+  }
 `
 
 export const SubjectTitle = styled.p`
