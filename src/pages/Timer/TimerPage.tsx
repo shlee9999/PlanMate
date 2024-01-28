@@ -17,7 +17,6 @@ import { dateUtils, timeUtils } from 'utils'
 import { QueryKeyType, StatsContainerType } from 'enums'
 
 export const TimerPage: FC = () => {
-  const now = dateUtils.getDateProps(new Date())
   const location = useLocation()
   const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
   const {
@@ -41,9 +40,8 @@ export const TimerPage: FC = () => {
         second: todo.studyTimeSeconds,
       }),
     })) || []
-  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(
-    [QueryKeyType.timeInfo, now],
-    () => checkTodayStats()
+  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>([QueryKeyType.todayStats], () =>
+    checkTodayStats()
   )
   const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeyType.fixedDday], () => findFixedDday())
   const {

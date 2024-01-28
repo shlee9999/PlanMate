@@ -16,7 +16,9 @@ export const StatsPage = () => {
     const { year, month, date } = dateUtils.getDateProps(new Date())
     return { year, month, date }
   })
-  const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>(['todayStats'], () => checkTodayStats())
+  const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>([QueryKeyType.todayStats], () =>
+    checkTodayStats()
+  )
   const { data: selectedMonthStats, isLoading: isSelectedLoading } = useQuery<ResponseStats[]>(
     [QueryKeyType.timeInfo, selectedDate.month],
     () =>
