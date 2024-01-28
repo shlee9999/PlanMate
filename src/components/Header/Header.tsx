@@ -37,7 +37,25 @@ export const Header: FC = () => {
       localStorage.removeItem('userAuthInfo')
       window.location.reload()
     })
-  // const renderNavContainer =
+  const renderNavContainer = () => (
+    <s.NavItemContainer>
+      <s.NavItems>
+        {pageList.map((item, index) => (
+          <s.NavItem
+            key={index}
+            onClick={onClickTabItem(index)}
+            $isSelected={index === currentTab}
+            variants={s.NavItemVar}
+            initial="initial"
+            whileHover="hover"
+          >
+            {item.title}
+            {index === currentTab && <s.YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
+          </s.NavItem>
+        ))}
+      </s.NavItems>
+    </s.NavItemContainer>
+  )
   useEffect(() => {
     if (location.pathname === '/') navigate('/timer')
   }, [currentTab])
@@ -107,23 +125,7 @@ export const Header: FC = () => {
       <s.HeaderWrapper>
         <s.Header>
           <s.StyledLogo />
-          <s.NavItemContainer>
-            <s.NavItems>
-              {pageList.map((item, index) => (
-                <s.NavItem
-                  key={index}
-                  onClick={onClickTabItem(index)}
-                  $isSelected={index === currentTab}
-                  variants={s.NavItemVar}
-                  initial="initial"
-                  whileHover="hover"
-                >
-                  {item.title}
-                  {index === currentTab && <s.YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
-                </s.NavItem>
-              ))}
-            </s.NavItems>
-          </s.NavItemContainer>
+          {renderNavContainer()}
           <s.RightContainer>
             {userAuthInfo.name && (
               <s.GreetTypoContainer>
@@ -140,25 +142,7 @@ export const Header: FC = () => {
           </s.RightContainer>
         </s.Header>
       </s.HeaderWrapper>
-      <s.MobileFooter>
-        <s.NavItemContainer>
-          <s.NavItems>
-            {pageList.map((item, index) => (
-              <s.NavItem
-                key={index}
-                onClick={onClickTabItem(index)}
-                $isSelected={index === currentTab}
-                variants={s.NavItemVar}
-                initial="initial"
-                whileHover="hover"
-              >
-                {item.title}
-                {index === currentTab && <s.YellowCircle layoutId="yellow_circle" transition={{ duration: 0.2 }} />}
-              </s.NavItem>
-            ))}
-          </s.NavItems>
-        </s.NavItemContainer>
-      </s.MobileFooter>
+      <s.MobileFooter>{renderNavContainer()}</s.MobileFooter>
     </>
   )
 }
