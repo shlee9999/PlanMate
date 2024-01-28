@@ -47,7 +47,7 @@ function useCreateSubjectMutation() {
         console.error(err)
       },
       onSettled: () => {
-        queryClient.invalidateQueries([QueryKeyType.timeInfo])
+        queryClient.invalidateQueries([QueryKeyType.todayStats])
       },
     }
   )

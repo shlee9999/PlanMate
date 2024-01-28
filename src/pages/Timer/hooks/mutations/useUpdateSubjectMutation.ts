@@ -20,7 +20,7 @@ function useUpdateSubjectMutation() {
       },
       onSettled: () => {
         queryClient.invalidateQueries([QueryKeyType.todoList])
-        queryClient.invalidateQueries([QueryKeyType.timeInfo])
+        queryClient.invalidateQueries([QueryKeyType.todayStats])
       },
     }
   )
