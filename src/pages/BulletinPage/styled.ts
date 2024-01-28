@@ -12,6 +12,7 @@ export const Root = styled(PageRoot)`
     border: 1px solid ${(props) => props.theme.border.dark};
     border-radius: 8px;
     min-height: 200px;
+    line-height: 1.2;
   }
 `
 export const WriteTypo = styled.div`
