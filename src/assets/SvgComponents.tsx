@@ -34,10 +34,10 @@ const CloseIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => 
   <CloseIconSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
 )
 const CheckIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
-  <CheckIconSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
+  <CheckIconSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
 )
 const RegisterIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
-  <RegisterIconSvg onClick={onClick} className={className} stroke="currentColor" cursor="pointer" />
+  <RegisterIconSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
 )
 const PlusIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
   <PlusIconSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
