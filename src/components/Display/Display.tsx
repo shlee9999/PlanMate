@@ -1,7 +1,8 @@
-import { FC, ReactNode } from 'react'
 import * as s from './styled'
+import { FC, ReactNode } from 'react'
+import { ViewportType } from 'types'
 export type DisplayProps = {
-  on: 'MOBILE' | 'TABLET' | 'DESKTOP'
+  on: ViewportType
   children: ReactNode
   className?: string
 }
