@@ -11,21 +11,8 @@ export const NoticePage = () => {
   const [examInfoList, setExamInfoList] = useState<ResponseNoticeType[]>(data.noticeDtoList)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [totalPage, setTotalPage] = useState<number>(data.totalPages)
-  const handleCurrentPage = (page: number) => (): void => {
-    setCurrentPage(page)
-  }
-
-  const loadPrevPage = (): void => {
-    if (currentPage >= 1) setCurrentPage((prev) => prev - 1)
-  }
-  const loadNextPage = (): void => {
-    if (currentPage < totalPage) setCurrentPage((prev) => prev + 1)
-  }
   const navigate = useNavigate()
-
-  const onClickBulletinButton = (): void => {
-    navigate('/notice/post')
-  }
+  const onClickBulletinButton = () => navigate('/notice/post')
 
   useEffect(() => {
     findAllNotice({ pages: currentPage - 1 }).then((res: unknown) => {
@@ -42,19 +29,19 @@ export const NoticePage = () => {
   return (
     <s.Root>
       <s.TypoWrapper>
-        <s.UpperDescriptionTypo>플랜메이트</s.UpperDescriptionTypo>
-        <s.TitleTypo>공지사항 📢</s.TitleTypo>
+        <s.SubTitle>플랜메이트</s.SubTitle>
+        <s.PageTitle>공지사항 📢</s.PageTitle>
       </s.TypoWrapper>
-      <s.ExamInfoWrapper>
+      <s.PostContainer>
         {examInfoList.length !== 0 ? (
           examInfoList.map((examInfo) => <ExamInfoItem postTagList={[]} {...examInfo} key={examInfo.noticeId} />)
         ) : (
-          <s.NoContent icon="pencil" descriptions={['아직 게시글이 없어요', '첫 게시글을 올려볼까요?']} />
+          <s.NoNotice icon="book_check" descriptions={['아직 공지사항이 없어요!']} />
         )}
         <s.BulletinButton onClick={onClickBulletinButton} icon="register">
           글쓰기
         </s.BulletinButton>
-      </s.ExamInfoWrapper>
+      </s.PostContainer>
       <Pagination currentPage={currentPage} totalPages={totalPage} setCurrentPage={setCurrentPage} />
     </s.Root>
   )

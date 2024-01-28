@@ -1,17 +1,11 @@
-import { H21_700, P12, PageRoot, TagRoot } from 'commonStyled'
 import styled from 'styled-components'
-import { EXAMINFOITEM_MAX_WIDTH, EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
+import { H21_700, P12, PageRoot } from 'commonStyled'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { NoContentDescription } from 'components'
+import { BLOCK_SELECT } from 'constants/blockSelect'
 
 export const Root = styled(PageRoot)`
-  -webkit-user-select: auto;
-  -ms-user-select: auto; /* IE 10 and IE 11 */
-  user-select: auto; /* Standard syntax */
-`
-const DescriptionTypo = styled.p`
-  ${P12}
-  color: ${(props) => props.theme.text.black2};
+  ${BLOCK_SELECT}
 `
 
 export const TypoWrapper = styled.div`
@@ -19,53 +13,25 @@ export const TypoWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 24px;
 `
-export const TitleTypo = styled.p`
+
+export const PageTitle = styled.p`
   ${H21_700}
   color: ${(props) => props.theme.text.black2};
 `
-
-export const UpperDescriptionTypo = styled(DescriptionTypo)``
-export const Tag = styled(TagRoot)``
-export const TagButton = styled.button`
-  width: 100px;
-  height: 40px;
-  border-radius: 100px;
-  border: 1px solid ${(props) => props.theme.border.default};
-  color: ${(props) => props.theme.text.gray1};
-
-  &.isSelected {
-    border: 1px solid ${(props) => props.theme.primary.default};
-    color: ${(props) => props.theme.primary.default};
-    background-color: ${(props) => props.theme.primary.light};
-  }
+export const SubTitle = styled.p`
+  ${P12}
+  color: ${(props) => props.theme.text.black2};
 `
 
-const TagButtonWrapper = styled.div`
-  min-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 8px;
-`
-export const UpperTagButtonWrapper = styled(TagButtonWrapper)`
-  margin: 12px 0;
-`
-export const LowerTagButtonWrapper = styled(TagButtonWrapper)`
-  margin-bottom: 32px;
-`
-
-export const ExamInfoWrapper = styled.div`
-  max-width: ${EXAMINFOITEM_MAX_WIDTH}px;
-  min-width: ${EXAMINFOITEM_MIN_WIDTH}px;
+export const PostContainer = styled.div`
   position: relative;
   border-top: 2px solid ${(props) => props.theme.text.gray1};
   display: flex;
   flex-direction: column;
 `
 
-export const NoContent = styled(NoContentDescription)`
-  margin-top: 84px;
+export const NoNotice = styled(NoContentDescription)`
+  margin-top: 100px;
   margin-bottom: 100px;
 `
 export const BulletinButton = styled(ActionButton)`
