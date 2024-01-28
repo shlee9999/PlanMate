@@ -26,7 +26,7 @@ export const ActionButton: FC<ActionButtonProps> = ({ className, onClick, childr
   const IconComponent = Icons[icon]
 
   return icon === 'close' ? (
-    <s.CloseButton>
+    <s.CloseButton className={className} onClick={onClick}>
       {IconComponent}
       {children}
     </s.CloseButton>

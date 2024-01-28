@@ -60,7 +60,10 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
       })
     //등록하시겠습니까? 확인
   }
-  const onClickCancelButton = () => navigate(-1)
+  const onClickCancelButton = () => {
+    console.log('클릭')
+    navigate(-1)
+  }
   const onSuggestInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > MAX_SUGGEST_CHARACTER_COUNT) return //* 건의사항 500글자 제한
     setSuggestInput(e.target.value)
