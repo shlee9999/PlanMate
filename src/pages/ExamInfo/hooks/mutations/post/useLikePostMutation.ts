@@ -1,6 +1,7 @@
 import { CheckPostResponseProps } from 'api/post/checkPost'
 import { likePost } from 'api/post/likePost'
 import { CommentType } from 'api/types'
+import { QueryKeyType } from 'enums'
 import { useMutation, useQueryClient } from 'react-query'
 
 type MutationProps = Pick<CommentType, 'postId'> & {
@@ -13,8 +14,8 @@ function useLikePostMutation() {
 
   const { mutate } = useMutation(({ postId }: MutationProps) => likePost({ postId }), {
     onMutate: ({ postId, mode }) => {
-      const previousData = queryClient.getQueryData(['detailData', mode, postId])
-      queryClient.setQueryData(['detailData', mode, postId], (old: CheckPostResponseProps) => ({
+      const previousData = queryClient.getQueryData([QueryKeyType.detailData, mode, postId])
+      queryClient.setQueryData([QueryKeyType.detailData, mode, postId], (old: CheckPostResponseProps) => ({
         ...old,
         isMyHearted: !old.isMyHearted,
         likeCount: old.isMyHearted ? old.likeCount - 1 : old.likeCount + 1,
@@ -24,7 +25,7 @@ function useLikePostMutation() {
     },
     onError: (err, { postId, mode }, context) => {
       console.error(err)
-      queryClient.setQueryData(['detailData', mode, postId], context.previousData)
+      queryClient.setQueryData([QueryKeyType.detailData, mode, postId], context.previousData)
     },
   })
 

@@ -1,5 +1,6 @@
 import { EditNoticeRequestProps, editNotice } from 'api/notice/admin/editNotice'
 import { CheckNoticeResponseProps } from 'api/notice/checkNotice'
+import { QueryKeyType } from 'enums'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseEditNoticeMutationProps = EditNoticeRequestProps & {
@@ -14,8 +15,8 @@ function useEditNoticeMutation() {
     ({ content, noticeId, title }: UseEditNoticeMutationProps) => editNotice({ content, noticeId, title }),
     {
       onMutate: ({ content, noticeId, title, mode }) => {
-        const prevData = queryClient.getQueryData<CheckNoticeResponseProps>(['detailData', mode, noticeId])
-        queryClient.setQueryData<CheckNoticeResponseProps>(['detailData', mode, noticeId], (prev) => ({
+        const prevData = queryClient.getQueryData<CheckNoticeResponseProps>([QueryKeyType.detailData, mode, noticeId])
+        queryClient.setQueryData<CheckNoticeResponseProps>([QueryKeyType.detailData, mode, noticeId], (prev) => ({
           ...prev,
           content,
           noticeId,
@@ -28,7 +29,7 @@ function useEditNoticeMutation() {
       },
       onError: (err, { noticeId, mode }, context) => {
         console.error(err)
-        queryClient.setQueryData<CheckNoticeResponseProps>(['detailData', mode, noticeId], context.prevData)
+        queryClient.setQueryData<CheckNoticeResponseProps>([QueryKeyType.detailData, mode, noticeId], context.prevData)
       },
     }
   )

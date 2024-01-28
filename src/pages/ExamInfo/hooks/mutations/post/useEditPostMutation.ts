@@ -1,5 +1,6 @@
 import { CheckPostResponseProps } from 'api/post/checkPost'
 import { EditPostRequestProps, editPost } from 'api/post/editPost'
+import { QueryKeyType } from 'enums'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseEditPostMutationProps = EditPostRequestProps & {
@@ -14,8 +15,8 @@ function useEditPostMutation() {
     ({ content, tagList, postId, title }: UseEditPostMutationProps) => editPost({ content, tagList, postId, title }),
     {
       onMutate: ({ content, tagList, postId, title, mode }) => {
-        const prevData = queryClient.getQueryData<CheckPostResponseProps>(['detailData', mode, postId])
-        queryClient.setQueryData<CheckPostResponseProps>(['detailData', mode, postId], (prev) => ({
+        const prevData = queryClient.getQueryData<CheckPostResponseProps>([QueryKeyType.detailData, mode, postId])
+        queryClient.setQueryData<CheckPostResponseProps>([QueryKeyType.detailData, mode, postId], (prev) => ({
           ...prev,
           content,
           tagList,
@@ -29,7 +30,7 @@ function useEditPostMutation() {
       },
       onError: (err, { postId, mode }, context) => {
         console.error(err)
-        queryClient.setQueryData<CheckPostResponseProps>(['detailData', mode, postId], context.prevData)
+        queryClient.setQueryData<CheckPostResponseProps>([QueryKeyType.detailData, mode, postId], context.prevData)
       },
     }
   )
