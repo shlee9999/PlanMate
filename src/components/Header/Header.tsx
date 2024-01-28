@@ -21,8 +21,12 @@ export const Header: FC = () => {
   // const isRunning = useSelector((state: RootState) => state.timer.isRunning)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  console.log(isNavBlocked)
   const onClickTabItem = (index: number) => (): void => {
-    if (isNavBlocked) return
+    if (isNavBlocked) {
+      console.log('?')
+      return
+    }
     setCurrentTab(index) //* totalTimer Running 차단
     userAuthInfo.name && navigate(pageList[index].url)
   }

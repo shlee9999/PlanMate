@@ -6,6 +6,8 @@ import { useTimer } from 'pages/Timer/hooks'
 import { EllipsisModal } from '..'
 import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { timeUtils } from 'utils'
+import { useDispatch } from 'react-redux'
+import { approveNav, blockNav } from 'modules/isNavBlocked'
 
 type TimerItemProps = {
   title: string
@@ -23,6 +25,7 @@ export const TimerItem = ({
   stopTotalTimer,
   isTotalTimerRunning,
 }: TimerItemProps) => {
+  const dispatch = useDispatch()
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState(false)
   const [isEllipsisOpen, setIsEllipsisOpen] = useState(false)
   const { startTimer, stopTimer, time, setDefaultTime } = useTimer({ defaultTime: todo.time })
@@ -30,6 +33,7 @@ export const TimerItem = ({
   const [startTime, setStartTime] = useState('')
 
   const onClickStartButton = (): void => {
+    dispatch(blockNav())
     setStartTime(moment().format('HH:mm:ss')) //백엔드 리스폰스 확인할것
     if (!isTotalTimerRunning) {
       setIsTodoTimerRunning(true)
@@ -38,6 +42,7 @@ export const TimerItem = ({
   }
   const mutateUpdateSubject = useUpdateSubjectMutation()
   const onClickPauseButton = () => {
+    dispatch(approveNav())
     setIsTodoTimerRunning(false)
     stopTotalTimer()
     mutateUpdateSubject({
