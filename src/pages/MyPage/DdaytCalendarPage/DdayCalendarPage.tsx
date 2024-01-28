@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react'
+import * as s from './styled'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { dateUtils, formatTwoDigits } from 'utils'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
 import { useAddDdayMutation, useEditDdayMutation, useDeleteDdayMutation } from '../hooks'
-import * as s from './styled'
 import { MAX_DDAY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 type EventCalendarProps = {
@@ -16,6 +16,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const [eventName, setEventName] = useState('')
+  const inputRef = useRef<HTMLInputElement>()
   const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>(['dDayList'], () => findAllDday())
   const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
@@ -51,7 +52,9 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       })
     }
   }
-
+  useEffect(() => {
+    inputRef?.current?.focus()
+  }, [selectedDate])
   return (
     <s.Root className={className}>
       <s.MainContainer>
@@ -79,6 +82,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                   value={eventName}
                   onChange={onChange}
                   onClick={(e) => e.stopPropagation()}
+                  ref={inputRef}
                 />
               </s.EventNameRow>
               <s.EventDateRow>
