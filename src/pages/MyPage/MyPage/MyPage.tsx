@@ -37,17 +37,17 @@ export const MyPage: FC = () => {
     findAllDday()
   )
   const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
-    ['myPostInfo', currentPage],
+    [QueryKeyType.myPostInfo, currentPage],
     () => findPost({ pages: currentPage - 1 }),
     { keepPreviousData: true }
   )
   const { data: myScrapInfo, isLoading: isScrapLoading } = useQuery<FindScrappedPostResponseProps>(
-    ['myScrapInfo', currentPage],
+    [QueryKeyType.myScrapInfo, currentPage],
     () => findScrappedPost({ pages: currentPage - 1 }),
     { keepPreviousData: true }
   )
   const { data: myCommentInfo, isLoading: isCommentLoading } = useQuery<FindCommentResponseProps>(
-    ['myCommentInfo', currentPage],
+    [QueryKeyType.myCommentInfo, currentPage],
     () => findComment({ pages: currentPage - 1 }),
     { keepPreviousData: true }
   )
