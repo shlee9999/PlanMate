@@ -30,7 +30,7 @@ function useDeleteSubjectMutation() {
         queryClient.setQueryData([QueryKeyType.todoList], context.prevData)
       },
       onSettled: () => {
-        queryClient.invalidateQueries(['timeInfo'])
+        queryClient.invalidateQueries([QueryKeyType.timeInfo])
       },
     }
   )

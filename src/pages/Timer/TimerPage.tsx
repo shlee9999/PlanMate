@@ -41,8 +41,9 @@ export const TimerPage: FC = () => {
         second: todo.studyTimeSeconds,
       }),
     })) || []
-  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(['timeInfo', now], () =>
-    checkTodayStats()
+  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(
+    [QueryKeyType.timeInfo, now],
+    () => checkTodayStats()
   )
   const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>(['fixedDDay'], () => findFixedDday())
   const {

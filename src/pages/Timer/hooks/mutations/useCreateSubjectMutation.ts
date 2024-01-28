@@ -30,7 +30,6 @@ function useCreateSubjectMutation() {
         return { prevData }
       },
       onSuccess: (data, vars, context) => {
-        console.log(data)
         const prevData = context.prevData as StudyTimeResponseProps
         queryClient.setQueryData(
           [QueryKeyType.todoList],
@@ -41,13 +40,14 @@ function useCreateSubjectMutation() {
             studyTimeSeconds: 0,
           })
         )
+        console.log('success create')
       },
       onError: (err, data, context) => {
         queryClient.setQueryData([QueryKeyType.todoList], context.prevData)
         console.error(err)
       },
       onSettled: () => {
-        queryClient.invalidateQueries(['timeInfo'])
+        queryClient.invalidateQueries([QueryKeyType.timeInfo])
       },
     }
   )
