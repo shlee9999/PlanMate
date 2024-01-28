@@ -187,5 +187,23 @@
         "}",
       ]
     },
+    "media-query-full": {
+      "scope": "css",
+      "prefix": "full",
+      "body": [
+        "@media screen and (${(props) => props.theme.xlarge}) {",
+        "  $1",
+        "}",
+        "@media screen and (${(props) => props.theme.large}) {",
+        "  $1",
+        "}",
+        "@media screen and (${(props) => props.theme.medium}) {",
+        "  $1",
+        "}",
+        "@media screen and (${(props) => props.theme.small}) {",
+        "  $1",
+        "}",
+      ]
+    },
   }
 
