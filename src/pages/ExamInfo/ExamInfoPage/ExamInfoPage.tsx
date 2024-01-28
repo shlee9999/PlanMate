@@ -7,13 +7,13 @@ import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examInfoTagList } from 'constants/tagList'
 import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { TagContainer } from './TagContainer/TagContainer'
-import { ViewportType } from 'enums'
+import { QueryKeyType, ViewportType } from 'enums'
 
 export const ExamInfoPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedTag, setSelectedTag] = useState('')
   const { data, isLoading } = useQuery<FindAllPostResponseProps>(
-    ['findAllResponse', currentPage, selectedTag],
+    [QueryKeyType.findAllResponse, currentPage, selectedTag],
     () =>
       selectedTag === ''
         ? findAll({ pages: currentPage - 1 })

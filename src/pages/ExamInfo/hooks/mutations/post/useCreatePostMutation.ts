@@ -1,5 +1,6 @@
 import { CreatePostRequestProps, createPost } from 'api/post/createPost'
 import { FindAllPostResponseProps } from 'api/post/find/findAll'
+import { QueryKeyType } from 'enums'
 import { RootState } from 'modules'
 import { useMutation, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
@@ -17,7 +18,7 @@ function useCreatePostMutation() {
     ({ content, tagList, title }: UseCreatePostMutationProps) => createPost({ content, tagList, title }),
     {
       onMutate: ({ content, tagList, title }) => {
-        const prevData = queryClient.getQueryData<FindAllPostResponseProps>(['findAllResponse', 1, ''])
+        const prevData = queryClient.getQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''])
         const newPost = {
           content,
           isMyHearted: false,
@@ -32,7 +33,7 @@ function useCreatePostMutation() {
           isMyPost: true,
           commentCount: 0,
         }
-        queryClient.setQueryData<FindAllPostResponseProps>(['findAllResponse', 1, ''], (prev) => ({
+        queryClient.setQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''], (prev) => ({
           ...prev,
           postDtoList: [newPost, ...prev.postDtoList.slice(0, 9)],
         }))
@@ -41,7 +42,7 @@ function useCreatePostMutation() {
       onSuccess: (data, { callBack }, context) => {
         console.log('success')
         //* 만드는데 성공하면 id값을 백엔드에 맞게 바꿔준다.
-        queryClient.setQueryData<FindAllPostResponseProps>(['findAllResponse', 1, ''], (prev) => {
+        queryClient.setQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''], (prev) => {
           const createdPost = { ...prev.postDtoList[0] }
           createdPost.postId = data.postId
           return {
@@ -52,7 +53,7 @@ function useCreatePostMutation() {
         callBack()
       },
       onError: (err, data, context) => {
-        queryClient.setQueryData(['findAllResponse', 1, ''], context.prevData)
+        queryClient.setQueryData([QueryKeyType.findAllResponse, 1, ''], context.prevData)
         console.error(err)
       },
     }
