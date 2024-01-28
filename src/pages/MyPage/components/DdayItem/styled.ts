@@ -53,7 +53,9 @@ export const DDay = styled.p`
 `
 export const StyledPinIcon = styled(PinIcon)<{ $isFixed: boolean }>`
   position: absolute;
-  cursor: pointer;
   left: 8px;
-  fill: ${(props) => (props.$isFixed ? props.theme.primary.default : '')};
+  fill: ${(props) => props.$isFixed && props.theme.primary.default};
+  &:hover {
+    fill: ${(props) => props.theme.primary.default};
+  }
 `
