@@ -1,22 +1,9 @@
 import styled from 'styled-components'
 import { Ellipsis, TimerPause, TimerStart } from 'assets/SvgComponents'
-import { FlexRow, H21_700, H24_500, H24_700, H28_700, H32_500, H32_700, H36_500, H36_700 } from 'commonStyled'
+import { FlexRow, H21_700, H24_500, H28_700, H36_500, H36_700 } from 'commonStyled'
 import { LARGE_SIDE_MARGIN, MEDIUM_SIDE_MARGIN } from 'constants/layout'
-import { ViewportType } from 'types'
+import { TITLE_MAX_WIDTH, TIMER_BUTTON_SIZE } from 'constants/timerItem'
 
-const TITLE_MAX_WIDTH: ViewportType<number> = {
-  XLARGE: 200,
-  LARGE: 200,
-  MEDIUM: 150,
-  SMALL: 150,
-}
-
-const TIMER_BUTTON_SIZE: ViewportType<number> = {
-  XLARGE: 45,
-  LARGE: 45,
-  MEDIUM: 38,
-  SMALL: 30,
-}
 export const Root = styled(FlexRow)`
   justify-content: space-between;
   margin-bottom: 29px;

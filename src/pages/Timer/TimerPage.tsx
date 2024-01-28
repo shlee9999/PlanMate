@@ -14,7 +14,7 @@ import { ResponseStats } from 'api/types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { NoContentDescription, StatsContainer } from 'components'
-import { ActionModal, TimerWidget, TodoItem } from './components'
+import { ActionModal, TimerWidget, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
 import * as s from './styled'
@@ -169,7 +169,7 @@ export const TimerPage: FC = () => {
           <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
             {todoList.length !== 0 ? (
               todoList.map((todo: TodoItemType) => {
-                return <TodoItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
+                return <TimerItem title={todo.name} key={todo.subjectId} todo={todo} buttonColor={todo.colorHex} />
               })
             ) : isTodoLoading ? (
               <s.TodoSpinner>Loading..</s.TodoSpinner>
