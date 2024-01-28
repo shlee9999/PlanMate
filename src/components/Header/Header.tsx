@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react'
 import * as s from './styled'
+import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
@@ -13,6 +13,7 @@ import { CheckUserInfoResponseProps, checkUserInfo } from 'api/member/checkUserI
 
 export const Header: FC = () => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
+  const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const location = useLocation()
   const [currentPath, setCurrentPath] = useState(location.pathname)
   const initialTabIndex = pageList.findIndex((page) => currentPath.includes(page.url))
@@ -21,20 +22,22 @@ export const Header: FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const onClickTabItem = (index: number) => (): void => {
+    if (isNavBlocked) return
     setCurrentTab(index) //* totalTimer Running 차단
     userAuthInfo.name && navigate(pageList[index].url)
   }
-  const onClickNickname = () => navigate('/mypage') // ! totalTimerRunning 차단
-  const onClickLogin = () => navigate('/login') // ! totalTimerRunning 차단
-  const onClickNotice = () => navigate('/notice') // ! totalTimerRunning 차단
+  const onClickNickname = () => !isNavBlocked && navigate('/mypage')
+  const onClickLogin = () => !isNavBlocked && navigate('/login')
+  const onClickNotice = () => !isNavBlocked && navigate('/notice')
   const onClickLogout = () =>
-    //! !isRunning &&
+    !isNavBlocked &&
     logout().then((res) => {
       navigate('/timer')
       localStorage.removeItem('userAuthInfo')
       window.location.reload()
     })
-  const renderNavContainer = useEffect(() => {
+  // const renderNavContainer =
+  useEffect(() => {
     if (location.pathname === '/') navigate('/timer')
   }, [currentTab])
 

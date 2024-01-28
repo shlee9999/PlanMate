@@ -46,7 +46,7 @@ export const TimerItem = ({
       subjectId: todo.subjectId,
     })
   }
-  const OnClickEllipsisButton = () => setIsEllipsisOpen(true) // totalTimer Running 차단
+  const OnClickEllipsisButton = () => !isTotalTimerRunning && setIsEllipsisOpen(true)
   const closeEllipsisModal = () => setIsEllipsisOpen(false)
 
   useEffect(() => {

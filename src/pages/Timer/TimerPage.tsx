@@ -52,7 +52,7 @@ export const TimerPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const formattedDate: string = dateUtils.getFormattedDate(new Date())
   const navigate = useNavigate()
-  const openModal = () => setIsModalOpen(true) //* isRunning 차단
+  const openModal = () => !isTotalTimerRunning && setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
   const closeSuggestModal = () => setIsSuggestModalOpen(false)
   const {
@@ -73,12 +73,10 @@ export const TimerPage: FC = () => {
     minute: restTimeMinutes,
     second: restTimeSeconds,
   }
-  console.log(totalStudyTime)
   useEffect(() => {
     if (!isTodoLoading) {
       // * Todo 로딩 완료
       if (timeUtils.isEqualTime(totalStudyTime, { hour: 0, minute: 0, second: 0 })) stopBreakTimer()
-      // dispatch(initializeTimer(timeUtils.timeToSecond(totalStudyTime)))
     }
   }, [isTodoLoading])
   useEffect(() => {

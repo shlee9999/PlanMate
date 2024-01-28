@@ -1,10 +1,13 @@
-import { useRef, useState } from 'react'
+import { approveNav, blockNav } from 'modules/isNavBlocked'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 type useTimerProps = {
   defaultTime: number
 }
 
 export function useTimer({ defaultTime }: useTimerProps) {
+  const dispatch = useDispatch()
   const [isRunning, setIsRunning] = useState(false)
   const [time, setTime] = useState<number>(defaultTime)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -31,6 +34,10 @@ export function useTimer({ defaultTime }: useTimerProps) {
   const setDefaultTime = (newDefaultTime): void => {
     setTime(newDefaultTime)
   }
+
+  useEffect(() => {
+    isRunning ? dispatch(approveNav()) : dispatch(blockNav())
+  }, [isRunning])
 
   return { startTimer, stopTimer, initializeTimer, setDefaultTime, time, isRunning }
 }
