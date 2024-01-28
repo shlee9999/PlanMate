@@ -2,7 +2,7 @@ import { RightArrow } from 'assets/SvgComponents'
 import { FlexRow, H14_500, H21_500, LeftArrow, PageRoot } from 'commonStyled'
 import { ActionButton, InfoBox } from 'components'
 import { Calendar } from 'components'
-import { DDayContainer } from '../components'
+import { DdayContainer } from '../components'
 import styled, { css } from 'styled-components'
 import { LARGE_SIZE } from 'constants/layout'
 
@@ -19,7 +19,7 @@ export const BoxContainer = styled(FlexRow)`
   flex-wrap: wrap;
 `
 
-export const StyledDDayContainer = styled(DDayContainer)`
+export const StyledDDayContainer = styled(DdayContainer)`
   @media (min-width: ${LARGE_SIZE}px) {
     flex: 0 0 auto;
     width: 380px;

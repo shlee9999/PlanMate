@@ -1,6 +1,6 @@
-import { DDayItem } from './DDayItem/DDayItem'
+import { DdayItem } from './DdayItem/DdayItem'
 import { ProfileEditModal } from './ProfileEditModal/ProfileEditModal'
 import { ResignModal } from './ResignModal/ResignModal'
-import { DDayContainer } from './DDayContainer/DDayContainer'
+import { DdayContainer } from './DdayContainer/DdayContainer'
 
-export { DDayItem, ProfileEditModal, ResignModal, DDayContainer }
+export { DdayItem as DDayItem, ProfileEditModal, ResignModal, DdayContainer }
