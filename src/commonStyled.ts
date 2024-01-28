@@ -173,9 +173,35 @@ export const H32_700 = css`
   font-weight: 700;
   line-height: 40px;
 `
+/** 32px 500*/
+export const H32_500 = css`
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+`
+/** 32px 700*/
+export const H28_700 = css`
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 35px;
+`
+/** 32px 500*/
+export const H28_500 = css`
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 35px;
+`
+
+/** 24px 700*/
 export const H24_700 = css`
   font-size: 24px;
   font-weight: 700;
+  line-height: 30px;
+`
+/** 24px 500*/
+export const H24_500 = css`
+  font-size: 24px;
+  font-weight: 500;
   line-height: 30px;
 `
 
