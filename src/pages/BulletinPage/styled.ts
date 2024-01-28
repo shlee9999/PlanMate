@@ -64,8 +64,6 @@ export const SuggestInput = styled.textarea`
   padding: 14px;
   border: 1px solid ${(props) => props.theme.text.gray3};
   border-radius: 8px;
-  max-width: 1120px;
-  min-width: 528px;
   min-height: 500px;
   height: auto;
   &::placeholder {
