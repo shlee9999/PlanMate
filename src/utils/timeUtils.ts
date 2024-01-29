@@ -27,8 +27,10 @@ export const timeUtils = {
     }
     return { hour, minute, second }
   },
+  /**현재 시각 HH:MM:SS 반환 */
+  getCurrentTime: () => new Date().toTimeString().slice(0, 8),
 
-  /**HH:MM:SS*/
+  /**HH:MM:SS로 변환*/
   getFormattedTime: (time: number | TimeProps): string => {
     const { hour, minute, second } = timeUtils.getTimeProps(time)
     return `${formatTwoDigits(hour)}:${formatTwoDigits(minute)}:${formatTwoDigits(second)}`

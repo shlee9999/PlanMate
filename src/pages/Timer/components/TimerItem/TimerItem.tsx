@@ -1,5 +1,4 @@
 import * as s from './styled'
-import moment from 'moment'
 import { useState, useEffect } from 'react'
 import { TodoItemType } from 'types'
 import { useTimer } from 'pages/Timer/hooks'
@@ -37,7 +36,7 @@ export const TimerItem = ({
     callback: () =>
       isTodoTimerRunning &&
       mutateUpdateSubject({
-        endAt: moment().format('HH:mm:ss'),
+        endAt: timeUtils.getCurrentTime(),
         startAt: startTime,
         subjectId: todo.subjectId,
       }),
@@ -45,7 +44,7 @@ export const TimerItem = ({
 
   const onClickStartButton = (): void => {
     dispatch(blockNav())
-    setStartTime(moment().format('HH:mm:ss')) //백엔드 리스폰스 확인할것
+    setStartTime(timeUtils.getCurrentTime()) //백엔드 리스폰스 확인할것
     if (!isTotalTimerRunning) {
       setIsTodoTimerRunning(true)
       startTotalTimer()
@@ -56,7 +55,7 @@ export const TimerItem = ({
     setIsTodoTimerRunning(false)
     stopTotalTimer()
     mutateUpdateSubject({
-      endAt: moment().format('HH:mm:ss'),
+      endAt: timeUtils.getCurrentTime(),
       startAt: startTime,
       subjectId: todo.subjectId,
     })
