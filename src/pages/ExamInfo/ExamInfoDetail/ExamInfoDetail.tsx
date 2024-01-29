@@ -24,10 +24,16 @@ import {
   useEditPostMutation,
 } from '../hooks/mutations'
 import { QueryKeyType } from 'enums'
+import { useForm } from 'hooks'
 type ExamInfoDetailPageProps = {
   mode: 'examinfo' | 'notice'
 }
-
+type CommentForm = {
+  comment: string
+}
+type PostForm = {
+  post: string
+}
 export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const params = useParams()
   const postId = +params.postId
@@ -52,9 +58,14 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     { keepPreviousData: true }
   )
   const [currentContent, setCurrentContent] = useState(content)
-  const [commentInput, setCommentInput] = useState('')
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
+  const { registerTextarea: registerEditPostInput, handleSubmit: handleEditPostSubmit } = useForm<PostForm>()
+  const {
+    registerTextarea: registerCommentInput,
+    handleSubmit: handleCommentSubmit,
+    setValue: setCommentInputValue,
+  } = useForm<CommentForm>()
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
   const { commentDtoList = [], totalCount = 0, totalPages = 0 } = commentData || {}
@@ -67,10 +78,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const mutateCreateComment = useCreateCommentMutation()
 
   const navigate = useNavigate()
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > MAX_COMMENT_CHARACTER_COUNT) return //* 댓글 작성 300글자 제한
-    setCommentInput(e.target.value)
-  }
   const deletePost = (): void => {
     mode === 'examinfo' && mutateDeletePost({ postId, callBack: () => navigate(-1) })
     mode === 'notice' &&
@@ -110,12 +117,12 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
         mode,
       })
   }
-  const onClickRegisterButton = (): void => {
+  const onCommentSubmit = ({ comment }: CommentForm): void => {
     mutateCreateComment({
       currentPage,
-      content: commentInput,
+      content: comment,
       postId,
-      callBack: () => setCommentInput(''),
+      callBack: () => setCommentInputValue('comment', ''),
       isPostAuthor: isMyPost,
       // id 비교로 변경해야함
       memberName: userAuthInfo.name,
@@ -126,7 +133,18 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const onClickLikeButton = () => mutateLikePost({ postId, mode })
   const onClickScrapButton = () => mutateScrapPost({ postId, mode })
   const onClickDeleteTypo = () => setIsDeletePostModalOpen(true)
-
+  const renderCommentInputWrapper = () => (
+    <>
+      <s.CommentForm onSubmit={handleCommentSubmit(onCommentSubmit)}>
+        <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
+        <s.CommentInput
+          placeholder="댓글을 남겨보세요."
+          {...registerCommentInput('comment', { maxLength: MAX_COMMENT_CHARACTER_COUNT })}
+        />
+        <s.CommentRegisterButton icon="register">댓글등록</s.CommentRegisterButton>
+      </s.CommentForm>
+    </>
+  )
   useEffect(() => {
     if (isDetailLoading) return
     setCurrentContent(detailData.content)
@@ -206,15 +224,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
             </s.IconContainer>
           </s.ContentWrapper>
 
-          {commentDtoList.length !== 0 && (
-            <s.CommentInputWrapper>
-              <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
-              <s.CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-              <s.CommentRegisterButton onClick={onClickRegisterButton} icon="register">
-                댓글등록
-              </s.CommentRegisterButton>
-            </s.CommentInputWrapper>
-          )}
+          {commentDtoList.length !== 0 && renderCommentInputWrapper()}
           <s.CommentWrapper>
             <s.CommentTitle>
               댓글 <s.CommentCount>{totalCount}</s.CommentCount>개
@@ -242,13 +252,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
                         icon="pencil"
                         descriptions={['아직 댓글이 없어요', '첫 댓글을 남겨볼까요?']}
                       />
-                      <s.CommentInputWrapper className="no_content">
-                        <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
-                        <s.CommentInput placeholder="댓글을 남겨보세요." onChange={onChange} value={commentInput} />
-                        <s.CommentRegisterButton onClick={onClickRegisterButton} icon="register">
-                          댓글등록
-                        </s.CommentRegisterButton>
-                      </s.CommentInputWrapper>
+                      {renderCommentInputWrapper()}
                     </>
                   )}
             </s.CommentContainer>

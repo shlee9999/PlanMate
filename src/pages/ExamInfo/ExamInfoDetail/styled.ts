@@ -15,7 +15,7 @@ export const Root = styled(PageRoot)`
   -ms-user-select: auto; /* IE 10 and IE 11 */
   user-select: auto; /* Standard syntax */
 `
-
+export const PostForm = styled.form``
 export const TagWrapper = styled.div`
   display: flex;
   column-gap: 5px;
@@ -131,7 +131,7 @@ export const CommentContainer = styled.div`
     border-top: none;
   }
 `
-export const CommentInputWrapper = styled.div`
+export const CommentForm = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
