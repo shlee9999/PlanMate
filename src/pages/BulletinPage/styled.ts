@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import { H21_700, P12, P14, PageRoot } from 'commonStyled'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 
-export const Root = styled(PageRoot)`
+export const Root = styled(PageRoot)``
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 24px;
@@ -72,4 +73,6 @@ export const SuggestInput = styled.textarea`
   }
   color: ${(props) => props.theme.text.black2};
 `
-export const RegisterButton = styled(ActionButton)``
+export const RegisterButton = styled(ActionButton)`
+  order: 1;
+`

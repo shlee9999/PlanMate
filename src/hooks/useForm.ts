@@ -2,37 +2,35 @@ import { useState } from 'react'
 
 type RegisterProps = {
   maxLength?: number
-  //   required?: boolean
-  //   validate?: (value: string) => void
 }
 
 const DEFAULT_MAX_LENGTH = 10
 
 function useForm() {
-  const [value, setValue] = useState('')
-  const handleSubmit = (userCallback: (val: string) => void) => {
+  const [values, setValues] = useState<{ [key: string]: string }>({})
+
+  const handleSubmit = (userCallback: (data: { [key: string]: string }) => void) => {
     return (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault() // 폼의 기본 제출 동작 방지
-      if (!value) return // 아무것도 안쓰면 return
-      userCallback(value) //user에게 value 전달
-    }
-  }
-
-  const register = ({ maxLength }: RegisterProps = { maxLength: DEFAULT_MAX_LENGTH }) => {
-    const handleChange = (maxLength) => (e) => {
-      const newValue = e.target.value
-      if (newValue.length <= maxLength) {
-        setValue(newValue)
+      e.preventDefault()
+      for (const key in values) {
+        if (values[key].length === 0) return
       }
-    }
-
-    return {
-      value,
-      onChange: handleChange(maxLength),
+      userCallback(values)
     }
   }
 
-  return { register, handleSubmit, setValue }
+  const register = (key: string, { maxLength = DEFAULT_MAX_LENGTH }: RegisterProps = {}) => {
+    const handleChange = (e) => {
+      const newValue = e.target.value
+      if (newValue.length <= maxLength) setValues((prev) => ({ ...prev, [key]: newValue }))
+    }
+    return {
+      value: values[key] || '',
+      onChange: handleChange,
+    }
+  }
+
+  return { register, handleSubmit, setValue: setValues }
 }
 
 export default useForm
