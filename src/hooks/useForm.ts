@@ -7,7 +7,10 @@ type RegisterProps = {
 }
 
 const DEFAULT_MAX_LENGTH = 10
-
+/**
+ *
+ * @returns registerInput, registerTextarea, handleSubmit, setValue, inputFocus, textareaFocus
+ */
 function useForm<T extends { [key: string]: string }>() {
   const [values, setValues] = useState<T>({} as T)
   const inputRefs = useRef<{ [key in keyof T]?: React.RefObject<HTMLInputElement> }>({})

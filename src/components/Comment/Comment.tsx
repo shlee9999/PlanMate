@@ -136,10 +136,6 @@ export const Comment: FC<CommentProps> = ({
   }, [isEditing])
   useEffect(() => {
     setCommentValue('comment', content)
-    findAllChild({
-      parentCommentId: commentId,
-      postId: postId,
-    })
   }, [])
 
   return (

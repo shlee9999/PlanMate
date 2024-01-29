@@ -46,7 +46,7 @@ export const CommentEditForm = styled.form`
 export const EditCompleteButton = styled(ActionButton)`
   position: absolute;
   right: 0px;
-  top: 15px;
+  top: 8px;
 `
 export const CommentOwnerNickname = styled.p``
 

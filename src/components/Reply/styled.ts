@@ -1,11 +1,16 @@
 import styled from 'styled-components'
-import ellipsisButton from 'assets/images/ellipsis.svg'
 import { ActionButton } from 'components/'
 import { H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
+import { EllipsisIcon } from 'assets/SvgComponents'
 
-export const EllipsisButton = styled.img`
-  position: relative;
-  cursor: pointer;
+export const EllipsisButton = styled(EllipsisIcon)`
+  transform: rotate(90deg);
+  width: 16px;
+  position: absolute;
+  right: 3px;
+  top: -5px;
+  opacity: 0;
+  z-index: 1;
 `
 export const Root = styled.div`
   position: relative;
@@ -14,27 +19,28 @@ export const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.border.dark};
   &:hover {
     ${EllipsisButton} {
-      content: url(${ellipsisButton});
-      transform: rotate(90deg);
-      position: absolute;
-      right: 3px;
-      top: 12px;
-      width: 16px;
+      opacity: 1;
     }
   }
 `
+
+export const EditCompleteButton = styled(ActionButton)`
+  position: absolute;
+  right: 0px;
+  top: 7px;
+`
 export const UpperTypoWrapper = styled.div`
-  box-sizing: border-box;
   display: flex;
   align-items: end;
   column-gap: 4px;
 `
-export const ContentContainer = styled.div`
+export const ReplyEditForm = styled.form`
   padding: 16px 0 14px 0;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
   width: 100%;
+  position: relative;
 `
 
 export const CommentOwnerNickname = styled.p``
@@ -56,7 +62,7 @@ export const Comment = styled.p`
   word-break: keep-all;
   word-wrap: break-word;
 `
-export const EditInput = styled.textarea`
+export const ReplyEditInput = styled.textarea`
   ${P14}
   width: 100%;
   color: ${(props) => props.theme.text.black1};
@@ -98,7 +104,6 @@ export const EllipsisModal = styled.div`
   border-radius: 8px;
   background-color: ${(props) => props.theme.background.white};
   z-index: 1;
-  box-sizing: border-box;
   padding: 6px 5px;
 `
 const EllipsisButtonRoot = styled.button`
@@ -111,7 +116,7 @@ const EllipsisButtonRoot = styled.button`
     color: ${(props) => props.theme.primary.default};
   }
   text-align: left;
-  box-sizing: border-box;
+
   padding-left: 6px;
 
   color: ${(props) => props.theme.text.gray2};

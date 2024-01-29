@@ -24,16 +24,13 @@ function useEditComment() {
           ),
         })
       )
-
       callBack() //isEditing false
       return { prevData }
     },
     onSuccess: () => {
-      // 성공 시 invalidate - commentId값 받아와야 수정 가능하므로)
       console.log('success modify')
     },
     onError: (err, { postId, currentPage }, context) => {
-      // 오류 발생 시 원래 상태로 복원
       queryClient.setQueryData([QueryKeyType.commentData, postId, currentPage + ''], context.prevData)
     },
   })
