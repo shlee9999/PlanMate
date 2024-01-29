@@ -141,7 +141,7 @@ export const ReplyInputWrapper = styled.div`
   display: flex;
   border-bottom: 1px solid ${(props) => props.theme.border.dark};
 `
-export const ReplyRightWrapper = styled.div`
+export const ReplyForm = styled.form`
   width: 100%;
   margin-top: 16px;
   display: flex;

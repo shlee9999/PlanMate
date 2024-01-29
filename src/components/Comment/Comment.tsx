@@ -13,6 +13,7 @@ import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChil
 import { ResponseCommentType } from 'api/types'
 import { Reply } from 'components'
 import { QueryKeyType } from 'enums'
+import { useForm } from 'hooks'
 
 type CommentProps = {
   deleteComment?: () => void
@@ -22,6 +23,9 @@ type CommentProps = {
   postId: number
 } & ResponseCommentType
 
+type ReplyForm = {
+  reply: string
+}
 export const Comment: FC<CommentProps> = ({
   commentId,
   isPostAuthor,
@@ -41,7 +45,18 @@ export const Comment: FC<CommentProps> = ({
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [isReplying, setIsReplying] = useState(false)
-  const [replyInput, setReplyInput] = useState('')
+  const { registerTextarea: registerReplyInput, handleSubmit: handleReplySubmit, setValue } = useForm<ReplyForm>()
+  const onReplySubmit = ({ reply }: ReplyForm) => {
+    if (!postId) return
+    mutateCreateReply({
+      content: reply,
+      parentCommentId: commentId,
+      postId,
+      callBack: () => setValue('reply', ''),
+      memberName,
+      isPostAuthor,
+    })
+  }
   const [inputValue, setInputValue] = useState(content)
   // const [currentReplyPage, setCurrentReplyPage] = useState(1) // todo: Request에 페이지 생기면 넣기
   const { data: replyList } = useQuery<FindAllChildResponseProps>(
@@ -76,10 +91,6 @@ export const Comment: FC<CommentProps> = ({
     if (e.target.value.length > MAX_COMMENT_CHARACTER_COUNT) return //* 댓글 수정 300글자 제한
     setInputValue(e.target.value)
   }
-  const onReplyInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > MAX_REPLY_CHARACTER_COUNT) return //* 답글 달기 130글자 제한
-    setReplyInput(e.target.value)
-  }
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
@@ -97,17 +108,6 @@ export const Comment: FC<CommentProps> = ({
   const onClickEllipsisEditButton = () => {
     setIsEditing(true)
     closeEllipsisModal()
-  }
-  const onClickReplyRegisterButton = () => {
-    if (!postId) return
-    mutateCreateReply({
-      content: replyInput,
-      parentCommentId: commentId,
-      postId,
-      callBack: () => setReplyInput(''),
-      memberName,
-      isPostAuthor,
-    })
   }
   const onClickComment = () => isAuthor && navigate(`/examinfo/detail/${postId}`)
 
@@ -169,13 +169,14 @@ export const Comment: FC<CommentProps> = ({
           ))}
           <s.ReplyInputWrapper>
             <s.ReplyMark />
-            <s.ReplyRightWrapper>
+            <s.ReplyForm onSubmit={handleReplySubmit(onReplySubmit)}>
               <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
-              <s.ReplyInput placeholder="대댓글을 남겨보세요." onChange={onReplyInputChange} value={replyInput} />
-              <s.ReplyRegisterButton onClick={onClickReplyRegisterButton} icon="register">
-                댓글등록
-              </s.ReplyRegisterButton>
-            </s.ReplyRightWrapper>
+              <s.ReplyInput
+                placeholder="대댓글을 남겨보세요."
+                {...registerReplyInput('reply', { maxLength: MAX_REPLY_CHARACTER_COUNT })}
+              />
+              <s.ReplyRegisterButton icon="register">댓글등록</s.ReplyRegisterButton>
+            </s.ReplyForm>
           </s.ReplyInputWrapper>
         </>
       )}
