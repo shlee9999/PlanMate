@@ -26,6 +26,9 @@ type CommentProps = {
 type ReplyForm = {
   reply: string
 }
+type CommentForm = {
+  comment: string
+}
 export const Comment: FC<CommentProps> = ({
   commentId,
   isPostAuthor,
@@ -45,19 +48,28 @@ export const Comment: FC<CommentProps> = ({
   const [isDeleteCommentModalOpen, setIsDeleteCommentModalOpen] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const [isReplying, setIsReplying] = useState(false)
-  const { registerTextarea: registerReplyInput, handleSubmit: handleReplySubmit, setValue } = useForm<ReplyForm>()
+  const {
+    registerTextarea: registerCommentInput,
+    handleSubmit: handleCommentSubmit,
+    textareaFocus: setCommentFocus,
+    setValue: setCommentValue,
+  } = useForm<CommentForm>()
+  const {
+    registerTextarea: registerReplyInput,
+    handleSubmit: handleReplySubmit,
+    setValue: setReplyValue,
+  } = useForm<ReplyForm>()
   const onReplySubmit = ({ reply }: ReplyForm) => {
     if (!postId) return
     mutateCreateReply({
       content: reply,
       parentCommentId: commentId,
       postId,
-      callBack: () => setValue('reply', ''),
+      callBack: () => setReplyValue('reply', ''),
       memberName,
       isPostAuthor,
     })
   }
-  const [inputValue, setInputValue] = useState(content)
   // const [currentReplyPage, setCurrentReplyPage] = useState(1) // todo: Request에 페이지 생기면 넣기
   const { data: replyList } = useQuery<FindAllChildResponseProps>(
     [QueryKeyType.replyList, commentId],
@@ -73,7 +85,6 @@ export const Comment: FC<CommentProps> = ({
     setIsEllipsisOpen((prev) => !prev)
     e.stopPropagation()
   }
-  const inputRef = useRef(null)
   const onClickModal = (e: React.MouseEvent): void => e.stopPropagation()
   const onClickEllipsisDeleteButton = (): void => setIsDeleteCommentModalOpen(true)
 
@@ -86,24 +97,33 @@ export const Comment: FC<CommentProps> = ({
   }
 
   const closeDeleteCommentModal = () => setIsDeleteCommentModalOpen(false)
-  const onClickReplyButton = () => setIsReplying((prev) => !prev)
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length > MAX_COMMENT_CHARACTER_COUNT) return //* 댓글 수정 300글자 제한
-    setInputValue(e.target.value)
+  const onClickReplyButton = (e: React.MouseEvent) => {
+    e.preventDefault() //* 댓글 form submit 차단
+    setIsReplying((prev) => !prev)
   }
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
-      if (e.shiftKey) return
-      e.preventDefault()
-      mutateEditComment({
-        commentId,
-        content: inputValue,
-        postId,
-        currentPage,
-        callBack: () => setIsEditing(false),
-      })
-    }
+  // const onKeyDown = (e: React.KeyboardEvent) => {
+  //   if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+  //     if (e.shiftKey) return
+  //     //* Enter 누를시 댓글 수정 완료, shift Enter은 줄바꿈
+  //     e.preventDefault()
+  //     mutateEditComment({
+  //       commentId,
+  //       content: inputValue,
+  //       postId,
+  //       currentPage,
+  //       callBack: () => setIsEditing(false),
+  //     })
+  //   }
+  // }
+  const onCommentSubmit = ({ comment }: CommentForm) => {
+    mutateEditComment({
+      commentId,
+      content: comment,
+      postId,
+      currentPage,
+      callBack: () => setIsEditing(false),
+    })
   }
   const onClickEllipsisEditButton = () => {
     setIsEditing(true)
@@ -112,9 +132,10 @@ export const Comment: FC<CommentProps> = ({
   const onClickComment = () => isAuthor && navigate(`/examinfo/detail/${postId}`)
 
   useEffect(() => {
-    inputRef.current?.focus()
+    setCommentFocus('comment')
   }, [isEditing])
   useEffect(() => {
+    setCommentValue('comment', content)
     findAllChild({
       parentCommentId: commentId,
       postId: postId,
@@ -125,21 +146,27 @@ export const Comment: FC<CommentProps> = ({
     <>
       <s.Root onClick={closeEllipsisModal}>
         {/* 내가 작성한 댓글만 수정, 삭제 가능함 */}
-        {isAuthor && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
+        {isAuthor && !isEditing && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
           <s.EllipsisModal onClick={onClickModal}>
             <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
             <s.EllipsisDeleteButton onClick={onClickEllipsisDeleteButton}>삭제</s.EllipsisDeleteButton>
           </s.EllipsisModal>
         )}
-        <s.LeftContainer>
+        <s.CommentEditForm onSubmit={handleCommentSubmit(onCommentSubmit)}>
           <s.UpperTypoWrapper>
             <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>
             {isPostAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
             <s.Date>{updatedAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</s.Date>
           </s.UpperTypoWrapper>
           {isEditing ? (
-            <s.EditInput onChange={onChange} value={inputValue} onKeyDown={onKeyDown} ref={inputRef} />
+            <>
+              <s.CommentEditInput
+                // onKeyDown={onKeyDown}
+                {...registerCommentInput('comment', { maxLength: MAX_COMMENT_CHARACTER_COUNT })}
+              />
+              <s.EditCompleteButton icon="register">수정완료</s.EditCompleteButton>
+            </>
           ) : (
             <s.Comment onClick={onClickComment} className={isAuthor ? 'mypage_comment' : ''}>
               {content}
@@ -148,7 +175,7 @@ export const Comment: FC<CommentProps> = ({
           <s.ReplyButton onClick={onClickReplyButton}>
             답글 <s.ReplyCount>{replyList.length}</s.ReplyCount>
           </s.ReplyButton>
-        </s.LeftContainer>
+        </s.CommentEditForm>
         <s.LikeButton onClick={onClickLikeButton}>
           <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />
           {likeCount}

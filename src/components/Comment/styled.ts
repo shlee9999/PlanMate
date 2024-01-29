@@ -3,10 +3,17 @@ import ellipsisButton from 'assets/images/ellipsis.svg'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { HIDE_SCROLLBAR } from 'constants/hideScrollbar'
 import { H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
+import { EllipsisIcon } from 'assets/SvgComponents'
 
-export const EllipsisButton = styled.img`
-  position: relative;
+export const EllipsisButton = styled(EllipsisIcon)`
+  transform: rotate(90deg);
+  position: absolute;
   cursor: pointer;
+  z-index: 1;
+  right: 0;
+  top: 0;
+  width: 16px;
+  opacity: 0;
 `
 export const Root = styled.div`
   position: relative;
@@ -15,12 +22,10 @@ export const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.border.dark};
   &:hover {
     ${EllipsisButton} {
-      content: url(${ellipsisButton});
-      transform: rotate(90deg);
       position: absolute;
       right: 3px;
-      top: 12px;
-      width: 16px;
+      top: 0;
+      opacity: 1;
     }
   }
 `
@@ -30,14 +35,19 @@ export const UpperTypoWrapper = styled.div`
   align-items: end;
   column-gap: 4px;
 `
-export const LeftContainer = styled.div`
+export const CommentEditForm = styled.form`
   width: 100%;
   padding: 16px 0 14px 0;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+  position: relative;
 `
-
+export const EditCompleteButton = styled(ActionButton)`
+  position: absolute;
+  right: 0px;
+  top: 15px;
+`
 export const CommentOwnerNickname = styled.p``
 
 export const Date = styled.p`
@@ -60,11 +70,10 @@ export const Comment = styled.p`
   max-height: 150px;
   overflow-y: scroll;
 `
-export const EditInput = styled.textarea`
+export const CommentEditInput = styled.textarea`
   ${P14}
   color: ${(props) => props.theme.text.black1};
   resize: none;
-  height: 100px;
 `
 export const ReplyButton = styled.button`
   ${P14}
