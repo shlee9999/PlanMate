@@ -1,11 +1,11 @@
 import { AddDdayRequestProps, addDday } from 'api/dday/addDday'
 import { FindAllDdayResponseProps } from 'api/dday/findAllDday'
-import { DDayEntityType } from 'api/types/ScheduleType'
 import { QueryKeyType } from 'enums'
 import { useQueryClient, useMutation } from 'react-query'
 import { dateUtils } from 'utils'
 
 type AddScheduleMutationProps = AddDdayRequestProps & {
+  //* input 초기화
   callBack: () => void
 }
 
@@ -27,13 +27,14 @@ function useAddDdayMutation() {
       ])
       return { prevData }
     },
-    onSuccess: ({ dDayId }) => {
-      console.log('success')
+    onSuccess: ({ dDayId }, { callBack }) => {
+      console.log('success add dDay')
       queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeyType.dDayList], (prev) => {
         const createdDday = prev[prev.length - 1]
         createdDday.dDayId = dDayId
         return prev.slice(0, -1).concat(createdDday)
       })
+      callBack()
     },
     onError: (err, { callBack }, context) => {
       queryClient.setQueryData([QueryKeyType.dDayList], context.prevData)

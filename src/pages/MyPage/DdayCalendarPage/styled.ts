@@ -97,7 +97,7 @@ export const NextYearButton = styled(RightArrow)`
 export const PrevYearButton = styled(LeftArrow)`
   cursor: pointer;
 `
-export const AddButton = styled(ActionButton)``
+export const RegisterButton = styled(ActionButton)``
 
 export const ActionButtonContainer = styled(FlexRow)`
   /* position: absolute;

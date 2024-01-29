@@ -7,17 +7,20 @@ import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
 import { useAddDdayMutation, useEditDdayMutation, useDeleteDdayMutation } from '../hooks'
 import { MAX_DDAY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import { QueryKeyType } from 'enums'
+import { useForm } from 'hooks'
 
 type EventCalendarProps = {
   className?: string
 }
-
+type IForm = {
+  dDayTitle: string
+}
 export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
-  const [eventName, setEventName] = useState('')
-  const inputRef = useRef<HTMLInputElement>()
+  const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
+  const setDdayTitle = (title: string) => setValue('dDayTitle', title)
   const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>([QueryKeyType.dDayList], () => findAllDday())
   const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
@@ -29,32 +32,26 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
     e.preventDefault() // * submit 방지
     mutateDeleteSchedule({ dDayId: selectedDDayId, callBack: () => setIsEditing(false) })
   }
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > MAX_DDAY_CHARACTER_COUNT) return
-    setEventName(e.target.value)
-  }
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (eventName === '') return
+  const onSubmit = ({ dDayTitle }: IForm) => {
     if (!isEditing) {
+      //* 추가
       mutateAddSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
-        title: eventName,
-        callBack: () => setEventName(''),
+        title: dDayTitle,
+        callBack: () => setDdayTitle(''),
       })
-      setEventName('')
     } else {
-      // 수정
+      //* 수정
       mutateEditSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
-        title: eventName,
+        title: dDayTitle,
         dDayId: selectedDDayId,
-        callBack: () => setEventName(''),
+        callBack: () => setDdayTitle(''),
       })
     }
   }
   useEffect(() => {
-    inputRef?.current?.focus()
+    inputFocus('dDayTitle')
   }, [selectedDate])
   return (
     <s.Root className={className}>
@@ -66,7 +63,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
             description="원하는 디데이를 고정해보세요!"
             selectable
             setSelectedDate={setSelectedDate}
-            setEventName={setEventName}
+            setEventName={setDdayTitle}
             setIsEditing={setIsEditing}
             setSelectedDDayId={setSelectedDDayId}
             isDDayLoading={isLoading}
@@ -75,15 +72,12 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
             <s.BackButton onClick={() => navigate(-1)} />
           </s.StyledDDayContainer>
           <s.AddEventBox $isEditing={isEditing} title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
-            <s.Form onSubmit={onSubmit}>
+            <s.Form onSubmit={handleSubmit(onSubmit)}>
               <s.EventNameRow>
                 <s.EventName>제목</s.EventName>
                 <s.EventNameInput
-                  placeholder="디데이 제목을 입력해주세요. (최대 15자)"
-                  value={eventName}
-                  onChange={onChange}
-                  onClick={(e) => e.stopPropagation()}
-                  ref={inputRef}
+                  placeholder={`디데이 제목을 입력해주세요. (최대 ${MAX_DDAY_CHARACTER_COUNT}자)`}
+                  {...registerInput('dDayTitle', { maxLength: MAX_DDAY_CHARACTER_COUNT })}
                 />
               </s.EventNameRow>
               <s.EventDateRow>
@@ -110,11 +104,9 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
               </s.CalendarBox>
               <s.ActionButtonContainer>
                 {isEditing ? (
-                  <s.EditButton onClick={(e) => e.stopPropagation()} icon={'register'}>
-                    수정
-                  </s.EditButton>
+                  <s.EditButton icon={'register'}>수정</s.EditButton>
                 ) : (
-                  <s.AddButton icon={'check'}>등록</s.AddButton>
+                  <s.RegisterButton icon={'check'}>등록</s.RegisterButton>
                 )}
                 {isEditing && (
                   <s.DeleteButton icon={'trash'} color="red" onClick={onClickDelete}>
