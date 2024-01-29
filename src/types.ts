@@ -10,11 +10,14 @@ export type PageInfo = {
   title: string
   url: string
 }
+
+/**{ hour, minute, second } */
 export interface TimeProps {
   hour: number
   minute: number
   second?: number
 }
+/**{ year, month, date } */
 export type DateProps = {
   year: number
   month: number

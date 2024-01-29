@@ -3,17 +3,39 @@ import { formatTwoDigits } from '.'
 
 /**시간 관련 함수 모음 */
 export const timeUtils = {
-  isEqualTime: (a: TimeProps, b: TimeProps): boolean => {
-    return a.hour === b.hour && a.minute === b.minute && a.second === b.second
+  isEqualTime: (a: TimeProps, b: TimeProps): boolean =>
+    a.hour === b.hour && a.minute === b.minute && a.second === b.second,
+  /**초 단위, HH:MM:SS -> TimeProps ({ hour, minute, second })로 반환.
+   * {hour, minute}를 넣으면 second=0으로 반환
+   */
+  getTimeProps: (time: number | TimeProps | Date | string): TimeProps => {
+    let hour: number, minute: number, second: number
+    if (time instanceof Date) time = time.getTime()
+    if (typeof time === 'number') {
+      hour = Math.floor(time / 3600) % 24
+      minute = Math.floor(time / 60) % 60
+      second = Math.floor(time % 60)
+    } else if (typeof time === 'string') {
+      //* HH:MM:SS
+      hour = +time.slice(0, 2)
+      minute = +time.slice(3, 5)
+      second = +time.slice(6, 8)
+    } else {
+      hour = time.hour
+      minute = time.minute
+      second = time.second ?? 0 //* second 없을 경우
+    }
+    return { hour, minute, second }
   },
+
   /**HH:MM:SS*/
   getFormattedTime: (time: number | TimeProps): string => {
-    const { hour, minute, second } = calculateTimeParts(time)
+    const { hour, minute, second } = timeUtils.getTimeProps(time)
     return `${formatTwoDigits(hour)}:${formatTwoDigits(minute)}:${formatTwoDigits(second)}`
   },
   /**HH시간 MM분( SS초)*/
   getFormattedTimeKorean: (time: number | TimeProps): string => {
-    const { hour, minute, second } = calculateTimeParts(time)
+    const { hour, minute, second } = timeUtils.getTimeProps(time)
     let formattedTime = `${formatTwoDigits(hour)}시간 ${formatTwoDigits(minute)}분`
     if (second !== undefined) formattedTime += ` ${formatTwoDigits(second)}초`
     return formattedTime
@@ -33,7 +55,6 @@ export const timeUtils = {
       minute += 60
       hour -= 1
     }
-
     return `${formatTwoDigits(hour)}:${formatTwoDigits(minute)}:${formatTwoDigits(second)}`
   },
 
@@ -43,19 +64,4 @@ export const timeUtils = {
   /**time 대소 비교 */
   compareTime: (time1: number, time2: number) =>
     time1 > time2 ? { smaller: time2, larger: time1 } : { smaller: time1, larger: time2 },
-} /**TimeProps ({ hour, minute, second })로 변횐 */
-
-const calculateTimeParts = (time: number | TimeProps): { hour: number; minute: number; second: number } => {
-  let hour: number, minute: number, second: number
-
-  if (typeof time === 'number') {
-    minute = Math.floor(time / 60) % 60
-    second = Math.floor(time % 60)
-    hour = Math.floor(time / 3600) % 24
-  } else {
-    hour = time.hour
-    minute = time.minute
-    second = time.second ?? 0
-  }
-  return { hour, minute, second }
 }

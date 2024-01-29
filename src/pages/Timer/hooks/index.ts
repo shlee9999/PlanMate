@@ -1,2 +1,3 @@
 import { useTimer } from './useTimer'
-export { useTimer }
+import { useCurrentTime } from './useCurrentTime'
+export { useTimer, useCurrentTime }

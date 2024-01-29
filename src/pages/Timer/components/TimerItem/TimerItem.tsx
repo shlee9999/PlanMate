@@ -8,6 +8,7 @@ import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { timeUtils } from 'utils'
 import { useDispatch } from 'react-redux'
 import { approveNav, blockNav } from 'modules/isNavBlocked'
+import { useCurrentTime } from 'pages/Timer/hooks/useCurrentTime'
 
 type TimerItemProps = {
   title: string
@@ -26,11 +27,21 @@ export const TimerItem = ({
   isTotalTimerRunning,
 }: TimerItemProps) => {
   const dispatch = useDispatch()
+  const mutateUpdateSubject = useUpdateSubjectMutation()
   const [isTodoTimerRunning, setIsTodoTimerRunning] = useState(false)
   const [isEllipsisOpen, setIsEllipsisOpen] = useState(false)
   const { startTimer, stopTimer, time, setDefaultTime } = useTimer({ defaultTime: todo.time })
   const formattedTime: string = timeUtils.getFormattedTime(+time)
   const [startTime, setStartTime] = useState('')
+  useCurrentTime({
+    callback: () =>
+      isTodoTimerRunning &&
+      mutateUpdateSubject({
+        endAt: moment().format('HH:mm:ss'),
+        startAt: startTime,
+        subjectId: todo.subjectId,
+      }),
+  })
 
   const onClickStartButton = (): void => {
     dispatch(blockNav())
@@ -40,7 +51,6 @@ export const TimerItem = ({
       startTotalTimer()
     }
   }
-  const mutateUpdateSubject = useUpdateSubjectMutation()
   const onClickPauseButton = () => {
     dispatch(approveNav())
     setIsTodoTimerRunning(false)
