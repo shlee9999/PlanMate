@@ -16,6 +16,7 @@ export const PageNumberTypo = styled.p<{ $isCurrent: boolean }>`
   cursor: ${(props) => (props.$isCurrent ? 'text' : 'pointer')};
   text-align: center;
   color: ${(props) => (props.$isCurrent ? props.theme.text.black2 : props.theme.text.gray1)};
+  width: 15px;
 `
 
 export const PrevButton = styled(LeftArrow)`

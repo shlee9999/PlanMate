@@ -22,6 +22,9 @@ export const numberUtils = {
       if (start > 1 && end < totalPage) {
         start = Math.max(end - 9, 1)
       }
+      if (start > totalPage - 9) {
+        start = totalPage - 9
+      }
     }
     return numberUtils.createSequentialNumbers(start, end)
   },
