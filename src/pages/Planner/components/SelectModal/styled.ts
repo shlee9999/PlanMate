@@ -3,19 +3,20 @@ import modalExitButton from 'assets/images/close.svg'
 import { H14_500, H16_500, H21_500 } from 'commonStyled'
 
 export const Root = styled.div`
-  width: 320px;
-  height: 400px;
   position: fixed;
   left: 50%;
   top: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   transform: translate(-50%, -50%);
   background-color: ${(props) => props.theme.background.white};
   border-radius: 10px;
-  box-sizing: border-box;
+`
+export const Form = styled.form`
+  width: 320px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   padding: 70px 20px 80px 20px;
 `
 export const Title = styled.h1`
