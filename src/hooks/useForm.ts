@@ -6,10 +6,10 @@ type RegisterProps = {
 
 const DEFAULT_MAX_LENGTH = 10
 
-function useForm() {
-  const [values, setValues] = useState<{ [key: string]: string }>({})
+function useForm<T extends { [key: string]: string }>() {
+  const [values, setValues] = useState<T>({} as T)
 
-  const handleSubmit = (userCallback: (data: { [key: string]: string }) => void) => {
+  const handleSubmit = (userCallback: (data: T) => void) => {
     return (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       for (const key in values) {
