@@ -1,5 +1,5 @@
-import React from 'react'
 import * as s from './styled'
+import React from 'react'
 import { GraphContainer, PieChartContainer, ShareContainer, StudyTimeContainer } from './components'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
