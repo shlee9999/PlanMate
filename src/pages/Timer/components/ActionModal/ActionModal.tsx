@@ -64,6 +64,10 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
     setValue('ADD', '')
     setIsConfirmed(false)
   }
+  const onClickCloseButton = (e: React.MouseEvent) => {
+    e.preventDefault()
+    closeModal()
+  }
   useEffect(() => {
     if (type === 'ADD') {
       setSubjectColor(defaultColor)
@@ -84,10 +88,10 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
     <>
       <cs.ModalFooter>
         <cs.GreenButton>확인</cs.GreenButton>
-        <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+        <cs.WhiteButton onClick={onClickCloseButton}>취소</cs.WhiteButton>
       </cs.ModalFooter>
       <s.ModalTitle>{type === 'ADD' ? '과목추가' : '과목수정'}</s.ModalTitle>
-      <cs.ModalExitButton onClick={closeModal} />
+      <cs.ModalExitButton onClick={onClickCloseButton} />
       <s.InfoContainer>
         <s.UpperWrapper>
           과목명
