@@ -16,6 +16,13 @@ const tagList = {
   suggest: suggestTagList,
   notice: [],
 }
+enum EForm {
+  title = 'title',
+  suggest = 'suggest',
+}
+type IForm = {
+  [key in EForm]: string
+}
 type BulletinPageProps = {
   mode: 'examinfo' | 'suggest' | 'notice'
 }
@@ -26,8 +33,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [selectedTag, setSelectedTag] = useState(initialTag)
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
-  const { register, handleSubmit } = useForm()
-
+  const { register, handleSubmit } = useForm<IForm>()
   const navigate = useNavigate()
   const mutateCreatePost = useCreatePostMutation()
   const mutateCreateNotice = useCreateNoticeMutation()
@@ -37,29 +43,28 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
     navigate(-1)
   }
 
-  const onSubmit = (data) => {
-    console.log(data)
-    // if (mode === 'examinfo' && selectedTag === '선택해주세요') return
-    // if (mode === 'examinfo')
-    //   mutateCreatePost({
-    //     content: serializeContent(editorState),
-    //     tagList: [selectedTag],
-    //     title: data,
-    //     callBack: () => navigate(-1),
-    //   })
-    // if (mode === 'notice')
-    //   mutateCreateNotice({
-    //     content: serializeContent(editorState),
-    //     title: data,
-    //     callBack: () => navigate(-1),
-    //   })
-    // if (mode === 'suggest')
-    //   mutateCreateSuggest({
-    //     body: suggestInput,
-    //     tag: selectedTag,
-    //     title: data,
-    //     callBack: () => navigate('/timer', { state: true }),
-    //   })
+  const onSubmit = (data: IForm) => {
+    if (mode === 'examinfo' && selectedTag === '선택해주세요') return
+    if (mode === 'examinfo')
+      mutateCreatePost({
+        content: serializeContent(editorState),
+        tagList: [selectedTag],
+        title: data.title,
+        callBack: () => navigate(-1),
+      })
+    if (mode === 'notice')
+      mutateCreateNotice({
+        content: serializeContent(editorState),
+        title: data.title,
+        callBack: () => navigate(-1),
+      })
+    if (mode === 'suggest')
+      mutateCreateSuggest({
+        body: data.suggest,
+        tag: selectedTag,
+        title: data.title,
+        callBack: () => navigate('/timer', { state: true }),
+      })
     // 등록하시겠습니까? 확인
   }
 
@@ -86,7 +91,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         <s.UpperWrapper>
           <s.TitleInput
             placeholder="제목을 입력해주세요"
-            {...register('title', { maxLength: MAX_POST_TITLE_CHARACTER_COUNT })}
+            {...register(EForm.title, { maxLength: MAX_POST_TITLE_CHARACTER_COUNT })}
           />
           {mode !== 'notice' && (
             <TagSelector tagList={tagList[mode]} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
@@ -95,7 +100,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         {mode === 'suggest' ? (
           <s.SuggestInput
             placeholder="내용을 작성해주세요."
-            {...register('suggest', { maxLength: MAX_SUGGEST_CHARACTER_COUNT })}
+            {...register(EForm.suggest, { maxLength: MAX_SUGGEST_CHARACTER_COUNT })}
           />
         ) : (
           <Editor
