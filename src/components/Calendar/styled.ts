@@ -181,6 +181,7 @@ export const DateCellRoot = styled(Cell)<DateCellProps>`
     pointer-events: none;
   }
   &.today {
+    border-radius: 50%;
     background-color: #0088fe;
     color: ${(props) => props.theme.text.white};
     scale: 1.3;
