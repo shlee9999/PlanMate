@@ -1,5 +1,5 @@
 import * as s from './styled'
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
@@ -33,7 +33,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [selectedTag, setSelectedTag] = useState(initialTag)
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
-  const { register, handleSubmit } = useForm<IForm>()
+  const { registerInput, registerTextarea, handleSubmit, inputFocus, textareaFocus } = useForm<IForm>()
   const navigate = useNavigate()
   const mutateCreatePost = useCreatePostMutation()
   const mutateCreateNotice = useCreateNoticeMutation()
@@ -70,7 +70,11 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
+    inputFocus(EForm.title)
   }, [])
+  useEffect(() => {
+    textareaFocus(EForm.suggest)
+  }, [selectedTag])
 
   return (
     <s.Root>
@@ -91,7 +95,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         <s.UpperWrapper>
           <s.TitleInput
             placeholder="제목을 입력해주세요"
-            {...register(EForm.title, { maxLength: MAX_POST_TITLE_CHARACTER_COUNT })}
+            {...registerInput(EForm.title, { maxLength: MAX_POST_TITLE_CHARACTER_COUNT })}
           />
           {mode !== 'notice' && (
             <TagSelector tagList={tagList[mode]} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
@@ -100,7 +104,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
         {mode === 'suggest' ? (
           <s.SuggestInput
             placeholder="내용을 작성해주세요."
-            {...register(EForm.suggest, { maxLength: MAX_SUGGEST_CHARACTER_COUNT })}
+            {...registerTextarea(EForm.suggest, { maxLength: MAX_SUGGEST_CHARACTER_COUNT })}
           />
         ) : (
           <Editor

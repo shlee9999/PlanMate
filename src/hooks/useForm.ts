@@ -41,7 +41,6 @@ function useForm<T extends { [key: string]: string }>() {
       textareaRefs.current[key] = React.createRef<HTMLTextAreaElement>()
     }
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      console.log(e.target.value)
       const newValue = e.target.value
       if (newValue.length <= maxLength) setValues((prev) => ({ ...prev, [key]: newValue }))
     }

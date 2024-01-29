@@ -1,6 +1,6 @@
 import * as s from './styled'
 import * as cs from 'commonStyled'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { defaultColor } from 'constants/color'
 import { ColorPicker } from 'components/'
 import { AnimatePresence } from 'framer-motion'
@@ -24,9 +24,9 @@ type IForm = {
  * * 타이머 과목 추가, 과목 수정 Modal
  */
 export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: ActionModalProps) => {
+  const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
   const [subjectColor, setSubjectColor] = useState(todo?.colorHex || defaultColor)
   const [isConfirmed, setIsConfirmed] = useState(false)
-  const inputRef = useRef<HTMLInputElement>()
   const mutateCreateSubject = useCreateSubjectMutation()
   const mutateEditSubject = useEditSubjectMutation()
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -35,7 +35,6 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
   }
   const assignSubjectColor = (color: string) => setSubjectColor(color)
   const closeModalAll = () => type === 'EDIT' && closeEllipsisModal()
-  const { register, handleSubmit, setValue } = useForm<IForm>()
 
   const onSubmit = (data: IForm) => {
     setIsConfirmed(true)
@@ -62,13 +61,18 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
   // * ADD는 여기서
   const onExitComplete = () => {
     if (!isConfirmed) return
-    setValue({ key: 'ADD', value: '' })
+    setValue('ADD', '')
     setIsConfirmed(false)
   }
   useEffect(() => {
-    inputRef?.current?.focus()
-    if (type === 'ADD') setSubjectColor(defaultColor)
-    if (type === 'EDIT') setValue({ key: 'EDIT', value: todo?.name || '' })
+    if (type === 'ADD') {
+      setSubjectColor(defaultColor)
+      inputFocus('ADD')
+    }
+    if (type === 'EDIT') {
+      setValue('EDIT', todo?.name || '')
+      inputFocus('EDIT')
+    }
   }, [isOpen])
 
   /**
@@ -90,8 +94,7 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
           <s.NameInput
             placeholder="과목명을 입력해주세요"
             onKeyDown={onKeyDown}
-            ref={inputRef}
-            {...register(type, { maxLength: MAX_TIMER_NAME_CHARACTER_COUNT })}
+            {...registerInput(type, { maxLength: MAX_TIMER_NAME_CHARACTER_COUNT })}
           />
         </s.UpperWrapper>
         <s.LowerWrapper>
