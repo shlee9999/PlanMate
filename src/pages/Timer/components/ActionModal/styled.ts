@@ -2,7 +2,7 @@ import { H14_500, H16_500 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import { styled } from 'styled-components'
 
-export const Root = styled(motion.div)`
+export const Form = styled(motion.form)`
   width: 320px;
   height: 266px;
   position: fixed;

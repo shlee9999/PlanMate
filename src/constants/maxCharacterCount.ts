@@ -4,3 +4,6 @@ export const MAX_REPLY_CHARACTER_COUNT = 130
 export const MAX_SUGGEST_CHARACTER_COUNT = 500
 export const MAX_POST_CHARACTER_COUNT = 500 // todo POST EditorState라 복잡
 export const MAX_DDAY_CHARACTER_COUNT = 15
+
+// * 13글자로 제한해야, 삭제 모달에서도 깔끔하게 한 줄로 들어감.
+export const MAX_TIMER_NAME_CHARACTER_COUNT = 13

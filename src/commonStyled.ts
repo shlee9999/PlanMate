@@ -89,6 +89,7 @@ export const GreenButton = styled(FooterButton)`
   color: ${(props) => props.theme.text.white};
   background-color: ${(props) => props.theme.primary.default};
   border-top: 1px solid ${(props) => props.theme.primary.dark};
+  order: 1;
 `
 
 export const ModalFooter = styled.div`

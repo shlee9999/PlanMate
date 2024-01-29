@@ -1,11 +1,13 @@
+import * as s from './styled'
+import * as cs from 'commonStyled'
 import React, { useEffect, useRef, useState } from 'react'
 import { defaultColor } from 'constants/color'
 import { ColorPicker } from 'components/'
 import { AnimatePresence } from 'framer-motion'
 import { TodoItemType } from 'types'
 import { useCreateSubjectMutation, useEditSubjectMutation } from 'pages/Timer/hooks/mutations'
-import * as cs from 'commonStyled'
-import * as s from './styled'
+import { useForm } from 'hooks'
+import { MAX_TIMER_NAME_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 type ActionModalProps = {
   isOpen: boolean
@@ -14,39 +16,43 @@ type ActionModalProps = {
   closeEllipsisModal?: () => void
   type: 'ADD' | 'EDIT'
 }
+type IForm = {
+  ADD: string
+  EDIT: string
+}
 /**
  * * 타이머 과목 추가, 과목 수정 Modal
  */
 export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: ActionModalProps) => {
-  const [inputValue, setInputValue] = useState(todo?.name || '')
   const [subjectColor, setSubjectColor] = useState(todo?.colorHex || defaultColor)
   const [isConfirmed, setIsConfirmed] = useState(false)
   const inputRef = useRef<HTMLInputElement>()
   const mutateCreateSubject = useCreateSubjectMutation()
   const mutateEditSubject = useEditSubjectMutation()
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // * 13글자로 제한해야, 삭제 모달에서도 깔끔하게 한 줄로 들어감.
-    if (e.target.value.length > 13) return
-    setInputValue(e.target.value)
-  }
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.nativeEvent.key === 'Enter' && !e.nativeEvent.isComposing) onClickConfirmButton()
-    if (e.nativeEvent.key === 'Escape') closeModal()
+    // if (e.nativeEvent.key === 'Enter' && !e.nativeEvent.isComposing) onClickConfirmButton()
+    if (e.nativeEvent.key === 'Escape') closeModalAll()
   }
   const assignSubjectColor = (color: string) => setSubjectColor(color)
   const closeModalAll = () => type === 'EDIT' && closeEllipsisModal()
+  const { register, handleSubmit, setValue } = useForm<IForm>()
 
-  const onClickConfirmButton = () => {
-    if (inputValue === '') return
+  const onSubmit = (data: IForm) => {
     setIsConfirmed(true)
     // * ADD는 ExitComplete 시 mutate 실행하므로, 모달을 닫아주기만 하면 된다.
-    if (type === 'ADD') closeModal()
-    else {
+    if (type === 'ADD') {
+      if (type === 'ADD')
+        mutateCreateSubject({
+          colorHex: subjectColor,
+          name: data.ADD,
+        })
+      closeModal()
+    } else {
       //EDIT
       closeModalAll()
       mutateEditSubject({
         colorHex: subjectColor,
-        name: inputValue,
+        name: data.EDIT,
         subjectId: todo.subjectId,
       })
     }
@@ -55,18 +61,14 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
 
   // * ADD는 여기서
   const onExitComplete = () => {
-    setInputValue('')
     if (!isConfirmed) return
-    if (type === 'ADD')
-      mutateCreateSubject({
-        colorHex: subjectColor,
-        name: inputValue,
-      })
+    setValue({ key: 'ADD', value: '' })
     setIsConfirmed(false)
   }
   useEffect(() => {
     inputRef?.current?.focus()
     if (type === 'ADD') setSubjectColor(defaultColor)
+    if (type === 'EDIT') setValue({ key: 'EDIT', value: todo?.name || '' })
   }, [isOpen])
 
   /**
@@ -76,17 +78,20 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
    */
   const renderContent = () => (
     <>
+      <cs.ModalFooter>
+        <cs.GreenButton>확인</cs.GreenButton>
+        <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+      </cs.ModalFooter>
       <s.ModalTitle>{type === 'ADD' ? '과목추가' : '과목수정'}</s.ModalTitle>
       <cs.ModalExitButton onClick={closeModal} />
       <s.InfoContainer>
         <s.UpperWrapper>
           과목명
           <s.NameInput
-            value={inputValue}
             placeholder="과목명을 입력해주세요"
-            onChange={onChange}
             onKeyDown={onKeyDown}
             ref={inputRef}
+            {...register(type, { maxLength: MAX_TIMER_NAME_CHARACTER_COUNT })}
           />
         </s.UpperWrapper>
         <s.LowerWrapper>
@@ -94,13 +99,8 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
           <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
         </s.LowerWrapper>
       </s.InfoContainer>
-      <cs.ModalFooter>
-        <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
-        <cs.GreenButton onClick={onClickConfirmButton}>확인</cs.GreenButton>
-      </cs.ModalFooter>
     </>
   )
-
   if (type === 'ADD') {
     return (
       <AnimatePresence onExitComplete={onExitComplete}>
@@ -112,7 +112,9 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
             animate="visible"
             exit="exit"
           >
-            <s.Root onClick={onClickModal}>{renderContent()}</s.Root>
+            <s.Form onClick={onClickModal} onSubmit={handleSubmit(onSubmit)}>
+              {renderContent()}
+            </s.Form>
           </cs.ModalWrapper>
         )}
       </AnimatePresence>
@@ -121,8 +123,8 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
 
   // EDIT
   return (
-    <s.Root onClick={onClickModal} layoutId="ellipsis">
+    <s.Form onClick={onClickModal} layoutId="ellipsis" onSubmit={handleSubmit(onSubmit)}>
       {renderContent()}
-    </s.Root>
+    </s.Form>
   )
 }

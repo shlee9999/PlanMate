@@ -5,7 +5,10 @@ type RegisterProps = {
 }
 
 const DEFAULT_MAX_LENGTH = 10
-
+/**
+ *
+ * @returns register, handleSubmit
+ */
 function useForm<T extends { [key: string]: string }>() {
   const [values, setValues] = useState<T>({} as T)
 
@@ -29,8 +32,10 @@ function useForm<T extends { [key: string]: string }>() {
       onChange: handleChange,
     }
   }
-
-  return { register, handleSubmit, setValue: setValues }
+  const setValue = ({ key, value }: { key: keyof T; value: string }) => {
+    setValues((prev) => ({ ...prev, [key]: value }))
+  }
+  return { register, handleSubmit, setValue }
 }
 
 export default useForm

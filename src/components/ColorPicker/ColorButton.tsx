@@ -14,7 +14,8 @@ export const ColorButton = ({
   isSelected: boolean
   setSelectedColor: () => void
 }) => {
-  const onClickButton: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const onClickButton = (e: React.MouseEvent) => {
+    e.preventDefault() //* form 내에 있을 시 submit돼버림
     assignSubjectColor(color)
     setSelectedColor()
     if (closeModal) closeModal()
