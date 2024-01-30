@@ -11,7 +11,7 @@ export const SuggestModal: FC<SuggestModalProps> = ({ closeModal }) => {
     e.stopPropagation()
   }
   return (
-    <s.Root onClick={onClickModal}>
+    <s.SuggestModal onClick={onClickModal}>
       <s.UpperTypo>건의 완료</s.UpperTypo>
       <s.LowerTypo>
         회원님의 소중한 의견이 전달되었어요.
@@ -21,6 +21,6 @@ export const SuggestModal: FC<SuggestModalProps> = ({ closeModal }) => {
         <s.LongGreenButton onClick={closeModal}>확인</s.LongGreenButton>
       </cs.ModalFooter>
       <cs.ModalExitButton onClick={closeModal} />
-    </s.Root>
+    </s.SuggestModal>
   )
 }

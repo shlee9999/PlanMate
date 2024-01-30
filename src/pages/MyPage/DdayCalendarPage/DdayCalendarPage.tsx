@@ -61,7 +61,7 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
   }, [selectedDateProps])
 
   return (
-    <s.Root className={className}>
+    <s.DdayCalendarPage className={className}>
       <s.MainContainer>
         <s.BoxContainer>
           <s.StyledDDayContainer
@@ -121,6 +121,6 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
           </s.AddDdayBox>
         </s.BoxContainer>
       </s.MainContainer>
-    </s.Root>
+    </s.DdayCalendarPage>
   )
 }

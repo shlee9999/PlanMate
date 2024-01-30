@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { ColorButtonWrapper, RowWrapper } from './styled'
+import * as s from './styled'
 import { colorList } from 'constants/color'
 import { ColorButton } from '.'
 
@@ -12,9 +12,9 @@ type ColorPickerProps = {
 export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectColor, defaultColor }) => {
   const [selectedColor, setSelectedColor] = useState<string>(defaultColor)
   return (
-    <ColorButtonWrapper>
+    <s.ColorPicker>
       {colorList.map((row: Array<string>, rowIndex: number) => (
-        <RowWrapper key={rowIndex}>
+        <s.RowWrapper key={rowIndex}>
           {row.map((color: string, index: number) => (
             <ColorButton
               key={index}
@@ -25,8 +25,8 @@ export const ColorPicker: FC<ColorPickerProps> = ({ closeModal, assignSubjectCol
               setSelectedColor={() => setSelectedColor(color)}
             />
           ))}
-        </RowWrapper>
+        </s.RowWrapper>
       ))}
-    </ColorButtonWrapper>
+    </s.ColorPicker>
   )
 }

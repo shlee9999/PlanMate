@@ -72,7 +72,7 @@ export const Reply: FC<ExamInfoReplyProps> = ({
 
   return (
     <>
-      <s.Root onClick={closeEllipsisModal}>
+      <s.Reply onClick={closeEllipsisModal}>
         <s.ReplyMark />
         {isAuthor && !isEditing && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
@@ -110,7 +110,7 @@ export const Reply: FC<ExamInfoReplyProps> = ({
           type="reply"
           parentCommentId={parentCommentId}
         />
-      </s.Root>
+      </s.Reply>
     </>
   )
 }

@@ -33,7 +33,7 @@ export const StatsPage = () => {
     : selectedMonthStats[selectedDate.date - 1] || defaultStats
 
   return (
-    <s.Root>
+    <s.StatsPage>
       <s.HeaderContainer>
         <s.HeaderContentWrapper>
           <s.UserName>메이트 </s.UserName>
@@ -68,6 +68,6 @@ export const StatsPage = () => {
           </s.RightInfoBox>
         </s.MainContainer>
       </s.Container>
-    </s.Root>
+    </s.StatsPage>
   )
 }

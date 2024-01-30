@@ -30,11 +30,11 @@ export const Appointment: FC<AppointmentProps> = ({ height, onMouseDown, appoint
   }
   return (
     <s.Wrapper $bgColor={colorHex} $height={height * 103 + '%'} onClick={onClick} onMouseDown={onMouseDown}>
-      <s.Root $bgColor={colorHex}>
+      <s.Appointment $bgColor={colorHex}>
         <s.Title>{scheduleName}</s.Title>
         <s.CloseButton onClick={onClickClose} />
         <s.LeftBar $bgColor={colorHex} />
-      </s.Root>
+      </s.Appointment>
     </s.Wrapper>
   )
 }

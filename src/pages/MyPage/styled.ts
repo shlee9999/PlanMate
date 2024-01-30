@@ -12,7 +12,7 @@ export const EllipsisImg = styled.img`
   cursor: pointer;
   transform: rotate(90deg);
 `
-export const Root = styled(PageRoot)``
+export const MyPage = styled(PageRoot)``
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;

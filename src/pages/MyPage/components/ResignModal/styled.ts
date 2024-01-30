@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import resignImg from 'assets/images/resign.svg'
 import { H14_500, H16_500 } from 'commonStyled'
-export const Root = styled.div`
+export const ResignModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;

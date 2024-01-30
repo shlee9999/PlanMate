@@ -40,7 +40,7 @@ export const ExamInfoPage = () => {
     title: '',
   }
   return (
-    <s.Root>
+    <s.ExamInfoPage>
       <s.TypoWrapper>
         <s.UpperDescriptionTypo>유용한 정보를 찾아볼까요? </s.UpperDescriptionTypo>
         <s.TitleTypo>수험정보 👀</s.TitleTypo>
@@ -74,6 +74,6 @@ export const ExamInfoPage = () => {
       <s.PaginationWrapper>
         {!isLoading && <Pagination currentPage={currentPage} totalPages={totalPage} setCurrentPage={setCurrentPage} />}
       </s.PaginationWrapper>
-    </s.Root>
+    </s.ExamInfoPage>
   )
 }

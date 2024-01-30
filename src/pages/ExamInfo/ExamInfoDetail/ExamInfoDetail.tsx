@@ -50,7 +50,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
     content = '',
     isMyPost = false,
   } = detailData || {}
-  if (!postId) return <s.Root>Error!</s.Root>
+  if (!postId) return <s.ExamInfoDetail>Error!</s.ExamInfoDetail>
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
     [QueryKeys.commentData, postId, currentPage + ''],
@@ -159,7 +159,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   }, [])
 
   return (
-    <s.Root>
+    <s.ExamInfoDetail>
       <s.UpperTypoWrapper>
         <s.LeftTypoWrapper>
           <s.TagWrapper>
@@ -263,6 +263,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
       {!isCommentLoading && !isDetailLoading && (
         <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
       )}
-    </s.Root>
+    </s.ExamInfoDetail>
   )
 }

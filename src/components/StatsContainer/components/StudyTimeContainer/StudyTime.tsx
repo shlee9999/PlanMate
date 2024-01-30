@@ -1,5 +1,4 @@
 import React from 'react'
-
 import * as s from './styled'
 
 interface OwnProps {
@@ -9,9 +8,9 @@ interface OwnProps {
 
 export const StudyTime: React.FC<OwnProps> = ({ title, text }) => {
   return (
-    <s.TimerBox>
+    <s.StudyTime>
       <s.Header>{title}</s.Header>
       <s.Time>{text}</s.Time>
-    </s.TimerBox>
+    </s.StudyTime>
   )
 }

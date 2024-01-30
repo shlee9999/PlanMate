@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ContentWrapper, NavigateTypo, RightContainer, Root } from './styled'
+import * as s from './styled'
 import { useNavigate } from 'react-router-dom'
 
 const footerNavigate = [
@@ -16,16 +16,16 @@ export const Footer: FC = () => {
   }
 
   return (
-    <Root>
-      <ContentWrapper>
-        <RightContainer>
+    <s.Footer>
+      <s.ContentWrapper>
+        <s.RightContainer>
           {footerNavigate.map((item, index) => (
-            <NavigateTypo onClick={onClickNavigateTypo(item.url)} key={index}>
+            <s.NavigateTypo onClick={onClickNavigateTypo(item.url)} key={index}>
               {item.typo}
-            </NavigateTypo>
+            </s.NavigateTypo>
           ))}
-        </RightContainer>
-      </ContentWrapper>
-    </Root>
+        </s.RightContainer>
+      </s.ContentWrapper>
+    </s.Footer>
   )
 }

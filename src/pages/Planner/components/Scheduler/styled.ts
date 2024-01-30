@@ -4,7 +4,7 @@ import { LARGE_SIZE } from 'constants/layout'
 import { P12, P14 } from 'commonStyled'
 import { BLOCK_SELECT } from 'constants/blockSelect'
 
-export const Root = styled.div`
+export const Scheduler = styled.div`
   ${BLOCK_SELECT}
   display: flex;
   flex-direction: column;

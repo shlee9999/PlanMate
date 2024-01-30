@@ -5,7 +5,7 @@ import { Calendar } from 'components'
 import { DdayContainer } from '../components'
 import styled, { css } from 'styled-components'
 
-export const Root = styled(PageRoot)``
+export const DdayCalendarPage = styled(PageRoot)``
 
 export const BoxContainer = styled(FlexRow)`
   margin-top: 20px;

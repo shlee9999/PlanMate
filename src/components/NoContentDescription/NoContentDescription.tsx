@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { DescriptionTypoContainer, NoContentTypo, Root } from './styled'
+import * as s from './styled'
 import { BookCheckIcon, CircleChatIcon, PencilIcon } from 'assets/SvgComponents'
 import { useTheme } from 'styled-components'
 
@@ -17,13 +17,13 @@ export const NoContentDescription: FC<NoContentDescriptionProps> = ({ className,
     pencil: <PencilIcon fill="currentColor" />,
   }
   return (
-    <Root className={className}>
+    <s.NoContentDescription className={className}>
       {icons[icon]}
-      <DescriptionTypoContainer>
+      <s.DescriptionTypoContainer>
         {descriptions?.map((description, index) => (
-          <NoContentTypo key={index}>{description}</NoContentTypo>
+          <s.NoContentTypo key={index}>{description}</s.NoContentTypo>
         ))}
-      </DescriptionTypoContainer>
-    </Root>
+      </s.DescriptionTypoContainer>
+    </s.NoContentDescription>
   )
 }

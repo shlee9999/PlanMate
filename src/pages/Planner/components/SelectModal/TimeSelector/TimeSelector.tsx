@@ -1,16 +1,16 @@
+import * as s from './styled'
 import React, { ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { updateInfo } from 'modules/selectedInfo'
 import { timeUtils } from 'utils'
-import * as s from './styled'
 
-type TimeSelectModeProps = {
+type TimeSelectorModeProps = {
   set: string
 }
 
 //옵션 시간 추가 필요요
-export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
+export const TimeSelector: React.FC<TimeSelectorModeProps> = ({ set }) => {
   const dispatch = useDispatch()
   const { startAt, endAt, scheduleName, colorHex, plannerId, day } = useSelector(
     (state: RootState) => state.selectedInfo
@@ -42,7 +42,7 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
   }
 
   return (
-    <s.SelectWrapper>
+    <s.TimerSelector>
       <s.StyledSelect onChange={handleHourChange} value={value.toString().padStart(2, '0')}>
         {Array.from(Array(25).keys()).map((hour) => (
           <s.SelectOption key={hour} value={hour.toString().padStart(2, '0')}>
@@ -51,6 +51,6 @@ export const TimeSelect: React.FC<TimeSelectModeProps> = ({ set }) => {
         ))}
       </s.StyledSelect>
       <span>{set}</span>
-    </s.SelectWrapper>
+    </s.TimerSelector>
   )
 }

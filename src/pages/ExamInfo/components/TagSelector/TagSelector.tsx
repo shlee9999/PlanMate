@@ -58,7 +58,7 @@ export const TagSelector: FC<TagSelectorProps> = ({
     }
   }, [isSelecting])
   return (
-    <s.Root ref={tagSelectorRef} className={className} $selectorHeight={selectorHeight}>
+    <s.TagSelectorWrapper ref={tagSelectorRef} className={className} $selectorHeight={selectorHeight}>
       {title && <s.TagTypo>{title}</s.TagTypo>}
       <s.TagSelector onClick={onClickTagSelector} $selectorWidth={selectorWidth}>
         {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
@@ -73,6 +73,6 @@ export const TagSelector: FC<TagSelectorProps> = ({
           </s.TagOptionContainer>
         )}
       </s.TagSelector>
-    </s.Root>
+    </s.TagSelectorWrapper>
   )
 }

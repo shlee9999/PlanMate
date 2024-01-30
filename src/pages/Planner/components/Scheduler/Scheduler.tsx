@@ -31,7 +31,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   })
 
   return (
-    <s.Root className={className}>
+    <s.Scheduler className={className}>
       <s.ButtonWrapper>
         <s.PrevButton
           onClick={() => setSelectedDateProps(dateUtils.calculateDateProps(selectedDateProps, 'date', -7))}
@@ -102,6 +102,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         isOpen={isSelectModalOpen}
         onExitComplete={onExitComplete}
       />
-    </s.Root>
+    </s.Scheduler>
   )
 }

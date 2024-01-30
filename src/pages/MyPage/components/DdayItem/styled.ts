@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { PinIcon } from 'assets/SvgComponents'
 import { FlexRow, H14_500, H21_700, P10 } from 'commonStyled'
-export const Root = styled.div<{ $isSelected: boolean; $selectable: boolean }>`
+export const DdayItem = styled.div<{ $isSelected: boolean; $selectable: boolean }>`
   position: relative;
   height: 48px;
   padding: 15px 63px 15px 30px;

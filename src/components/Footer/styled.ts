@@ -5,12 +5,11 @@ import {
   FOOTER_MAX_WIDTH,
   LARGE_SIDE_MARGIN,
   MEDIUM_SIDE_MARGIN,
-  SMALL_SIDE_MARGIN,
   XLARGE_SIDE_MARGIN,
 } from 'constants/layout'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const Footer = styled.div`
   ${BLOCK_SELECT}
   @media screen and (${(props) => props.theme.xlarge}) {
     padding: 32px ${XLARGE_SIDE_MARGIN}px 42px;

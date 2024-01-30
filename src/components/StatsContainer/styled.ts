@@ -1,14 +1,14 @@
 import { P16 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const StatsRoot = styled.div`
+export const StatsPageStatsContainer = styled.div`
   position: relative;
   height: 100%;
   padding: 22px 24px 0 24px; /*BumpGraph 자체 바텀 마진이 있음 */
   display: flex;
   flex-direction: column;
 `
-export const TimerRoot = styled.div`
+export const TimerPageStatsContainer = styled.div`
   padding: 8px 15px;
   height: 100%;
 `

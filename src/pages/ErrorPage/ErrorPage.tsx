@@ -10,7 +10,7 @@ export const ErrorPage: FC = () => {
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
       <Header />
-      <s.Root>
+      <s.ErrorPage>
         <s.ErrorImg />
         <s.UpperTypo>이런! 일시적인 오류에요.</s.UpperTypo>
         <s.LowerTypo>잠시 후 다시 시도해주세요.</s.LowerTypo>
@@ -21,7 +21,7 @@ export const ErrorPage: FC = () => {
         >
           다시 시도
         </s.RetryButton>
-      </s.Root>
+      </s.ErrorPage>
       <Footer />
     </ThemeProvider>
   )

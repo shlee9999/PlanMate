@@ -1,8 +1,8 @@
-import { FC } from 'react'
 import * as s from './styled'
+import * as cs from 'commonStyled'
+import { FC } from 'react'
 import { signout } from 'api/member/signout'
 import { useNavigate } from 'react-router-dom'
-import * as cs from 'commonStyled'
 
 type ResignModalProps = {
   closeModal: () => void
@@ -10,9 +10,7 @@ type ResignModalProps = {
 
 export const ResignModal: FC<ResignModalProps> = ({ closeModal }) => {
   const navigate = useNavigate()
-  const onClickModal = (e: React.MouseEvent) => {
-    e.stopPropagation()
-  }
+  const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
   const onClickResignButton = () => {
     signout().then(() => {
       navigate('/timer')
@@ -22,7 +20,7 @@ export const ResignModal: FC<ResignModalProps> = ({ closeModal }) => {
   }
   return (
     <cs.ModalWrapper onClick={closeModal}>
-      <s.Root onClick={onClickModal}>
+      <s.ResignModal onClick={onClickModal}>
         <s.Title>탈퇴하기</s.Title>
         <s.DescriptionTypo>탈퇴 후 30일 간 해당 계정으로</s.DescriptionTypo>
         <s.DescriptionTypo>재가입이 불가능해요!</s.DescriptionTypo>
@@ -32,7 +30,7 @@ export const ResignModal: FC<ResignModalProps> = ({ closeModal }) => {
           <cs.WhiteButton onClick={closeModal}>수정</cs.WhiteButton>
         </cs.ModalFooter>
         <cs.ModalExitButton onClick={closeModal} />
-      </s.Root>
+      </s.ResignModal>
     </cs.ModalWrapper>
   )
 }

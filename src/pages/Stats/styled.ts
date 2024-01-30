@@ -3,7 +3,7 @@ import { Calendar } from 'components'
 import { InfoBox } from 'components'
 import styled from 'styled-components'
 
-export const Root = styled(PageRoot)`
+export const StatsPage = styled(PageRoot)`
   display: flex;
   flex-direction: column;
 `

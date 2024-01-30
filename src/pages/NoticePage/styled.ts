@@ -4,7 +4,7 @@ import { ActionButton } from 'components/ActionButton/ActionButton'
 import { NoContentDescription } from 'components'
 import { BLOCK_SELECT } from 'constants/blockSelect'
 
-export const Root = styled(PageRoot)`
+export const NoticePage = styled(PageRoot)`
   ${BLOCK_SELECT}
 `
 

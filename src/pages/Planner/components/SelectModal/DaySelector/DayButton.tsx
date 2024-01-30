@@ -8,5 +8,5 @@ type DayButtonProps = {
 
 export const DayButton: React.FC<DayButtonProps> = ({ day, assignSubjectDay }) => {
   const onClickButton: React.MouseEventHandler<HTMLButtonElement> = () => assignSubjectDay(day)
-  return <s.DayButtonRoot onClick={onClickButton}>{day}</s.DayButtonRoot>
+  return <s.DayButton onClick={onClickButton}>{day}</s.DayButton>
 }

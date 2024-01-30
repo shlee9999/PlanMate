@@ -51,7 +51,7 @@ export const DateCell: FC<DateCellProps> = ({
   const ref = useRef()
   return (
     <s.DateCellWrapper>
-      <s.DateCellRoot
+      <s.DateCell
         className={className + ' ' + (isToday ? 'today' : '')}
         $isSelected={isSelected}
         onClick={onClick}
@@ -59,7 +59,7 @@ export const DateCell: FC<DateCellProps> = ({
         ref={ref}
       >
         {cellDateProps.date}
-      </s.DateCellRoot>
+      </s.DateCell>
       {isToolTipOpen && <s.StyledTooltip closeTooltip={closeTooltip} targetRef={ref} />}
     </s.DateCellWrapper>
   )

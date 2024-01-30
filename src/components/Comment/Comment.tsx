@@ -140,7 +140,7 @@ export const Comment: FC<CommentProps> = ({
 
   return (
     <>
-      <s.Root onClick={closeEllipsisModal}>
+      <s.Comment onClick={closeEllipsisModal}>
         {/* 내가 작성한 댓글만 수정, 삭제 가능함 */}
         {isAuthor && !isEditing && <s.EllipsisButton onClick={toggleEllipsisModal}></s.EllipsisButton>}
         {isEllipsisOpen && (
@@ -164,9 +164,9 @@ export const Comment: FC<CommentProps> = ({
               <s.EditCompleteButton icon="register">수정완료</s.EditCompleteButton>
             </>
           ) : (
-            <s.Comment onClick={onClickComment} className={isAuthor ? 'mypage_comment' : ''}>
+            <s.CommentContent onClick={onClickComment} className={isAuthor ? 'mypage_comment' : ''}>
               {content}
-            </s.Comment>
+            </s.CommentContent>
           )}
           <s.ReplyButton onClick={onClickReplyButton}>
             답글 <s.ReplyCount>{replyList.length}</s.ReplyCount>
@@ -184,7 +184,7 @@ export const Comment: FC<CommentProps> = ({
           currentPage={currentPage}
           type="comment"
         />
-      </s.Root>
+      </s.Comment>
       {isReplying && (
         <>
           {replyList?.map((reply) => (

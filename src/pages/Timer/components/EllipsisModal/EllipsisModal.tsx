@@ -48,7 +48,7 @@ export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) 
           animate="visible"
           exit="exit"
         >
-          <s.Root onClick={onClickModal} layoutId="ellipsis">
+          <s.EllipsisModal onClick={onClickModal} layoutId="ellipsis">
             <s.ButtonWrapper>
               <s.UpdateSubjectButton onClick={onClickEditButton}>과목수정</s.UpdateSubjectButton>
               <s.DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</s.DeleteSubjectButton>
@@ -57,7 +57,7 @@ export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) 
               <s.CloseButton onClick={closeModal}>취소</s.CloseButton>
             </cs.ModalFooter>
             <cs.ModalExitButton onClick={closeModal} />
-          </s.Root>
+          </s.EllipsisModal>
           {isEditModalOpen && (
             // * EditModal
             <ActionModal

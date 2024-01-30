@@ -14,7 +14,7 @@ export const StatsStudyTimeContainer = styled.div<RootProps>`
   row-gap: 20px;
   min-width: 0;
 `
-export const TimerBox = styled.div`
+export const StudyTime = styled.div`
   &:first-child,
   &:nth-child(3) {
     padding-right: 10px;

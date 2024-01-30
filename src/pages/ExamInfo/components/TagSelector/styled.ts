@@ -1,7 +1,7 @@
 import { DownArrow, H16_500, P14 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div<{ $selectorHeight: number }>`
+export const TagSelectorWrapper = styled.div<{ $selectorHeight: number }>`
   display: flex;
   align-items: center;
   column-gap: 8px;

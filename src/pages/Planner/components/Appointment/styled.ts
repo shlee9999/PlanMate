@@ -27,7 +27,7 @@ export const CloseButton = styled(CloseIcon)`
   cursor: pointer;
 `
 
-export const Root = styled.div<{ $bgColor: string }>`
+export const Appointment = styled.div<{ $bgColor: string }>`
   position: relative;
   width: 100%;
   height: 100%;

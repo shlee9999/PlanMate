@@ -4,9 +4,8 @@ import styled from 'styled-components'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { Spinner } from 'components/'
 
-export const Root = styled(PageRoot)`
+export const ExamInfoDetail = styled(PageRoot)`
   width: 100%;
-
   .editor {
     min-height: 150px;
     padding-left: 10px;

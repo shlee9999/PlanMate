@@ -2,7 +2,7 @@ import { NoConnectionIcon } from 'assets/SvgComponents'
 import { H16_500, H21_700, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled(PageRoot)`
+export const ErrorPage = styled(PageRoot)`
   height: 100vh;
   display: flex;
   flex-direction: column;

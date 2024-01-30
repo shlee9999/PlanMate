@@ -13,7 +13,7 @@ export const EllipsisButton = styled(EllipsisIcon)`
   opacity: 0;
   z-index: 1;
 `
-export const Root = styled.div`
+export const Reply = styled.div`
   position: relative;
   margin: 0 auto;
   display: flex;

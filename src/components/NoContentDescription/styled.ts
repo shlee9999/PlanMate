@@ -1,7 +1,7 @@
 import { H16_700 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const NoContentDescription = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;

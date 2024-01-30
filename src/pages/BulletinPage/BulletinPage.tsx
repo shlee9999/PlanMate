@@ -77,7 +77,7 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
   }, [selectedTag])
 
   return (
-    <s.Root>
+    <s.BulletinPage>
       <s.Form onSubmit={handleSubmit(onSubmit)}>
         <s.WriteTypo>
           {mode === 'suggest' ? (
@@ -132,6 +132,6 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
           </s.CancelButton>
         </s.ButtonWrapper>
       </s.Form>
-    </s.Root>
+    </s.BulletinPage>
   )
 }

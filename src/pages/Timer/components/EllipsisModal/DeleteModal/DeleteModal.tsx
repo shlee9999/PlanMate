@@ -12,7 +12,7 @@ export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteCon
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
 
   return (
-    <s.Root onClick={onClickModal} layoutId="ellipsis">
+    <s.DeleteModal onClick={onClickModal} layoutId="ellipsis">
       <s.TitleTypo>일정삭제</s.TitleTypo>
       <s.UpperDescriptionTypo>
         {title}을(를)
@@ -29,6 +29,6 @@ export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteCon
         <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
       </cs.ModalFooter>
       <cs.ModalExitButton onClick={closeModal} />
-    </s.Root>
+    </s.DeleteModal>
   )
 }

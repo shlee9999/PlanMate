@@ -1,7 +1,7 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { H12_500, LeftArrow } from 'commonStyled'
 import styled from 'styled-components'
-export const Root = styled.div`
+export const Pagination = styled.div`
   margin: 0 auto;
   height: 24px;
   display: flex;

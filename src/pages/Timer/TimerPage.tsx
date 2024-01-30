@@ -59,7 +59,7 @@ export const TimerPage: FC = () => {
   return (
     <>
       <s.Banner />
-      <s.Root>
+      <s.TimerPage>
         <s.BannerContentContainer>
           <s.LeftContainer>
             <s.LeftTopDescriptionWrapper>
@@ -144,7 +144,7 @@ export const TimerPage: FC = () => {
         </s.LowerContainer>
         <ActionModal closeModal={closeAddModal} type="ADD" isOpen={isAddModalOpen} />
         {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
-      </s.Root>
+      </s.TimerPage>
     </>
   )
 }

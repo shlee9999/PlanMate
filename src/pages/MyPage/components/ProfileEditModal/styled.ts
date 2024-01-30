@@ -1,7 +1,7 @@
 import { H14_500, H16_500 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const ProfileEditModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;

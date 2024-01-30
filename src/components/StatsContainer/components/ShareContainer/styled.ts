@@ -2,7 +2,7 @@ import { P8 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const Root = styled(motion.div)`
+export const ShareContainer = styled(motion.div)`
   position: absolute;
   right: 10px;
   top: 10px;

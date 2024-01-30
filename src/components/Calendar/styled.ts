@@ -152,7 +152,7 @@ type DateCellProps = {
 const bgColor = ['transparent', 'rgba(1, 203, 69, 0.1)', 'rgba(1, 203, 69, 0.6)', 'rgba(1, 203, 69, 1)']
 const textColor = ['black', 'black', 'white', 'white']
 
-export const DateCellRoot = styled(Cell)<DateCellProps>`
+export const DateCell = styled(Cell)<DateCellProps>`
   cursor: pointer;
   display: flex;
   justify-content: center;

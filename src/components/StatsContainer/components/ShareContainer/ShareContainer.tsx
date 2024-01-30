@@ -1,5 +1,5 @@
-import { FC, useState } from 'react'
 import * as s from './styled'
+import { FC, useState } from 'react'
 import { ShareIcon, UrlIcon, KakaoIcon, InstagramIcon } from 'assets/SvgComponents'
 import { AnimatePresence, Variants } from 'framer-motion'
 
@@ -52,7 +52,7 @@ export const ShareContainer: FC = () => {
     },
   }
   return (
-    <s.Root initial="initial" animate="animate">
+    <s.ShareContainer initial="initial" animate="animate">
       <s.ShareButton onClick={toggleOpen} variants={ShareButtonVar}>
         <ShareIcon />
         공유하기
@@ -75,6 +75,6 @@ export const ShareContainer: FC = () => {
           </s.SNSItems>
         )}
       </AnimatePresence>
-    </s.Root>
+    </s.ShareContainer>
   )
 }

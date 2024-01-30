@@ -27,7 +27,7 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickna
   }
   return (
     <cs.ModalWrapper onClick={closeModal}>
-      <s.Root onClick={onClickModal}>
+      <s.ProfileEditModal onClick={onClickModal}>
         <s.Title>닉네임 수정</s.Title>
         <s.Container>
           <s.NicknameTypo>닉네임</s.NicknameTypo>
@@ -38,7 +38,7 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickna
           <cs.GreenButton onClick={onClickEditButton}>수정</cs.GreenButton>
         </cs.ModalFooter>
         <cs.ModalExitButton onClick={closeModal} />
-      </s.Root>
+      </s.ProfileEditModal>
     </cs.ModalWrapper>
   )
 }

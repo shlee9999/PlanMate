@@ -1,14 +1,14 @@
 import { PlannerType } from 'api/types'
 import { useAddAppointMutation, useEditAppointMutation } from 'pages/Planner/hooks/mutations'
 
-type useOnSubmitProps = Omit<PlannerType, 'plannerId' | 'scheduleName'> & {
+type useSubmitProps = Omit<PlannerType, 'plannerId' | 'scheduleName'> & {
   plannerId?: number
   type: 'ADD' | 'EDIT'
   closeModal: () => void
 }
 type IForm = Pick<PlannerType, 'scheduleName'>
 
-export const useOnSubmit = ({
+export const useSubmit = ({
   colorHex,
   startAt,
   day,
@@ -16,7 +16,7 @@ export const useOnSubmit = ({
   plannerId = new Date().getTime(), //* tempId
   type,
   closeModal,
-}: useOnSubmitProps) => {
+}: useSubmitProps) => {
   const mutateAddAppoint = useAddAppointMutation()
   const mutateEditAppoint = useEditAppointMutation()
   const onSubmit = (data: IForm) => {

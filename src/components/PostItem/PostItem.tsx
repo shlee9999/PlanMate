@@ -26,7 +26,7 @@ export const PostItem: FC<PostItemProps> = ({
   }
 
   return (
-    <s.Root>
+    <s.PostItem>
       <s.TypoWrapper>
         <s.TitleTypo onClick={onClickTitle}>{title}</s.TitleTypo>
         <s.InfoTypo>
@@ -48,6 +48,6 @@ export const PostItem: FC<PostItemProps> = ({
           {scrapCount}
         </s.IconCountWrapper>
       </s.IconContainer>
-    </s.Root>
+    </s.PostItem>
   )
 }

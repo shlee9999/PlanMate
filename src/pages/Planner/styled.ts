@@ -2,7 +2,7 @@ import { H21_700, P12, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 import { Scheduler } from './components'
 
-export const Root = styled(PageRoot)`
+export const PlannerPage = styled(PageRoot)`
   display: flex;
   flex-direction: column;
   align-items: center;

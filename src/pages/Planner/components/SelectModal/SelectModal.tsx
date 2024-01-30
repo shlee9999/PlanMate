@@ -2,7 +2,7 @@ import * as s from './styled'
 import * as cs from 'commonStyled'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { TimeSelect } from '.'
+import { TimeSelector } from '.'
 import { ColorPicker } from 'components/'
 import { RootState } from 'modules'
 import { dateUtils } from 'utils'
@@ -11,8 +11,7 @@ import { AnimatePresence } from 'framer-motion'
 import { useForm } from 'hooks'
 import { PlannerType } from 'api/types'
 import { MAX_APPOINT_NAME_CHARACTER_COUNT } from 'constants/maxCharacterCount'
-import { useOnSubmit } from './hooks/useOnSubmit'
-import { useInitialization } from './hooks/useInitialization'
+import { useSubmit, useInitialization } from './hooks'
 
 type SelectModalProps = {
   closeModal: () => void
@@ -26,7 +25,7 @@ export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: Select
     (state: RootState) => state.selectedInfo
   )
   const { registerInput, handleSubmit, inputFocus, setValue } = useForm<IForm>()
-  const { onSubmit } = useOnSubmit({ startAt, endAt, colorHex, plannerId, day, closeModal, type })
+  const { onSubmit } = useSubmit({ startAt, endAt, colorHex, plannerId, day, closeModal, type })
   const [subjectColor, setSubjectColor] = useState<string>(type === 'EDIT' ? colorHex : defaultColor)
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
   const assignSubjectColor = (color: string) => setSubjectColor(color)
@@ -80,8 +79,8 @@ export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: Select
                 <s.ButtonTypoWrapper>
                   시간
                   <s.TimeSelectWrapper>
-                    <TimeSelect set={'부터'} />
-                    <TimeSelect set={'까지'} />
+                    <TimeSelector set={'부터'} />
+                    <TimeSelector set={'까지'} />
                   </s.TimeSelectWrapper>
                 </s.ButtonTypoWrapper>
               </s.InputWrapper>

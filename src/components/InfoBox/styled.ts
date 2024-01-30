@@ -2,7 +2,7 @@ import { FlexRow, H16_500, P12 } from 'commonStyled'
 import { Variants, motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const Root = styled(motion.div)`
+export const InfoBox = styled(motion.div)`
   &:hover {
     border: 1px solid ${(props) => props.theme.text.gray3};
   }

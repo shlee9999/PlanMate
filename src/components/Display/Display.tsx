@@ -8,8 +8,8 @@ export type DisplayProps = {
 }
 export const Display: FC<DisplayProps> = ({ className, on, children }) => {
   return (
-    <s.Root $on={on} className={className}>
+    <s.Display $on={on} className={className}>
       {children}
-    </s.Root>
+    </s.Display>
   )
 }

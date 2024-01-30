@@ -26,7 +26,7 @@ export const NoticePage = () => {
   }, [examInfoList])
 
   return (
-    <s.Root>
+    <s.NoticePage>
       <s.TypoWrapper>
         <s.SubTitle>플랜메이트</s.SubTitle>
         <s.PageTitle>공지사항 📢</s.PageTitle>
@@ -42,6 +42,6 @@ export const NoticePage = () => {
         </s.BulletinButton>
       </s.PostContainer>
       <Pagination currentPage={currentPage} totalPages={totalPage} setCurrentPage={setCurrentPage} />
-    </s.Root>
+    </s.NoticePage>
   )
 }

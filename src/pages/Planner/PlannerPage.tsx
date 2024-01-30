@@ -4,7 +4,7 @@ import * as s from './styled'
 
 export const PlannerPage: FC = () => {
   return (
-    <s.Root>
+    <s.PlannerPage>
       <s.HeaderContainer>
         <s.HeaderMessage>
           안녕하세요! <span>메이트</span> 님!
@@ -12,6 +12,6 @@ export const PlannerPage: FC = () => {
         <s.HeaderTitleLogo>플래너 🗓</s.HeaderTitleLogo>
       </s.HeaderContainer>
       <s.StyledScheduler />
-    </s.Root>
+    </s.PlannerPage>
   )
 }

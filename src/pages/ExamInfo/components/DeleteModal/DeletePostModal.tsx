@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { CenterTypo, CenterTypoWrapper, DescriptionTypo, Root, UpperTypo } from './styled'
-import { ModalWrapper, ModalFooter, GreenButton, WhiteButton, ModalExitButton } from 'commonStyled'
+import * as s from './styled'
+import * as cs from 'commonStyled'
 
 type DeletePostModalProps = {
   closeModal: () => void
@@ -15,20 +15,20 @@ export const DeletePostModal: FC<DeletePostModalProps> = ({ closeModal, deletePo
     e.stopPropagation()
   }
   return (
-    <ModalWrapper onClick={closeModal}>
-      <Root onClick={onClickModal}>
-        <UpperTypo>글 삭제</UpperTypo>
-        <CenterTypoWrapper>
-          <CenterTypo>해당 게시글을</CenterTypo>
-          <CenterTypo>삭제하시겠어요?</CenterTypo>
-          <DescriptionTypo>삭제된 게시글은 복구할 수 없어요!</DescriptionTypo>
-        </CenterTypoWrapper>
-        <ModalFooter>
-          <GreenButton onClick={onClickDeleteButton}>삭제</GreenButton>
-          <WhiteButton onClick={closeModal}>취소</WhiteButton>
-        </ModalFooter>
-        <ModalExitButton onClick={closeModal} />
-      </Root>
-    </ModalWrapper>
+    <cs.ModalWrapper onClick={closeModal}>
+      <s.DeletePostModal onClick={onClickModal}>
+        <s.UpperTypo>글 삭제</s.UpperTypo>
+        <s.CenterTypoWrapper>
+          <s.CenterTypo>해당 게시글을</s.CenterTypo>
+          <s.CenterTypo>삭제하시겠어요?</s.CenterTypo>
+          <s.DescriptionTypo>삭제된 게시글은 복구할 수 없어요!</s.DescriptionTypo>
+        </s.CenterTypoWrapper>
+        <cs.ModalFooter>
+          <cs.GreenButton onClick={onClickDeleteButton}>삭제</cs.GreenButton>
+          <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
+        </cs.ModalFooter>
+        <cs.ModalExitButton onClick={closeModal} />
+      </s.DeletePostModal>
+    </cs.ModalWrapper>
   )
 }

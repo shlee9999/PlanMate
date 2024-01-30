@@ -2,7 +2,7 @@ import { H16_500, H21_700, P14 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const Root = styled(motion.div)`
+export const DeleteModal = styled(motion.div)`
   width: 320px;
   height: 240px;
   position: fixed;

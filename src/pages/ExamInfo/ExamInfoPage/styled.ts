@@ -1,10 +1,10 @@
-import { H21_700, P12, PageRoot, TagRoot } from 'commonStyled'
+import { H21_700, P12, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
-import { EXAMINFOITEM_MIN_WIDTH, MEDIUM_SIZE } from 'constants/layout'
+import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { NoContentDescription, Spinner } from 'components/'
 import { TagSelector } from '../components'
-export const Root = styled(PageRoot)`
+export const ExamInfoPage = styled(PageRoot)`
   min-width: auto;
 `
 const DescriptionTypo = styled.p`

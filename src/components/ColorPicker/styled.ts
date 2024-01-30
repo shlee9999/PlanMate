@@ -1,18 +1,18 @@
 import { ModalWrapper } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
-  background-color: ${(props) => props.theme.background.white};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 70%;
-  border-radius: 10px;
-  height: 80%;
-  column-gap: 8px;
-`
-export const ColorButtonWrapper = styled.div``
+// export const Root = styled.div`
+//   background-color: ${(props) => props.theme.background.white};
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   position: absolute;
+//   width: 70%;
+//   border-radius: 10px;
+//   height: 80%;
+//   column-gap: 8px;
+// `
+export const ColorPicker = styled.div``
 const COLOR_BUTTON_GAP = 8
 export const RowWrapper = styled.div`
   display: flex;

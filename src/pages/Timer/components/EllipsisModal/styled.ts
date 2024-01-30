@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const BUTTON_HEIGHT = 40
 
-export const Root = styled(motion.div)`
+export const EllipsisModal = styled(motion.div)`
   width: 320px;
   height: 240px;
   position: fixed;

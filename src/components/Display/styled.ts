@@ -5,7 +5,7 @@ type RootProps = {
   $on: DisplayType
 }
 
-export const Root = styled.div<RootProps>`
+export const Display = styled.div<RootProps>`
   @media screen and (${(props) => props.theme.xlarge}) {
     //* XLARGE
     ${(props) =>

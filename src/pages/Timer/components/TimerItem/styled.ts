@@ -4,7 +4,7 @@ import { FlexRow, H21_700, H24_500, H28_700, H36_500, H36_700 } from 'commonStyl
 import { LARGE_SIDE_MARGIN, MEDIUM_SIDE_MARGIN } from 'constants/layout'
 import { TITLE_MAX_WIDTH, TIMER_BUTTON_SIZE } from 'constants/timerItem'
 
-export const Root = styled(FlexRow)`
+export const TimerItem = styled(FlexRow)`
   justify-content: space-between;
   margin-bottom: 29px;
 `

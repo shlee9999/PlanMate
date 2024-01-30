@@ -62,7 +62,7 @@ export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({
           animate="visible"
           exit="exit"
         >
-          <s.Root onClick={onClickModal}>
+          <s.DeletePostModal onClick={onClickModal}>
             <s.UpperTypo>댓글 삭제</s.UpperTypo>
             <s.CenterTypoWrapper>
               <s.CenterTypo>해당 댓글을</s.CenterTypo>
@@ -73,7 +73,7 @@ export const DeleteCommentModal: FC<DeleteCommentModalProps> = ({
               <cs.WhiteButton onClick={closeModal}>취소</cs.WhiteButton>
             </cs.ModalFooter>
             <cs.ModalExitButton onClick={closeModal} />
-          </s.Root>
+          </s.DeletePostModal>
         </cs.ModalWrapper>
       )}
     </AnimatePresence>

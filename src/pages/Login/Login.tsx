@@ -24,7 +24,7 @@ const LoginContent: FC = () => {
   })
 
   return (
-    <s.Root>
+    <s.LoginPage>
       <s.Container>
         <s.UpperContainer>
           <HandIcon />
@@ -43,6 +43,6 @@ const LoginContent: FC = () => {
           <s.FooterItem>이용관련건의</s.FooterItem>
         </s.Footer>
       </s.Container>
-    </s.Root>
+    </s.LoginPage>
   )
 }

@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { LoadingTypo, Root, StyledSpinner } from './styled'
+import * as s from './styled'
 import { Variants } from 'framer-motion'
 
 type SpinnerProps = {
@@ -24,9 +24,9 @@ const SpinnerVar: Variants = {
 }
 export const Spinner: FC<SpinnerProps> = ({ className, children }) => {
   return (
-    <Root className={className}>
-      <StyledSpinner variants={SpinnerVar} initial="initial" animate="animate" />
-      <LoadingTypo>{children}</LoadingTypo>
-    </Root>
+    <s.Spinner className={className}>
+      <s.StyledSpinner variants={SpinnerVar} initial="initial" animate="animate" />
+      <s.LoadingTypo>{children}</s.LoadingTypo>
+    </s.Spinner>
   )
 }

@@ -48,18 +48,18 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dat
   )
 
   return type === StatsContainerPages.stats ? (
-    <s.StatsRoot>
+    <s.StatsPageStatsContainer>
       <s.Header>
         {year}년 {month + 1}월 {date}일
       </s.Header>
       <s.UpperContainer>{CommonContent}</s.UpperContainer>
       <GraphContainer type={type} />
       <ShareContainer />
-    </s.StatsRoot>
+    </s.StatsPageStatsContainer>
   ) : (
-    <s.TimerRoot>
+    <s.TimerPageStatsContainer>
       <s.UpperContainer>{CommonContent}</s.UpperContainer>
       <GraphContainer type={type} />
-    </s.TimerRoot>
+    </s.TimerPageStatsContainer>
   )
 }

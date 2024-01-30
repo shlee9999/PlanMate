@@ -1,7 +1,7 @@
 import { P16 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const SelectWrapper = styled.div`
+export const TimerSelector = styled.div`
   display: flex;
   justify-content: center;
   gap: 5px;

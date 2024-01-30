@@ -1,7 +1,7 @@
 import { H16_500, H21_700, P14 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const DeletePostModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const Spinner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

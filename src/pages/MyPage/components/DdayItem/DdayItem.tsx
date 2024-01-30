@@ -34,7 +34,7 @@ export const DdayItem: FC<DDayItemProps> = ({
   const remainingDays = dateUtils.daysUntil(dateUtils.getDateProps(targetDate))
   if (remainingDays < 0) return null
   return (
-    <s.Root
+    <s.DdayItem
       onClick={onClick}
       className={className + ' ' + (isFixed ? 'isFixed' : '')}
       $isSelected={isSelected}
@@ -46,6 +46,6 @@ export const DdayItem: FC<DDayItemProps> = ({
         <s.Date>{targetDate.replaceAll('-', '. ') + ' (' + weekDays[dateUtils.getDay(targetDateProps)] + ')'}</s.Date>
       </s.Container>
       <s.RemainingDays>{remainingDays}</s.RemainingDays>
-    </s.Root>
+    </s.DdayItem>
   )
 }

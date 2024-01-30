@@ -72,7 +72,7 @@ export const TimerItem = ({
   }, [todo.time])
 
   return (
-    <s.Root>
+    <s.TimerItem>
       <s.LeftWrapper>
         {isTodoTimerRunning ? (
           <s.PauseButton color={buttonColor} onClick={onClickPauseButton} fill={buttonColor} />
@@ -90,6 +90,6 @@ export const TimerItem = ({
         <s.EllipsisButton onClick={OnClickEllipsisButton}></s.EllipsisButton>
       </s.RightWrapper>
       <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isOpen={isEllipsisOpen} />
-    </s.Root>
+    </s.TimerItem>
   )
 }

@@ -31,9 +31,9 @@ export const ActionButton: FC<ActionButtonProps> = ({ className, onClick, childr
       {children}
     </s.CloseButton>
   ) : (
-    <s.Root className={className} onClick={onClick} $color={color ? buttonColor : theme.primary.default}>
+    <s.ActionButton className={className} onClick={onClick} $color={color ? buttonColor : theme.primary.default}>
       {IconComponent}
       {children}
-    </s.Root>
+    </s.ActionButton>
   )
 }

@@ -4,7 +4,7 @@ import { BODY_MAX_WIDTH, XLARGE_SIDE_MARGIN, HEADER_HEIGHT } from 'constants/lay
 import { H14_500, H14_700, H21_700, H32_700, H36_500, H46_700, P12, P14, PageRoot } from 'commonStyled'
 import { InfoBox, Spinner } from 'components/'
 
-export const Root = styled(PageRoot)`
+export const TimerPage = styled(PageRoot)`
   padding-bottom: 30px;
 `
 

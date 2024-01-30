@@ -1,3 +1,3 @@
-import { DaySelect } from './DaySelect'
-import { TimeSelect } from './TimeSelect/TimeSelect'
-export { DaySelect, TimeSelect }
+import { DaySelect } from './DaySelector'
+import { TimeSelector } from './TimeSelector/TimeSelector'
+export { DaySelect, TimeSelector }

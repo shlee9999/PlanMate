@@ -14,7 +14,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, setCu
   const onClickRightArrow = () => setCurrentPage((prev) => (prev + 1 <= totalPages ? prev + 1 : prev))
   const onClickPageNumber = (page) => () => setCurrentPage(page)
   return (
-    <s.Root className={className}>
+    <s.Pagination className={className}>
       <s.PrevButton onClick={onClickLeftArrow} />
       {totalPages === 1 && currentPage === 1 ? (
         <s.PageNumberTypo $isCurrent={true}>1</s.PageNumberTypo>
@@ -28,6 +28,6 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, setCu
         })
       )}
       <s.NextButton onClick={onClickRightArrow} />
-    </s.Root>
+    </s.Pagination>
   )
 }

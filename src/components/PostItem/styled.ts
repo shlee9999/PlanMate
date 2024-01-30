@@ -2,7 +2,7 @@ import { P10, P16 } from 'commonStyled'
 import { EXAMINFOITEM_MIN_WIDTH } from 'constants/layout'
 import styled from 'styled-components'
 
-export const Root = styled.div`
+export const PostItem = styled.div`
   width: 100%;
   position: relative;
   box-sizing: border-box;

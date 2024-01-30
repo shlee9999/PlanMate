@@ -12,7 +12,7 @@ type InfoBoxProps = {
 
 export const InfoBox: FC<InfoBoxProps> = ({ className, children, left, right, title, description: desciption }) => {
   return (
-    <s.Root
+    <s.InfoBox
       className={className}
       variants={s.InfoBoxVar}
       initial={left ? 'initial_left' : right ? 'initial_right' : 'initial'}
@@ -24,6 +24,6 @@ export const InfoBox: FC<InfoBoxProps> = ({ className, children, left, right, ti
         <s.BoxDescription>{desciption}</s.BoxDescription>
       </s.Header>
       {children}
-    </s.Root>
+    </s.InfoBox>
   )
 }

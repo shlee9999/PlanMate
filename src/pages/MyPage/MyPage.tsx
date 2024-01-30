@@ -146,7 +146,7 @@ export const MyPage: FC = () => {
   }, [currentTabIndex])
 
   return (
-    <s.Root>
+    <s.MyPage>
       <s.Container onClick={onClickRoot}>
         <s.TitleWrapper>
           <s.Nickname>{userAuthInfo.name}</s.Nickname>
@@ -205,6 +205,6 @@ export const MyPage: FC = () => {
         )}
         {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
       </s.Container>
-    </s.Root>
+    </s.MyPage>
   )
 }
