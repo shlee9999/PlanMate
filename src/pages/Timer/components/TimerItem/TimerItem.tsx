@@ -8,6 +8,7 @@ import { timeUtils } from 'utils'
 import { useDispatch } from 'react-redux'
 import { approveNav, blockNav } from 'modules/isNavBlocked'
 import { useCurrentTime } from 'pages/Timer/hooks/hooks/useCurrentTime'
+import { useModal } from 'hooks'
 
 type TimerItemProps = {
   title: string
@@ -27,10 +28,15 @@ export const TimerItem = ({
 }: TimerItemProps) => {
   const dispatch = useDispatch()
   const mutateUpdateSubject = useUpdateSubjectMutation()
-  const [isTodoTimerRunning, setIsTodoTimerRunning] = useState(false)
-  const [isEllipsisOpen, setIsEllipsisOpen] = useState(false)
-  const { startTimer, stopTimer, time, setDefaultTime } = useTimer({ defaultTime: todo.time })
-  const formattedTime: string = timeUtils.getFormattedTime(+time)
+  const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, openModal: openEllipsisModal } = useModal()
+  const {
+    startTimer: startTodoTimer,
+    stopTimer: stopTodoTimer,
+    time: todoTime,
+    setDefaultTime,
+    isRunning: isTodoTimerRunning,
+  } = useTimer({ defaultTime: todo.time })
+  const formattedTime: string = timeUtils.getFormattedTime(+todoTime)
   const [startTime, setStartTime] = useState('')
   useCurrentTime({
     callback: () =>
@@ -42,30 +48,23 @@ export const TimerItem = ({
       }),
   })
 
+  const OnClickEllipsisButton = () => !isTotalTimerRunning && openEllipsisModal()
   const onClickStartButton = (): void => {
+    startTodoTimer()
+    startTotalTimer()
     dispatch(blockNav())
-    setStartTime(timeUtils.getCurrentTime()) //백엔드 리스폰스 확인할것
-    if (!isTotalTimerRunning) {
-      setIsTodoTimerRunning(true)
-      startTotalTimer()
-    }
+    setStartTime(timeUtils.getCurrentTime())
   }
   const onClickPauseButton = () => {
-    dispatch(approveNav())
-    setIsTodoTimerRunning(false)
+    stopTodoTimer()
     stopTotalTimer()
+    dispatch(approveNav())
     mutateUpdateSubject({
       endAt: timeUtils.getCurrentTime(),
       startAt: startTime,
       subjectId: todo.subjectId,
     })
   }
-  const OnClickEllipsisButton = () => !isTotalTimerRunning && setIsEllipsisOpen(true)
-  const closeEllipsisModal = () => setIsEllipsisOpen(false)
-
-  useEffect(() => {
-    isTodoTimerRunning ? startTimer() : stopTimer()
-  }, [isTodoTimerRunning])
 
   useEffect(() => {
     //* backend와 시간 맞춰주기
