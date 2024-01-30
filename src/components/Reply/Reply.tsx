@@ -93,9 +93,9 @@ export const Reply: FC<ExamInfoReplyProps> = ({
               <s.EditCompleteButton icon="check">수정완료</s.EditCompleteButton>
             </>
           ) : (
-            <s.Comment onClick={onClickComment} className={isAuthor ? '' : 'mypage_comment'}>
+            <s.ReplyContent onClick={onClickComment} className={isAuthor ? '' : 'mypage_comment'}>
               {content}
-            </s.Comment>
+            </s.ReplyContent>
           )}
         </s.ReplyEditForm>
         <s.LikeButton onClick={onClickLikeButton}>

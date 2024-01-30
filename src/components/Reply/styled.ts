@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { ActionButton } from 'components/'
 import { H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
 import { EllipsisIcon } from 'assets/SvgComponents'
+import { HIDE_SCROLLBAR } from 'constants/hideScrollbar'
 
 export const EllipsisButton = styled(EllipsisIcon)`
   transform: rotate(90deg);
@@ -50,8 +51,9 @@ export const Date = styled.p`
   color: ${(props) => props.theme.text.gray2};
   margin-bottom: 1px;
 `
-export const Comment = styled.p`
+export const ReplyContent = styled.p`
   ${P14}
+  ${HIDE_SCROLLBAR}
   color: ${(props) => props.theme.text.black1};
   white-space: pre-line;
   &.mypage_comment {
@@ -61,13 +63,13 @@ export const Comment = styled.p`
   max-height: 60px;
   word-break: keep-all;
   word-wrap: break-word;
+  overflow-y: scroll;
 `
 export const ReplyEditInput = styled.textarea`
   ${P14}
   width: 100%;
   color: ${(props) => props.theme.text.black1};
   resize: none;
-  height: 80px;
 `
 export const ReplyButton = styled.button`
   ${P14}
@@ -156,21 +158,6 @@ export const ReplyMark = styled.div`
   height: 16px;
   border-left: 1px solid ${(props) => props.theme.text.gray1};
   border-bottom: 1px solid ${(props) => props.theme.text.gray1};
-`
-export const ReplyInput = styled.textarea`
-  ${H14_500}
-  padding: 9px 8px;
-  height: 80px;
-  border-radius: 8px;
-  border: 1px solid ${(props) => props.theme.border.dark};
-  background-color: ${(props) => props.theme.background.gray2};
-  resize: none;
-  &::placeholder {
-    color: ${(props) => props.theme.border.dark};
-  }
-`
-export const ReplyRegisterButton = styled(ActionButton)`
-  align-self: flex-end;
 `
 export const UserNickname = styled.p`
   ${H14_700}
