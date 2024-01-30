@@ -40,7 +40,7 @@ export const Date = styled.p`
   color: ${(props) => props.theme.text.gray1};
   width: 75px;
 `
-export const DDay = styled.p`
+export const RemainingDays = styled.p`
   ${H21_700}
   position: absolute;
   &::before {

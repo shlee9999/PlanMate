@@ -93,10 +93,13 @@ export const dateUtils = {
     const today = new Date()
     targetDate.setHours(0, 0, 0, 0)
     today.setHours(0, 0, 0, 0)
-    const differenceInTime = targetDate.getTime() - today.getTime()
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24)
+
+    const diffTime = targetDate.getTime() - today.getTime()
+    const differenceInDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
     return differenceInDays
   },
+
   /**년/월/일 더하기 */
   calculateDateProps: (currentDateProps: DateProps, type: 'year' | 'month' | 'date', amount): DateProps => {
     const targetDate = dateUtils.getDateEntity(currentDateProps)

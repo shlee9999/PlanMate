@@ -2,6 +2,7 @@ import * as s from './styled'
 import { FC } from 'react'
 import { dateUtils } from 'utils'
 import { useFixDdayMutation } from 'pages/MyPage/hooks'
+import { weekDays } from 'constants/week'
 
 type DDayItemProps = {
   scheduleId: number
@@ -24,19 +25,14 @@ export const DdayItem: FC<DDayItemProps> = ({
   onClick,
   selectable,
 }) => {
+  const targetDateProps = dateUtils.getDateProps(targetDate)
   const mutateFixSchedule = useFixDdayMutation()
   const onClickPin = (e: React.MouseEvent) => {
     e.stopPropagation()
     mutateFixSchedule({ dDayId: scheduleId })
   }
-  const dDay = dateUtils.daysUntil(dateUtils.getDateProps(targetDate))
-  const getWeekDay = () => {
-    const days = ['일', '월', '화', '수', '목', '금', '토']
-    const split = targetDate.split('-')
-    const date = new Date(+split[0], +split[1] - 1, +split[2])
-    return '(' + days[date.getDay()] + ')'
-  }
-  if (dDay < 0) return null
+  const remainingDays = dateUtils.daysUntil(dateUtils.getDateProps(targetDate))
+  if (remainingDays < 0) return null
   return (
     <s.Root
       onClick={onClick}
@@ -47,9 +43,9 @@ export const DdayItem: FC<DDayItemProps> = ({
       <s.Container>
         <s.StyledPinIcon onClick={onClickPin} $isFixed={isFixed} />
         <s.Title>{title}</s.Title>
-        <s.Date>{targetDate.replaceAll('-', '. ') + ' ' + getWeekDay()}</s.Date>
+        <s.Date>{targetDate.replaceAll('-', '. ') + ' (' + weekDays[dateUtils.getDay(targetDateProps)] + ')'}</s.Date>
       </s.Container>
-      <s.DDay>{dDay}</s.DDay>
+      <s.RemainingDays>{remainingDays}</s.RemainingDays>
     </s.Root>
   )
 }

@@ -36,6 +36,9 @@ export const TimerPage: FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
+  //! 백엔드 remainingDays 안맞아서 내 로직 사용
+  const remainingDays = dateUtils.daysUntil(dateUtils.getDateProps(fixedDDay?.targetDate))
+
   useTimerEffects({
     todayStatsData,
     totalStudyTime,
@@ -87,11 +90,11 @@ export const TimerPage: FC = () => {
           </s.RightContainer>
         </s.BannerContentContainer>
         <s.LowerContainer>
-          {fixedDDay && fixedDDay.remainingDays >= 0 ? (
+          {fixedDDay && remainingDays >= 0 ? (
             <s.CheerTypo>
               <s.Test>{fixedDDay.title}</s.Test>까지{' '}
               <s.Dday>
-                D- <s.GreenTypo> {fixedDDay.remainingDays}</s.GreenTypo>{' '}
+                D- <s.GreenTypo> {remainingDays}</s.GreenTypo>{' '}
               </s.Dday>
               조금만 더 힘을 내볼까요? 🏃
             </s.CheerTypo>
