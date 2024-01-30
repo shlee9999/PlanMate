@@ -3,12 +3,12 @@ import { H12_500, LeftArrow } from 'commonStyled'
 import styled from 'styled-components'
 export const Root = styled.div`
   margin: 0 auto;
-  width: fit-content;
   height: 24px;
+  width: 80%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  column-gap: 16px;
+  max-width: 400px;
 `
 
 export const PageNumberTypo = styled.p<{ $isCurrent: boolean }>`
