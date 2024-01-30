@@ -24,6 +24,7 @@ const DateContainerVar: Variants = {
   visible: { opacity: 1, x: 0 },
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
+
 export const Calendar: FC<CalendarProps> = ({
   className,
   setSelectedDate,
@@ -89,7 +90,12 @@ export const Calendar: FC<CalendarProps> = ({
         <s.Month $layout={headerButtonLayout} key={selectedDate.month}>
           {selectedDate.month + 1}월
         </s.Month>
-        <s.NextButton onClick={onClickNextMonth} />
+        {(!blockFuture ||
+          selectedDate.year < new Date().getFullYear() ||
+          (selectedDate.year === new Date().getFullYear() && selectedDate.month < new Date().getMonth())) && (
+          <s.NextButton onClick={onClickNextMonth} />
+        )}
+
         {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
       </s.MonthHeader>
       <s.Body>
