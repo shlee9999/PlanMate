@@ -7,7 +7,7 @@ import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { timeUtils } from 'utils'
 import { useDispatch } from 'react-redux'
 import { approveNav, blockNav } from 'modules/isNavBlocked'
-import { useCurrentTime } from 'pages/Timer/hooks/useCurrentTime'
+import { useCurrentTime } from 'pages/Timer/hooks/hooks/useCurrentTime'
 
 type TimerItemProps = {
   title: string

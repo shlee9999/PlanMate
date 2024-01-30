@@ -20,11 +20,12 @@
     "scope": "typescript",
     "prefix": "hook",
     "body": [
-      "type ${TM_FILENAME_BASE}$1Props = {",
-      "",
+      "type ${TM_FILENAME_BASE}Props = {",
+      "   $1",
       "}",
       "",
-      "export const ${TM_FILENAME_BASE}$1 = ({}: ${TM_FILENAME_BASE}$1Props) => {",
+      "export const ${TM_FILENAME_BASE} = ({$2}: ${TM_FILENAME_BASE}Props) => {",
+      "$3",
       " return {}",
       "}",
       ""

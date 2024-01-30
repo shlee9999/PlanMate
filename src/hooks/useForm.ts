@@ -1,4 +1,4 @@
-import React, { LegacyRef } from 'react'
+import React from 'react'
 import { useState, useRef } from 'react'
 
 type RegisterProps = {
@@ -11,7 +11,7 @@ const DEFAULT_MAX_LENGTH = 10
  *
  * @returns registerInput, registerTextarea, handleSubmit, setValue, inputFocus, textareaFocus
  */
-function useForm<T extends { [key: string]: string }>() {
+export const useForm = <T extends { [key: string]: string }>() => {
   const [values, setValues] = useState<T>({} as T)
   const inputRefs = useRef<{ [key in keyof T]?: React.RefObject<HTMLInputElement> }>({})
   const textareaRefs = useRef<{ [key in keyof T]?: React.RefObject<HTMLTextAreaElement> }>({})
@@ -73,5 +73,3 @@ function useForm<T extends { [key: string]: string }>() {
 
   return { registerInput, registerTextarea, handleSubmit, setValue, inputFocus, textareaFocus }
 }
-
-export default useForm

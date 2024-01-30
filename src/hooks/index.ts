@@ -1,2 +1,3 @@
-import useForm from './useForm'
-export { useForm }
+import { useForm } from './useForm'
+import { useModal } from './useModal'
+export { useForm, useModal }
