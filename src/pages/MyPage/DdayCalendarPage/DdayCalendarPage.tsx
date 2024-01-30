@@ -34,13 +34,16 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   }
   const onSubmit = ({ dDayTitle }: IForm) => {
     if (!dateUtils.isFuture(dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }), true)) return
+    //* 과거 시간은 추가 수정 X
     if (!isEditing) {
       //* 추가
-      //* 과거 시간 추가 X
       mutateAddSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: dDayTitle,
-        callBack: () => setDdayTitle(''),
+        callBack: () => {
+          setDdayTitle('')
+          setSelectedDate(dateUtils.getDateProps(new Date()))
+        },
       })
     } else {
       //* 수정
@@ -48,7 +51,10 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: dDayTitle,
         dDayId: selectedDDayId,
-        callBack: () => setDdayTitle(''),
+        callBack: () => {
+          setDdayTitle('')
+          setSelectedDate(dateUtils.getDateProps(new Date()))
+        },
       })
     }
   }
