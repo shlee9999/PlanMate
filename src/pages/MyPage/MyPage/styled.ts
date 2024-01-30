@@ -17,12 +17,17 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  column-gap: 16px;
 `
 export const MainContainer = styled(FlexRow)`
-  height: 560px;
+  height: 60vh;
   width: 100%;
   justify-content: space-between;
+  @media screen and (${(props) => props.theme.medium}) {
+    justify-content: start;
+    flex-direction: column;
+    height: 1100px;
+    gap: 24px;
+  }
 `
 export const TitleWrapper = styled.div`
   ${P12}
@@ -44,6 +49,11 @@ export const LeftContainer = styled.div`
   max-width: 410px;
   flex-basis: 100px;
   flex-grow: 1;
+  @media screen and (${(props) => props.theme.medium}) {
+    height: fit-content;
+    max-width: none;
+    width: 100%;
+  }
 `
 
 export const ProfileContainer = styled(InfoBox)`
@@ -77,7 +87,10 @@ export const AdminDDay = styled.p`
 
 export const StyledDDayContainer = styled(DdayContainer)`
   flex-grow: 1;
-  height: 0;
+  min-height: 100px;
+  @media screen and (${(props) => props.theme.medium}) {
+    max-height: 400px;
+  }
 `
 
 export const RightContainer = styled(InfoBox)`
@@ -85,9 +98,13 @@ export const RightContainer = styled(InfoBox)`
   flex-basis: 100px;
   flex-grow: 1;
   padding: 0 32px;
-  display: flex;
-  flex-direction: column;
+  overflow-y: scroll;
   height: calc(100% - 25px);
+  @media screen and (${(props) => props.theme.medium}) {
+    width: 100%;
+    height: 500px;
+    padding: 0 5px;
+  }
 `
 
 export const TabContentContainer = styled.div`
@@ -103,6 +120,7 @@ export const MyActivity = styled.p`
 `
 
 export const TabSelector = styled.div`
+  min-width: 245px;
   width: 100%;
   position: sticky;
   background-color: ${(props) => props.theme.background.white};
