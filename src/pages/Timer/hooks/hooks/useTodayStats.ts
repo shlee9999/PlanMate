@@ -1,11 +1,10 @@
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { ResponseStats } from 'api/types'
-import { QueryKeyType } from 'enums'
 import { useQuery } from 'react-query'
-import { TimeProps } from 'types'
+import { QueryKeys, TimeProps } from 'types'
 
 export const useTodayStats = () => {
-  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>([QueryKeyType.todayStats], () =>
+  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>([QueryKeys.todayStats], () =>
     checkTodayStats()
   )
   const {
