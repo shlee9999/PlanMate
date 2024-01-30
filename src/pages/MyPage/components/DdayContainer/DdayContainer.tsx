@@ -9,7 +9,7 @@ type DdayContainerProps = {
   className?: string
   dDayList: DDayEntityType[]
   setSelectedDate?: (date: DateProps) => void
-  setEventName?: (name: string) => void
+  setDdayName?: (name: string) => void
   setIsEditing?: (state: boolean) => void
   setSelectedDDayId?: (scheduleId: number) => void
   isDDayLoading?: boolean
@@ -25,7 +25,7 @@ type DdayContainerProps = {
 export const DdayContainer: FC<DdayContainerProps> = ({
   className,
   dDayList = [],
-  setEventName,
+  setDdayName,
   setSelectedDate,
   setIsEditing,
   setSelectedDDayId,
@@ -44,14 +44,14 @@ export const DdayContainer: FC<DdayContainerProps> = ({
       e.stopPropagation()
       setSelectedDDayId && setSelectedDDayId(scheduleId)
       setSelectedDate && setSelectedDate(dateUtils.getDateProps(targetDate))
-      setEventName && setEventName(eventName)
+      setDdayName && setDdayName(eventName)
       setSelectedIndex((prev) => (prev === index ? -1 : index))
     }
   const filteredDdayList = dDayList.filter((dDay) => dateUtils.isFuture(dDay.targetDate, true))
 
   useEffect(() => {
     setIsEditing && setIsEditing(selectedIndex === -1 ? false : true)
-    selectedIndex === -1 && setEventName && setEventName('')
+    selectedIndex === -1 && setDdayName && setDdayName('')
   }, [selectedIndex])
 
   useEffect(() => {

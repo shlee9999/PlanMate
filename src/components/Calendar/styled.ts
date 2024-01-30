@@ -5,12 +5,23 @@ import { motion } from 'framer-motion'
 import { Tooltip } from './Tooltip'
 import { DESKTOP_DATE_CELL_SIZE, MOBILE_DATE_CELL_SIZE, TABLET_DATE_CELL_SIZE } from 'constants/dateCellSize'
 
-export const Root = styled.div`
+export const Calendar = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: visible;
 `
-export const Header = styled.div<{ $layout: 'space-between' | 'center' }>`
+export const YearHeader = styled.div`
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+`
+export const MonthHeader = styled.div<{ $layout: 'space-between' | 'center' }>`
   display: flex;
   justify-content: ${(props) => props.$layout};
   align-items: center;
@@ -113,22 +124,23 @@ export const Circle = styled.div`
   height: 16px;
   border-radius: 100%;
 `
-export const DateContainer = styled(motion.div)`
+export const DateContainerWrapper = styled.div`
   position: absolute;
-  padding: 0 10px 15px 10px;
   top: 80px;
+  overflow: hidden;
   left: 0;
   right: 0;
   margin: 0 auto;
-  width: calc(100%);
+  width: 100%;
+  height: 100%;
+  height: calc(100% - 70px);
+`
+export const DateContainer = styled(motion.div)`
+  padding: 4px 10px 15px 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100% - 70px);
-  @media screen and (${(props) => props.theme.medium}) {
-    height: calc(100% - 120px);
-    padding: 0;
-  }
+  height: 100%;
 `
 
 //DateCell

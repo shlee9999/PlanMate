@@ -1,5 +1,5 @@
 import * as s from './styled'
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { dateUtils, formatTwoDigits } from 'utils'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
@@ -9,21 +9,19 @@ import { MAX_DDAY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import { QueryKeys } from 'types'
 import { useForm } from 'hooks'
 
-type EventCalendarProps = {
+type DdayCalendarProps = {
   className?: string
 }
 type IForm = {
   dDayTitle: string
 }
-export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
+export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
   const setDdayTitle = (title: string) => setValue('dDayTitle', title)
   const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>([QueryKeys.dDayList], () => findAllDday())
-  const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
-  const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
   const navigate = useNavigate()
   const mutateAddSchedule = useAddDdayMutation()
   const mutateEditSchedule = useEditDdayMutation()
@@ -53,7 +51,6 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
         dDayId: selectedDDayId,
         callBack: () => {
           setDdayTitle('')
-          setSelectedDate(dateUtils.getDateProps(new Date()))
         },
       })
     }
@@ -73,7 +70,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
             description="원하는 디데이를 고정해보세요!"
             selectable
             setSelectedDate={setSelectedDate}
-            setEventName={setDdayTitle}
+            setDdayName={setDdayTitle}
             setIsEditing={setIsEditing}
             setSelectedDDayId={setSelectedDDayId}
             isDDayLoading={isLoading}
@@ -81,35 +78,31 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
           >
             <s.BackButton onClick={() => navigate(-1)} />
           </s.StyledDDayContainer>
-          <s.AddEventBox $isEditing={isEditing} title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
+          <s.AddDdayBox $isEditing={isEditing} title={`D-DAY ${isEditing ? '수정' : '추가'}`} right>
             <s.Form onSubmit={handleSubmit(onSubmit)}>
-              <s.EventNameRow>
-                <s.EventName>제목</s.EventName>
-                <s.EventNameInput
+              <s.DdayNameRow>
+                <s.DdayName>제목</s.DdayName>
+                <s.DdayNameInput
                   placeholder={`디데이 제목을 입력해주세요. (최대 ${MAX_DDAY_CHARACTER_COUNT}자)`}
                   {...registerInput('dDayTitle', { maxLength: MAX_DDAY_CHARACTER_COUNT })}
                 />
-              </s.EventNameRow>
-              <s.EventDateRow>
-                <s.EventDateHeader>날짜</s.EventDateHeader>
-                <s.EventDate>
+              </s.DdayNameRow>
+              <s.DdayDateRow>
+                <s.DdayDateHeader>날짜</s.DdayDateHeader>
+                <s.DdayDate>
                   {selectedDate.year +
                     '.' +
                     formatTwoDigits(+selectedDate.month + 1) +
                     '.' +
                     formatTwoDigits(selectedDate.date)}
-                </s.EventDate>
-              </s.EventDateRow>
+                </s.DdayDate>
+              </s.DdayDateRow>
               <s.CalendarBox>
-                <s.CalendarHeader>
-                  <s.PrevYearButton onClick={onClickPrevYear} />
-                  <s.EventYear>{selectedDate.year}</s.EventYear>
-                  <s.NextYearButton onClick={onClickNextYear} />
-                </s.CalendarHeader>
-                <s.EventCalendar
+                <s.StyledCalendar
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
                   headerButtonLayout="center"
+                  yearHeader={true}
                 />
               </s.CalendarBox>
               <s.ActionButtonContainer>
@@ -125,7 +118,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
                 )}
               </s.ActionButtonContainer>
             </s.Form>
-          </s.AddEventBox>
+          </s.AddDdayBox>
         </s.BoxContainer>
       </s.MainContainer>
     </s.Root>

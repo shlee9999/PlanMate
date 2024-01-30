@@ -4,36 +4,44 @@ import { ActionButton, InfoBox } from 'components'
 import { Calendar } from 'components'
 import { DdayContainer } from '../components'
 import styled, { css } from 'styled-components'
-import { LARGE_SIZE } from 'constants/layout'
 
 export const Root = styled(PageRoot)``
 
 export const BoxContainer = styled(FlexRow)`
-  @media (min-width: ${LARGE_SIZE}px) {
-    flex-wrap: nowrap;
-  }
   margin-top: 20px;
   position: relative;
   gap: 16px;
   justify-content: space-between;
-  flex-wrap: wrap;
+  @media screen and (${(props) => props.theme.medium}) {
+    flex-wrap: wrap;
+  }
 `
 
 export const StyledDDayContainer = styled(DdayContainer)`
-  @media (min-width: ${LARGE_SIZE}px) {
-    flex: 0 0 auto;
-    width: 380px;
-  }
-  height: 70vh;
   flex-basis: 100%;
+  width: 380px;
+  flex: 0 0 auto;
+  @media screen and (${(props) => props.theme.large}) {
+    width: auto;
+    flex: 1 1 auto;
+  }
+
+  height: 60vh;
+  @media screen and (${(props) => props.theme.medium}) {
+    height: 40vh;
+  }
 `
-export const AddEventBox = styled(InfoBox)<{ $isEditing: boolean }>`
+
+export const AddDdayBox = styled(InfoBox)<{ $isEditing: boolean }>`
   flex-basis: 100%;
-  @media (min-width: ${LARGE_SIZE}px) {
-    flex: 1 1 600px;
-  }
-  height: 70vh;
+  height: 60vh;
   padding: 25px 32px 10px 32px;
+  @media screen and (${(props) => props.theme.medium}) {
+    height: 60vh;
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    padding: 25px 5px 10px 5px;
+  }
   ${(props) =>
     props.$isEditing &&
     css`
@@ -43,28 +51,35 @@ export const AddEventBox = styled(InfoBox)<{ $isEditing: boolean }>`
       }
     `}
 `
-export const EventNameRow = styled(FlexRow)`
+
+export const DdayNameRow = styled(FlexRow)`
   margin-bottom: 20px;
   gap: 16px;
+  @media screen and (${(props) => props.theme.small}) {
+    margin-bottom: 40px;
+  }
 `
-export const EventName = styled.p`
+export const DdayName = styled.p`
   ${H14_500}
   color: ${(props) => props.theme.text.gray1};
 `
-export const EventNameInput = styled.input`
+export const DdayNameInput = styled.input`
   flex-grow: 1;
   &:focus {
     outline: 1px solid ${(props) => props.theme.primary.default} !important;
   }
 `
-export const EventDateRow = styled(FlexRow)`
+export const DdayDateRow = styled(FlexRow)`
   margin-bottom: 15px;
   gap: 16px;
+  @media screen and (${(props) => props.theme.small}) {
+    display: none;
+  }
 `
-export const EventDateHeader = styled.p`
+export const DdayDateHeader = styled.p`
   color: ${(props) => props.theme.text.gray1};
 `
-export const EventDate = styled.p`
+export const DdayDate = styled.p`
   ${H14_500}
   color: ${(props) => props.theme.text.black2};
 `
@@ -73,11 +88,18 @@ export const CalendarBox = styled(InfoBox)`
   padding: 20px 30px;
   margin-left: 46px;
   margin-bottom: 10px;
+  overflow: visible;
+  @media screen and (${(props) => props.theme.large}) {
+    padding: 20px;
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    margin-left: 0;
+    margin-top: 30px;
+  }
 `
-export const EventCalendar = styled(Calendar)`
+export const StyledCalendar = styled(Calendar)`
   height: 100%;
   width: 100%;
-  overflow: hidden;
   max-width: none;
 `
 export const CalendarHeader = styled(FlexRow)`
@@ -88,7 +110,7 @@ export const CalendarHeader = styled(FlexRow)`
   gap: 8px;
   align-items: end;
 `
-export const EventYear = styled.p`
+export const DdayYear = styled.p`
   ${H21_500}
 `
 export const NextYearButton = styled(RightArrow)`

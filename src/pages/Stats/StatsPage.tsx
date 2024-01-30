@@ -9,7 +9,6 @@ import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
 import { DateProps, StatsContainerPages } from 'types'
 import { defaultStats } from 'constants/defaultStats'
 import { StatsContainer } from 'components'
-import { StatsContainerType } from 'types'
 import { QueryKeys } from 'types'
 
 export const StatsPage = () => {
