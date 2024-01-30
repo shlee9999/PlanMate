@@ -1,25 +1,24 @@
 import * as s from './styled'
-import { useState, FC, useEffect } from 'react'
-import { StatsContainerPages, TimeProps, TodoItemType } from 'types'
+import { FC, useEffect } from 'react'
+import { QueryKeys, StatsContainerPages, TodoItemType } from 'types'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useTimer } from 'pages/Timer/hooks'
+import { useTimer, useTimerEffects, useTodayStats, useTodoList } from 'pages/Timer/hooks'
 import { SuggestModal } from 'pages/Timer/components/'
 import { FindFixedDdayResponseProps, findFixedDday } from 'api/dday/findFixedDday'
 import { PlusIcon } from 'assets/SvgComponents'
 import { useQuery } from 'react-query'
-import { ResponseStats } from 'api/types'
-import { checkTodayStats } from 'api/stats/checkTodayStats'
-import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
 import { NoContentDescription, StatsContainer } from 'components'
 import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
-import { StatsContainerType } from 'types'
-import { QueryKeys } from 'types'
+import { useModal } from 'hooks/useModal'
 
 export const TimerPage: FC = () => {
-  const location = useLocation()
-  const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
+  const { todoList, isTodoLoading } = useTodoList()
+  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeys.fixedDday], () => findFixedDday())
+  const { todayStatsData, totalStudyTime, restTime, isStatsLoading } = useTodayStats()
+  const { isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal } = useModal()
+  const { isOpen: isSuggestModalOpen, openModal: openSuggestModal, closeModal: closeSuggestModal } = useModal()
   const {
     setDefaultTime: setTotalTime,
     startTimer: startTotalTimer,
@@ -27,75 +26,31 @@ export const TimerPage: FC = () => {
     time: totalTime,
     isRunning: isTotalTimerRunning,
   } = useTimer({ defaultTime: 0 })
-  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeys.todoList], () => studyTime())
-  const todoList: TodoItemType[] =
-    data?.map((todo) => ({
-      colorHex: todo.colorHex,
-      name: todo.name,
-      subjectId: todo.subjectId,
-      time: timeUtils.timeToSecond({
-        hour: todo.studyTimeHours,
-        minute: todo.studyTimeMinutes,
-        second: todo.studyTimeSeconds,
-      }),
-    })) || []
-  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>([QueryKeys.todayStats], () =>
-    checkTodayStats()
-  )
-  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeys.fixedDday], () => findFixedDday())
   const {
     startTimer: startBreakTimer,
     stopTimer: stopBreakTimer,
     time: breakTime,
     setDefaultTime: setDefaultBreakTime,
   } = useTimer({ defaultTime: 0 })
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const formattedDate: string = dateUtils.getFormattedDate(new Date())
+  const onClickAddButton = () => !isTotalTimerRunning && openAddModal()
   const navigate = useNavigate()
-  const openModal = () => !isTotalTimerRunning && setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
-  const closeSuggestModal = () => setIsSuggestModalOpen(false)
-  const {
-    restTimeHours = 0,
-    restTimeMinutes = 0,
-    restTimeSeconds = 0,
-    totalStudyTimeHours = 0,
-    totalStudyTimeMinutes = 0,
-    totalStudyTimeSeconds = 0,
-  } = todayStatsData || {}
-  const totalStudyTime: TimeProps = {
-    hour: totalStudyTimeHours,
-    minute: totalStudyTimeMinutes,
-    second: totalStudyTimeSeconds,
-  }
-  const restTime: TimeProps = {
-    hour: restTimeHours,
-    minute: restTimeMinutes,
-    second: restTimeSeconds,
-  }
-  useEffect(() => {
-    if (!isTodoLoading) {
-      // * Todo 로딩 완료
-      if (timeUtils.isEqualTime(totalStudyTime, { hour: 0, minute: 0, second: 0 })) stopBreakTimer()
-    }
-  }, [isTodoLoading])
-  useEffect(() => {
-    const newBreakTime = timeUtils.timeToSecond(restTime)
-    setDefaultBreakTime(newBreakTime)
-    setTotalTime(timeUtils.timeToSecond(totalStudyTime))
-  }, [todayStatsData])
+  const location = useLocation()
 
-  //* 전체 타이머 실행 boolean 필요
-  useEffect(() => {
-    if (isTotalTimerRunning) stopBreakTimer()
-    else {
-      //총 공부 시간이 0이면
-      startBreakTimer()
-    }
-  }, [isTotalTimerRunning])
+  useTimerEffects({
+    todayStatsData,
+    totalStudyTime,
+    restTime,
+    setDefaultBreakTime,
+    setTotalTime,
+    isTodoLoading,
+    stopBreakTimer,
+    startBreakTimer,
+    isTotalTimerRunning,
+  })
 
   useEffect(() => {
-    if (location.state) setIsSuggestModalOpen(true)
+    //* 건의사항 작성 시 잘 전송되었다는 알림 모달
+    if (location.state) openSuggestModal()
   }, [location.state])
 
   return (
@@ -105,7 +60,7 @@ export const TimerPage: FC = () => {
         <s.BannerContentContainer>
           <s.LeftContainer>
             <s.LeftTopDescriptionWrapper>
-              <s.DateTypo>{formattedDate}</s.DateTypo>
+              <s.DateTypo>{dateUtils.getFormattedDate(new Date())}</s.DateTypo>
               <s.Title>오늘의 공부량 👏 </s.Title>
             </s.LeftTopDescriptionWrapper>
             <s.StudyTimeContainer left>
@@ -179,12 +134,12 @@ export const TimerPage: FC = () => {
             )}
           </s.TodoContainer>
 
-          <s.AddButton onClick={openModal}>
+          <s.AddButton onClick={onClickAddButton}>
             <PlusIcon />
             과목
           </s.AddButton>
         </s.LowerContainer>
-        <ActionModal closeModal={closeModal} type="ADD" isOpen={isModalOpen} />
+        <ActionModal closeModal={closeAddModal} type="ADD" isOpen={isAddModalOpen} />
         {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
       </s.Root>
     </>

@@ -2,11 +2,10 @@ import styled from 'styled-components'
 import { RightArrow } from 'assets/SvgComponents'
 import { LARGE_SIZE } from 'constants/layout'
 import { P12, P14 } from 'commonStyled'
+import { BLOCK_SELECT } from 'constants/blockSelect'
 
 export const Root = styled.div`
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  ${BLOCK_SELECT}
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -18,7 +17,6 @@ export const Table = styled.table`
   flex-grow: 1;
   width: 100%;
   height: 100%;
-
   tbody {
     height: 100%;
     display: flex;
@@ -43,6 +41,15 @@ const Cell = styled.td`
   justify-content: center;
   align-items: center;
   color: ${(props) => props.theme.text.gray1};
+  @media screen and (${(props) => props.theme.medium}) {
+    &:first-child {
+      display: none;
+    }
+    &:nth-child(2) {
+      border-left: 1px solid ${(props) => props.theme.border.default};
+      margin-left: 30px;
+    }
+  }
 `
 export const DayCellRow = styled.tr`
   flex-grow: 1;
@@ -91,14 +98,9 @@ export const DataCell = styled(Cell)<DataCellProps>`
       line-height: 0;
     }
   }
-  @media (max-width: ${LARGE_SIZE}px) {
-    &:first-child {
-      opacity: 0;
-      border-right: 0;
-    }
+  @media (${(props) => props.theme.medium}) {
     &:nth-child(2) {
       position: relative;
-      border-left: 1px solid ${(props) => props.theme.border.default};
       &::before {
         content: '${(props) => props.$hour}';
         position: absolute;

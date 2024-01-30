@@ -6,7 +6,7 @@ import { Spinner } from 'components/'
 
 export const Root = styled(PageRoot)`
   width: 100%;
-  max-width: ${EXAMINFODETAIL_MAX_WIDTH}px;
+
   .editor {
     min-height: 150px;
     padding-left: 10px;
