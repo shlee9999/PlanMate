@@ -16,6 +16,7 @@ import { Appointment, SelectModal } from '..'
 import { useRemoveAppointMutation } from '../../hooks/mutations'
 import { QueryKeys } from 'types'
 import { useModal } from 'hooks'
+import { useMouseInteraction } from './hooks/useMouseInteraction'
 
 type SchedulerProps = {
   className?: string
@@ -33,7 +34,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     }
   )
   const { isOpen: isSelectModalOpen, closeModal: closeSelectModal, openModal: openSelectModal } = useModal()
-  const { scheduleName: text, colorHex: bgColor } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
   const now = new Date()
@@ -41,7 +41,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
   const mutateRemoveAppoint = useRemoveAppointMutation()
-
   const onClickClose = (id: number) => (e: React.MouseEvent) => {
     e.stopPropagation()
     dispatch(removeAppoint(id))
@@ -51,7 +50,8 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     setModalTitle(title)
     openSelectModal()
   }
-  // dispatch(initializeAppoint(data.map((app) => ({}))))
+  const { onMouseDown, onMouseEnter, onMouseUp } = useMouseInteraction({ selectedCells, setSelectedCells, openModal })
+
   const onExitComplete = () => {
     // modal 종료 애니메이션 대기
     dispatch(
@@ -78,45 +78,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     )
     openModal('일정수정')
   }
-  const onMouseUp = () => {
-    if (selectedCells.length === 0) return
-    const startTime = +selectedCells[0].split('T')[1] * 60 * 60
-    const endTime = (+selectedCells[selectedCells.length - 1].split('T')[1] + 1) * 60 * 60
-    const { smaller, larger } = timeUtils.compareTime(startTime, endTime)
-    const startHour = timeUtils.getFormattedTime(smaller)
-    const endHour = timeUtils.getFormattedTime(larger)
-    const year = +selectedCells[0].slice(0, 4)
-    const month = +selectedCells[0].slice(5, 7)
-    const date = +selectedCells[0].slice(8, 10)
-    dispatch(
-      updateInfo({
-        startAt: startHour,
-        endAt: endHour,
-        scheduleName: text,
-        colorHex: bgColor,
-        plannerId: new Date().getTime(), // tempId
-        day: dateUtils.getYYYYMMDD({
-          year,
-          month,
-          date,
-        }), // YYYY-MM-DD
-      })
-    )
-    openModal('일정추가')
-  }
-  const onMouseEnter = (date, hour) => (e) => {
-    if (e.buttons !== 1) return
-    if (
-      (selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour - 1}`) &&
-        !selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour + 1}`)) ||
-      (selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour + 1}`) &&
-        !selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + `${hour - 1}`))
-    )
-      setSelectedCells((prev) => prev.concat(dateUtils.getYYYYMMDD(date) + 'T' + hour))
-    else setSelectedCells([])
-  }
 
-  const onMouseDown = (date, hour) => () => setSelectedCells([dateUtils.getYYYYMMDD(date) + 'T' + hour])
   useEffect(() => {
     dispatch(initializeAppoint(plannerData))
   }, [plannerData])
