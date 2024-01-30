@@ -5,7 +5,7 @@ import { useQueryClient, useMutation } from 'react-query'
 import { dateUtils } from 'utils'
 
 type AddScheduleMutationProps = AddDdayRequestProps & {
-  //* input 초기화
+  //* input 초기화 콜백
   callBack: () => void
 }
 
@@ -13,7 +13,7 @@ type AddScheduleMutationProps = AddDdayRequestProps & {
 function useAddDdayMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ targetDate, title }: AddScheduleMutationProps) => addDday({ targetDate, title }), {
-    onMutate: ({ targetDate, title }) => {
+    onMutate: ({ targetDate, title, callBack }) => {
       const prevData = queryClient.getQueryData([QueryKeys.dDayList])
       queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) => [
         ...prev,
@@ -25,21 +25,20 @@ function useAddDdayMutation() {
           remainingDays: dateUtils.daysUntil(targetDate),
         },
       ])
+      callBack()
       return { prevData }
     },
-    onSuccess: ({ dDayId }, { callBack }) => {
+    onSuccess: ({ dDayId }) => {
       console.log('success add dDay')
       queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) => {
         const createdDday = prev[prev.length - 1]
         createdDday.dDayId = dDayId
         return prev.slice(0, -1).concat(createdDday)
       })
-      callBack()
     },
-    onError: (err, { callBack }, context) => {
+    onError: (err, vars, context) => {
       queryClient.setQueryData([QueryKeys.dDayList], context.prevData)
       console.error(err)
-      callBack()
     },
   })
   return mutate
