@@ -4,11 +4,20 @@ import styled from 'styled-components'
 export const Root = styled.div`
   margin: 0 auto;
   height: 24px;
-  width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 400px;
+  gap: 10px;
+  width: fit-content;
+  @media screen and (${(props) => props.theme.large}) {
+    gap: 8px;
+  }
+  @media screen and (${(props) => props.theme.medium}) {
+    gap: 10px;
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    gap: 5px;
+  }
 `
 
 export const PageNumberTypo = styled.p<{ $isCurrent: boolean }>`

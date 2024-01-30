@@ -190,8 +190,10 @@ export const MyPage: FC = () => {
               </s.TabRow>
               <s.TabRow />
             </s.TabSelector>
-            <s.TabContentContainer>{renderTabContent()}</s.TabContentContainer>
-            <s.StyledPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+            <s.TabContentContainer>
+              {renderTabContent()}
+              <s.StyledPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+            </s.TabContentContainer>
           </s.RightContainer>
         </s.MainContainer>
         {isProfileEditModalOpen && (

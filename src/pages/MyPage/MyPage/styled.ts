@@ -113,6 +113,7 @@ export const TabContentContainer = styled.div`
     display: none;
   }
   height: 100%;
+  padding-bottom: 60px;
 `
 export const MyActivity = styled.p`
   ${H16_500}
