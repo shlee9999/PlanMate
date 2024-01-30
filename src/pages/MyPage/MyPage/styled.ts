@@ -98,7 +98,7 @@ export const RightContainer = styled(InfoBox)`
   flex-basis: 100px;
   flex-grow: 1;
   padding: 0 32px;
-  overflow-y: scroll;
+  overflow-y: hidden;
   height: calc(100% - 25px);
   @media screen and (${(props) => props.theme.medium}) {
     width: 100%;
