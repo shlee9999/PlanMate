@@ -1,22 +1,20 @@
 import * as s from './styled'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { dateUtils, timeUtils } from 'utils'
+import { dateUtils } from 'utils'
 import { numberUtils } from 'utils'
 import { updateInfo } from 'modules/selectedInfo'
-import { initializeAppoint, removeAppoint } from 'modules/appointments'
+import { removeAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { PlannerType } from 'api/types'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
-import { useQuery } from 'react-query'
-import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 import { Appointment, SelectModal } from '..'
 import { useRemoveAppointMutation } from '../../hooks/mutations'
-import { QueryKeys } from 'types'
 import { useModal } from 'hooks'
 import { useMouseInteraction } from './hooks/useMouseInteraction'
+import { usePlannerData } from './hooks/usePlannerData'
 
 type SchedulerProps = {
   className?: string
@@ -25,17 +23,9 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const { data: plannerData, isLoading } = useQuery<FindPlannerResponseProps>(
-    [QueryKeys.plannerData],
-    () => findPlanner(),
-    {
-      initialData: [],
-      keepPreviousData: true,
-    }
-  )
-  const { isOpen: isSelectModalOpen, closeModal: closeSelectModal, openModal: openSelectModal } = useModal()
   const dispatch = useDispatch()
-  const appointments = useSelector((state: RootState) => state.appointments)
+  const { plannerData, isPlannerLoading } = usePlannerData()
+  const { isOpen: isSelectModalOpen, closeModal: closeSelectModal, openModal: openSelectModal } = useModal()
   const now = new Date()
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedCells, setSelectedCells] = useState<string[]>([])
@@ -49,6 +39,10 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const openModal = (title: '일정추가' | '일정수정') => {
     setModalTitle(title)
     openSelectModal()
+  }
+  const closeModal = () => {
+    closeSelectModal()
+    setSelectedCells([])
   }
   const { onMouseDown, onMouseEnter, onMouseUp } = useMouseInteraction({ selectedCells, setSelectedCells, openModal })
 
@@ -65,10 +59,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
       })
     )
   }
-  const closeModal = () => {
-    closeSelectModal()
-    setSelectedCells([])
-  }
 
   const onClickAppointment = (appoint: PlannerType) => () => {
     dispatch(
@@ -79,9 +69,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     openModal('일정수정')
   }
 
-  useEffect(() => {
-    dispatch(initializeAppoint(plannerData))
-  }, [plannerData])
   return (
     <s.Root className={className}>
       <s.ButtonWrapper>
@@ -118,11 +105,11 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                   onMouseUp={onMouseUp}
                 >
                   <AnimatePresence>
-                    {appointments.map((app) => {
+                    {plannerData.map((app) => {
                       return (
                         app.day === dateUtils.getYYYYMMDD(date) &&
                         hour === +app.startAt.slice(0, 2) &&
-                        !isLoading && (
+                        !isPlannerLoading && (
                           <Appointment
                             key={app.plannerId}
                             title={app.scheduleName}
