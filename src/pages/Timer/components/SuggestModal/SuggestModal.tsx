@@ -7,9 +7,7 @@ type SuggestModalProps = {
 }
 
 export const SuggestModal: FC<SuggestModalProps> = ({ closeModal }) => {
-  const onClickModal = (e: React.MouseEvent) => {
-    e.stopPropagation()
-  }
+  const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
   return (
     <s.SuggestModal onClick={onClickModal}>
       <s.UpperTypo>건의 완료</s.UpperTypo>

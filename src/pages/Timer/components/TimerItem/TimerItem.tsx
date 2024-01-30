@@ -3,12 +3,10 @@ import { useState, useEffect } from 'react'
 import { TodoItemType } from 'types'
 import { useTimer } from 'pages/Timer/hooks'
 import { EllipsisModal } from '..'
-import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { timeUtils } from 'utils'
-import { useDispatch } from 'react-redux'
-import { approveNav, blockNav } from 'modules/isNavBlocked'
-import { useCurrentTime } from 'pages/Timer/hooks/hooks/useCurrentTime'
+import { useCurrentTime } from 'pages/Timer/components/TimerItem/hooks/useCurrentTime'
 import { useModal } from 'hooks'
+import { useTimerButton } from './hooks/useTimerButton'
 
 type TimerItemProps = {
   title: string
@@ -26,9 +24,8 @@ export const TimerItem = ({
   stopTotalTimer,
   isTotalTimerRunning,
 }: TimerItemProps) => {
-  const dispatch = useDispatch()
-  const mutateUpdateSubject = useUpdateSubjectMutation()
   const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, openModal: openEllipsisModal } = useModal()
+  const OnClickEllipsisButton = () => !isTotalTimerRunning && openEllipsisModal()
   const {
     startTimer: startTodoTimer,
     stopTimer: stopTodoTimer,
@@ -38,38 +35,19 @@ export const TimerItem = ({
   } = useTimer({ defaultTime: todo.time })
   const formattedTime: string = timeUtils.getFormattedTime(+todoTime)
   const [startTime, setStartTime] = useState('')
-  useCurrentTime({
-    callback: () =>
-      isTodoTimerRunning &&
-      mutateUpdateSubject({
-        endAt: timeUtils.getCurrentTime(),
-        startAt: startTime,
-        subjectId: todo.subjectId,
-      }),
+  const { onClickPauseButton, onClickStartButton } = useTimerButton({
+    startTodoTimer,
+    startTotalTimer,
+    setStartTime,
+    stopTodoTimer,
+    stopTotalTimer,
+    startTime,
+    subjectId: todo.subjectId,
   })
+  useCurrentTime({ isTodoTimerRunning, startTime, subjectId: todo.subjectId })
 
-  const OnClickEllipsisButton = () => !isTotalTimerRunning && openEllipsisModal()
-  const onClickStartButton = (): void => {
-    startTodoTimer()
-    startTotalTimer()
-    dispatch(blockNav())
-    setStartTime(timeUtils.getCurrentTime())
-  }
-  const onClickPauseButton = () => {
-    stopTodoTimer()
-    stopTotalTimer()
-    dispatch(approveNav())
-    mutateUpdateSubject({
-      endAt: timeUtils.getCurrentTime(),
-      startAt: startTime,
-      subjectId: todo.subjectId,
-    })
-  }
-
-  useEffect(() => {
-    //* backend와 시간 맞춰주기
-    setDefaultTime(todo.time)
-  }, [todo.time])
+  //* backend와 시간 맞춰주기
+  useEffect(() => setDefaultTime(todo.time), [todo.time])
 
   return (
     <s.TimerItem>
