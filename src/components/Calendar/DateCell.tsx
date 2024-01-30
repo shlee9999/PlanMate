@@ -19,8 +19,8 @@ function getIndex(hour: number) {
 
 const getClassName = (cellDate: DateProps, selectedDate: DateProps) => {
   if (cellDate.month !== selectedDate.month) {
-    if (selectedDate.month === 0 && cellDate.month === 11) return 'prev'
-    else if (selectedDate.month === 11 && cellDate.month === 0) return 'next'
+    if (selectedDate.month === 1 && cellDate.month === 12) return 'prev'
+    else if (selectedDate.month === 12 && cellDate.month === 1) return 'next'
     return cellDate.month < selectedDate.month ? 'prev' : 'next'
   }
   return 'current'

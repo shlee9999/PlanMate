@@ -50,7 +50,7 @@ export const Calendar: FC<CalendarProps> = ({
     }
   }
   const onClickPrevMonth = () => {
-    setSelectedDate(dateUtils.getDateProps(new Date(selectedDateProps.year, selectedDateProps.month - 1, 1)))
+    setSelectedDate(dateUtils.calculateDateProps(selectedDateProps, 'month', -1))
     setBack(true)
   }
   const onClickNextYear = () => {
@@ -66,11 +66,11 @@ export const Calendar: FC<CalendarProps> = ({
     }
   }
   const onClickPrevYear = () => {
-    setSelectedDate(dateUtils.getDateProps(new Date(selectedDateProps.year - 1, selectedDateProps.month, 1)))
+    setSelectedDate(dateUtils.calculateDateProps(selectedDateProps, 'year', 1))
     setBack(true)
   }
   const onClickToday = () => setSelectedDate(dateUtils.getDateProps(new Date()))
-
+  const todayDateProps = dateUtils.getTodayDateProps()
   return (
     <s.Calendar className={className}>
       {yearHeader && (
@@ -86,14 +86,13 @@ export const Calendar: FC<CalendarProps> = ({
       <s.MonthHeader $layout={headerButtonLayout}>
         <s.PrevButton onClick={onClickPrevMonth} />
         <s.Month $layout={headerButtonLayout} key={selectedDateProps.month}>
-          {selectedDateProps.month + 1}월
+          {selectedDateProps.month}월
         </s.Month>
         {(!blockFuture ||
           selectedDateProps.year < new Date().getFullYear() ||
-          (selectedDateProps.year === new Date().getFullYear() && selectedDateProps.month < new Date().getMonth())) && (
+          (selectedDateProps.year === new Date().getFullYear() && selectedDateProps.month < todayDateProps.month)) && (
           <s.NextButton onClick={onClickNextMonth} />
         )}
-
         {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
       </s.MonthHeader>
       <s.Body>
@@ -123,7 +122,7 @@ export const Calendar: FC<CalendarProps> = ({
                     .map((date, index) => (
                       <DateCell
                         key={index}
-                        setSelectedDate={() => setSelectedDate(dateUtils.getDateProps(date))}
+                        setSelectedDate={() => setSelectedDate(date)}
                         cellDateProps={date}
                         studyTimeHours={
                           date.date - 1 < dataSource.length ? dataSource[date.date - 1].totalStudyTimeHours : 0

@@ -34,29 +34,23 @@ export const dateUtils = {
   /**Date 또는 string(YYYY-MM-DD) -> {year, month, date} month+1 하지 않는다. 1월을 0월로 반환*/
   /**미래 시간인지 반환 */
   isFuture: (targetDateProps: DateProps): boolean => {
+    const targetDate = dateUtils.getDateEntity(targetDateProps)
     const currentDate = new Date()
-
-    const currentDateProps = dateUtils.getDateProps(currentDate)
-    if (targetDateProps.year > currentDateProps.year) return true
-    if (targetDateProps.month > currentDateProps.month) return true
-    if (targetDateProps.date > currentDateProps.date) return true
+    return targetDate > currentDate
   },
   isTodayOrFuture: (targetDateProps: DateProps): boolean => {
+    const targetDate = dateUtils.getDateEntity(targetDateProps)
     const currentDate = new Date()
     currentDate.setDate(currentDate.getDate() - 1) //* 어제로 되돌려서 isFuture 판단
-    const currentDateProps = dateUtils.getDateProps(currentDate)
-    if (targetDateProps.year > currentDateProps.year) return true
-    if (targetDateProps.month > currentDateProps.month) return true
-    if (targetDateProps.date > currentDateProps.date) return true
+    return targetDate > currentDate
   },
 
-  getYYYYMMDD: (currentDateProps: DateProps) => {
-    const { year, month, date } = currentDateProps
-    return year + '-' + (month + 1).toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0')
+  getYYYYMMDD: (targetDateProps: DateProps) => {
+    const { year, month, date } = targetDateProps
+    return year + '-' + month.toString().padStart(2, '0') + '-' + date.toString().padStart(2, '0')
   },
   getDay: (targetDateProps: DateProps): number => {
-    const { year, month, date } = targetDateProps
-    return new Date(year, month - 1, date).getDay()
+    return dateUtils.getDateEntity(targetDateProps).getDay()
   },
   /**MM월 DD일 ?요일 */
   getFormattedDate: (targetDateProps: DateProps): string => {
@@ -104,17 +98,15 @@ export const dateUtils = {
     return differenceInDays
   },
   /**년/월/일 더하기 */
-  calculateDateProps: (currentDateProps: DateProps, type: 'year' | 'month' | 'date', amount = 1): DateProps => {
+  calculateDateProps: (currentDateProps: DateProps, type: 'year' | 'month' | 'date', amount): DateProps => {
     const targetDate = dateUtils.getDateEntity(currentDateProps)
-    if (type === 'year') {
-      targetDate.setFullYear(currentDateProps.year + amount)
-    }
-    if (type === 'month') {
-      targetDate.setMonth(currentDateProps.month + amount)
-    }
-    if (type === 'date') {
-      targetDate.setDate(currentDateProps.date + amount)
-    }
+    console.log('Before', targetDate)
+
+    if (type === 'year') targetDate.setFullYear(targetDate.getFullYear() + amount)
+    else if (type === 'month') targetDate.setMonth(targetDate.getMonth() + amount)
+    else if (type === 'date') targetDate.setDate(targetDate.getDate() + amount)
+    console.log('After', targetDate)
+
     return dateUtils.getDateProps(targetDate)
   },
 }
