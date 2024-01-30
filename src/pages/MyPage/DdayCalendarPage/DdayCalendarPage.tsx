@@ -33,8 +33,10 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
     mutateDeleteSchedule({ dDayId: selectedDDayId, callBack: () => setIsEditing(false) })
   }
   const onSubmit = ({ dDayTitle }: IForm) => {
+    if (!dateUtils.isFuture(dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }), true)) return
     if (!isEditing) {
       //* 추가
+      //* 과거 시간 추가 X
       mutateAddSchedule({
         targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
         title: dDayTitle,
@@ -50,9 +52,11 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
       })
     }
   }
+
   useEffect(() => {
     inputFocus('dDayTitle')
   }, [selectedDate])
+
   return (
     <s.Root className={className}>
       <s.MainContainer>
