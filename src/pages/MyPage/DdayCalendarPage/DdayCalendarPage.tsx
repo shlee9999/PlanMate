@@ -36,7 +36,7 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
     if (!isEditing) {
       //* 추가
       mutateAddSchedule({
-        targetDate: dateUtils.getYYYYMMDD({ ...selectedDateProps, month: selectedDateProps.month + 1 }),
+        targetDate: dateUtils.getYYYYMMDD(selectedDateProps),
         title: dDayTitle,
         callBack: () => {
           setDdayTitle('')
@@ -46,7 +46,7 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
     } else {
       //* 수정
       mutateEditSchedule({
-        targetDate: dateUtils.getYYYYMMDD({ ...selectedDateProps, month: selectedDateProps.month + 1 }),
+        targetDate: dateUtils.getYYYYMMDD(selectedDateProps),
         title: dDayTitle,
         dDayId: selectedDDayId,
         callBack: () => {
@@ -92,7 +92,7 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
                 <s.DdayDate>
                   {selectedDateProps.year +
                     '.' +
-                    formatTwoDigits(+selectedDateProps.month + 1) +
+                    formatTwoDigits(+selectedDateProps.month) +
                     '.' +
                     formatTwoDigits(selectedDateProps.date)}
                 </s.DdayDate>
