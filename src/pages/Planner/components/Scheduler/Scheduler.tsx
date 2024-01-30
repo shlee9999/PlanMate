@@ -5,11 +5,9 @@ import { dateUtils } from 'utils'
 import { numberUtils } from 'utils'
 import { updateInfo } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
-import { PlannerType } from 'api/types'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { Appointment, SelectModal } from '..'
-import { useRemoveAppointMutation } from '../../hooks/mutations'
 import { useModal } from 'hooks'
 import { useMouseInteraction } from './hooks/useMouseInteraction'
 import { usePlannerData } from './hooks/usePlannerData'
@@ -25,14 +23,9 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const { plannerData, isPlannerLoading } = usePlannerData()
   const { isOpen: isSelectModalOpen, closeModal: closeSelectModal, openModal: openSelectModal } = useModal()
   const now = new Date()
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const [currentDate, setCurrentDate] = useState(now)
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalTitle, setModalTitle] = useState('일정추가')
-  const mutateRemoveAppoint = useRemoveAppointMutation()
-  const onClickClose = (id: number) => (e: React.MouseEvent) => {
-    e.stopPropagation()
-    mutateRemoveAppoint({ plannerId: id })
-  }
   const openModal = (title: '일정추가' | '일정수정') => {
     setModalTitle(title)
     openSelectModal()
@@ -42,7 +35,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     setSelectedCells([])
   }
   const { onMouseDown, onMouseEnter, onMouseUp } = useMouseInteraction({ selectedCells, setSelectedCells, openModal })
-
   const onExitComplete = () => {
     // modal 종료 애니메이션 대기
     dispatch(
@@ -55,15 +47,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         day: dateUtils.getYYYYMMDD(new Date()),
       })
     )
-  }
-
-  const onClickAppointment = (appoint: PlannerType) => () => {
-    dispatch(
-      updateInfo({
-        ...appoint,
-      })
-    )
-    openModal('일정수정')
   }
 
   return (
@@ -109,16 +92,14 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                         !isPlannerLoading && (
                           <Appointment
                             key={app.plannerId}
-                            title={app.scheduleName}
-                            bgColor={app.colorHex}
                             height={
                               app.endAt.slice(0, 2) === '00'
                                 ? 24 - +app.startAt.slice(0, 2)
                                 : +app.endAt.slice(0, 2) - +app.startAt.slice(0, 2)
                             }
-                            onClick={onClickAppointment(app)}
                             onMouseDown={(e) => e.stopPropagation()}
-                            onClickClose={onClickClose(app.plannerId)}
+                            appoint={app}
+                            openModal={() => openModal('일정수정')}
                           />
                         )
                       )
