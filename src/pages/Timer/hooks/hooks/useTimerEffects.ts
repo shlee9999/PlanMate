@@ -1,3 +1,4 @@
+import { ResponseStats } from 'api/types'
 import { useEffect } from 'react'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
@@ -11,6 +12,7 @@ type UseTimerEffectsProps = {
   stopBreakTimer: () => void
   startBreakTimer: () => void
   isTotalTimerRunning: boolean
+  todayStatsData: ResponseStats
 }
 
 /**
@@ -32,12 +34,13 @@ export const useTimerEffects = ({
   startBreakTimer,
   stopBreakTimer,
   isTotalTimerRunning,
+  todayStatsData,
 }: UseTimerEffectsProps) => {
   useEffect(() => {
     const newBreakTime = timeUtils.timeToSecond(restTime)
     setDefaultBreakTime(newBreakTime)
     setTotalTime(timeUtils.timeToSecond(totalStudyTime))
-  }, [restTime, totalStudyTime])
+  }, [todayStatsData])
   useEffect(() => {
     if (!isTodoLoading) {
       // * Todo 로딩 완료

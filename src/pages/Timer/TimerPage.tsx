@@ -38,6 +38,7 @@ export const TimerPage: FC = () => {
   const location = useLocation()
 
   useTimerEffects({
+    todayStatsData,
     totalStudyTime,
     restTime,
     setDefaultBreakTime,
