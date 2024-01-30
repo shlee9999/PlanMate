@@ -47,7 +47,7 @@ export const DdayContainer: FC<DdayContainerProps> = ({
       setDdayName && setDdayName(eventName)
       setSelectedIndex((prev) => (prev === index ? -1 : index))
     }
-  const filteredDdayList = dDayList.filter((dDay) => dateUtils.isFuture(dDay.targetDate, true))
+  const filteredDdayList = dDayList.filter((dDay) => dateUtils.isTodayOrFuture(dateUtils.getDateProps(dDay.targetDate)))
 
   useEffect(() => {
     setIsEditing && setIsEditing(selectedIndex === -1 ? false : true)

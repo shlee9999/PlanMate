@@ -9,7 +9,7 @@ import * as s from './styled'
 
 type CalendarProps = {
   className?: string
-  selectedDate: DateProps
+  selectedDateProps: DateProps
   setSelectedDate: (date: DateProps) => void
   dataSource?: ResponseStats[]
   blockFuture?: boolean
@@ -28,7 +28,7 @@ const DateContainerVar: Variants = {
 export const Calendar: FC<CalendarProps> = ({
   className,
   setSelectedDate,
-  selectedDate,
+  selectedDateProps,
   dataSource = [],
   blockFuture = false,
   legend,
@@ -38,10 +38,9 @@ export const Calendar: FC<CalendarProps> = ({
 }) => {
   const [back, setBack] = useState(false)
   const onClickNextMonth = () => {
-    const newDate = new Date(selectedDate.year, selectedDate.month + 1, 1)
-    const newDateProps = dateUtils.getDateProps(newDate)
+    const newDateProps = dateUtils.calculateDateProps(selectedDateProps, 'month', 1)
     if (blockFuture) {
-      if (!dateUtils.isFuture(newDate)) {
+      if (!dateUtils.isFuture(newDateProps)) {
         setSelectedDate(newDateProps)
         setBack(false)
       }
@@ -51,14 +50,13 @@ export const Calendar: FC<CalendarProps> = ({
     }
   }
   const onClickPrevMonth = () => {
-    setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year, selectedDate.month - 1, 1)))
+    setSelectedDate(dateUtils.getDateProps(new Date(selectedDateProps.year, selectedDateProps.month - 1, 1)))
     setBack(true)
   }
   const onClickNextYear = () => {
-    const newDate = new Date(selectedDate.year + 1, selectedDate.month, 1)
-    const newDateProps = dateUtils.getDateProps(newDate)
+    const newDateProps = dateUtils.calculateDateProps(selectedDateProps, 'year', 1)
     if (blockFuture) {
-      if (!dateUtils.isFuture(newDate)) {
+      if (!dateUtils.isFuture(newDateProps)) {
         setSelectedDate(newDateProps)
         setBack(false)
       }
@@ -68,7 +66,7 @@ export const Calendar: FC<CalendarProps> = ({
     }
   }
   const onClickPrevYear = () => {
-    setSelectedDate(dateUtils.getDateProps(new Date(selectedDate.year - 1, selectedDate.month, 1)))
+    setSelectedDate(dateUtils.getDateProps(new Date(selectedDateProps.year - 1, selectedDateProps.month, 1)))
     setBack(true)
   }
   const onClickToday = () => setSelectedDate(dateUtils.getDateProps(new Date()))
@@ -78,8 +76,8 @@ export const Calendar: FC<CalendarProps> = ({
       {yearHeader && (
         <s.YearHeader>
           <s.PrevButton onClick={onClickPrevYear} />
-          <s.Month $layout={headerButtonLayout} key={selectedDate.month}>
-            {selectedDate.year}
+          <s.Month $layout={headerButtonLayout} key={selectedDateProps.month}>
+            {selectedDateProps.year}
           </s.Month>
           <s.NextButton onClick={onClickNextYear} />
           {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
@@ -87,12 +85,12 @@ export const Calendar: FC<CalendarProps> = ({
       )}
       <s.MonthHeader $layout={headerButtonLayout}>
         <s.PrevButton onClick={onClickPrevMonth} />
-        <s.Month $layout={headerButtonLayout} key={selectedDate.month}>
-          {selectedDate.month + 1}월
+        <s.Month $layout={headerButtonLayout} key={selectedDateProps.month}>
+          {selectedDateProps.month + 1}월
         </s.Month>
         {(!blockFuture ||
-          selectedDate.year < new Date().getFullYear() ||
-          (selectedDate.year === new Date().getFullYear() && selectedDate.month < new Date().getMonth())) && (
+          selectedDateProps.year < new Date().getFullYear() ||
+          (selectedDateProps.year === new Date().getFullYear() && selectedDateProps.month < new Date().getMonth())) && (
           <s.NextButton onClick={onClickNextMonth} />
         )}
 
@@ -109,35 +107,33 @@ export const Calendar: FC<CalendarProps> = ({
         <AnimatePresence initial={false}>
           <s.DateContainerWrapper>
             <s.DateContainer
-              key={selectedDate.year + '' + selectedDate.month}
+              key={selectedDateProps.year + '' + selectedDateProps.month}
               variants={DateContainerVar}
               initial="initial"
               animate="visible"
               transition={{ duration: 0.5 }}
               custom={back}
             >
-              {Array.from(Array(dateUtils.getWeekCount(selectedDate.year, selectedDate.month + 1)).keys()).map(
-                (week) => (
-                  <s.WeekRow key={week}>
-                    {dateUtils
-                      .getWeekDates(new Date(selectedDate.year, selectedDate.month, week * 7 + 1))
-                      .map((date) => (
-                        <DateCell
-                          key={date.getTime()}
-                          setSelectedDate={() => setSelectedDate(dateUtils.getDateProps(date))}
-                          cellDate={date}
-                          studyTimeHours={
-                            date.getDate() - 1 < dataSource.length
-                              ? dataSource[date.getDate() - 1].totalStudyTimeHours
-                              : 0
-                          }
-                          selectedDate={selectedDate}
-                          blockFuture={blockFuture}
-                        />
-                      ))}
-                  </s.WeekRow>
-                )
-              )}
+              {Array.from(
+                Array(dateUtils.getWeekCount(selectedDateProps.year, selectedDateProps.month + 1)).keys()
+              ).map((week) => (
+                <s.WeekRow key={week}>
+                  {dateUtils
+                    .getWeekDates({ year: selectedDateProps.year, month: selectedDateProps.month, date: week * 7 + 1 })
+                    .map((date, index) => (
+                      <DateCell
+                        key={index}
+                        setSelectedDate={() => setSelectedDate(dateUtils.getDateProps(date))}
+                        cellDateProps={date}
+                        studyTimeHours={
+                          date.date - 1 < dataSource.length ? dataSource[date.date - 1].totalStudyTimeHours : 0
+                        }
+                        selectedDate={selectedDateProps}
+                        blockFuture={blockFuture}
+                      />
+                    ))}
+                </s.WeekRow>
+              ))}
               {legend && (
                 <s.LegendContainer>
                   <s.Legend>

@@ -29,7 +29,7 @@ export const DdayItem: FC<DDayItemProps> = ({
     e.stopPropagation()
     mutateFixSchedule({ dDayId: scheduleId })
   }
-  const dDay = dateUtils.daysUntil(targetDate)
+  const dDay = dateUtils.daysUntil(dateUtils.getDateProps(targetDate))
   const getWeekDay = () => {
     const days = ['일', '월', '화', '수', '목', '금', '토']
     const split = targetDate.split('-')

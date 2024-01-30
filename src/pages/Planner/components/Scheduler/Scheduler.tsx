@@ -6,6 +6,7 @@ import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { Appointment, SelectModal } from '..'
 import { usePlannerData, useSelectModal, useMouseInteraction } from './hooks'
+import { DateProps } from 'types'
 
 type SchedulerProps = {
   className?: string
@@ -14,9 +15,9 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const now = new Date()
+  const todayDateProps = dateUtils.getTodayDateProps()
   const { plannerData, isPlannerLoading } = usePlannerData()
-  const [currentDate, setCurrentDate] = useState(now)
+  const [selectedDateProps, setSelectedDateProps] = useState<DateProps>(todayDateProps)
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [modalType, setModalType] = useState<'ADD' | 'EDIT'>('ADD')
   const { isSelectModalOpen, openAddModal, openEditModal, closeModal, onExitComplete } = useSelectModal({
@@ -32,17 +33,21 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   return (
     <s.Root className={className}>
       <s.ButtonWrapper>
-        <s.PrevButton onClick={() => setCurrentDate(new Date(currentDate.getTime() - 1000 * 60 * 60 * 24 * 7))} />
-        {currentDate.getMonth() + 1}월
-        <s.NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
+        <s.PrevButton
+          onClick={() => setSelectedDateProps(dateUtils.calculateDateProps(selectedDateProps, 'date', -7))}
+        />
+        {selectedDateProps.month}월
+        <s.NextButton
+          onClick={() => setSelectedDateProps(dateUtils.calculateDateProps(selectedDateProps, 'date', 7))}
+        />
       </s.ButtonWrapper>
       <s.Table>
         <s.TableBody>
           <s.DataCellRow>
             <s.DayCell $today={null}></s.DayCell>
-            {dateUtils.getWeekDates(currentDate).map((date, index) => (
+            {dateUtils.getWeekDates(selectedDateProps).map((date, index) => (
               <s.DayCell
-                $today={dateUtils.getYYYYMMDD(now) === dateUtils.getYYYYMMDD(date)}
+                $today={dateUtils.getYYYYMMDD(todayDateProps) === dateUtils.getYYYYMMDD(date)}
                 key={dateUtils.getYYYYMMDD(date)}
               >
                 <s.DayTypo>{weekDays[index]}</s.DayTypo>
@@ -55,7 +60,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
               <s.DataCell $hour={hour + ''}>
                 <p>{hour <= 12 ? `오전 ${hour}시` : `오후 ${hour - 12}시`}</p>
               </s.DataCell>
-              {dateUtils.getWeekDates(currentDate).map((date) => (
+              {dateUtils.getWeekDates(selectedDateProps).map((date) => (
                 <s.DataCell
                   key={dateUtils.getYYYYMMDD(date)}
                   $isSelected={selectedCells.includes(dateUtils.getYYYYMMDD(date) + 'T' + hour)}

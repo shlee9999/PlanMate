@@ -29,7 +29,7 @@ function useCreatePostMutation() {
           postTagList: tagList,
           scrapCount: 0,
           title,
-          createdAt: dateUtils.getKoreanISOString(new Date()),
+          createdAt: dateUtils.getKoreanISOString(dateUtils.getTodayDateProps()),
           postId: new Date().getTime(),
           isMyPost: true,
           commentCount: 0,

@@ -27,7 +27,7 @@ function useCreateCommentMutation() {
         isMyHearted: false,
         likeCount: 0,
         memberName,
-        updatedAt: dateUtils.getKoreanISOString(new Date()).slice(0, 19),
+        updatedAt: dateUtils.getKoreanISOString(dateUtils.getTodayDateProps()).slice(0, 19),
         postId,
         isPostAuthor,
       }

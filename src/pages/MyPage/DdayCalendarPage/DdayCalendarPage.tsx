@@ -18,7 +18,7 @@ type IForm = {
 export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
-  const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
+  const [selectedDateProps, setSelectedDateProps] = useState(dateUtils.getTodayDateProps())
   const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
   const setDdayTitle = (title: string) => setValue('dDayTitle', title)
   const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>([QueryKeys.dDayList], () => findAllDday())
@@ -31,22 +31,22 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
     mutateDeleteSchedule({ dDayId: selectedDDayId, callBack: () => setIsEditing(false) })
   }
   const onSubmit = ({ dDayTitle }: IForm) => {
-    if (!dateUtils.isFuture(dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }), true)) return
+    if (!dateUtils.isTodayOrFuture(selectedDateProps)) return
     //* 과거 시간은 추가 수정 X
     if (!isEditing) {
       //* 추가
       mutateAddSchedule({
-        targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
+        targetDate: dateUtils.getYYYYMMDD({ ...selectedDateProps, month: selectedDateProps.month + 1 }),
         title: dDayTitle,
         callBack: () => {
           setDdayTitle('')
-          setSelectedDate(dateUtils.getDateProps(new Date()))
+          setSelectedDateProps(dateUtils.getDateProps(new Date()))
         },
       })
     } else {
       //* 수정
       mutateEditSchedule({
-        targetDate: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),
+        targetDate: dateUtils.getYYYYMMDD({ ...selectedDateProps, month: selectedDateProps.month + 1 }),
         title: dDayTitle,
         dDayId: selectedDDayId,
         callBack: () => {
@@ -58,7 +58,7 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
 
   useEffect(() => {
     inputFocus('dDayTitle')
-  }, [selectedDate])
+  }, [selectedDateProps])
 
   return (
     <s.Root className={className}>
@@ -69,7 +69,7 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
             title="D-DAY 관리"
             description="원하는 디데이를 고정해보세요!"
             selectable
-            setSelectedDate={setSelectedDate}
+            setSelectedDate={setSelectedDateProps}
             setDdayName={setDdayTitle}
             setIsEditing={setIsEditing}
             setSelectedDDayId={setSelectedDDayId}
@@ -90,17 +90,17 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
               <s.DdayDateRow>
                 <s.DdayDateHeader>날짜</s.DdayDateHeader>
                 <s.DdayDate>
-                  {selectedDate.year +
+                  {selectedDateProps.year +
                     '.' +
-                    formatTwoDigits(+selectedDate.month + 1) +
+                    formatTwoDigits(+selectedDateProps.month + 1) +
                     '.' +
-                    formatTwoDigits(selectedDate.date)}
+                    formatTwoDigits(selectedDateProps.date)}
                 </s.DdayDate>
               </s.DdayDateRow>
               <s.CalendarBox>
                 <s.StyledCalendar
-                  selectedDate={selectedDate}
-                  setSelectedDate={setSelectedDate}
+                  selectedDateProps={selectedDateProps}
+                  setSelectedDate={setSelectedDateProps}
                   headerButtonLayout="center"
                   yearHeader={true}
                 />

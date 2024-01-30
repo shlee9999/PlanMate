@@ -51,7 +51,7 @@ export const StatsPage = () => {
           <s.LeftInfoBox left>
             <s.StatsCalendar
               legend
-              selectedDate={selectedDate}
+              selectedDateProps={selectedDate}
               setSelectedDate={setSelectedDate}
               dataSource={selectedMonthStats}
               blockFuture

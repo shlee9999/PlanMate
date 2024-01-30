@@ -3,7 +3,7 @@ import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import * as s from './styled'
 type DateCellProps = {
-  cellDate: Date
+  cellDateProps: DateProps
   selectedDate: DateProps
   studyTimeHours?: number
   setSelectedDate: () => void
@@ -28,12 +28,11 @@ const getClassName = (cellDate: DateProps, selectedDate: DateProps) => {
 
 export const DateCell: FC<DateCellProps> = ({
   setSelectedDate,
-  cellDate,
+  cellDateProps,
   selectedDate,
   studyTimeHours = 0,
   blockFuture,
 }) => {
-  const cellDateProps = dateUtils.getDateProps(cellDate)
   const [isToolTipOpen, setIsToolTipOpen] = useState(false)
   const triggerTooltip = () => setIsToolTipOpen(true)
   const closeTooltip = () => setIsToolTipOpen(false)
@@ -42,13 +41,13 @@ export const DateCell: FC<DateCellProps> = ({
   const opacity = getIndex(studyTimeHours)
   const onClick = () => {
     if (blockFuture) {
-      if (dateUtils.isFuture(cellDate)) triggerTooltip()
+      if (dateUtils.isFuture(cellDateProps)) triggerTooltip()
       else setSelectedDate()
     } else {
       setSelectedDate()
     }
   }
-  const isToday = dateUtils.isToday(cellDate)
+  const isToday = dateUtils.isToday(cellDateProps)
   const ref = useRef()
   return (
     <s.DateCellWrapper>

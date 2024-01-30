@@ -33,7 +33,7 @@ export const useSelectModal = ({ setModalType, initializeSelectedCells }: useSel
         scheduleName: '',
         colorHex: defaultColor,
         plannerId: new Date().getTime(),
-        day: dateUtils.getYYYYMMDD(new Date()),
+        day: dateUtils.getYYYYMMDD(dateUtils.getTodayDateProps()),
       })
     )
     setModalType('ADD')

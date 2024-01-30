@@ -22,7 +22,7 @@ function useAddDdayMutation() {
           targetDate,
           title,
           isFixed: false,
-          remainingDays: dateUtils.daysUntil(targetDate),
+          remainingDays: dateUtils.daysUntil(dateUtils.getDateProps(targetDate)),
         },
       ])
       callBack()

@@ -80,7 +80,7 @@ export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: Select
                 <cs.WhiteButton onClick={onClickCloseButton}>취소</cs.WhiteButton>
               </s.ModalFooter>
               <s.ModalTitle>{type === 'ADD' ? '일정추가' : '일정수정'}</s.ModalTitle>
-              <s.Title>{dateUtils.getFormattedDate(day)}</s.Title>
+              <s.Title>{dateUtils.getFormattedDate(dateUtils.getDateProps(day))}</s.Title>
               <s.ModalExitButton onClick={closeModal} />
               <s.InputWrapper>
                 <s.ButtonTypoWrapper>

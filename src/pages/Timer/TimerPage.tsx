@@ -60,7 +60,7 @@ export const TimerPage: FC = () => {
         <s.BannerContentContainer>
           <s.LeftContainer>
             <s.LeftTopDescriptionWrapper>
-              <s.DateTypo>{dateUtils.getFormattedDate(new Date())}</s.DateTypo>
+              <s.DateTypo>{dateUtils.getFormattedDate(dateUtils.getTodayDateProps())}</s.DateTypo>
               <s.Title>오늘의 공부량 👏 </s.Title>
             </s.LeftTopDescriptionWrapper>
             <s.StudyTimeContainer left>
