@@ -4,6 +4,7 @@ import { DDayEntityType } from 'api/types/ScheduleType'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import { CenterSpinner } from 'commonStyled'
+import { useClickDdayItem } from './hooks/useClickDdayItem'
 
 type DdayContainerProps = {
   className?: string
@@ -38,27 +39,20 @@ export const DdayContainer: FC<DdayContainerProps> = ({
   selectable = false,
   isEditing,
 }) => {
-  const [selectedIndex, setSelectedIndex] = useState(-1)
-  const onClickDDayItem =
-    (index: number, targetDate: string, eventName: string, scheduleId: number) => (e: React.MouseEvent) => {
-      e.stopPropagation()
-      setSelectedDDayId && setSelectedDDayId(scheduleId)
-      setSelectedDate && setSelectedDate(dateUtils.getDateProps(targetDate))
-      setDdayName && setDdayName(eventName)
-      setSelectedIndex((prev) => (prev === index ? -1 : index))
-    }
   const filteredDdayList = dDayList.filter((dDay) => dateUtils.isTodayOrFuture(dateUtils.getDateProps(dDay.targetDate)))
+  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const { onClickDdayItem } = useClickDdayItem({
+    setDdayName,
+    setSelectedDDayId,
+    setSelectedDate,
+    setSelectedIndex,
+    setIsEditing,
+    selectedIndex,
+    isEditing,
+  })
 
-  useEffect(() => {
-    setIsEditing && setIsEditing(selectedIndex === -1 ? false : true)
-    selectedIndex === -1 && setDdayName && setDdayName('')
-  }, [selectedIndex])
-
-  useEffect(() => {
-    !isEditing && setSelectedIndex(-1)
-  }, [isEditing])
   return (
-    <s.Root className={className} title={title} description={description}>
+    <s.DdayContainer className={className} title={title} description={description}>
       {viewMore && (
         <s.ViewMore onClick={onClickViewMore}>
           더보기
@@ -79,13 +73,13 @@ export const DdayContainer: FC<DdayContainerProps> = ({
               targetDate={dday.targetDate}
               isFixed={dday.isFixed}
               isSelected={selectedIndex === index}
-              onClick={onClickDDayItem(index, dday.targetDate, dday.title, dday.dDayId)}
+              onClick={onClickDdayItem(index, dday.targetDate, dday.title, dday.dDayId)}
               selectable={selectable}
             />
           ))}
         </s.DdayList>
       )}
       {children}
-    </s.Root>
+    </s.DdayContainer>
   )
 }

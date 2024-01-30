@@ -1,6 +1,6 @@
 import * as s from './styled'
 import { FC, useEffect, useState } from 'react'
-import { ResignModal } from '../components'
+import { ResignModal } from './components'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'modules'

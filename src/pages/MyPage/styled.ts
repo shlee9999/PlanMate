@@ -3,7 +3,7 @@ import ellipsisImg from 'assets/images/ellipsis.svg'
 import { FlexRow, H16_500, H21_700, P12, P14, PageRoot } from 'commonStyled'
 import { motion } from 'framer-motion'
 import { InfoBox, NoContentDescription, Pagination } from 'components'
-import { DdayContainer } from '../components'
+import { DdayContainer } from './components'
 
 export const EllipsisImg = styled.img`
   position: absolute;

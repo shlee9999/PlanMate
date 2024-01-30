@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { DdayItem } from '..'
 import { H14_500 } from 'commonStyled'
 
-export const Root = styled(InfoBox)`
+export const DdayContainer = styled(InfoBox)`
   position: relative;
   border-radius: 8px;
   padding: 24px;
