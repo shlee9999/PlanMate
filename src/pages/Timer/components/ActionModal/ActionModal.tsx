@@ -1,13 +1,13 @@
 import * as s from './styled'
 import * as cs from 'commonStyled'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { defaultColor } from 'constants/color'
 import { ColorPicker } from 'components/'
 import { AnimatePresence } from 'framer-motion'
 import { TodoItemType } from 'types'
-import { useCreateSubjectMutation, useEditSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { useForm } from 'hooks'
 import { MAX_TIMER_NAME_CHARACTER_COUNT } from 'constants/maxCharacterCount'
+import { useActionSubmit, useModalAction } from './hooks'
 
 type ActionModalProps = {
   isOpen: boolean
@@ -27,57 +27,27 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
   const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
   const [subjectColor, setSubjectColor] = useState(todo?.colorHex || defaultColor)
   const [isConfirmed, setIsConfirmed] = useState(false)
-  const mutateCreateSubject = useCreateSubjectMutation()
-  const mutateEditSubject = useEditSubjectMutation()
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    // if (e.nativeEvent.key === 'Enter' && !e.nativeEvent.isComposing) onClickConfirmButton()
-    if (e.nativeEvent.key === 'Escape') closeModalAll()
-  }
-  const assignSubjectColor = (color: string) => setSubjectColor(color)
+  const onKeyDown = (e: React.KeyboardEvent) => e.nativeEvent.key === 'Escape' && closeModalAll() // esc 단축키
   const closeModalAll = () => type === 'EDIT' && closeEllipsisModal()
-
-  const onSubmit = (data: IForm) => {
-    setIsConfirmed(true)
-    // * ADD는 ExitComplete 시 mutate 실행하므로, 모달을 닫아주기만 하면 된다.
-    if (type === 'ADD') {
-      if (type === 'ADD')
-        mutateCreateSubject({
-          colorHex: subjectColor,
-          name: data.ADD,
-        })
-      closeModal()
-    } else {
-      //EDIT
-      closeModalAll()
-      mutateEditSubject({
-        colorHex: subjectColor,
-        name: data.EDIT,
-        subjectId: todo.subjectId,
-      })
-    }
-  }
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
-
-  // * ADD는 여기서
-  const onExitComplete = () => {
-    if (!isConfirmed) return
-    setValue('ADD', '')
-    setIsConfirmed(false)
-  }
-  const onClickCloseButton = (e: React.MouseEvent) => {
-    e.preventDefault()
-    closeModal()
-  }
-  useEffect(() => {
-    if (type === 'ADD') {
-      setSubjectColor(defaultColor)
-      inputFocus('ADD')
-    }
-    if (type === 'EDIT') {
-      setValue('EDIT', todo?.name || '')
-      inputFocus('EDIT')
-    }
-  }, [isOpen])
+  const { onSubmit } = useActionSubmit({
+    type,
+    subjectId: todo?.subjectId,
+    setIsConfirmed,
+    closeModal,
+    closeModalAll,
+    subjectColor,
+  })
+  const { onExitComplete } = useModalAction({
+    setValue,
+    setIsConfirmed,
+    setSubjectColor,
+    inputFocus,
+    isConfirmed,
+    type,
+    isOpen,
+    name: todo?.name,
+  })
 
   /**
    * * ADD와 EDIT의 공통된 부분이다.
@@ -88,10 +58,12 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
     <>
       <cs.ModalFooter>
         <cs.GreenButton>확인</cs.GreenButton>
-        <cs.WhiteButton onClick={onClickCloseButton}>취소</cs.WhiteButton>
+        <cs.WhiteButton type="button" onClick={closeModal}>
+          취소
+        </cs.WhiteButton>
       </cs.ModalFooter>
       <s.ModalTitle>{type === 'ADD' ? '과목추가' : '과목수정'}</s.ModalTitle>
-      <cs.ModalExitButton onClick={onClickCloseButton} />
+      {/* <cs.ModalExitButton onClick={closeModal} /> */}
       <s.InfoContainer>
         <s.UpperWrapper>
           과목명
@@ -103,7 +75,7 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
         </s.UpperWrapper>
         <s.LowerWrapper>
           <s.LowerTypo>색상선택</s.LowerTypo>
-          <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+          <ColorPicker assignSubjectColor={setSubjectColor} defaultColor={subjectColor} />
         </s.LowerWrapper>
       </s.InfoContainer>
     </>

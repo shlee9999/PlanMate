@@ -24,7 +24,6 @@ export const CloseButton = styled(CloseIcon)`
   top: 7px;
   right: 5px;
   width: 15px;
-  cursor: pointer;
 `
 
 export const Appointment = styled.div<{ $bgColor: string }>`

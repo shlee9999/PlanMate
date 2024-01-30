@@ -9,7 +9,7 @@ import {
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
 import modalExitButton from 'assets/images/close.svg'
-import { RightArrow } from 'assets/SvgComponents'
+import { CloseIcon, RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 import { Spinner } from 'components'
 import { BLOCK_SELECT } from 'constants/blockSelect'
@@ -105,15 +105,13 @@ export const ModalFooter = styled.div`
   text-align: center;
 `
 
-export const ModalExitButton = styled.button`
+export const ModalExitButton = styled(CloseIcon)`
   position: absolute;
   top: 16px;
   right: 24px;
-  border: none;
   width: 20px;
   height: 20px;
-  background: url(${modalExitButton}) no-repeat 0 0;
-  background-size: 20px 20px;
+  fill: ${(props) => props.theme.text.gray2};
 `
 
 export const LeftArrow = styled(RightArrow)`
