@@ -3,13 +3,6 @@ export enum StatsContainerType {
   stats,
 }
 
-export enum ViewportType {
-  XLARGE = 'XLARGE',
-  LARGE = 'LARGE',
-  MEDIUM = 'MEDIUM',
-  SMALL = 'SMALL',
-}
-
 export enum QueryKeyType {
   //* Timer
   todoList = 'todoList',

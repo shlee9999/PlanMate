@@ -1,5 +1,3 @@
-import { ViewportType } from 'enums'
-
 export type TodoItemType = {
   colorHex: string
   name: string
@@ -24,6 +22,18 @@ export type DateProps = {
   date: number
 }
 
-export type ViewportProps<T> = {
-  [key in ViewportType]: T
+export const DISPLAY = {
+  XLARGE: 'XLARGE',
+  LARGE: 'LARGE',
+  MEDIUM: 'MEDIUM',
+  SMALL: 'SMALL',
+} as const
+
+/**
+ * XLARGE | LARGE | MEDIUM | SMALL
+ */
+export type DisplayType = (typeof DISPLAY)[keyof typeof DISPLAY]
+
+export type DisplayProps<T> = {
+  [key in DisplayType]: T
 }
