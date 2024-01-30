@@ -15,6 +15,7 @@ import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 import { Appointment, SelectModal } from '..'
 import { useRemoveAppointMutation } from '../../hooks/mutations'
 import { QueryKeys } from 'types'
+import { useModal } from 'hooks'
 
 type SchedulerProps = {
   className?: string
@@ -31,8 +32,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
       keepPreviousData: true,
     }
   )
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isOpen: isSelectModalOpen, closeModal: closeSelectModal, openModal: openSelectModal } = useModal()
   const { scheduleName: text, colorHex: bgColor } = useSelector((state: RootState) => state.selectedInfo)
   const dispatch = useDispatch()
   const appointments = useSelector((state: RootState) => state.appointments)
@@ -49,7 +49,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   }
   const openModal = (title: '일정추가' | '일정수정') => {
     setModalTitle(title)
-    setIsModalOpen(true)
+    openSelectModal()
   }
   // dispatch(initializeAppoint(data.map((app) => ({}))))
   const onExitComplete = () => {
@@ -66,7 +66,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
     )
   }
   const closeModal = () => {
-    setIsModalOpen(false)
+    closeSelectModal()
     setSelectedCells([])
   }
 
@@ -184,7 +184,12 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
           ))}
         </tbody>
       </s.Table>
-      <SelectModal closeModal={closeModal} title={modalTitle} isOpen={isModalOpen} onExitComplete={onExitComplete} />
+      <SelectModal
+        closeModal={closeModal}
+        title={modalTitle}
+        isOpen={isSelectModalOpen}
+        onExitComplete={onExitComplete}
+      />
     </s.Root>
   )
 }
