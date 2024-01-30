@@ -1,18 +1,18 @@
 import * as s from './styled'
 import * as cs from 'commonStyled'
-import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { TimeSelect } from '.'
 import { ColorPicker } from 'components/'
 import { RootState } from 'modules'
 import { dateUtils } from 'utils'
-import { updateProp } from 'modules/selectedInfo'
 import { defaultColor } from 'constants/color'
 import { AnimatePresence } from 'framer-motion'
-import { useAddAppointMutation, useEditAppointMutation } from '../../hooks/mutations/'
 import { useForm } from 'hooks'
 import { PlannerType } from 'api/types'
 import { MAX_APPOINT_NAME_CHARACTER_COUNT } from 'constants/maxCharacterCount'
+import { useOnSubmit } from './hooks/useOnSubmit'
+import { useInitialization } from './hooks/useInitialization'
 
 type SelectModalProps = {
   closeModal: () => void
@@ -22,46 +22,23 @@ type SelectModalProps = {
 }
 type IForm = Pick<PlannerType, 'scheduleName'>
 export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: SelectModalProps) => {
-  const dispatch = useDispatch()
   const { startAt, endAt, scheduleName, colorHex, plannerId, day } = useSelector(
     (state: RootState) => state.selectedInfo
   )
   const { registerInput, handleSubmit, inputFocus, setValue } = useForm<IForm>()
+  const { onSubmit } = useOnSubmit({ startAt, endAt, colorHex, plannerId, day, closeModal, type })
   const [subjectColor, setSubjectColor] = useState<string>(type === 'EDIT' ? colorHex : defaultColor)
-  const mutateAddAppoint = useAddAppointMutation()
-  const mutateEditAppoint = useEditAppointMutation()
-  const assignSubjectColor = (color: string) => setSubjectColor(color)
-  const onSubmit = (data: IForm) => {
-    if (type === 'ADD') {
-      mutateAddAppoint({ colorHex, startAt, day, endAt, scheduleName: data.scheduleName })
-    } else {
-      // 수정
-      mutateEditAppoint({
-        colorHex,
-        startAt,
-        day,
-        endAt,
-        scheduleName: data.scheduleName,
-        plannerId,
-      })
-    }
-    closeModal()
-  }
-  const onClickCloseButton = (e: React.MouseEvent) => {
-    e.preventDefault()
-    closeModal()
-  }
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
+  const assignSubjectColor = (color: string) => setSubjectColor(color)
 
-  useEffect(() => {
-    setValue('scheduleName', scheduleName)
-    inputFocus('scheduleName')
-    setSubjectColor(defaultColor)
-  }, [isOpen])
-
-  useEffect(() => {
-    dispatch(updateProp('colorHex', subjectColor))
-  }, [subjectColor])
+  useInitialization({
+    isOpen,
+    setScheduleNameInput: (scheduleName: string) => setValue('scheduleName', scheduleName),
+    scheduleNameInputFocus: () => inputFocus('scheduleName'),
+    initializeSubjectColor: () => setSubjectColor(defaultColor),
+    subjectColor,
+    scheduleName,
+  })
 
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
@@ -77,7 +54,9 @@ export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: Select
             <s.Form onSubmit={handleSubmit(onSubmit)}>
               <s.ModalFooter>
                 <cs.GreenButton>확인</cs.GreenButton>
-                <cs.WhiteButton onClick={onClickCloseButton}>취소</cs.WhiteButton>
+                <cs.WhiteButton type="button" onClick={closeModal}>
+                  취소
+                </cs.WhiteButton>
               </s.ModalFooter>
               <s.ModalTitle>{type === 'ADD' ? '일정추가' : '일정수정'}</s.ModalTitle>
               <s.Title>{dateUtils.getFormattedDate(dateUtils.getDateProps(day))}</s.Title>

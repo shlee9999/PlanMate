@@ -1,5 +1,5 @@
 import React from 'react'
-import { ColorButtonRoot } from './styled'
+import * as s from './styled'
 
 export const ColorButton = ({
   color,
@@ -14,11 +14,12 @@ export const ColorButton = ({
   isSelected: boolean
   setSelectedColor: () => void
 }) => {
-  const onClickButton = (e: React.MouseEvent) => {
-    e.preventDefault() //* form 내에 있을 시 submit돼버림
+  const onClickButton = () => {
     assignSubjectColor(color)
     setSelectedColor()
     if (closeModal) closeModal()
   }
-  return <ColorButtonRoot color={color} onClick={onClickButton} className={isSelected ? 'isSelected' : ''} />
+  return (
+    <s.ColorButton type="button" color={color} onClick={onClickButton} className={isSelected ? 'isSelected' : ''} />
+  )
 }

@@ -28,7 +28,7 @@ export const ColorPickerModalWrapper = styled(ModalWrapper)`
   opacity: 0;
   z-index: 100;
 `
-export const ColorButtonRoot = styled.button`
+export const ColorButton = styled.button`
   border-radius: 50%;
   width: 24px;
   height: 24px;
