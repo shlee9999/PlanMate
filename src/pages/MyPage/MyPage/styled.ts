@@ -103,7 +103,6 @@ export const RightContainer = styled(InfoBox)`
   @media screen and (${(props) => props.theme.medium}) {
     width: 100%;
     height: 500px;
-    padding: 0 5px;
   }
 `
 
