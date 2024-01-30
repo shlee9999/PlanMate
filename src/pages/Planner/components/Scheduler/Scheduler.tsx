@@ -1,11 +1,9 @@
 import * as s from './styled'
 import React, { FC, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'modules'
+import { useDispatch } from 'react-redux'
 import { dateUtils } from 'utils'
 import { numberUtils } from 'utils'
 import { updateInfo } from 'modules/selectedInfo'
-import { removeAppoint } from 'modules/appointments'
 import { defaultColor } from 'constants/color'
 import { PlannerType } from 'api/types'
 import { AnimatePresence } from 'framer-motion'
@@ -33,7 +31,6 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
   const mutateRemoveAppoint = useRemoveAppointMutation()
   const onClickClose = (id: number) => (e: React.MouseEvent) => {
     e.stopPropagation()
-    dispatch(removeAppoint(id))
     mutateRemoveAppoint({ plannerId: id })
   }
   const openModal = (title: '일정추가' | '일정수정') => {

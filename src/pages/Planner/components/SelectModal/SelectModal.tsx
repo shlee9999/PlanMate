@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TimeSelect } from '.'
 import { ColorPicker } from 'components/'
-import { addAppoint, updateAppoint } from 'modules/appointments'
 import { RootState } from 'modules'
 import { dateUtils } from 'utils'
 import { updateProp } from 'modules/selectedInfo'
@@ -35,29 +34,9 @@ export const SelectModal = ({ closeModal, title, isOpen, onExitComplete }: Selec
   const assignSubjectColor = (color: string) => setSubjectColor(color)
   const onSubmit = ({ scheduleName }: IForm) => {
     if (type === 'ADD') {
-      dispatch(
-        addAppoint({
-          scheduleName,
-          startAt,
-          endAt,
-          colorHex,
-          plannerId: new Date().getTime(),
-          day,
-        })
-      )
       mutateAddAppoint({ colorHex, startAt, day, endAt, scheduleName })
     } else {
       // 수정
-      dispatch(
-        updateAppoint({
-          scheduleName,
-          startAt,
-          endAt,
-          colorHex,
-          plannerId,
-          day,
-        })
-      )
       mutateEditAppoint({
         colorHex,
         startAt,
