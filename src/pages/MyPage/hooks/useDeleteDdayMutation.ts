@@ -1,6 +1,6 @@
 import { DeleteDdayRequestProps, deleteDday } from 'api/dday/deleteDday'
 import { DDayEntityType } from 'api/types/ScheduleType'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseDeleteScheduleMutationProps = DeleteDdayRequestProps & {
@@ -14,8 +14,8 @@ function useDeleteDdayMutation() {
     ({ dDayId: scheduleId }: UseDeleteScheduleMutationProps) => deleteDday({ dDayId: scheduleId }),
     {
       onMutate: ({ dDayId: scheduleId, callBack }) => {
-        const prevData = queryClient.getQueryData([QueryKeyType.dDayList])
-        queryClient.setQueryData<DDayEntityType[]>(QueryKeyType.dDayList, (prev) =>
+        const prevData = queryClient.getQueryData([QueryKeys.dDayList])
+        queryClient.setQueryData<DDayEntityType[]>(QueryKeys.dDayList, (prev) =>
           prev.filter((dday) => dday.dDayId !== scheduleId)
         )
         callBack()
@@ -26,7 +26,7 @@ function useDeleteDdayMutation() {
       },
       onError: (err, data, context) => {
         console.error(err)
-        queryClient.setQueryData([QueryKeyType.dDayList], context.prevData)
+        queryClient.setQueryData([QueryKeys.dDayList], context.prevData)
       },
     }
   )

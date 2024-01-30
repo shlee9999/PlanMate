@@ -1,7 +1,7 @@
 import { CreateCommentRequestProps, createComment } from 'api/comment/createComment'
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { CommentType } from 'api/types'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useQueryClient, useMutation } from 'react-query'
 import { dateUtils } from 'utils'
 
@@ -16,7 +16,7 @@ function useCreateCommentMutation() {
   const { mutate } = useMutation(({ content, postId }: MutationProps) => createComment({ content, postId }), {
     onMutate: ({ isPostAuthor, currentPage, content, postId, callBack, memberName }) => {
       const previousComments = queryClient.getQueryData<FindAllCommentsResponseProps>([
-        QueryKeyType.commentData,
+        QueryKeys.commentData,
         postId,
         currentPage + '',
       ])
@@ -32,7 +32,7 @@ function useCreateCommentMutation() {
         isPostAuthor,
       }
       queryClient.setQueryData<FindAllCommentsResponseProps>(
-        [QueryKeyType.commentData, postId, currentPage + ''],
+        [QueryKeys.commentData, postId, currentPage + ''],
         (prev) => ({
           ...prev,
           totalCount: prev.totalCount + 1,
@@ -44,7 +44,7 @@ function useCreateCommentMutation() {
     },
     onSuccess: (data, { postId, currentPage }, context) => {
       queryClient.setQueryData<FindAllCommentsResponseProps>(
-        [QueryKeyType.commentData, postId, currentPage + ''],
+        [QueryKeys.commentData, postId, currentPage + ''],
         (prev) => {
           const updatedComment = prev.commentDtoList[0]
           updatedComment.commentId = data.commentId
@@ -55,7 +55,7 @@ function useCreateCommentMutation() {
     },
     onError: (err, { postId, currentPage }, context) => {
       // 오류 발생 시 원래 상태로 복원
-      queryClient.setQueryData([[QueryKeyType.commentData, postId, currentPage + '']], context.previousComments)
+      queryClient.setQueryData([[QueryKeys.commentData, postId, currentPage + '']], context.previousComments)
       console.error('create error')
       console.error(err)
     },

@@ -37,3 +37,25 @@ export type DisplayType = (typeof DISPLAY)[keyof typeof DISPLAY]
 export type DisplayProps<T> = {
   [key in DisplayType]: T
 }
+
+export const QueryKeys = {
+  //* Timer
+  todoList: 'todoList',
+  timeInfo: 'timeInfo',
+  fixedDday: 'fixedDday',
+  //* Stats
+  todayStats: 'todayStats',
+  //* Planner - Scheduler
+  plannerData: 'plannerData',
+  //* ExamInfo
+  findAllResponse: 'findAllResponse', //*ExamInfoPage
+  detailData: 'detailData', //* Detail
+  commentData: 'commentData',
+  replyList: 'replyList', //*Comment
+
+  //*MyPage
+  dDayList: 'dDayList',
+  myPostInfo: 'myPostInfo',
+  myScrapInfo: 'myScrapInfo',
+  myCommentInfo: 'myCommentInfo',
+}

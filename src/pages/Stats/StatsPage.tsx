@@ -9,18 +9,19 @@ import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
 import { DateProps } from 'types'
 import { defaultStats } from 'constants/defaultStats'
 import { StatsContainer } from 'components'
-import { QueryKeyType, StatsContainerType } from 'enums'
+import { StatsContainerType } from 'enums'
+import { QueryKeys } from 'types'
 
 export const StatsPage = () => {
   const [selectedDate, setSelectedDate] = useState<DateProps>(() => {
     const { year, month, date } = dateUtils.getDateProps(new Date())
     return { year, month, date }
   })
-  const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>([QueryKeyType.todayStats], () =>
+  const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>([QueryKeys.todayStats], () =>
     checkTodayStats()
   )
   const { data: selectedMonthStats, isLoading: isSelectedLoading } = useQuery<ResponseStats[]>(
-    [QueryKeyType.timeInfo, selectedDate.month],
+    [QueryKeys.timeInfo, selectedDate.month],
     () =>
       checkStatsMonthly({
         yearMonth: dateUtils.getYYYYMMDD({ ...selectedDate, month: selectedDate.month + 1 }),

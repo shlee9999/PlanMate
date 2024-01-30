@@ -1,6 +1,6 @@
 import { CreatePostRequestProps, createPost } from 'api/post/createPost'
 import { FindAllPostResponseProps } from 'api/post/find/findAll'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { RootState } from 'modules'
 import { useMutation, useQueryClient } from 'react-query'
 import { useSelector } from 'react-redux'
@@ -18,7 +18,7 @@ function useCreatePostMutation() {
     ({ content, tagList, title }: UseCreatePostMutationProps) => createPost({ content, tagList, title }),
     {
       onMutate: ({ content, tagList, title }) => {
-        const prevData = queryClient.getQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''])
+        const prevData = queryClient.getQueryData<FindAllPostResponseProps>([QueryKeys.findAllResponse, 1, ''])
         if (!prevData || !prevData.postDtoList) return { prevData: { ...prevData, postDtoList: [] } }
         const newPost = {
           content,
@@ -34,7 +34,7 @@ function useCreatePostMutation() {
           isMyPost: true,
           commentCount: 0,
         }
-        queryClient.setQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''], (prev) => ({
+        queryClient.setQueryData<FindAllPostResponseProps>([QueryKeys.findAllResponse, 1, ''], (prev) => ({
           ...prev,
           postDtoList: [newPost, ...prev.postDtoList.slice(0, 9)],
         }))
@@ -44,7 +44,7 @@ function useCreatePostMutation() {
         console.log('success')
         if (context.prevData.postDtoList.length !== 0)
           //* 만드는데 성공하면 id값을 백엔드에 맞게 바꿔줌
-          queryClient.setQueryData<FindAllPostResponseProps>([QueryKeyType.findAllResponse, 1, ''], (prev) => {
+          queryClient.setQueryData<FindAllPostResponseProps>([QueryKeys.findAllResponse, 1, ''], (prev) => {
             const createdPost = { ...prev.postDtoList[0] }
             createdPost.postId = data.postId
             return {
@@ -55,7 +55,7 @@ function useCreatePostMutation() {
         callBack()
       },
       onError: (err, data, context) => {
-        queryClient.setQueryData([QueryKeyType.findAllResponse, 1, ''], context.prevData)
+        queryClient.setQueryData([QueryKeys.findAllResponse, 1, ''], context.prevData)
         console.error(err)
       },
     }

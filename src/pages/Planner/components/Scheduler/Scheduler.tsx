@@ -14,7 +14,7 @@ import { useQuery } from 'react-query'
 import { FindPlannerResponseProps, findPlanner } from 'api/planner/findPlanner'
 import { Appointment, SelectModal } from '..'
 import { useRemoveAppointMutation } from '../../hooks/mutations'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 
 type SchedulerProps = {
   className?: string
@@ -24,7 +24,7 @@ type SchedulerProps = {
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
   const { data: plannerData, isLoading } = useQuery<FindPlannerResponseProps>(
-    [QueryKeyType.plannerData],
+    [QueryKeys.plannerData],
     () => findPlanner(),
     {
       initialData: [],

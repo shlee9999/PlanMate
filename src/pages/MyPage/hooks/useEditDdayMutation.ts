@@ -1,5 +1,5 @@
 import { EditDdayRequestProps, editDday } from 'api/dday/editDday'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseEditScheduleMutationProps = EditDdayRequestProps & {
@@ -20,7 +20,7 @@ function useEditDdayMutation() {
         console.error(err)
       },
       onSettled: () => {
-        queryClient.invalidateQueries([QueryKeyType.dDayList])
+        queryClient.invalidateQueries([QueryKeys.dDayList])
       },
     }
   )

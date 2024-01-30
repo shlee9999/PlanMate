@@ -1,6 +1,6 @@
 import { AddDdayRequestProps, addDday } from 'api/dday/addDday'
 import { FindAllDdayResponseProps } from 'api/dday/findAllDday'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useQueryClient, useMutation } from 'react-query'
 import { dateUtils } from 'utils'
 
@@ -14,8 +14,8 @@ function useAddDdayMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ targetDate, title }: AddScheduleMutationProps) => addDday({ targetDate, title }), {
     onMutate: ({ targetDate, title }) => {
-      const prevData = queryClient.getQueryData([QueryKeyType.dDayList])
-      queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeyType.dDayList], (prev) => [
+      const prevData = queryClient.getQueryData([QueryKeys.dDayList])
+      queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) => [
         ...prev,
         {
           dDayId: new Date().getTime(),
@@ -29,7 +29,7 @@ function useAddDdayMutation() {
     },
     onSuccess: ({ dDayId }, { callBack }) => {
       console.log('success add dDay')
-      queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeyType.dDayList], (prev) => {
+      queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) => {
         const createdDday = prev[prev.length - 1]
         createdDday.dDayId = dDayId
         return prev.slice(0, -1).concat(createdDday)
@@ -37,7 +37,7 @@ function useAddDdayMutation() {
       callBack()
     },
     onError: (err, { callBack }, context) => {
-      queryClient.setQueryData([QueryKeyType.dDayList], context.prevData)
+      queryClient.setQueryData([QueryKeys.dDayList], context.prevData)
       console.error(err)
       callBack()
     },

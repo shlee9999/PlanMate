@@ -1,7 +1,7 @@
 import { CheckPostResponseProps } from 'api/post/checkPost'
 import { scrapPost } from 'api/post/scrapPost'
 import { CommentType } from 'api/types'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useMutation, useQueryClient } from 'react-query'
 
 type MutationProps = Pick<CommentType, 'postId'> & {
@@ -13,8 +13,8 @@ function useScrapPostMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ postId }: MutationProps) => scrapPost({ postId }), {
     onMutate: ({ postId, mode }) => {
-      const previousData = queryClient.getQueryData([QueryKeyType.detailData, mode, postId])
-      queryClient.setQueryData([QueryKeyType.detailData, mode, postId], (prev: CheckPostResponseProps) => ({
+      const previousData = queryClient.getQueryData([QueryKeys.detailData, mode, postId])
+      queryClient.setQueryData([QueryKeys.detailData, mode, postId], (prev: CheckPostResponseProps) => ({
         ...prev,
         isMyScraped: !prev.isMyScraped,
         scrapCount: prev.isMyScraped ? prev.scrapCount - 1 : prev.scrapCount + 1,
@@ -23,7 +23,7 @@ function useScrapPostMutation() {
     },
     onError: (err, { postId, mode }, context) => {
       console.error(err)
-      queryClient.setQueryData([QueryKeyType.detailData, mode, postId], context.previousData)
+      queryClient.setQueryData([QueryKeys.detailData, mode, postId], context.previousData)
     },
   })
 

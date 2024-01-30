@@ -1,6 +1,6 @@
 import { FindAllChildResponseProps } from 'api/comment/findAllChild'
 import { LikeCommentRequestProps, likeComment } from 'api/comment/likeComment'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useQueryClient, useMutation } from 'react-query'
 
 type UseLikeReplyMutationProps = LikeCommentRequestProps & {
@@ -14,8 +14,8 @@ function useLikeReplyMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ commentId }: UseLikeReplyMutationProps) => likeComment({ commentId }), {
     onMutate: ({ commentId, parentCommentId }: UseLikeReplyMutationProps) => {
-      const previousData = queryClient.getQueryData([QueryKeyType.replyList, parentCommentId])
-      queryClient.setQueryData<FindAllChildResponseProps>([QueryKeyType.replyList, parentCommentId], (prev) =>
+      const previousData = queryClient.getQueryData([QueryKeys.replyList, parentCommentId])
+      queryClient.setQueryData<FindAllChildResponseProps>([QueryKeys.replyList, parentCommentId], (prev) =>
         prev.map((prevComment) =>
           prevComment.commentId === commentId
             ? {
@@ -33,10 +33,10 @@ function useLikeReplyMutation() {
     },
     onError: (err, { parentCommentId }, context) => {
       console.error(err)
-      queryClient.setQueryData([QueryKeyType.replyList, parentCommentId], context.previousData)
+      queryClient.setQueryData([QueryKeys.replyList, parentCommentId], context.previousData)
     },
     onSettled: (data, err, { parentCommentId }) =>
-      queryClient.invalidateQueries([QueryKeyType.replyList, parentCommentId]),
+      queryClient.invalidateQueries([QueryKeys.replyList, parentCommentId]),
   })
   return mutate
 }

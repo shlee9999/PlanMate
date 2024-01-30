@@ -6,7 +6,7 @@ import { useQuery } from 'react-query'
 import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
 import { useAddDdayMutation, useEditDdayMutation, useDeleteDdayMutation } from '../hooks'
 import { MAX_DDAY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useForm } from 'hooks'
 
 type EventCalendarProps = {
@@ -21,7 +21,7 @@ export const DdayCalendarPage: FC<EventCalendarProps> = ({ className }) => {
   const [selectedDate, setSelectedDate] = useState(dateUtils.getDateProps(new Date()))
   const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
   const setDdayTitle = (title: string) => setValue('dDayTitle', title)
-  const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>([QueryKeyType.dDayList], () => findAllDday())
+  const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>([QueryKeys.dDayList], () => findAllDday())
   const onClickNextYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year'))
   const onClickPrevYear = () => setSelectedDate(dateUtils.getFutureDateProps(selectedDate, 'year', -1))
   const navigate = useNavigate()

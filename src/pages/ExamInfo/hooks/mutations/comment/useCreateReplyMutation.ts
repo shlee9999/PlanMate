@@ -1,7 +1,7 @@
 import { CreateReplyRequestProps, createReply } from 'api/comment/createChildComment'
 import { FindAllChildResponseProps } from 'api/comment/findAllChild'
 import { CommentType } from 'api/types'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useQueryClient, useMutation } from 'react-query'
 import { dateUtils } from 'utils'
 
@@ -18,8 +18,8 @@ function useCreateReplyMutation() {
       createReply({ content, parentCommentId, postId }),
     {
       onMutate: ({ parentCommentId, content, memberName, postId, isPostAuthor }) => {
-        const prevData = queryClient.getQueryData<FindAllChildResponseProps>([QueryKeyType.replyList, parentCommentId])
-        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeyType.replyList, parentCommentId], (prev) =>
+        const prevData = queryClient.getQueryData<FindAllChildResponseProps>([QueryKeys.replyList, parentCommentId])
+        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeys.replyList, parentCommentId], (prev) =>
           [
             {
               commentId: new Date().getTime(),
@@ -37,7 +37,7 @@ function useCreateReplyMutation() {
         return { prevData }
       },
       onSuccess: (data, { parentCommentId }, context) => {
-        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeyType.replyList, parentCommentId], (prev) => {
+        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeys.replyList, parentCommentId], (prev) => {
           const createdReply = prev[0]
           createdReply.commentId = data.commentId
           return [createdReply, ...context.prevData]
@@ -45,12 +45,12 @@ function useCreateReplyMutation() {
         console.log('success')
       },
       onError: (err, { parentCommentId }, context) => {
-        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeyType.replyList, parentCommentId], context.prevData)
+        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeys.replyList, parentCommentId], context.prevData)
         console.error(err)
       },
       onSettled: (data, err, { parentCommentId, callBack }) => {
         callBack()
-        queryClient.invalidateQueries([QueryKeyType.replyList, parentCommentId])
+        queryClient.invalidateQueries([QueryKeys.replyList, parentCommentId])
       },
     }
   )

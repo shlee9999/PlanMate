@@ -1,7 +1,7 @@
 import { FindAllCommentsResponseProps } from 'api/comment/findAll'
 import { likeComment } from 'api/comment/likeComment'
 import { CommentType } from 'api/types'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useMutation, useQueryClient } from 'react-query'
 
 type MutationProps = Pick<CommentType, 'commentId' | 'postId' | 'currentPage'>
@@ -16,9 +16,9 @@ function useLikeCommentMutation() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ commentId }: MutationProps) => likeComment({ commentId }), {
     onMutate: ({ commentId, postId, currentPage }: MutationProps) => {
-      const previousData = queryClient.getQueryData([QueryKeyType.commentData, postId, currentPage + ''])
+      const previousData = queryClient.getQueryData([QueryKeys.commentData, postId, currentPage + ''])
       queryClient.setQueryData<FindAllCommentsResponseProps>(
-        [QueryKeyType.commentData, postId, currentPage + ''],
+        [QueryKeys.commentData, postId, currentPage + ''],
         (prev) => ({
           ...prev,
           commentDtoList: prev.commentDtoList.map((prevComment) =>
@@ -36,10 +36,10 @@ function useLikeCommentMutation() {
     },
     onError: (err, { postId, currentPage }, context) => {
       console.error(err)
-      queryClient.setQueryData([QueryKeyType.commentData, postId, currentPage + ''], context.previousData)
+      queryClient.setQueryData([QueryKeys.commentData, postId, currentPage + ''], context.previousData)
     },
     onSettled: (data, err, { postId, currentPage }) =>
-      queryClient.invalidateQueries([QueryKeyType.commentData, postId, currentPage + '']),
+      queryClient.invalidateQueries([QueryKeys.commentData, postId, currentPage + '']),
   })
 
   return mutate

@@ -16,7 +16,7 @@ import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/f
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { ResponseCommentType, ResponsePostType } from 'api/types'
 import { PostItem, Comment } from 'components'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 
 type TabInfoListProps = {
   title: string
@@ -33,21 +33,21 @@ export const MyPage: FC = () => {
   const [isEllipsisModalOpen, setIsEllipsisModalOpen] = useState(false)
   const [isProfileEditModalOpen, setIsProfileEditModalOpen] = useState(false)
   const [isResignModalOpen, setIsResignModalOpen] = useState(false)
-  const { data: dDayList, isLoading: isDdayLoading } = useQuery<FindAllDdayResponseProps>([QueryKeyType.dDayList], () =>
+  const { data: dDayList, isLoading: isDdayLoading } = useQuery<FindAllDdayResponseProps>([QueryKeys.dDayList], () =>
     findAllDday()
   )
   const { data: myPostInfo, isLoading: isPostLoading } = useQuery<FindPostResponseProps>(
-    [QueryKeyType.myPostInfo, currentPage],
+    [QueryKeys.myPostInfo, currentPage],
     () => findPost({ pages: currentPage - 1 }),
     { keepPreviousData: true }
   )
   const { data: myScrapInfo, isLoading: isScrapLoading } = useQuery<FindScrappedPostResponseProps>(
-    [QueryKeyType.myScrapInfo, currentPage],
+    [QueryKeys.myScrapInfo, currentPage],
     () => findScrappedPost({ pages: currentPage - 1 }),
     { keepPreviousData: true }
   )
   const { data: myCommentInfo, isLoading: isCommentLoading } = useQuery<FindCommentResponseProps>(
-    [QueryKeyType.myCommentInfo, currentPage],
+    [QueryKeys.myCommentInfo, currentPage],
     () => findComment({ pages: currentPage - 1 }),
     { keepPreviousData: true }
   )

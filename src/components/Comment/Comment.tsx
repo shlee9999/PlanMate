@@ -12,7 +12,7 @@ import { MAX_COMMENT_CHARACTER_COUNT, MAX_REPLY_CHARACTER_COUNT } from 'constant
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { ResponseCommentType } from 'api/types'
 import { Reply } from 'components'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useForm } from 'hooks'
 
 type CommentProps = {
@@ -72,7 +72,7 @@ export const Comment: FC<CommentProps> = ({
   }
   // const [currentReplyPage, setCurrentReplyPage] = useState(1) // todo: Request에 페이지 생기면 넣기
   const { data: replyList } = useQuery<FindAllChildResponseProps>(
-    [QueryKeyType.replyList, commentId],
+    [QueryKeys.replyList, commentId],
     () => findAllChild({ parentCommentId: commentId, postId }),
     { initialData: [] }
   )

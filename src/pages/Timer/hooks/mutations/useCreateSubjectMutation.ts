@@ -1,6 +1,6 @@
 import { CreateSubjectRequestProps, createSubject } from 'api/subject/createSubject'
 import { StudyTimeResponseProps } from 'api/subject/studyTime'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useMutation, useQueryClient } from 'react-query'
 
 type CreateSubjectMutationProps = CreateSubjectRequestProps
@@ -16,8 +16,8 @@ function useCreateSubjectMutation() {
       }),
     {
       onMutate: ({ colorHex, name }) => {
-        const prevData = queryClient.getQueryData([QueryKeyType.todoList])
-        queryClient.setQueryData<StudyTimeResponseProps>([QueryKeyType.todoList], (prev) =>
+        const prevData = queryClient.getQueryData([QueryKeys.todoList])
+        queryClient.setQueryData<StudyTimeResponseProps>([QueryKeys.todoList], (prev) =>
           prev.concat({
             subjectId: new Date().getTime(),
             name,
@@ -32,7 +32,7 @@ function useCreateSubjectMutation() {
       onSuccess: (data, vars, context) => {
         const prevData = context.prevData as StudyTimeResponseProps
         queryClient.setQueryData(
-          [QueryKeyType.todoList],
+          [QueryKeys.todoList],
           prevData.concat({
             ...data,
             studyTimeHours: 0,
@@ -43,11 +43,11 @@ function useCreateSubjectMutation() {
         console.log('success create')
       },
       onError: (err, data, context) => {
-        queryClient.setQueryData([QueryKeyType.todoList], context.prevData)
+        queryClient.setQueryData([QueryKeys.todoList], context.prevData)
         console.error(err)
       },
       onSettled: () => {
-        queryClient.invalidateQueries([QueryKeyType.todayStats])
+        queryClient.invalidateQueries([QueryKeys.todayStats])
       },
     }
   )

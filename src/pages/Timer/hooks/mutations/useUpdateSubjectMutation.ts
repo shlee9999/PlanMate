@@ -1,5 +1,5 @@
 import { UpdateSubjectRequestProps, updateSubject } from 'api/subject/updateSubject'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useMutation, useQueryClient } from 'react-query'
 
 type UpdateSubjectProps = UpdateSubjectRequestProps
@@ -19,8 +19,8 @@ function useUpdateSubjectMutation() {
         console.log('update success')
       },
       onSettled: () => {
-        queryClient.invalidateQueries([QueryKeyType.todoList])
-        queryClient.invalidateQueries([QueryKeyType.todayStats])
+        queryClient.invalidateQueries([QueryKeys.todoList])
+        queryClient.invalidateQueries([QueryKeys.todayStats])
       },
     }
   )

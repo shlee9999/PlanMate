@@ -14,7 +14,8 @@ import { NoContentDescription, StatsContainer } from 'components'
 import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
-import { QueryKeyType, StatsContainerType } from 'enums'
+import { StatsContainerType } from 'enums'
+import { QueryKeys } from 'types'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
@@ -26,9 +27,7 @@ export const TimerPage: FC = () => {
     time: totalTime,
     isRunning: isTotalTimerRunning,
   } = useTimer({ defaultTime: 0 })
-  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeyType.todoList], () =>
-    studyTime()
-  )
+  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeys.todoList], () => studyTime())
   const todoList: TodoItemType[] =
     data?.map((todo) => ({
       colorHex: todo.colorHex,
@@ -40,10 +39,10 @@ export const TimerPage: FC = () => {
         second: todo.studyTimeSeconds,
       }),
     })) || []
-  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>([QueryKeyType.todayStats], () =>
+  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>([QueryKeys.todayStats], () =>
     checkTodayStats()
   )
-  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeyType.fixedDday], () => findFixedDday())
+  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeys.fixedDday], () => findFixedDday())
   const {
     startTimer: startBreakTimer,
     stopTimer: stopBreakTimer,

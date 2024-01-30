@@ -1,5 +1,5 @@
 import { RemoveSubjectRequestProps, deleteSubject } from 'api/subject/deleteSubject'
-import { QueryKeyType } from 'enums'
+import { QueryKeys } from 'types'
 import { useMutation, useQueryClient } from 'react-query'
 import { TodoItemType } from 'types'
 
@@ -15,8 +15,8 @@ function useDeleteSubjectMutation() {
       }),
     {
       onMutate: ({ subjectId }) => {
-        const prevData = queryClient.getQueryData([QueryKeyType.todoList])
-        queryClient.setQueryData<TodoItemType[]>([QueryKeyType.todoList], (prev) =>
+        const prevData = queryClient.getQueryData([QueryKeys.todoList])
+        queryClient.setQueryData<TodoItemType[]>([QueryKeys.todoList], (prev) =>
           prev.filter((todo) => subjectId !== todo.subjectId)
         )
 
@@ -27,10 +27,10 @@ function useDeleteSubjectMutation() {
       },
       onError: (err, vars, context) => {
         console.error(err)
-        queryClient.setQueryData([QueryKeyType.todoList], context.prevData)
+        queryClient.setQueryData([QueryKeys.todoList], context.prevData)
       },
       onSettled: () => {
-        queryClient.invalidateQueries([QueryKeyType.todayStats])
+        queryClient.invalidateQueries([QueryKeys.todayStats])
       },
     }
   )
