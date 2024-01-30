@@ -59,3 +59,9 @@ export const QueryKeys = {
   myScrapInfo: 'myScrapInfo',
   myCommentInfo: 'myCommentInfo',
 }
+
+export const StatsContainerPages = {
+  timer: 0,
+  stats: 1,
+}
+export type StatsContainerType = (typeof StatsContainerPages)[keyof typeof StatsContainerPages]

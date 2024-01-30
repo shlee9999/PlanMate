@@ -1,6 +1,6 @@
 import * as s from './styled'
 import { useState, FC, useEffect } from 'react'
-import { TimeProps, TodoItemType } from 'types'
+import { StatsContainerPages, TimeProps, TodoItemType } from 'types'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'pages/Timer/hooks'
 import { SuggestModal } from 'pages/Timer/components/'
@@ -14,7 +14,7 @@ import { NoContentDescription, StatsContainer } from 'components'
 import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
-import { StatsContainerType } from 'enums'
+import { StatsContainerType } from 'types'
 import { QueryKeys } from 'types'
 
 export const TimerPage: FC = () => {
@@ -126,7 +126,7 @@ export const TimerPage: FC = () => {
               {isStatsLoading ? (
                 <CenterSpinner>Loading...</CenterSpinner>
               ) : (
-                <StatsContainer type={StatsContainerType.timer} dataSource={todayStatsData} />
+                <StatsContainer type={StatsContainerPages.timer} dataSource={todayStatsData} />
               )}
             </s.StatsBox>
           </s.RightContainer>

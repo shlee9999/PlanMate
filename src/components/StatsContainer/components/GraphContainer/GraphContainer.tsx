@@ -4,13 +4,13 @@ import todayDotImg from 'assets/images/today_dot.png'
 import yesterdayDotImg from 'assets/images/yesterday_dot.png'
 import { BumpGraph } from './BumphGraph'
 import { CompareTitle } from './styled'
-import { StatsContainerType } from 'enums'
+import { StatsContainerPages, StatsContainerType } from 'types'
 
 type GraphContainerProps = {
   type: StatsContainerType
 }
 export const GraphContainer = ({ type }: GraphContainerProps) => {
-  return type === StatsContainerType.stats ? (
+  return type === StatsContainerPages.stats ? (
     <s.StatsGraphContainer>
       <s.StatsTypoContainer>
         <CompareTitle>오후 7시까지의 비교</CompareTitle>

@@ -4,7 +4,7 @@ import { PieChart } from './PieChart'
 import { StudyTimeEntry } from 'api/types'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
-import { StatsContainerType } from 'enums'
+import { StatsContainerType } from 'types'
 
 export interface PieChartData {
   name: string

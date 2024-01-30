@@ -3,7 +3,7 @@ import * as s from './styled'
 import { StudyTime } from './StudyTime'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
-import { StatsContainerType } from 'enums'
+import { StatsContainerType } from 'types'
 
 //총 공부시간, 최대 집중 시간
 

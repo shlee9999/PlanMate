@@ -1,10 +1,10 @@
 import * as s from './styled'
 import React from 'react'
 import { GraphContainer, PieChartContainer, ShareContainer, StudyTimeContainer } from './components'
-import { DateProps } from 'types'
+import { DateProps, StatsContainerPages } from 'types'
 import { ResponseStats } from 'api/types'
 import { dateUtils } from 'utils'
-import { StatsContainerType } from 'enums'
+import { StatsContainerType } from 'types'
 
 interface InfoContainerProps {
   selectedDate?: DateProps
@@ -13,7 +13,7 @@ interface InfoContainerProps {
 }
 
 export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource, type }) => {
-  if (type === StatsContainerType.stats && !selectedDate) return null
+  if (type === StatsContainerPages.stats && !selectedDate) return null
 
   const dateProps = selectedDate || dateUtils.getDateProps(new Date())
   const { year, month, date } = dateProps
@@ -47,7 +47,7 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dat
     </>
   )
 
-  return type === StatsContainerType.stats ? (
+  return type === StatsContainerPages.stats ? (
     <s.StatsRoot>
       <s.Header>
         {year}년 {month + 1}월 {date}일

@@ -6,10 +6,10 @@ import { ResponseStats } from 'api//types'
 import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
 import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
-import { DateProps } from 'types'
+import { DateProps, StatsContainerPages } from 'types'
 import { defaultStats } from 'constants/defaultStats'
 import { StatsContainer } from 'components'
-import { StatsContainerType } from 'enums'
+import { StatsContainerType } from 'types'
 import { QueryKeys } from 'types'
 
 export const StatsPage = () => {
@@ -66,7 +66,7 @@ export const StatsPage = () => {
               <StatsContainer
                 selectedDate={selectedDate}
                 dataSource={selectedDateData}
-                type={StatsContainerType.stats}
+                type={StatsContainerPages.stats}
               />
             )}
           </s.RightInfoBox>
