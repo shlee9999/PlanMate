@@ -11,7 +11,7 @@
       "}",
       "",
       "export const ${TM_FILENAME_BASE}$1: FC<${TM_FILENAME_BASE}$1Props> = ({ className }) => {",
-      " return <s.Root className={className}>${TM_FILENAME_BASE}$1</s.Root>",
+      " return <s.${TM_FILENAME_BASE}$1 className={className}>${TM_FILENAME_BASE}$1</s.${TM_FILENAME_BASE}$1>",
       "}",
       ""
     ]
@@ -34,7 +34,7 @@
   "react-styled-components-skeleton": {
     "scope": "typescript",
     "prefix": "rsc",
-    "body": ["import styled from 'styled-components'", "", "export const Root = styled.div``"]
+    "body": ["import styled from 'styled-components'", "", "export const ${TM_DIRECTORY/^.+\\/(.*)$/$1/} = styled.div``"]
   },
   "react-export-const-skeleton": {
     "scope": "typescript",
