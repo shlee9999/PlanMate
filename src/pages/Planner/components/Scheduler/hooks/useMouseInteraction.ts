@@ -7,7 +7,7 @@ import { timeUtils, dateUtils } from 'utils'
 type useMouseInteractionProps = {
   selectedCells: string[]
   setSelectedCells: Dispatch<SetStateAction<string[]>>
-  openModal: (title: string) => void
+  openModal: () => void
 }
 
 export const useMouseInteraction = ({ selectedCells, setSelectedCells, openModal }: useMouseInteractionProps) => {
@@ -37,7 +37,7 @@ export const useMouseInteraction = ({ selectedCells, setSelectedCells, openModal
         }), // YYYY-MM-DD
       })
     )
-    openModal('일정추가')
+    openModal()
   }
   const onMouseEnter = (date, hour) => (e) => {
     if (e.buttons !== 1) return

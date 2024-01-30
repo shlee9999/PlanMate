@@ -1,16 +1,11 @@
 import * as s from './styled'
 import React, { FC, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { dateUtils } from 'utils'
 import { numberUtils } from 'utils'
-import { updateInfo } from 'modules/selectedInfo'
-import { defaultColor } from 'constants/color'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { Appointment, SelectModal } from '..'
-import { useModal } from 'hooks'
-import { useMouseInteraction } from './hooks/useMouseInteraction'
-import { usePlannerData } from './hooks/usePlannerData'
+import { usePlannerData, useSelectModal, useMouseInteraction } from './hooks'
 
 type SchedulerProps = {
   className?: string
@@ -19,35 +14,20 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const dispatch = useDispatch()
-  const { plannerData, isPlannerLoading } = usePlannerData()
-  const { isOpen: isSelectModalOpen, closeModal: closeSelectModal, openModal: openSelectModal } = useModal()
   const now = new Date()
+  const { plannerData, isPlannerLoading } = usePlannerData()
   const [currentDate, setCurrentDate] = useState(now)
   const [selectedCells, setSelectedCells] = useState<string[]>([])
-  const [modalTitle, setModalTitle] = useState('일정추가')
-  const openModal = (title: '일정추가' | '일정수정') => {
-    setModalTitle(title)
-    openSelectModal()
-  }
-  const closeModal = () => {
-    closeSelectModal()
-    setSelectedCells([])
-  }
-  const { onMouseDown, onMouseEnter, onMouseUp } = useMouseInteraction({ selectedCells, setSelectedCells, openModal })
-  const onExitComplete = () => {
-    // modal 종료 애니메이션 대기
-    dispatch(
-      updateInfo({
-        startAt: '00',
-        endAt: '00',
-        scheduleName: '',
-        colorHex: defaultColor,
-        plannerId: new Date().getTime(),
-        day: dateUtils.getYYYYMMDD(new Date()),
-      })
-    )
-  }
+  const [modalType, setModalType] = useState<'ADD' | 'EDIT'>('ADD')
+  const { isSelectModalOpen, openAddModal, openEditModal, closeModal, onExitComplete } = useSelectModal({
+    setModalType,
+    initializeSelectedCells: () => setSelectedCells([]),
+  })
+  const { onMouseDown, onMouseEnter, onMouseUp } = useMouseInteraction({
+    selectedCells,
+    setSelectedCells,
+    openModal: modalType === 'ADD' ? openAddModal : openEditModal,
+  })
 
   return (
     <s.Root className={className}>
@@ -57,7 +37,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
         <s.NextButton onClick={() => setCurrentDate(new Date(currentDate.getTime() + 1000 * 60 * 60 * 24 * 7))} />
       </s.ButtonWrapper>
       <s.Table>
-        <tbody>
+        <s.TableBody>
           <s.DataCellRow>
             <s.DayCell $today={null}></s.DayCell>
             {dateUtils.getWeekDates(currentDate).map((date, index) => (
@@ -99,7 +79,7 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
                             }
                             onMouseDown={(e) => e.stopPropagation()}
                             appoint={app}
-                            openModal={() => openModal('일정수정')}
+                            openModal={openEditModal}
                           />
                         )
                       )
@@ -109,11 +89,11 @@ export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHou
               ))}
             </s.DataCellRow>
           ))}
-        </tbody>
+        </s.TableBody>
       </s.Table>
       <SelectModal
         closeModal={closeModal}
-        title={modalTitle}
+        type={modalType}
         isOpen={isSelectModalOpen}
         onExitComplete={onExitComplete}
       />

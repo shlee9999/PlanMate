@@ -25,6 +25,7 @@ export const Table = styled.table`
     position: relative;
   }
 `
+export const TableBody = styled.tbody``
 const Cell = styled.td`
   ${P12}
   &:first-child {

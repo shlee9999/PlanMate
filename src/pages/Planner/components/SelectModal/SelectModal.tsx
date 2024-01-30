@@ -16,25 +16,24 @@ import { MAX_APPOINT_NAME_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 
 type SelectModalProps = {
   closeModal: () => void
-  title: string
   isOpen: boolean
   onExitComplete: () => void
+  type: 'ADD' | 'EDIT'
 }
 type IForm = Pick<PlannerType, 'scheduleName'>
-export const SelectModal = ({ closeModal, title, isOpen, onExitComplete }: SelectModalProps) => {
+export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: SelectModalProps) => {
+  const dispatch = useDispatch()
   const { startAt, endAt, scheduleName, colorHex, plannerId, day } = useSelector(
     (state: RootState) => state.selectedInfo
   )
   const { registerInput, handleSubmit, inputFocus, setValue } = useForm<IForm>()
-  const type = title.slice(-2) === '추가' ? 'ADD' : 'EDIT'
   const [subjectColor, setSubjectColor] = useState<string>(type === 'EDIT' ? colorHex : defaultColor)
-  const dispatch = useDispatch()
   const mutateAddAppoint = useAddAppointMutation()
   const mutateEditAppoint = useEditAppointMutation()
   const assignSubjectColor = (color: string) => setSubjectColor(color)
-  const onSubmit = ({ scheduleName }: IForm) => {
+  const onSubmit = (data: IForm) => {
     if (type === 'ADD') {
-      mutateAddAppoint({ colorHex, startAt, day, endAt, scheduleName })
+      mutateAddAppoint({ colorHex, startAt, day, endAt, scheduleName: data.scheduleName })
     } else {
       // 수정
       mutateEditAppoint({
@@ -42,7 +41,7 @@ export const SelectModal = ({ closeModal, title, isOpen, onExitComplete }: Selec
         startAt,
         day,
         endAt,
-        scheduleName,
+        scheduleName: data.scheduleName,
         plannerId,
       })
     }
@@ -55,6 +54,7 @@ export const SelectModal = ({ closeModal, title, isOpen, onExitComplete }: Selec
   const handleModalClick = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
 
   useEffect(() => {
+    setValue('scheduleName', scheduleName)
     inputFocus('scheduleName')
     setSubjectColor(defaultColor)
   }, [isOpen])
@@ -63,9 +63,6 @@ export const SelectModal = ({ closeModal, title, isOpen, onExitComplete }: Selec
     dispatch(updateProp('colorHex', subjectColor))
   }, [subjectColor])
 
-  useEffect(() => {
-    if (type === 'EDIT') setValue('scheduleName', scheduleName)
-  }, [scheduleName])
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
@@ -82,7 +79,7 @@ export const SelectModal = ({ closeModal, title, isOpen, onExitComplete }: Selec
                 <cs.GreenButton>확인</cs.GreenButton>
                 <cs.WhiteButton onClick={onClickCloseButton}>취소</cs.WhiteButton>
               </s.ModalFooter>
-              <s.ModalTitle>{title}</s.ModalTitle>
+              <s.ModalTitle>{type === 'ADD' ? '일정추가' : '일정수정'}</s.ModalTitle>
               <s.Title>{dateUtils.getFormattedDate(day)}</s.Title>
               <s.ModalExitButton onClick={closeModal} />
               <s.InputWrapper>
