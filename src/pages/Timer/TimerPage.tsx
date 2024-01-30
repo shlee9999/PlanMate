@@ -1,5 +1,5 @@
 import * as s from './styled'
-import { useState, FC, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { TimeProps, TodoItemType } from 'types'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTimer } from 'pages/Timer/hooks'
@@ -15,10 +15,12 @@ import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
 import { QueryKeyType, StatsContainerType } from 'enums'
+import { useModal } from 'hooks/useModal'
 
 export const TimerPage: FC = () => {
   const location = useLocation()
-  const [isSuggestModalOpen, setIsSuggestModalOpen] = useState<boolean>(false)
+  const { isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal } = useModal()
+  const { isOpen: isSuggestModalOpen, openModal: openSuggestModal, closeModal: closeSuggestModal } = useModal()
   const {
     setDefaultTime: setTotalTime,
     startTimer: startTotalTimer,
@@ -50,12 +52,9 @@ export const TimerPage: FC = () => {
     time: breakTime,
     setDefaultTime: setDefaultBreakTime,
   } = useTimer({ defaultTime: 0 })
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const formattedDate: string = dateUtils.getFormattedDate(new Date())
   const navigate = useNavigate()
-  const openModal = () => !isTotalTimerRunning && setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
-  const closeSuggestModal = () => setIsSuggestModalOpen(false)
+  const onClickAddButton = () => !isTotalTimerRunning && openAddModal()
   const {
     restTimeHours = 0,
     restTimeMinutes = 0,
@@ -96,7 +95,7 @@ export const TimerPage: FC = () => {
   }, [isTotalTimerRunning])
 
   useEffect(() => {
-    if (location.state) setIsSuggestModalOpen(true)
+    if (location.state) openSuggestModal()
   }, [location.state])
 
   return (
@@ -180,12 +179,12 @@ export const TimerPage: FC = () => {
             )}
           </s.TodoContainer>
 
-          <s.AddButton onClick={openModal}>
+          <s.AddButton onClick={onClickAddButton}>
             <PlusIcon />
             과목
           </s.AddButton>
         </s.LowerContainer>
-        <ActionModal closeModal={closeModal} type="ADD" isOpen={isModalOpen} />
+        <ActionModal closeModal={closeAddModal} type="ADD" isOpen={isAddModalOpen} />
         {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
       </s.Root>
     </>
