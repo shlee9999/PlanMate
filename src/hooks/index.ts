@@ -1,3 +1,4 @@
 import { useForm } from './useForm'
 import { useModal } from './useModal'
-export { useForm, useModal }
+import { useLockBodyScroll } from './useLockBodyScroll'
+export { useForm, useModal, useLockBodyScroll }

@@ -1,8 +1,7 @@
 import { defaultColor } from 'constants/color'
-import { useForm } from 'hooks'
+import { useForm, useLockBodyScroll } from 'hooks'
 import { useState } from 'react'
-import { useActionSubmit } from './useActionSubmit'
-import { useModalAction } from './useModalAction'
+import { useActionSubmit, useModalAction } from './hooks'
 import { TodoItemType } from 'types'
 type UseActionModalProps = {
   isOpen: boolean
@@ -40,7 +39,7 @@ export const useActionModal = ({ isOpen, closeModal, todo, closeEllipsisModal, t
     isOpen,
     name: todo?.name,
   })
-
+  useLockBodyScroll({ isOpen })
   return {
     registerInput,
     handleSubmit,

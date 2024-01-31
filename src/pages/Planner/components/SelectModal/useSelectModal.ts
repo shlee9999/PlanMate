@@ -30,6 +30,5 @@ export const useSelectModal = ({ closeModal, type, isOpen }: useSelectModalProps
     subjectColor,
     scheduleName,
   })
-
   return { registerInput, handleSubmit, handleModalClick, onSubmit, setSubjectColor, subjectColor, day }
 }

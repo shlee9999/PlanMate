@@ -8,7 +8,6 @@ import {
   SMALL_SIDE_MARGIN,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
-import modalExitButton from 'assets/images/close.svg'
 import { CloseIcon, RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 import { Spinner } from 'components'
@@ -20,6 +19,7 @@ export const PageRoot = styled.div`
   margin: 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
   margin-top: ${HEADER_HEIGHT}px;
+  overflow-x: hidden;
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
   ${BLOCK_SELECT}
 

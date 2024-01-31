@@ -1,4 +1,4 @@
-import { defaultColor } from 'constants/color'
+import { useLockBodyScroll } from 'hooks'
 import { updateProp } from 'modules/selectedInfo'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -29,5 +29,5 @@ export const useInitialization = ({
   useEffect(() => {
     dispatch(updateProp('colorHex', subjectColor))
   }, [subjectColor])
-  return {}
+  useLockBodyScroll({ isOpen })
 }
