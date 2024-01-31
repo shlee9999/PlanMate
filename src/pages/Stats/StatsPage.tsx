@@ -1,37 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as s from './styled'
-import { dateUtils, numberUtils } from 'utils'
-import { useQuery } from 'react-query'
-import { ResponseStats } from 'api//types'
-import { checkTodayStats } from 'api/stats/checkTodayStats'
 import { CenterSpinner } from 'commonStyled'
-import { checkStatsMonthly } from 'api/stats/checkStatsMonthly'
-import { DateProps, StatsContainerPages } from 'types'
-import { defaultStats } from 'constants/defaultStats'
+import { StatsContainerPages } from 'types'
 import { StatsContainer } from 'components'
-import { QueryKeys } from 'types'
+import { useStatsPage } from './useStatsPage'
 
 export const StatsPage = () => {
-  const [selectedDate, setSelectedDate] = useState<DateProps>(dateUtils.getTodayDateProps())
-  const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>([QueryKeys.todayStats], () =>
-    checkTodayStats()
-  )
-  const { data: selectedMonthStats, isLoading: isSelectedLoading } = useQuery<ResponseStats[]>(
-    [QueryKeys.timeInfo, selectedDate.month],
-    () =>
-      checkStatsMonthly({
-        yearMonth: dateUtils.getYYYYMMDD(selectedDate),
-      }),
-    { initialData: numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats) }
-  )
-  const isToday = dateUtils.isEqual(selectedDate, dateUtils.getDateProps(new Date()))
-  const isLoading = isSelectedLoading || todayLoading
-  const selectedDateData: ResponseStats = isLoading
-    ? defaultStats
-    : isToday
-    ? todayStats
-    : selectedMonthStats[selectedDate.date - 1] || defaultStats
-
+  const { isLoading, selectedDate, setSelectedDate, selectedDateData, selectedMonthStats } = useStatsPage()
   return (
     <s.StatsPage>
       <s.HeaderContainer>
