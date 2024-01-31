@@ -1,60 +1,33 @@
 import * as s from './styled'
-import { FC, useEffect } from 'react'
-import { QueryKeys, StatsContainerPages, TodoItemType } from 'types'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useTimer, useTimerEffects, useTodayStats, useTodoList } from 'pages/Timer/hooks'
+import { FC } from 'react'
+import { StatsContainerPages, TodoItemType } from 'types'
 import { SuggestModal } from 'pages/Timer/components/'
-import { FindFixedDdayResponseProps, findFixedDday } from 'api/dday/findFixedDday'
 import { PlusIcon } from 'assets/SvgComponents'
-import { useQuery } from 'react-query'
 import { NoContentDescription, StatsContainer } from 'components'
 import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
-import { useModal } from 'hooks/useModal'
+import { useTimerPage } from './hooks/useTimerPage'
 
 export const TimerPage: FC = () => {
-  const { todoList, isTodoLoading } = useTodoList()
-  const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeys.fixedDday], () => findFixedDday())
-  const { todayStatsData, totalStudyTime, restTime, isStatsLoading } = useTodayStats()
-  const { isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal } = useModal()
-  const { isOpen: isSuggestModalOpen, openModal: openSuggestModal, closeModal: closeSuggestModal } = useModal()
   const {
-    setDefaultTime: setTotalTime,
-    startTimer: startTotalTimer,
-    stopTimer: stopTotalTimer,
-    time: totalTime,
-    isRunning: isTotalTimerRunning,
-  } = useTimer({ defaultTime: 0 })
-  const {
-    startTimer: startBreakTimer,
-    stopTimer: stopBreakTimer,
-    time: breakTime,
-    setDefaultTime: setDefaultBreakTime,
-  } = useTimer({ defaultTime: 0 })
-  const onClickAddButton = () => !isTotalTimerRunning && openAddModal()
-  const navigate = useNavigate()
-  const location = useLocation()
-
-  //! 백엔드 remainingDays 안맞아서 내 로직 사용
-  const remainingDays = dateUtils.daysUntil(dateUtils.getDateProps(fixedDDay?.targetDate))
-
-  useTimerEffects({
+    todoList,
+    fixedDDay,
+    remainingDays,
+    onClickGreenTypo,
+    breakTime,
+    isStatsLoading,
+    isAddModalOpen,
+    isSuggestModalOpen,
+    startTotalTimer,
+    stopTotalTimer,
+    totalTime,
+    closeSuggestModal,
+    closeAddModal,
     todayStatsData,
-    totalStudyTime,
-    restTime,
-    setDefaultBreakTime,
-    setTotalTime,
+    openAddModal,
     isTodoLoading,
-    stopBreakTimer,
-    startBreakTimer,
-    isTotalTimerRunning,
-  })
-
-  useEffect(() => {
-    //* 건의사항 작성 시 잘 전송되었다는 알림 모달
-    if (location.state) openSuggestModal()
-  }, [location.state])
+  } = useTimerPage()
 
   return (
     <>
@@ -101,12 +74,7 @@ export const TimerPage: FC = () => {
           ) : (
             <s.CheerTypo>
               아직 디데이가 없어요!{' '}
-              <s.GreenTypo
-                onClick={() => {
-                  navigate('/mypage')
-                }}
-                className="no_dday"
-              >
+              <s.GreenTypo onClick={onClickGreenTypo} className="no_dday">
                 디데이를 설정하러 가볼까요?
               </s.GreenTypo>
             </s.CheerTypo>
@@ -123,7 +91,6 @@ export const TimerPage: FC = () => {
                     buttonColor={todo.colorHex}
                     startTotalTimer={startTotalTimer}
                     stopTotalTimer={stopTotalTimer}
-                    isTotalTimerRunning={isTotalTimerRunning}
                   />
                 )
               })
@@ -136,8 +103,7 @@ export const TimerPage: FC = () => {
               />
             )}
           </s.TodoContainer>
-
-          <s.AddButton onClick={onClickAddButton}>
+          <s.AddButton onClick={openAddModal}>
             <PlusIcon />
             과목
           </s.AddButton>

@@ -1,13 +1,11 @@
 import * as s from './styled'
 import * as cs from 'commonStyled'
-import React, { useState } from 'react'
-import { defaultColor } from 'constants/color'
+import React from 'react'
 import { ColorPicker } from 'components/'
 import { AnimatePresence } from 'framer-motion'
 import { TodoItemType } from 'types'
-import { useForm } from 'hooks'
 import { MAX_TIMER_NAME_CHARACTER_COUNT } from 'constants/maxCharacterCount'
-import { useActionSubmit, useModalAction } from './hooks'
+import { useActionModal } from './hooks'
 
 type ActionModalProps = {
   isOpen: boolean
@@ -16,39 +14,27 @@ type ActionModalProps = {
   closeEllipsisModal?: () => void
   type: 'ADD' | 'EDIT'
 }
-type IForm = {
-  ADD: string
-  EDIT: string
-}
+
 /**
  * * 타이머 과목 추가, 과목 수정 Modal
  */
 export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal }: ActionModalProps) => {
-  const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
-  const [subjectColor, setSubjectColor] = useState(todo?.colorHex || defaultColor)
-  const [isConfirmed, setIsConfirmed] = useState(false)
-  const onKeyDown = (e: React.KeyboardEvent) => e.nativeEvent.key === 'Escape' && closeModalAll() // esc 단축키
-  const closeModalAll = () => type === 'EDIT' && closeEllipsisModal()
-  const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
-  const { onSubmit } = useActionSubmit({
-    type,
-    subjectId: todo?.subjectId,
-    setIsConfirmed,
-    closeModal,
-    closeModalAll,
-    subjectColor,
-  })
-  const { onExitComplete } = useModalAction({
-    setValue,
-    setIsConfirmed,
+  const {
+    registerInput,
+    handleSubmit,
+    onKeyDown,
+    onClickModal,
+    onSubmit,
+    onExitComplete,
     setSubjectColor,
-    inputFocus,
-    isConfirmed,
-    type,
+    subjectColor,
+  } = useActionModal({
     isOpen,
-    name: todo?.name,
+    closeModal,
+    todo,
+    closeEllipsisModal,
+    type,
   })
-
   /**
    * * ADD와 EDIT의 공통된 부분이다.
    * * 거의 동일하게 생겼지만, 애니메이션 때문에 분리하게 되었다.
