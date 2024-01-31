@@ -66,10 +66,6 @@ export const routerInfo = [
         element: <ExamInfoDetailPage mode="notice" />,
       },
       {
-        path: 'suggest',
-        element: <BulletinPage mode={'suggest'} />,
-      },
-      {
         path: 'login',
         element: (
           <>
