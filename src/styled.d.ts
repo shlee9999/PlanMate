@@ -19,6 +19,7 @@ declare module 'styled-components' {
       gray1: string
       gray2: string
       gray3: string
+      gray4: string
     }
     background: {
       white: string

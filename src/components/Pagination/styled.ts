@@ -24,7 +24,7 @@ export const PageNumberTypo = styled.p<{ $isCurrent: boolean }>`
   ${H12_500}
   cursor: ${(props) => (props.$isCurrent ? 'text' : 'pointer')};
   text-align: center;
-  color: ${(props) => (props.$isCurrent ? props.theme.text.black2 : props.theme.text.gray1)};
+  color: ${(props) => (props.$isCurrent ? props.theme.text.black2 : props.theme.text.gray4)};
   width: 15px;
 `
 
