@@ -1,12 +1,11 @@
 import * as s from './styled'
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { dateUtils } from 'utils'
 import { numberUtils } from 'utils'
 import { AnimatePresence } from 'framer-motion'
 import { weekDays } from 'constants/week'
 import { Appointment, SelectModal } from '..'
-import { usePlannerData, useSelectModal, useMouseInteraction } from './hooks'
-import { DateProps } from 'types'
+import { useScheduler } from './useScheduler'
 
 type SchedulerProps = {
   className?: string
@@ -15,21 +14,22 @@ type SchedulerProps = {
 }
 
 export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
-  const todayDateProps = dateUtils.getTodayDateProps()
-  const { plannerData, isPlannerLoading } = usePlannerData()
-  const [selectedDateProps, setSelectedDateProps] = useState<DateProps>(todayDateProps)
-  const [selectedCells, setSelectedCells] = useState<string[]>([])
-  const [modalType, setModalType] = useState<'ADD' | 'EDIT'>('ADD')
-  const { isSelectModalOpen, openAddModal, openEditModal, closeModal, onExitComplete } = useSelectModal({
-    setModalType,
-    initializeSelectedCells: () => setSelectedCells([]),
-  })
-  const { onMouseDown, onMouseEnter, onMouseUp } = useMouseInteraction({
+  const {
+    plannerData,
+    isPlannerLoading,
+    selectedDateProps,
+    setSelectedDateProps,
+    isSelectModalOpen,
+    onMouseDown,
+    onMouseEnter,
+    onMouseUp,
+    closeModal,
+    onExitComplete,
     selectedCells,
-    setSelectedCells,
-    openModal: modalType === 'ADD' ? openAddModal : openEditModal,
-  })
-
+    modalType,
+    openEditModal,
+    todayDateProps,
+  } = useScheduler()
   return (
     <s.Scheduler className={className}>
       <s.ButtonWrapper>
