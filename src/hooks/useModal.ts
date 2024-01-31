@@ -5,6 +5,6 @@ export const useModal = (initialState = false) => {
 
   const openModal = () => setIsOpen(true)
   const closeModal = () => setIsOpen(false)
-
-  return { isOpen, openModal, closeModal }
+  const toggleModal = () => setIsOpen((prev) => !prev)
+  return { isOpen, openModal, closeModal, toggleModal }
 }
