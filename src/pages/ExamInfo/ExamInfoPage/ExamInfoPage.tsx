@@ -1,44 +1,22 @@
 import * as s from './styled'
-import { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
 import { Pagination, Display, PostItem } from 'components'
-import { FindAllPostResponseProps, findAll } from 'api/post/find/findAll'
 import { examInfoTagList } from 'constants/tagList'
-import { findPostWithTag } from 'api/post/find/findPostWithTag'
 import { TagContainer } from './TagContainer/TagContainer'
-import { QueryKeys } from 'types'
 import { DISPLAY } from 'types'
+import { useExamInfoPage } from './useExamInfoPage'
 
 export const ExamInfoPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [selectedTag, setSelectedTag] = useState('')
-  const { data, isLoading } = useQuery<FindAllPostResponseProps>(
-    [QueryKeys.findAllResponse, currentPage, selectedTag],
-    () =>
-      selectedTag === ''
-        ? findAll({ pages: currentPage - 1 })
-        : findPostWithTag({ pages: currentPage - 1, tagName: selectedTag }),
-    { keepPreviousData: true }
-  )
-  const examInfoList = data?.postDtoList || []
-  const totalPage = data?.totalPages || 0
-
-  const navigate = useNavigate()
-  const onClickBulletinButton = () => navigate('/examinfo/post', { state: { initialTag: selectedTag } })
-
-  useEffect(() => window.scrollTo({ top: 0, behavior: 'smooth' }), [data])
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [selectedTag])
-  const selectorProps = {
-    selectedTag: selectedTag,
-    setSelectedTag: setSelectedTag,
-    tagList: [''].concat(examInfoTagList),
-    selectorHeight: 30,
-    selectorWidth: 150,
-    title: '',
-  }
+  const {
+    isLoading,
+    examInfoList,
+    totalPage,
+    onClickBulletinButton,
+    selectorProps,
+    selectedTag,
+    setSelectedTag,
+    currentPage,
+    setCurrentPage,
+  } = useExamInfoPage()
   return (
     <s.ExamInfoPage>
       <s.TypoWrapper>
