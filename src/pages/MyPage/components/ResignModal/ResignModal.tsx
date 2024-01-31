@@ -11,13 +11,13 @@ type ResignModalProps = {
 export const ResignModal: FC<ResignModalProps> = ({ closeModal }) => {
   const navigate = useNavigate()
   const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
-  const onClickResignButton = () => {
+  const onClickResignButton = () =>
     signout().then(() => {
       navigate('/timer')
       localStorage.removeItem('userAuthInfo')
       window.location.reload()
     })
-  }
+
   return (
     <cs.ModalWrapper onClick={closeModal}>
       <s.ResignModal onClick={onClickModal}>

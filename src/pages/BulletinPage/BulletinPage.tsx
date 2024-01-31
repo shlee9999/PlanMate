@@ -1,81 +1,36 @@
 import * as s from './styled'
-import React, { FC, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { EditorState } from 'draft-js'
+import React, { FC } from 'react'
 import { Editor } from 'react-draft-wysiwyg'
 import { examInfoTagList, suggestTagList } from 'constants/tagList'
-import { useCreatePostMutation, useCreateNoticeMutation, useCreateSuggestMutation } from '../ExamInfo/hooks/mutations'
 import { TagSelector } from '../ExamInfo/components'
 import { MAX_POST_TITLE_CHARACTER_COUNT, MAX_SUGGEST_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { useForm } from 'hooks'
-import { serializeContent } from 'utils'
+import { useBulletinPage } from './useBulletinPage'
 
-const tagList = {
-  examinfo: examInfoTagList,
-  suggest: suggestTagList,
-  notice: [],
+type BulletinPageProps = {
+  mode: 'examinfo' | 'suggest' | 'notice'
 }
 enum EForm {
   title = 'title',
   suggest = 'suggest',
 }
-type IForm = {
-  [key in EForm]: string
+const tagList = {
+  examinfo: examInfoTagList,
+  suggest: suggestTagList,
+  notice: [],
 }
-type BulletinPageProps = {
-  mode: 'examinfo' | 'suggest' | 'notice'
-}
-
 export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
-  const location = useLocation()
-  const initialTag = location?.state?.initialTag || '선택해주세요'
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  const [selectedTag, setSelectedTag] = useState(initialTag)
-  const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
-  const { registerInput, registerTextarea, handleSubmit, inputFocus, textareaFocus } = useForm<IForm>()
-  const navigate = useNavigate()
-  const mutateCreatePost = useCreatePostMutation()
-  const mutateCreateNotice = useCreateNoticeMutation()
-  const mutateCreateSuggest = useCreateSuggestMutation()
-
-  const onClickCancelButton = () => {
-    navigate(-1)
-  }
-
-  const onSubmit = (data: IForm) => {
-    if (mode === 'examinfo' && selectedTag === '선택해주세요') return
-    if (mode === 'examinfo')
-      mutateCreatePost({
-        content: serializeContent(editorState),
-        tagList: [selectedTag],
-        title: data.title,
-        callBack: () => navigate(-1),
-      })
-    if (mode === 'notice')
-      mutateCreateNotice({
-        content: serializeContent(editorState),
-        title: data.title,
-        callBack: () => navigate(-1),
-      })
-    if (mode === 'suggest')
-      mutateCreateSuggest({
-        body: data.suggest,
-        tag: selectedTag,
-        title: data.title,
-        callBack: () => navigate('/timer', { state: true }),
-      })
-    // 등록하시겠습니까? 확인
-  }
-
-  useEffect(() => {
-    window.scrollTo({ top: 0 })
-    inputFocus(EForm.title)
-  }, [])
-  useEffect(() => {
-    textareaFocus(EForm.suggest)
-  }, [selectedTag])
-
+  const {
+    setSelectedTag,
+    onEditorStateChange,
+    registerInput,
+    registerTextarea,
+    handleSubmit,
+    onClickCancelButton,
+    onSubmit,
+    editorState,
+    selectedTag,
+  } = useBulletinPage({ mode })
   return (
     <s.BulletinPage>
       <s.Form onSubmit={handleSubmit(onSubmit)}>

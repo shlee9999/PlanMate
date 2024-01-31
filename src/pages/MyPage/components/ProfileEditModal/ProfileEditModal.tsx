@@ -9,22 +9,13 @@ type ProfileEditModalProps = {
 }
 
 export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickname, changeNickname }) => {
-  const onClickModal = (e: React.MouseEvent) => {
-    e.stopPropagation()
-  }
-  const onClickEditButton = () => {
-    changeNickname(inputValue)
-    //profileEdit api
-  }
+  const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
+  const onClickEditButton = () => changeNickname(inputValue)
+  //profileEdit api
   const [inputValue, setInputValue] = useState<string>(nickname)
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      onClickEditButton()
-    }
-  }
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
+  const onKeyDown = (e: React.KeyboardEvent) => e.key === 'Enter' && onClickEditButton()
+
   return (
     <cs.ModalWrapper onClick={closeModal}>
       <s.ProfileEditModal onClick={onClickModal}>

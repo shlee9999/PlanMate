@@ -4,17 +4,13 @@ import { Display } from 'components'
 import { DISPLAY } from 'types'
 
 type DTagContainerProps = {
-  className?: string
   tagList: string[]
   selectedTag: string
   setSelectedTag: (tag: string) => void
 }
 
-export const TagContainer: FC<DTagContainerProps> = ({ className, tagList, selectedTag, setSelectedTag }) => {
-  const onClickTag = (tag: string) => () => {
-    if (selectedTag === tag) setSelectedTag('')
-    else setSelectedTag(tag)
-  }
+export const TagContainer: FC<DTagContainerProps> = ({ tagList, selectedTag, setSelectedTag }) => {
+  const onClickTag = (tag: string) => () => selectedTag === tag ? setSelectedTag('') : setSelectedTag(tag)
   const renderContent = (tagDivisionIndex: number) => (
     <>
       <s.TagButtonContainer>

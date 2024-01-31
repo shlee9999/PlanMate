@@ -8,12 +8,9 @@ type DeletePostModalProps = {
 }
 
 export const DeletePostModal: FC<DeletePostModalProps> = ({ closeModal, deletePost }) => {
-  const onClickDeleteButton = (): void => {
-    deletePost()
-  }
-  const onClickModal = (e: React.MouseEvent) => {
-    e.stopPropagation()
-  }
+  const onClickDeleteButton = (): void => deletePost()
+  const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
+
   return (
     <cs.ModalWrapper onClick={closeModal}>
       <s.DeletePostModal onClick={onClickModal}>
