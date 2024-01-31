@@ -10,7 +10,6 @@ type DeleteModalProps = {
 
 export const DeleteModal: FC<DeleteModalProps> = ({ title, closeModal, deleteConfirm: confirm }) => {
   const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
-
   return (
     <s.DeleteModal onClick={onClickModal} layoutId="ellipsis">
       <s.TitleTypo>일정삭제</s.TitleTypo>
