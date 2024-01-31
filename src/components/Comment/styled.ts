@@ -4,15 +4,15 @@ import { HIDE_SCROLLBAR } from 'constants/hideScrollbar'
 import { H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
 import { EllipsisIcon } from 'assets/SvgComponents'
 
-export const EllipsisButton = styled(EllipsisIcon)`
+export const EllipsisButton = styled(EllipsisIcon)<{ $isEllipsisOpen: boolean }>`
   transform: rotate(90deg);
   position: absolute;
   cursor: pointer;
   z-index: 1;
-  right: 0;
+  right: 3px;
   top: 0;
   width: 16px;
-  opacity: 0;
+  opacity: ${(props) => (props.$isEllipsisOpen ? 1 : 0)};
 `
 export const Comment = styled.div`
   position: relative;
@@ -21,9 +21,6 @@ export const Comment = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.border.dark};
   &:hover {
     ${EllipsisButton} {
-      position: absolute;
-      right: 3px;
-      top: 0;
       opacity: 1;
     }
   }

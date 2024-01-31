@@ -1,5 +1,6 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 import * as s from './styled'
+import { useDetectClickOutside } from '../../../../hooks/useDetectClickOutside'
 
 type TagSelectorProps = {
   className?: string
@@ -44,21 +45,9 @@ export const TagSelector: FC<TagSelectorProps> = ({
     e.stopPropagation()
     setIsSelecting(false)
   }
-  const tagSelectorRef = useRef(null)
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (isSelecting && !e.composedPath().includes(tagSelectorRef.current)) {
-        setIsSelecting(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isSelecting])
+  const ref = useDetectClickOutside({ isOpen: isSelecting, setIsOpen: setIsSelecting })
   return (
-    <s.TagSelectorWrapper ref={tagSelectorRef} className={className} $selectorHeight={selectorHeight}>
+    <s.TagSelectorWrapper ref={ref} className={className} $selectorHeight={selectorHeight}>
       {title && <s.TagTypo>{title}</s.TagTypo>}
       <s.TagSelector onClick={onClickTagSelector} $selectorWidth={selectorWidth}>
         {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}

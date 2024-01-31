@@ -1,18 +1,16 @@
 import * as s from './styled'
 import React, { FC } from 'react'
-import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import { DeleteCommentModal } from 'pages/ExamInfo/components'
 import { MAX_COMMENT_CHARACTER_COUNT, MAX_REPLY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
-import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
 import { ResponseCommentType } from 'api/types'
 import { Reply } from 'components'
-import { QueryKeys } from 'types'
 import { useForm, useModal } from 'hooks'
-import { useComment } from './hooks/useComment'
+import { useComment } from './useComment'
+import { useDetectClickOutside } from 'hooks/useDetectClickOutside'
 
 type CommentProps = {
   deleteComment?: () => void
@@ -42,13 +40,17 @@ export const Comment: FC<CommentProps> = ({
 }) => {
   //대댓글 로직
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, toggleModal: toggleEllipsisModal } = useModal()
+  const {
+    isOpen: isEllipsisOpen,
+    closeModal: closeEllipsisModal,
+    toggleModal: toggleEllipsisModal,
+    setIsOpen: setIsEllipsisOpen,
+  } = useModal()
   const {
     isOpen: isDeleteCommentModalOpen,
     openModal: openDeleteCommentModal,
     closeModal: closeDeleteCommentModal,
   } = useModal()
-
   const {
     registerTextarea: registerCommentInput,
     handleSubmit: handleCommentSubmit,
@@ -60,7 +62,6 @@ export const Comment: FC<CommentProps> = ({
     handleSubmit: handleReplySubmit,
     setValue: setReplyValue,
   } = useForm<ReplyForm>()
-
   const {
     onReplySubmit,
     isEditing,
@@ -84,13 +85,14 @@ export const Comment: FC<CommentProps> = ({
     closeEllipsisModal,
     content,
   })
+  const ref = useDetectClickOutside({ isOpen: isEllipsisOpen, setIsOpen: setIsEllipsisOpen })
   return (
     <>
-      <s.Comment onClick={closeEllipsisModal}>
+      <s.Comment>
         {/* 내가 작성한 댓글만 수정, 삭제 가능함 */}
-        {isAuthor && !isEditing && <s.EllipsisButton onClick={toggleEllipsisModal} />}
+        {isAuthor && !isEditing && <s.EllipsisButton onClick={toggleEllipsisModal} $isEllipsisOpen={isEllipsisOpen} />}
         {isEllipsisOpen && (
-          <s.EllipsisModal onClick={(e) => e.stopPropagation()}>
+          <s.EllipsisModal onClick={(e) => e.stopPropagation()} ref={ref}>
             <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
             <s.EllipsisDeleteButton onClick={openDeleteCommentModal}>삭제</s.EllipsisDeleteButton>
           </s.EllipsisModal>
