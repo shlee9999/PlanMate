@@ -7,7 +7,7 @@ import { NoContentDescription, StatsContainer } from 'components'
 import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
-import { useTimerPage } from './hooks/useTimerPage'
+import { useTimerPage } from './useTimerPage'
 
 export const TimerPage: FC = () => {
   const {

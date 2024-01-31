@@ -6,7 +6,7 @@ import { QueryKeys } from 'types'
 import { dateUtils } from 'utils'
 import { useEffect } from 'react'
 import { useTodoList, useTodayStats, useTimerEffects } from './hooks'
-import { useTimer } from '.'
+import { useTimer } from './hooks'
 
 export const useTimerPage = () => {
   const { todoList, isTodoLoading } = useTodoList()

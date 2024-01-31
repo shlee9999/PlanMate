@@ -1,12 +1,11 @@
 import React from 'react'
-import { useState } from 'react'
+import * as s from './styled'
+import * as cs from 'commonStyled'
 import { TodoItemType } from 'types'
 import { DeleteModal } from './DeleteModal/DeleteModal'
 import { AnimatePresence } from 'framer-motion'
 import { ActionModal } from '..'
-import { useDeleteSubjectMutation } from '../../hooks/mutations'
-import * as cs from 'commonStyled'
-import * as s from './styled'
+import { useEllipsisModal } from './useEllipsisModal'
 
 type EllipsisModalProps = {
   closeModal: () => void
@@ -14,30 +13,17 @@ type EllipsisModalProps = {
   isOpen: boolean
 }
 export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) => {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const mutateDeleteSubject = useDeleteSubjectMutation()
-  const closeDeleteModal = () => setIsDeleteModalOpen(false)
-  const onClickDeleteButton = () => setIsDeleteModalOpen(true)
-  const onClickModal = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
-  const onClickEditButton = () => setIsEditModalOpen(true)
-  const closeEditModal = () => setIsEditModalOpen(false)
-  const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false)
-
-  const deleteConfirm = () => {
-    setIsDeleteConfirmed(true)
-    closeModal()
-  }
-
-  const onExitComplete = () => {
-    closeEditModal()
-    closeDeleteModal()
-    if (isDeleteConfirmed) {
-      // confirm버튼 눌렀을 때만 작동하도록
-      mutateDeleteSubject({ subjectId: todo.subjectId })
-      setIsDeleteConfirmed(false)
-    }
-  }
+  const {
+    onClickDeleteButton,
+    onClickModal,
+    onClickEditButton,
+    deleteConfirm,
+    onExitComplete,
+    isDeleteModalOpen,
+    isEditModalOpen,
+    closeDeleteModal,
+    closeEditModal,
+  } = useEllipsisModal({ closeModal, todo })
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
