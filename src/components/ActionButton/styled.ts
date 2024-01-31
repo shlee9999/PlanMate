@@ -1,4 +1,4 @@
-import { BLOCK_SELECT } from 'constants/blockSelect'
+import { ALLOW_SELECT } from 'constants/blockSelect'
 import styled from 'styled-components'
 
 export const ActionButton = styled.button<{ $color: string }>`
@@ -23,7 +23,7 @@ export const CloseButton = styled.button`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  ${BLOCK_SELECT}
+  ${ALLOW_SELECT}
   width: 96px;
   height: 32px;
   border-radius: 100px;
