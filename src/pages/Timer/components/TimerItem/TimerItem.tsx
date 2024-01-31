@@ -1,7 +1,7 @@
 import * as s from './styled'
 import { TodoItemType } from 'types'
 import { EllipsisModal } from '..'
-import { useTimerItem } from './hooks/useTimerItem'
+import { useTimerItem } from './hooks'
 import { useModal } from 'hooks'
 
 type TimerItemProps = {

@@ -1,17 +1,12 @@
 import * as s from './styled'
 import * as cs from 'commonStyled'
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
 import { TimeSelector } from '.'
 import { ColorPicker } from 'components/'
-import { RootState } from 'modules'
 import { dateUtils } from 'utils'
-import { defaultColor } from 'constants/color'
 import { AnimatePresence } from 'framer-motion'
-import { useForm } from 'hooks'
-import { PlannerType } from 'api/types'
 import { MAX_APPOINT_NAME_CHARACTER_COUNT } from 'constants/maxCharacterCount'
-import { useSubmit, useInitialization } from './hooks'
+import { useSelectModal } from './useSelectModal'
 
 type SelectModalProps = {
   closeModal: () => void
@@ -19,26 +14,13 @@ type SelectModalProps = {
   onExitComplete: () => void
   type: 'ADD' | 'EDIT'
 }
-type IForm = Pick<PlannerType, 'scheduleName'>
 export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: SelectModalProps) => {
-  const { startAt, endAt, scheduleName, colorHex, plannerId, day } = useSelector(
-    (state: RootState) => state.selectedInfo
-  )
-  const { registerInput, handleSubmit, inputFocus, setValue } = useForm<IForm>()
-  const { onSubmit } = useSubmit({ startAt, endAt, colorHex, plannerId, day, closeModal, type })
-  const [subjectColor, setSubjectColor] = useState<string>(type === 'EDIT' ? colorHex : defaultColor)
-  const handleModalClick = (e: React.MouseEvent<HTMLElement>) => e.stopPropagation()
-  const assignSubjectColor = (color: string) => setSubjectColor(color)
-
-  useInitialization({
-    isOpen,
-    setScheduleNameInput: (scheduleName: string) => setValue('scheduleName', scheduleName),
-    scheduleNameInputFocus: () => inputFocus('scheduleName'),
-    initializeSubjectColor: () => setSubjectColor(defaultColor),
-    subjectColor,
-    scheduleName,
-  })
-
+  const { registerInput, handleSubmit, handleModalClick, onSubmit, setSubjectColor, subjectColor, day } =
+    useSelectModal({
+      closeModal,
+      isOpen,
+      type,
+    })
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
@@ -70,7 +52,7 @@ export const SelectModal = ({ closeModal, type, isOpen, onExitComplete }: Select
                 </s.ButtonTypoWrapper>
                 <s.ColorSelectWrapper>
                   <s.ColorSelectTypo>색상선택</s.ColorSelectTypo>
-                  <ColorPicker assignSubjectColor={assignSubjectColor} defaultColor={subjectColor} />
+                  <ColorPicker assignSubjectColor={setSubjectColor} defaultColor={subjectColor} />
                 </s.ColorSelectWrapper>
                 {/* <ButtonTypoWrapper>
               요일
