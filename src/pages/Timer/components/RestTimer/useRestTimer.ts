@@ -2,11 +2,7 @@ import { useTimer } from 'pages/Timer/hooks'
 import { timeUtils } from 'utils'
 import { useRestTimerEffects } from './useRestTimerEffects'
 
-type useRestTimerProps = {
-  isTimerRunning: boolean
-}
-
-export const useRestTimer = ({ isTimerRunning }: useRestTimerProps) => {
+export const useRestTimer = () => {
   const {
     startTimer: startRestTimer,
     stopTimer: stopRestTimer,
@@ -14,7 +10,7 @@ export const useRestTimer = ({ isTimerRunning }: useRestTimerProps) => {
     setDefaultTime: setDefaultRestTime,
   } = useTimer({ defaultTime: 0 })
   //   defaultRestTimeProps
-  useRestTimerEffects({ setDefaultRestTime, startRestTimer, stopRestTimer, isTimerRunning })
+  useRestTimerEffects({ setDefaultRestTime, startRestTimer, stopRestTimer })
   const formattedRestTime = timeUtils.getFormattedTimeKorean(restTime)
   return { formattedRestTime }
 }

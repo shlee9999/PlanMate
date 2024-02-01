@@ -1,30 +1,26 @@
 import { useEffect } from 'react'
 import { timeUtils } from 'utils'
 import { useTodayStats } from '../../hooks/useTodayStats'
+import { useSelector } from 'react-redux'
+import { RootState } from 'modules'
 
 type UseRestTimerEffectsProps = {
   setDefaultRestTime: (time: number) => void
   stopRestTimer: () => void
   startRestTimer: () => void
-  isTimerRunning: boolean
 }
 
 /**
- * @param {TimeProps} restTime
- * @param {TimeProps} totalStudyTime
  * @param {(time:number)=>void)} setDefaultRestTime
- * @param {(time:number)=>void)} setTotalTime
- * @param {boolean} isTodoLoading
  * @param {()=>void} stopRestTimer
  * @param {()=>void} startRestTimer
- * @param {boolean} isTimerRunning
  */
 export const useRestTimerEffects = ({
   setDefaultRestTime,
   startRestTimer,
   stopRestTimer,
-  isTimerRunning,
 }: UseRestTimerEffectsProps) => {
+  const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const { todayStatsData, restTime: defaultRestTimeProps } = useTodayStats()
   const { isStatsLoading, totalStudyTime } = useTodayStats()
 
@@ -33,12 +29,12 @@ export const useRestTimerEffects = ({
   }, [todayStatsData])
 
   useEffect(() => {
-    if (isTimerRunning) stopRestTimer()
+    if (isNavBlocked) stopRestTimer()
     else {
       //총 공부 시간이 0이면 breakTimer은 작동하지 않음
       startRestTimer()
     }
-  }, [isTimerRunning])
+  }, [isNavBlocked])
 
   useEffect(() => {
     if (!isStatsLoading) {

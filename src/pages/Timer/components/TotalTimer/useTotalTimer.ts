@@ -1,27 +1,26 @@
+import { RootState } from 'modules'
 import { useTimer, useTodayStats, useTodoList } from 'pages/Timer/hooks'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { timeUtils } from 'utils'
 
-type useTotalTimerProps = {
-  isTimerRunning: boolean
-}
-
-export const useTotalTimer = ({ isTimerRunning }: useTotalTimerProps) => {
-  const { todoList } = useTodoList()
+export const useTotalTimer = () => {
+  const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
+  const { isTodoLoading } = useTodoList()
   const { totalStudyTime } = useTodayStats()
   const {
-    setDefaultTime: setTotalTime,
+    setDefaultTime: setDefaultTotalTime,
     startTimer: startTotalTimer,
     stopTimer: stopTotalTimer,
     time: totalTime,
   } = useTimer({ defaultTime: 0 })
+  console.log(totalTime)
+  useEffect(() => {
+    setDefaultTotalTime(timeUtils.timeToSecond(totalStudyTime))
+  }, [isTodoLoading])
 
   useEffect(() => {
-    setTotalTime(timeUtils.timeToSecond(totalStudyTime))
-  }, [todoList])
-
-  useEffect(() => {
-    isTimerRunning ? startTotalTimer() : stopTotalTimer()
-  }, [isTimerRunning])
+    isNavBlocked ? startTotalTimer() : stopTotalTimer()
+  }, [isNavBlocked])
   return { totalTime }
 }

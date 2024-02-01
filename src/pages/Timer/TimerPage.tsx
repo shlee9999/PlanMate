@@ -1,5 +1,5 @@
 import * as s from './styled'
-import { FC } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { StatsContainerPages, TodoItemType } from 'types'
 import { PlusIcon } from 'assets/SvgComponents'
 import { NoContentDescription, StatsContainer } from 'components'
@@ -9,6 +9,7 @@ import { dateUtils } from 'utils'
 import { useTimerPage } from './useTimerPage'
 import { TotalTimer } from './components/TotalTimer/TotalTimer'
 import { RestTimer } from './components/RestTimer/RestTimer'
+import React from 'react'
 
 export const TimerPage: FC = () => {
   const {
@@ -22,8 +23,6 @@ export const TimerPage: FC = () => {
     todayStatsData,
     openAddModal,
     isTodoLoading,
-    setIsTimerRunning,
-    isTimerRunning,
   } = useTimerPage()
   return (
     <>
@@ -39,9 +38,9 @@ export const TimerPage: FC = () => {
               <s.Description>오늘의 공부량이에요!</s.Description>
               <s.TotalTimerContainer>
                 <s.Mode>공부</s.Mode>
-                <TotalTimer isTimerRunning={isTimerRunning} />
+                <TotalTimer />
               </s.TotalTimerContainer>
-              <RestTimer isTimerRunning={isTimerRunning} />
+              <RestTimer />
             </s.StudyTimeContainer>
           </s.LeftContainer>
           <s.RightContainer>
@@ -76,15 +75,7 @@ export const TimerPage: FC = () => {
           <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
             {todoList.length !== 0 ? (
               todoList.map((todo: TodoItemType) => {
-                return (
-                  <TimerItem
-                    title={todo.name}
-                    key={todo.subjectId}
-                    todo={todo}
-                    buttonColor={todo.colorHex}
-                    setIsTimerRunning={setIsTimerRunning}
-                  />
-                )
+                return <TimerItem key={todo.subjectId} todo={todo} />
               })
             ) : isTodoLoading ? (
               <s.TodoSpinner>Loading..</s.TodoSpinner>

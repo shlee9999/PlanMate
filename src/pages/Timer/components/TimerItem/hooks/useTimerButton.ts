@@ -9,7 +9,6 @@ type useTimerButtonProps = {
   setStartTime: (time: string) => void
   startTime: string
   subjectId: number
-  setIsTimerRunning: (state: boolean) => void
 }
 
 export const useTimerButton = ({
@@ -18,7 +17,6 @@ export const useTimerButton = ({
   stopTodoTimer,
   startTime,
   subjectId,
-  setIsTimerRunning,
 }: useTimerButtonProps) => {
   const dispatch = useDispatch()
   const mutateUpdateSubject = useUpdateSubjectMutation()
@@ -26,17 +24,15 @@ export const useTimerButton = ({
     startTodoTimer()
     dispatch(blockNav())
     setStartTime(timeUtils.getCurrentTime())
-    setIsTimerRunning(true)
   }
   const onClickPauseButton = () => {
     stopTodoTimer()
     dispatch(approveNav())
-    mutateUpdateSubject({
-      endAt: timeUtils.getCurrentTime(),
-      startAt: startTime,
-      subjectId,
-    })
-    setIsTimerRunning(false)
+    // mutateUpdateSubject({
+    //   endAt: timeUtils.getCurrentTime(),
+    //   startAt: startTime,
+    //   subjectId,
+    // })
   }
   return { onClickPauseButton, onClickStartButton }
 }

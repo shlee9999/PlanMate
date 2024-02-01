@@ -6,10 +6,9 @@ import { useCurrentTime, useTimerButton } from './hooks'
 
 type useTimerItemProps = {
   todo: TodoItemType
-  setIsTimerRunning: (state: boolean) => void
 }
 
-export const useTimerItem = ({ todo, setIsTimerRunning }: useTimerItemProps) => {
+export const useTimerItem = ({ todo }: useTimerItemProps) => {
   const {
     startTimer: startTodoTimer,
     stopTimer: stopTodoTimer,
@@ -25,7 +24,6 @@ export const useTimerItem = ({ todo, setIsTimerRunning }: useTimerItemProps) => 
     stopTodoTimer,
     startTime,
     subjectId: todo.subjectId,
-    setIsTimerRunning,
   })
   useCurrentTime({ isTodoTimerRunning, startTime, subjectId: todo.subjectId })
   //* backend와 시간 맞춰주기

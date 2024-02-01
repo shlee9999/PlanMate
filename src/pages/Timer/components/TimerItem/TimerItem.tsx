@@ -6,31 +6,28 @@ import { useModal } from 'hooks'
 import React from 'react'
 
 type TimerItemProps = {
-  title: string
   todo: TodoItemType
-  buttonColor: string
-  setIsTimerRunning: (state: boolean) => void
 }
-export const TimerItem = React.memo(({ title, todo, buttonColor, setIsTimerRunning }: TimerItemProps) => {
+export const TimerItem = React.memo(({ todo }: TimerItemProps) => {
   const { formattedTime, onClickPauseButton, onClickStartButton, isTodoTimerRunning } = useTimerItem({
     todo,
-    setIsTimerRunning,
   })
   const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, openModal: openEllipsisModal } = useModal()
+  console.log(todo.name, 'render')
 
   return (
     <s.TimerItem>
       <s.LeftWrapper>
         {isTodoTimerRunning ? (
-          <s.PauseButton color={buttonColor} onClick={onClickPauseButton} fill={buttonColor} />
+          <s.PauseButton color={todo.colorHex} onClick={onClickPauseButton} fill={todo.colorHex} />
         ) : (
-          <s.StartButton color={buttonColor} onClick={onClickStartButton} fill={buttonColor} />
+          <s.StartButton color={todo.colorHex} onClick={onClickStartButton} fill={todo.colorHex} />
         )}
-        <s.SubjectTitle>{title}</s.SubjectTitle>
+        <s.SubjectTitle>{todo.name}</s.SubjectTitle>
       </s.LeftWrapper>
       <s.RightWrapper>
         {isTodoTimerRunning ? (
-          <s.RunningTime color={buttonColor}>{formattedTime}</s.RunningTime>
+          <s.RunningTime color={todo.colorHex}>{formattedTime}</s.RunningTime>
         ) : (
           <s.Time>{formattedTime}</s.Time>
         )}

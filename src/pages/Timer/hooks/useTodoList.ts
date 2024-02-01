@@ -6,6 +6,7 @@ import { timeUtils } from 'utils'
 export const useTodoList = () => {
   const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeys.todoList], () => studyTime(), {
     staleTime: Infinity,
+    notifyOnChangeProps: 'tracked',
   })
   const todoList: TodoItemType[] =
     data?.map((todo) => ({
