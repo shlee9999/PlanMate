@@ -4,8 +4,12 @@ import { useQuery } from 'react-query'
 import { QueryKeys, TimeProps } from 'types'
 
 export const useTodayStats = () => {
-  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>([QueryKeys.todayStats], () =>
-    checkTodayStats()
+  const { data: todayStatsData, isLoading: isStatsLoading } = useQuery<ResponseStats>(
+    [QueryKeys.todayStats],
+    () => checkTodayStats(),
+    {
+      staleTime: Infinity,
+    }
   )
   const {
     restTimeHours = 0,

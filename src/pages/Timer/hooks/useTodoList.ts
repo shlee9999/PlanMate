@@ -4,7 +4,9 @@ import { QueryKeys, TodoItemType } from 'types'
 import { timeUtils } from 'utils'
 
 export const useTodoList = () => {
-  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeys.todoList], () => studyTime())
+  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeys.todoList], () => studyTime(), {
+    staleTime: Infinity,
+  })
   const todoList: TodoItemType[] =
     data?.map((todo) => ({
       colorHex: todo.colorHex,
