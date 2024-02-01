@@ -1,5 +1,5 @@
-import { useTimerEffects } from './useTimerEffects'
+import { useRestTimerEffects } from '../components/RestTimer/useRestTimerEffects'
 import { useTodayStats } from './useTodayStats'
 import { useTodoList } from './useTodoList'
 import useTimer from './useTimer'
-export { useTimerEffects, useTodayStats, useTodoList, useTimer }
+export { useRestTimerEffects, useTodayStats, useTodoList, useTimer }

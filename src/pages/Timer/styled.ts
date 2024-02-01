@@ -49,24 +49,6 @@ export const Description = styled.p`
   ${P14}
 `
 
-export const BreakTime = styled.p`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  ${H14_500}
-  letter-spacing: 0em;
-  text-align: center;
-  color: ${(props) => props.theme.text.gray1};
-  bottom: 20px;
-  left: 32px;
-`
-export const YellowTypo = styled.span`
-  ${P14}
-  text-align: center;
-  color: ${(props) => props.theme.yellow};
-  word-wrap: break-word;
-`
-
 export const StatsBox = styled(InfoBox)`
   height: 270px;
 `

@@ -1,7 +1,7 @@
 import * as s from './styled'
 import { TodoItemType } from 'types'
 import { EllipsisModal } from '..'
-import { useTimerItem } from './hooks'
+import { useTimerItem } from './useTimerItem'
 import { useModal } from 'hooks'
 import React from 'react'
 
@@ -17,6 +17,7 @@ export const TimerItem = React.memo(({ title, todo, buttonColor, setIsTimerRunni
     setIsTimerRunning,
   })
   const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, openModal: openEllipsisModal } = useModal()
+  // console.log(title, 'render')
   return (
     <s.TimerItem>
       <s.LeftWrapper>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { timeUtils } from 'utils'
 import { TodoItemType } from 'types'
 import { useTimer } from 'pages/Timer/hooks'
-import { useCurrentTime, useTimerButton } from '.'
+import { useCurrentTime, useTimerButton } from './hooks'
 
 type useTimerItemProps = {
   todo: TodoItemType

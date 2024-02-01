@@ -1,7 +1,6 @@
 import { blockNav, approveNav } from 'modules/isNavBlocked'
 import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { useDispatch } from 'react-redux'
-import { start } from 'repl'
 import { timeUtils } from 'utils'
 
 type useTimerButtonProps = {

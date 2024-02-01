@@ -1,14 +1,14 @@
 import * as s from './styled'
 import { FC } from 'react'
 import { StatsContainerPages, TodoItemType } from 'types'
-import { SuggestModal } from 'pages/Timer/components/'
 import { PlusIcon } from 'assets/SvgComponents'
 import { NoContentDescription, StatsContainer } from 'components'
 import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
-import { dateUtils, timeUtils } from 'utils'
+import { dateUtils } from 'utils'
 import { useTimerPage } from './useTimerPage'
 import { TotalTimer } from './components/TotalTimer/TotalTimer'
+import { RestTimer } from './components/RestTimer/RestTimer'
 
 export const TimerPage: FC = () => {
   const {
@@ -16,16 +16,12 @@ export const TimerPage: FC = () => {
     fixedDDay,
     remainingDays,
     onClickGreenTypo,
-    breakTime,
     isStatsLoading,
     isAddModalOpen,
-    isSuggestModalOpen,
-    closeSuggestModal,
     closeAddModal,
     todayStatsData,
     openAddModal,
     isTodoLoading,
-    stopBreakTimer,
     setIsTimerRunning,
     isTimerRunning,
   } = useTimerPage()
@@ -43,12 +39,9 @@ export const TimerPage: FC = () => {
               <s.Description>오늘의 공부량이에요!</s.Description>
               <s.TotalTimerContainer>
                 <s.Mode>공부</s.Mode>
-                <TotalTimer stopBreakTimer={stopBreakTimer} isTimerRunning={isTimerRunning} />
+                <TotalTimer isTimerRunning={isTimerRunning} />
               </s.TotalTimerContainer>
-              <s.BreakTime>
-                오늘은 휴식 시간을 <s.YellowTypo as="span">{timeUtils.getFormattedTimeKorean(breakTime)}</s.YellowTypo>{' '}
-                가졌네요!
-              </s.BreakTime>
+              <RestTimer isTimerRunning={isTimerRunning} />
             </s.StudyTimeContainer>
           </s.LeftContainer>
           <s.RightContainer>
@@ -108,7 +101,6 @@ export const TimerPage: FC = () => {
           </s.AddButton>
         </s.LowerContainer>
         <ActionModal closeModal={closeAddModal} type="ADD" isOpen={isAddModalOpen} />
-        {isSuggestModalOpen && <SuggestModal closeModal={closeSuggestModal} />}
       </s.TimerPage>
     </>
   )
