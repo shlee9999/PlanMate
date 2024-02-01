@@ -11,7 +11,7 @@ import {
 import styled from 'styled-components'
 
 export const FooterWrapper = styled.div`
-  ${BLOCK_SELECT}
+  ${ALLOW_SELECT}
   @media screen and (${(props) => props.theme.xlarge}) {
     padding: 32px ${XLARGE_SIDE_MARGIN}px 42px;
   }
@@ -66,14 +66,14 @@ export const StyledMessageIcon = styled(MessageIcon)`
 `
 export const EmailAddressWrapper = styled(FlexRow)`
   ${P11}
-  ${ALLOW_SELECT}
+  ${BLOCK_SELECT}
   margin-right: 8px;
   gap: 2px;
 `
 export const EmailAddress = styled.p``
 export const InstagramAddressWrapper = styled(FlexRow)`
   ${P11}
-  ${ALLOW_SELECT}
+  ${BLOCK_SELECT}
   gap: 2px;
 `
 export const InstagramAddress = styled.p``

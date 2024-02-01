@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import * as s from './styled'
+import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const footerNavigate = [

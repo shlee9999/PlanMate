@@ -11,7 +11,7 @@ import styled, { css } from 'styled-components'
 import { CloseIcon, RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 import { Spinner } from 'components'
-import { ALLOW_SELECT } from 'constants/blockSelect'
+import { BLOCK_SELECT } from 'constants/blockSelect'
 
 export const PageRoot = styled.div`
   //* DEFAULT
@@ -21,7 +21,7 @@ export const PageRoot = styled.div`
   margin-top: ${HEADER_HEIGHT}px;
   overflow-x: hidden;
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
-  ${ALLOW_SELECT}
+  ${BLOCK_SELECT}
 
   @media screen and (${(props) => props.theme.xlarge}) {
     //* XLARGE

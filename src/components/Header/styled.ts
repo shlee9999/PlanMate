@@ -11,7 +11,7 @@ import {
 import styled from 'styled-components'
 import { Variants, motion } from 'framer-motion'
 import { Logo } from 'assets/Logo'
-import { ALLOW_SELECT } from 'constants/blockSelect'
+import { BLOCK_SELECT } from 'constants/blockSelect'
 import { H14_500, P14 } from 'commonStyled'
 
 const LOGO_WIDTH = 104
@@ -19,7 +19,7 @@ const MEDIUM_LOGO_WIDTH = 90
 const LOGO_MARGIN_RIGHT = 56
 const MEDIUM_LOGO_MARGIN_RIGHT = 20
 export const HeaderWrapper = styled.nav`
-  ${ALLOW_SELECT}
+  ${BLOCK_SELECT}
   position: fixed;
   left: 50%;
   top: 0;

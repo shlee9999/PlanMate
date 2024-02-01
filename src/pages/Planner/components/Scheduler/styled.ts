@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import { RightArrow } from 'assets/SvgComponents'
 import { LARGE_SIZE } from 'constants/layout'
 import { P12, P14 } from 'commonStyled'
-import { ALLOW_SELECT } from 'constants/blockSelect'
+import { BLOCK_SELECT } from 'constants/blockSelect'
 
 export const Scheduler = styled.div`
-  ${ALLOW_SELECT}
+  ${BLOCK_SELECT}
   display: flex;
   flex-direction: column;
   width: 100%;

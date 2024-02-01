@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import { H21_700, P12, PageRoot } from 'commonStyled'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { NoContentDescription } from 'components'
-import { ALLOW_SELECT } from 'constants/blockSelect'
+import { BLOCK_SELECT } from 'constants/blockSelect'
 
 export const NoticePage = styled(PageRoot)`
-  ${ALLOW_SELECT}
+  ${BLOCK_SELECT}
 `
 
 export const TypoWrapper = styled.div`
