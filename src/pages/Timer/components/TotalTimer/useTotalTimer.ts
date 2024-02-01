@@ -14,7 +14,7 @@ export const useTotalTimer = () => {
     stopTimer: stopTotalTimer,
     time: totalTime,
   } = useTimer({ defaultTime: 0 })
-  console.log(totalTime)
+
   useEffect(() => {
     setDefaultTotalTime(timeUtils.timeToSecond(totalStudyTime))
   }, [isTodoLoading])

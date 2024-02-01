@@ -25,9 +25,10 @@ export const useTimerItem = ({ todo }: useTimerItemProps) => {
     startTime,
     subjectId: todo.subjectId,
   })
-  useCurrentTime({ isTodoTimerRunning, startTime, subjectId: todo.subjectId })
-  //* backend와 시간 맞춰주기
+
+  useCurrentTime({ isTodoTimerRunning, startTime, subjectId: todo.subjectId }) //* backend와 시간 맞춰주기
   useEffect(() => setDefaultTime(todo.time), [todo.time])
+
   return {
     formattedTime,
     onClickPauseButton,
