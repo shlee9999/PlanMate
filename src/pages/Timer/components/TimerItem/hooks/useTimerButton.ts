@@ -1,6 +1,7 @@
+import { RootState } from 'modules'
 import { blockNav, approveNav } from 'modules/isNavBlocked'
 import { useUpdateSubjectMutation } from 'pages/Timer/hooks/mutations'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { timeUtils } from 'utils'
 
 type useTimerButtonProps = {
@@ -18,9 +19,11 @@ export const useTimerButton = ({
   startTime,
   subjectId,
 }: useTimerButtonProps) => {
+  const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const dispatch = useDispatch()
   const mutateUpdateSubject = useUpdateSubjectMutation()
   const onClickStartButton = (): void => {
+    if (isNavBlocked) return
     startTodoTimer()
     dispatch(blockNav())
     setStartTime(timeUtils.getCurrentTime())

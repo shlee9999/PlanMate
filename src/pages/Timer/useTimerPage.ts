@@ -3,7 +3,6 @@ import { useModal } from 'hooks'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { QueryKeys } from 'types'
-import { dateUtils } from 'utils'
 import { useTodoList, useTodayStats } from './hooks'
 
 export const useTimerPage = () => {
@@ -15,7 +14,7 @@ export const useTimerPage = () => {
   const navigate = useNavigate()
   const onClickGreenTypo = () => navigate('/mypage')
   //! 백엔드 remainingDays 안맞아서 내 로직 사용
-  const remainingDays = dateUtils.daysUntil(dateUtils.getDateProps(fixedDDay?.targetDate))
+  const remainingDays = fixedDDay?.remainingDays
 
   return {
     todoList,
