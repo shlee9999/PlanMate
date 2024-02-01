@@ -141,7 +141,3 @@ export const TotalTimerContainer = styled.div`
 export const Mode = styled.p`
   ${H46_700}
 `
-export const Timer = styled.p`
-  ${H36_500}
-  color: ${(props) => props.theme.primary.default};
-`

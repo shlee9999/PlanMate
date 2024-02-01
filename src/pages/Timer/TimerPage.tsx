@@ -8,6 +8,7 @@ import { ActionModal, TimerItem } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils, timeUtils } from 'utils'
 import { useTimerPage } from './useTimerPage'
+import { TotalTimer } from './components/TotalTimer/TotalTimer'
 
 export const TimerPage: FC = () => {
   const {
@@ -19,16 +20,15 @@ export const TimerPage: FC = () => {
     isStatsLoading,
     isAddModalOpen,
     isSuggestModalOpen,
-    startTotalTimer,
-    stopTotalTimer,
-    totalTime,
     closeSuggestModal,
     closeAddModal,
     todayStatsData,
     openAddModal,
     isTodoLoading,
+    stopBreakTimer,
+    setIsTimerRunning,
+    isTimerRunning,
   } = useTimerPage()
-
   return (
     <>
       <s.Banner />
@@ -43,7 +43,7 @@ export const TimerPage: FC = () => {
               <s.Description>오늘의 공부량이에요!</s.Description>
               <s.TotalTimerContainer>
                 <s.Mode>공부</s.Mode>
-                <s.Timer>{timeUtils.getFormattedTime(totalTime)}</s.Timer>
+                <TotalTimer stopBreakTimer={stopBreakTimer} isTimerRunning={isTimerRunning} />
               </s.TotalTimerContainer>
               <s.BreakTime>
                 오늘은 휴식 시간을 <s.YellowTypo as="span">{timeUtils.getFormattedTimeKorean(breakTime)}</s.YellowTypo>{' '}
@@ -89,8 +89,7 @@ export const TimerPage: FC = () => {
                     key={todo.subjectId}
                     todo={todo}
                     buttonColor={todo.colorHex}
-                    startTotalTimer={startTotalTimer}
-                    stopTotalTimer={stopTotalTimer}
+                    setIsTimerRunning={setIsTimerRunning}
                   />
                 )
               })

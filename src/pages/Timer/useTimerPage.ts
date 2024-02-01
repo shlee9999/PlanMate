@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { QueryKeys } from 'types'
 import { dateUtils } from 'utils'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTodoList, useTodayStats, useTimerEffects } from './hooks'
 import { useTimer } from './hooks'
 
@@ -14,13 +14,7 @@ export const useTimerPage = () => {
   const { todayStatsData, totalStudyTime, restTime, isStatsLoading } = useTodayStats()
   const { isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal } = useModal()
   const { isOpen: isSuggestModalOpen, openModal: openSuggestModal, closeModal: closeSuggestModal } = useModal()
-  const {
-    setDefaultTime: setTotalTime,
-    startTimer: startTotalTimer,
-    stopTimer: stopTotalTimer,
-    time: totalTime,
-    isRunning: isTotalTimerRunning,
-  } = useTimer({ defaultTime: 0 })
+  const [isTimerRunning, setIsTimerRunning] = useState(false)
   const {
     startTimer: startBreakTimer,
     stopTimer: stopBreakTimer,
@@ -38,15 +32,12 @@ export const useTimerPage = () => {
     if (location.state) openSuggestModal()
   }, [location.state])
   useTimerEffects({
-    todayStatsData,
-    totalStudyTime,
     restTime,
     setDefaultBreakTime,
-    setTotalTime,
-    isTodoLoading,
-    stopBreakTimer,
     startBreakTimer,
-    isTotalTimerRunning,
+    stopBreakTimer,
+    isTimerRunning,
+    todayStatsData,
   })
 
   return {
@@ -58,14 +49,13 @@ export const useTimerPage = () => {
     isStatsLoading,
     isAddModalOpen,
     isSuggestModalOpen,
-    startTotalTimer,
-    stopTotalTimer,
-    totalTime,
     closeSuggestModal,
     closeAddModal,
     todayStatsData,
     openAddModal,
-    openSuggestModal,
     isTodoLoading,
+    stopBreakTimer,
+    setIsTimerRunning,
+    isTimerRunning,
   }
 }

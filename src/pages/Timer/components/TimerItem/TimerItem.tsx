@@ -8,14 +8,12 @@ type TimerItemProps = {
   title: string
   todo: TodoItemType
   buttonColor: string
-  startTotalTimer: () => void
-  stopTotalTimer: () => void
+  setIsTimerRunning: (state: boolean) => void
 }
-export const TimerItem = ({ title, todo, buttonColor, startTotalTimer, stopTotalTimer }: TimerItemProps) => {
+export const TimerItem = ({ title, todo, buttonColor, setIsTimerRunning }: TimerItemProps) => {
   const { formattedTime, onClickPauseButton, onClickStartButton, isTodoTimerRunning } = useTimerItem({
-    startTotalTimer,
-    stopTotalTimer,
     todo,
+    setIsTimerRunning,
   })
   const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, openModal: openEllipsisModal } = useModal()
   return (

@@ -5,12 +5,11 @@ import { useTimer } from 'pages/Timer/hooks'
 import { useCurrentTime, useTimerButton } from '.'
 
 type useTimerItemProps = {
-  startTotalTimer: () => void
-  stopTotalTimer: () => void
   todo: TodoItemType
+  setIsTimerRunning: (state: boolean) => void
 }
 
-export const useTimerItem = ({ startTotalTimer, stopTotalTimer, todo }: useTimerItemProps) => {
+export const useTimerItem = ({ todo, setIsTimerRunning }: useTimerItemProps) => {
   const {
     startTimer: startTodoTimer,
     stopTimer: stopTodoTimer,
@@ -22,12 +21,11 @@ export const useTimerItem = ({ startTotalTimer, stopTotalTimer, todo }: useTimer
   const [startTime, setStartTime] = useState('')
   const { onClickPauseButton, onClickStartButton } = useTimerButton({
     startTodoTimer,
-    startTotalTimer,
     setStartTime,
     stopTodoTimer,
-    stopTotalTimer,
     startTime,
     subjectId: todo.subjectId,
+    setIsTimerRunning,
   })
   useCurrentTime({ isTodoTimerRunning, startTime, subjectId: todo.subjectId })
   //* backend와 시간 맞춰주기
