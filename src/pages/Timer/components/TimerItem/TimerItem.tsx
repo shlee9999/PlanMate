@@ -3,6 +3,7 @@ import { TodoItemType } from 'types'
 import { EllipsisModal } from '..'
 import { useTimerItem } from './hooks'
 import { useModal } from 'hooks'
+import React from 'react'
 
 type TimerItemProps = {
   title: string
@@ -10,7 +11,7 @@ type TimerItemProps = {
   buttonColor: string
   setIsTimerRunning: (state: boolean) => void
 }
-export const TimerItem = ({ title, todo, buttonColor, setIsTimerRunning }: TimerItemProps) => {
+export const TimerItem = React.memo(({ title, todo, buttonColor, setIsTimerRunning }: TimerItemProps) => {
   const { formattedTime, onClickPauseButton, onClickStartButton, isTodoTimerRunning } = useTimerItem({
     todo,
     setIsTimerRunning,
@@ -37,4 +38,5 @@ export const TimerItem = ({ title, todo, buttonColor, setIsTimerRunning }: Timer
       <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isOpen={isEllipsisOpen} />
     </s.TimerItem>
   )
-}
+})
+TimerItem.displayName = 'TimerItem'
