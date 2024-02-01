@@ -9,25 +9,25 @@ type useCurrentTimeProps = {
 }
 
 /**
- * 일시정지 시 백엔드와 시간 동기화
+ * 매시 5분에 callback 함수 실행
  */
 export const useCurrentTime = ({ isTodoTimerRunning, startTime, subjectId }: useCurrentTimeProps) => {
   const getCurrentTime = () => new Date()
   const [currentTime, setCurrentTime] = useState(getCurrentTime())
   const mutateUpdateSubject = useUpdateSubjectMutation()
   useEffect(() => {
+    if (!isTodoTimerRunning) return
     const interval = setInterval(() => {
       const newTime = getCurrentTime()
       setCurrentTime(newTime)
-      const { minute, second } = timeUtils.getTimeProps(newTime)
-      // 매시 30분 정각에 callback 함수를 실행합니다.
-      if (isTodoTimerRunning && minute === 30 && second === 0)
+      const { minute } = timeUtils.getTimeProps(newTime)
+      if (minute % 5 === 0)
         mutateUpdateSubject({
           endAt: timeUtils.getCurrentTime(),
           startAt: startTime,
           subjectId,
         })
-    }, 1000)
+    }, 1000 * 60)
 
     return () => clearInterval(interval)
   }, [])

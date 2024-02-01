@@ -103,12 +103,10 @@ export const dateUtils = {
   /**년/월/일 더하기 */
   calculateDateProps: (currentDateProps: DateProps, type: 'year' | 'month' | 'date', amount): DateProps => {
     const targetDate = dateUtils.getDateEntity(currentDateProps)
-    console.log('Before', targetDate)
 
     if (type === 'year') targetDate.setFullYear(targetDate.getFullYear() + amount)
     else if (type === 'month') targetDate.setMonth(targetDate.getMonth() + amount)
     else if (type === 'date') targetDate.setDate(targetDate.getDate() + amount)
-    console.log('After', targetDate)
 
     return dateUtils.getDateProps(targetDate)
   },
