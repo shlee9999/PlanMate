@@ -1,5 +1,7 @@
+import { RootState } from 'modules'
 import { useDeleteSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { TodoItemType } from 'types'
 
 type useEllipsisModalProps = {
@@ -8,6 +10,7 @@ type useEllipsisModalProps = {
 }
 
 export const useEllipsisModal = ({ closeModal, todo }: useEllipsisModalProps) => {
+  const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const mutateDeleteSubject = useDeleteSubjectMutation()
@@ -43,5 +46,6 @@ export const useEllipsisModal = ({ closeModal, todo }: useEllipsisModalProps) =>
     isEditModalOpen,
     closeDeleteModal,
     closeEditModal,
+    isNavBlocked,
   }
 }

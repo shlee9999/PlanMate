@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { EllipsisIcon, TimerPause, TimerStart } from 'assets/SvgComponents'
 import { FlexRow, H21_700, H24_500, H28_700, H36_500, H36_700 } from 'commonStyled'
 import { LARGE_SIDE_MARGIN, MEDIUM_SIDE_MARGIN } from 'constants/layout'
@@ -9,8 +9,8 @@ export const TimerItem = styled(FlexRow)`
   margin-bottom: 29px;
 `
 
-export const LeftWrapper = styled(FlexRow)``
-export const RightWrapper = styled(FlexRow)`
+export const LeftContainer = styled(FlexRow)``
+export const RightContainer = styled(FlexRow)`
   justify-content: space-between;
   @media screen and (${(props) => props.theme.xlarge}) {
     width: ${TITLE_MAX_WIDTH.XLARGE}px;
@@ -105,7 +105,8 @@ export const SubjectTitle = styled.p`
   white-space: nowrap;
 `
 
-export const Time = styled.p`
+export const Time = styled.p<{ $isTodoTimerRunning: boolean }>`
+  color: ${(props) => (props.$isTodoTimerRunning ? props.color : '')};
   @media screen and (${(props) => props.theme.xlarge}) {
     ${H36_500}
   }
@@ -118,8 +119,4 @@ export const Time = styled.p`
   @media screen and (${(props) => props.theme.small}) {
     ${H24_500}
   }
-`
-
-export const RunningTime = styled(Time)`
-  color: ${(props) => props.color};
 `

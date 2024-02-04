@@ -1,38 +1,39 @@
+import React from 'react'
 import * as s from './styled'
 import { TodoItemType } from 'types'
 import { EllipsisModal } from '..'
 import { useTimerItem } from './useTimerItem'
 import { useModal } from 'hooks'
-import React from 'react'
+import { TimerButton } from './TimerButton'
 
 type TimerItemProps = {
   todo: TodoItemType
 }
 export const TimerItem = React.memo(({ todo }: TimerItemProps) => {
-  const { formattedTime, onClickPauseButton, onClickStartButton, isTodoTimerRunning } = useTimerItem({
+  const { formattedTime, isTodoTimerRunning, startTodoTimer, stopTodoTimer, setStartTime, startTime } = useTimerItem({
     todo,
   })
   const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, openModal: openEllipsisModal } = useModal()
-  console.log(todo.name, 'render')
 
   return (
     <s.TimerItem>
-      <s.LeftWrapper>
-        {isTodoTimerRunning ? (
-          <s.PauseButton color={todo.colorHex} onClick={onClickPauseButton} fill={todo.colorHex} />
-        ) : (
-          <s.StartButton color={todo.colorHex} onClick={onClickStartButton} fill={todo.colorHex} />
-        )}
+      <s.LeftContainer>
+        <TimerButton
+          isTodoTimerRunning={isTodoTimerRunning}
+          todo={todo}
+          startTodoTimer={startTodoTimer}
+          stopTodoTimer={stopTodoTimer}
+          setStartTime={setStartTime}
+          startTime={startTime}
+        />
         <s.SubjectTitle>{todo.name}</s.SubjectTitle>
-      </s.LeftWrapper>
-      <s.RightWrapper>
-        {isTodoTimerRunning ? (
-          <s.RunningTime color={todo.colorHex}>{formattedTime}</s.RunningTime>
-        ) : (
-          <s.Time>{formattedTime}</s.Time>
-        )}
+      </s.LeftContainer>
+      <s.RightContainer>
+        <s.Time $isTodoTimerRunning={isTodoTimerRunning} color={todo.colorHex}>
+          {formattedTime}
+        </s.Time>
         <s.EllipsisButton onClick={openEllipsisModal}></s.EllipsisButton>
-      </s.RightWrapper>
+      </s.RightContainer>
       <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isOpen={isEllipsisOpen} />
     </s.TimerItem>
   )

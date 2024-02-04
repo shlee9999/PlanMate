@@ -19,11 +19,11 @@ export const useTimerButton = ({
   startTime,
   subjectId,
 }: useTimerButtonProps) => {
-  const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
+  // const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const dispatch = useDispatch()
   const mutateUpdateSubject = useUpdateSubjectMutation()
   const onClickStartButton = (): void => {
-    if (isNavBlocked) return
+    // if (isNavBlocked) return
     startTodoTimer()
     dispatch(blockNav())
     setStartTime(timeUtils.getCurrentTime())
@@ -31,11 +31,11 @@ export const useTimerButton = ({
   const onClickPauseButton = () => {
     stopTodoTimer()
     dispatch(approveNav())
-    mutateUpdateSubject({
-      endAt: timeUtils.getCurrentTime(),
-      startAt: startTime,
-      subjectId,
-    })
+    // mutateUpdateSubject({
+    //   endAt: timeUtils.getCurrentTime(),
+    //   startAt: startTime,
+    //   subjectId,
+    // })
   }
   return { onClickPauseButton, onClickStartButton }
 }

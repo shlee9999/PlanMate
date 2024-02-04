@@ -23,7 +23,9 @@ export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) 
     isEditModalOpen,
     closeDeleteModal,
     closeEditModal,
+    isNavBlocked,
   } = useEllipsisModal({ closeModal, todo })
+  if (isNavBlocked || !isOpen) return null
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
