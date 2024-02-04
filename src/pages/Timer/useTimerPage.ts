@@ -3,21 +3,18 @@ import { useModal } from 'hooks'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { QueryKeys } from 'types'
-import { useTodoList, useTodayStats } from './hooks'
+import { useTodayStats } from './hooks'
 
 export const useTimerPage = () => {
-  const { todoList, isTodoLoading } = useTodoList()
   const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeys.fixedDday], () => findFixedDday())
   const { todayStatsData, isStatsLoading } = useTodayStats()
   const { isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal } = useModal()
-
   const navigate = useNavigate()
   const onClickGreenTypo = () => navigate('/mypage')
   //! 백엔드 remainingDays 안맞아서 내 로직 사용
   const remainingDays = fixedDDay?.remainingDays
 
   return {
-    todoList,
     fixedDDay,
     remainingDays,
     onClickGreenTypo,
@@ -26,6 +23,5 @@ export const useTimerPage = () => {
     closeAddModal,
     todayStatsData,
     openAddModal,
-    isTodoLoading,
   }
 }

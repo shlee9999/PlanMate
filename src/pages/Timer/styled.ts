@@ -53,12 +53,6 @@ export const StatsBox = styled(InfoBox)`
   height: 270px;
 `
 
-export const TodoContainer = styled.div`
-  &.no_content {
-    margin-bottom: 50px;
-  }
-`
-
 export const RightContainer = styled.div`
   flex-grow: 1;
   flex-basis: 500px;
@@ -110,8 +104,6 @@ export const GreenTypo = styled.span`
 export const Test = styled.span`
   ${H14_700}
 `
-
-export const TodoSpinner = styled(Spinner)``
 
 export const TotalTimerContainer = styled.div`
   display: flex;

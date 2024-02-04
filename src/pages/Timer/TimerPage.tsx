@@ -10,10 +10,10 @@ import { useTimerPage } from './useTimerPage'
 import { TotalTimer } from './components/TotalTimer/TotalTimer'
 import { RestTimer } from './components/RestTimer/RestTimer'
 import React from 'react'
+import { TodoContainer } from './components/TodoContainer/TodoContainer'
 
 export const TimerPage: FC = () => {
   const {
-    todoList,
     fixedDDay,
     remainingDays,
     onClickGreenTypo,
@@ -22,7 +22,6 @@ export const TimerPage: FC = () => {
     closeAddModal,
     todayStatsData,
     openAddModal,
-    isTodoLoading,
   } = useTimerPage()
   return (
     <>
@@ -72,20 +71,7 @@ export const TimerPage: FC = () => {
             </s.CheerTypo>
           )}
 
-          <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
-            {todoList.length !== 0 ? (
-              todoList.map((todo: TodoItemType) => {
-                return <TimerItem key={todo.subjectId} todo={todo} />
-              })
-            ) : isTodoLoading ? (
-              <s.TodoSpinner>Loading..</s.TodoSpinner>
-            ) : (
-              <NoContentDescription
-                descriptions={['아직 공부할 과목이 없어요!', '일정을 설정해 과목을 추가해볼까요?']}
-                icon="book_check"
-              />
-            )}
-          </s.TodoContainer>
+          <TodoContainer />
           <s.AddButton onClick={openAddModal}>
             <PlusIcon />
             과목

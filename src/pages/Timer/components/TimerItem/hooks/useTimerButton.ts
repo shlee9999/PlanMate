@@ -31,11 +31,11 @@ export const useTimerButton = ({
   const onClickPauseButton = () => {
     stopTodoTimer()
     dispatch(approveNav())
-    // mutateUpdateSubject({
-    //   endAt: timeUtils.getCurrentTime(),
-    //   startAt: startTime,
-    //   subjectId,
-    // })
+    mutateUpdateSubject({
+      endAt: timeUtils.getCurrentTime(),
+      startAt: startTime,
+      subjectId,
+    })
   }
   return { onClickPauseButton, onClickStartButton }
 }
