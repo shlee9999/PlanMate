@@ -30,7 +30,7 @@ export const useCurrentTime = ({ isTodoTimerRunning, startTime, subjectId }: use
     }, 1000 * 60)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isTodoTimerRunning])
 
   return { currentTime: timeUtils.getTimeProps(currentTime) }
 }
