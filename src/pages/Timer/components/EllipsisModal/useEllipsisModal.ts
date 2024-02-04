@@ -1,3 +1,4 @@
+import { useLockBodyScroll } from 'hooks'
 import { RootState } from 'modules'
 import { useDeleteSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { useState } from 'react'
@@ -7,9 +8,10 @@ import { TodoItemType } from 'types'
 type useEllipsisModalProps = {
   closeModal: () => void
   todo: TodoItemType
+  isOpen: boolean
 }
 
-export const useEllipsisModal = ({ closeModal, todo }: useEllipsisModalProps) => {
+export const useEllipsisModal = ({ closeModal, todo, isOpen }: useEllipsisModalProps) => {
   const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -36,6 +38,7 @@ export const useEllipsisModal = ({ closeModal, todo }: useEllipsisModalProps) =>
     }
   }
 
+  useLockBodyScroll({ isOpen })
   return {
     onClickDeleteButton,
     onClickModal,
