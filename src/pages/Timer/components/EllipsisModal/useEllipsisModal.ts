@@ -12,7 +12,6 @@ type useEllipsisModalProps = {
 }
 
 export const useEllipsisModal = ({ closeModal, todo, isOpen }: useEllipsisModalProps) => {
-  const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const mutateDeleteSubject = useDeleteSubjectMutation()
@@ -22,7 +21,6 @@ export const useEllipsisModal = ({ closeModal, todo, isOpen }: useEllipsisModalP
   const onClickEditButton = () => setIsEditModalOpen(true)
   const closeEditModal = () => setIsEditModalOpen(false)
   const [isDeleteConfirmed, setIsDeleteConfirmed] = useState(false)
-
   const deleteConfirm = () => {
     setIsDeleteConfirmed(true)
     closeModal()
@@ -49,6 +47,5 @@ export const useEllipsisModal = ({ closeModal, todo, isOpen }: useEllipsisModalP
     isEditModalOpen,
     closeDeleteModal,
     closeEditModal,
-    isNavBlocked,
   }
 }
