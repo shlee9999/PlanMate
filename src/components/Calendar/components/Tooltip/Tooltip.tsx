@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react'
 import * as s from './styled'
+import { FC, useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { createPortal } from 'react-dom'
 
@@ -12,6 +12,7 @@ type TooltipProps = {
 export const Tooltip: FC<TooltipProps> = ({ className, closeTooltip, targetRef }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [position, setPosition] = useState({ top: 0, left: 0 })
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsOpen(false)

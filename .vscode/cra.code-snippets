@@ -34,7 +34,7 @@
   "react-styled-components-skeleton": {
     "scope": "typescript",
     "prefix": "rsc",
-    "body": ["import styled from 'styled-components'", "", "export const ${TM_DIRECTORY/^.+\\/(.*)$/$1/} = styled.div``"]
+    "body": ["import styled from 'styled-components'", "", "export const ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/} = styled.div``"]
   },
   "react-export-const-skeleton": {
     "scope": "typescript",

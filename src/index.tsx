@@ -8,7 +8,6 @@ import { routerInfo } from 'router'
 
 const store = createStore(rootReducer)
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-
 const router = createBrowserRouter(routerInfo)
 
 root.render(

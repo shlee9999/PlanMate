@@ -45,7 +45,7 @@ export const useCalendar = ({ setSelectedDate, selectedDateProps, blockFuture }:
     }
   }
   const onClickPrevYear = () => {
-    setSelectedDate(dateUtils.calculateDateProps(selectedDateProps, 'year', 1))
+    setSelectedDate(dateUtils.calculateDateProps(selectedDateProps, 'year', -1))
     setBack(true)
   }
   const onClickToday = () => setSelectedDate(dateUtils.getDateProps(new Date()))

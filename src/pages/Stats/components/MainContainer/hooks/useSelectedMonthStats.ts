@@ -16,7 +16,9 @@ export const useSelectedMonthStats = ({ selectedDate }: useSelectedMonthStatsPro
       checkStatsMonthly({
         yearMonth: dateUtils.getYYYYMMDD(selectedDate),
       }),
-    { initialData: numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats) }
+    {
+      initialData: numberUtils.createSequentialNumbers(1, 31).map(() => defaultStats),
+    }
   )
 
   return { selectedMonthStats, isSelectedLoading }
