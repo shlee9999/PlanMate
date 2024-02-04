@@ -1,11 +1,12 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
+import * as s from './styled'
 import { weekDays } from 'constants/week'
 import { dateUtils } from 'utils'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'types'
 import { DateCell } from './DateCell'
 import { ResponseStats } from 'api/types'
-import * as s from './styled'
+import { useCalendar } from './useCalendar'
 
 type CalendarProps = {
   className?: string
@@ -36,41 +37,17 @@ export const Calendar: FC<CalendarProps> = ({
   todayButton = false,
   yearHeader = false,
 }) => {
-  const [back, setBack] = useState(false)
-  const onClickNextMonth = () => {
-    const newDateProps = dateUtils.calculateDateProps(selectedDateProps, 'month', 1)
-    if (blockFuture) {
-      if (!dateUtils.isFuture(newDateProps)) {
-        setSelectedDate(newDateProps)
-        setBack(false)
-      }
-    } else {
-      setSelectedDate(newDateProps)
-      setBack(false)
-    }
-  }
-  const onClickPrevMonth = () => {
-    setSelectedDate(dateUtils.calculateDateProps(selectedDateProps, 'month', -1))
-    setBack(true)
-  }
-  const onClickNextYear = () => {
-    const newDateProps = dateUtils.calculateDateProps(selectedDateProps, 'year', 1)
-    if (blockFuture) {
-      if (!dateUtils.isFuture(newDateProps)) {
-        setSelectedDate(newDateProps)
-        setBack(false)
-      }
-    } else {
-      setSelectedDate(newDateProps)
-      setBack(false)
-    }
-  }
-  const onClickPrevYear = () => {
-    setSelectedDate(dateUtils.calculateDateProps(selectedDateProps, 'year', 1))
-    setBack(true)
-  }
-  const onClickToday = () => setSelectedDate(dateUtils.getDateProps(new Date()))
-  const todayDateProps = dateUtils.getTodayDateProps()
+  const { back, onClickNextMonth, onClickPrevMonth, onClickNextYear, onClickPrevYear, onClickToday, todayDateProps } =
+    useCalendar({
+      setSelectedDate,
+      selectedDateProps,
+      dataSource,
+      blockFuture,
+      legend,
+      headerButtonLayout,
+      todayButton,
+      yearHeader,
+    })
   return (
     <s.Calendar className={className}>
       {yearHeader && (
