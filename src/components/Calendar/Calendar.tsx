@@ -1,12 +1,9 @@
-import { FC, SetStateAction } from 'react'
+import { FC, useState } from 'react'
 import * as s from './styled'
 import { weekDays } from 'constants/week'
-import { dateUtils } from 'utils'
-import { AnimatePresence, Variants } from 'framer-motion'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
-import { useCalendar } from './useCalendar'
-import { DateCell, DateContainer } from './components'
+import { CalendarHeader, DateContainer } from './components'
 
 type CalendarProps = {
   className?: string
@@ -31,41 +28,18 @@ export const Calendar: FC<CalendarProps> = ({
   todayButton = false,
   yearHeader = false,
 }) => {
-  const { back, onClickNextMonth, onClickPrevMonth, onClickNextYear, onClickPrevYear, onClickToday, todayDateProps } =
-    useCalendar({
-      setSelectedDate,
-      selectedDateProps,
-      dataSource,
-      blockFuture,
-      legend,
-      headerButtonLayout,
-      todayButton,
-      yearHeader,
-    })
+  const [back, setBack] = useState(false) //* 애니메이션 좌우 설정
   return (
     <s.Calendar className={className}>
-      {yearHeader && (
-        <s.YearHeader>
-          <s.PrevButton onClick={onClickPrevYear} />
-          <s.Month $layout={headerButtonLayout} key={selectedDateProps.month}>
-            {selectedDateProps.year}
-          </s.Month>
-          <s.NextButton onClick={onClickNextYear} />
-          {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
-        </s.YearHeader>
-      )}
-      <s.MonthHeader $layout={headerButtonLayout}>
-        <s.PrevButton onClick={onClickPrevMonth} />
-        <s.Month $layout={headerButtonLayout} key={selectedDateProps.month}>
-          {selectedDateProps.month}월
-        </s.Month>
-        {(!blockFuture ||
-          selectedDateProps.year < new Date().getFullYear() ||
-          (selectedDateProps.year === new Date().getFullYear() && selectedDateProps.month < todayDateProps.month)) && (
-          <s.NextButton onClick={onClickNextMonth} />
-        )}
-        {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
-      </s.MonthHeader>
+      <CalendarHeader
+        yearHeader={yearHeader}
+        todayButton={todayButton}
+        selectedDateProps={selectedDateProps}
+        headerButtonLayout={headerButtonLayout}
+        blockFuture={blockFuture}
+        setSelectedDate={setSelectedDate}
+        setBack={setBack}
+      />
       <s.Body>
         <s.DayRow>
           {weekDays.map((day, index) => (
@@ -80,6 +54,7 @@ export const Calendar: FC<CalendarProps> = ({
           dataSource={dataSource}
           back={back}
           legend={legend}
+          setBack={setBack}
         />
       </s.Body>
     </s.Calendar>

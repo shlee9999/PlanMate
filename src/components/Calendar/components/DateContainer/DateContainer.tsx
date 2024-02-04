@@ -12,6 +12,7 @@ type DateContainerProps = {
   blockFuture: boolean
   dataSource: ResponseStats[]
   back: boolean
+  setBack: Dispatch<SetStateAction<boolean>>
   legend: boolean
 }
 const momentum = 100
@@ -27,6 +28,7 @@ export const DateContainer: FC<DateContainerProps> = ({
   blockFuture,
   dataSource,
   legend,
+  setBack,
 }) => {
   return (
     <AnimatePresence initial={false}>
@@ -54,6 +56,7 @@ export const DateContainer: FC<DateContainerProps> = ({
                       }
                       selectedDate={selectedDateProps}
                       blockFuture={blockFuture}
+                      setBack={setBack}
                     />
                   ))}
               </s.WeekRow>

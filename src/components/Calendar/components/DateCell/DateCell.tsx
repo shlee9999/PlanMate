@@ -1,5 +1,5 @@
 import * as s from './styled'
-import { useRef, useState, memo } from 'react'
+import { useRef, useState, memo, SetStateAction, Dispatch } from 'react'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import React from 'react'
@@ -9,6 +9,7 @@ type DateCellProps = {
   studyTimeHours?: number
   setSelectedDate: () => void
   blockFuture: boolean
+  setBack: Dispatch<SetStateAction<boolean>>
 }
 
 function getIndex(hour: number) {
@@ -28,7 +29,7 @@ const getClassName = (cellDate: DateProps, selectedDate: DateProps) => {
 }
 
 export const DateCell = memo(
-  ({ setSelectedDate, cellDateProps, selectedDate, studyTimeHours = 0, blockFuture }: DateCellProps) => {
+  ({ setSelectedDate, cellDateProps, selectedDate, studyTimeHours = 0, blockFuture, setBack }: DateCellProps) => {
     const [isToolTipOpen, setIsToolTipOpen] = useState(false)
     const triggerTooltip = () => setIsToolTipOpen(true)
     const closeTooltip = () => setIsToolTipOpen(false)
@@ -36,6 +37,7 @@ export const DateCell = memo(
     const isSelected = dateUtils.isEqual(cellDateProps, selectedDate)
     const opacity = getIndex(studyTimeHours)
     const onClick = () => {
+      if (className === 'prev') setBack(true)
       if (blockFuture && dateUtils.isFuture(cellDateProps)) triggerTooltip()
       else setSelectedDate()
     }

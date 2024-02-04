@@ -1,21 +1,20 @@
-import { ResponseStats } from 'api/types'
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 
-type useCalendarProps = {
+type useHeaderButtonProps = {
   selectedDateProps: DateProps
-  setSelectedDate: (date: DateProps) => void
-  dataSource?: ResponseStats[]
-  blockFuture?: boolean
-  legend?: boolean
-  headerButtonLayout?: 'space-between' | 'center'
-  todayButton?: boolean
-  yearHeader?: boolean
+  setSelectedDate: Dispatch<SetStateAction<DateProps>>
+  blockFuture: boolean
+  setBack: Dispatch<SetStateAction<boolean>>
 }
 
-export const useCalendar = ({ setSelectedDate, selectedDateProps, blockFuture }: useCalendarProps) => {
-  const [back, setBack] = useState(false)
+export const useCalendarHeader = ({
+  setSelectedDate,
+  blockFuture,
+  selectedDateProps,
+  setBack,
+}: useHeaderButtonProps) => {
   const onClickNextMonth = () => {
     const newDateProps = dateUtils.calculateDateProps(selectedDateProps, 'month', 1)
     if (blockFuture) {
@@ -51,7 +50,6 @@ export const useCalendar = ({ setSelectedDate, selectedDateProps, blockFuture }:
   const onClickToday = () => setSelectedDate(dateUtils.getDateProps(new Date()))
   const todayDateProps = dateUtils.getTodayDateProps()
   return {
-    back,
     onClickNextMonth,
     onClickPrevMonth,
     onClickNextYear,
