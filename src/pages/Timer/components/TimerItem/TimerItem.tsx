@@ -20,7 +20,8 @@ export const TimerItem = React.memo(({ todo }: TimerItemProps) => {
       <s.LeftContainer>
         <TimerButton
           isTodoTimerRunning={isTodoTimerRunning}
-          todo={todo}
+          subjectId={todo.subjectId}
+          colorHex={todo.colorHex}
           startTodoTimer={startTodoTimer}
           stopTodoTimer={stopTodoTimer}
           setStartTime={setStartTime}
