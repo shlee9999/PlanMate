@@ -5,16 +5,18 @@ import { DateProps, StatsContainerPages } from 'types'
 import { ResponseStats } from 'api/types'
 import { dateUtils } from 'utils'
 import { StatsContainerType } from 'types'
+import { useTodayStats } from 'pages/Timer/hooks'
 
 interface InfoContainerProps {
   selectedDate?: DateProps
-  dataSource: ResponseStats
+  dataSource?: ResponseStats
   type: StatsContainerType
 }
 
 export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dataSource, type }) => {
-  if (type === StatsContainerPages.stats && !selectedDate) return null
-
+  if ((type === StatsContainerPages.stats && !selectedDate) || (type === StatsContainerPages.stats && !dataSource))
+    return null
+  const { todayStatsData: timerDataSource } = useTodayStats()
   const dateProps = selectedDate || dateUtils.getDateProps(new Date())
   const { year, month, date } = dateProps
   const {
@@ -32,7 +34,7 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ selectedDate, dat
     totalStudyTimeHours = 0,
     totalStudyTimeMinutes = 0,
     totalStudyTimeSeconds = 0,
-  } = dataSource || {}
+  } = type === StatsContainerPages.timer ? timerDataSource || {} : dataSource || {}
 
   const totalStudyTime = { hour: totalStudyTimeHours, minute: totalStudyTimeMinutes, second: totalStudyTimeSeconds }
   const restTime = { hour: restTimeHours, minute: restTimeMinutes, second: restTimeSeconds }

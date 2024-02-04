@@ -3,11 +3,9 @@ import { useModal } from 'hooks'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { QueryKeys } from 'types'
-import { useTodayStats } from './hooks'
 
 export const useTimerPage = () => {
   const { data: fixedDDay } = useQuery<FindFixedDdayResponseProps>([QueryKeys.fixedDday], () => findFixedDday())
-  const { todayStatsData, isStatsLoading } = useTodayStats()
   const { isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal } = useModal()
   const navigate = useNavigate()
   const onClickGreenTypo = () => navigate('/mypage')
@@ -18,10 +16,8 @@ export const useTimerPage = () => {
     fixedDDay,
     remainingDays,
     onClickGreenTypo,
-    isStatsLoading,
     isAddModalOpen,
     closeAddModal,
-    todayStatsData,
     openAddModal,
   }
 }

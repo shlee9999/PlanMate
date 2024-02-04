@@ -1,9 +1,9 @@
 import * as s from './styled'
-import { FC, useCallback, useState } from 'react'
-import { StatsContainerPages, TodoItemType } from 'types'
+import { FC } from 'react'
+import { StatsContainerPages } from 'types'
 import { PlusIcon } from 'assets/SvgComponents'
-import { NoContentDescription, StatsContainer } from 'components'
-import { ActionModal, TimerItem } from './components'
+import { StatsContainer } from 'components'
+import { ActionModal } from './components'
 import { CenterSpinner } from 'commonStyled'
 import { dateUtils } from 'utils'
 import { useTimerPage } from './useTimerPage'
@@ -13,16 +13,7 @@ import React from 'react'
 import { TodoContainer } from './components/TodoContainer/TodoContainer'
 
 export const TimerPage: FC = () => {
-  const {
-    fixedDDay,
-    remainingDays,
-    onClickGreenTypo,
-    isStatsLoading,
-    isAddModalOpen,
-    closeAddModal,
-    todayStatsData,
-    openAddModal,
-  } = useTimerPage()
+  const { fixedDDay, remainingDays, onClickGreenTypo, isAddModalOpen, closeAddModal, openAddModal } = useTimerPage()
   return (
     <>
       <s.Banner />
@@ -45,11 +36,7 @@ export const TimerPage: FC = () => {
           <s.RightContainer>
             <s.Title>오늘의 통계 📊</s.Title>
             <s.StatsBox right>
-              {isStatsLoading ? (
-                <CenterSpinner>Loading...</CenterSpinner>
-              ) : (
-                <StatsContainer type={StatsContainerPages.timer} dataSource={todayStatsData} />
-              )}
+              <StatsContainer type={StatsContainerPages.timer} />
             </s.StatsBox>
           </s.RightContainer>
         </s.BannerContentContainer>

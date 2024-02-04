@@ -5,11 +5,7 @@ import { NoContentDescription, Spinner } from 'components'
 import { TodoItemType } from 'types'
 import { TimerItem } from '..'
 
-type TodoContainerProps = {
-  className?: string
-}
-
-export const TodoContainer: FC<TodoContainerProps> = () => {
+export const TodoContainer: FC = () => {
   const { todoList, isTodoLoading } = useTodoList()
   return (
     <s.TodoContainer className={todoList.length === 0 ? 'no_content' : ''}>
