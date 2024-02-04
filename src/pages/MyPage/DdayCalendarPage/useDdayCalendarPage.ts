@@ -23,7 +23,13 @@ export const useDdayCalendarPage = () => {
   const mutateDeleteSchedule = useDeleteDdayMutation()
   const onClickDelete = (e: React.MouseEvent) => {
     e.preventDefault() // * submit 방지
-    mutateDeleteSchedule({ dDayId: selectedDDayId, callBack: () => setIsEditing(false) })
+    mutateDeleteSchedule({
+      dDayId: selectedDDayId,
+      callBack: () => {
+        setIsEditing(false)
+        setSelectedDateProps(dateUtils.getDateProps(new Date()))
+      },
+    })
   }
   const onClickBackButton = () => navigate(-1)
   const onSubmit = ({ dDayTitle }: IForm) => {
