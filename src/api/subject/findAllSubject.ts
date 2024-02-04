@@ -1,9 +1,9 @@
 import { axiosGET } from 'api/common/commonAxios'
 import { SubjectType } from 'api/types'
 
-export type StudyTimeResponseProps = Pick<
+export type FindAllSubjectResponseProps = Pick<
   SubjectType,
   'colorHex' | 'name' | 'studyTimeHours' | 'studyTimeMinutes' | 'studyTimeSeconds' | 'subjectId'
 >[]
 
-export const studyTime = (): Promise<StudyTimeResponseProps> => axiosGET('/subject/studytime')
+export const findAllSubject = (): Promise<FindAllSubjectResponseProps> => axiosGET('/subject/studytime')

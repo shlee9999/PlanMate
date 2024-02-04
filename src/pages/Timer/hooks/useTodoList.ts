@@ -1,12 +1,16 @@
-import { StudyTimeResponseProps, studyTime } from 'api/subject/studyTime'
+import { FindAllSubjectResponseProps, findAllSubject } from 'api/subject/findAllSubject'
 import { useQuery } from 'react-query'
 import { QueryKeys, TodoItemType } from 'types'
 import { timeUtils } from 'utils'
 
 export const useTodoList = () => {
-  const { data, isLoading: isTodoLoading } = useQuery<StudyTimeResponseProps>([QueryKeys.todoList], () => studyTime(), {
-    staleTime: Infinity,
-  })
+  const { data, isLoading: isTodoLoading } = useQuery<FindAllSubjectResponseProps>(
+    [QueryKeys.todoList],
+    () => findAllSubject(),
+    {
+      staleTime: Infinity,
+    }
+  )
   const todoList: TodoItemType[] =
     data?.map((todo) => ({
       colorHex: todo.colorHex,

@@ -1,5 +1,5 @@
 import { CreateSubjectRequestProps, createSubject } from 'api/subject/createSubject'
-import { StudyTimeResponseProps } from 'api/subject/studyTime'
+import { FindAllSubjectResponseProps } from 'api/subject/findAllSubject'
 import { QueryKeys } from 'types'
 import { useMutation, useQueryClient } from 'react-query'
 
@@ -17,7 +17,7 @@ function useCreateSubjectMutation() {
     {
       onMutate: ({ colorHex, name }) => {
         const prevData = queryClient.getQueryData([QueryKeys.todoList])
-        queryClient.setQueryData<StudyTimeResponseProps>([QueryKeys.todoList], (prev) =>
+        queryClient.setQueryData<FindAllSubjectResponseProps>([QueryKeys.todoList], (prev) =>
           prev.concat({
             subjectId: new Date().getTime(),
             name,
@@ -30,7 +30,7 @@ function useCreateSubjectMutation() {
         return { prevData }
       },
       onSuccess: (data, vars, context) => {
-        const prevData = context.prevData as StudyTimeResponseProps
+        const prevData = context.prevData as FindAllSubjectResponseProps
         queryClient.setQueryData(
           [QueryKeys.todoList],
           prevData.concat({
