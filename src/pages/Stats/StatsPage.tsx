@@ -1,12 +1,8 @@
 import React from 'react'
 import * as s from './styled'
-import { CenterSpinner } from 'commonStyled'
-import { StatsContainerPages } from 'types'
-import { StatsContainer } from 'components'
-import { useStatsPage } from './useStatsPage'
+import { MainContainer } from './components'
 
 export const StatsPage = () => {
-  const { isLoading, selectedDate, setSelectedDate, selectedDateData, selectedMonthStats } = useStatsPage()
   return (
     <s.StatsPage>
       <s.HeaderContainer>
@@ -19,29 +15,7 @@ export const StatsPage = () => {
       <s.HeaderDividingLine />
       <s.Container>
         <s.Title>공부량 한 눈에 보기</s.Title>
-        <s.MainContainer>
-          <s.LeftInfoBox left>
-            <s.StatsCalendar
-              legend
-              selectedDateProps={selectedDate}
-              setSelectedDate={setSelectedDate}
-              dataSource={selectedMonthStats}
-              blockFuture
-              todayButton
-            />
-          </s.LeftInfoBox>
-          <s.RightInfoBox right>
-            {isLoading ? (
-              <CenterSpinner>Loading...</CenterSpinner>
-            ) : (
-              <StatsContainer
-                selectedDate={selectedDate}
-                dataSource={selectedDateData}
-                type={StatsContainerPages.stats}
-              />
-            )}
-          </s.RightInfoBox>
-        </s.MainContainer>
+        <MainContainer />
       </s.Container>
     </s.StatsPage>
   )

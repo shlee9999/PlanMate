@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import { DateProps, QueryKeys } from 'types'
 import { dateUtils, numberUtils } from 'utils'
 
-export const useStatsPage = () => {
+export const useMainContainer = () => {
   const [selectedDate, setSelectedDate] = useState<DateProps>(dateUtils.getTodayDateProps())
   const { data: todayStats, isLoading: todayLoading } = useQuery<ResponseStats>([QueryKeys.todayStats], () =>
     checkTodayStats()
