@@ -21,6 +21,8 @@ export const useCalendarHeader = ({
       if (!dateUtils.isFuture(newDateProps)) {
         setSelectedDate(newDateProps)
         setBack(false)
+      } else {
+        setSelectedDate({ ...newDateProps, date: dateUtils.getTodayDateProps().date })
       }
     } else {
       setSelectedDate(newDateProps)
