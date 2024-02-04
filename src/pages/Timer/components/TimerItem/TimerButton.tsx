@@ -1,9 +1,6 @@
-import { Dispatch, SetStateAction, memo } from 'react'
 import * as s from './styled'
+import { Dispatch, SetStateAction, memo } from 'react'
 import { useTimerButton } from './hooks'
-import { useSelector } from 'react-redux'
-import { RootState } from 'modules'
-
 type TimerButtonProps = {
   subjectId: number
   startTodoTimer: () => void
