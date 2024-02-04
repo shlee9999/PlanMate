@@ -41,7 +41,7 @@ export const DateContainer: FC<DateContainerProps> = ({
           transition={{ duration: 0.5 }}
           custom={back}
         >
-          {Array.from(Array(dateUtils.getWeekCount(selectedDateProps.year, selectedDateProps.month + 1)).keys()).map(
+          {Array.from(Array(dateUtils.getWeekCount(selectedDateProps.year, selectedDateProps.month)).keys()).map(
             (week) => (
               <s.WeekRow key={week}>
                 {dateUtils
