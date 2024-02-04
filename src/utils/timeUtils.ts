@@ -10,7 +10,7 @@ export const timeUtils = {
    */
   getTimeProps: (time: number | TimeProps | Date | string): TimeProps => {
     let hour: number, minute: number, second: number
-    if (time instanceof Date) time = time.getTime()
+    if (time instanceof Date) time = time.toTimeString()
     if (typeof time === 'number') {
       hour = Math.floor(time / 3600) % 24
       minute = Math.floor(time / 60) % 60
