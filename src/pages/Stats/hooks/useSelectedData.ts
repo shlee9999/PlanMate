@@ -10,6 +10,7 @@ export const useSelectedData = () => {
     (state: RootState) => state.selectedDate,
     (prev, next) => dateUtils.isEqual(prev, next)
   )
+
   const { todayStats, todayLoading } = useTodayStats()
   const { selectedMonthStats, isSelectedLoading } = useSelectedMonthStats({ selectedDate })
   const isToday = dateUtils.isEqual(selectedDate, dateUtils.getDateProps(new Date()))

@@ -4,7 +4,9 @@ import { AnimatePresence, Variants } from 'framer-motion'
 import { dateUtils } from 'utils'
 import { LegendContainer } from './LegendContainer/LegendContainer'
 import { WeekRow } from './WeekRow/WeekRow'
-import { useSelectedData } from 'pages/Stats/hooks'
+import { useSelectedMonthStats } from 'pages/Stats/hooks'
+import { useSelector } from 'react-redux'
+import { RootState } from 'modules'
 
 type DateContainerProps = {
   blockFuture: boolean
@@ -19,8 +21,12 @@ const DateContainerVar: Variants = {
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
 export const DateContainer: FC<DateContainerProps> = ({ back, blockFuture, legend, setBack }) => {
-  const { selectedMonthStats, selectedDate: selectedDateProps } = useSelectedData()
-
+  //* month 단위로 차이를 인지함 - 리렌더링
+  const selectedDateProps = useSelector(
+    (state: RootState) => state.selectedDate,
+    (prev, next) => prev.year === next.year && prev.month === next.month
+  )
+  const { selectedMonthStats } = useSelectedMonthStats({ selectedDate: selectedDateProps })
   return (
     <AnimatePresence initial={false}>
       <s.DateContainerWrapper>
