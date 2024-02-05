@@ -1,16 +1,16 @@
-import { Dispatch, FC, SetStateAction, useCallback } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import * as s from './styled'
 import { DateCell } from './DateCell/DateCell'
 import { dateUtils } from 'utils'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
+import { RootState } from 'modules'
+import { useSelector } from 'react-redux'
 
 type WeekRowProps = {
   week: number
-  selectedDateProps: DateProps
   blockFuture: boolean
   studyTimeHours?: number
-  setSelectedDateProps: Dispatch<SetStateAction<DateProps>>
   setBack: Dispatch<SetStateAction<boolean>>
   dataSource: ResponseStats[]
 }
@@ -23,20 +23,8 @@ const getClassName = (cellDateProps: DateProps, selectedDateProps: DateProps) =>
   }
   return 'current'
 }
-export const WeekRow: FC<WeekRowProps> = ({
-  week,
-  selectedDateProps,
-  blockFuture,
-  setSelectedDateProps,
-  setBack,
-  dataSource,
-}) => {
-  const handleSelectedDateProps = useCallback(
-    (cellDate: DateProps) => () => {
-      setSelectedDateProps(cellDate)
-    },
-    []
-  )
+export const WeekRow: FC<WeekRowProps> = ({ week, blockFuture, setBack, dataSource }) => {
+  const selectedDateProps = useSelector((state: RootState) => state.selectedDate)
   return (
     <s.WeekRow>
       {dateUtils.getWeekDates({ ...selectedDateProps, date: week * 7 + 1 }).map((cellDateProps) => (
@@ -48,7 +36,6 @@ export const WeekRow: FC<WeekRowProps> = ({
           }
           blockFuture={blockFuture}
           setBack={setBack}
-          setSelectedDateProps={handleSelectedDateProps(cellDateProps)}
           className={getClassName(cellDateProps, selectedDateProps)}
           isSelected={dateUtils.isEqual(cellDateProps, selectedDateProps)}
         />

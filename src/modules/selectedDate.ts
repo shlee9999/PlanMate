@@ -3,9 +3,7 @@ import { DateProps } from 'types'
 
 const UPDATE_SELECTED_DATE = 'selectedDate/UPDATE_SELECTED_DATE' as const
 
-type SelectedDateType = {
-  selectedDate: DateProps
-}
+type SelectedDateType = DateProps
 
 export const updateSelectedDate = (SelectedDate: SelectedDateType) => ({
   type: UPDATE_SELECTED_DATE,
@@ -14,14 +12,12 @@ export const updateSelectedDate = (SelectedDate: SelectedDateType) => ({
 
 type SelectedDateAction = ReturnType<typeof updateSelectedDate>
 
-const IntialSelectedDateState: SelectedDateType = {
-  selectedDate: dateUtils.getTodayDateProps(),
-}
+const InitialSelectedDateState: SelectedDateType = dateUtils.getTodayDateProps()
 
-function selectedDate(state: SelectedDateType = IntialSelectedDateState, action: SelectedDateAction) {
+function selectedDate(state: SelectedDateType = InitialSelectedDateState, action: SelectedDateAction) {
   switch (action.type) {
     case UPDATE_SELECTED_DATE: {
-      return { ...action.payload }
+      return action.payload
     }
     default:
       return state

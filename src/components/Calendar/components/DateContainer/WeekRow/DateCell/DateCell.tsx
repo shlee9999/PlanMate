@@ -2,13 +2,13 @@ import * as s from './styled'
 import { useRef, memo, SetStateAction, Dispatch } from 'react'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
-import React from 'react'
 import { useModal } from 'hooks'
+import { useDispatch } from 'react-redux'
+import { updateSelectedDate } from 'modules/selectedDate'
 
 type DateCellProps = {
   cellDateProps: DateProps
   studyTimeHours?: number
-  setSelectedDateProps: () => void
   blockFuture: boolean
   setBack: Dispatch<SetStateAction<boolean>>
   className: string
@@ -23,21 +23,14 @@ function getIndex(hour: number) {
 }
 
 export const DateCell = memo(
-  ({
-    setSelectedDateProps,
-    cellDateProps,
-    studyTimeHours = 0,
-    blockFuture,
-    setBack,
-    className,
-    isSelected,
-  }: DateCellProps) => {
+  ({ cellDateProps, studyTimeHours = 0, blockFuture, setBack, className, isSelected }: DateCellProps) => {
+    const dispatch = useDispatch()
     const { isOpen: isToolTipOpen, openModal: triggerTooltip, closeModal: closeTooltip } = useModal()
     const opacity = getIndex(studyTimeHours)
     const onClick = () => {
       if (className === 'prev') setBack(true)
       if (blockFuture && dateUtils.isFuture(cellDateProps)) triggerTooltip()
-      else setSelectedDateProps()
+      else dispatch(updateSelectedDate(cellDateProps))
     }
     const isToday = dateUtils.isToday(cellDateProps)
     const ref = useRef()
