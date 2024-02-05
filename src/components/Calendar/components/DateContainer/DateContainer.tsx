@@ -2,7 +2,6 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import * as s from './styled'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { dateUtils } from 'utils'
-import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
 import { LegendContainer } from './LegendContainer/LegendContainer'
 import { WeekRow } from './WeekRow/WeekRow'
@@ -10,8 +9,6 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 
 type DateContainerProps = {
-  setSelectedDateProps: Dispatch<SetStateAction<DateProps>>
-  selectedDateProps: DateProps
   blockFuture: boolean
   dataSource: ResponseStats[]
   back: boolean

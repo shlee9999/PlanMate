@@ -1,42 +1,37 @@
 import * as s from './styled'
 import { Dispatch, SetStateAction, memo } from 'react'
-import { DateProps } from 'types'
 import { useCalendarHeader } from './useCalendarHeader'
 
 type CalendarHeaderProps = {
   yearHeader: boolean
   todayButton: boolean
-  selectedDateProps: DateProps
   headerButtonLayout: 'space-between' | 'center'
   blockFuture: boolean
-  setSelectedDate: Dispatch<SetStateAction<DateProps>>
   setBack: Dispatch<SetStateAction<boolean>>
 }
 
 export const CalendarHeader = memo(
-  ({
-    yearHeader,
-    todayButton,
-    selectedDateProps,
-    headerButtonLayout,
-    blockFuture,
-    setSelectedDate,
-    setBack,
-  }: CalendarHeaderProps) => {
-    const { onClickNextMonth, onClickPrevMonth, onClickNextYear, onClickPrevYear, onClickToday, todayDateProps } =
-      useCalendarHeader({
-        setSelectedDate,
-        blockFuture,
-        selectedDateProps,
-        setBack,
-      })
+  ({ yearHeader, todayButton, headerButtonLayout, blockFuture, setBack }: CalendarHeaderProps) => {
+    const {
+      onClickNextMonth,
+      onClickPrevMonth,
+      onClickNextYear,
+      onClickPrevYear,
+      onClickToday,
+      todayDateProps,
+      selectedYear,
+      selectedMonth,
+    } = useCalendarHeader({
+      blockFuture,
+      setBack,
+    })
     return (
       <>
         {yearHeader && (
           <s.YearHeader>
             <s.PrevButton onClick={onClickPrevYear} />
-            <s.Month $layout={headerButtonLayout} key={selectedDateProps.month}>
-              {selectedDateProps.year}
+            <s.Month $layout={headerButtonLayout} key={selectedMonth}>
+              {selectedYear}
             </s.Month>
             <s.NextButton onClick={onClickNextYear} />
             {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
@@ -44,13 +39,14 @@ export const CalendarHeader = memo(
         )}
         <s.MonthHeader $layout={headerButtonLayout}>
           <s.PrevButton onClick={onClickPrevMonth} />
-          <s.Month $layout={headerButtonLayout} key={selectedDateProps.month}>
-            {selectedDateProps.month}월
+          <s.Month $layout={headerButtonLayout} key={selectedMonth}>
+            {selectedMonth}월
           </s.Month>
           {(!blockFuture ||
-            selectedDateProps.year < new Date().getFullYear() ||
-            (selectedDateProps.year === new Date().getFullYear() &&
-              selectedDateProps.month < todayDateProps.month)) && <s.NextButton onClick={onClickNextMonth} />}
+            selectedYear < new Date().getFullYear() ||
+            (selectedYear === new Date().getFullYear() && selectedMonth < todayDateProps.month)) && (
+            <s.NextButton onClick={onClickNextMonth} />
+          )}
           {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
         </s.MonthHeader>
       </>

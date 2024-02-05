@@ -1,15 +1,11 @@
 import { FC, useState } from 'react'
 import * as s from './styled'
 import { weekDays } from 'constants/week'
-import { DateProps } from 'types'
-import { ResponseStats } from 'api/types'
 import { CalendarHeader, DateContainer } from './components'
+import { useSelectedData } from 'pages/Stats/hooks/useSelectedData'
 
 type CalendarProps = {
   className?: string
-  selectedDateProps: DateProps
-  setSelectedDate: (date: DateProps) => void
-  dataSource?: ResponseStats[]
   blockFuture?: boolean
   legend?: boolean
   headerButtonLayout?: 'space-between' | 'center'
@@ -19,9 +15,6 @@ type CalendarProps = {
 
 export const Calendar: FC<CalendarProps> = ({
   className,
-  setSelectedDate,
-  selectedDateProps,
-  dataSource = [],
   blockFuture = false,
   legend,
   headerButtonLayout = 'space-between',
@@ -29,15 +22,14 @@ export const Calendar: FC<CalendarProps> = ({
   yearHeader = false,
 }) => {
   const [back, setBack] = useState(false) //* 애니메이션 좌우 설정
+  const { selectedMonthStats } = useSelectedData()
   return (
     <s.Calendar className={className}>
       <CalendarHeader
         yearHeader={yearHeader}
         todayButton={todayButton}
-        selectedDateProps={selectedDateProps}
         headerButtonLayout={headerButtonLayout}
         blockFuture={blockFuture}
-        setSelectedDate={setSelectedDate}
         setBack={setBack}
       />
       <s.Body>
@@ -48,10 +40,8 @@ export const Calendar: FC<CalendarProps> = ({
           <s.Line />
         </s.DayRow>
         <DateContainer
-          setSelectedDateProps={setSelectedDate}
-          selectedDateProps={selectedDateProps}
           blockFuture={blockFuture}
-          dataSource={dataSource}
+          dataSource={selectedMonthStats}
           back={back}
           legend={legend}
           setBack={setBack}

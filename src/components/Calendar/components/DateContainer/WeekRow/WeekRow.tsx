@@ -4,8 +4,7 @@ import { DateCell } from './DateCell/DateCell'
 import { dateUtils } from 'utils'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
-import { RootState } from 'modules'
-import { useSelector } from 'react-redux'
+import { useSelectedData } from 'pages/Stats/hooks'
 
 type WeekRowProps = {
   week: number
@@ -24,7 +23,7 @@ const getClassName = (cellDateProps: DateProps, selectedDateProps: DateProps) =>
   return 'current'
 }
 export const WeekRow: FC<WeekRowProps> = ({ week, blockFuture, setBack, dataSource }) => {
-  const selectedDateProps = useSelector((state: RootState) => state.selectedDate)
+  const { selectedDate: selectedDateProps } = useSelectedData()
   return (
     <s.WeekRow>
       {dateUtils.getWeekDates({ ...selectedDateProps, date: week * 7 + 1 }).map((cellDateProps) => (

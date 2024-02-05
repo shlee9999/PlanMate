@@ -62,12 +62,7 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
                 </s.DdayDate>
               </s.DdayDateRow>
               <s.CalendarBox>
-                <s.StyledCalendar
-                  selectedDateProps={selectedDateProps}
-                  setSelectedDate={setSelectedDateProps}
-                  headerButtonLayout="center"
-                  yearHeader={true}
-                />
+                <s.StyledCalendar headerButtonLayout="center" yearHeader={true} />
               </s.CalendarBox>
               <s.ActionButtonContainer>
                 {isEditing ? (
