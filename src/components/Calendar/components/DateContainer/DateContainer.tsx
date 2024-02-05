@@ -5,6 +5,7 @@ import { dateUtils } from 'utils'
 import { DateCell } from '..'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
+import { LegendContainer } from './LegendContainer/LegendContainer'
 
 type DateContainerProps = {
   setSelectedDate: Dispatch<SetStateAction<DateProps>>
@@ -62,26 +63,7 @@ export const DateContainer: FC<DateContainerProps> = ({
               </s.WeekRow>
             )
           )}
-          {legend && (
-            <s.LegendContainer>
-              <s.Legend>
-                <s.Circle />
-                0~3시간
-              </s.Legend>
-              <s.Legend>
-                <s.Circle />
-                4~7시간
-              </s.Legend>
-              <s.Legend>
-                <s.Circle />
-                8~11시간
-              </s.Legend>
-              <s.Legend>
-                <s.Circle />
-                12시간 이상
-              </s.Legend>
-            </s.LegendContainer>
-          )}
+          <LegendContainer legend={legend} />
         </s.DateContainer>
       </s.DateContainerWrapper>
     </AnimatePresence>
