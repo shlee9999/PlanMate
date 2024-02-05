@@ -2,13 +2,13 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import * as s from './styled'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { dateUtils } from 'utils'
-import { DateCell } from '..'
 import { DateProps } from 'types'
 import { ResponseStats } from 'api/types'
 import { LegendContainer } from './LegendContainer/LegendContainer'
+import { WeekRow } from './WeekRow/WeekRow'
 
 type DateContainerProps = {
-  setSelectedDate: Dispatch<SetStateAction<DateProps>>
+  setSelectedDateProps: Dispatch<SetStateAction<DateProps>>
   selectedDateProps: DateProps
   blockFuture: boolean
   dataSource: ResponseStats[]
@@ -23,7 +23,7 @@ const DateContainerVar: Variants = {
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
 export const DateContainer: FC<DateContainerProps> = ({
-  setSelectedDate,
+  setSelectedDateProps,
   selectedDateProps,
   back,
   blockFuture,
@@ -44,23 +44,15 @@ export const DateContainer: FC<DateContainerProps> = ({
         >
           {Array.from(Array(dateUtils.getWeekCount(selectedDateProps.year, selectedDateProps.month)).keys()).map(
             (week) => (
-              <s.WeekRow key={week}>
-                {dateUtils
-                  .getWeekDates({ year: selectedDateProps.year, month: selectedDateProps.month, date: week * 7 + 1 })
-                  .map((date, index) => (
-                    <DateCell
-                      key={index}
-                      setSelectedDate={() => setSelectedDate(date)}
-                      cellDateProps={date}
-                      studyTimeHours={
-                        date.date - 1 < dataSource.length ? dataSource[date.date - 1].totalStudyTimeHours : 0
-                      }
-                      selectedDate={selectedDateProps}
-                      blockFuture={blockFuture}
-                      setBack={setBack}
-                    />
-                  ))}
-              </s.WeekRow>
+              <WeekRow
+                key={week}
+                week={week}
+                selectedDateProps={selectedDateProps}
+                blockFuture={blockFuture}
+                setSelectedDateProps={setSelectedDateProps}
+                setBack={setBack}
+                dataSource={dataSource}
+              />
             )
           )}
           <LegendContainer legend={legend} />

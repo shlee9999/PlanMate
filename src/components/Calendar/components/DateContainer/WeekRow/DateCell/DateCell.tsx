@@ -5,7 +5,7 @@ import { dateUtils } from 'utils'
 import React from 'react'
 type DateCellProps = {
   cellDateProps: DateProps
-  selectedDate: DateProps
+  selectedDateProps: DateProps
   studyTimeHours?: number
   setSelectedDate: () => void
   blockFuture: boolean
@@ -29,12 +29,12 @@ const getClassName = (cellDate: DateProps, selectedDate: DateProps) => {
 }
 
 export const DateCell = memo(
-  ({ setSelectedDate, cellDateProps, selectedDate, studyTimeHours = 0, blockFuture, setBack }: DateCellProps) => {
+  ({ setSelectedDate, cellDateProps, selectedDateProps, studyTimeHours = 0, blockFuture, setBack }: DateCellProps) => {
     const [isToolTipOpen, setIsToolTipOpen] = useState(false)
     const triggerTooltip = () => setIsToolTipOpen(true)
     const closeTooltip = () => setIsToolTipOpen(false)
-    const className = getClassName(cellDateProps, selectedDate)
-    const isSelected = dateUtils.isEqual(cellDateProps, selectedDate)
+    const className = getClassName(cellDateProps, selectedDateProps)
+    const isSelected = dateUtils.isEqual(cellDateProps, selectedDateProps)
     const opacity = getIndex(studyTimeHours)
     const onClick = () => {
       if (className === 'prev') setBack(true)

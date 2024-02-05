@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Tooltip } from '..'
+import { Tooltip } from '../../..'
 import { Cell } from 'components/Calendar/styled'
 import { DESKTOP_DATE_CELL_SIZE, TABLET_DATE_CELL_SIZE, MOBILE_DATE_CELL_SIZE } from 'constants/dateCellSize'
 

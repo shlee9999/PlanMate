@@ -48,7 +48,7 @@ export const Calendar: FC<CalendarProps> = ({
           <s.Line />
         </s.DayRow>
         <DateContainer
-          setSelectedDate={setSelectedDate}
+          setSelectedDateProps={setSelectedDate}
           selectedDateProps={selectedDateProps}
           blockFuture={blockFuture}
           dataSource={dataSource}

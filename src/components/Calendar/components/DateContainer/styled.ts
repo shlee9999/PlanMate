@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-import { Row } from 'components/Calendar/styled'
 import { motion } from 'framer-motion'
-import { P10 } from 'commonStyled'
 
 export const DateContainerWrapper = styled.div`
   position: absolute;
@@ -21,4 +19,3 @@ export const DateContainer = styled(motion.div)`
   justify-content: space-between;
   height: 100%;
 `
-export const WeekRow = styled(Row)``
