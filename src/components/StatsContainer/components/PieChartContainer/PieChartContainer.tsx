@@ -5,6 +5,7 @@ import { StudyTimeEntry } from 'api/types'
 import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
 import { StatsContainerType } from 'types'
+import { useSelectedData } from 'pages/Stats/hooks'
 
 export interface PieChartData {
   name: string
@@ -14,9 +15,6 @@ export interface PieChartData {
 const colorList = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 
 type PieChartContainerProps = {
-  studyTimeList: StudyTimeEntry[]
-  restTime: TimeProps
-  totalStudyTime: TimeProps
   type: StatsContainerType
 }
 const dummyData = [
@@ -26,12 +24,8 @@ const dummyData = [
     colorHex: '#D9D9D9',
   },
 ]
-export const PieChartContainer: React.FC<PieChartContainerProps> = ({
-  studyTimeList,
-  restTime,
-  totalStudyTime,
-  type,
-}) => {
+export const PieChartContainer: React.FC<PieChartContainerProps> = ({ type }) => {
+  const { totalStudyTime, restTime, studyTimeList } = useSelectedData()
   const restData: PieChartData[] = [
     {
       name: '공부',

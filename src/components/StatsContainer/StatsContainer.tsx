@@ -7,19 +7,18 @@ import { useSelectedData } from 'pages/Stats/hooks/useSelectedData'
 import { useDispatch } from 'react-redux'
 import { updateSelectedDate } from 'modules/selectedDate'
 import { dateUtils } from 'utils'
+import { StatsContainerHeader } from './StatsContainerHeader'
 
 interface InfoContainerProps {
   type: StatsContainerType
 }
 
 export const StatsContainer: React.FC<InfoContainerProps> = ({ type }) => {
-  const { selectedDate, totalStudyTime, restTime, maxFocusTime, startAt, endAt, studyTimeList } = useSelectedData()
   const dispatch = useDispatch()
-  const { year, month, date } = selectedDate
   const CommonContent = (
     <>
-      <StudyTimeContainer {...{ totalFocusTime: totalStudyTime, maxFocusTime, startAt, endAt, type }} />
-      <PieChartContainer {...{ studyTimeList, restTime, totalStudyTime, type }} />
+      <StudyTimeContainer type={type} />
+      <PieChartContainer type={type} />
     </>
   )
   useEffect(() => {
@@ -30,9 +29,7 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ type }) => {
   return type === StatsContainerPages.stats ? (
     //* StatsPage
     <s.StatsPageStatsContainer>
-      <s.Header>
-        {year}년 {month}월 {date}일
-      </s.Header>
+      <StatsContainerHeader />
       <s.UpperContainer>{CommonContent}</s.UpperContainer>
       <GraphContainer type={type} />
       <ShareContainer />
