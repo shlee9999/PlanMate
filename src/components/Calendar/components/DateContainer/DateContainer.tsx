@@ -7,6 +7,7 @@ import { LegendContainer } from './LegendContainer/LegendContainer'
 import { WeekRow } from './WeekRow/WeekRow'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
+import { useSelectedData } from 'pages/Stats/hooks'
 
 type DateContainerProps = {
   blockFuture: boolean
@@ -22,7 +23,7 @@ const DateContainerVar: Variants = {
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
 export const DateContainer: FC<DateContainerProps> = ({ back, blockFuture, dataSource, legend, setBack }) => {
-  const selectedDateProps = useSelector((state: RootState) => state.selectedDate)
+  const { selectedDate: selectedDateProps } = useSelectedData()
   return (
     <AnimatePresence initial={false}>
       <s.DateContainerWrapper>
