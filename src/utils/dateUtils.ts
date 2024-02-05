@@ -105,8 +105,17 @@ export const dateUtils = {
     const targetDate = dateUtils.getDateEntity(currentDateProps)
 
     if (type === 'year') targetDate.setFullYear(targetDate.getFullYear() + amount)
-    else if (type === 'month') targetDate.setMonth(targetDate.getMonth() + amount)
-    else if (type === 'date') targetDate.setDate(targetDate.getDate() + amount)
+    else if (type === 'month') {
+      targetDate.setMonth(targetDate.getMonth() + amount)
+      if (targetDate.getMonth() - currentDateProps.month === 1) {
+        /**
+         * ex) 1월 31일에서 2월로 넘김 -> 2월에는 31일이 없어서 3월로 넘어감
+         * 이 경우 2월 마지막 날로 설정해줌
+         */
+        targetDate.setMonth(targetDate.getMonth() - 1)
+        targetDate.setDate(new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0).getDate())
+      }
+    } else if (type === 'date') targetDate.setDate(targetDate.getDate() + amount)
 
     return dateUtils.getDateProps(targetDate)
   },

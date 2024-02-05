@@ -1,6 +1,5 @@
 import { RootState } from 'modules'
 import { updateSelectedDate } from 'modules/selectedDate'
-import { useSelectedData } from 'pages/Stats/hooks'
 import { Dispatch, SetStateAction } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { dateUtils } from 'utils'
@@ -12,20 +11,12 @@ type useHeaderButtonProps = {
 
 export const useCalendarHeader = ({ blockFuture, setBack }: useHeaderButtonProps) => {
   const dispatch = useDispatch()
-  const selectedDateProps = useSelector(
-    (state: RootState) => state.selectedDate,
-    (prev, next) => prev.year === next.year && prev.month === next.month
-  )
+  const selectedDateProps = useSelector((state: RootState) => state.selectedDate)
   const onClickNextMonth = () => {
     const newDateProps = dateUtils.calculateDateProps(selectedDateProps, 'month', 1)
-    if (blockFuture) {
-      if (!dateUtils.isFuture(newDateProps)) {
-        dispatch(updateSelectedDate(newDateProps))
-        setBack(false)
-      } else {
-        dispatch(updateSelectedDate({ ...newDateProps, date: dateUtils.getTodayDateProps().date }))
-      }
-    } else {
+    if (blockFuture && dateUtils.isFuture(newDateProps))
+      dispatch(updateSelectedDate({ ...newDateProps, date: dateUtils.getTodayDateProps().date }))
+    else {
       dispatch(updateSelectedDate(newDateProps))
       setBack(false)
     }
@@ -36,12 +27,8 @@ export const useCalendarHeader = ({ blockFuture, setBack }: useHeaderButtonProps
   }
   const onClickNextYear = () => {
     const newDateProps = dateUtils.calculateDateProps(selectedDateProps, 'year', 1)
-    if (blockFuture) {
-      if (!dateUtils.isFuture(newDateProps)) {
-        dispatch(updateSelectedDate(newDateProps))
-        setBack(false)
-      }
-    } else {
+    if (blockFuture && dateUtils.isFuture(newDateProps)) dispatch(updateSelectedDate(dateUtils.getTodayDateProps()))
+    else {
       dispatch(updateSelectedDate(newDateProps))
       setBack(false)
     }
