@@ -1,5 +1,5 @@
 import * as s from './styled'
-import { Dispatch, SetStateAction, memo } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { useCalendarHeader } from './useCalendarHeader'
 
 type CalendarHeaderProps = {
@@ -48,8 +48,8 @@ export const CalendarHeader = ({
           {selectedMonth}월
         </s.Month>
         {(!blockFuture ||
-          selectedYear < new Date().getFullYear() ||
-          (selectedYear === new Date().getFullYear() && selectedMonth < todayDateProps.month)) && (
+          selectedYear < todayDateProps.year ||
+          (selectedYear === todayDateProps.year && selectedMonth < todayDateProps.month)) && (
           <s.NextButton onClick={onClickNextMonth} />
         )}
         {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}

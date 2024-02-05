@@ -31,7 +31,7 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ type }) => {
     //* StatsPage
     <s.StatsPageStatsContainer>
       <s.Header>
-        {year}년 {month + 1}월 {date}일
+        {year}년 {month}월 {date}일
       </s.Header>
       <s.UpperContainer>{CommonContent}</s.UpperContainer>
       <GraphContainer type={type} />

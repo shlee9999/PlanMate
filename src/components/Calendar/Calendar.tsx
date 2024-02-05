@@ -40,6 +40,7 @@ export const Calendar: FC<CalendarProps> = ({
       <s.Body>
         <s.DayRow>
           {weekDays.map((day, index) => (
+            //* 일월화수목금토
             <s.DayCell key={index}>{day}</s.DayCell>
           ))}
           <s.Line />
