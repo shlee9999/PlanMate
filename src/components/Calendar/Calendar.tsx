@@ -1,8 +1,11 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import * as s from './styled'
 import { weekDays } from 'constants/week'
 import { CalendarHeader, DateContainer } from './components'
 import { useSelectedData } from 'pages/Stats/hooks/useSelectedData'
+import { useDispatch } from 'react-redux'
+import { updateSelectedDate } from 'modules/selectedDate'
+import { dateUtils } from 'utils'
 
 type CalendarProps = {
   className?: string
@@ -22,6 +25,10 @@ export const Calendar: FC<CalendarProps> = ({
   yearHeader = false,
 }) => {
   const [back, setBack] = useState(false) //* 애니메이션 좌우 설정
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(updateSelectedDate(dateUtils.getTodayDateProps()))
+  }, [])
   return (
     <s.Calendar className={className}>
       <CalendarHeader
