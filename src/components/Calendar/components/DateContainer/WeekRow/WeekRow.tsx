@@ -28,7 +28,7 @@ export const WeekRow: FC<WeekRowProps> = ({
       {dateUtils.getWeekDates({ ...selectedDateProps, date: week * 7 + 1 }).map((date, index) => (
         <DateCell
           key={index}
-          setSelectedDate={() => setSelectedDateProps(date)}
+          setSelectedDateProps={() => setSelectedDateProps(date)}
           cellDateProps={date}
           studyTimeHours={date.date - 1 < dataSource.length ? dataSource[date.date - 1].totalStudyTimeHours : 0}
           selectedDateProps={selectedDateProps}

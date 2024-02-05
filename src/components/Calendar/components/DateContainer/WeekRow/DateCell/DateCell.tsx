@@ -3,11 +3,13 @@ import { useRef, useState, memo, SetStateAction, Dispatch } from 'react'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import React from 'react'
+import { useModal } from 'hooks'
+
 type DateCellProps = {
   cellDateProps: DateProps
   selectedDateProps: DateProps
   studyTimeHours?: number
-  setSelectedDate: () => void
+  setSelectedDateProps: () => void
   blockFuture: boolean
   setBack: Dispatch<SetStateAction<boolean>>
 }
@@ -19,27 +21,32 @@ function getIndex(hour: number) {
   return 3
 }
 
-const getClassName = (cellDate: DateProps, selectedDate: DateProps) => {
-  if (cellDate.month !== selectedDate.month) {
-    if (selectedDate.month === 1 && cellDate.month === 12) return 'prev'
-    else if (selectedDate.month === 12 && cellDate.month === 1) return 'next'
-    return cellDate.month < selectedDate.month ? 'prev' : 'next'
+const getClassName = (cellDateProps: DateProps, selectedDateProps: DateProps) => {
+  if (cellDateProps.month !== selectedDateProps.month) {
+    if (selectedDateProps.month === 1 && cellDateProps.month === 12) return 'prev'
+    else if (selectedDateProps.month === 12 && cellDateProps.month === 1) return 'next'
+    return cellDateProps.month < selectedDateProps.month ? 'prev' : 'next'
   }
   return 'current'
 }
 
 export const DateCell = memo(
-  ({ setSelectedDate, cellDateProps, selectedDateProps, studyTimeHours = 0, blockFuture, setBack }: DateCellProps) => {
-    const [isToolTipOpen, setIsToolTipOpen] = useState(false)
-    const triggerTooltip = () => setIsToolTipOpen(true)
-    const closeTooltip = () => setIsToolTipOpen(false)
+  ({
+    setSelectedDateProps,
+    cellDateProps,
+    selectedDateProps,
+    studyTimeHours = 0,
+    blockFuture,
+    setBack,
+  }: DateCellProps) => {
+    const { isOpen: isToolTipOpen, openModal: triggerTooltip, closeModal: closeTooltip } = useModal()
     const className = getClassName(cellDateProps, selectedDateProps)
     const isSelected = dateUtils.isEqual(cellDateProps, selectedDateProps)
     const opacity = getIndex(studyTimeHours)
     const onClick = () => {
       if (className === 'prev') setBack(true)
       if (blockFuture && dateUtils.isFuture(cellDateProps)) triggerTooltip()
-      else setSelectedDate()
+      else setSelectedDateProps()
     }
     const isToday = dateUtils.isToday(cellDateProps)
     const ref = useRef()
