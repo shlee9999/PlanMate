@@ -2,7 +2,6 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import * as s from './styled'
 import { AnimatePresence, Variants } from 'framer-motion'
 import { dateUtils } from 'utils'
-import { ResponseStats } from 'api/types'
 import { LegendContainer } from './LegendContainer/LegendContainer'
 import { WeekRow } from './WeekRow/WeekRow'
 import { useSelectedData } from 'pages/Stats/hooks'
@@ -26,6 +25,7 @@ export const DateContainer: FC<DateContainerProps> = ({ back, blockFuture, legen
     <AnimatePresence initial={false}>
       <s.DateContainerWrapper>
         <s.DateContainer
+          key={selectedDateProps.month}
           variants={DateContainerVar}
           initial="initial"
           animate="visible"

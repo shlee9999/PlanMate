@@ -22,7 +22,6 @@ export const Calendar: FC<CalendarProps> = ({
   yearHeader = false,
 }) => {
   const [back, setBack] = useState(false) //* 애니메이션 좌우 설정
-
   return (
     <s.Calendar className={className}>
       <CalendarHeader
