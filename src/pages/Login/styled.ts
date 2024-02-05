@@ -4,7 +4,6 @@ import styled from 'styled-components'
 export const LoginPage = styled(PageRoot)``
 
 export const Container = styled.div`
-  box-sizing: border-box;
   padding: 44px 48px;
   position: absolute;
   left: 50%;

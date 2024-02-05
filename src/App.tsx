@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Footer, Header } from 'components/'
 import { lightTheme } from 'theme'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const client = new QueryClient({
   defaultOptions: {
@@ -16,14 +17,16 @@ const client = new QueryClient({
 })
 export default function App() {
   return (
-    <QueryClientProvider client={client}>
-      <ThemeProvider theme={lightTheme}>
-        <GlobalStyle />
-        <Header />
-        <Outlet />
-        <Footer />
-      </ThemeProvider>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
+      <QueryClientProvider client={client}>
+        <ThemeProvider theme={lightTheme}>
+          <GlobalStyle />
+          <Header />
+          <Outlet />
+          <Footer />
+        </ThemeProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   )
 }
