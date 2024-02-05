@@ -5,13 +5,10 @@ import { dateUtils } from 'utils'
 import { ResponseStats } from 'api/types'
 import { LegendContainer } from './LegendContainer/LegendContainer'
 import { WeekRow } from './WeekRow/WeekRow'
-import { useSelector } from 'react-redux'
-import { RootState } from 'modules'
 import { useSelectedData } from 'pages/Stats/hooks'
 
 type DateContainerProps = {
   blockFuture: boolean
-  dataSource: ResponseStats[]
   back: boolean
   setBack: Dispatch<SetStateAction<boolean>>
   legend: boolean
@@ -22,8 +19,9 @@ const DateContainerVar: Variants = {
   visible: { opacity: 1, x: 0 },
   exit: (back: boolean) => ({ opacity: 0, x: back ? momentum : -momentum }),
 }
-export const DateContainer: FC<DateContainerProps> = ({ back, blockFuture, dataSource, legend, setBack }) => {
-  const { selectedDate: selectedDateProps } = useSelectedData()
+export const DateContainer: FC<DateContainerProps> = ({ back, blockFuture, legend, setBack }) => {
+  const { selectedMonthStats, selectedDate: selectedDateProps } = useSelectedData()
+
   return (
     <AnimatePresence initial={false}>
       <s.DateContainerWrapper>
@@ -36,7 +34,13 @@ export const DateContainer: FC<DateContainerProps> = ({ back, blockFuture, dataS
         >
           {Array.from(Array(dateUtils.getWeekCount(selectedDateProps.year, selectedDateProps.month)).keys()).map(
             (week) => (
-              <WeekRow key={week} week={week} blockFuture={blockFuture} setBack={setBack} dataSource={dataSource} />
+              <WeekRow
+                key={week}
+                week={week}
+                blockFuture={blockFuture}
+                setBack={setBack}
+                dataSource={selectedMonthStats}
+              />
             )
           )}
           <LegendContainer legend={legend} />

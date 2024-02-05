@@ -22,7 +22,7 @@ export const Calendar: FC<CalendarProps> = ({
   yearHeader = false,
 }) => {
   const [back, setBack] = useState(false) //* 애니메이션 좌우 설정
-  const { selectedMonthStats } = useSelectedData()
+
   return (
     <s.Calendar className={className}>
       <CalendarHeader
@@ -39,13 +39,7 @@ export const Calendar: FC<CalendarProps> = ({
           ))}
           <s.Line />
         </s.DayRow>
-        <DateContainer
-          blockFuture={blockFuture}
-          dataSource={selectedMonthStats}
-          back={back}
-          legend={legend}
-          setBack={setBack}
-        />
+        <DateContainer blockFuture={blockFuture} back={back} legend={legend} setBack={setBack} />
       </s.Body>
     </s.Calendar>
   )
