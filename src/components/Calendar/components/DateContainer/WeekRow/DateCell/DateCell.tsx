@@ -1,5 +1,5 @@
 import * as s from './styled'
-import { useRef, useState, memo, SetStateAction, Dispatch } from 'react'
+import { useRef, memo, SetStateAction, Dispatch } from 'react'
 import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import React from 'react'
@@ -7,11 +7,12 @@ import { useModal } from 'hooks'
 
 type DateCellProps = {
   cellDateProps: DateProps
-  selectedDateProps: DateProps
   studyTimeHours?: number
   setSelectedDateProps: () => void
   blockFuture: boolean
   setBack: Dispatch<SetStateAction<boolean>>
+  className: string
+  isSelected: boolean
 }
 
 function getIndex(hour: number) {
@@ -21,27 +22,17 @@ function getIndex(hour: number) {
   return 3
 }
 
-const getClassName = (cellDateProps: DateProps, selectedDateProps: DateProps) => {
-  if (cellDateProps.month !== selectedDateProps.month) {
-    if (selectedDateProps.month === 1 && cellDateProps.month === 12) return 'prev'
-    else if (selectedDateProps.month === 12 && cellDateProps.month === 1) return 'next'
-    return cellDateProps.month < selectedDateProps.month ? 'prev' : 'next'
-  }
-  return 'current'
-}
-
 export const DateCell = memo(
   ({
     setSelectedDateProps,
     cellDateProps,
-    selectedDateProps,
     studyTimeHours = 0,
     blockFuture,
     setBack,
+    className,
+    isSelected,
   }: DateCellProps) => {
     const { isOpen: isToolTipOpen, openModal: triggerTooltip, closeModal: closeTooltip } = useModal()
-    const className = getClassName(cellDateProps, selectedDateProps)
-    const isSelected = dateUtils.isEqual(cellDateProps, selectedDateProps)
     const opacity = getIndex(studyTimeHours)
     const onClick = () => {
       if (className === 'prev') setBack(true)
