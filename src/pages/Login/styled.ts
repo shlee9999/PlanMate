@@ -4,7 +4,6 @@ import styled from 'styled-components'
 export const LoginPage = styled(PageRoot)``
 
 export const Container = styled.div`
-  box-sizing: border-box;
   padding: 44px 48px;
   position: absolute;
   left: 50%;
@@ -37,35 +36,6 @@ export const LoginTypo = styled.p`
   ${H14_500}
   margin-bottom: 15px;
   color: #222222;
-`
-
-export const GoogleButton = styled.button`
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 240px;
-  height: 48px;
-  box-sizing: border-box;
-  padding: 0 8px;
-  background: white;
-  border-radius: 3px;
-  white-space: nowrap;
-  font-family: serif !important;
-  box-shadow: 0px 4px 5px 0px #0000000f;
-  border: 1px solid #dddede;
-  &:hover {
-    border-color: #4285f4;
-  }
-`
-
-export const GoogleButtonTypo = styled.span`
-  display: inline-block;
-  vertical-align: middle;
-  ${H14_500}
-  /* Use the Roboto font that is loaded in the <head> */
-  font-family: 'Roboto', sans-serif !important;
-  color: black;
-  line-height: 16px;
 `
 
 export const Footer = styled.div`
