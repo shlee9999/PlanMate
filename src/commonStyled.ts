@@ -10,8 +10,8 @@ import {
 import styled, { css } from 'styled-components'
 import { CloseIcon, RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
-import { Spinner } from 'components'
 import { BLOCK_SELECT } from 'constants/blockSelect'
+import { Spinner } from 'components'
 
 export const PageRoot = styled.div`
   //* DEFAULT

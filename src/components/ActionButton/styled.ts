@@ -1,11 +1,11 @@
 import { BLOCK_SELECT } from 'constants/blockSelect'
 import styled from 'styled-components'
+import { H14_500 } from 'commonStyled'
 
 export const ActionButton = styled.button<{ $color: string }>`
   //! H14_500 불러오면 에러가 남.
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
+  ${H14_500}
+  ${BLOCK_SELECT}
   width: 96px;
   height: 32px;
   border-radius: 100px;
@@ -20,9 +20,7 @@ export const ActionButton = styled.button<{ $color: string }>`
   }
 `
 export const CloseButton = styled.button`
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
+  ${H14_500}
   ${BLOCK_SELECT}
   width: 96px;
   height: 32px;
