@@ -1,4 +1,4 @@
-import { H14_500, H24_700, P14, PageRoot } from 'commonStyled'
+import { FlexRow, H14_500, H24_700, P14, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
 export const LoginPage = styled(PageRoot)``
@@ -17,24 +17,28 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `
-export const UpperContainer = styled.div`
-  display: flex;
-  margin-bottom: 18.5px;
+export const LogoContainer = styled(FlexRow)`
+  margin-bottom: 30px;
+`
+export const Logo = styled.img`
+  width: 200px;
+  position: relative;
+  top: 8px;
 `
 
-export const UpperDescriptionTypo = styled.p`
+export const WelcomeTypo = styled.p`
   ${H24_700}
   margin-bottom: 8px;
   white-space: nowrap;
 `
-export const LowerDescriptionTypo = styled.p`
+export const DescriptionTypo = styled.p`
   ${P14}
   margin-bottom: 40px;
   color: #666666;
 `
 export const LoginTypo = styled.p`
   ${H14_500}
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   color: #222222;
 `
 

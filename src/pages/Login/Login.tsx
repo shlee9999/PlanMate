@@ -2,26 +2,27 @@ import { FC } from 'react'
 import * as s from './styled'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { HandIcon } from 'assets/SvgComponents'
-import { Logo } from 'assets/Logo'
 import { LoginResponseProps, login } from 'api/login/login'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { changeUserAuthInfo } from 'modules/userAuthInfo'
+import LogoSvg from 'assets/images/logo.svg'
 export const LoginPage: FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   return (
     <s.LoginPage>
       <s.Container>
-        <s.UpperContainer>
+        <s.LogoContainer>
           <HandIcon />
-          <Logo />
-        </s.UpperContainer>
-        <s.UpperDescriptionTypo>PlanMate에 오신것을 환영합니다.</s.UpperDescriptionTypo>
-        <s.LowerDescriptionTypo>플랜메이트는 여러분들의 성장을 돕는 플랫폼 입니다.</s.LowerDescriptionTypo>
-        <s.LoginTypo>SNS 간편로그인</s.LoginTypo>
+          <s.Logo src={LogoSvg} />
+        </s.LogoContainer>
+        <s.WelcomeTypo>PlanMate에 오신것을 환영합니다.</s.WelcomeTypo>
+        <s.DescriptionTypo>플랜메이트는 여러분들의 성장을 돕는 플랫폼 입니다.</s.DescriptionTypo>
+        <s.LoginTypo>Google 계정으로 로그인</s.LoginTypo>
         <GoogleLogin
+          width={240}
           onSuccess={(credentialResponse: CredentialResponse) => {
             const info = jwtDecode(credentialResponse.credential) as any
             login({ email: info.email, picture: info.picture, name: info.name }).then((res: LoginResponseProps) => {
