@@ -1,7 +1,6 @@
 import * as s from './styled'
-import { FC, ReactNode, useEffect, useState } from 'react'
+import { FC, ReactNode, useState } from 'react'
 import { DDayEntityType } from 'api/types/ScheduleType'
-import { DateProps } from 'types'
 import { dateUtils } from 'utils'
 import { CenterSpinner } from 'commonStyled'
 import { useClickDdayItem } from './hooks/useClickDdayItem'
@@ -9,7 +8,6 @@ import { useClickDdayItem } from './hooks/useClickDdayItem'
 type DdayContainerProps = {
   className?: string
   dDayList: DDayEntityType[]
-  setSelectedDate?: (date: DateProps) => void
   setDdayName?: (name: string) => void
   setIsEditing?: (state: boolean) => void
   setSelectedDDayId?: (scheduleId: number) => void
@@ -27,7 +25,6 @@ export const DdayContainer: FC<DdayContainerProps> = ({
   className,
   dDayList = [],
   setDdayName,
-  setSelectedDate,
   setIsEditing,
   setSelectedDDayId,
   isDDayLoading,
@@ -44,11 +41,11 @@ export const DdayContainer: FC<DdayContainerProps> = ({
   const { onClickDdayItem } = useClickDdayItem({
     setDdayName,
     setSelectedDDayId,
-    setSelectedDate,
     setSelectedIndex,
     setIsEditing,
     selectedIndex,
     isEditing,
+    selectable,
   })
 
   return (
@@ -72,6 +69,7 @@ export const DdayContainer: FC<DdayContainerProps> = ({
               title={dday.title}
               targetDate={dday.targetDate}
               isFixed={dday.isFixed}
+              remainingDays={dday.remainingDays}
               isSelected={selectedIndex === index}
               onClick={onClickDdayItem(index, dday.targetDate, dday.title, dday.dDayId)}
               selectable={selectable}

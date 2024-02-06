@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom'
 import { QueryKeys } from 'types'
 import { dateUtils } from 'utils'
 import { useAddDdayMutation, useEditDdayMutation, useDeleteDdayMutation } from '../hooks'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'modules'
+import { updateSelectedDate } from 'modules/selectedDate'
 
 type IForm = {
   dDayTitle: string
@@ -13,7 +16,8 @@ type IForm = {
 export const useDdayCalendarPage = () => {
   const [isEditing, setIsEditing] = useState(false)
   const [selectedDDayId, setSelectedDDayId] = useState(-1)
-  const [selectedDateProps, setSelectedDateProps] = useState(dateUtils.getTodayDateProps())
+  const selectedDateProps = useSelector((state: RootState) => state.selectedDate)
+  const dispatch = useDispatch()
   const { registerInput, handleSubmit, setValue, inputFocus } = useForm<IForm>()
   const setDdayTitle = (title: string) => setValue('dDayTitle', title)
   const { data: dDayList, isLoading } = useQuery<FindAllDdayResponseProps>([QueryKeys.dDayList], () => findAllDday())
@@ -27,7 +31,7 @@ export const useDdayCalendarPage = () => {
       dDayId: selectedDDayId,
       callBack: () => {
         setIsEditing(false)
-        setSelectedDateProps(dateUtils.getDateProps(new Date()))
+        dispatch(updateSelectedDate(dateUtils.getDateProps(new Date())))
       },
     })
   }
@@ -42,7 +46,7 @@ export const useDdayCalendarPage = () => {
         title: dDayTitle,
         callBack: () => {
           setDdayTitle('')
-          setSelectedDateProps(dateUtils.getDateProps(new Date()))
+          dispatch(updateSelectedDate(dateUtils.getDateProps(new Date())))
         },
       })
     } else {
@@ -53,6 +57,7 @@ export const useDdayCalendarPage = () => {
         dDayId: selectedDDayId,
         callBack: () => {
           setDdayTitle('')
+          setIsEditing(false)
         },
       })
     }
@@ -63,7 +68,6 @@ export const useDdayCalendarPage = () => {
 
   return {
     dDayList,
-    setSelectedDateProps,
     setDdayTitle,
     setIsEditing,
     setSelectedDDayId,

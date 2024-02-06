@@ -13,6 +13,7 @@ type DDayItemProps = {
   onClick: (e: React.MouseEvent) => void
   selectable: boolean
   className?: string
+  remainingDays: number
 }
 
 export const DdayItem: FC<DDayItemProps> = ({
@@ -24,6 +25,7 @@ export const DdayItem: FC<DDayItemProps> = ({
   isSelected,
   onClick,
   selectable,
+  remainingDays,
 }) => {
   const targetDateProps = dateUtils.getDateProps(targetDate)
   const mutateFixSchedule = useFixDdayMutation()
@@ -31,7 +33,6 @@ export const DdayItem: FC<DDayItemProps> = ({
     e.stopPropagation()
     mutateFixSchedule({ dDayId: scheduleId })
   }
-  const remainingDays = dateUtils.daysUntil(dateUtils.getDateProps(targetDate))
   if (remainingDays < 0) return null
   return (
     <s.DdayItem

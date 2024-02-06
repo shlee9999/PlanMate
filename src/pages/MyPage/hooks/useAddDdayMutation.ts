@@ -15,16 +15,18 @@ function useAddDdayMutation() {
   const { mutate } = useMutation(({ targetDate, title }: AddScheduleMutationProps) => addDday({ targetDate, title }), {
     onMutate: ({ targetDate, title, callBack }) => {
       const prevData = queryClient.getQueryData([QueryKeys.dDayList])
-      queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) => [
-        ...prev,
-        {
-          dDayId: new Date().getTime(),
-          targetDate,
-          title,
-          isFixed: false,
-          remainingDays: dateUtils.daysUntil(dateUtils.getDateProps(targetDate)),
-        },
-      ])
+      queryClient
+        .setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) => [
+          ...prev,
+          {
+            dDayId: new Date().getTime(),
+            targetDate,
+            title,
+            isFixed: false,
+            remainingDays: dateUtils.daysUntil(dateUtils.getDateProps(targetDate)),
+          },
+        ])
+        .sort((a, b) => a.remainingDays - b.remainingDays)
       callBack()
       return { prevData }
     },

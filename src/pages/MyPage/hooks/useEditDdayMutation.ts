@@ -2,6 +2,7 @@ import { EditDdayRequestProps, editDday } from 'api/dday/editDday'
 import { QueryKeys } from 'types'
 import { useQueryClient, useMutation } from 'react-query'
 import { FindAllDdayResponseProps } from 'api/dday/findAllDday'
+import { dateUtils } from 'utils'
 
 type UseEditScheduleMutationProps = EditDdayRequestProps & {
   //* input 초기화 콜백
@@ -16,21 +17,29 @@ function useEditDdayMutation() {
     {
       onMutate: ({ targetDate, title, dDayId, callBack }) => {
         const prevData = queryClient.getQueryData([QueryKeys.dDayList])
-        queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) =>
-          prev.map((prevDday) => (prevDday.dDayId === dDayId ? { ...prevDday, targetDate, title } : prevDday))
-        )
+        queryClient.setQueryData<FindAllDdayResponseProps>([QueryKeys.dDayList], (prev) => {
+          const newDdayList = prev.map((prevDday) =>
+            prevDday.dDayId === dDayId
+              ? {
+                  ...prevDday,
+                  targetDate,
+                  title,
+                  remainingDays: dateUtils.daysUntil(dateUtils.getDateProps(targetDate)),
+                }
+              : prevDday
+          )
+          const sortedNewDdayList = newDdayList.sort((a, b) => a.remainingDays - b.remainingDays)
+          return sortedNewDdayList
+        })
         callBack()
         return { prevData }
       },
       onSuccess: () => {
-        console.log('success')
+        console.log('success edit')
       },
       onError: (err, vars, context) => {
         queryClient.setQueryData([QueryKeys.dDayList], context.prevData)
         console.error(err)
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries([QueryKeys.dDayList])
       },
     }
   )

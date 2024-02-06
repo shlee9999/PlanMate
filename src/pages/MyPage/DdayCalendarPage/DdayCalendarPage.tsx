@@ -11,7 +11,6 @@ type DdayCalendarProps = {
 export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
   const {
     dDayList,
-    setSelectedDateProps,
     setDdayTitle,
     setIsEditing,
     setSelectedDDayId,
@@ -33,7 +32,6 @@ export const DdayCalendarPage: FC<DdayCalendarProps> = ({ className }) => {
             title="D-DAY 관리"
             description="원하는 디데이를 고정해보세요!"
             selectable
-            setSelectedDate={setSelectedDateProps}
             setDdayName={setDdayTitle}
             setIsEditing={setIsEditing}
             setSelectedDDayId={setSelectedDDayId}
