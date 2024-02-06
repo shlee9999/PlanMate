@@ -4,7 +4,7 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { HandIcon } from 'assets/SvgComponents'
 import { Logo } from 'assets/Logo'
 import { login } from 'api/login/login'
-
+import { jwtDecode } from 'jwt-decode'
 export const LoginPage: FC = () => {
   return (
     <s.LoginPage>
@@ -18,8 +18,10 @@ export const LoginPage: FC = () => {
         <s.LoginTypo>SNS 간편로그인</s.LoginTypo>
         <GoogleLogin
           onSuccess={(credentialResponse: CredentialResponse) => {
-            console.log(credentialResponse)
-            login({ code: credentialResponse.credential }).then((res) => console.log('login success!!!', res))
+            const info = jwtDecode(credentialResponse.credential) as any
+            login({ email: info.email, picture: info.picture, name: info.name }).then((res) =>
+              console.log('login success!!!', res)
+            )
           }}
           onError={() => {
             console.log('Login Failed')

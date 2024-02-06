@@ -1,7 +1,9 @@
 import { axiosPOST } from 'api/common/commonAxios'
 
 export type LoginRequestProps = {
-  code: string
+  email: string
+  picture: string
+  name: string
 }
 
 export type LoginResponseProps = {
@@ -13,6 +15,6 @@ export type LoginResponseProps = {
   refreshToken: string
 }
 
-export const login = ({ code }: LoginRequestProps) => {
-  return axiosPOST(`/login/google/token?code=${code}`)
+export const login = ({ email, picture, name }: LoginRequestProps) => {
+  return axiosPOST(`/login/google/token`, { email, picture, name })
 }
