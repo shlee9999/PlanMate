@@ -3,6 +3,7 @@ import * as s from './styled'
 import { CredentialResponse, GoogleLogin, useGoogleLogin } from '@react-oauth/google'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GoogleLogo, HandIcon } from 'assets/SvgComponents'
+import { login } from 'api/login/login'
 
 export const LoginPage: FC = () => {
   return (
@@ -14,13 +15,14 @@ export const LoginPage: FC = () => {
 
 const LoginContent: FC = () => {
   const googleSocialLogin = useGoogleLogin({
-    onSuccess: (res) => {
-      console.log(res)
+    onSuccess: async ({ code }) => {
+      login({ code }).then((res) => console.log(res))
     },
-    redirect_uri: process.env.REACT_APP_REDIRECT_URL,
-    scope: '',
     flow: 'auth-code',
-    ux_mode: 'redirect',
+    scope: 'email profile',
+    onError: (errorResponse) => {
+      console.error(errorResponse)
+    },
   })
 
   return (

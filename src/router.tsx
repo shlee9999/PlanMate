@@ -1,4 +1,4 @@
-import { Header } from 'components/'
+import App from 'App'
 import {
   ErrorPage,
   MyPage,
@@ -13,7 +13,6 @@ import {
   EventCalendarPage,
 } from 'pages'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
-import App from 'App'
 
 export const routerInfo = [
   {
@@ -67,12 +66,7 @@ export const routerInfo = [
       },
       {
         path: 'login',
-        element: (
-          <>
-            <Header />
-            <LoginPage />
-          </>
-        ),
+        element: <LoginPage />,
       },
     ],
   },
