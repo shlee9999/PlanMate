@@ -29,6 +29,7 @@ const InitialState: userAuthInfoState = JSON.parse(localStorage.getItem('userAut
 function userAuthInfo(state: userAuthInfoState = InitialState, action: userAuthInfoAction) {
   switch (action.type) {
     case CHANGE_USER_AUTH_INFO:
+      localStorage.setItem('userAuthInfo', JSON.stringify(action.payload))
       return action.payload
 
     case CHANGE_USER_AUTH_PROP: {
