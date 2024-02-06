@@ -22,10 +22,10 @@ export const useClickDdayItem = ({
   isEditing,
   selectable,
 }: useClickDdayItemProps) => {
-  if (!selectable) return
   const dispatch = useDispatch()
   const onClickDdayItem =
     (index: number, targetDate: string, eventName: string, scheduleId: number) => (e: React.MouseEvent) => {
+      if (!selectable) return
       e.stopPropagation()
       setSelectedDDayId(scheduleId)
       setDdayName(eventName)
@@ -33,6 +33,7 @@ export const useClickDdayItem = ({
       dispatch(updateSelectedDate(dateUtils.getDateProps(targetDate)))
     }
   useEffect(() => {
+    if (!selectable) return
     setIsEditing(selectedIndex === -1 ? false : true)
     if (selectedIndex === -1) {
       setDdayName('')
@@ -41,6 +42,7 @@ export const useClickDdayItem = ({
   }, [selectedIndex])
 
   useEffect(() => {
+    if (!selectable) return
     !isEditing && setSelectedIndex(-1)
   }, [isEditing])
   return { onClickDdayItem }
