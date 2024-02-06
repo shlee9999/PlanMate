@@ -141,7 +141,7 @@ export const Comment: FC<CommentProps> = ({
           <s.ReplyInputWrapper>
             <s.ReplyMark />
             <s.ReplyForm onSubmit={handleReplySubmit(onReplySubmit)}>
-              <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
+              <s.UserNickname>{userAuthInfo.nickname}</s.UserNickname>
               <s.ReplyInput
                 placeholder="대댓글을 남겨보세요."
                 {...registerReplyInput('reply', { maxLength: MAX_REPLY_CHARACTER_COUNT })}

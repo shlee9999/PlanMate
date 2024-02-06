@@ -13,7 +13,7 @@ type UseCreatePostMutationProps = CreatePostRequestProps & {
 /**게시물 생성 */
 function useCreatePostMutation() {
   const queryClient = useQueryClient()
-  const nickname = useSelector((state: RootState) => state.userAuthInfo.name)
+  const nickname = useSelector((state: RootState) => state.userAuthInfo.nickname)
   const { mutate } = useMutation(
     ({ content, tagList, title }: UseCreatePostMutationProps) => createPost({ content, tagList, title }),
     {

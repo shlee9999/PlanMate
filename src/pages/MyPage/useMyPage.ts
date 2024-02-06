@@ -6,7 +6,7 @@ import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/f
 import { ResponsePostType, ResponseCommentType } from 'api/types'
 import { Comment, PostItem } from 'components'
 import { RootState } from 'modules'
-import { changeuserAuthInfo } from 'modules/userAuthInfo'
+import { changeUserAuthInfo } from 'modules/userAuthInfo'
 import { FC, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useSelector, useDispatch } from 'react-redux'
@@ -105,14 +105,6 @@ export const useMyPage = () => {
   }
 
   const { title, Component, list, isLoading, totalPages } = tabInfoList[currentTabIndex]
-  const changeNickname = (newNickname: string) => {
-    changeName({ name: newNickname }).then((res) => {
-      const newUserAuth = { ...userAuthInfo, name: newNickname }
-      dispatch(changeuserAuthInfo(newUserAuth))
-      localStorage.setItem('userAuthInfo', JSON.stringify(newUserAuth))
-      closeProfileEditModal()
-    })
-  }
 
   useEffect(() => {
     setCurrentPage(1)
@@ -135,7 +127,6 @@ export const useMyPage = () => {
     currentPage,
     totalPages,
     closeProfileEditModal,
-    changeNickname,
     closeResignModal,
     onClickViewMore,
     isResignModalOpen,

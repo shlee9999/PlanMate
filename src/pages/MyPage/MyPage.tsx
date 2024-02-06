@@ -24,7 +24,6 @@ export const MyPage: FC = () => {
     currentPage,
     totalPages,
     closeProfileEditModal,
-    changeNickname,
     onClickViewMore,
     closeResignModal,
     isResignModalOpen,
@@ -59,13 +58,13 @@ export const MyPage: FC = () => {
     <s.MyPage>
       <s.Container onClick={onClickRoot}>
         <s.TitleWrapper>
-          <s.Nickname>{userAuthInfo.name}</s.Nickname>
+          <s.Nickname>{userAuthInfo.nickname}</s.Nickname>
           님의 <s.Title>마이페이지 👋</s.Title>
         </s.TitleWrapper>
         <s.MainContainer>
           <s.LeftContainer>
             <s.ProfileContainer title="프로필">
-              <s.UserName>{userAuthInfo.name}</s.UserName>님
+              <s.UserName>{userAuthInfo.nickname}</s.UserName>님
               <s.Email>
                 <GoogleCustom />
                 {userAuthInfo.email}
@@ -107,11 +106,7 @@ export const MyPage: FC = () => {
           </s.RightContainer>
         </s.MainContainer>
         {isProfileEditModalOpen && (
-          <ProfileEditModal
-            closeModal={closeProfileEditModal}
-            nickname={userAuthInfo.name}
-            changeNickname={changeNickname}
-          />
+          <ProfileEditModal closeModal={closeProfileEditModal} nickname={userAuthInfo.nickname} />
         )}
         {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
       </s.Container>

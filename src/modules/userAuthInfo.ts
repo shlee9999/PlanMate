@@ -1,34 +1,42 @@
-const CHANGE_USERAUTHINFO = 'timer/CHANGE_TAB' as const
+import { userAuthInfoType } from 'types'
 
-export const changeuserAuthInfo = (userAuthInfo: userAuthInfoState) => ({
-  type: CHANGE_USERAUTHINFO,
+const CHANGE_USER_AUTH_INFO = 'userAuthInfo/CHANGE_USER_AUTH_INFO' as const
+const CHANGE_USER_AUTH_PROP = 'userAuthInfo/CHANGE_USER_AUTH_PROP' as const
+
+export const changeUserAuthInfo = (userAuthInfo: userAuthInfoState) => ({
+  type: CHANGE_USER_AUTH_INFO,
   payload: userAuthInfo,
 })
 
-type userAuthInfoAction = ReturnType<typeof changeuserAuthInfo>
+export const changeUserAuthProp = (propName: keyof userAuthInfoState, value: any) => ({
+  type: CHANGE_USER_AUTH_PROP,
+  payload: { propName, value },
+})
 
-type userAuthInfoState = {
-  accessToken: string | null
-  email: string | null
-  id: number | null
-  img: string | null
-  name: string | null
-  // refreshToken: string | null
-}
+type userAuthInfoAction = ReturnType<typeof changeUserAuthInfo> | ReturnType<typeof changeUserAuthProp>
+
+type userAuthInfoState = userAuthInfoType
 
 const InitialState: userAuthInfoState = JSON.parse(localStorage.getItem('userAuthInfo')) || {
-  accessToken: null,
+  memberId: null,
+  nickname: null,
+  profileImage: null,
   email: null,
-  id: null,
-  img: null,
-  name: null,
-  // refreshToken: null,
+  accessToken: null,
+  refreshToken: null,
 }
 
 function userAuthInfo(state: userAuthInfoState = InitialState, action: userAuthInfoAction) {
   switch (action.type) {
-    case CHANGE_USERAUTHINFO:
+    case CHANGE_USER_AUTH_INFO:
       return action.payload
+
+    case CHANGE_USER_AUTH_PROP: {
+      const { propName, value } = action.payload
+      const newUserAuthInfo = { ...state, [propName]: value }
+      localStorage.setItem('userAuthInfo', JSON.stringify(newUserAuthInfo))
+      return newUserAuthInfo
+    }
 
     default:
       return state

@@ -50,7 +50,7 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const renderCommentInputWrapper = () => (
     <>
       <s.CommentForm onSubmit={handleCommentSubmit(onCommentSubmit)}>
-        <s.UserNickname>{userAuthInfo.name}</s.UserNickname>
+        <s.UserNickname>{userAuthInfo.nickname}</s.UserNickname>
         <s.CommentInput
           placeholder="댓글을 남겨보세요."
           {...registerCommentInput('comment', { maxLength: MAX_COMMENT_CHARACTER_COUNT })}

@@ -6,16 +6,8 @@ import { DISPLAY } from 'types'
 import { useHeader } from './hooks/useHeader'
 
 export const Header: FC = () => {
-  const {
-    userAuthInfo,
-    currentPath,
-    currentTab,
-    onClickTabItem,
-    onClickNickname,
-    // onClickLogin,
-    onClickNotice,
-    onClickLogout,
-  } = useHeader()
+  const { userAuthInfo, currentPath, currentTab, onClickTabItem, onClickNickname, onClickNotice, onClickLogout } =
+    useHeader()
   const renderNavContainer = (type: 'header' | 'footer') => (
     <s.NavItemContainer>
       <s.NavItems>
@@ -44,18 +36,18 @@ export const Header: FC = () => {
           <s.StyledLogo />
           {renderNavContainer('header')}
           <s.RightContainer>
-            {userAuthInfo.name && (
+            {userAuthInfo.nickname && (
               <s.GreetTypoContainer>
                 안녕하세요,{' '}
                 <s.Username onClick={onClickNickname}>
-                  {userAuthInfo.name}
+                  {userAuthInfo.nickname}
                   {currentPath.includes('/mypage') && <s.YellowCircle layoutId="header_yellow_circle" />}
                 </s.Username>
                 님!
               </s.GreetTypoContainer>
             )}
-            {userAuthInfo.name && <s.LogoutTypo onClick={onClickLogout}>로그아웃</s.LogoutTypo>}
-            {userAuthInfo.name && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
+            {userAuthInfo.nickname && <s.LogoutTypo onClick={onClickLogout}>로그아웃</s.LogoutTypo>}
+            {userAuthInfo.nickname && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
           </s.RightContainer>
         </s.Header>
       </s.HeaderWrapper>

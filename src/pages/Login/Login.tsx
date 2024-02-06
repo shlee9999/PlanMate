@@ -3,9 +3,14 @@ import * as s from './styled'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { HandIcon } from 'assets/SvgComponents'
 import { Logo } from 'assets/Logo'
-import { login } from 'api/login/login'
+import { LoginResponseProps, login } from 'api/login/login'
 import { jwtDecode } from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { changeUserAuthInfo } from 'modules/userAuthInfo'
 export const LoginPage: FC = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   return (
     <s.LoginPage>
       <s.Container>
@@ -19,9 +24,13 @@ export const LoginPage: FC = () => {
         <GoogleLogin
           onSuccess={(credentialResponse: CredentialResponse) => {
             const info = jwtDecode(credentialResponse.credential) as any
-            login({ email: info.email, picture: info.picture, name: info.name }).then((res) =>
-              console.log('login success!!!', res)
-            )
+            login({ email: info.email, picture: info.picture, name: info.name }).then((res: LoginResponseProps) => {
+              //* 로그인 성공
+              localStorage.setItem('userAuthInfo', JSON.stringify(res)) //최초 저장
+              dispatch(changeUserAuthInfo(res))
+              navigate('/timer')
+              window.location.reload()
+            })
           }}
           onError={() => {
             console.log('Login Failed')

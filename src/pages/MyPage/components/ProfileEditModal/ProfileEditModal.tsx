@@ -1,17 +1,27 @@
 import { ChangeEvent, FC, useState } from 'react'
 import * as s from './styled'
 import * as cs from 'commonStyled'
+import { useDispatch } from 'react-redux'
+import { changeUserAuthProp } from 'modules/userAuthInfo'
+import { changeName } from 'api/member/changeName'
 
 type ProfileEditModalProps = {
   closeModal: () => void
   nickname: string
-  changeNickname: (newNickname: string) => void
 }
 
-export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickname, changeNickname }) => {
+export const ProfileEditModal: FC<ProfileEditModalProps> = ({ closeModal, nickname }) => {
+  const dispatch = useDispatch()
   const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
-  const onClickEditButton = () => changeNickname(inputValue)
-  //profileEdit api
+  const changeNickname = (newNickname: string) => {
+    changeName({ name: newNickname }).then((res) => {
+      closeModal()
+    })
+  }
+  const onClickEditButton = () => {
+    changeNickname(inputValue)
+    dispatch(changeUserAuthProp('nickname', inputValue))
+  }
   const [inputValue, setInputValue] = useState<string>(nickname)
   const onChange = (e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
   const onKeyDown = (e: React.KeyboardEvent) => e.key === 'Enter' && onClickEditButton()

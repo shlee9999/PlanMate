@@ -115,7 +115,7 @@ export const useExamInfoDetail = ({ mode }: useExamInfoDetailProps) => {
       callBack: () => setCommentInputValue('comment', ''),
       isPostAuthor: isMyPost,
       // id 비교로 변경해야함
-      memberName: userAuthInfo.name,
+      memberName: userAuthInfo.nickname,
     })
   }
 

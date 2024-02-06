@@ -65,3 +65,13 @@ export const StatsContainerPages = {
   stats: 1,
 }
 export type StatsContainerType = (typeof StatsContainerPages)[keyof typeof StatsContainerPages]
+
+//* userAuthInfo
+export type userAuthInfoType = {
+  memberId: number
+  nickname: string
+  profileImage: string
+  email: string
+  accessToken: string
+  refreshToken: string
+}
