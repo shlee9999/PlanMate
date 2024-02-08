@@ -65,21 +65,6 @@ export const RightContainer = styled.div`
   min-width: 0px;
 `
 
-export const AddButton = styled.button`
-  ${P14}
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  margin-top: 5px;
-  width: 64px;
-  height: 32px;
-  color: ${(props) => props.theme.text.gray1};
-  text-align: center;
-  cursor: pointer;
-  background-color: ${(props) => props.theme.background.gray3};
-`
-
 export const LowerContainer = styled.div`
   position: relative;
 `

@@ -10,6 +10,7 @@ import { TotalTimer } from './components/TotalTimer/TotalTimer'
 import { RestTimer } from './components/RestTimer/RestTimer'
 import React from 'react'
 import { TodoContainer } from './components/TodoContainer/TodoContainer'
+import { AddSubjectButton } from './components/AddSubjectButton/AddSubjectButton'
 
 export const TimerPage: FC = () => {
   const { fixedDDay, remainingDays, onClickGreenTypo, isAddModalOpen, closeAddModal, openAddModal } = useTimerPage()
@@ -58,10 +59,7 @@ export const TimerPage: FC = () => {
           )}
 
           <TodoContainer />
-          <s.AddButton onClick={openAddModal}>
-            <PlusIcon />
-            과목
-          </s.AddButton>
+          <AddSubjectButton openAddModal={openAddModal} />
         </s.LowerContainer>
         <ActionModal closeModal={closeAddModal} type="ADD" isOpen={isAddModalOpen} />
       </s.TimerPage>
