@@ -5,6 +5,7 @@ import { EllipsisModal } from '..'
 import { useTimerItem } from './useTimerItem'
 import { useModal } from 'hooks'
 import { TimerButton } from './TimerButton'
+import { EllipsisButton } from './EllipsisButton'
 
 type TimerItemProps = {
   todo: TodoItemType
@@ -33,7 +34,7 @@ export const TimerItem = React.memo(({ todo }: TimerItemProps) => {
         <s.Time $isTodoTimerRunning={isTodoTimerRunning} color={todo.colorHex}>
           {formattedTime}
         </s.Time>
-        <s.EllipsisButton onClick={openEllipsisModal}></s.EllipsisButton>
+        <EllipsisButton openModal={openEllipsisModal} />
       </s.RightContainer>
       <EllipsisModal closeModal={closeEllipsisModal} todo={todo} isOpen={isEllipsisOpen} />
     </s.TimerItem>

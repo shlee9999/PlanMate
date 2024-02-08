@@ -20,7 +20,7 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, closeModal
   const dispatch = useDispatch()
   const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
   const changeNickname = (newNickname: string) => {
-    changeName({ name: newNickname }).then((res) => {
+    changeName({ name: newNickname }).then(() => {
       closeModal()
     })
   }

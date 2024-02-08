@@ -1,8 +1,6 @@
 import { useLockBodyScroll } from 'hooks'
-import { RootState } from 'modules'
 import { useDeleteSubjectMutation } from 'pages/Timer/hooks/mutations'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { TodoItemType } from 'types'
 
 type useEllipsisModalProps = {
