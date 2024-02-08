@@ -23,6 +23,9 @@ export const BannerContentContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 64px;
   gap: 20px;
+  @media screen and (${(props) => props.theme.medium}) {
+    flex-direction: column;
+  }
 `
 export const LeftTopDescriptionWrapper = styled.div``
 export const LeftContainer = styled.div`

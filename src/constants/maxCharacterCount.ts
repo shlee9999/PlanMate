@@ -7,3 +7,4 @@ export const MAX_DDAY_CHARACTER_COUNT = 15
 // * 13글자로 제한해야, 삭제 모달에서도 깔끔하게 한 줄로 들어감.
 export const MAX_TIMER_NAME_CHARACTER_COUNT = 13
 export const MAX_APPOINT_NAME_CHARACTER_COUNT = 8
+export const MAX_NICKNAME_CHARACTER_COUNT = 8

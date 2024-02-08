@@ -105,9 +105,12 @@ export const MyPage: FC = () => {
             </s.TabContentContainer>
           </s.RightContainer>
         </s.MainContainer>
-        {isProfileEditModalOpen && (
-          <ProfileEditModal closeModal={closeProfileEditModal} nickname={userAuthInfo.nickname} />
-        )}
+        <ProfileEditModal
+          closeModal={closeProfileEditModal}
+          defaultNickname={userAuthInfo.nickname}
+          isOpen={isProfileEditModalOpen}
+        />
+
         {isResignModalOpen && <ResignModal closeModal={closeResignModal} />}
       </s.Container>
     </s.MyPage>
