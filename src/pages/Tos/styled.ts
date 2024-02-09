@@ -1,9 +1,11 @@
 import { FlexRow, H21_700, PageRoot } from 'commonStyled'
 import { H14_700, P12 } from 'commonStyled'
+import { ALLOW_SELECT } from 'constants/blockSelect'
 import styled from 'styled-components'
 
 export const Tos = styled(PageRoot)``
 export const PageHeader = styled(FlexRow)`
+  ${ALLOW_SELECT}
   ${H21_700}
   p {
     position: relative;
