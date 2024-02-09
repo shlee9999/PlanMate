@@ -505,6 +505,7 @@ export const Tos = () => {
             </s.OrderedList>
           </s.Description>
         </s.TermsSection>
+        <s.PostScript>[부칙] 이 약관은 2023년 8월 18일부터 적용됩니다.</s.PostScript>
       </s.TermsContainer>
     </s.Tos>
   )

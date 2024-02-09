@@ -64,3 +64,7 @@ export const ListItem = styled.li`
     margin-bottom: 10px;
   }
 `
+export const PostScript = styled.p`
+  ${P12}
+  color: ${(props) => props.theme.text.gray1};
+`
