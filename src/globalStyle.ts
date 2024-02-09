@@ -38,7 +38,9 @@ body {
 	background-color: ${(props) => props.theme.body};
 }
 ol, ul, li {
-	list-style: none;  
+  list-style-type: none;
+  list-style-position: outside;
+  list-style-image: none;
 }
 blockquote, q {
 	quotes: none;
