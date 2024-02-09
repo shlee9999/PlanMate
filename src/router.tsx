@@ -12,6 +12,7 @@ import {
   LoginPage,
   DdayCalendarPage,
   Tos,
+  PrivacyPolicy,
 } from 'pages'
 import { FindAllNoticeResponseProps, findAllNotice } from 'api/notice/findAllNotice'
 
@@ -72,6 +73,10 @@ export const routerInfo = [
       {
         path: 'tos',
         element: <Tos />,
+      },
+      {
+        path: 'privacy-policy',
+        element: <PrivacyPolicy />,
       },
     ],
   },
