@@ -28,12 +28,12 @@ export const ProfileEditModal: FC<ProfileEditModalProps> = ({ isOpen, closeModal
     changeNickname(nickname)
     dispatch(changeUserAuthProp('nickname', nickname))
   }
+  const { registerInput, handleSubmit, setValue, inputFocus } = useForm()
 
-  // const onKeyDown = (e: React.KeyboardEvent) => e.key === 'Enter' && handleSubmit(onSubmit)()
-  const { registerInput, handleSubmit, setValue } = useForm()
   useEffect(() => {
     setValue('nickname', nickname)
-  }, [])
+    inputFocus('nickname')
+  }, [isOpen])
   return (
     <AnimatePresence>
       {isOpen && (
