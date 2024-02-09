@@ -7,6 +7,7 @@ import { PlannerPage } from './Planner/PlannerPage'
 import { StatsPage } from './Stats/StatsPage'
 import { TimerPage } from './Timer/TimerPage'
 import { DdayCalendarPage } from './MyPage/DdayCalendarPage/DdayCalendarPage'
+import { Tos } from './Tos/Tos'
 export {
   ErrorPage,
   BulletinPage,
@@ -18,5 +19,6 @@ export {
   PlannerPage,
   StatsPage,
   TimerPage,
-  DdayCalendarPage as EventCalendarPage,
+  DdayCalendarPage,
+  Tos,
 }
