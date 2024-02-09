@@ -1,8 +1,12 @@
+import { useEffect } from 'react'
 import * as s from './styled'
 import LogoSvg from 'assets/images/logo.svg'
 //* 이용 약관 페이지
 
 export const Tos = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
   return (
     <s.Tos>
       <s.PageHeader>

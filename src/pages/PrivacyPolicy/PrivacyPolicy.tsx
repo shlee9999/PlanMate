@@ -1,9 +1,12 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import * as s from './styled'
 import LogoSvg from 'assets/images/logo.svg'
 import { UnorderedList } from 'pages/Tos/styled'
 
 export const PrivacyPolicy: FC = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
   return (
     <s.PrivacyPolicy>
       <s.PageHeader>
