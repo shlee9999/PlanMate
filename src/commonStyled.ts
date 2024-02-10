@@ -13,139 +13,6 @@ import { Variants, motion } from 'framer-motion'
 import { BLOCK_SELECT } from 'constants/blockSelect'
 import { Spinner } from 'components'
 
-export const PageRoot = styled.div`
-  //* DEFAULT
-  position: relative;
-  margin: 0 auto;
-  max-width: ${BODY_MAX_WIDTH}px;
-  margin-top: ${HEADER_HEIGHT}px;
-  overflow-x: hidden;
-  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
-  ${BLOCK_SELECT}
-
-  @media screen and (${(props) => props.theme.xlarge}) {
-    //* XLARGE
-    padding: 40px ${XLARGE_SIDE_MARGIN}px;
-    /* background-color: teal; */
-  }
-  @media screen and (${(props) => props.theme.large}) {
-    //* LARGE
-    padding: 30px ${LARGE_SIDE_MARGIN}px;
-    /* background-color: tomato; */
-  }
-  @media screen and (${(props) => props.theme.medium}) {
-    //* MEDIUM
-    padding: 20px ${MEDIUM_SIDE_MARGIN}px;
-    /* background-color: yellow; */
-  }
-  @media screen and (${(props) => props.theme.small}) {
-    //* SMALL
-    padding: 10px ${SMALL_SIDE_MARGIN}px;
-  }
-`
-
-export const TagRoot = styled.span`
-  &::before {
-    content: '#';
-  }
-`
-
-const MODAL_FOOTER_HEIGHT = 40
-
-export const ModalWrapper = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 11;
-  background-color: #2222224d;
-`
-export const ModalWrapperVar: Variants = {
-  initial: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.35,
-    },
-  },
-  exit: { opacity: 0 },
-}
-
-export const FooterButton = styled.button`
-  font-size: 16px;
-  font-weight: 500;
-  line-height: ${MODAL_FOOTER_HEIGHT}px;
-  height: ${MODAL_FOOTER_HEIGHT}px;
-  text-align: center;
-  width: 50%;
-`
-
-export const WhiteButton = styled(FooterButton)`
-  color: ${(props) => props.theme.text.gray1};
-  border-top: 1px solid ${(props) => props.theme.border.default};
-`
-export const GreenButton = styled(FooterButton)`
-  color: ${(props) => props.theme.text.white};
-  background-color: ${(props) => props.theme.primary.default};
-  border-top: 1px solid ${(props) => props.theme.primary.dark};
-  order: 1;
-`
-
-export const ModalFooter = styled.div`
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
-  text-align: center;
-`
-
-export const ModalExitButton = styled(CloseIcon)`
-  position: absolute;
-  top: 16px;
-  right: 24px;
-  width: 20px;
-  height: 20px;
-  fill: ${(props) => props.theme.text.gray2};
-`
-
-export const LeftArrow = styled(RightArrow)`
-  transform: rotate(180deg);
-`
-export const DownArrow = styled(RightArrow)`
-  transform: rotate(90deg);
-`
-export const UpArrow = styled(RightArrow)`
-  transform: rotate(-90deg);
-`
-
-// export const StyledHeartIcon = styled(HeartIcon)`
-//   cursor: pointer;
-// `
-// export const StyledScrapIcon = styled(ScrapIcon)`
-//   cursor: pointer;
-// `
-
-export const CenterSpinner = styled(Spinner)`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-`
-
-export const FlexRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`
-
 //* 폰트 사이즈 설정 - font-size, font-weight 순서로 정렬.
 //* Heading은 font-size 500 이상
 /** 46px 700*/
@@ -289,4 +156,140 @@ export const P8 = css`
   font-size: 8px;
   font-weight: 400;
   line-height: 10px;
+`
+export const PageRoot = styled.div`
+  //* DEFAULT
+  position: relative;
+  margin: 0 auto;
+  max-width: ${BODY_MAX_WIDTH}px;
+  margin-top: ${HEADER_HEIGHT}px;
+  overflow-x: hidden;
+  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
+  ${BLOCK_SELECT}
+
+  @media screen and (${(props) => props.theme.xlarge}) {
+    //* XLARGE
+    padding: 40px ${XLARGE_SIDE_MARGIN}px;
+    /* background-color: teal; */
+  }
+  @media screen and (${(props) => props.theme.large}) {
+    //* LARGE
+    padding: 30px ${LARGE_SIDE_MARGIN}px;
+    /* background-color: tomato; */
+  }
+  @media screen and (${(props) => props.theme.medium}) {
+    //* MEDIUM
+    padding: 20px ${MEDIUM_SIDE_MARGIN}px;
+    /* background-color: yellow; */
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    //* SMALL
+    padding: 10px ${SMALL_SIDE_MARGIN}px;
+  }
+`
+
+export const TagRoot = styled.span`
+  &::before {
+    content: '#';
+  }
+`
+
+const MODAL_FOOTER_HEIGHT = 40
+
+export const ModalWrapper = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  background-color: #2222224d;
+`
+export const ModalWrapperVar: Variants = {
+  initial: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.35,
+    },
+  },
+  exit: { opacity: 0 },
+}
+
+export const FooterButton = styled.button`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: ${MODAL_FOOTER_HEIGHT}px;
+  height: ${MODAL_FOOTER_HEIGHT}px;
+  text-align: center;
+  width: 50%;
+`
+
+export const ModalFooter = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+`
+
+export const ModalExitButton = styled(CloseIcon)`
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  width: 20px;
+  height: 20px;
+  fill: ${(props) => props.theme.text.gray2};
+`
+
+export const LeftArrow = styled(RightArrow)`
+  transform: rotate(180deg);
+`
+export const DownArrow = styled(RightArrow)`
+  transform: rotate(90deg);
+`
+export const UpArrow = styled(RightArrow)`
+  transform: rotate(-90deg);
+`
+
+// export const StyledHeartIcon = styled(HeartIcon)`
+//   cursor: pointer;
+// `
+// export const StyledScrapIcon = styled(ScrapIcon)`
+//   cursor: pointer;
+// `
+
+export const CenterSpinner = styled(Spinner)`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+`
+
+export const FlexRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`
+
+export const WhiteButton = styled(FooterButton)`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  ${H16_500}
+  color: ${(props) => props.theme.text.gray1};
+  border-top: 1px solid ${(props) => props.theme.border.default};
+`
+export const GreenButton = styled(FooterButton)`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  ${H16_500}
+  color: ${(props) => props.theme.text.white};
+  background-color: ${(props) => props.theme.primary.default};
+  border-top: 1px solid ${(props) => props.theme.primary.dark};
+  order: 1;
 `
