@@ -1,8 +1,8 @@
-import { TagRoot } from 'commonStyled'
+import { H14_500 } from 'commonStyled'
 import styled from 'styled-components'
 
-export const Tag = styled(TagRoot)``
 export const TagButton = styled.button`
+  ${H14_500}
   flex-basis: 100px;
   height: 40px;
   border-radius: 100px;
@@ -16,7 +16,8 @@ export const TagButton = styled.button`
   }
 `
 
-export const TagButtonContainer = styled.div`
+export const TagContainer = styled.div`
+  width: 100%;
   min-width: 230px;
   margin: 0 auto;
   display: flex;

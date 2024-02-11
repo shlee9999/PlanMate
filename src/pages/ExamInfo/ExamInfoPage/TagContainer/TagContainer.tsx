@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import * as s from './styled'
 import { Display } from 'components'
 import { DISPLAY } from 'types'
+import TagButton from './TagButton'
 
 type DTagContainerProps = {
   tagList: string[]
@@ -11,34 +12,33 @@ type DTagContainerProps = {
 
 export const TagContainer: FC<DTagContainerProps> = ({ tagList, selectedTag, setSelectedTag }) => {
   const onClickTag = (tag: string) => () => selectedTag === tag ? setSelectedTag('') : setSelectedTag(tag)
+
   const renderContent = (tagDivisionIndex: number) => (
     <>
-      <s.TagButtonContainer>
+      <s.TagContainer>
         {tagList.map((tag, index) =>
           index > tagDivisionIndex ? null : (
-            <s.TagButton
+            <TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
               onClick={onClickTag(tagList[index])}
-            >
-              <s.Tag>{tag}</s.Tag>
-            </s.TagButton>
+              tag={tag}
+            />
           )
         )}
-      </s.TagButtonContainer>
-      <s.TagButtonContainer>
+      </s.TagContainer>
+      <s.TagContainer>
         {tagList.map((tag, index) =>
           index <= tagDivisionIndex ? null : (
-            <s.TagButton
+            <TagButton
               key={index}
               className={tag === selectedTag ? 'isSelected' : ''}
               onClick={onClickTag(tagList[index])}
-            >
-              <s.Tag>{tag}</s.Tag>
-            </s.TagButton>
+              tag={tag}
+            />
           )
         )}
-      </s.TagButtonContainer>
+      </s.TagContainer>
     </>
   )
   return (
