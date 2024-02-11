@@ -11,6 +11,7 @@ import { Reply } from 'components'
 import { useForm, useModal } from 'hooks'
 import { useComment } from './useComment'
 import { useDetectClickOutside } from 'hooks/useDetectClickOutside'
+import { ReplyForm } from './ReplyForm'
 
 type CommentProps = {
   deleteComment?: () => void
@@ -20,9 +21,6 @@ type CommentProps = {
   postId: number
 } & ResponseCommentType
 
-type ReplyForm = {
-  reply: string
-}
 type CommentForm = {
   comment: string
 }
@@ -39,7 +37,6 @@ function Comment({
   currentPage,
 }: CommentProps) {
   //대댓글 로직
-  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const {
     isOpen: isEllipsisOpen,
     closeModal: closeEllipsisModal,
@@ -57,13 +54,8 @@ function Comment({
     textareaFocus: setCommentFocus,
     setValue: setCommentValue,
   } = useForm<CommentForm>()
+
   const {
-    registerTextarea: registerReplyInput,
-    handleSubmit: handleReplySubmit,
-    setValue: setReplyValue,
-  } = useForm<ReplyForm>()
-  const {
-    onReplySubmit,
     isEditing,
     isReplying,
     onClickLikeButton,
@@ -75,12 +67,9 @@ function Comment({
   } = useComment({
     postId,
     commentId,
-    memberName,
-    isPostAuthor,
     currentPage,
     setCommentFocus,
     setCommentValue,
-    setReplyValue,
     isAuthor,
     closeEllipsisModal,
     content,
@@ -138,17 +127,13 @@ function Comment({
           {replyList?.map((reply) => (
             <Reply key={reply.commentId} {...reply} parentCommentId={commentId} />
           ))}
-          <s.ReplyInputWrapper>
-            <s.ReplyMark />
-            <s.ReplyForm onSubmit={handleReplySubmit(onReplySubmit)}>
-              <s.UserNickname>{userAuthInfo.nickname}</s.UserNickname>
-              <s.ReplyInput
-                placeholder="대댓글을 남겨보세요."
-                {...registerReplyInput('reply', { maxLength: MAX_REPLY_CHARACTER_COUNT })}
-              />
-              <s.ReplyRegisterButton icon="register">댓글등록</s.ReplyRegisterButton>
-            </s.ReplyForm>
-          </s.ReplyInputWrapper>
+          <ReplyForm
+            isReplying={isReplying}
+            memberName={memberName}
+            isPostAuthor={isPostAuthor}
+            postId={postId}
+            parentCommentId={commentId}
+          />
         </>
       )}
     </>

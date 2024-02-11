@@ -1,25 +1,19 @@
 import { FindAllChildResponseProps, findAllChild } from 'api/comment/findAllChild'
-import { useEditComment, useCreateReplyMutation, useLikeCommentMutation } from 'pages/ExamInfo/hooks/mutations'
+import { useEditComment, useLikeCommentMutation } from 'pages/ExamInfo/hooks/mutations'
 import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { QueryKeys } from 'types'
 
-type ReplyForm = {
-  reply: string
-}
 type CommentForm = {
   comment: string
 }
 type useCommentProps = {
   postId: number
   commentId: number
-  memberName: string
-  isPostAuthor: boolean
   currentPage: number
   setCommentFocus: (key: 'comment') => void
   setCommentValue: (key: 'comment', value: string) => void
-  setReplyValue: (key: 'reply', value: string) => void
   isAuthor: boolean
   closeEllipsisModal: () => void
   content: string
@@ -28,12 +22,11 @@ type useCommentProps = {
 export const useComment = ({
   postId,
   commentId,
-  memberName,
-  isPostAuthor,
+
   currentPage,
   setCommentFocus,
   setCommentValue,
-  setReplyValue,
+
   closeEllipsisModal,
   content,
   isAuthor,
@@ -47,20 +40,8 @@ export const useComment = ({
     { initialData: [] }
   )
   const mutateEditComment = useEditComment()
-  const mutateCreateReply = useCreateReplyMutation()
   const mutateLikeComment = useLikeCommentMutation()
 
-  const onReplySubmit = ({ reply }: ReplyForm) => {
-    if (!postId) return
-    mutateCreateReply({
-      content: reply,
-      parentCommentId: commentId,
-      postId,
-      callBack: () => setReplyValue('reply', ''),
-      memberName,
-      isPostAuthor,
-    })
-  }
   const onClickLikeButton = (): void => {
     mutateLikeComment({
       commentId,
@@ -82,7 +63,7 @@ export const useComment = ({
     setIsEditing(true)
     closeEllipsisModal()
   }
-  const toggleReplying = (e: React.MouseEvent) => setIsReplying((prev) => !prev)
+  const toggleReplying = () => setIsReplying((prev) => !prev)
 
   useEffect(() => {
     setCommentFocus('comment')
@@ -92,7 +73,6 @@ export const useComment = ({
   }, [])
   return {
     replyList,
-    onReplySubmit,
     isEditing,
     isReplying,
     onClickLikeButton,
