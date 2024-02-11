@@ -13,6 +13,7 @@ export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, setCu
   const onClickLeftArrow = () => setCurrentPage((prev) => (prev - 1 > 0 ? prev - 1 : prev))
   const onClickRightArrow = () => setCurrentPage((prev) => (prev + 1 <= totalPages ? prev + 1 : prev))
   const onClickPageNumber = (page) => () => setCurrentPage(page)
+  if (totalPages === 0) return null
   return (
     <s.Pagination className={className}>
       <s.PrevButton onClick={onClickLeftArrow} />
