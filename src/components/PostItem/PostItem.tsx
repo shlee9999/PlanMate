@@ -4,10 +4,11 @@ import { ResponsePostType } from 'api/types'
 import { useNavigate } from 'react-router-dom'
 import { CommentIcon, HeartIcon, ScrapIcon } from 'assets/SvgComponents'
 import { HEART_COLOR, SCRAP_COLOR } from 'constants/color'
+import React from 'react'
 
 type PostItemProps = ResponsePostType
 
-export const PostItem: FC<PostItemProps> = ({
+function PostItem({
   commentCount,
   isMyHearted,
   isMyScraped,
@@ -18,7 +19,7 @@ export const PostItem: FC<PostItemProps> = ({
   createdAt,
   postId,
   noticeId,
-}) => {
+}: PostItemProps) {
   const navigate = useNavigate()
   const onClickTitle = (): void => {
     if (postId) navigate(`/examinfo/detail/${postId}`)
@@ -51,3 +52,4 @@ export const PostItem: FC<PostItemProps> = ({
     </s.PostItem>
   )
 }
+export default React.memo(PostItem)
