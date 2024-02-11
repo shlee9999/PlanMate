@@ -1,5 +1,5 @@
 import { H21_700, H14_500, H16_500 } from 'commonStyled'
-import { ActionButton } from 'components'
+import { ActionButton, NoContentDescription } from 'components'
 import styled from 'styled-components'
 
 export const CommentWrapper = styled.div`
@@ -46,4 +46,7 @@ export const CommentRegisterButton = styled(ActionButton)`
 export const UserNickname = styled.p`
   ${H16_500}
   color: ${(props) => props.theme.text.black1};
+`
+export const NoCommentDescription = styled(NoContentDescription)`
+  margin-bottom: 50px;
 `

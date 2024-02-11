@@ -43,7 +43,7 @@ export const CommentContainer: FC<CommentContainerProps> = ({ postId, mode }) =>
             ))
           ) : (
             <>
-              <NoContentDescription icon="pencil" descriptions={['아직 댓글이 없어요', '첫 댓글을 남겨볼까요?']} />
+              <s.NoCommentDescription icon="pencil" descriptions={['아직 댓글이 없어요', '첫 댓글을 남겨볼까요?']} />
               {<CommentForm postId={postId} mode={mode} currentPage={currentPage} />}
             </>
           )}
