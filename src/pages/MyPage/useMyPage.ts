@@ -1,12 +1,10 @@
 import { FindCommentResponseProps, findComment } from 'api/comment/findComment'
 import { FindAllDdayResponseProps, findAllDday } from 'api/dday/findAllDday'
-import { changeName } from 'api/member/changeName'
 import { FindPostResponseProps, findPost } from 'api/post/find/findPost'
 import { FindScrappedPostResponseProps, findScrappedPost } from 'api/post/find/findScrappedPost'
 import { ResponsePostType, ResponseCommentType } from 'api/types'
 import { Comment, PostItem } from 'components'
 import { RootState } from 'modules'
-import { changeUserAuthInfo } from 'modules/userAuthInfo'
 import { FC, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useSelector, useDispatch } from 'react-redux'
@@ -80,7 +78,6 @@ export const useMyPage = () => {
     },
   ]
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
   const onClickViewMore = () => navigate('/mypage/dday')
   const closeProfileEditModal = () => setIsProfileEditModalOpen(false)
