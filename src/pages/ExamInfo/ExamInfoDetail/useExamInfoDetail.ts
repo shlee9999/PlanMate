@@ -1,13 +1,8 @@
-import { FindAllCommentsResponseProps, findAllComments } from 'api/comment/findAll'
-import { CheckPostResponseProps, checkPost } from 'api/post/checkPost'
 import { EditorState, convertFromRaw } from 'draft-js'
-import { useForm } from 'hooks'
 import { RootState } from 'modules'
 import { useState, useEffect } from 'react'
-import { useQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-import { QueryKeys } from 'types'
 import { serializeContent } from 'utils'
 import {
   useLikePostMutation,
@@ -16,56 +11,33 @@ import {
   useDeleteNoticeMutation,
   useEditPostMutation,
   useEditNoticeMutation,
-  useCreateCommentMutation,
 } from '../hooks/mutations'
+import { useDetailData } from './hooks/useDetailData'
 
 type useExamInfoDetailProps = {
   mode: 'examinfo' | 'notice'
 }
 
-type CommentForm = {
-  comment: string
-}
 export const useExamInfoDetail = ({ mode }: useExamInfoDetailProps) => {
   const params = useParams()
   const postId = +params.postId
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
-  const { data: detailData, isLoading: isDetailLoading } = useQuery<CheckPostResponseProps>(
-    ['detailData', mode, postId],
-    () => checkPost({ postId })
-  )
-  const {
-    postTagList = [],
-    nickname = '',
-    title = '',
-    createdAt = '',
-    content = '',
-    isMyPost = false,
-  } = detailData || {}
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
-    [QueryKeys.commentData, postId, currentPage + ''],
-    () => findAllComments({ pages: currentPage - 1, postId }),
-    { keepPreviousData: true }
-  )
+  const { isDetailLoading, postTagList, nickname, title, createdAt, content, isMyPost, detailData } = useDetailData({
+    postId,
+    mode,
+  })
   const [currentContent, setCurrentContent] = useState(content)
   const [isDeletePostModalOpen, setIsDeletePostModalOpen] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const {
-    registerTextarea: registerCommentInput,
-    handleSubmit: handleCommentSubmit,
-    setValue: setCommentInputValue,
-  } = useForm<CommentForm>()
+
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
   const onEditorStateChange = (editorState: EditorState) => setEditorState(editorState)
-  const { commentDtoList = [], totalCount = 0, totalPages = 0 } = commentData || {}
   const mutateLikePost = useLikePostMutation()
   const mutateScrapPost = useScrapPostMutation()
   const mutateDeletePost = useDeletePostMutation()
   const mutateDeleteNotice = useDeleteNoticeMutation()
   const mutateEditPost = useEditPostMutation()
   const mutateEditNotice = useEditNoticeMutation()
-  const mutateCreateComment = useCreateCommentMutation()
 
   const navigate = useNavigate()
   const deletePost = (): void => {
@@ -107,17 +79,6 @@ export const useExamInfoDetail = ({ mode }: useExamInfoDetailProps) => {
         mode,
       })
   }
-  const onCommentSubmit = ({ comment }: CommentForm): void => {
-    mutateCreateComment({
-      currentPage,
-      content: comment,
-      postId,
-      callBack: () => setCommentInputValue('comment', ''),
-      isPostAuthor: isMyPost,
-      // id 비교로 변경해야함
-      memberName: userAuthInfo.nickname,
-    })
-  }
 
   const closeDeletePostModal = () => setIsDeletePostModalOpen(false)
   const onClickLikeButton = () => mutateLikePost({ postId, mode })
@@ -141,32 +102,22 @@ export const useExamInfoDetail = ({ mode }: useExamInfoDetailProps) => {
     nickname,
     title,
     createdAt,
-    setCurrentPage,
     currentContent,
     isDeletePostModalOpen,
-    registerCommentInput,
-    handleCommentSubmit,
     onEditorStateChange,
-    commentDtoList,
-    totalCount,
-    totalPages,
     deletePost,
     onClickEditTypo,
-    onCommentSubmit,
     closeDeletePostModal,
     onClickLikeButton,
     onClickScrapButton,
     onClickDeleteTypo,
     isMyPost,
     isDetailLoading,
-    isCommentLoading,
-    currentPage,
     isEditing,
     editorState,
     onClickEditCompleteButton,
     detailData,
     postId,
-    commentData,
     userAuthInfo,
   }
 }

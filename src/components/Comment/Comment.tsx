@@ -1,5 +1,5 @@
 import * as s from './styled'
-import React, { FC } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
@@ -26,7 +26,7 @@ type ReplyForm = {
 type CommentForm = {
   comment: string
 }
-export const Comment: FC<CommentProps> = ({
+function Comment({
   commentId,
   isPostAuthor,
   isMyHearted,
@@ -37,7 +37,7 @@ export const Comment: FC<CommentProps> = ({
   isAuthor,
   postId,
   currentPage,
-}) => {
+}: CommentProps) {
   //대댓글 로직
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const {
@@ -154,3 +154,4 @@ export const Comment: FC<CommentProps> = ({
     </>
   )
 }
+export default React.memo(Comment)
