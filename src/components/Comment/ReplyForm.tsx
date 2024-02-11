@@ -7,7 +7,6 @@ import { RootState } from 'modules'
 import { useSelector } from 'react-redux'
 
 type ReplyFormProps = {
-  isReplying: boolean
   memberName: string
   isPostAuthor: boolean
   postId: number
@@ -16,10 +15,10 @@ type ReplyFormProps = {
 type ReplyForm = {
   reply: string
 }
-export const ReplyForm: FC<ReplyFormProps> = ({ isReplying, memberName, isPostAuthor, postId, parentCommentId }) => {
+
+export const ReplyForm: FC<ReplyFormProps> = ({ memberName, isPostAuthor, postId, parentCommentId }) => {
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const mutateCreateReply = useCreateReplyMutation()
-
   const {
     registerTextarea: registerReplyInput,
     handleSubmit: handleReplySubmit,
@@ -36,7 +35,7 @@ export const ReplyForm: FC<ReplyFormProps> = ({ isReplying, memberName, isPostAu
       isPostAuthor,
     })
   }
-  return isReplying ? (
+  return (
     <s.ReplyInputWrapper>
       <s.ReplyMark />
       <s.ReplyForm onSubmit={handleReplySubmit(onReplySubmit)}>
@@ -48,5 +47,5 @@ export const ReplyForm: FC<ReplyFormProps> = ({ isReplying, memberName, isPostAu
         <s.ReplyRegisterButton icon="register">댓글등록</s.ReplyRegisterButton>
       </s.ReplyForm>
     </s.ReplyInputWrapper>
-  ) : null
+  )
 }

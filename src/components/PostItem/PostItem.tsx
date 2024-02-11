@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import * as s from './styled'
 import { ResponsePostType } from 'api/types'
 import { useNavigate } from 'react-router-dom'

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import * as s from './styled'
 import { useCommentData } from '../hooks/useCommentData'
-import { NoContentDescription, Pagination } from 'components'
+import { Pagination } from 'components'
 import { Comment } from 'components'
 import { CommentForm } from './CommentForm'
 type CommentContainerProps = {

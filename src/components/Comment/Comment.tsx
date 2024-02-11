@@ -1,11 +1,9 @@
 import * as s from './styled'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from 'modules'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
 import { DeleteCommentModal } from 'pages/ExamInfo/components'
-import { MAX_COMMENT_CHARACTER_COUNT, MAX_REPLY_CHARACTER_COUNT } from 'constants/maxCharacterCount'
+import { MAX_COMMENT_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import { ResponseCommentType } from 'api/types'
 import { Reply } from 'components'
 import { useForm, useModal } from 'hooks'
@@ -127,13 +125,7 @@ function Comment({
           {replyList?.map((reply) => (
             <Reply key={reply.commentId} {...reply} parentCommentId={commentId} />
           ))}
-          <ReplyForm
-            isReplying={isReplying}
-            memberName={memberName}
-            isPostAuthor={isPostAuthor}
-            postId={postId}
-            parentCommentId={commentId}
-          />
+          <ReplyForm memberName={memberName} isPostAuthor={isPostAuthor} postId={postId} parentCommentId={commentId} />
         </>
       )}
     </>
