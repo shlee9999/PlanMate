@@ -25,8 +25,9 @@ function useEditPostMutation() {
         }))
         return { prevData }
       },
-      onSuccess: () => {
-        console.log('success')
+      onSuccess: (data, { callBack }) => {
+        console.log('success edit post')
+        callBack()
       },
       onError: (err, { postId, mode }, context) => {
         console.error(err)
