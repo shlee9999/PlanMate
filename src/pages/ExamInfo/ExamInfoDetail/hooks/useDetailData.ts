@@ -18,6 +18,12 @@ export const useDetailData = ({ postId, mode }: useDetailDataProps) => {
     createdAt = '',
     content = '',
     isMyPost = false,
+    isMyHearted = false,
+    isMyScraped = false,
+    commentCount = '',
+    likeCount = '',
+    scrapCount = '',
+    noticeId = '',
   } = detailData || {}
   return {
     detailData,
@@ -28,5 +34,11 @@ export const useDetailData = ({ postId, mode }: useDetailDataProps) => {
     createdAt,
     content,
     isMyPost,
+    isMyHearted,
+    isMyScraped,
+    commentCount,
+    likeCount,
+    scrapCount,
+    noticeId,
   }
 }
