@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 import { HIDE_SCROLLBAR } from 'constants/hideScrollbar'
-import { H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
+import { FlexRow, H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
 import { EllipsisIcon } from 'assets/SvgComponents'
 
 export const EllipsisButton = styled(EllipsisIcon)<{ $isEllipsisOpen: boolean }>`
@@ -26,10 +26,10 @@ export const Comment = styled.div`
   }
 `
 export const UpperTypoWrapper = styled.div`
-  box-sizing: border-box;
   display: flex;
-  align-items: end;
+  align-items: center;
   column-gap: 4px;
+  /* background-color: tomato; */
 `
 export const CommentEditForm = styled.form`
   width: 100%;
@@ -129,16 +129,16 @@ const EllipsisButtonRoot = styled.button`
 export const EllipsisEditButton = styled(EllipsisButtonRoot)``
 export const EllipsisDeleteButton = styled(EllipsisButtonRoot)``
 
-export const AuthorIcon = styled.div`
+export const AuthorIcon = styled(FlexRow)`
   ${P10}
   width: 40px;
   height: 14px;
+  justify-content: center;
   line-height: 14px;
   border-radius: 100px;
   border: 1px solid ${(props) => props.theme.primary.default};
   background-color: ${(props) => props.theme.primary.light};
   color: ${(props) => props.theme.primary.default};
-  text-align: center;
 `
 export const ReplyInputWrapper = styled.div`
   padding-bottom: 10px;
