@@ -9,7 +9,7 @@ export const useTimerPage = () => {
   const { isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal } = useModal()
   const navigate = useNavigate()
   const onClickGreenTypo = () => navigate('/mypage')
-  //! 백엔드 remainingDays 안맞아서 내 로직 사용
+  //! 백엔드 remainingDays 안맞아서 내 로직 사  용
   const remainingDays = fixedDDay?.remainingDays
 
   return {

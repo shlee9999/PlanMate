@@ -1,11 +1,13 @@
 import { logout } from 'api/login/logout'
 import { pageList } from 'constants/pageList'
 import { RootState } from 'modules'
+import { changeUserAuthInfo } from 'modules/userAuthInfo'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export const useHeader = () => {
+  const dispatch = useDispatch()
   const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const location = useLocation()
@@ -23,9 +25,18 @@ export const useHeader = () => {
   const onClickLogout = () =>
     !isNavBlocked &&
     logout().then(() => {
-      navigate('/timer')
+      navigate('/login')
       localStorage.removeItem('userAuthInfo')
-      window.location.reload()
+      dispatch(
+        changeUserAuthInfo({
+          memberId: null,
+          nickname: null,
+          profileImage: null,
+          email: null,
+          accessToken: null,
+          refreshToken: null,
+        })
+      )
     })
 
   useEffect(() => {

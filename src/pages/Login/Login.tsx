@@ -29,7 +29,6 @@ export const LoginPage: FC = () => {
               //* 로그인 성공
               dispatch(changeUserAuthInfo(res))
               navigate('/timer')
-              window.location.reload()
             })
           }}
           onError={() => {

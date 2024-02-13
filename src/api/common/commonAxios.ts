@@ -1,18 +1,37 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-const userAuthInfo = JSON.parse(localStorage.getItem('userAuthInfo') || '{}')
-
-const accessToken = userAuthInfo && userAuthInfo.accessToken ? 'Bearer ' + userAuthInfo.accessToken : null
-
 const axiosInstance = axios.create({
-  // withCredentials: true,
   baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: accessToken,
   },
 })
-
+axiosInstance.interceptors.request.use(
+  (config) => {
+    // localStorage에서 액세스 토큰 불러오기
+    const userAuthInfo = JSON.parse(localStorage.getItem('userAuthInfo') || '{}')
+    const accessToken = userAuthInfo && userAuthInfo.accessToken ? `Bearer ${userAuthInfo.accessToken}` : null
+    if (accessToken) config.headers.Authorization = accessToken
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+axiosInstance.interceptors.response.use(
+  (response) => {
+    // 정상 응답 처리
+    return response
+  },
+  (error) => {
+    // 401이나 400 에러 시 로그아웃
+    if (error.response && (error.response.status === 401 || error.response.status === 400)) {
+      localStorage.removeItem('userAuthInfo') // 토큰 삭제
+      window.location.href = '/login' // 로그인 페이지로 리디렉션
+    }
+    return Promise.reject(error)
+  }
+)
 export const axiosGET = <RequestData, ResponseData>(
   url: string,
   params?: RequestData,
