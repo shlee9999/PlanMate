@@ -12,11 +12,7 @@ import { useDetectClickOutside } from 'hooks/useDetectClickOutside'
 import { ReplyForm } from './ReplyForm'
 
 type CommentProps = {
-  deleteComment?: () => void
   currentPage: number
-  reply?: boolean
-  isAuthor?: boolean
-  postId: number
 } & ResponseCommentType
 
 type CommentForm = {
