@@ -74,6 +74,12 @@ export const dateUtils = {
     date.setHours(date.getHours() + 9)
     return date.toISOString()
   },
+  /**한국 시간 기준 현재 ISOString*/
+  getKoreanISOStringNow: () => {
+    const date = new Date()
+    date.setHours(date.getHours() + 9)
+    return date.toISOString()
+  },
   /**일주일 동안의 Date 전부 구하기 */
   getWeekDates: (targetDateProps: DateProps): DateProps[] => {
     const targetDate = dateUtils.getDateEntity(targetDateProps)
