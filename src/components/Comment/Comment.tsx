@@ -10,6 +10,7 @@ import { useForm, useModal } from 'hooks'
 import { useComment } from './useComment'
 import { useDetectClickOutside } from 'hooks/useDetectClickOutside'
 import { ReplyForm } from './ReplyForm'
+import { useMatch } from 'react-router-dom'
 
 type CommentProps = {
   currentPage: number
@@ -69,18 +70,21 @@ function Comment({
     content,
   })
   const ref = useDetectClickOutside({ isOpen: isEllipsisOpen, setIsOpen: setIsEllipsisOpen })
+  const isMyPage = useMatch('/mypage')
   return (
     <>
-      <s.Comment>
+      <s.Comment $isMyPage={isMyPage ? true : false}>
         {/* 내가 작성한 댓글만 수정, 삭제 가능함 */}
-        {isAuthor && !isEditing && <s.EllipsisButton onClick={toggleEllipsisModal} $isEllipsisOpen={isEllipsisOpen} />}
+        {isAuthor && !isEditing && !isMyPage && (
+          <s.EllipsisButton onClick={toggleEllipsisModal} $isEllipsisOpen={isEllipsisOpen} />
+        )}
         {isEllipsisOpen && (
           <s.EllipsisModal onClick={(e) => e.stopPropagation()} ref={ref}>
             <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
             <s.EllipsisDeleteButton onClick={openDeleteCommentModal}>삭제</s.EllipsisDeleteButton>
           </s.EllipsisModal>
         )}
-        <s.CommentEditForm onSubmit={handleCommentSubmit(onCommentSubmit)}>
+        <s.CommentEditForm onSubmit={handleCommentSubmit(onCommentSubmit)} $isMyPage={isMyPage ? true : false}>
           <s.UpperTypoWrapper>
             <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>
             {isPostAuthor && <s.AuthorIcon>글쓴이</s.AuthorIcon>}
@@ -99,9 +103,11 @@ function Comment({
               {content}
             </s.CommentContent>
           )}
-          <s.ReplyButton type="button" onClick={toggleReplying}>
-            답글 <s.ReplyCount>{replyList.length}</s.ReplyCount>
-          </s.ReplyButton>
+          {!isMyPage && (
+            <s.ReplyButton type="button" onClick={toggleReplying}>
+              답글 <s.ReplyCount>{replyList.length}</s.ReplyCount>
+            </s.ReplyButton>
+          )}
         </s.CommentEditForm>
         <s.LikeButton onClick={onClickLikeButton}>
           <HeartIcon fill={isMyHearted ? `${HEART_COLOR}` : 'none'} />

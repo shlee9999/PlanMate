@@ -14,7 +14,7 @@ export const EllipsisButton = styled(EllipsisIcon)<{ $isEllipsisOpen: boolean }>
   width: 16px;
   opacity: ${(props) => (props.$isEllipsisOpen ? 1 : 0)};
 `
-export const Comment = styled.div`
+export const Comment = styled.div<{ $isMyPage: boolean }>`
   position: relative;
   margin: 0 auto;
   display: flex;
@@ -24,16 +24,16 @@ export const Comment = styled.div`
       opacity: 1;
     }
   }
+  height: ${(props) => props.$isMyPage && '80px'};
 `
 export const UpperTypoWrapper = styled.div`
   display: flex;
   align-items: center;
   column-gap: 4px;
-  /* background-color: tomato; */
 `
-export const CommentEditForm = styled.form`
+export const CommentEditForm = styled.form<{ $isMyPage: boolean }>`
   width: 100%;
-  padding: 16px 0 14px 0;
+  padding: ${(props) => (props.$isMyPage ? '16px 0 0 8px;' : '16px 0 14px 0;')};
   display: flex;
   flex-direction: column;
   row-gap: 8px;
