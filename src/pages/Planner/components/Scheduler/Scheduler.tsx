@@ -13,7 +13,7 @@ type SchedulerProps = {
   endHour?: number
 }
 
-export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 5, endHour = 23 }) => {
+export const Scheduler: FC<SchedulerProps> = ({ className, startHour = 0, endHour = 23 }) => {
   const {
     plannerData,
     isPlannerLoading,

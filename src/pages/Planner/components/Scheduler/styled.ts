@@ -11,7 +11,7 @@ export const Scheduler = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  min-height: 800px;
+  min-height: 1000px;
 `
 export const Table = styled.table`
   flex-grow: 1;
