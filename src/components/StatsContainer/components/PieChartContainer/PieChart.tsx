@@ -48,7 +48,7 @@ const renderCustomizedLabel = ({
 
 export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= SMALL_SIZE)
-  const renderColorfulLegendText = (value: string, entry: any) =>
+  const renderColorfulLegendText = (value: string) =>
     !isMobile && (
       <LegendText
         style={{

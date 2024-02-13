@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ActionButton } from 'components/'
-import { H14_500, H14_700, P10, P12, P14 } from 'commonStyled'
+import { H14_700, P10, P12, P14 } from 'commonStyled'
 import { EllipsisIcon } from 'assets/SvgComponents'
 import { HIDE_SCROLLBAR } from 'constants/hideScrollbar'
 

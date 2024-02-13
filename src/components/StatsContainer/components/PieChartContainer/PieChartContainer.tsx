@@ -1,8 +1,6 @@
 import React from 'react'
 import * as s from './styled'
 import { PieChart } from './PieChart'
-import { StudyTimeEntry } from 'api/types'
-import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
 import { StatsContainerType } from 'types'
 import { useSelectedData } from 'pages/Stats/hooks'

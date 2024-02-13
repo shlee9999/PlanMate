@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC } from 'react'
 import * as s from './styled'
 import { Display } from 'components'
 import { DISPLAY } from 'types'

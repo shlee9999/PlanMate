@@ -12,7 +12,7 @@ type CommentFormProps = {
   mode: 'examinfo' | 'notice'
   currentPage
 }
-type CommentForm = {
+type CommentFormType = {
   comment: string
 }
 export const CommentForm: FC<CommentFormProps> = ({ postId, mode, currentPage }) => {
@@ -21,13 +21,13 @@ export const CommentForm: FC<CommentFormProps> = ({ postId, mode, currentPage })
     registerTextarea: registerCommentInput,
     handleSubmit: handleCommentSubmit,
     setValue: setCommentInputValue,
-  } = useForm<CommentForm>()
+  } = useForm<CommentFormType>()
   const { isMyPost } = useDetailData({
     postId,
     mode,
   })
   const mutateCreateComment = useCreateCommentMutation()
-  const onCommentSubmit = ({ comment }: CommentForm): void => {
+  const onCommentSubmit = ({ comment }: CommentFormType): void => {
     mutateCreateComment({
       currentPage,
       content: comment,

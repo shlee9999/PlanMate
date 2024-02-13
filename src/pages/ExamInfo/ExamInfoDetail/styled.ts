@@ -1,4 +1,4 @@
-import { PageRoot, TagRoot, P12, H21_700, H14_700 } from 'commonStyled'
+import { PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
 export const ExamInfoDetail = styled(PageRoot)`

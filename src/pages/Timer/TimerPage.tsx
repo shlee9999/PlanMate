@@ -1,7 +1,6 @@
 import * as s from './styled'
 import { FC } from 'react'
 import { StatsContainerPages } from 'types'
-import { PlusIcon } from 'assets/SvgComponents'
 import { StatsContainer } from 'components'
 import { ActionModal } from './components'
 import { dateUtils } from 'utils'

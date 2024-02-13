@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 
 export const useLockBodyScroll = ({ isOpen }) => {
   useEffect(() => {

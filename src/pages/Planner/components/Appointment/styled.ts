@@ -1,4 +1,4 @@
-import { CloseIcon, TrashIcon } from 'assets/SvgComponents'
+import { CloseIcon } from 'assets/SvgComponents'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 import { changeColorOpacity } from 'utils/helper'

@@ -7,7 +7,7 @@ import { Comment, PostItem } from 'components'
 import { RootState } from 'modules'
 import { FC, useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { QueryKeys } from 'types'
 

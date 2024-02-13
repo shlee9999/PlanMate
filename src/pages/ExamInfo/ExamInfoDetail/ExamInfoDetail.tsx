@@ -1,6 +1,5 @@
 import * as s from './styled'
 import { FC, useEffect } from 'react'
-import { useDetailData } from './hooks/useDetailData'
 import { useParams } from 'react-router-dom'
 import { PostContentContainer } from './PostContentContainer/PostContentContainer'
 import { CommentContainer } from './CommentContainer/CommentContainer'

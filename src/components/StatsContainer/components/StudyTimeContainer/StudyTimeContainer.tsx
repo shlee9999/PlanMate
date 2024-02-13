@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import * as s from './styled'
 import { StudyTime } from './StudyTime'
-import { TimeProps } from 'types'
 import { timeUtils } from 'utils'
 import { StatsContainerType } from 'types'
 import { useSelectedData } from 'pages/Stats/hooks'

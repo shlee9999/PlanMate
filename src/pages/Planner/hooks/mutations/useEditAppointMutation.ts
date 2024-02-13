@@ -28,7 +28,7 @@ function useEditAppointMutation() {
         )
         return { previousAppointments }
       },
-      onSuccess: (data) => {
+      onSuccess: () => {
         console.log('success edit')
       },
       onError: (err, variables, context) => {

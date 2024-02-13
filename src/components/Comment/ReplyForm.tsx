@@ -12,7 +12,7 @@ type ReplyFormProps = {
   postId: number
   parentCommentId: number
 }
-type ReplyForm = {
+type ReplyFormType = {
   reply: string
 }
 
@@ -23,8 +23,8 @@ export const ReplyForm: FC<ReplyFormProps> = ({ memberName, isPostAuthor, postId
     registerTextarea: registerReplyInput,
     handleSubmit: handleReplySubmit,
     setValue: setReplyValue,
-  } = useForm<ReplyForm>()
-  const onReplySubmit = ({ reply }: ReplyForm) => {
+  } = useForm<ReplyFormType>()
+  const onReplySubmit = ({ reply }: ReplyFormType) => {
     if (!postId) return
     mutateCreateReply({
       content: reply,

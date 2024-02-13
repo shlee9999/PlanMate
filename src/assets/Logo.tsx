@@ -1,9 +1,7 @@
-import { FC, useState } from 'react'
-import { Variants, animate, motion } from 'framer-motion'
-import { initial } from 'lodash'
+import { FC } from 'react'
+import { Variants, motion } from 'framer-motion'
 
 export const Logo: FC = ({ className }: { className?: string }) => {
-  const [hovered, setHovered] = useState(false)
   const pathVar: Variants = {
     initial: {
       pathLength: 0,
@@ -50,8 +48,6 @@ export const Logo: FC = ({ className }: { className?: string }) => {
       initial="initial"
       animate="animate"
       whileHover="hover"
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
     >
       <g clipPath="url(#clip0_1998_2035)">
         <motion.path

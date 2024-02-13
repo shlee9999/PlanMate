@@ -1,7 +1,6 @@
 import * as s from './styled'
-import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { ResponseCommentType } from 'api/types'
-import { editComment } from 'api/comment/editComment'
 import { useNavigate } from 'react-router-dom'
 import { HeartIcon } from 'assets/SvgComponents'
 import { HEART_COLOR } from 'constants/color'
