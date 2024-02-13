@@ -11,7 +11,7 @@ type CommentContainerProps = {
 
 export const CommentContainer: FC<CommentContainerProps> = ({ postId, mode }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const { commentData, isCommentLoading, commentDtoList, totalCount, totalPages } = useCommentData({
+  const { isCommentLoading, commentDtoList, totalCount, totalPages } = useCommentData({
     postId,
     currentPage,
   })
@@ -25,22 +25,8 @@ export const CommentContainer: FC<CommentContainerProps> = ({ postId, mode }) =>
           댓글 <s.CommentCount>{totalCount}</s.CommentCount>개
         </s.CommentTitle>
         <s.CommentContainer className={commentDtoList?.length !== 0 ? '' : 'no_content'}>
-          {commentData?.commentDtoList?.length !== 0 ? (
-            commentData?.commentDtoList?.map((comment) => (
-              <Comment
-                key={comment.commentId}
-                commentId={comment.commentId}
-                isPostAuthor={comment.isPostAuthor}
-                likeCount={comment.likeCount}
-                memberName={comment.memberName}
-                updatedAt={comment.updatedAt}
-                content={comment.content}
-                isMyHearted={comment.isMyHearted}
-                postId={+postId}
-                currentPage={currentPage}
-                isAuthor={comment.isAuthor}
-              />
-            ))
+          {commentDtoList.length !== 0 ? (
+            commentDtoList.map((comment) => <Comment key={comment.commentId} {...comment} currentPage={currentPage} />)
           ) : (
             <>
               <s.NoCommentDescription icon="pencil" descriptions={['아직 댓글이 없어요', '첫 댓글을 남겨볼까요?']} />
