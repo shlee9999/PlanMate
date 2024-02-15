@@ -13,31 +13,29 @@ export const BoxContainer = styled(FlexRow)`
   gap: 16px;
   justify-content: space-between;
   @media screen and (${(props) => props.theme.medium}) {
-    flex-wrap: wrap;
+    flex-direction: column;
   }
 `
 
 export const StyledDDayContainer = styled(DdayContainer)`
-  flex-basis: 100%;
-  width: 380px;
-  flex: 0 0 auto;
+  min-width: 245px;
+  flex: 1 1 auto;
+  height: 60vh;
   @media screen and (${(props) => props.theme.large}) {
     width: auto;
-    flex: 1 1 auto;
   }
-
-  height: 60vh;
   @media screen and (${(props) => props.theme.medium}) {
     height: 40vh;
+    width: 100%;
   }
 `
 
 export const AddDdayBox = styled(InfoBox)<{ $isEditing: boolean }>`
-  flex-basis: 100%;
+  flex-grow: 1;
   height: 60vh;
   padding: 25px 32px 10px 32px;
   @media screen and (${(props) => props.theme.medium}) {
-    height: 60vh;
+    width: 100%;
   }
   @media screen and (${(props) => props.theme.small}) {
     padding: 25px 5px 10px 5px;
