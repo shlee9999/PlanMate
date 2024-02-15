@@ -1,3 +1,4 @@
+import { reissue } from 'api/login/reissue'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 const axiosInstance = axios.create({
@@ -26,8 +27,18 @@ axiosInstance.interceptors.response.use(
   (error) => {
     // 401이나 400 에러 시 로그아웃
     if (error.response && (error.response.status === 401 || error.response.status === 400)) {
-      localStorage.removeItem('userAuthInfo') // 토큰 삭제
-      window.location.href = '/login' // 로그인 페이지로 리디렉션
+      reissue()
+        .then((res: any) => {
+          const userAuthInfo = JSON.parse(localStorage.getItem('userAuthInfo') || '{}')
+          localStorage.setItem('userAuthInfo', JSON.stringify({ ...userAuthInfo, accessToken: res.accessToken })) // 토큰 삭제
+
+          console.log(res)
+        })
+        .catch((err) => {
+          console.error(err)
+          localStorage.removeItem('userAuthInfo') // 토큰 삭제
+          window.location.href = '/login' // 로그인 페이지로 리디렉션
+        })
     }
     return Promise.reject(error)
   }
