@@ -45,6 +45,7 @@ export const QueryKeys = {
   fixedDday: 'fixedDday',
   //* Stats
   todayStats: 'todayStats',
+  compareData: 'compareData',
   //* Planner - Scheduler
   plannerData: 'plannerData',
   //* ExamInfo
