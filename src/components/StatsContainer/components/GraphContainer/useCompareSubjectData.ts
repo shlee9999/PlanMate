@@ -22,26 +22,48 @@ export const useCompareSubjectData = () => {
         todayHour: 0,
         todayMinute: 0,
         todaySecond: 0,
+        todayStudyTimeList: [
+          {
+            hour: 0,
+            minute: 0,
+            second: 0,
+          },
+          {
+            hour: 0,
+            minute: 0,
+            second: 0,
+          },
+          {
+            hour: 0,
+            minute: 0,
+            second: 0,
+          },
+          {
+            hour: 0,
+            minute: 0,
+            second: 0,
+          },
+        ],
         yesterdayStudyTimeList: [
           {
-            yesterdayHour: 0,
-            yesterdayMinute: 0,
-            yesterdaySecond: 0,
+            hour: 0,
+            minute: 0,
+            second: 0,
           },
           {
-            yesterdayHour: 0,
-            yesterdayMinute: 0,
-            yesterdaySecond: 0,
+            hour: 0,
+            minute: 0,
+            second: 0,
           },
           {
-            yesterdayHour: 0,
-            yesterdayMinute: 0,
-            yesterdaySecond: 0,
+            hour: 0,
+            minute: 0,
+            second: 0,
           },
           {
-            yesterdayHour: 0,
-            yesterdayMinute: 0,
-            yesterdaySecond: 0,
+            hour: 0,
+            minute: 0,
+            second: 0,
           },
         ],
       },
@@ -51,11 +73,7 @@ export const useCompareSubjectData = () => {
   const { totalStudyTime: todayStudyTimeProps } = useTodayStats()
   const todayStudyTime = timeUtils.timeToSecond(todayStudyTimeProps)
   const yesterdayStudyTime = yesterdayStudyTimeList.map((yesterdayStudyTime) =>
-    timeUtils.timeToSecond({
-      hour: yesterdayStudyTime.yesterdayHour,
-      minute: yesterdayStudyTime.yesterdayMinute,
-      second: yesterdayStudyTime.yesterdaySecond,
-    })
+    timeUtils.timeToSecond(yesterdayStudyTime)
   )
 
   const parsedData: CompareSubjectDataType[] = compareHours.map((hour, index) => ({

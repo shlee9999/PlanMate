@@ -5,10 +5,16 @@ export type CompareSubjectResponseProps = {
   todayHour: number
   todayMinute: number
   todaySecond: number
+  todayStudyTimeList: {
+    hour: number
+    minute: number
+    second: number
+  }[]
+
   yesterdayStudyTimeList: {
-    yesterdayHour: number
-    yesterdayMinute: number
-    yesterdaySecond: number
+    hour: number
+    minute: number
+    second: number
   }[]
 }
 
