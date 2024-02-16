@@ -2,10 +2,14 @@ import { footerNavigate } from 'constants/footerNavigate'
 import * as s from './styled'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { INSTAGRAM_URL } from 'constants/url'
 
 export const Footer: FC = () => {
   const navigate = useNavigate()
-  const onClickNavigateTypo = (url: string) => () => navigate(url)
+  const onClickNavigateTypo = (url: string) => () => {
+    if (url.slice(0, 5) === 'https') window.open(url, '_blank')
+    else navigate(url)
+  }
 
   return (
     <s.FooterWrapper>
@@ -22,7 +26,7 @@ export const Footer: FC = () => {
           </s.EmailAddressWrapper>
           <s.InstagramAddressWrapper>
             <s.StyledInstagramIcon />
-            <s.InstagramAddress>plan._.mate</s.InstagramAddress>
+            <s.InstagramAddress onClick={onClickNavigateTypo(INSTAGRAM_URL)}>plan._.mate</s.InstagramAddress>
           </s.InstagramAddressWrapper>
         </s.RightContainer>
       </s.Footer>
