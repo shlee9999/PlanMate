@@ -12,6 +12,7 @@ import { Display } from './Display/Display'
 import PostItem from './PostItem/PostItem'
 import Comment from './Comment/Comment'
 import { Reply } from './Reply/Reply'
+import { SmallEllipsisModal } from './SmallEllipsisModal/SmallEllipsisModal'
 export {
   Spinner,
   NoContentDescription,
@@ -28,4 +29,5 @@ export {
   PostItem,
   Comment,
   Reply,
+  SmallEllipsisModal,
 }

@@ -93,41 +93,6 @@ export const LikeButton = styled.button`
   bottom: 0;
   color: ${(props) => props.theme.text.gray1};
 `
-export const EllipsisModal = styled.div`
-  position: absolute;
-  top: 16px;
-  right: 0;
-  transform: translate(0, 16px);
-  width: 74px;
-  height: 72px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${(props) => props.theme.border.default};
-  border-radius: 8px;
-  background-color: ${(props) => props.theme.background.white};
-  z-index: 1;
-  box-sizing: border-box;
-  padding: 6px 5px;
-`
-const EllipsisButtonRoot = styled.button`
-  ${P14}
-  width: 64px;
-  height: 30px;
-  border-radius: 5px;
-  &:hover {
-    background-color: ${(props) => props.theme.primary.light};
-    color: ${(props) => props.theme.primary.default};
-  }
-  text-align: left;
-  box-sizing: border-box;
-  padding-left: 6px;
-
-  color: ${(props) => props.theme.text.gray2};
-`
-export const EllipsisEditButton = styled(EllipsisButtonRoot)``
-export const EllipsisDeleteButton = styled(EllipsisButtonRoot)``
 
 export const AuthorIcon = styled(FlexRow)`
   ${P10}

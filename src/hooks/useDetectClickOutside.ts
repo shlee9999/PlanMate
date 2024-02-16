@@ -2,15 +2,15 @@ import { useEffect, useRef } from 'react'
 
 type useDetectClickOutsideProps = {
   isOpen: boolean
-  setIsOpen: (state: boolean) => void
+  closeModal: () => void
 }
 
-export const useDetectClickOutside = ({ isOpen, setIsOpen }: useDetectClickOutsideProps) => {
+export const useDetectClickOutside = ({ isOpen, closeModal }: useDetectClickOutsideProps) => {
   const ref = useRef(null)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (isOpen && !e.composedPath().includes(ref.current)) {
-        setIsOpen(false)
+        closeModal()
       }
     }
     document.addEventListener('mousedown', handleClickOutside)

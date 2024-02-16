@@ -4,10 +4,13 @@ import { pageList } from 'constants/pageList'
 import { Display } from 'components/Display/Display'
 import { DISPLAY } from 'types'
 import { useHeader } from './hooks/useHeader'
+import { VerticalEllipsis } from 'commonStyled'
+import { useModal } from 'hooks'
 
 export const Header: FC = () => {
   const { userAuthInfo, currentPath, currentTab, onClickTabItem, onClickNickname, onClickNotice, onClickLogout } =
     useHeader()
+  const { isOpen, openModal, closeModal } = useModal()
   const renderNavContainer = (type: 'header' | 'footer') => (
     <s.NavItemContainer>
       <s.NavItems>
@@ -48,6 +51,9 @@ export const Header: FC = () => {
             )}
             {userAuthInfo.nickname && <s.LogoutTypo onClick={onClickLogout}>로그아웃</s.LogoutTypo>}
             {userAuthInfo.nickname && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
+            <Display on="SMALL">
+              <VerticalEllipsis />
+            </Display>
           </s.RightContainer>
         </s.Header>
       </s.HeaderWrapper>

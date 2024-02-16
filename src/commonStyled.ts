@@ -8,7 +8,7 @@ import {
   SMALL_SIDE_MARGIN,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
-import { CloseIcon, RightArrow } from 'assets/SvgComponents'
+import { CloseIcon, EllipsisIcon, RightArrow } from 'assets/SvgComponents'
 import { Variants, motion } from 'framer-motion'
 import { BLOCK_SELECT } from 'constants/blockSelect'
 import { Spinner } from 'components'
@@ -292,4 +292,8 @@ export const GreenButton = styled(FooterButton)`
   background-color: ${(props) => props.theme.primary.default};
   border-top: 1px solid ${(props) => props.theme.primary.dark};
   order: 1;
+`
+export const VerticalEllipsis = styled(EllipsisIcon)`
+  transform: rotate(90deg);
+  width: 20px;
 `

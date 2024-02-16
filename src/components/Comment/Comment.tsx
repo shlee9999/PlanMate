@@ -5,7 +5,7 @@ import { HEART_COLOR } from 'constants/color'
 import { DeleteCommentModal } from 'pages/ExamInfo/components'
 import { MAX_COMMENT_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import { ResponseCommentType } from 'api/types'
-import { Reply } from 'components'
+import { Reply, SmallEllipsisModal } from 'components'
 import { useForm, useModal } from 'hooks'
 import { useComment } from './useComment'
 import { useDetectClickOutside } from 'hooks/useDetectClickOutside'
@@ -32,12 +32,7 @@ function Comment({
   currentPage,
 }: CommentProps) {
   //대댓글 로직
-  const {
-    isOpen: isEllipsisOpen,
-    closeModal: closeEllipsisModal,
-    toggleModal: toggleEllipsisModal,
-    setIsOpen: setIsEllipsisOpen,
-  } = useModal()
+  const { isOpen: isEllipsisOpen, closeModal: closeEllipsisModal, toggleModal: toggleEllipsisModal } = useModal()
   const {
     isOpen: isDeleteCommentModalOpen,
     openModal: openDeleteCommentModal,
@@ -69,7 +64,6 @@ function Comment({
     closeEllipsisModal,
     content,
   })
-  const ref = useDetectClickOutside({ isOpen: isEllipsisOpen, setIsOpen: setIsEllipsisOpen })
   const isMyPage = useMatch('/mypage')
   return (
     <>
@@ -78,12 +72,20 @@ function Comment({
         {isAuthor && !isEditing && !isMyPage && (
           <s.EllipsisButton onClick={toggleEllipsisModal} $isEllipsisOpen={isEllipsisOpen} />
         )}
-        {isEllipsisOpen && (
-          <s.EllipsisModal onClick={(e) => e.stopPropagation()} ref={ref}>
-            <s.EllipsisEditButton onClick={onClickEllipsisEditButton}>수정</s.EllipsisEditButton>
-            <s.EllipsisDeleteButton onClick={openDeleteCommentModal}>삭제</s.EllipsisDeleteButton>
-          </s.EllipsisModal>
-        )}
+        <SmallEllipsisModal
+          itemList={[
+            {
+              name: '수정',
+              onClick: onClickEllipsisEditButton,
+            },
+            {
+              name: '삭제',
+              onClick: openDeleteCommentModal,
+            },
+          ]}
+          isOpen={isEllipsisOpen}
+          closeModal={closeEllipsisModal}
+        />
         <s.CommentEditForm onSubmit={handleCommentSubmit(onCommentSubmit)} $isMyPage={isMyPage ? true : false}>
           <s.UpperTypoWrapper>
             <s.CommentOwnerNickname>{memberName}</s.CommentOwnerNickname>

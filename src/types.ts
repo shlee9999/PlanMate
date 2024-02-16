@@ -76,3 +76,8 @@ export type userAuthInfoType = {
   accessToken: string
   refreshToken: string
 }
+
+export type SmallEllipsisModalItemType = {
+  name: string
+  onClick: () => void // onClick은 함수로, 반환 값이 없는 것으로 가정합니다.
+}

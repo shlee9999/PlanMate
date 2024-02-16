@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import * as s from './styled'
 import { useDetectClickOutside } from '../../../../hooks/useDetectClickOutside'
+import { useModal } from 'hooks'
 
 type TagSelectorProps = {
   className?: string
@@ -34,18 +35,17 @@ export const TagSelector: FC<TagSelectorProps> = ({
   optionContainerHeight = 102,
   title = '태그',
 }) => {
-  const [isSelecting, setIsSelecting] = useState(false)
-
+  const { isOpen: isSelecting, closeModal: closeSelector, toggleModal: toggleIsSelecting } = useModal()
   const onClickTagSelector = (e: React.MouseEvent) => {
-    setIsSelecting((prev) => !prev)
+    toggleIsSelecting()
     e.stopPropagation()
   }
   const onClickTag = (id: number) => (e: React.MouseEvent) => {
     setSelectedTag(tagList[id])
     e.stopPropagation()
-    setIsSelecting(false)
+    closeSelector()
   }
-  const ref = useDetectClickOutside({ isOpen: isSelecting, setIsOpen: setIsSelecting })
+  const ref = useDetectClickOutside({ isOpen: isSelecting, closeModal: closeSelector })
   return (
     <s.TagSelectorWrapper ref={ref} className={className} $selectorHeight={selectorHeight}>
       {title && <s.TagTypo>{title}</s.TagTypo>}
