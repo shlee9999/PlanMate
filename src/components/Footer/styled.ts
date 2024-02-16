@@ -1,6 +1,6 @@
 import { InstagramIcon, MessageIcon } from 'assets/SvgComponents'
 import { FlexRow, H12_500, P11 } from 'commonStyled'
-import { ALLOW_SELECT, BLOCK_SELECT } from 'constants/blockSelect'
+import { ALLOW_SELECT } from 'constants/blockSelect'
 import {
   FOOTER_HEIGHT,
   FOOTER_MAX_WIDTH,
@@ -66,14 +66,12 @@ export const StyledMessageIcon = styled(MessageIcon)`
 `
 export const EmailAddressWrapper = styled(FlexRow)`
   ${P11}
-  ${BLOCK_SELECT}
   margin-right: 8px;
   gap: 2px;
 `
 export const EmailAddress = styled.p``
 export const InstagramAddressWrapper = styled(FlexRow)`
   ${P11}
-  ${BLOCK_SELECT}
   gap: 2px;
 `
 export const InstagramAddress = styled.p``
