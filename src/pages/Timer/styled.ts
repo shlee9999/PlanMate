@@ -42,10 +42,13 @@ export const Title = styled.p`
   ${H21_700}
   margin-bottom: 8px;
 `
+export const UpperContainer = styled.div``
 export const StudyTimeContainer = styled(InfoBox)`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 32px;
-
   height: 270px;
 `
 export const Description = styled.p`
@@ -96,10 +99,13 @@ export const Test = styled.span`
 export const TotalTimerContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  column-gap: 74px;
+  column-gap: 35px;
+  row-gap: 20px;
+  flex-wrap: wrap;
   height: 58px;
   line-height: 58px;
 `
 export const Mode = styled.p`
   ${H46_700}
+  white-space: nowrap;
 `

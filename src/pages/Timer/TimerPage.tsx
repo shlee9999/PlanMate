@@ -24,11 +24,13 @@ export const TimerPage: FC = () => {
               <s.Title>오늘의 공부량 👏 </s.Title>
             </s.LeftTopDescriptionWrapper>
             <s.StudyTimeContainer left>
-              <s.Description>오늘의 공부량이에요!</s.Description>
-              <s.TotalTimerContainer>
-                <s.Mode>공부</s.Mode>
-                <TotalTimer />
-              </s.TotalTimerContainer>
+              <s.UpperContainer>
+                <s.Description>오늘의 공부량이에요!</s.Description>
+                <s.TotalTimerContainer>
+                  <s.Mode>공부</s.Mode>
+                  <TotalTimer />
+                </s.TotalTimerContainer>
+              </s.UpperContainer>
               <RestTimer />
             </s.StudyTimeContainer>
           </s.LeftContainer>
