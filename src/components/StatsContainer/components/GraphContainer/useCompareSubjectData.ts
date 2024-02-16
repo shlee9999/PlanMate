@@ -102,6 +102,5 @@ export const useCompareSubjectData = () => {
       if (+data.hour.slice(0, 2) > +currentTimeFormatted.slice(0, 2)) data.today = undefined
       return data
     })
-  console.log(parsedData)
   return { parsedData, isCompareSubjectDataLoading }
 }

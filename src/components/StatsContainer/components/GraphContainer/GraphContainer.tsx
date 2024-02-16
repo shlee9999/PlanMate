@@ -14,7 +14,7 @@ export const GraphContainer = ({ type }: GraphContainerProps) => {
     <s.StatsGraphContainer>
       <s.StatsTypoContainer>
         <CompareTitle>오후 7시까지의 비교</CompareTitle>
-        <s.StatsCompareTimer>+ 00:30:13</s.StatsCompareTimer>
+        {/* <s.StatsCompareTimer>+ 00:30:13</s.StatsCompareTimer> */}
         <s.LegendContainer>
           <s.Container>
             <s.LegendTitle>오늘 </s.LegendTitle>
@@ -34,7 +34,7 @@ export const GraphContainer = ({ type }: GraphContainerProps) => {
     <s.TimerGraphContainer>
       <s.TimerTypoContainer>
         <CompareTitle>오후 7시까지의 비교</CompareTitle>
-        <s.TimerCompareTimer>+ 00:30:13</s.TimerCompareTimer>
+        {/* <s.TimerCompareTimer>+ 00:30:13</s.TimerCompareTimer> */}
         <s.LegendContainer>
           <s.Container>
             <s.LegendTitle>오늘 </s.LegendTitle>

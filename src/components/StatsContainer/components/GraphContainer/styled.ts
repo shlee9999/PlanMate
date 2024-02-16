@@ -103,22 +103,22 @@ export const CompareTitle = styled.div`
   color: ${(props) => props.theme.text.gray1};
   margin-bottom: 4px;
 `
-export const StatsCompareTimer = styled.div`
-  ${H12_500}
-  color: ${(props) => props.theme.text.black2};
-  margin-bottom: 16px;
-  @media screen and (${(props) => props.theme.medium}) {
-    opacity: 0;
-  }
-`
-export const TimerCompareTimer = styled.div`
-  ${H12_500}
-  color: ${(props) => props.theme.text.black2};
-  margin-bottom: 5px;
-  @media screen and (${(props) => props.theme.medium}) {
-    opacity: 0;
-  }
-`
+// export const StatsCompareTimer = styled.div`
+//   ${H12_500}
+//   color: ${(props) => props.theme.text.black2};
+//   margin-bottom: 16px;
+//   @media screen and (${(props) => props.theme.medium}) {
+//     opacity: 0;
+//   }
+// `
+// export const TimerCompareTimer = styled.div`
+//   ${H12_500}
+//   color: ${(props) => props.theme.text.black2};
+//   margin-bottom: 5px;
+//   @media screen and (${(props) => props.theme.medium}) {
+//     opacity: 0;
+//   }
+// `
 export const LegendContainer = styled.div`
   display: flex;
   flex-direction: column;
