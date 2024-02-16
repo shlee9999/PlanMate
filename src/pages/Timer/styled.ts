@@ -23,8 +23,12 @@ export const BannerContentContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 64px;
   gap: 20px;
+  height: 345px;
   @media screen and (${(props) => props.theme.medium}) {
     flex-direction: column;
+    height: fit-content;
+    margin-bottom: 0;
+    /* background-color: tomato; */
   }
 `
 export const LeftTopDescriptionWrapper = styled.div``
@@ -103,7 +107,7 @@ export const TotalTimerContainer = styled.div`
   display: flex;
   justify-content: space-between;
   column-gap: 35px;
-  row-gap: 20px;
+  row-gap: 10px;
   flex-wrap: wrap;
   line-height: 58px;
 `
