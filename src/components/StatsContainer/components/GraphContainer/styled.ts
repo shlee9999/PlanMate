@@ -35,7 +35,6 @@ export const StatsGraphWrapper = styled.div`
   width: calc(100% - 30px);
   position: relative;
   top: 15px; //* 이렇게 해야 그래프만 보고 조절 가능
-  /* background-color: tomato; */
   @media screen and (${(props) => props.theme.medium}) {
     min-height: 120px;
     margin-left: 0;
@@ -44,6 +43,8 @@ export const StatsGraphWrapper = styled.div`
 `
 export const TimerGraphContainer = styled.div`
   //! Display on = "DESKTOP"으로 반응형 만들 시 그래프가 보이지 않는 문제
+  position: relative;
+  top: 20px;
   @media screen and (${(props) => props.theme.medium}) {
     min-height: 0;
     height: 100px;

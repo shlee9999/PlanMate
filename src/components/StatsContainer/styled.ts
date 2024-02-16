@@ -10,7 +10,6 @@ export const StatsPageStatsContainer = styled.div`
 `
 export const TimerPageStatsContainer = styled.div`
   padding: 8px 15px;
-  height: 100%;
 `
 
 export const Header = styled.p`

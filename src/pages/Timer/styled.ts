@@ -48,16 +48,19 @@ export const StudyTimeContainer = styled(InfoBox)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 32px;
-  height: 270px;
+  padding: 32px 32px 28px 32px;
+  height: 292px;
+  @media screen and (${(props) => props.theme.medium}) {
+    height: 100%;
+    gap: 15px;
+    padding: 20px 32px 15px 32px;
+  }
 `
 export const Description = styled.p`
   ${P14}
 `
 
-export const StatsBox = styled(InfoBox)`
-  height: 270px;
-`
+export const StatsBox = styled(InfoBox)``
 
 export const RightContainer = styled.div`
   flex-grow: 1;
@@ -102,7 +105,6 @@ export const TotalTimerContainer = styled.div`
   column-gap: 35px;
   row-gap: 20px;
   flex-wrap: wrap;
-  height: 58px;
   line-height: 58px;
 `
 export const Mode = styled.p`
