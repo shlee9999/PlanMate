@@ -4,6 +4,7 @@ import { DDayEntityType } from 'api/types/ScheduleType'
 import { dateUtils } from 'utils'
 import { CenterSpinner } from 'commonStyled'
 import { useClickDdayItem } from './hooks/useClickDdayItem'
+import { DdayItem } from '../DdayItem/DdayItem'
 
 type DdayContainerProps = {
   className?: string
@@ -63,7 +64,7 @@ export const DdayContainer: FC<DdayContainerProps> = ({
       ) : (
         <s.DdayList>
           {filteredDdayList?.map((dday, index) => (
-            <s.StyledDDayItem
+            <DdayItem
               key={dday.dDayId}
               scheduleId={dday.dDayId}
               title={dday.title}

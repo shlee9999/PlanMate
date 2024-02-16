@@ -42,10 +42,10 @@ export const DdayItem: FC<DDayItemProps> = ({
       $selectable={selectable}
     >
       <s.Container>
-        <s.StyledPinIcon onClick={onClickPin} $isFixed={isFixed} />
         <s.Title>{title}</s.Title>
         <s.Date>{targetDate.replaceAll('-', '. ') + ' (' + weekDays[dateUtils.getDay(targetDateProps)] + ')'}</s.Date>
       </s.Container>
+      <s.StyledPinIcon onClick={onClickPin} $isFixed={isFixed} />
       <s.RemainingDays>{remainingDays}</s.RemainingDays>
     </s.DdayItem>
   )

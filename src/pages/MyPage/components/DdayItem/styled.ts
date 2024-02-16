@@ -11,6 +11,7 @@ export const DdayItem = styled.div<{ $isSelected: boolean; $selectable: boolean 
     background-color: ${(props) => props.theme.primary.light};
     order: -1;
   }
+
   ${(props) =>
     props.$selectable &&
     css`
@@ -26,7 +27,7 @@ export const DdayItem = styled.div<{ $isSelected: boolean; $selectable: boolean 
   white-space: nowrap;
 `
 export const Container = styled(FlexRow)`
-  max-width: 600px;
+  width: fit-content;
 `
 export const Title = styled.p`
   ${H14_500}
@@ -38,7 +39,6 @@ export const Title = styled.p`
 export const Date = styled.p`
   ${P10}
   color: ${(props) => props.theme.text.gray1};
-  width: 75px;
 `
 export const RemainingDays = styled.p`
   ${H21_700}
@@ -53,7 +53,9 @@ export const RemainingDays = styled.p`
 `
 export const StyledPinIcon = styled(PinIcon)<{ $isFixed: boolean }>`
   position: absolute;
+  top: 50%;
   left: 8px;
+  transform: translateY(-50%);
   fill: ${(props) => props.$isFixed && props.theme.primary.default};
   &:hover {
     fill: ${(props) => props.theme.primary.default};

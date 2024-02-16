@@ -1,7 +1,6 @@
 import { RightArrow } from 'assets/SvgComponents'
 import { InfoBox, NoContentDescription } from 'components'
 import styled from 'styled-components'
-import { DdayItem } from '..'
 import { H14_500 } from 'commonStyled'
 
 export const DdayContainer = styled(InfoBox)`
@@ -23,8 +22,6 @@ export const DdayList = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
 `
-export const StyledDDayItem = styled(DdayItem)``
-
 export const ViewMore = styled.div`
   ${H14_500}
   position: absolute;

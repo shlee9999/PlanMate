@@ -19,7 +19,7 @@ export const BoxContainer = styled(FlexRow)`
 
 export const StyledDDayContainer = styled(DdayContainer)`
   min-width: 245px;
-  flex: 1 1 auto;
+  flex: 1 1 300px;
   height: 60vh;
   @media screen and (${(props) => props.theme.large}) {
     width: auto;
@@ -31,7 +31,7 @@ export const StyledDDayContainer = styled(DdayContainer)`
 `
 
 export const AddDdayBox = styled(InfoBox)<{ $isEditing: boolean }>`
-  flex-grow: 1;
+  flex-grow: 5;
   height: 60vh;
   padding: 25px 32px 10px 32px;
   @media screen and (${(props) => props.theme.medium}) {
