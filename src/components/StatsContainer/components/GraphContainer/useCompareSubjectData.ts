@@ -4,13 +4,13 @@ import { useQuery } from 'react-query'
 import { QueryKeys } from 'types'
 import { timeUtils } from 'utils'
 
-const compareHours = ['00:00', '06:00', '12:00', '18:00', '24:00']
 const sortByTime = (a, b) => {
   const [hoursA, minutesA] = a.hour.split(':').map((n) => parseInt(n, 10))
   const [hoursB, minutesB] = b.hour.split(':').map((n) => parseInt(n, 10))
   return hoursA - hoursB || minutesA - minutesB
 }
 export const useCompareSubjectData = () => {
+  const compareHours = ['00:00', '06:00', '12:00', '18:00', '24:00']
   const currentTimeFormatted = timeUtils.getCurrentTime().slice(0, 5) // 이 함수가 'HH:mm' 형식의 문자열을 반환한다고 가정합니다.
   const { data: compareSubjectData, isLoading: isCompareSubjectDataLoading } = useQuery<CompareSubjectResponseProps>(
     [QueryKeys.compareData],
