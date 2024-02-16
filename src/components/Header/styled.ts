@@ -13,6 +13,7 @@ import { Variants, motion } from 'framer-motion'
 import { Logo } from 'assets/Logo'
 import { BLOCK_SELECT } from 'constants/blockSelect'
 import { H14_500, P14 } from 'commonStyled'
+import { SmallEllipsisModal } from 'components'
 
 const LOGO_WIDTH = 104
 const MEDIUM_LOGO_WIDTH = 90
@@ -191,4 +192,10 @@ export const MobileFooter = styled.div`
     padding-top: 1px;
     z-index: ${HEADER_Z_INDEX};
   }
+`
+export const StyledSmallEllipsisModal = styled(SmallEllipsisModal)`
+  top: 30px;
+  width: 80px;
+  height: 130px;
+  right: 20px;
 `

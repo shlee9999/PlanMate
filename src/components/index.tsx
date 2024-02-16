@@ -1,4 +1,5 @@
 import { Spinner } from './Spinner/Spinner'
+import { SmallEllipsisModal } from './SmallEllipsisModal/SmallEllipsisModal'
 import { ActionButton } from './ActionButton/ActionButton'
 import { NoContentDescription } from './NoContentDescription/NoContentDescription'
 import { InfoBox } from './InfoBox/InfoBox'
@@ -12,7 +13,6 @@ import { Display } from './Display/Display'
 import PostItem from './PostItem/PostItem'
 import Comment from './Comment/Comment'
 import { Reply } from './Reply/Reply'
-import { SmallEllipsisModal } from './SmallEllipsisModal/SmallEllipsisModal'
 export {
   Spinner,
   NoContentDescription,

@@ -4,16 +4,17 @@ import { useDetectClickOutside } from 'hooks/useDetectClickOutside'
 import { SmallEllipsisModalItemType } from 'types'
 
 type SmallEllipsisModalProps = {
+  className?: string
   itemList: SmallEllipsisModalItemType[]
   isOpen: boolean
   closeModal: () => void
 }
 
-export const SmallEllipsisModal: FC<SmallEllipsisModalProps> = ({ itemList, isOpen, closeModal }) => {
-  if (!isOpen) return null
+export const SmallEllipsisModal: FC<SmallEllipsisModalProps> = ({ itemList, isOpen, closeModal, className }) => {
   const ref = useDetectClickOutside({ isOpen, closeModal })
+  if (!isOpen) return null
   return (
-    <s.SmallEllipsisModal onClick={(e) => e.stopPropagation()} ref={ref}>
+    <s.SmallEllipsisModal className={className} onClick={(e) => e.stopPropagation()} ref={ref}>
       {itemList.map((item, index) => (
         <s.SmallEllipsisButton key={index} onClick={item.onClick}>
           {item.name}
@@ -22,7 +23,3 @@ export const SmallEllipsisModal: FC<SmallEllipsisModalProps> = ({ itemList, isOp
     </s.SmallEllipsisModal>
   )
 }
-// ;<s.SmallEllipsisModal onClick={(e) => e.stopPropagation()} ref={ref}>
-//   <s.SmallEllipsisEditButton onClick={onClickSmallEllipsisEditButton}>수정</s.SmallEllipsisEditButton>
-//   <s.SmallEllipsisDeleteButton onClick={openDeleteCommentModal}>삭제</s.SmallEllipsisDeleteButton>
-// </s.SmallEllipsisModal>

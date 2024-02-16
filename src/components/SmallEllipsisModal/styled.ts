@@ -1,7 +1,9 @@
 import { P14 } from 'commonStyled'
+import { HIDE_SCROLLBAR } from 'constants/hideScrollbar'
 import styled from 'styled-components'
 
 export const SmallEllipsisModal = styled.div`
+  ${HIDE_SCROLLBAR}
   position: absolute;
   top: 16px;
   right: 0;
@@ -17,11 +19,12 @@ export const SmallEllipsisModal = styled.div`
   background-color: ${(props) => props.theme.background.white};
   z-index: 1;
   padding: 6px 5px;
+  overflow: scroll;
 `
 export const SmallEllipsisButton = styled.button`
   ${P14}
   width: 64px;
-  height: 30px;
+  padding: 5px;
   border-radius: 5px;
   &:hover {
     background-color: ${(props) => props.theme.primary.light};

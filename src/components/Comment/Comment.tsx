@@ -8,7 +8,6 @@ import { ResponseCommentType } from 'api/types'
 import { Reply, SmallEllipsisModal } from 'components'
 import { useForm, useModal } from 'hooks'
 import { useComment } from './useComment'
-import { useDetectClickOutside } from 'hooks/useDetectClickOutside'
 import { ReplyForm } from './ReplyForm'
 import { useMatch } from 'react-router-dom'
 

@@ -6,8 +6,11 @@ import { DISPLAY } from 'types'
 import { useHeader } from './hooks/useHeader'
 import { VerticalEllipsis } from 'commonStyled'
 import { useModal } from 'hooks'
+import { useNavigate } from 'react-router-dom'
+import { footerNavigate } from 'constants/footerNavigate'
 
 export const Header: FC = () => {
+  const navigate = useNavigate()
   const { userAuthInfo, currentPath, currentTab, onClickTabItem, onClickNickname, onClickNotice, onClickLogout } =
     useHeader()
   const { isOpen, openModal, closeModal } = useModal()
@@ -52,7 +55,18 @@ export const Header: FC = () => {
             {userAuthInfo.nickname && <s.LogoutTypo onClick={onClickLogout}>로그아웃</s.LogoutTypo>}
             {userAuthInfo.nickname && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
             <Display on="SMALL">
-              <VerticalEllipsis />
+              <VerticalEllipsis onClick={openModal} />
+              <s.StyledSmallEllipsisModal
+                itemList={footerNavigate.map((nav) => ({
+                  name: nav.typo,
+                  onClick: () => {
+                    navigate(nav.url)
+                    closeModal()
+                  },
+                }))}
+                isOpen={isOpen}
+                closeModal={closeModal}
+              />
             </Display>
           </s.RightContainer>
         </s.Header>
