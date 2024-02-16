@@ -55,7 +55,7 @@ export const UnorderedList = styled.ul`
     line-height: 19px;
   }
 `
-export const Description = styled.p`
+export const Description = styled.div`
   ${P12}
   color: ${(props) => props.theme.text.gray1};
   white-space: pre-line;
