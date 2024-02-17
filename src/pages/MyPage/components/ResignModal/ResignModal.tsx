@@ -3,6 +3,8 @@ import * as cs from 'commonStyled'
 import { FC } from 'react'
 import { signout } from 'api/member/signout'
 import { useNavigate } from 'react-router-dom'
+import { changeUserAuthInfo } from 'modules/userAuthInfo'
+import { useDispatch } from 'react-redux'
 
 type ResignModalProps = {
   closeModal: () => void
@@ -10,12 +12,22 @@ type ResignModalProps = {
 
 export const ResignModal: FC<ResignModalProps> = ({ closeModal }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const onClickModal = (e: React.MouseEvent) => e.stopPropagation()
   const onClickResignButton = () =>
     signout().then(() => {
       navigate('/timer')
       localStorage.removeItem('userAuthInfo')
-      window.location.reload()
+      dispatch(
+        changeUserAuthInfo({
+          memberId: null,
+          nickname: null,
+          profileImage: null,
+          email: null,
+          accessToken: null,
+          refreshToken: null,
+        })
+      )
     })
 
   return (
