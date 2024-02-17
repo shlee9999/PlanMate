@@ -38,19 +38,17 @@ export const useHeader = () => {
         })
       )
     })
-
   useEffect(() => {
-    if (location.pathname === '/') navigate('/timer')
-  }, [currentTab])
+    if (location.pathname === '/') {
+      if (!userAuthInfo.nickname) navigate('/login')
+      else navigate('/timer')
+    }
+  }, [userAuthInfo, currentTab])
 
   useEffect(() => {
     setCurrentTab(pageList.findIndex((page) => location.pathname.includes(page.url)))
     setCurrentPath(location.pathname)
   }, [location, currentTab])
-
-  useEffect(() => {
-    if (!userAuthInfo.nickname) navigate('/login')
-  }, [userAuthInfo])
 
   return {
     userAuthInfo,
