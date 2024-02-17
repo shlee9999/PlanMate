@@ -84,6 +84,7 @@ function Comment({
           ]}
           isOpen={isEllipsisOpen}
           closeModal={closeEllipsisModal}
+          buttonTextAlign="left"
         />
         <s.CommentEditForm onSubmit={handleCommentSubmit(onCommentSubmit)} $isMyPage={isMyPage ? true : false}>
           <s.UpperTypoWrapper>

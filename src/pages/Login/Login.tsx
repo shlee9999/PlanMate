@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { changeUserAuthInfo } from 'modules/userAuthInfo'
 import LogoSvg from 'assets/images/logo.svg'
-import { footerNavigate } from 'constants/footerNavigate'
+import { FOOTER_NAV } from 'constants/footerNavigate'
 export const LoginPage: FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -37,8 +37,8 @@ export const LoginPage: FC = () => {
           }}
         />
         <s.Footer>
-          <s.FooterItem onClick={() => navigate(footerNavigate[0].url)}>이용약관</s.FooterItem>
-          <s.FooterItem onClick={() => navigate(footerNavigate[1].url)}>개인정보처리방침</s.FooterItem>
+          <s.FooterItem onClick={() => navigate(FOOTER_NAV[0].url)}>이용약관</s.FooterItem>
+          <s.FooterItem onClick={() => navigate(FOOTER_NAV[1].url)}>개인정보처리방침</s.FooterItem>
         </s.Footer>
       </s.Container>
     </s.LoginPage>

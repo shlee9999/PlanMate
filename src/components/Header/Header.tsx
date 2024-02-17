@@ -7,7 +7,7 @@ import { useHeader } from './hooks/useHeader'
 import { VerticalEllipsis } from 'commonStyled'
 import { useModal } from 'hooks'
 import { useNavigate } from 'react-router-dom'
-import { footerNavigate } from 'constants/footerNavigate'
+import { MOBILET_HEADER_NAV } from 'constants/footerNavigate'
 
 export const Header: FC = () => {
   const navigate = useNavigate()
@@ -57,7 +57,8 @@ export const Header: FC = () => {
             <Display on="SMALL">
               <VerticalEllipsis onClick={openModal} />
               <s.StyledSmallEllipsisModal
-                itemList={footerNavigate.map((nav) => ({
+                buttonTextAlign="center"
+                itemList={MOBILET_HEADER_NAV.map((nav) => ({
                   name: nav.typo,
                   onClick: () => {
                     navigate(nav.url)

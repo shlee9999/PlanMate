@@ -21,17 +21,16 @@ export const SmallEllipsisModal = styled.div`
   padding: 6px 5px;
   overflow: scroll;
 `
-export const SmallEllipsisButton = styled.button`
+export const SmallEllipsisButton = styled.button<{ $buttonTextAlign: 'left' | 'center' }>`
   ${P14}
-  width: 64px;
+  width: 100%;
   padding: 5px;
   border-radius: 5px;
   &:hover {
     background-color: ${(props) => props.theme.primary.light};
     color: ${(props) => props.theme.primary.default};
   }
-  text-align: left;
-  box-sizing: border-box;
+  text-align: ${(props) => props.$buttonTextAlign};
   padding-left: 6px;
 
   color: ${(props) => props.theme.text.gray2};

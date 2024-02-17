@@ -1,4 +1,4 @@
-import { footerNavigate } from 'constants/footerNavigate'
+import { FOOTER_NAV } from 'constants/footerNavigate'
 import * as s from './styled'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -15,7 +15,7 @@ export const Footer: FC = () => {
     <s.FooterWrapper>
       <s.Footer>
         <s.RightContainer>
-          {footerNavigate.map((item, index) => (
+          {FOOTER_NAV.map((item, index) => (
             <s.NavigateTypo onClick={onClickNavigateTypo(item.url)} key={index}>
               {item.typo}
             </s.NavigateTypo>

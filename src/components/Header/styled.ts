@@ -204,7 +204,7 @@ export const MobileFooter = styled.div`
 `
 export const StyledSmallEllipsisModal = styled(SmallEllipsisModal)`
   top: 30px;
-  width: 80px;
-  height: 130px;
+  width: 90px;
+  height: 120px;
   right: 20px;
 `
