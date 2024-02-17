@@ -3,10 +3,11 @@ import { FlexRow, H12_500, P11 } from 'commonStyled'
 import { ALLOW_SELECT } from 'constants/blockSelect'
 import {
   FOOTER_HEIGHT,
-  FOOTER_MAX_WIDTH,
+  BODY_MAX_WIDTH,
   LARGE_SIDE_MARGIN,
   MEDIUM_SIDE_MARGIN,
   XLARGE_SIDE_MARGIN,
+  BODY_MIN_WIDTH,
 } from 'constants/layout'
 import styled from 'styled-components'
 
@@ -40,7 +41,8 @@ export const FooterWrapper = styled.div`
 
 export const Footer = styled.div`
   margin: 0 auto;
-  max-width: ${FOOTER_MAX_WIDTH}px;
+  max-width: ${BODY_MAX_WIDTH}px;
+  min-width: ${BODY_MIN_WIDTH}px;
   display: flex;
   justify-content: end;
   align-items: center;

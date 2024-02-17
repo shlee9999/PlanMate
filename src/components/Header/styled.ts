@@ -1,12 +1,13 @@
 import {
   HEADER_HEIGHT,
-  HEADER_MAX_WIDTH,
+  BODY_MAX_WIDTH,
   HEADER_Z_INDEX,
   LARGE_SIDE_MARGIN,
   MEDIUM_SIDE_MARGIN,
   MOBILE_HEADER_HEIGHT,
   SMALL_SIDE_MARGIN,
   XLARGE_SIDE_MARGIN,
+  BODY_MIN_WIDTH,
 } from 'constants/layout'
 import styled from 'styled-components'
 import { Variants, motion } from 'framer-motion'
@@ -17,6 +18,7 @@ import { SmallEllipsisModal } from 'components'
 
 const LOGO_WIDTH = 104
 const MEDIUM_LOGO_WIDTH = 90
+const SMALL_LOGO_WIDTH = 80
 const LOGO_MARGIN_RIGHT = 56
 const MEDIUM_LOGO_MARGIN_RIGHT = 20
 export const HeaderWrapper = styled.nav`
@@ -51,9 +53,10 @@ export const NavItemContainer = styled.div`
 `
 
 export const Header = styled.div`
+  max-width: ${BODY_MAX_WIDTH}px;
+  min-width: ${BODY_MIN_WIDTH}px;
   position: relative;
   margin: 0 auto;
-  max-width: ${HEADER_MAX_WIDTH}px;
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -80,6 +83,10 @@ export const RightContainer = styled.div`
   display: flex;
   column-gap: 18px;
   align-items: center;
+  @media screen and (${(props) => props.theme.small}) {
+    column-gap: 10px;
+    margin-right: 5px;
+  }
 `
 export const GreetTypoContainer = styled.div`
   cursor: pointer;
@@ -178,7 +185,8 @@ export const StyledLogo = styled(Logo)`
     left: ${MEDIUM_SIDE_MARGIN};
   }
   @media screen and (${(props) => props.theme.small}) {
-    left: ${SMALL_SIDE_MARGIN + 20}px;
+    width: ${SMALL_LOGO_WIDTH}px;
+    left: ${SMALL_SIDE_MARGIN + 5}px;
     top: 6px;
   }
 `
@@ -191,6 +199,7 @@ export const MobileFooter = styled.div`
     height: 40px;
     padding-top: 1px;
     z-index: ${HEADER_Z_INDEX};
+    min-width: ${BODY_MIN_WIDTH}px;
   }
 `
 export const StyledSmallEllipsisModal = styled(SmallEllipsisModal)`

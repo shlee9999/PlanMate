@@ -1,9 +1,7 @@
 import { H21_700, P12, PageRoot } from 'commonStyled'
 import styled from 'styled-components'
 
-export const ExamInfoPage = styled(PageRoot)`
-  min-width: auto;
-`
+export const ExamInfoPage = styled(PageRoot)``
 const DescriptionTypo = styled.p`
   ${P12}
   color: ${(props) => props.theme.text.black2};

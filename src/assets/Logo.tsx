@@ -48,6 +48,9 @@ export const Logo: FC = ({ className }: { className?: string }) => {
       initial="initial"
       animate="animate"
       whileHover="hover"
+      style={{
+        transformOrigin: 'left',
+      }}
     >
       <g clipPath="url(#clip0_1998_2035)">
         <motion.path

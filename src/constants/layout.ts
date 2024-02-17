@@ -1,17 +1,12 @@
 export const HEADER_HEIGHT = 64
 export const MOBILE_HEADER_HEIGHT = 40
-export const HEADER_MAX_WIDTH = 1440
 export const HEADER_Z_INDEX = 10
 export const FOOTER_HEIGHT = 89
-export const FOOTER_MAX_WIDTH = HEADER_MAX_WIDTH
 export const BODY_MAX_WIDTH = 1440
 export const BODY_MIN_WIDTH = 320
 
-export const EXAMINFOITEM_MAX_WIDTH = 1088
 export const EXAMINFOITEM_MIN_WIDTH = 240
-export const TODOITEM_MAX_WIDTH = 1440
 export const TODOITEM_MIN_WIDTH = 500
-export const EXAMINFODETAIL_MAX_WIDTH = 1200
 export const DDAYITEM_MIN_WIDTH = 120
 
 //* 반응형 레이아웃
