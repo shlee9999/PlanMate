@@ -57,7 +57,7 @@ export const StudyTimeContainer = styled(InfoBox)`
   @media screen and (${(props) => props.theme.medium}) {
     height: 100%;
     gap: 15px;
-    padding: 20px 32px 15px 32px;
+    padding: 20px 15px;
   }
 `
 export const Description = styled.p`
