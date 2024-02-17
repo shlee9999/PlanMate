@@ -1,4 +1,4 @@
-import { reissue } from 'api/login/reissue'
+import { RefreshResponseProps, refresh } from 'api/login/refresh'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 const axiosInstance = axios.create({
@@ -25,16 +25,16 @@ axiosInstance.interceptors.response.use(
     return response
   },
   (error) => {
-    // 401이나 400 에러 시 로그아웃
     if (error.response && (error.response.status === 401 || error.response.status === 400)) {
-      reissue()
-        .then((res: any) => {
+      // 401이나 400 에러 시 refresh 요청
+      refresh()
+        .then((res: RefreshResponseProps) => {
           const userAuthInfo = JSON.parse(localStorage.getItem('userAuthInfo') || '{}')
           localStorage.setItem('userAuthInfo', JSON.stringify({ ...userAuthInfo, accessToken: res.accessToken })) // 토큰 삭제
-
           console.log(res)
         })
         .catch((err) => {
+          // refresh도 에러 => 로그아웃 처리
           console.error(err)
           localStorage.removeItem('userAuthInfo') // 토큰 삭제
           window.location.href = '/login' // 로그인 페이지로 리디렉션
