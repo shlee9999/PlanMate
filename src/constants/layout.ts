@@ -5,7 +5,7 @@ export const HEADER_Z_INDEX = 10
 export const FOOTER_HEIGHT = 89
 export const FOOTER_MAX_WIDTH = HEADER_MAX_WIDTH
 export const BODY_MAX_WIDTH = 1440
-export const BODY_MIN_WIDTH = 500
+export const BODY_MIN_WIDTH = 320
 
 export const EXAMINFOITEM_MAX_WIDTH = 1088
 export const EXAMINFOITEM_MIN_WIDTH = 240
@@ -22,4 +22,4 @@ export const SMALL_SIZE = 480
 export const XLARGE_SIDE_MARGIN = 100
 export const LARGE_SIDE_MARGIN = 24
 export const MEDIUM_SIDE_MARGIN = 16
-export const SMALL_SIDE_MARGIN = 0
+export const SMALL_SIDE_MARGIN = 5

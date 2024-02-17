@@ -6,7 +6,7 @@ import { PostContainer } from './PostContainer/PostContainer'
 export const ExamInfoPage = () => {
   return (
     <s.ExamInfoPage>
-      <s.TypoWrapper>
+      <s.TypoContainer>
         <s.UpperDescriptionTypo>유용한 정보를 찾아볼까요? </s.UpperDescriptionTypo>
         <s.TitleTypo>수험정보 👀</s.TitleTypo>
         <Display on={DISPLAY.XLARGE}>
@@ -15,7 +15,7 @@ export const ExamInfoPage = () => {
         <Display on={DISPLAY.LARGE}>
           <s.LowerDescriptionTypo>보고싶은 주제를 선택해보세요!</s.LowerDescriptionTypo>
         </Display>
-      </s.TypoWrapper>
+      </s.TypoContainer>
       <PostContainer />
     </s.ExamInfoPage>
   )

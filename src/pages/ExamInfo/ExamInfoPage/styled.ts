@@ -9,7 +9,7 @@ const DescriptionTypo = styled.p`
   color: ${(props) => props.theme.text.black2};
 `
 
-export const TypoWrapper = styled.div`
+export const TypoContainer = styled.div`
   display: flex;
   flex-direction: column;
 `

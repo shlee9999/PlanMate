@@ -6,6 +6,7 @@ import {
   LARGE_SIDE_MARGIN,
   MEDIUM_SIDE_MARGIN,
   SMALL_SIDE_MARGIN,
+  BODY_MIN_WIDTH,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
 import { CloseIcon, EllipsisIcon, RightArrow } from 'assets/SvgComponents'
@@ -162,6 +163,7 @@ export const PageRoot = styled.div`
   position: relative;
   margin: 0 auto;
   max-width: ${BODY_MAX_WIDTH}px;
+  min-width: ${BODY_MIN_WIDTH}px;
   margin-top: ${HEADER_HEIGHT}px;
   overflow-x: hidden;
   min-height: calc(100vh - ${HEADER_HEIGHT}px - ${FOOTER_HEIGHT}px);
