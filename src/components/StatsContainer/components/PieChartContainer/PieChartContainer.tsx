@@ -17,7 +17,7 @@ type PieChartContainerProps = {
 }
 const dummyData = [
   {
-    name: 'default',
+    name: '',
     totalTime: 1,
     colorHex: '#D9D9D9',
   },
@@ -32,7 +32,7 @@ export const PieChartContainer: React.FC<PieChartContainerProps> = ({ type }) =>
     },
     {
       name: '휴식',
-      totalTime: timeUtils.timeToSecond(restTime) || 1,
+      totalTime: timeUtils.timeToSecond(restTime) || 0.001,
       colorHex: '#D9D9D9',
     },
   ]
