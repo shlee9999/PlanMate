@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import * as s from './styled'
 import { useDetectClickOutside } from '../../../../hooks/useDetectClickOutside'
 import { useModal } from 'hooks'

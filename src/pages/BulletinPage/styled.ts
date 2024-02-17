@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { H21_700, P12, P14, PageRoot } from 'commonStyled'
+import { FlexRow, H16_500, H16_700, H21_700, P12, P14, PageRoot } from 'commonStyled'
 import { ActionButton } from 'components/ActionButton/ActionButton'
 
 export const BulletinPage = styled(PageRoot)``
@@ -32,23 +32,40 @@ export const ButtonWrapper = styled.div`
   justify-content: end;
   column-gap: 8px;
 `
-export const UpperWrapper = styled.div`
+export const UpperContainer = styled.div`
+  height: 48px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @media screen and (${(props) => props.theme.small}) {
+    flex-direction: column;
+  }
 `
 
 export const CancelButton = styled(ActionButton)``
-
+export const TitleInputContainer = styled(FlexRow)`
+  flex-grow: 1;
+  background-color: tomato;
+`
+export const TitleTypo = styled.p`
+  ${H16_500}
+  white-space: nowrap;
+  margin-right: 24px;
+`
 export const TitleInput = styled.input`
+  flex-grow: 1;
   ${H21_700}
   padding: 11px 16px;
   border: 1px solid ${(props) => props.theme.border.dark};
   border-radius: 8px;
-  width: 100%;
-  height: 48px;
+  height: 100%;
+  margin-right: 24px;
   &::placeholder {
     color: ${(props) => props.theme.text.gray3};
+  }
+  @media screen and (${(props) => props.theme.medium}) {
+    ${H16_700}
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    flex: 0 0 0;
   }
 `
 export const ContentInput = styled.textarea`

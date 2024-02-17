@@ -7,7 +7,7 @@ export const TagSelectorWrapper = styled.div<{ $selectorHeight: number }>`
   column-gap: 8px;
   cursor: pointer;
   z-index: 1;
-  margin-left: 24px;
+
   height: ${(props) => props.$selectorHeight}px;
 `
 

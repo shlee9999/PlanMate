@@ -6,6 +6,7 @@ import { TagSelector } from '../ExamInfo/components'
 import { MAX_POST_TITLE_CHARACTER_COUNT } from 'constants/maxCharacterCount'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { useBulletinPage } from './useBulletinPage'
+import { Display } from 'components'
 
 type BulletinPageProps = {
   mode: 'examinfo' | 'notice'
@@ -33,15 +34,20 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
     <s.BulletinPage>
       <s.Form onSubmit={handleSubmit(onSubmit)}>
         <s.WriteTypo>글쓰기 ✏️</s.WriteTypo>
-        <s.UpperWrapper>
-          <s.TitleInput
-            placeholder="제목을 입력해주세요"
-            {...registerInput(EForm.title, { maxLength: MAX_POST_TITLE_CHARACTER_COUNT })}
-          />
+        <s.UpperContainer>
+          <s.TitleInputContainer>
+            <Display on="SMALL">
+              <s.TitleTypo>제목</s.TitleTypo>
+            </Display>
+            <s.TitleInput
+              placeholder="제목을 입력해주세요"
+              {...registerInput(EForm.title, { maxLength: MAX_POST_TITLE_CHARACTER_COUNT })}
+            />
+          </s.TitleInputContainer>
           {mode !== 'notice' && (
             <TagSelector tagList={tagList[mode]} selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
           )}
-        </s.UpperWrapper>
+        </s.UpperContainer>
         <Editor
           wrapperClassName="wrapper-class"
           editorClassName="editor"
