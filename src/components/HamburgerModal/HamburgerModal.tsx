@@ -3,6 +3,8 @@ import * as s from './styled'
 import { ModalWrapper } from 'commonStyled'
 import { pageList } from 'constants/pageList'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from 'modules'
 
 type HamburgerModalProps = {
   isOpen: boolean
@@ -25,26 +27,45 @@ const SUB_NAV_ITEMS = [
 ]
 export const HamburgerModal: FC<HamburgerModalProps> = ({ isOpen, closeModal, onClickLogout }) => {
   const navigate = useNavigate()
+  const username = useSelector((state: RootState) => state.userAuthInfo.nickname)
+  const onClickUserInfoContainer = () => {
+    navigate('/mypage')
+    closeModal()
+  }
+  const onClickMainNavItem = (url: string) => () => {
+    navigate(url)
+    closeModal()
+  }
+  const onClickSubNavItem = (url: string) => () => {
+    if (url === '/login') onClickLogout()
+    else navigate(url)
+    closeModal()
+  }
   if (!isOpen) return null
   return (
     <ModalWrapper onClick={closeModal}>
-      <s.HamburgerModal>
-        <s.UserInfoContainer onClick={() => navigate('/mypage')}>
-          <s.UserName>메이트</s.UserName>
-          {/* 커스텀 구글 아이콘 */}
+      <s.HamburgerModal
+        onClick={(e) => e.stopPropagation()}
+        variants={s.HamburgerModalVar}
+        initial="initial"
+        animate="animate"
+      >
+        <s.CloseButton onClick={closeModal} />
+        <s.UserInfoContainer onClick={onClickUserInfoContainer}>
+          <s.UserName>{username}</s.UserName>
           <s.Email>planmate@gmail.com</s.Email>
         </s.UserInfoContainer>
         <s.MainNavContainer>
-          {pageList.map((page, index) => (
-            <s.MainNavItem onClick={() => navigate(page.url)} key={index}>
-              {page.title}
+          {pageList.map((nav, index) => (
+            <s.MainNavItem onClick={onClickMainNavItem(nav.url)} key={index}>
+              {nav.title}
             </s.MainNavItem>
           ))}
         </s.MainNavContainer>
         <s.DividingLine />
         <s.SubNavContainer>
           {SUB_NAV_ITEMS.map((nav, index) => (
-            <s.SubNavItem onClick={index !== 2 ? () => navigate(nav.url) : onClickLogout} key={index}>
+            <s.SubNavItem onClick={onClickSubNavItem(nav.url)} key={index}>
               {nav.title}
             </s.SubNavItem>
           ))}

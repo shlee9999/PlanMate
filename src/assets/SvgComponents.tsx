@@ -24,6 +24,7 @@ import { ReactComponent as TimerStart } from 'assets/images/timer_start.svg'
 import { ReactComponent as UrlIcon } from 'assets/images/url.svg'
 import { ReactComponent as TrashIconSvg } from 'assets/images/trash.svg'
 import { ReactComponent as MessageIconSvg } from 'assets/images/message.svg'
+import { ReactComponent as HamburgerIconSvg } from 'assets/images/hamburger.svg'
 
 const RightArrow = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
   <RightArrowSvg onClick={onClick} className={className} fill="currentColor" cursor="pointer" />
@@ -58,6 +59,9 @@ const KakaoIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => 
 const MessageIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
   <MessageIconSvg onClick={onClick} className={className} cursor="pointer" fill="currentColor" />
 )
+const HamburgerIcon = ({ onClick, className }: { onClick?: (e: React.MouseEvent) => void; className?: string }) => (
+  <HamburgerIconSvg onClick={onClick} className={className} cursor="pointer" fill="currentColor" />
+)
 export {
   RegisterIcon,
   CheckIcon,
@@ -85,4 +89,5 @@ export {
   UrlIcon,
   TrashIcon,
   MessageIcon,
+  HamburgerIcon,
 }

@@ -14,7 +14,7 @@ import { Variants, motion } from 'framer-motion'
 import { Logo } from 'assets/Logo'
 import { BLOCK_SELECT } from 'constants/blockSelect'
 import { H14_500, P14 } from 'commonStyled'
-import { SmallEllipsisModal } from 'components'
+import { HamburgerIcon } from 'assets/SvgComponents'
 
 const LOGO_WIDTH = 104
 const MEDIUM_LOGO_WIDTH = 90
@@ -72,6 +72,7 @@ export const Header = styled.div`
   @media screen and (${(props) => props.theme.small}) {
     justify-content: end;
     height: ${MOBILE_HEADER_HEIGHT}px;
+    padding: 0 10px;
     ${NavItemContainer} {
       display: none;
     }
@@ -83,6 +84,7 @@ export const RightContainer = styled.div`
   display: flex;
   column-gap: 18px;
   align-items: center;
+  height: 100%;
   @media screen and (${(props) => props.theme.small}) {
     column-gap: 10px;
     margin-right: 5px;
@@ -190,3 +192,4 @@ export const StyledLogo = styled(Logo)`
     top: 6px;
   }
 `
+export const StyledHamburgerIcon = styled(HamburgerIcon)``

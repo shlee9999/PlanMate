@@ -2,15 +2,11 @@ import * as s from './styled'
 import { FC } from 'react'
 import { pageList } from 'constants/pageList'
 import { Display } from 'components/Display/Display'
-import { DISPLAY } from 'types'
 import { useHeader } from './hooks/useHeader'
-import { VerticalEllipsis } from 'commonStyled'
 import { useModal } from 'hooks'
-import { useNavigate } from 'react-router-dom'
 import { HamburgerModal } from 'components'
 
 export const Header: FC = () => {
-  const navigate = useNavigate()
   const { userAuthInfo, currentPath, currentTab, onClickTabItem, onClickNickname, onClickNotice, onClickLogout } =
     useHeader()
   const { isOpen, openModal, closeModal } = useModal()
@@ -55,7 +51,7 @@ export const Header: FC = () => {
             {userAuthInfo.nickname && <s.LogoutTypo onClick={onClickLogout}>로그아웃</s.LogoutTypo>}
             {userAuthInfo.nickname && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
             <Display on="SMALL">
-              <VerticalEllipsis onClick={openModal} />
+              <s.StyledHamburgerIcon onClick={openModal} />
               <HamburgerModal isOpen={isOpen} closeModal={closeModal} onClickLogout={onClickLogout} />
             </Display>
           </s.RightContainer>

@@ -1,7 +1,29 @@
 import { H21_700, P14, P16, P18 } from 'commonStyled'
 import styled from 'styled-components'
 import CustomGoogleSvg from 'assets/images/google_custom.svg'
-export const HamburgerModal = styled.div`
+import { Variants, motion } from 'framer-motion'
+import { CloseIcon } from 'assets/SvgComponents'
+export const HamburgerModalVar: Variants = {
+  initial: {
+    right: -260,
+  },
+  animate: {
+    right: 0,
+    transition: {
+      duration: 0.2,
+    },
+  },
+}
+
+export const CloseButton = styled(CloseIcon)`
+  fill: ${(props) => props.theme.text.black1};
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+`
+export const HamburgerModal = styled(motion.div)`
   position: fixed;
   right: 0;
   height: 100vh;
