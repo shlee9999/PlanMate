@@ -1,34 +1,57 @@
 import styled from 'styled-components'
 import bannerImg from 'assets/images/banner_light.svg'
-import { BODY_MAX_WIDTH, XLARGE_SIDE_MARGIN, HEADER_HEIGHT } from 'constants/layout'
-import { H14_500, H14_700, H21_700, H32_700, H46_700, P12, P14, PageRoot } from 'commonStyled'
-import { InfoBox } from 'components/'
+import {
+  BODY_MAX_WIDTH,
+  XLARGE_SIDE_MARGIN,
+  HEADER_HEIGHT,
+  BANNER_MAX_WIDTH,
+  BANNER_HEIGHT,
+  LARGE_SIDE_MARGIN,
+  MEDIUM_SIDE_MARGIN,
+  SMALL_SIDE_MARGIN,
+} from 'constants/layout'
+import { FlexRow, H14_500, H14_700, H21_700, H32_700, H46_700, P12, P14, PageRoot } from 'commonStyled'
+import { InfoBox } from 'components'
 
 export const TimerPage = styled(PageRoot)`
+  margin-top: 0;
+  padding-top: 25px;
   padding-bottom: 30px;
+  min-height: calc(100vh - ${HEADER_HEIGHT}px - ${BANNER_HEIGHT}px);
 `
 
-export const Banner = styled.div`
-  position: absolute;
-  top: ${HEADER_HEIGHT}px;
-  left: 0;
+export const Banner = styled(FlexRow)`
+  margin: ${HEADER_HEIGHT}px auto 0 auto;
+  max-width: ${BANNER_MAX_WIDTH}px;
   background: url(${bannerImg}) no-repeat 0 0;
   background-size: cover;
-  width: 100vw;
-  height: 400px;
+  width: 100%;
+  min-height: ${BANNER_HEIGHT};
+  height: fit-content;
+  justify-content: center;
+  @media screen and (${(props) => props.theme.xlarge}) {
+    padding: 30px ${XLARGE_SIDE_MARGIN}px;
+  }
+  @media screen and (${(props) => props.theme.large}) {
+    padding: 30px ${LARGE_SIDE_MARGIN}px;
+  }
+  @media screen and (${(props) => props.theme.medium}) {
+    padding: 20px ${MEDIUM_SIDE_MARGIN}px;
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    padding: 10px ${SMALL_SIDE_MARGIN}px;
+  }
 `
 export const BannerContentContainer = styled.div`
-  max-width: ${BODY_MAX_WIDTH - XLARGE_SIDE_MARGIN * 2}px;
+  max-width: ${BODY_MAX_WIDTH - 2 * XLARGE_SIDE_MARGIN}px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 64px;
   gap: 20px;
-  height: 345px;
+
   @media screen and (${(props) => props.theme.medium}) {
     flex-direction: column;
     height: fit-content;
-    margin-bottom: 0;
-    /* background-color: tomato; */
   }
 `
 export const LeftTopDescriptionWrapper = styled.div``

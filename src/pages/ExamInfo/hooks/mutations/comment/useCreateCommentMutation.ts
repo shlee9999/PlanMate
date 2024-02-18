@@ -43,14 +43,11 @@ function useCreateCommentMutation() {
       return { previousComments }
     },
     onSuccess: (data, { postId, currentPage }, context) => {
-      queryClient.setQueryData<FindAllCommentsResponseProps>(
-        [QueryKeys.commentData, postId, currentPage + ''],
-        (prev) => {
-          const updatedComment = prev.commentDtoList[0]
-          updatedComment.commentId = data.commentId
-          return { ...prev, commentDtoList: [updatedComment, ...context.previousComments.commentDtoList] }
-        }
-      )
+      queryClient.setQueryData<FindAllCommentsResponseProps>([QueryKeys.commentData, postId, currentPage], (prev) => {
+        const updatedComment = prev.commentDtoList[0]
+        updatedComment.commentId = data.commentId
+        return { ...prev, commentDtoList: [updatedComment, ...context.previousComments.commentDtoList] }
+      })
       console.log('create success')
     },
     onError: (err, { postId, currentPage }, context) => {

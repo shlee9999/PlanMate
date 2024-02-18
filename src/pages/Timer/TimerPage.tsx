@@ -15,8 +15,7 @@ export const TimerPage: FC = () => {
   const { fixedDDay, remainingDays, onClickGreenTypo, isAddModalOpen, closeAddModal, openAddModal } = useTimerPage()
   return (
     <>
-      <s.Banner />
-      <s.TimerPage>
+      <s.Banner>
         <s.BannerContentContainer>
           <s.LeftContainer>
             <s.LeftTopDescriptionWrapper>
@@ -41,6 +40,8 @@ export const TimerPage: FC = () => {
             </s.StatsBox>
           </s.RightContainer>
         </s.BannerContentContainer>
+      </s.Banner>
+      <s.TimerPage>
         <s.LowerContainer>
           {fixedDDay && remainingDays >= 0 ? (
             <s.CheerTypo>

@@ -6,7 +6,7 @@ type useCommentDataProps = { postId: number; currentPage: number }
 
 export const useCommentData = ({ postId, currentPage }: useCommentDataProps) => {
   const { data: commentData, isLoading: isCommentLoading } = useQuery<FindAllCommentsResponseProps>(
-    [QueryKeys.commentData, postId, currentPage + ''],
+    [QueryKeys.commentData, postId, currentPage],
     () => findAllComments({ pages: currentPage - 1, postId }),
     { keepPreviousData: true }
   )
