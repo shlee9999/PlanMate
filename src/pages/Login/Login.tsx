@@ -1,17 +1,22 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import * as s from './styled'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { HandIcon } from 'assets/SvgComponents'
 import { LoginResponseProps, login } from 'api/login/login'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { changeUserAuthInfo } from 'modules/userAuthInfo'
 import LogoSvg from 'assets/images/logo.svg'
 import { FOOTER_NAV } from 'constants/footerNavigate'
+import { RootState } from 'modules'
 export const LoginPage: FC = () => {
+  const userAuthInfo = useSelector((state: RootState) => state.userAuthInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  useEffect(() => {
+    if (userAuthInfo.nickname) navigate(-1)
+  }, [])
   return (
     <s.LoginPage>
       <s.Container>
