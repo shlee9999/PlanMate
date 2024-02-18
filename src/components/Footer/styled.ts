@@ -8,6 +8,7 @@ import {
   MEDIUM_SIDE_MARGIN,
   XLARGE_SIDE_MARGIN,
   BODY_MIN_WIDTH,
+  SMALL_SIDE_MARGIN,
 } from 'constants/layout'
 import styled from 'styled-components'
 
@@ -22,8 +23,8 @@ export const FooterWrapper = styled.div`
   @media screen and (${(props) => props.theme.medium}) {
     padding: 32px ${MEDIUM_SIDE_MARGIN}px 42px;
   }
-  @media screen and (${(props) => props.theme.small}) {
-    opacity: 0;
+  @media screen and (${(props) => props.theme.medium}) {
+    padding: 32px ${SMALL_SIDE_MARGIN}px 42px;
   }
   background-color: ${(props) => props.theme.background.gray2};
   width: 100vw;

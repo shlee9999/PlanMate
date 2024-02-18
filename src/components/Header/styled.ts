@@ -190,21 +190,3 @@ export const StyledLogo = styled(Logo)`
     top: 6px;
   }
 `
-export const MobileFooter = styled.div`
-  @media screen and (${(props) => props.theme.small}) {
-    background-color: ${(props) => props.theme.border.dark};
-    position: fixed;
-    bottom: 0;
-    width: 100vw;
-    height: 40px;
-    padding-top: 1px;
-    z-index: ${HEADER_Z_INDEX};
-    min-width: ${BODY_MIN_WIDTH}px;
-  }
-`
-export const StyledSmallEllipsisModal = styled(SmallEllipsisModal)`
-  top: 30px;
-  width: 90px;
-  height: 120px;
-  right: 20px;
-`

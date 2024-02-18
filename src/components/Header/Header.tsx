@@ -56,26 +56,11 @@ export const Header: FC = () => {
             {userAuthInfo.nickname && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
             <Display on="SMALL">
               <VerticalEllipsis onClick={openModal} />
-              {/* <s.StyledSmallEllipsisModal
-                buttonTextAlign="center"
-                itemList={MOBILET_HEADER_NAV.map((nav) => ({
-                  name: nav.typo,
-                  onClick: () => {
-                    navigate(nav.url)
-                    closeModal()
-                  },
-                }))}
-                isOpen={isOpen}
-                closeModal={closeModal}
-              /> */}
               <HamburgerModal isOpen={isOpen} closeModal={closeModal} onClickLogout={onClickLogout} />
             </Display>
           </s.RightContainer>
         </s.Header>
       </s.HeaderWrapper>
-      <Display on={DISPLAY.SMALL}>
-        <s.MobileFooter>{renderNavContainer('footer')}</s.MobileFooter>
-      </Display>
     </>
   )
 }
