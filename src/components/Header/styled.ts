@@ -68,14 +68,14 @@ export const Header = styled.div`
   }
   @media screen and (${(props) => props.theme.medium}) {
     padding: 17px ${MEDIUM_SIDE_MARGIN}px 16px ${MEDIUM_SIDE_MARGIN + MEDIUM_LOGO_WIDTH + MEDIUM_LOGO_MARGIN_RIGHT}px;
-  }
-  @media screen and (${(props) => props.theme.small}) {
     justify-content: end;
-    height: ${MOBILE_HEADER_HEIGHT}px;
-    padding: 0 10px;
     ${NavItemContainer} {
       display: none;
     }
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    height: ${MOBILE_HEADER_HEIGHT}px;
+    padding: 0 10px;
   }
 `
 
