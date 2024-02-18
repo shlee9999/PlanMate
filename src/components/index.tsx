@@ -13,6 +13,7 @@ import { Display } from './Display/Display'
 import PostItem from './PostItem/PostItem'
 import Comment from './Comment/Comment'
 import { Reply } from './Reply/Reply'
+import { HamburgerModal } from './HamburgerModal/HamburgerModal'
 export {
   Spinner,
   NoContentDescription,
@@ -30,4 +31,5 @@ export {
   Comment,
   Reply,
   SmallEllipsisModal,
+  HamburgerModal,
 }

@@ -122,6 +122,12 @@ export const H12_500 = css`
 `
 
 //* Paragraph는 font-weight 400 이하
+/** 18*/
+export const P18 = css`
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.5px;
+`
 /** 16px*/
 export const P16 = css`
   font-size: 16px;

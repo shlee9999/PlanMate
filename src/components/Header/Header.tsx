@@ -7,7 +7,7 @@ import { useHeader } from './hooks/useHeader'
 import { VerticalEllipsis } from 'commonStyled'
 import { useModal } from 'hooks'
 import { useNavigate } from 'react-router-dom'
-import { MOBILET_HEADER_NAV } from 'constants/footerNavigate'
+import { HamburgerModal } from 'components'
 
 export const Header: FC = () => {
   const navigate = useNavigate()
@@ -56,7 +56,7 @@ export const Header: FC = () => {
             {userAuthInfo.nickname && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
             <Display on="SMALL">
               <VerticalEllipsis onClick={openModal} />
-              <s.StyledSmallEllipsisModal
+              {/* <s.StyledSmallEllipsisModal
                 buttonTextAlign="center"
                 itemList={MOBILET_HEADER_NAV.map((nav) => ({
                   name: nav.typo,
@@ -67,7 +67,8 @@ export const Header: FC = () => {
                 }))}
                 isOpen={isOpen}
                 closeModal={closeModal}
-              />
+              /> */}
+              <HamburgerModal isOpen={isOpen} closeModal={closeModal} onClickLogout={onClickLogout} />
             </Display>
           </s.RightContainer>
         </s.Header>
