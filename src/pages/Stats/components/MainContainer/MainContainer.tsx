@@ -7,7 +7,7 @@ export const MainContainer: FC = () => {
   return (
     <s.MainContainer>
       <s.LeftInfoBox left>
-        <Calendar legend blockFuture todayButton />
+        <Calendar legend blockFuture todayButton headerButtonLayout="center" />
       </s.LeftInfoBox>
       <s.RightInfoBox right>
         <StatsContainer type={StatsContainerPages.stats} />

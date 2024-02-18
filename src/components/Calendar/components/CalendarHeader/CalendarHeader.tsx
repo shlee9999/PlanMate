@@ -38,8 +38,12 @@ export const CalendarHeader = ({
           <s.Month $layout={headerButtonLayout} key={selectedMonth}>
             {selectedYear}
           </s.Month>
-          <s.NextButton onClick={onClickNextYear} />
-          {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
+          <s.NextButton onClick={onClickNextYear} $isVisible={true} />
+          {todayButton && (
+            <s.TodayButton icon="none" onClick={onClickToday}>
+              Today
+            </s.TodayButton>
+          )}
         </s.YearHeader>
       )}
       <s.MonthHeader $layout={headerButtonLayout}>
@@ -47,12 +51,21 @@ export const CalendarHeader = ({
         <s.Month $layout={headerButtonLayout} key={selectedMonth}>
           {selectedMonth}월
         </s.Month>
-        {(!blockFuture ||
-          selectedYear < todayDateProps.year ||
-          (selectedYear === todayDateProps.year && selectedMonth < todayDateProps.month)) && (
-          <s.NextButton onClick={onClickNextMonth} />
+
+        <s.NextButton
+          onClick={onClickNextMonth}
+          $isVisible={
+            !blockFuture ||
+            selectedYear < todayDateProps.year ||
+            (selectedYear === todayDateProps.year && selectedMonth < todayDateProps.month)
+          }
+        />
+
+        {todayButton && (
+          <s.TodayButton icon="none" onClick={onClickToday}>
+            Today
+          </s.TodayButton>
         )}
-        {todayButton && <s.TodayButton onClick={onClickToday}>Today</s.TodayButton>}
       </s.MonthHeader>
     </>
   )

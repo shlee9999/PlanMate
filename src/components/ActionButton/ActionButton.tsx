@@ -9,7 +9,7 @@ type ActionButtonProps = {
   onClick?: (e: React.MouseEvent) => void
   children?: ReactNode | string
   icon: IconType
-  color?: 'red'
+  color?: string
 }
 
 export const ActionButton: FC<ActionButtonProps> = ({ className, onClick, children, icon, color }) => {
