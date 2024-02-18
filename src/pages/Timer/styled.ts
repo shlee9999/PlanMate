@@ -9,6 +9,7 @@ import {
   LARGE_SIDE_MARGIN,
   MEDIUM_SIDE_MARGIN,
   SMALL_SIDE_MARGIN,
+  MEDIUM_SIZE,
 } from 'constants/layout'
 import { FlexRow, H14_500, H14_700, H21_700, H32_700, H46_700, P12, P14, PageRoot } from 'commonStyled'
 import { InfoBox } from 'components'
@@ -59,6 +60,10 @@ export const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 0;
+  width: 350px;
+  @media screen and (${(props) => props.theme.medium}) {
+    width: 100%;
+  }
 `
 export const DateTypo = styled.p`
   ${P12}
@@ -75,10 +80,13 @@ export const StudyTimeContainer = styled(InfoBox)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   padding: 32px 32px 28px 32px;
-  height: 292px;
+  height: 100%;
+  @media screen and (${(props) => props.theme.large}) {
+    padding: 25px 20px;
+  }
   @media screen and (${(props) => props.theme.medium}) {
-    height: 100%;
     gap: 15px;
     padding: 20px 15px;
   }
@@ -90,7 +98,7 @@ export const Description = styled.p`
 export const StatsBox = styled(InfoBox)``
 
 export const RightContainer = styled.div`
-  flex-grow: 1;
+  flex-grow: 10;
   flex-basis: 500px;
   padding-top: 17px;
   display: flex;
@@ -129,10 +137,15 @@ export const Test = styled.span`
 export const TotalTimerContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   column-gap: 35px;
   row-gap: 10px;
   flex-wrap: wrap;
-  line-height: 58px;
+  @media screen and (min-width: ${MEDIUM_SIZE + 1}px) and (max-width: 1208px) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: start;
+  }
 `
 export const Mode = styled.p`
   ${H46_700}

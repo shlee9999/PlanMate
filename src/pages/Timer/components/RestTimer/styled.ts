@@ -6,6 +6,7 @@ export const RestTimer = styled.div`
   color: ${(props) => props.theme.text.gray1};
   bottom: 20px;
   left: 32px;
+  white-space: nowrap;
 `
 export const YellowTypo = styled.span`
   ${P14}
