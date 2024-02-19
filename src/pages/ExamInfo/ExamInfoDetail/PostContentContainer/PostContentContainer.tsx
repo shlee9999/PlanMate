@@ -102,10 +102,10 @@ export const PostContentContainer: FC<PostContentContainerProps> = ({ postId, mo
               <s.Tag key={index}>{tag}</s.Tag>
             ))}
           </s.TagWrapper>
-          <s.TitleTypoWrapper>
+          <s.TitleTypoContainer>
             <s.TitleTypo>{title}</s.TitleTypo>
             <s.UpdatedDate>{createdAt.replace(/-/g, '.').replace('T', ' ').slice(0, -3)}</s.UpdatedDate>
-          </s.TitleTypoWrapper>
+          </s.TitleTypoContainer>
         </s.LeftTypoWrapper>
       </s.UpperTypoWrapper>
       {isDetailLoading ? (
@@ -113,7 +113,7 @@ export const PostContentContainer: FC<PostContentContainerProps> = ({ postId, mo
       ) : (
         <>
           <s.ContentWrapper>
-            <s.RightTypoWrapper>
+            <s.PostButtonContainer>
               <s.PostOwnerNickname>{userAuthInfo.nickname}</s.PostOwnerNickname>
               {isMyPost && (
                 <>
@@ -122,7 +122,7 @@ export const PostContentContainer: FC<PostContentContainerProps> = ({ postId, mo
                   <s.DeleteTypo onClick={onClickDeleteTypo}>삭제</s.DeleteTypo>
                 </>
               )}
-            </s.RightTypoWrapper>
+            </s.PostButtonContainer>
             {isEditing ? (
               <s.EditorWrapper>
                 <Editor

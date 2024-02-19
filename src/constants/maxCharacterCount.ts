@@ -1,4 +1,4 @@
-export const MAX_POST_TITLE_CHARACTER_COUNT = 20
+export const MAX_POST_TITLE_CHARACTER_COUNT = 17
 export const MAX_COMMENT_CHARACTER_COUNT = 300
 export const MAX_REPLY_CHARACTER_COUNT = 130
 export const MAX_POST_CHARACTER_COUNT = 500 // todo POST EditorState라 복잡

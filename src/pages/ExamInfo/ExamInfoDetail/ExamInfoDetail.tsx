@@ -1,5 +1,5 @@
 import * as s from './styled'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import { PostContentContainer } from './PostContentContainer/PostContentContainer'
 import { CommentContainer } from './CommentContainer/CommentContainer'

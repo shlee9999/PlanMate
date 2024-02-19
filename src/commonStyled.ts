@@ -86,6 +86,12 @@ export const H21_500 = css`
   font-weight: 500;
   line-height: 26px;
 `
+/** 18px 700*/
+export const H18_700 = css`
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+`
 /** 16px 700*/
 export const H16_700 = css`
   font-size: 16px;
