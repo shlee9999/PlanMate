@@ -1,6 +1,6 @@
 import * as s from './styled'
 import React, { useEffect } from 'react'
-import { GraphContainer, PieChartContainer, ShareContainer, StudyTimeContainer } from './components'
+import { GraphContainer, PieChartContainer, StudyTimeContainer } from './components'
 import { StatsContainerPages } from 'types'
 import { StatsContainerType } from 'types'
 import { useDispatch } from 'react-redux'
@@ -31,7 +31,6 @@ export const StatsContainer: React.FC<InfoContainerProps> = ({ type }) => {
       <StatsContainerHeader />
       <s.UpperContainer>{CommonContent}</s.UpperContainer>
       <GraphContainer type={type} />
-      <ShareContainer />
     </s.StatsPageStatsContainer>
   ) : (
     //* TimerPage
