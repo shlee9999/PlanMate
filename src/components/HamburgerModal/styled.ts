@@ -24,10 +24,15 @@ export const HamburgerModalVar: Variants = {
 export const CloseButton = styled(CloseIcon)`
   fill: ${(props) => props.theme.text.black1};
   position: absolute;
-  top: 10px;
-  right: 10px;
   width: 20px;
   height: 20px;
+  @media screen and (${(props) => props.theme.medium}) {
+    top: 18px;
+    right: 15px;
+  }
+  @media screen and (${(props) => props.theme.small}) {
+    top: 15px;
+  }
 `
 export const HamburgerModal = styled(motion.div)`
   position: fixed;
