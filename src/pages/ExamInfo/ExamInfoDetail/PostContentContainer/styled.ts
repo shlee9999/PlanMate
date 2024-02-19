@@ -16,6 +16,7 @@ export const ContentWrapper = styled.div`
   margin-bottom: 32px;
   white-space: pre-line;
   overflow-wrap: break-word;
+  line-height: 1.2;
 `
 
 export const EditorWrapper = styled.div`

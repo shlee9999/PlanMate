@@ -47,10 +47,13 @@ export const BulletinPage: FC<BulletinPageProps> = ({ mode }) => {
           editorClassName="editor"
           toolbarClassName="toolbar-class"
           toolbar={{
-            list: { inDropdown: true },
-            textAlign: { inDropdown: true },
-            link: { inDropdown: true },
-            history: { inDropdown: false },
+            options: ['inline', 'blockType', 'fontSize', 'history'],
+            fontSize: {
+              options: [8, 9, 10, 11, 12, 14, 16, 18, 24, 30],
+              className: undefined,
+              component: undefined,
+              dropdownClassName: undefined,
+            },
           }}
           placeholder="내용을 작성해주세요"
           localization={{

@@ -9,6 +9,7 @@ import {
   BODY_MIN_WIDTH,
   MEDIUM_HEADER_HEIGHT,
   SMALL_HEADER_HEIGHT,
+  HEADER_Z_INDEX,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
 import { CloseIcon, EllipsisIcon, RightArrow } from 'assets/SvgComponents'
@@ -217,7 +218,7 @@ export const ModalWrapper = styled(motion.div)`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 11;
+  z-index: ${HEADER_Z_INDEX};
   background-color: #2222224d;
 `
 export const ModalWrapperVar: Variants = {
