@@ -28,9 +28,6 @@ export const InfoContainer = styled.div`
 export const NameInput = styled.input`
   flex-grow: 1;
   height: 40px;
-  border-radius: 8px;
-  border: 1px solid ${(props) => props.theme.border.default};
-  box-sizing: border-box;
   padding: 12px 8px 10px;
 `
 export const ModalTitle = styled.div`
@@ -46,8 +43,10 @@ export const UpperWrapper = styled.div`
   ${H14_500}
   display: flex;
   align-items: center;
-  column-gap: 24px;
+  justify-content: space-between;
+  gap: 24px;
   color: ${(props) => props.theme.text.gray1};
+  white-space: nowrap;
 `
 
 export const LowerWrapper = styled.div`
