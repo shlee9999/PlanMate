@@ -39,10 +39,8 @@ export const useHeader = () => {
       )
     })
   useEffect(() => {
-    if (location.pathname === '/') {
-      if (!userAuthInfo.nickname) navigate('/login')
-      else navigate('/timer')
-    }
+    if (!userAuthInfo.nickname) navigate('/login')
+    else if (location.pathname === '/') navigate('/timer')
   }, [userAuthInfo, currentPage])
   useEffect(() => {
     window.scrollTo({ top: 0 })
