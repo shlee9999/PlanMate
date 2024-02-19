@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import * as s from './styled'
 import { useDetectClickOutside } from '../../../../hooks/useDetectClickOutside'
 import { useModal } from 'hooks'
@@ -48,15 +48,15 @@ export const TagSelector: FC<TagSelectorProps> = ({
   const ref = useDetectClickOutside({ isOpen: isSelecting, closeModal: closeSelector })
   return (
     <s.TagSelectorWrapper ref={ref} className={className} $selectorHeight={selectorHeight}>
-      {title && <s.TagTypo>{title}</s.TagTypo>}
+      {title && <s.TagTitle>{title}</s.TagTitle>}
       <s.TagSelector onClick={onClickTagSelector} $selectorWidth={selectorWidth}>
-        {selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
+        {selectedTag === '' ? '모두' : selectedTag === '선택해주세요' ? selectedTag : '# ' + selectedTag}
         <s.TagListArrow />
         {isSelecting && (
           <s.TagOptionContainer $optionContainerHeight={optionContainerHeight} $selectorWidth={selectorWidth}>
             {tagList.map((tag, index) => (
               <s.TagOption key={index} onClick={onClickTag(index)}>
-                {tag}
+                {tag === '' ? '모두' : tag === '선택해주세요' ? tag : '#' + tag}
               </s.TagOption>
             ))}
           </s.TagOptionContainer>

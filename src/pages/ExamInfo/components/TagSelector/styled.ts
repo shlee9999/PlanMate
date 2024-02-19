@@ -55,13 +55,9 @@ export const TagOption = styled.button`
     background-color: ${(props) => props.theme.primary.light};
     color: ${(props) => props.theme.primary.default};
   }
-
-  &::before {
-    content: '# ';
-  }
 `
 
-export const TagTypo = styled.p`
+export const TagTitle = styled.p`
   ${H16_500}
   white-space: nowrap;
 `
