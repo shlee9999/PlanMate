@@ -18,7 +18,7 @@ function useCreateCommentMutation() {
       const previousComments = queryClient.getQueryData<FindAllCommentsResponseProps>([
         QueryKeys.commentData,
         postId,
-        currentPage + '',
+        currentPage,
       ])
       const newComment = {
         commentId: new Date().getTime(), //tempId
@@ -31,14 +31,11 @@ function useCreateCommentMutation() {
         postId,
         isPostAuthor,
       }
-      queryClient.setQueryData<FindAllCommentsResponseProps>(
-        [QueryKeys.commentData, postId, currentPage + ''],
-        (prev) => ({
-          ...prev,
-          totalCount: prev.totalCount + 1,
-          commentDtoList: [newComment].concat(prev.commentDtoList),
-        })
-      )
+      queryClient.setQueryData<FindAllCommentsResponseProps>([QueryKeys.commentData, postId, currentPage], (prev) => ({
+        ...prev,
+        totalCount: prev.totalCount + 1,
+        commentDtoList: [newComment].concat(prev.commentDtoList),
+      }))
       callBack()
       return { previousComments }
     },
@@ -52,7 +49,7 @@ function useCreateCommentMutation() {
     },
     onError: (err, { postId, currentPage }, context) => {
       // 오류 발생 시 원래 상태로 복원
-      queryClient.setQueryData([[QueryKeys.commentData, postId, currentPage + '']], context.previousComments)
+      queryClient.setQueryData([[QueryKeys.commentData, postId, currentPage]], context.previousComments)
       console.error('create error')
       console.error(err)
     },

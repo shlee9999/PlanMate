@@ -36,9 +36,9 @@ function useLikeCommentMutation() {
         return { previousData }
       } else {
         // Detail Page
-        const previousData = queryClient.getQueryData([QueryKeys.commentData, postId, currentPage + ''])
+        const previousData = queryClient.getQueryData([QueryKeys.commentData, postId, currentPage])
         queryClient.setQueryData<FindAllCommentsResponseProps>(
-          [QueryKeys.commentData, postId, currentPage + ''],
+          [QueryKeys.commentData, postId, currentPage],
           (prev) => ({
             ...prev,
             commentDtoList: prev.commentDtoList.map((prevComment) =>
@@ -57,10 +57,10 @@ function useLikeCommentMutation() {
     },
     onError: (err, { postId, currentPage }, context) => {
       console.error(err)
-      queryClient.setQueryData([QueryKeys.commentData, postId, currentPage + ''], context.previousData)
+      queryClient.setQueryData([QueryKeys.commentData, postId, currentPage], context.previousData)
     },
     onSettled: (data, err, { postId, currentPage }) =>
-      queryClient.invalidateQueries([QueryKeys.commentData, postId, currentPage + '']),
+      queryClient.invalidateQueries([QueryKeys.commentData, postId, currentPage]),
   })
 
   return mutate

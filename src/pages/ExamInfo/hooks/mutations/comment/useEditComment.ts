@@ -14,16 +14,13 @@ function useEditComment() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(({ content, commentId }: MutationProps) => editComment({ content, commentId }), {
     onMutate: ({ postId, currentPage, callBack, commentId, content }) => {
-      const prevData = queryClient.getQueryData([QueryKeys.commentData, postId, currentPage + ''])
-      queryClient.setQueryData<FindAllCommentsResponseProps>(
-        [QueryKeys.commentData, postId, currentPage + ''],
-        (prev) => ({
-          ...prev,
-          commentDtoList: prev.commentDtoList.map((prevComment) =>
-            prevComment.commentId === commentId ? { ...prevComment, content } : prevComment
-          ),
-        })
-      )
+      const prevData = queryClient.getQueryData([QueryKeys.commentData, postId, currentPage])
+      queryClient.setQueryData<FindAllCommentsResponseProps>([QueryKeys.commentData, postId, currentPage], (prev) => ({
+        ...prev,
+        commentDtoList: prev.commentDtoList.map((prevComment) =>
+          prevComment.commentId === commentId ? { ...prevComment, content } : prevComment
+        ),
+      }))
       callBack() //isEditing false
       return { prevData }
     },
@@ -31,7 +28,7 @@ function useEditComment() {
       console.log('success modify')
     },
     onError: (err, { postId, currentPage }, context) => {
-      queryClient.setQueryData([QueryKeys.commentData, postId, currentPage + ''], context.prevData)
+      queryClient.setQueryData([QueryKeys.commentData, postId, currentPage], context.prevData)
     },
   })
   return mutate

@@ -17,13 +17,13 @@ function useDeleteCommentMutation() {
       }),
     {
       onMutate: ({ currentPage, callBack }: MutationProps) => {
-        const previousComments = queryClient.getQueryData([QueryKeys.commentData, currentPage + ''])
+        const previousComments = queryClient.getQueryData([QueryKeys.commentData, currentPage])
         callBack && callBack()
         return { previousComments }
       },
       onSuccess: (data, { postId, currentPage, commentId }) => {
         queryClient.setQueryData<FindAllCommentsResponseProps>(
-          [QueryKeys.commentData, postId, currentPage + ''],
+          [QueryKeys.commentData, postId, currentPage],
           (prev) => ({
             ...prev,
             commentDtoList: prev.commentDtoList.filter((comment) => comment.commentId !== commentId),
@@ -34,7 +34,7 @@ function useDeleteCommentMutation() {
       },
       onError: (err, { postId, currentPage }, context) => {
         // 오류 발생 시 원래 상태로 복원
-        queryClient.setQueryData([[QueryKeys.commentData, postId, currentPage + '']], context.previousComments)
+        queryClient.setQueryData([[QueryKeys.commentData, postId, currentPage]], context.previousComments)
       },
     }
   )
