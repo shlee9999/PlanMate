@@ -13,6 +13,12 @@ export const HamburgerModalVar: Variants = {
       duration: 0.2,
     },
   },
+  exit: {
+    right: -260,
+    transition: {
+      duration: 0.1,
+    },
+  },
 }
 
 export const CloseButton = styled(CloseIcon)`
@@ -75,7 +81,8 @@ export const MainNavItem = styled.li`
   cursor: pointer;
   font-family: 'Pretendard-Regular', sans-serif;
   ${P18}
-  color:${(props) => props.theme.text.black1}
+  color:${(props) => props.theme.text.black1};
+  width: fit-content;
 `
 export const DividingLine = styled.hr`
   margin-top: 64px;
@@ -95,4 +102,5 @@ export const SubNavItem = styled.li`
   font-family: 'Pretendard-Regular', sans-serif;
   ${P16}
   color: ${(props) => props.theme.text.gray2};
+  width: fit-content;
 `
