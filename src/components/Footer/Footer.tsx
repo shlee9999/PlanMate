@@ -1,6 +1,6 @@
 import { FOOTER_NAV } from 'constants/footerNavigate'
 import * as s from './styled'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { INSTAGRAM_URL } from 'constants/url'
 import { CopyToClipboard } from 'react-copy-to-clipboard/src'

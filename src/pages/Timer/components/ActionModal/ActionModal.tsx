@@ -50,20 +50,19 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
       </cs.ModalFooter>
       <s.ModalTitle>{type === 'ADD' ? '과목추가' : '과목수정'}</s.ModalTitle>
       {/* <cs.ModalExitButton onClick={closeModal} /> */}
-      <s.InfoContainer>
-        <s.UpperWrapper>
-          과목명
-          <s.NameInput
-            placeholder="과목명을 입력해주세요"
-            onKeyDown={onKeyDown}
-            {...registerInput(type, { maxLength: MAX_TIMER_NAME_CHARACTER_COUNT })}
-          />
-        </s.UpperWrapper>
-        <s.LowerWrapper>
-          <s.LowerTypo>색상선택</s.LowerTypo>
-          <ColorPicker assignSubjectColor={setSubjectColor} defaultColor={subjectColor} />
-        </s.LowerWrapper>
-      </s.InfoContainer>
+
+      <s.NameInputContainer>
+        <p>과목명</p>
+        <s.NameInput
+          placeholder="과목명을 입력해주세요"
+          onKeyDown={onKeyDown}
+          {...registerInput(type, { maxLength: MAX_TIMER_NAME_CHARACTER_COUNT })}
+        />
+      </s.NameInputContainer>
+      <s.LowerWrapper>
+        <s.LowerTypo>색상선택</s.LowerTypo>
+        <ColorPicker assignSubjectColor={setSubjectColor} defaultColor={subjectColor} />
+      </s.LowerWrapper>
     </>
   )
   if (type === 'ADD') {
@@ -77,9 +76,11 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
             animate="visible"
             exit="exit"
           >
-            <s.Form onClick={onClickModal} onSubmit={handleSubmit(onSubmit)}>
-              {renderContent()}
-            </s.Form>
+            <s.ActionModal>
+              <s.Form onClick={onClickModal} onSubmit={handleSubmit(onSubmit)}>
+                {renderContent()}
+              </s.Form>
+            </s.ActionModal>
           </cs.ModalWrapper>
         )}
       </AnimatePresence>
@@ -88,8 +89,10 @@ export const ActionModal = ({ isOpen, closeModal, type, todo, closeEllipsisModal
 
   // EDIT
   return (
-    <s.Form onClick={onClickModal} layoutId="ellipsis" onSubmit={handleSubmit(onSubmit)}>
-      {renderContent()}
-    </s.Form>
+    <s.ActionModal layoutId="ellipsis">
+      <s.Form onClick={onClickModal} onSubmit={handleSubmit(onSubmit)}>
+        {renderContent()}
+      </s.Form>
+    </s.ActionModal>
   )
 }

@@ -2,44 +2,40 @@ import { H14_500, H16_500 } from 'commonStyled'
 import { motion } from 'framer-motion'
 import { styled } from 'styled-components'
 
-export const Form = styled(motion.form)`
+export const ActionModal = styled(motion.div)`
   width: 320px;
   height: 266px;
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   margin: 0 auto;
   top: calc((100vh - 266px) / 2);
+  padding: 60px 15px 0 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: ${(props) => props.theme.background.white};
+`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60px 0 0 0;
-  background-color: ${(props) => props.theme.background.white};
-  border-radius: 10px;
-  overflow: hidden;
+  width: 100%;
 `
 
-export const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 140px;
-`
 export const NameInput = styled.input`
-  flex-grow: 1;
   height: 40px;
+  width: 100%;
   padding: 12px 8px 10px;
 `
 export const ModalTitle = styled.div`
   ${H16_500}
   position: absolute;
-  left: 50%;
   top: 25px;
-  transform: translate(-50%);
   color: ${(props) => props.theme.text.black2};
 `
 
-export const UpperWrapper = styled.div`
+export const NameInputContainer = styled.div`
+  width: 100%;
   ${H14_500}
   display: flex;
   align-items: center;
@@ -47,6 +43,8 @@ export const UpperWrapper = styled.div`
   gap: 24px;
   color: ${(props) => props.theme.text.gray1};
   white-space: nowrap;
+  margin-bottom: 15px;
+  padding-left: 5px;
 `
 
 export const LowerWrapper = styled.div`
@@ -56,6 +54,6 @@ export const LowerWrapper = styled.div`
 
 export const LowerTypo = styled.p`
   ${H14_500}
-  margin-top: 8px;
+  margin-top: 3px;
   color: ${(props) => props.theme.text.gray1};
 `
