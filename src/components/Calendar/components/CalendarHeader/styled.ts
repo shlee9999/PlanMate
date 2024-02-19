@@ -1,12 +1,14 @@
 import { RightArrow } from 'assets/SvgComponents'
-import { H14_500, H21_700, LeftArrow } from 'commonStyled'
+import { H21_700, LeftArrow } from 'commonStyled'
 import { ActionButton } from 'components'
 import { motion } from 'framer-motion'
 import styled, { css } from 'styled-components'
 
 export const TodayButton = styled(ActionButton)`
   position: absolute;
-  top: -7px;
+  width: 60px;
+  height: 25px;
+  top: -4px;
   right: 0px;
   padding: 3px 5px;
 `
