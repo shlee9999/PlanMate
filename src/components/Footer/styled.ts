@@ -1,4 +1,5 @@
-import { InstagramIcon, MessageIcon } from 'assets/SvgComponents'
+import InstagramSvg from 'assets/images/instagram.svg'
+import MessageSvg from 'assets/images/message.svg'
 import { FlexRow, H12_500, P11 } from 'commonStyled'
 import { ALLOW_SELECT } from 'constants/blockSelect'
 import {
@@ -49,6 +50,7 @@ export const Footer = styled.div`
   align-items: center;
 `
 export const RightContainer = styled(FlexRow)`
+  align-items: center;
   justify-content: space-between;
   color: ${(props) => props.theme.text.gray2};
 `
@@ -60,21 +62,41 @@ export const NavigateTypo = styled.p`
     margin-right: 8px;
   }
 `
-export const StyledInstagramIcon = styled(InstagramIcon)`
-  width: 13px;
-  cursor: default;
-`
-export const StyledMessageIcon = styled(MessageIcon)`
-  cursor: default;
-`
-export const EmailAddressWrapper = styled(FlexRow)`
+
+export const EmailAddress = styled.div`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  position: relative;
+  margin-left: 15px;
+  &::before {
+    pointer-events: none;
+    top: 1px;
+    right: calc(100% + 2px);
+    position: absolute;
+    content: url(${MessageSvg});
+    vertical-align: middle;
+  }
   ${P11}
   margin-right: 8px;
   gap: 2px;
 `
-export const EmailAddress = styled.p``
-export const InstagramAddressWrapper = styled(FlexRow)`
+
+export const InstagramAddress = styled.p`
+  margin-left: 15px;
+  position: relative;
   ${P11}
-  gap: 2px;
+  &::before {
+    content: '';
+    width: 13px;
+    height: 13px;
+    pointer-events: none;
+    top: 1px;
+    right: calc(100% + 2px);
+    background-image: url(${InstagramSvg});
+    background-size: contain;
+    position: absolute;
+    vertical-align: middle;
+  }
 `
-export const InstagramAddress = styled.p``
