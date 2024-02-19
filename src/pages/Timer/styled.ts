@@ -10,6 +10,8 @@ import {
   MEDIUM_SIDE_MARGIN,
   SMALL_SIDE_MARGIN,
   MEDIUM_SIZE,
+  SMALL_HEADER_HEIGHT,
+  MEDIUM_HEADER_HEIGHT,
 } from 'constants/layout'
 import { FlexRow, H14_500, H14_700, H21_700, H32_700, H46_700, P12, P14, PageRoot } from 'commonStyled'
 import { InfoBox } from 'components'
@@ -38,9 +40,11 @@ export const Banner = styled(FlexRow)`
   }
   @media screen and (${(props) => props.theme.medium}) {
     padding: 20px ${MEDIUM_SIDE_MARGIN}px;
+    margin-top: ${MEDIUM_HEADER_HEIGHT}px;
   }
   @media screen and (${(props) => props.theme.small}) {
     padding: 10px ${SMALL_SIDE_MARGIN}px;
+    margin-top: ${SMALL_HEADER_HEIGHT}px;
   }
 `
 export const BannerContentContainer = styled.div`

@@ -4,10 +4,11 @@ import {
   HEADER_Z_INDEX,
   LARGE_SIDE_MARGIN,
   MEDIUM_SIDE_MARGIN,
-  MOBILE_HEADER_HEIGHT,
+  SMALL_HEADER_HEIGHT,
   SMALL_SIDE_MARGIN,
   XLARGE_SIDE_MARGIN,
   BODY_MIN_WIDTH,
+  MEDIUM_HEADER_HEIGHT,
 } from 'constants/layout'
 import styled from 'styled-components'
 import { Variants, motion } from 'framer-motion'
@@ -17,10 +18,10 @@ import { H14_500, P14 } from 'commonStyled'
 import { HamburgerIcon } from 'assets/SvgComponents'
 
 const LOGO_WIDTH = 104
-const MEDIUM_LOGO_WIDTH = 90
-const SMALL_LOGO_WIDTH = 80
-const LOGO_MARGIN_RIGHT = 56
-const MEDIUM_LOGO_MARGIN_RIGHT = 20
+const MEDIUM_LOGO_WIDTH = 95
+const SMALL_LOGO_WIDTH = 85
+const XLARGE_LOGO_MARGIN_RIGHT = 56
+const LARGE_LOGO_MARGIN_RIGHT = 50
 export const HeaderWrapper = styled.nav`
   ${BLOCK_SELECT}
   position: fixed;
@@ -34,8 +35,11 @@ export const HeaderWrapper = styled.nav`
   height: ${HEADER_HEIGHT}px;
   background-color: ${(props) => props.theme.background.white};
   z-index: ${HEADER_Z_INDEX};
+  @media screen and (${(props) => props.theme.medium}) {
+    height: ${MEDIUM_HEADER_HEIGHT}px;
+  }
   @media screen and (${(props) => props.theme.small}) {
-    height: ${MOBILE_HEADER_HEIGHT}px;
+    height: ${SMALL_HEADER_HEIGHT}px;
   }
 `
 export const NavItemContainer = styled.div`
@@ -61,20 +65,20 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   @media screen and (${(props) => props.theme.xlarge}) {
-    padding: 17px ${XLARGE_SIDE_MARGIN}px 16px ${XLARGE_SIDE_MARGIN + LOGO_WIDTH + LOGO_MARGIN_RIGHT}px;
+    padding: 17px ${XLARGE_SIDE_MARGIN}px 16px ${XLARGE_SIDE_MARGIN + LOGO_WIDTH + XLARGE_LOGO_MARGIN_RIGHT}px;
   }
   @media screen and (${(props) => props.theme.large}) {
-    padding: 17px ${LARGE_SIDE_MARGIN}px 16px ${LARGE_SIDE_MARGIN + LOGO_WIDTH + LOGO_MARGIN_RIGHT}px;
+    padding: 17px ${LARGE_SIDE_MARGIN}px 16px ${LARGE_SIDE_MARGIN + LOGO_WIDTH + LARGE_LOGO_MARGIN_RIGHT}px;
   }
   @media screen and (${(props) => props.theme.medium}) {
-    padding: 17px ${MEDIUM_SIDE_MARGIN}px 16px ${MEDIUM_SIDE_MARGIN + MEDIUM_LOGO_WIDTH + MEDIUM_LOGO_MARGIN_RIGHT}px;
+    padding: 17px ${MEDIUM_SIDE_MARGIN}px 16px ${MEDIUM_SIDE_MARGIN}px;
     justify-content: end;
     ${NavItemContainer} {
       display: none;
     }
   }
   @media screen and (${(props) => props.theme.small}) {
-    height: ${MOBILE_HEADER_HEIGHT}px;
+    height: ${SMALL_HEADER_HEIGHT}px;
     padding: 0 10px;
   }
 `
@@ -83,6 +87,7 @@ export const RightContainer = styled.div`
   ${H14_500}
   display: flex;
   column-gap: 18px;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   @media screen and (${(props) => props.theme.small}) {
@@ -173,7 +178,6 @@ export const YellowCircle = styled(motion.div)`
 export const StyledLogo = styled(Logo)`
   position: absolute;
   width: ${LOGO_WIDTH}px;
-  height: 31px;
   margin-right: 56px;
   flex-shrink: 0;
   @media screen and (${(props) => props.theme.xlarge}) {
@@ -185,11 +189,18 @@ export const StyledLogo = styled(Logo)`
   @media screen and (${(props) => props.theme.medium}) {
     width: ${MEDIUM_LOGO_WIDTH}px;
     left: ${MEDIUM_SIDE_MARGIN};
+    top: 13px;
   }
   @media screen and (${(props) => props.theme.small}) {
     width: ${SMALL_LOGO_WIDTH}px;
     left: ${SMALL_SIDE_MARGIN + 5}px;
-    top: 6px;
+    top: 9px;
   }
 `
-export const StyledHamburgerIcon = styled(HamburgerIcon)``
+export const StyledHamburgerIcon = styled(HamburgerIcon)`
+  display: none;
+  @media screen and (${(props) => props.theme.medium}) {
+    display: unset;
+  }
+  position: relative;
+`

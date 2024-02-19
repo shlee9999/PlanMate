@@ -7,6 +7,8 @@ import {
   MEDIUM_SIDE_MARGIN,
   SMALL_SIDE_MARGIN,
   BODY_MIN_WIDTH,
+  MEDIUM_HEADER_HEIGHT,
+  SMALL_HEADER_HEIGHT,
 } from 'constants/layout'
 import styled, { css } from 'styled-components'
 import { CloseIcon, EllipsisIcon, RightArrow } from 'assets/SvgComponents'
@@ -178,21 +180,20 @@ export const PageRoot = styled.div`
   @media screen and (${(props) => props.theme.xlarge}) {
     //* XLARGE
     padding: 40px ${XLARGE_SIDE_MARGIN}px;
-    /* background-color: teal; */
   }
   @media screen and (${(props) => props.theme.large}) {
     //* LARGE
     padding: 30px ${LARGE_SIDE_MARGIN}px;
-    /* background-color: tomato; */
   }
   @media screen and (${(props) => props.theme.medium}) {
     //* MEDIUM
     padding: 20px ${MEDIUM_SIDE_MARGIN}px;
-    /* background-color: yellow; */
+    margin-top: ${MEDIUM_HEADER_HEIGHT}px;
   }
   @media screen and (${(props) => props.theme.small}) {
     //* SMALL
     padding: 10px ${SMALL_SIDE_MARGIN}px;
+    margin-top: ${SMALL_HEADER_HEIGHT}px;
   }
 `
 

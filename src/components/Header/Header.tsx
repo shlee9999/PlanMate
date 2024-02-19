@@ -2,7 +2,7 @@ import * as s from './styled'
 import { FC } from 'react'
 import { useHeader } from './hooks/useHeader'
 import { useModal } from 'hooks'
-import { Display, HamburgerModal } from 'components'
+import { HamburgerModal } from 'components'
 import { pageList } from 'constants/pageList'
 
 export const Header: FC = () => {
@@ -47,12 +47,7 @@ export const Header: FC = () => {
             )}
             {userAuthInfo.nickname && <s.LogoutTypo onClick={onClickLogout}>로그아웃</s.LogoutTypo>}
             {userAuthInfo.nickname && <s.Notice onClick={onClickNotice}>공지사항</s.Notice>}
-            <Display on="SMALL">
-              <s.StyledHamburgerIcon onClick={openModal} />
-            </Display>
-            <Display on="MEDIUM">
-              <s.StyledHamburgerIcon onClick={openModal} />
-            </Display>
+            <s.StyledHamburgerIcon onClick={openModal} />
           </s.RightContainer>
           <HamburgerModal isOpen={isOpen} closeModal={closeModal} onClickLogout={onClickLogout} />
         </s.Header>
