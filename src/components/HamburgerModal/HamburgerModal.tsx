@@ -5,7 +5,7 @@ import { pageList } from 'constants/pageList'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from 'modules'
-import { useModal } from 'hooks'
+import { useLockBodyScroll, useModal } from 'hooks'
 import { AnimatePresence } from 'framer-motion'
 
 type HamburgerModalProps = {
@@ -44,6 +44,7 @@ export const HamburgerModal: FC<HamburgerModalProps> = ({ isOpen, closeModal, on
     else navigate(url)
     closeHamburgerModal()
   }
+  useLockBodyScroll({ isOpen })
   useEffect(() => {
     if (isOpen) openHamburgerModal()
   }, [isOpen])
