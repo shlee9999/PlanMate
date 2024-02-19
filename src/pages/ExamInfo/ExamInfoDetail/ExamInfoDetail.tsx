@@ -12,10 +12,6 @@ export const ExamInfoDetailPage: FC<ExamInfoDetailPageProps> = ({ mode }) => {
   const params = useParams()
   const postId = +params.postId
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 })
-  }, [])
-
   return (
     <s.ExamInfoDetail>
       <PostContentContainer postId={postId} mode={mode} />

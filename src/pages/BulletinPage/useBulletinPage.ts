@@ -60,7 +60,6 @@ export const useBulletinPage = ({ mode }: UseBulletinPageProps) => {
   }
 
   useEffect(() => {
-    window.scrollTo({ top: 0 })
     inputFocus(EForm.title)
   }, [])
 

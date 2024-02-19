@@ -14,10 +14,10 @@ export const useHeader = () => {
   const navigate = useNavigate()
   const [currentPath, setCurrentPath] = useState(location.pathname)
   const initialTabIndex = pageList.findIndex((page) => currentPath.includes(page.url))
-  const [currentTab, setCurrentTab] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
+  const [currentPage, setCurrentPage] = useState<number>(initialTabIndex !== -1 ? initialTabIndex : 0)
   const onClickTabItem = (index: number) => (): void => {
     if (isNavBlocked) return
-    setCurrentTab(index) //* totalTimer Running 차단
+    setCurrentPage(index) //* totalTimer Running 차단
     userAuthInfo.nickname && navigate(pageList[index].url)
   }
   const onClickNickname = () => !isNavBlocked && navigate('/mypage')
@@ -43,17 +43,19 @@ export const useHeader = () => {
       if (!userAuthInfo.nickname) navigate('/login')
       else navigate('/timer')
     }
-  }, [userAuthInfo, currentTab])
-
+  }, [userAuthInfo, currentPage])
   useEffect(() => {
-    setCurrentTab(pageList.findIndex((page) => location.pathname.includes(page.url)))
+    window.scrollTo({ top: 0 })
+  }, [currentPage])
+  useEffect(() => {
+    setCurrentPage(pageList.findIndex((page) => location.pathname.includes(page.url)))
     setCurrentPath(location.pathname)
-  }, [location, currentTab])
+  }, [location, currentPage])
 
   return {
     userAuthInfo,
     currentPath,
-    currentTab,
+    currentTab: currentPage,
     onClickTabItem,
     onClickNickname,
     onClickNotice,
