@@ -36,12 +36,17 @@ function useCreateReplyMutation() {
         )
         return { prevData }
       },
-      onSuccess: (data, { parentCommentId }, context) => {
-        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeys.replyList, parentCommentId], (prev) => {
-          const createdReply = prev[0]
-          createdReply.commentId = data.commentId
-          return [createdReply, ...context.prevData]
-        })
+      onSuccess: (data, { parentCommentId }) => {
+        queryClient.setQueryData<FindAllChildResponseProps>([QueryKeys.replyList, parentCommentId], (prev) =>
+          prev.map((prevReply) =>
+            prevReply.commentId === data.commentId
+              ? {
+                  ...prevReply,
+                  commentId: data.commentId,
+                }
+              : prevReply
+          )
+        )
         console.log('success')
       },
       onError: (err, { parentCommentId }, context) => {
