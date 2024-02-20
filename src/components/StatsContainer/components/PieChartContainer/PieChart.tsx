@@ -75,7 +75,7 @@ export const PieChart: React.FC<PieChartProps> = ({ data, index }) => {
           layout="radial"
           align="right"
           verticalAlign="middle"
-          iconSize={8}
+          iconSize={10}
           formatter={renderColorfulLegendText}
         />
       )}
