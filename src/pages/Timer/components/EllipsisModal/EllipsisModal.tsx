@@ -35,29 +35,47 @@ export const EllipsisModal = ({ closeModal, todo, isOpen }: EllipsisModalProps) 
           animate="visible"
           exit="exit"
         >
-          <s.EllipsisModal onClick={onClickModal} layoutId="ellipsis">
-            <s.ButtonWrapper>
-              <s.UpdateSubjectButton onClick={onClickEditButton}>과목수정</s.UpdateSubjectButton>
-              <s.DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</s.DeleteSubjectButton>
-            </s.ButtonWrapper>
-            <cs.ModalFooter>
-              <s.CloseButton onClick={closeModal}>취소</s.CloseButton>
-            </cs.ModalFooter>
-            <cs.ModalExitButton onClick={closeModal} />
-          </s.EllipsisModal>
-          {isEditModalOpen && (
-            // * EditModal
-            <ActionModal
-              isOpen={isEditModalOpen}
-              closeModal={closeEditModal}
-              type="EDIT"
-              todo={todo}
-              closeEllipsisModal={closeModal}
-            />
-          )}
-          {isDeleteModalOpen && (
-            <DeleteModal closeModal={closeDeleteModal} deleteConfirm={deleteConfirm} title={todo.name} />
-          )}
+          <AnimatePresence
+            onExitComplete={() => {
+              console.log('ellipsis modal exit complete')
+            }}
+          >
+            <s.EllipsisModal onClick={onClickModal} layoutId="ellipsis">
+              <s.ButtonWrapper>
+                <s.UpdateSubjectButton onClick={onClickEditButton}>과목수정</s.UpdateSubjectButton>
+                <s.DeleteSubjectButton onClick={onClickDeleteButton}>과목삭제</s.DeleteSubjectButton>
+              </s.ButtonWrapper>
+              <cs.ModalFooter>
+                <s.CloseButton onClick={closeModal}>취소</s.CloseButton>
+              </cs.ModalFooter>
+              <cs.ModalExitButton onClick={closeModal} />
+            </s.EllipsisModal>
+          </AnimatePresence>
+          <AnimatePresence
+            onExitComplete={() => {
+              console.log('edit modal exit complete')
+            }}
+          >
+            {isEditModalOpen && (
+              // * EditModal
+              <ActionModal
+                isOpen={isEditModalOpen}
+                closeModal={closeEditModal}
+                type="EDIT"
+                todo={todo}
+                closeEllipsisModal={closeModal}
+              />
+            )}
+          </AnimatePresence>
+          <AnimatePresence
+            onExitComplete={() => {
+              console.log('delete modal exit complete')
+            }}
+          >
+            {isDeleteModalOpen && (
+              <DeleteModal closeModal={closeDeleteModal} deleteConfirm={deleteConfirm} title={todo.name} />
+            )}
+          </AnimatePresence>
         </cs.ModalWrapper>
       )}
     </AnimatePresence>

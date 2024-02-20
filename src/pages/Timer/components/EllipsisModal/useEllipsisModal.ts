@@ -27,6 +27,7 @@ export const useEllipsisModal = ({ closeModal, todo, isOpen }: useEllipsisModalP
   const onExitComplete = () => {
     closeEditModal()
     closeDeleteModal()
+    console.log('ExitComplete!')
     if (isDeleteConfirmed) {
       // confirm버튼 눌렀을 때만 작동하도록
       mutateDeleteSubject({ subjectId: todo.subjectId })
