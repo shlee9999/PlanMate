@@ -22,8 +22,8 @@ export const useRestTimerEffects = ({
 }: UseRestTimerEffectsProps) => {
   const isNavBlocked = useSelector((state: RootState) => state.isNavBlocked)
   const { todayStatsData, restTime: defaultRestTimeProps } = useTodayStats()
-  const { isStatsLoading, totalStudyTime } = useTodayStats()
-
+  const { totalStudyTime: totalStudyTimeProps } = useTodayStats()
+  const totalStudyTime = timeUtils.timeToSecond(totalStudyTimeProps)
   useEffect(() => {
     setDefaultRestTime(timeUtils.timeToSecond(defaultRestTimeProps))
   }, [todayStatsData])
@@ -31,15 +31,14 @@ export const useRestTimerEffects = ({
   useEffect(() => {
     if (isNavBlocked) stopRestTimer()
     else {
-      //총 공부 시간이 0이면 breakTimer은 작동하지 않음
+      //총 공부 시간이 0이면 restTimer은 작동하지 않음
       startRestTimer()
     }
   }, [isNavBlocked])
 
   useEffect(() => {
-    if (!isStatsLoading) {
-      // * Todo 로딩 완료
-      if (timeUtils.isEqualTime(totalStudyTime, { hour: 0, minute: 0, second: 0 })) stopRestTimer()
-    }
-  }, [isStatsLoading])
+    // * Todo 로딩 완료
+    if (totalStudyTime === 0) stopRestTimer()
+    else startRestTimer()
+  }, [totalStudyTime])
 }
