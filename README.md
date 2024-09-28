@@ -12,23 +12,12 @@ PlanMate는 전문직 준비생들을 위한 학습 관리 및 커뮤니티 플�
 
 ## 👪 팀원 구성
 
-
-
-### FrontEnd
-
-이성훈
-
-### BackEnd
-
-김호진
-
-### 디자인
-
-박소현
-
-### 기획
-
-김인서
+| **역할** | **이름** |
+| --- | --- |
+| 🖥️ FrontEnd | 이성훈 |
+| 🛠️ BackEnd | 김호진 |
+| 🎨 디자인 | 박소현 |
+| 📝 기획 | 김인서 |
 
 ## ♻️ 개발 환경
 
@@ -43,55 +32,62 @@ PlanMate는 전문직 준비생들을 위한 학습 관리 및 커뮤니티 플�
 
 ## 📃 컨벤션
 
-
-
 ### **파일 및 폴더 명명 규칙**
 
-- **컴포넌트 파일**: PascalCase (예: **TimerButton.tsx**)
-- **훅 파일**: camelCase, 'use' 접두사 사용 (예: **`useTimerItem.ts`**)
-- **스타일 파일**: **`styled.ts`**로 통일
-- **유틸리티 파일**: camelCase (예: **`dateUtils.ts`**)
+- 컴포넌트 파일: PascalCase (예: TimerButton.tsx)
+- 훅 파일: camelCase, 'use' 접두사 사용 (예: useTimerItem.ts)
+- 스타일 파일: styled.ts로 통일
+- 유틸리티 파일: camelCase (예: dateUtils.ts)
 
 ### **폴더 구조**
 
-- 기능별로 폴더 구분 (예: **`components`**, **`hooks`**, **`utils`**)
+- 기능별로 폴더 구분 (예: components, hooks, utils)
 - 각 페이지나 주요 컴포넌트별로 하위 폴더 생성
 
 ### **컴포넌트 구조**
 
-- 컴포넌트 로직과 스타일을 분리 (컴포넌트 파일과 **`styled.ts`** 파일)
+- 컴포넌트 로직과 스타일을 분리 (컴포넌트 파일과 styled.ts 파일)
 - 큰 컴포넌트의 경우, 로직을 별도의 훅으로 분리
 - React Query 관련 훅은 hooks/mutations 폴더에 분리
 
 ### **타입스크립트 사용**
 
-- **`.ts`** 및 **`.tsx`** 확장자 사용
-- 타입 정의 파일 사용 (**`types.ts`**)
+- .ts 및 .tsx 확장자 사용
+- 타입 정의 파일 사용 (types.ts)
 
 ### **상태 관리**
 
 - Redux 사용 (상태 관리 모듈)
 
-### **API 통신**
-
-- API 관련 함수들을 별도의 폴더에 분리 (**`api`** 폴더)
-
 ### **스타일링**
 
-- Styled-components 사용 (**`styled.ts`** 파일들)
+- styled-components 사용 (styled.ts 파일들)
 
 ### **주석 및 문서화**
 
-- JSDoc 주석을 활용하여 함수와 컴포넌트 설명
+- JSDoc 주석을 활용하여 주요 함수와 훅, 컴포넌트 설명
 
-### 코드 컨벤션
+### **변수 및 함수 명명**
 
-- 커스텀 스니펫 사용
-1. **변수 및 함수 명명**
-    - **변수**: camelCase (예: **`totalTime`**, **`studyHours`**)
-    - **상수**: UPPER_SNAKE_CASE (예: **`MAX_HOURS`**)
-    - **함수**: camelCase (예: **`calculateTotalTime()`**)
+- 변수: camelCase (예: totalTime, studyHours)
+- 상수: UPPER_SNAKE_CASE (예: MAX_HOURS)
+- 함수: camelCase (예: calculateTotalTime())
+- 컴포넌트: PascalCase (예: PostItem)
+- 인터페이스, 타입: PascalCase (예: UserType)
+- 이벤트 핸들러: 'on' 접두사 사용 (예: onSubmit)
 
+### 커밋 컨벤션
+
+- Feat: 새로운 기능 추가
+- Fix: 버그 수정
+- Remove: 파일 삭제
+- Design: 디자인
+- Rename: 이름 변경
+- Move: 파일 이동 (디렉토리 구조 변경)
+- Style: 코드 포맷팅, 세미콜론 누락 등 (코드 변경 없음)
+- Refactor: 코드 리팩토링
+- Test: 테스트 코드 추가 또는 수정
+- Chore: 빌드 프로세스 또는 보조 도구 변경
 ## 🛠️ 채택한 개발 기술
 
 
