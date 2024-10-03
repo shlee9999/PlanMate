@@ -246,6 +246,9 @@ https://github.com/user-attachments/assets/6bfdf516-e082-4b42-a5a3-13d480771ddb
 - 날짜별 총 공부 시간에 따라 색상 강도가 달라짐
 - 학습량이 많을수록 더 진한 색상으로 표시되어 직관적인 파악 가능
 
+![image](https://github.com/user-attachments/assets/e24c813a-eff3-4275-a382-accd88af6b62)
+
+
 ### **3. 시간별 그래프를 이용한 상세 분석**
 
 - 선택한 날짜의 시간대별 학습량을 그래프로 표시
