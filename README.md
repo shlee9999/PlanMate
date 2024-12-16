@@ -8,7 +8,7 @@
 
 PlanMate는 전문직 준비생들을 위한 학습 관리 및 커뮤니티 플랫폼입니다. 사용자가 효율적으로 학습 시간을 관리하고, 학습 패턴을 분석하며, 필요한 정보를 공유할 수 있도록 다양한 기능을 제공합니다.
 
-배포 URL : https://plan-mate.vercel.app/
+<!-- 배포 URL : https://plan-mate.vercel.app/ -->
 
 ## 👪 팀원 구성
 
