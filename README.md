@@ -69,25 +69,29 @@ PlanMate는 전문직 준비생들을 위한 학습 관리 및 커뮤니티 플�
 
 ### **변수 및 함수 명명**
 
-- 변수: camelCase (예: totalTime, studyHours)
-- 상수: UPPER_SNAKE_CASE (예: MAX_HOURS)
-- 함수: camelCase (예: calculateTotalTime())
-- 컴포넌트: PascalCase (예: PostItem)
-- 인터페이스, 타입: PascalCase (예: UserType)
-- 이벤트 핸들러: 'on' 접두사 사용 (예: onSubmit)
+| 항목 | 규칙 | 예시 |
+| --- | --- | --- |
+| 변수 | camelCase | totalTime, studyHours |
+| 상수 | UPPER_SNAKE_CASE | MAX_HOURS |
+| 함수 | camelCase | calculateTotalTime() |
+| 컴포넌트 | PascalCase | PostItem |
+| 인터페이스, 타입 | PascalCase | UserType |
+| 이벤트 핸들러 | 'on' 접두사 사용 | onSubmit |
 
 ### 커밋 컨벤션
 
-- Feat: 새로운 기능 추가
-- Fix: 버그 수정
-- Remove: 파일 삭제
-- Design: 디자인
-- Rename: 이름 변경
-- Move: 파일 이동 (디렉토리 구조 변경)
-- Style: 코드 포맷팅, 세미콜론 누락 등 (코드 변경 없음)
-- Refactor: 코드 리팩토링
-- Test: 테스트 코드 추가 또는 수정
-- Chore: 빌드 프로세스 또는 보조 도구 변경
+| 커밋 타입 | 설명 |
+| --- | --- |
+| Feat | 새로운 기능 추가 |
+| Fix | 버그 수정 |
+| Remove | 파일 삭제 |
+| Design | 디자인 |
+| Rename | 이름 변경 |
+| Move | 파일 이동 (디렉토리 구조 변경) |
+| Style | 코드 포맷팅, 세미콜론 누락 등 (코드 변경 없음) |
+| Refactor | 코드 리팩토링 |
+| Test | 테스트 코드 추가 또는 수정 |
+| Chore | 빌드 프로세스 또는 보조 도구 변경 |
 ## 🛠️ 채택한 개발 기술
 
 
